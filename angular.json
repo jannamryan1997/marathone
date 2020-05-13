@@ -28,7 +28,10 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "src/assets/styles/base/_global.scss",
+              "src/assets/styles/base/_reset.scss",
+              "src/assets/styles/base/_responsive.scss",
             ],
             "scripts": []
           },
@@ -123,6 +126,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "marathon"
+    }
+  },
+  "defaultProject": "marathon",
+  "cli": {
+    "analytics": "3ee11da0-df3d-44a0-b22d-a525e9bc517c"
+  }
 }

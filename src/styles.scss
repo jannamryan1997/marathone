@@ -1,1 +1,29 @@
 /* You can add global styles to this file, and also import other style files */
+
+body {
+    height: 100vh;
+    margin: 0;
+    font-family: 'Oswald';
+    min-width: 320px;
+    background: #f8f9fb;
+  }
+  
+  p {
+    margin-bottom: 0;
+    margin-top: 0;
+  }
+  li{
+    list-style: none;
+}
+a{
+    text-decoration: none !important;
+}
+
+img{
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+}

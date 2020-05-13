@@ -1,0 +1,12 @@
+.main-content {
+    .main-container {
+        width: 100%;
+        max-width: 1000px;
+        margin: 20px auto;
+    }
+
+    .router-outlet {
+        width: 100%;
+        max-width: 500px;
+    }
+}

@@ -1,0 +1,30 @@
+@mixin text($fontSize, $lineHeight, $color) {
+    font-size: $fontSize;
+    line-height: $lineHeight;
+    color: $color;
+}
+
+.left-menu {
+    .left-menu-description {
+        text-align: center;
+
+        .user-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+        }
+
+        .name {
+            @include text(25px, 50px, #5a666e);
+        }
+        .user-name{
+            @include text(20px,none,#d0dae4);
+        }
+    }
+    .left-menu-item{
+        margin-left: 20px;
+        .link{
+            @include text(20px, 50px, #5a666e);   
+        }
+    }
+}

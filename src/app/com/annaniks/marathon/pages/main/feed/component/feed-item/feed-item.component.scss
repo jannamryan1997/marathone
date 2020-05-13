@@ -1,0 +1,103 @@
+@mixin text($fontSize, $lineHeight, $color) {
+    font-size: $fontSize;
+    line-height: $lineHeight;
+    color: $color;
+}
+
+.feed-item {
+    margin: 20px 0;
+
+    background: #ffffff;
+    border: 1px solid #d0dae4;
+    border-radius: 10px;
+    text-align: center;
+
+    .icon {
+        color: #d0dae4;
+        cursor: pointer;
+    }
+
+    .feed-item-header {
+        padding: 10px 20px;
+        align-items: center;
+
+        .user-image {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+        }
+
+        .name {
+            @include text(20px, 30px, #5a666e);
+        }
+
+        .time {
+            @include text(13px, none, #d0dae4);
+        }
+
+    }
+
+    .feed-item-main {
+        text-align: start;
+        margin-top: 10px;
+        border-top: 1px solid #d0dae4;
+
+        .feed-item-main-content {
+            padding: 10px 20px;
+
+            .title {
+                @include text(20px, 30px, #5a666e);
+                font-weight: bold;
+            }
+
+            .text {
+                @include text(15px, none, #d0dae4);
+            }
+
+            .icon {
+                font-size: 35px;
+            }
+
+            .btn {
+                color: #ffffff;
+            }
+
+            .btn-heathly {
+                background-color: #ffc06f;
+            }
+
+            .btn-lose {
+                background-color: #fd787c;
+            }
+
+            .btn-free {
+                background-color: #2dcd87;
+            }
+        }
+
+        .food-image {
+            height: 200px;
+            padding: 10px 5px;
+        }
+
+        .feed-statistic {
+            .text {
+                @include text(15px, none, #d0dae4);
+                margin-right: 15px;
+            }
+
+            .title {
+                @include text(17px, 20px, #5a666e);
+                margin-right: 15px;
+            }
+
+            .setting-content {
+                margin: 10px 0;
+                .icon {
+                    font-size: 15px;
+                }
+            }
+
+        }
+    }
+}

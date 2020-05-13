@@ -1,0 +1,38 @@
+@mixin text($fontSize, $lineHeight, $color) {
+    font-size: $fontSize;
+    line-height: $lineHeight;
+    color: $color;
+}
+
+.right-menu {
+    .title {
+        @include text(20px, 20px, #65a4fe);
+    }
+
+    .user-item {
+        align-items: center;
+        padding: 10px 0;
+
+        .user-image {
+            border-radius: 50%;
+            height: 30px;
+            width: 30px;
+        }
+
+        .name {
+            margin-left: 20px;
+            @include text(16px, 20px, #5a666e);
+        }
+
+        .email-title {
+            margin-left: 20px;
+            @include text(12px, 20px, #d0dae4);
+        }
+        .btn {
+            color: #65a4fe;
+            border: 1px solid #65a4fe;
+            margin-left: 30px;
+          }
+    }
+}
+

@@ -1,0 +1,21 @@
+.pg-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.activeTab {
+    color: #65a4fe !important;
+}
+.btn{
+display: inline-block;
+font-size: 14px;
+text-align: center;
+cursor: pointer;
+border-radius: 30px;
+padding: 3px 15px;
+background: #ffffff;
+display: flex;
+align-items: center;
+text-align: center;
+}

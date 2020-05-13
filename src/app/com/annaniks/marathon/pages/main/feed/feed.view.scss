@@ -1,0 +1,28 @@
+@mixin text($fontSize, $lineHeight, $color) {
+    font-size: $fontSize;
+    line-height: $lineHeight;
+    color: $color;
+}
+
+.feed-container {
+
+    .feed-header-content {
+        padding: 10px 20px;
+        background: #ffffff;
+        border: 1px solid #d0dae4;
+        border-radius: 15px;
+        text-align: center;
+
+        .title {
+            @include text(15px, 20px, #d0dae4);
+        }
+
+        .buttons-content {
+            margin-top: 20px;
+            .btn {
+                color: #d0dae4;
+                border: 1px solid #d0dae4;
+            }
+        }
+    }
+}
