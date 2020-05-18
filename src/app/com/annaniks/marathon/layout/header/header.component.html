@@ -2,11 +2,11 @@
     <div class="header-container pg-container d-flex justify-content-between">
         <img src="..." class="logo-image" alt="Responsive image">
         <div class="header-category d-flex">
-            <li *ngFor="let item of menuItem"><a class="link"
+            <li *ngFor="let item of menuItem"  routerLinkActive="li-activeTab"><a class="link"
                     [routerLink]="item.routerLink" routerLinkActive="activeTab">{{item?.title}}</a></li>
         </div>
-        <div class="form-group has-search mb-0">
+ 
             <input type="text" class="form-control search-input" placeholder="Search">
-        </div>
+      
     </div>
 </header>

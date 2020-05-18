@@ -1,0 +1,20 @@
+
+.post-container{
+    padding: 0 50px 0px 21px;
+
+    .image{
+        height: 380px;
+    }
+}
+.show-content {
+    font-size: 16px;
+    line-height: 16px;
+    height: 210px;
+    overflow: hidden;
+    transition: .5s all ease-out;
+}
+.show {
+    overflow: visible;
+    height: auto;
+    transition: .5s all ease-out;
+}

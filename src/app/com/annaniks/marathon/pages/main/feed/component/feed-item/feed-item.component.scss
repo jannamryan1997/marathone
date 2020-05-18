@@ -6,7 +6,6 @@
 
 .feed-item {
     margin: 20px 0;
-
     background: #ffffff;
     border: 1px solid #d0dae4;
     border-radius: 10px;
@@ -75,22 +74,47 @@
             }
         }
 
-        .food-image {
-            height: 200px;
+        .image-container {
+            cursor: pointer;
             padding: 10px 5px;
-        }
+            position: relative;
+            transition: .5s all ease-out;
+       
 
+            }
+
+            .food-image {
+                height: 200px;
+            }
+            .comments {
+                opacity: 0;
+                bottom: 0;
+                padding: 20px;
+                .comments-description {
+                    border-right: 1px solid #ffffff;
+                    padding: 0 14px;
+                    .text {
+                        @include text(15px, 20px, #ffffff);
+                    }
+                    .title {
+                        @include text(20px, 20px, #ffffff);
+                    }
+                }
+                .comments-description:last-child {
+                    border-right: none !important;
+                }
+            }
+            
+        }
         .feed-statistic {
             .text {
                 @include text(15px, none, #d0dae4);
                 margin-right: 15px;
             }
-
             .title {
                 @include text(17px, 20px, #5a666e);
                 margin-right: 15px;
             }
-
             .setting-content {
                 margin: 10px 0;
                 .icon {
@@ -100,4 +124,8 @@
 
         }
     }
-}
+    .image-container:hover{
+        .comments{
+            opacity: 1 !important;
+        }
+    }

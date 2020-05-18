@@ -7,6 +7,7 @@
 .right-menu {
     .title {
         @include text(20px, 20px, #65a4fe);
+        margin: 33px 0 31px 0;
     }
 
     .user-item {
@@ -15,8 +16,8 @@
 
         .user-image {
             border-radius: 50%;
-            height: 30px;
-            width: 30px;
+            width: 42px;
+            height: 42px;
         }
 
         .name {
@@ -25,14 +26,21 @@
         }
 
         .email-title {
-            margin-left: 20px;
-            @include text(12px, 20px, #d0dae4);
+            margin-left: 18px;
+            @include text(12px, 15px, #d0dae4);
         }
+
         .btn {
-            color: #65a4fe;
-            border: 1px solid #65a4fe;
-            margin-left: 30px;
-          }
+            border: 1px solid #97C0FA;
+            border-radius: 16px;
+            opacity: 1;
+            margin-left: 35px;
+            color: #589CFE;
+        }
     }
 }
 
+.fixed {
+    position: fixed;
+    top: 70px;
+}

@@ -1,4 +1,4 @@
-<div class="right-menu">
+<div class="right-menu"  #navbar>
     <div class="follow">
         <p class="title">Who to follow</p>
         <div *ngFor="let item of followItem" class="user-item d-flex">
@@ -7,7 +7,7 @@
                 <p class="name">{{item?.name}}</p>
                 <p class="email-title">{{item?.email}}</p>
             </div>
-            <button type="button" class="btn btn-primary btn-lg round">Follow</button>
+            <button type="button" class="btn  round">Follow</button>
         </div>
     </div>
     <div class="contact">

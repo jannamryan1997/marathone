@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit} from "@angular/core";
 
 @Component({
     selector: "main-view",
@@ -10,5 +10,9 @@ export class MainView implements OnInit {
 
     constructor() { }
 
-    ngOnInit() { }
+    ngOnInit() {
+
+     }
+
+
 }

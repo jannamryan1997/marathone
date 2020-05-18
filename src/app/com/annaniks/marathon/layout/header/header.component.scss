@@ -1,21 +1,21 @@
 header {
-    background: #fff;
-    box-shadow: 0 3px 6px #00000029;
-
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 11px 13px 18px #3E598B0F;
+    opacity: 1;
     .header-container {
-        padding: 20px 0;
+        padding: 25px 0;
         align-items: center;
         .logo-image {
             width: 100%;
             max-width: 150px;
         }
-
+    
         .header-category {
             .link {
-                color: rgb(208, 218, 228);
+                color: #AFC1D1;
                 font-size: 18px;
                 text-decoration: none;
-                margin-right: 20px;
+                margin-right: 32px;
                 cursor: pointer;
                 font-weight: 600;
                 transition: .5s all ease-out;
@@ -27,28 +27,30 @@ header {
         }
 
         .search-input {
-            background: #f7f7fc;
-            color: #d0dae4;
-            border-radius: 80px;
-            opacity: 1;
-            border: 2px solid #f7f7fc;
+            background: #F3F3FA 0% 0% no-repeat padding-box;
+            border: 0.5px solid #ACC3D9;
+            border-radius: 21px;
+            opacity: 0.66;
+            padding: 6px 18px;
+            width: 270px;
 
             &::placeholder {
-                color: #d0dae4 !important;
+                color: #BEC8DD!important;
+                font-size: 18px;
             }
         }
     }
 }
 
 
-.li-activeTab {
-    &::after {
-        display: block;
-        content: "";
-        border: 2px solid #65a4fe;
-        margin-top:20px;
-    }
-}
+// .li-activeTab {
+//     &::after {
+//         display: block;
+//         content: "";
+//         border: 1px solid #65a4fe;
+//         margin-top:27px;
+//     }
+// }
 
 .fixed {
     position: fixed;

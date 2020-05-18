@@ -1,12 +1,21 @@
 .main-content {
     .main-container {
         width: 100%;
-        max-width: 1000px;
-        margin: 20px auto;
-    }
+        max-width: 1200px;
+        margin: 18px auto;
+        .left-content{
+            width: 100%;
+            max-width: 150px;
 
-    .router-outlet {
-        width: 100%;
-        max-width: 500px;
+        }
+        .router-outlet {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 40px 0 100px;
+        }
+        .right-content{
+            width: 100%;
+            max-width: 300px;
+        }
     }
 }

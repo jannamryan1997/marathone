@@ -9,22 +9,31 @@
         text-align: center;
 
         .user-image {
-            width: 100px;
-            height: 100px;
+            width: 131px;
+            height: 131px;
             border-radius: 50%;
+            background: #FEA6CC;
         }
 
         .name {
-            @include text(25px, 50px, #5a666e);
+            @include text(20px, 40px, #45535C);
         }
         .user-name{
-            @include text(20px,none,#d0dae4);
+            @include text(20px,none,#D0DBF0);
         }
     }
     .left-menu-item{
         margin-left: 20px;
         .link{
-            @include text(20px, 50px, #5a666e);   
+            @include text(22px,25px, #45535C);  
+        }
+        li{
+            margin-top: 40px;
         }
     }
+}
+
+.fixed {
+    position: fixed;
+    top: 110px;
 }

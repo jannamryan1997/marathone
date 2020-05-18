@@ -1,21 +1,111 @@
+@mixin text($fontSize, $lineHeight, $color) {
+    font-size: $fontSize;
+    line-height: $lineHeight;
+    color: $color;
+}
+
 .pg-container {
     width: 100%;
-    max-width: 1200px;
+    max-width: 1280px;
     margin: 0 auto;
 }
 
 .activeTab {
     color: #65a4fe !important;
 }
-.btn{
-display: inline-block;
-font-size: 14px;
-text-align: center;
-cursor: pointer;
-border-radius: 30px;
-padding: 3px 15px;
-background: #ffffff;
-display: flex;
-align-items: center;
-text-align: center;
+
+.btn {
+    display: inline-block;
+    font-size: 14px;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 30px;
+    padding: 3px 15px;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.card-item {
+    border: 0.5px solid #E3ECFD;
+    border-radius: 15px;
+    opacity: 1;
+    margin-top: 32px;
+    padding: 24px 0;
+    background: #ffffff;
+
+    .item-header {
+        display: flex;
+        justify-content: space-between;
+        padding: 0 42px 20px 21px;
+        align-items: center;
+
+        .item-head-description {
+            display: flex;
+            align-items: center;
+
+            .image {
+                width: 54px;
+                height: 54px;
+                border-radius: 50%;
+            }
+
+            .name-title {
+                @include text(21px, 33px, #45535C);
+                margin-left: 20px;
+                font-weight: bold;
+            }
+
+            .time {
+                @include text(15px, 33px, #E3ECFD);
+                margin-left: 30px;
+            }
+        }
+
+        .icon {
+            font-size: 30px;
+            cursor: pointer;
+        }
+    }
+
+    .post-content {
+        // padding: 0 50px 0px 21px;
+
+        .title {
+            @include text(16px, 30px, #45535C);
+         
+        }
+        .more{
+            color: #65a4fe;
+            cursor: pointer;
+            font-weight: bold;
+            line-height: 20px !important;
+        }
+
+    
+    }
+    .setting-content {
+        padding: 10px 50px 0px 21px;
+        justify-content: space-between;
+        .setting-item {
+            .icon {
+                color: #E3ECFD;
+            }
+
+            .title {
+                @include text(20px, 42px, #45535C);
+
+                &:after {
+                    content: "";
+                    border: 1px solid #E3ECFD;
+                    margin-left: 30px;
+                }
+
+
+            }
+
+        }
+
+    }
 }

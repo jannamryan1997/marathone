@@ -1,7 +1,7 @@
 <div class="feed-container">
     <div class="feed-header-content">
         <p class="title">Inspir someone today.Share something ...</p>
-        <div class="buttons-content d-flex justify-content-between">
+        <div class="buttons-content d-flex">
             <button type="button" class="btn round"><span class="material-icons mr-2">
                     description
                 </span>Article</button>
@@ -17,10 +17,9 @@
         </div>
     </div>
     <div class="feed-item">
-        <app-feed-item></app-feed-item>
-        <app-feed-item></app-feed-item>
-        <app-feed-item></app-feed-item>
-        <app-feed-item></app-feed-item>
-        <app-feed-item></app-feed-item>
+        <app-status-card-item [text]="true" [image]="false"></app-status-card-item>
+        <app-status-card-item [text]="true" [image]="false"></app-status-card-item>
+        <app-status-card-item [text]="false" [image]="true"></app-status-card-item>
+        <app-status-card-item [text]="false" [image]="true"></app-status-card-item>
     </div>
 </div>
