@@ -1,4 +1,4 @@
-<div class="feed-container">
+<div class="feed-container" *ngIf="showRouting">
     <div class="feed-header-content">
         <p class="title">Inspir someone today.Share something ...</p>
         <div class="buttons-content d-flex">
@@ -17,9 +17,9 @@
         </div>
     </div>
     <div class="feed-item">
-        <app-status-card-item [text]="true" [image]="false"></app-status-card-item>
-        <app-status-card-item [text]="true" [image]="false"></app-status-card-item>
-        <app-status-card-item [text]="false" [image]="true"></app-status-card-item>
-        <app-status-card-item [text]="false" [image]="true"></app-status-card-item>
+        <app-status-card-item [text]="true" [image]="true" [combinations]="true" [chicken]="true"></app-status-card-item>
     </div>
+</div>
+<div class="router-main" *ngIf="!showRouting">
+    <router-outlet></router-outlet>
 </div>

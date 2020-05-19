@@ -1,0 +1,221 @@
+<!--text-->
+<div class="card-item" *ngIf="text">
+    <div class="item-header">
+        <div class="item-head-description">
+            <img src="assets/images/img1.png" class="image" alt="Cinque Terre">
+            <p class="name-title">Barbara Smith</p>
+            <p class="time">1 hour ago</p>
+        </div>
+
+        <span class="material-icons icon">
+            more_vert
+        </span>
+    </div>
+    <div class="post-content">
+        <div class="post-container" >
+            <p class="title show-content" [ngClass]="{'show':show}">{{title}}</p>
+            <p class="title more">...</p>
+            <p class="title more" (click)="onClickSeeMore()">See More</p>
+        </div> 
+    
+    </div>
+    <div class="setting-content d-flex">
+            <div class="setting-item d-flex align-items-center">
+                <span class="material-icons icon mr-2">
+                    settings
+
+                </span>
+                <p class="title">Comments 29</p>
+            </div>
+
+            <div class="setting-item d-flex align-items-center">
+                <span class="material-icons icon mr-2">
+                    settings
+
+                </span>
+                <p class="title"> Energy 30</p>
+            </div>
+            <div class="setting-item d-flex align-items-center">
+                <span class="material-icons icon mr-2">
+                    settings
+
+                </span>
+                <p class="title"> Reposts 10</p>
+            </div>
+
+        </div>
+
+</div>
+
+
+<!--image-->
+<div class="card-item"  *ngIf="image">
+    <div class="item-header">
+        <div class="item-head-description">
+            <img src="assets/images/img1.png" class="image" alt="Cinque Terre">
+            <p class="name-title">Barbara Smith</p>
+            <p class="time">1 hour ago</p>
+        </div>
+
+        <span class="material-icons icon">
+            more_vert
+        </span>
+    </div>
+    <div class="post-content">
+         <div class="post-container p-0">
+            <img src="assets/images/img.4.png" class="image" alt="Cinque Terre">
+        </div>
+    
+    </div>
+    <div class="setting-content d-flex">
+            <div class="setting-item d-flex align-items-center">
+                <span class="material-icons icon mr-2">
+                    settings
+
+                </span>
+                <p class="title">Comments 29</p>
+            </div>
+
+            <div class="setting-item d-flex align-items-center">
+                <span class="material-icons icon mr-2">
+                    settings
+
+                </span>
+                <p class="title"> Energy 30</p>
+            </div>
+            <div class="setting-item d-flex align-items-center">
+                <span class="material-icons icon mr-2">
+                    settings
+
+                </span>
+                <p class="title"> Reposts 10</p>
+            </div>
+
+        </div>
+
+</div>
+
+<!--combinations-->
+<div class="card-item" *ngIf="combinations">
+    <div class="item-header">
+        <div class="item-head-description">
+            <img src="assets/images/img1.png" class="image" alt="Cinque Terre">
+            <p class="name-title">Barbara Smith</p>
+            <p class="time">1 hour ago</p>
+        </div>
+
+        <span class="material-icons icon">
+            more_vert
+        </span>
+    </div>
+    <div class="post-content">
+        <div class="post-container p-0" >
+            <img src="assets/images/img3.png" class="food-image" alt="Cinque Terre">
+            <div class="combinations-description">
+                <p class="title">8 unusual food combinations that can make you lose weigth in just 30 days!</p>
+                <p class="name">by Maya Crouche</p>
+            </div>
+        </div>
+    
+    </div>
+    <div class="setting-content d-flex">
+            <div class="setting-item d-flex align-items-center">
+                <span class="material-icons icon mr-2">
+                    settings
+
+                </span>
+                <p class="title">Comments 29</p>
+            </div>
+
+            <div class="setting-item d-flex align-items-center">
+                <span class="material-icons icon mr-2">
+                    settings
+
+                </span>
+                <p class="title"> Energy 30</p>
+            </div>
+            <div class="setting-item d-flex align-items-center">
+                <span class="material-icons icon mr-2">
+                    settings
+
+                </span>
+                <p class="title"> Reposts 10</p>
+            </div>
+
+        </div>
+
+</div>
+<!--chicken-->
+<div class="card-item" *ngIf="chicken">
+    <div class="item-header">
+        <div class="item-head-description">
+            <img src="assets/images/img1.png" class="image" alt="Cinque Terre">
+            <p class="name-title">Barbara Smith</p>
+            <p class="time">1 hour ago</p>
+        </div>
+
+        <span class="material-icons icon">
+            more_vert
+        </span>
+    </div>
+    <div class="post-content">
+        <div class="post-container chicken-content p-0">
+            <img src="assets/images/chicken.png" class="chicken-image" alt="Cinque Terre">
+            <button class="btn position-absolute" routerLink='chicken/1'>Gluten Free</button>
+            <div class="comments  d-flex position-absolute w-100 justify-content-between">
+                <div class="comments-description">
+                        <p class="text">Coloris</p>
+                        <p class="title">400 kcal</p>
+                </div>
+                <div class="comments-description">
+                        <p class="text">Protein</p>
+                        <p class="title">10.5 gm</p>
+                </div>
+                <div class="comments-description">
+                        <p class="text">Fat</p>
+                        <p class="title">8.4 gm</p>
+                </div>
+                <div class="comments-description">
+                        <p class="text">Carbs</p>
+                        <p class="title">3.8 gm</p>
+                </div>
+                <div class="comments-description">
+                        <p class="text">Prep Time</p>
+                        <p class="title">25 min</p>
+                </div>
+            </div>
+
+            <div class="combinations-description">
+                <p class="title">Chicken fajita drumsticks with Mexican corn salade</p>
+                <p class="name">by Maya Crouche</p>
+            </div>
+        </div>
+    
+    </div>
+    <div class="setting-content d-flex">
+            <div class="setting-item d-flex align-items-center">
+                <span class="material-icons icon mr-2">
+                    settings
+
+                </span>
+                <p class="title">Comments 29</p>
+            </div>
+
+            <div class="setting-item d-flex align-items-center">
+                <span class="material-icons icon mr-2">
+                    settings
+
+                </span>
+                <p class="title"> Energy 30</p>
+            </div>
+            <div class="setting-item d-flex align-items-center">
+                <span class="material-icons icon mr-2">
+                    settings
+
+                </span>
+                <p class="title"> Reposts 10</p>
+            </div>
+
+        </div>
+
+</div>

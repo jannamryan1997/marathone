@@ -1,0 +1,96 @@
+@mixin text($fontSize, $lineHeight, $color) {
+    font-size: $fontSize;
+    line-height: $lineHeight;
+    color: $color;
+}
+
+.post-container {
+    padding: 0 50px 0px 21px;
+
+    .image {
+        height: 380px;
+    }
+}
+
+.show-content {
+    font-size: 16px;
+    line-height: 16px;
+    height: 210px;
+    overflow: hidden;
+    transition: .5s all ease-out;
+}
+
+.show {
+    overflow: visible;
+    height: auto;
+    transition: .5s all ease-out;
+}
+
+.food-image,
+.chicken-image {
+    height: 260px;
+}
+
+.combinations-description {
+    padding: 0 50px 0px 21px;
+
+    .title {
+        @include text(20px, 32px, #45535C);
+        font-weight: bold;
+
+    }
+
+    .name {
+        @include text(18px, 21px, #BEC9DF);
+    }
+
+}
+
+.chicken-content {
+    position: relative;
+    transition: .5s all ease-out;
+    cursor: pointer;
+    font-size: 15px;
+
+
+    .btn {
+        background: #23CB81 0% 0% no-repeat padding-box;
+        border-radius: 18px;
+        opacity: 0.8;
+        color: #ffffff;
+        border: 0.5px solid #FFFFFF;
+        padding: 5px 15px;
+        top: 30px;
+        right: 20px;
+        font-weight: bold;
+    }
+
+    &:hover {
+        .comments {
+            opacity: .8 !important;
+        }
+    }
+
+    .comments {
+        background: transparent linear-gradient(0deg, #43474E 0%, #43474E 28%, #43474E00 100%) 0% 0% no-repeat padding-box;
+        opacity: 0;
+        top: 190px;
+
+        .comments-description {
+            border-right: 1px solid #ffffff;
+            padding: 15px 15px;
+
+            .text {
+                @include text(15px, 20px, #ffffff);
+            }
+
+            .title {
+                @include text(20px, 20px, #ffffff);
+            }
+        }
+
+        .comments-description:last-child {
+            border-right: none !important;
+        }
+    }
+}

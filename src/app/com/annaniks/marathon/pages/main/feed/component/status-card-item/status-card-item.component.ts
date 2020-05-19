@@ -9,17 +9,16 @@ import { Component, OnInit, Input } from "@angular/core";
 export class StatusCardItemComponent implements OnInit {
     @Input() text: boolean;
     @Input() image: boolean;
+    @Input() combinations:boolean;
+    @Input() chicken:boolean;
     public show: boolean;
     public title: string = "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Blanditiis deleniti mollitia aut suntdolorum odit modi dolore ratione beatae quisquam consequuntur sed, amet optio doloribus inventore deseruntillo incidunt tempora.Lorem ipsum, dolor sit amet consectetur adipisicing elit. Blanditiis deleniti mollitia aut suntdolorum odit modi dolore ratione beatae quisquam consequuntur sed, amet optio doloribus inventore deseruntillo incidunt tempora.Lorem ipsum, dolor sit amet consectetur adipisicing elit. Blanditiis deleniti mollitia aut suntdolorum odit modi dolore ratione beatae quisquam consequuntur sed, amet optio doloribus inventore deseruntillo incidunt tempora.Lorem ipsum, dolor sit amet consectetur adipisicing elit. Blanditiis deleniti mollitia aut suntdolorum odit modi dolore ratione beatae quisquam consequuntur sed, amet optio doloribus inventore deseruntillo incidunt tempora."
-    constructor() {
+    
+    constructor() {}
 
-    }
-
-    ngOnInit() {
-        console.log(this.text);
-
-    }
+    ngOnInit() {}
     public onClickSeeMore(): void {
         this.show = !this.show;
     }
+
 }

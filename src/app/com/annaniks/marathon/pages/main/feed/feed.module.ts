@@ -1,13 +1,13 @@
 import { NgModule } from "@angular/core";
 import { FeedView } from './feed.view';
 import { FeedRoutingModule } from './feed.routing.module';
-import { FeedItemComponent } from './component/feed-item/feed-item.component';
-import { StatusCardItemComponent } from './status-card-item/status-card-item.component';
 import { CommonModule } from '@angular/common';
+import { StatusCardItemComponent } from './component/status-card-item/status-card-item.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
-    declarations: [FeedView,FeedItemComponent,StatusCardItemComponent],
-    imports: [FeedRoutingModule,CommonModule]
+    declarations: [FeedView,StatusCardItemComponent],
+    imports: [FeedRoutingModule,CommonModule,RouterModule]
 })
 
 export class FeedModule { }
