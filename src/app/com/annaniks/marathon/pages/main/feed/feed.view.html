@@ -1,25 +1,3 @@
-<div class="feed-container" *ngIf="showRouting">
-    <div class="feed-header-content">
-        <p class="title">Inspir someone today.Share something ...</p>
-        <div class="buttons-content d-flex">
-            <button type="button" class="btn round"><span class="material-icons mr-2">
-                    description
-                </span>Article</button>
-            <button type="button" class="btn round"><span class="material-icons mr-2">
-                    settings
-                </span>Recipe</button>
-            <button type="button" class="btn  round"><span class="material-icons mr-2">
-                    sms
-                </span>Query</button>
-            <button type="button" class="btn  round"><span class="material-icons mr-2">
-                    insert_photo
-                </span>Image</button>
-        </div>
-    </div>
-    <div class="feed-item">
-        <app-status-card-item [text]="true" [image]="true" [combinations]="true" [chicken]="true"></app-status-card-item>
-    </div>
-</div>
-<div class="router-main" *ngIf="!showRouting">
+<div class="router-main">
     <router-outlet></router-outlet>
 </div>

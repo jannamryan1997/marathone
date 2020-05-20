@@ -1,0 +1,157 @@
+@mixin text($fontSize, $lineHeight, $color) {
+    font-size: $fontSize;
+    line-height: $lineHeight;
+    color: $color;
+}
+
+.chicken-content {
+    .chicken-header {
+        position: relative;
+
+        .chicken-image {
+            height: 360px;
+        }
+
+        .header-container {
+            padding: 20px 20px;
+
+            .star-icon {
+                color: #FFE84E;
+                font-size: 18px;
+            }
+
+            .title {
+                @include text(22px, 26px, #45535C);
+            }
+
+            .icon {
+                font-size: 28px;
+                cursor: pointer;
+            }
+        }
+
+        .main-container {
+            padding: 17px 20px 0px 20px;
+            border-top: 1px solid #F1F1F6;
+
+
+            .title {
+                @include text(28px, 33px, #45535C);
+            }
+
+            .name {
+                @include text(18px, 21px, #BDC0D5);
+            }
+
+            .date {
+                @include text(15px, 21px, #45535C);
+            }
+
+            .loader-container {
+                margin-top: 35px;
+                padding: 0 70px;
+
+                .loader {
+                    border: 6px solid #f3f3f3;
+                    border-radius: 50%;
+                    border-top: 6px solid #5899F9;
+                    width: 60px;
+                    height: 60px;
+                    -webkit-animation: spin 2s linear infinite;
+                    animation: spin 2s linear infinite;
+                    background: #F1F5FD 0% 0% no-repeat padding-box;
+                    box-shadow: 6px 22px 43px #89B5F626;
+                    opacity: 1;
+                }
+
+                .circle-text {
+                    @include text(16px, 31px, #45535C);
+
+                }
+            }
+
+            .btn-content {
+                margin: 35px 0;
+                padding: 0 70px;
+
+                .btn {
+                    color: #AFC1D1;
+                    border: 1px solid #d0dae4;
+                    border: 1px solid #D0DBF0;
+                    border-radius: 21px;
+                    opacity: 0.65;
+                    padding: 10px 17px;
+                    margin-left: 15px;
+                    width: 134px;
+                }
+            }
+
+            .title {
+                @include text(17px, 26px, #45535C);
+                margin-bottom: 20px;
+            }
+
+            .ingridient-content {
+                border-top: 1px solid #F1F1F6;
+
+                .title {
+                    @include text(28px, 33px, #BDC0D5);
+                    margin: 20px 0;
+
+                }
+
+                .ingridient-item {
+                    @include text(18px, 16px, #45535C);
+                    padding: 15px 0;
+                    font-weight: 600;
+                }
+            }
+
+            .instruction-content {
+                border-top: 1px solid #F1F1F6;
+                margin: 26px 0;
+
+                .title {
+                    @include text(28px, 33px, #BDC0D5);
+                    margin: 20px 0;
+
+                }
+
+                .instruction-item {
+                    padding: 15px 0;
+
+                    .instruction-item-text {
+                        @include text(18px, 30px, #45535C);
+
+                        &:after {
+                            content: "";
+                            display: block;
+                            border: 2px dotted #BDC0D5;
+                            margin-top: 25px
+                        }
+
+
+                    }
+
+                    .number {
+                        margin-right: 28px;
+                        @include text(25px, 36px, #45535C);
+                        font-weight: 600;
+                    }
+                }
+              
+            }
+            .setting-content{
+                border-top: 1px solid #F1F1F6;
+                border-bottom: 1px solid #F1F1F6;
+                padding: 0 !important;
+                .setting-item{
+                    padding: 19px 0;
+                .title{
+                    margin: 0 !important;
+                }
+            }
+            }
+        }
+    }
+}

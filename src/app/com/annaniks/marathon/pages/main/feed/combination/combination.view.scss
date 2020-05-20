@@ -1,0 +1,55 @@
+@mixin text($fontSize, $lineHeight, $color) {
+    font-size: $fontSize;
+    line-height: $lineHeight;
+    color: $color;
+}
+.combination-content {
+    .combination-header {
+        position: relative;
+        .combination-image {
+            height: 260px;
+        }
+        .header-container {
+            padding: 20px 20px;
+            .icon {
+                font-size: 28px;
+                cursor: pointer;
+            }
+        }
+    }
+    .combination-main-content {
+        border-top: 1px solid #F1F1F6;
+        padding: 14px 0;
+        .title {
+            @include text(25px, 33px, #45535C);
+            font-weight: 600;
+        }
+        .name {
+            @include text(18px, 21px, #BDC0D5);
+        }
+        .date {
+            @include text(15px, 21px, #45535C);
+        }
+        .combination-item{
+            padding: 20px 0;
+           .text{
+            @include text(18px, 26px,#45535C);  
+           } 
+           .title{
+            @include text(25px, 26px,#45535C);  
+            margin-bottom: 15px;
+           }
+        }
+    }
+    .setting-content{
+        border-top: 1px solid #F1F1F6;
+        border-bottom: 1px solid #F1F1F6;
+        padding: 0 !important;
+        .setting-item{
+            padding: 19px 0;
+        .title{
+            margin: 0 !important;
+        }
+    }
+    }
+}

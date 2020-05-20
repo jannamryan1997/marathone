@@ -7,8 +7,9 @@
 .post-container {
     padding: 0 50px 0px 21px;
 
-    .image {
+    .image,.vido {
         height: 380px;
+        cursor: pointer;
     }
 }
 
@@ -29,6 +30,7 @@
 .food-image,
 .chicken-image {
     height: 260px;
+    cursor: pointer;
 }
 
 .combinations-description {

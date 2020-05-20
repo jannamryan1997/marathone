@@ -1,0 +1,49 @@
+.property-content {
+ 
+
+    .property-main {
+        .image-content {
+            width: 100%;
+            max-width: 980px;
+            .image{
+                height: 800px;
+            }
+         .video{
+            height: 800px;   
+         }
+        }
+        .property-description{
+            width: 100%;
+            max-width: 420px;
+            padding: 20px 20px;
+            .item-header{
+                padding: 0 !important;
+            }
+            .post-content{
+                margin: 10px 0;
+                border-bottom: 1px solid #E3ECFD;
+                border-top: 1px solid #E3ECFD;
+                padding: 10px 0;
+            }
+        }
+    }
+}
+.show-content {
+    font-size: 16px;
+    line-height: 16px;
+    height: 210px;
+    overflow: hidden;
+    transition: .5s all ease-out;
+}
+
+.show {
+    overflow: visible;
+    height: auto;
+    transition: .5s all ease-out;
+}
+::ng-deep .mat-dialog-container{
+    padding: 0 !important;
+    background: #FFFFFF 0% 0% no-repeat padding-box !important;
+    border-radius: 15px !important;
+    opacity: 1 !important;
+}

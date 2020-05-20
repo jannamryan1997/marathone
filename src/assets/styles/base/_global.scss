@@ -34,86 +34,105 @@
     margin-top: 32px;
     padding: 24px 0;
     background: #ffffff;
+}
+.post-content {
+    .post-container{
+    .title {
+        @include text(16px, 30px, #45535C);
+    }
+    .more {
+        color: #65a4fe;
+        cursor: pointer;
+        font-weight: bold;
+        line-height: 20px !important;
+    }
+    }
+}
+.item-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 42px 20px 21px;
+    align-items: center;
 
-    .item-header {
+    .item-head-description {
         display: flex;
-        justify-content: space-between;
-        padding: 0 42px 20px 21px;
         align-items: center;
 
-        .item-head-description {
-            display: flex;
-            align-items: center;
-
-            .image {
-                width: 54px;
-                height: 54px;
-                border-radius: 50%;
-            }
-
-            .name-title {
-                @include text(21px, 33px, #45535C);
-                margin-left: 20px;
-                font-weight: bold;
-            }
-
-            .time {
-                @include text(15px, 33px, #E3ECFD);
-                margin-left: 30px;
-            }
+        .image {
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
         }
 
-        .icon {
-            font-size: 30px;
-            cursor: pointer;
-        }
-    }
-
-    .post-content {
-        // padding: 0 50px 0px 21px;
-
-        .title {
-            @include text(16px, 30px, #45535C);
-         
-        }
-        .more{
-            color: #65a4fe;
-            cursor: pointer;
+        .name-title {
+            @include text(21px, 33px, #45535C);
+            margin-left: 20px;
             font-weight: bold;
-            line-height: 20px !important;
         }
 
-    
+        .time {
+            @include text(15px, 33px, #E3ECFD);
+            margin-left: 30px;
+        }
     }
-    .setting-content {
-        padding: 10px 50px 0px 21px;
-        justify-content: space-between;
-        .setting-item {
-            .icon {
-                color: #E3ECFD;
-            }
 
-            .title {
-                @include text(20px, 42px, #45535C);
-
-                &:after {
-                    content: "";
-                    border: 1px solid #E3ECFD;
-                    margin-left: 30px;
-                }
-
-
-            }
-
-        }
-
+    .icon {
+        font-size: 30px;
+        cursor: pointer;
     }
 }
 
-    .follow-btn {
-        border: 1px solid #97C0FA;
-        border-radius: 16px;
-        opacity: 1;
-        margin-left: 35px;
-        color: #589CFE;
+.setting-content {
+    padding: 10px 50px 0px 21px;
+    justify-content: space-between;
+
+    .setting-item {
+        .icon {
+            color: #E3ECFD;
+        }
+
+        .title {
+            @include text(20px, 42px, #45535C);
+
+            &:after {
+                content: "";
+                border: 1px solid #E3ECFD;
+                margin-left: 30px;
+            }
+
+
+        }
+
     }
+
+}
+
+.follow-btn {
+    border: 1px solid #97C0FA;
+    border-radius: 16px;
+    opacity: 1;
+    margin-left: 35px;
+    color: #589CFE;
+}
+
+//radius
+.radius {
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border-radius: 26px;
+    opacity: 1;
+    width: 52px;
+    height: 52px;
+    cursor: pointer;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 7px 7px;
+    border: none;
+
+    .icon {
+        color: #ACB9D1 !important;
+        font-size: 35px;
+        font-weight: bold;
+    }
+}

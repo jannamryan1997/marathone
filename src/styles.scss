@@ -11,7 +11,7 @@ body {
   
   p {
     margin-bottom: 0;
-    margin-top: 0;
+    margin-top: 0 ;
   }
   li{
     list-style: none;
@@ -28,3 +28,5 @@ img{
   object-fit: cover;
   object-position: center;
 }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

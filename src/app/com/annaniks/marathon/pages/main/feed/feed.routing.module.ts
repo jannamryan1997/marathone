@@ -6,9 +6,17 @@ const feedRoutes: Routes = [
     {
         path: "", component: FeedView, children: [
             {
-                path: "chicken/:id",
-                loadChildren: () => import('../feed/chicken/chicken.module').then(m => m.ChickenModule),
+                path: "",
+                loadChildren: () => import('../feed/posts/posts.module').then(m => m.PostsModule),
+            },
+            {
+                path: "ingridient/:id",
+                loadChildren: () => import('../feed/ingridient/ingridient.module').then(m => m.IngridientModule),
 
+            },
+            {
+                path: "combination/:id",
+                loadChildren: () => import('../feed/combination/combination.module').then(m => m.CombinationModule),
             }
         ]
     }
