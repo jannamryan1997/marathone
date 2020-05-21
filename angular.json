@@ -32,7 +32,8 @@
               "src/styles.scss",
               "src/assets/styles/base/_global.scss",
               "src/assets/styles/base/_reset.scss",
-              "src/assets/styles/base/_responsive.scss"
+              "src/assets/styles/base/_responsive.scss",
+              "node_modules/@ctrl/ngx-emoji-mart/picker.css"
             ],
             "scripts": []
           },

@@ -4,6 +4,8 @@
     color: $color;
 }
 .combination-content {
+    background: #ffff;
+    padding: 0 10px;
     .combination-header {
         position: relative;
         .combination-image {
@@ -52,4 +54,5 @@
         }
     }
     }
+
 }

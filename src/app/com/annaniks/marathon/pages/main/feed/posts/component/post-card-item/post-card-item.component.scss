@@ -3,16 +3,13 @@
     line-height: $lineHeight;
     color: $color;
 }
-
 .post-container {
     padding: 0 50px 0px 21px;
-
     .image,.vido {
         height: 380px;
         cursor: pointer;
     }
 }
-
 .show-content {
     font-size: 16px;
     line-height: 16px;
@@ -20,13 +17,11 @@
     overflow: hidden;
     transition: .5s all ease-out;
 }
-
 .show {
     overflow: visible;
     height: auto;
     transition: .5s all ease-out;
 }
-
 .food-image,
 .chicken-image {
     height: 260px;
@@ -95,4 +90,7 @@
             border-right: none !important;
         }
     }
+}
+.posts-comments{
+    padding: 0 10px;
 }
