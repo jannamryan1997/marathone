@@ -9,7 +9,7 @@
                         <p class="time ml-2">{{comments?.time}}</p>
                     </div>
                     <div class="d-flex">
-                        <p class="title">Reply</p>
+                        <p class="title" >Reply</p>
                         <div class="like d-flex ml-2">
                             <div class="like-radius d-flex">
                                 <span class="material-icons icon m-auto">
@@ -29,10 +29,11 @@
                     </div>
                 </div>
                 <p class="commet-message">{{comments?.message}}</p>
-                <p class="view-title">View Replies {{comments?.view}}</p>
+                <p class="view-title" (click)="isOpenReplay()">View Replies {{comments?.view}}</p>
             </div>
         </div>
         <!--replace-->
+        <div *ngIf="showReplay">
         <div class="replay-message message d-flex" *ngFor="let item of comments?.chiled">
             <img src="{{item?.image}}" class="user-image" alt="Cinque Terre">
             <div class="comments-container">
@@ -64,9 +65,6 @@
                 <p class="commet-message">{{item?.comments}}</p>
             </div>
         </div>
-
-
- 
-
+        </div>
     </div>
 </div>

@@ -1,0 +1,25 @@
+@mixin text($fontSize, $lineHeight, $color) {
+    font-size: $fontSize;
+    line-height: $lineHeight;
+    color: $color;
+}
+.setting-content {
+    padding: 10px 50px 0px 21px;
+    justify-content: space-between;
+
+    .setting-item {
+        .icon {
+            color: #E3ECFD;
+        }
+        .title {
+            @include text(20px, 42px, #45535C);
+            cursor: pointer;
+
+            &:after {
+                content: "";
+                border: 1px solid #E3ECFD;
+                margin-left: 30px;
+            }
+        }
+    }
+}

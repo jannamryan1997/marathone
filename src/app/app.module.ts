@@ -4,7 +4,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SharedModule } from './com/annaniks/marathon/shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { environment } from 'src/environments/environment';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ApiInterceptor } from './com/annaniks/marathon/core/interceptore/api.interceptor';
 @NgModule({
   declarations: [
     AppComponent
@@ -15,7 +17,18 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     SharedModule,
     BrowserAnimationsModule,
   ],
-  providers: [],
+  providers: [
+    // {
+    //   provide: 'BASE_URL',
+    //   useValue: environment.apiUrl,
+    //   multi: true
+    // },
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: ApiInterceptor,
+    //   multi: true
+    // },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,30 @@
+@mixin text($fontSize, $lineHeight, $color) {
+    font-size: $fontSize;
+    line-height: $lineHeight;
+    color: $color;
+}
+.form-content{
+    border-top: 1px solid #F1F1F6 !important;
+    align-items: center;
+    padding: 25px;
+        .message-input {
+            max-height: 90px;
+            border: none;
+            @include text(15px, 24px, #BEC8DD);
+            resize: none;
+            background: #FFFFFF 0% 0% no-repeat padding-box;
+            opacity: 1;
+            width: 100%;
+            margin-top: 20px;
+            &::placeholder {
+                @include text(15px, 24px, #BEC8DD);
+            }
+          
+        }
+        .smile-image {
+            width: 28px;
+            height: 28px;
+            cursor: pointer;
+        }
+       
+    }

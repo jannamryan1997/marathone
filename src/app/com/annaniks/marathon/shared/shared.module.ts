@@ -1,27 +1,38 @@
 import { NgModule } from "@angular/core";
-import { HeaderComponent, LeftMenuCompomemtn, RightMenuComponent, CommentsComponent } from '../layout';
+import {
+    HeaderComponent,
+    LeftMenuCompomemtn,
+    RightMenuComponent,
+    CommentsComponent,
+    SettingsComponent,
+    PostsComments
+} from '../layout';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { ClickOutsideModule } from 'ng-click-outside';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
     declarations: [
-        HeaderComponent, 
-        LeftMenuCompomemtn, 
-        RightMenuComponent, 
-        CommentsComponent
+        HeaderComponent,
+        LeftMenuCompomemtn,
+        RightMenuComponent,
+        CommentsComponent,
+        SettingsComponent,
+        PostsComments
     ],
     imports: [
-        CommonModule, 
-        RouterModule, 
-        MatDialogModule, 
-        ReactiveFormsModule, 
+        CommonModule,
+        RouterModule,
+        MatDialogModule,
+        ReactiveFormsModule,
         FormsModule,
         PickerModule,
-        ClickOutsideModule
+        ClickOutsideModule,
+        HttpClientModule
     ],
     providers: [],
     entryComponents: [],
@@ -35,8 +46,11 @@ import { ClickOutsideModule } from 'ng-click-outside';
         ReactiveFormsModule,
         FormsModule,
         PickerModule,
-        ClickOutsideModule
-        
+        ClickOutsideModule,
+        SettingsComponent,
+        PostsComments,
+        HttpClientModule
+
     ]
 })
 

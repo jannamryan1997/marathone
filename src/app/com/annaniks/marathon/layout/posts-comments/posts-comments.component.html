@@ -1,0 +1,13 @@
+<div class="form-container">
+        <form [formGroup]="emojiForm" (clickOutside)="onClickedOutside($event)">
+            <emoji-mart (emojiClick)="addEmoji($event)" emoji="point_up" class="d-none"
+                [ngClass]="{'d-block':showemoji}"></emoji-mart>
+            <div class="form-content d-flex">
+                <textarea type="text" formControlName="inputField" class="message-input"
+                    placeholder="Write a comment..." (keyup.enter)="addInput($event)"></textarea>
+
+                <img src="assets/icons/smile.png" class="smile-image" (click)="showEmoji()">
+            </div>
+
+        </form>
+    </div>

@@ -9,6 +9,7 @@
 
     .comments {
         border-bottom: 1px solid #F1F1F6;
+        padding: 0 10px;
 
         .user-image {
             width: 43px;
@@ -16,71 +17,78 @@
             border-radius: 50%;
         }
 
-        .message {
-            .comments-container {
-                // border: 1px solid red;
-                width: 100%;
-                margin-left: 20px;
+        .comments-container {
+            width: 100%;
+            margin-left: 20px;
 
-                .container-description {
-                    .name {
-                        @include text(20px, 27px, #45535C);
-                    }
+            .name {
+                @include text(20px, 27px, #45535C);
+            }
 
-                    .time {
-                        @include text(15px, 27px, #BEC8DD);
-                    }
+            .time {
+                @include text(15px, 27px, #BEC8DD);
+            }
 
-                    .title {
-                        @include text(17px, 21px, #589CFE);
-                    }
+            .title {
+                @include text(17px, 21px, #589CFE);
+            }
 
-                    .like {
-                        align-items: center;
+            .like {
+                align-items: center;
 
-                        .like-radius {
-                            width: 22px;
-                            height: 22px;
-                            opacity: 1;
-                            border-radius: 50%;
-                            border: 1px solid #D1DCF1;
-                            cursor: pointer;
-
-                            .icon {
-                                color: #BEC8DD;
-                                font-size: 15px;
-                            }
-                        }
-
-                        .like-count {
-                            @include text(17px, 21px, #45535C);
-                        }
-                    }
-                }
-
-                .commet-message {
-                    @include text(15px, 26px, #45535C);
-                    padding: 10px 0;
-                }
-
-                .view-title {
-                    @include text(14px, 25px, #BEC8DD);
-                    text-align: end;
+                .like-radius {
+                    width: 22px;
+                    height: 22px;
+                    opacity: 1;
+                    border-radius: 50%;
+                    border: 1px solid #D1DCF1;
                     cursor: pointer;
+
+                    .icon {
+                        color: #BEC8DD;
+                        font-size: 15px;
+                    }
                 }
+
+                .like-count {
+                    @include text(17px, 21px, #45535C);
+                }
+            }
+
+            .commet-message {
+                @include text(15px, 26px, #45535C);
+                padding: 10px 0;
+            }
+
+            .view-title {
+                @include text(14px, 25px, #BEC8DD);
+                text-align: end;
+                cursor: pointer;
             }
         }
 
+
         .replay-message {
-            padding: 15px 0 20px 60px;
+            padding: 15px 0 20px 40px;
         }
 
-}
+    }
 }
 
 ::ng-deep .emoji-mart-search input {
     padding: 5px 0px 6px 0px !important;
 }
-::ng-deep .emoji-mart{
+
+::ng-deep .emoji-mart {
     width: 100% !important;
+}
+
+.display-none {
+    display: none !important;
+}
+
+.modal-contanier {
+    padding: 0 10px !important;
+    justify-content: space-between;
+    margin: 0 !important;
 }

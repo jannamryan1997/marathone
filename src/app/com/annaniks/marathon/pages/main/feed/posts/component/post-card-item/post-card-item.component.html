@@ -1,5 +1,4 @@
-<!--text-->
-<div class="card-item" *ngIf="text">
+<div class="card-item">
     <div class="item-header">
         <div class="item-head-description">
             <img src="assets/images/img1.png" class="image" alt="Cinque Terre">
@@ -11,120 +10,21 @@
             more_vert
         </span>
     </div>
-    <div class="post-content">
+    <div class="post-content" *ngIf="postType === 'text'">
         <div class="post-container">
-            <p class="title show-content" [ngClass]="{'show':show}">{{title}}</p>
+            <p class="title show-content" [ngClass]="{'show':showTitle}">{{title}}</p>
             <p class="title more">...</p>
             <p class="title more" (click)="onClickSeeMore()">See More</p>
         </div>
 
     </div>
-    <div class="setting-content d-flex">
-        <div class="setting-item d-flex align-items-center">
-            <span class="material-icons icon mr-2">
-                settings
-
-            </span>
-            <p class="title" (click)="showComment()">Comments 29</p>
-        </div>
-
-        <div class="setting-item d-flex align-items-center">
-            <span class="material-icons icon mr-2">
-                settings
-
-            </span>
-            <p class="title"> Energy 30</p>
-        </div>
-        <div class="setting-item d-flex align-items-center">
-            <span class="material-icons icon mr-2">
-                settings
-
-            </span>
-            <p class="title"> Reposts 10</p>
-        </div>
-
-    </div>
-    <div class="posts-comments" *ngIf="showComments">
-    <app-comments *ngFor="let item of comments" [comments]="item"></app-comments>
-   
-    <div class="form-container">
-    <form [formGroup]="emojiForm"  (clickOutside)="onClickedOutside($event)">
-            <emoji-mart (emojiClick)="addEmoji($event)" emoji="point_up" class="d-none"
-            [ngClass]="{'d-block':showemoji}"></emoji-mart>
-        <div class="form-content d-flex">
-            <textarea type="text" formControlName="inputField" class="message-input"
-                placeholder="Write a comment..." (keyup.enter)="addInput($event)"></textarea>
-                
-            <img src="assets/icons/smile.png" class="smile-image" (click)="showEmoji()">
-        </div>
-    
-    </form>
-</div>
-</div>
-</div>
-
-
-<!--image-->
-<div class="card-item" *ngIf="image">
-    <div class="item-header">
-        <div class="item-head-description">
-            <img src="assets/images/img1.png" class="image" alt="Cinque Terre">
-            <p class="name-title  mb-0">Barbara Smith</p>
-            <p class="time  mb-0">1 hour ago</p>
-        </div>
-
-        <span class="material-icons icon">
-            more_vert
-        </span>
-    </div>
-    <div class="post-content">
+    <div class="post-content" *ngIf="postType === 'image'">
         <div class="post-container p-0">
             <img src="assets/images/foodimg.png" class="image" alt="Cinque Terre" (click)="openPropertyModalByImage()">
         </div>
-
-    </div>
-    <div class="setting-content d-flex">
-        <div class="setting-item d-flex align-items-center">
-            <span class="material-icons icon mr-2">
-                settings
-
-            </span>
-            <p class="title">Comments 29</p>
-        </div>
-
-        <div class="setting-item d-flex align-items-center">
-            <span class="material-icons icon mr-2">
-                settings
-
-            </span>
-            <p class="title"> Energy 30</p>
-        </div>
-        <div class="setting-item d-flex align-items-center">
-            <span class="material-icons icon mr-2">
-                settings
-
-            </span>
-            <p class="title"> Reposts 10</p>
-        </div>
-
     </div>
 
-</div>
-
-<!--combinations-->
-<div class="card-item" *ngIf="combinations">
-    <div class="item-header">
-        <div class="item-head-description">
-            <img src="assets/images/img1.png" class="image" alt="Cinque Terre">
-            <p class="name-title  mb-0">Barbara Smith</p>
-            <p class="time  mb-0">1 hour ago</p>
-        </div>
-
-        <span class="material-icons icon">
-            more_vert
-        </span>
-    </div>
-    <div class="post-content">
+    <div class="post-content" *ngIf="postType === 'combinations'">
         <div class="post-container p-0">
             <img src="assets/images/img3.png" class="food-image" alt="Cinque Terre" routerLink="combination/12">
             <div class="combinations-description">
@@ -132,49 +32,17 @@
                 <p class="name">by Maya Crouche</p>
             </div>
         </div>
-
     </div>
-    <div class="setting-content d-flex">
-        <div class="setting-item d-flex align-items-center">
-            <span class="material-icons icon mr-2">
-                settings
-
-            </span>
-            <p class="title">Comments 29</p>
-        </div>
-
-        <div class="setting-item d-flex align-items-center">
-            <span class="material-icons icon mr-2">
-                settings
-
-            </span>
-            <p class="title"> Energy 30</p>
-        </div>
-        <div class="setting-item d-flex align-items-center">
-            <span class="material-icons icon mr-2">
-                settings
-
-            </span>
-            <p class="title"> Reposts 10</p>
+    <div class="post-content" *ngIf="postType === 'video'">
+        <div class="post-container p-0" (click)="openPropertyModalByVideo()">
+            <video controls class="vido w-100" poster="assets/images/img.4.png">
+                <source src="assets/images/vido.mp4">
+            </video>
         </div>
 
     </div>
 
-</div>
-<!--chicken-->
-<div class="card-item" *ngIf="chicken">
-    <div class="item-header">
-        <div class="item-head-description">
-            <img src="assets/images/img1.png" class="image" alt="Cinque Terre">
-            <p class="name-title  mb-0">Barbara Smith</p>
-            <p class="time  mb-0">1 hour ago</p>
-        </div>
-
-        <span class="material-icons icon">
-            more_vert
-        </span>
-    </div>
-    <div class="post-content">
+    <div class="post-content" *ngIf="postType === 'chicken'">
         <div class="post-container chicken-content p-0">
             <img src="assets/images/chicken.png" class="chicken-image" alt="Cinque Terre">
             <button class="btn position-absolute" routerLink='ingridient/1'>Gluten Free</button>
@@ -208,79 +76,9 @@
         </div>
 
     </div>
-    <div class="setting-content d-flex">
-        <div class="setting-item d-flex align-items-center">
-            <span class="material-icons icon mr-2">
-                settings
-
-            </span>
-            <p class="title">Comments 29</p>
-        </div>
-
-        <div class="setting-item d-flex align-items-center">
-            <span class="material-icons icon mr-2">
-                settings
-
-            </span>
-            <p class="title"> Energy 30</p>
-        </div>
-        <div class="setting-item d-flex align-items-center">
-            <span class="material-icons icon mr-2">
-                settings
-
-            </span>
-            <p class="title"> Reposts 10</p>
-        </div>
-
+    <app-settings (openChanges)='onClickOpen($event)'></app-settings>
+    <div class="posts-comments" *ngIf="isOpen">
+        <app-comments *ngFor="let item of comments" [comments]="item"></app-comments>
+        <app-posts-comments [comments]="comments"></app-posts-comments>
     </div>
-
-</div>
-
-<!--video-->
-<div class="card-item" *ngIf="image">
-    <div class="item-header">
-        <div class="item-head-description">
-            <img src="assets/images/img1.png" class="image" alt="Cinque Terre">
-            <p class="name-title  mb-0">Barbara Smith</p>
-            <p class="time  mb-0">1 hour ago</p>
-        </div>
-
-        <span class="material-icons icon">
-            more_vert
-        </span>
-    </div>
-    <div class="post-content">
-        <div class="post-container p-0" (click)="openPropertyModalByVideo()">
-            <video controls class="vido w-100" poster="assets/images/img.4.png">
-                <source src="assets/images/vido.mp4">
-            </video>
-        </div>
-
-    </div>
-    <div class="setting-content d-flex">
-        <div class="setting-item d-flex align-items-center">
-            <span class="material-icons icon mr-2">
-                settings
-
-            </span>
-            <p class="title">Comments 29</p>
-        </div>
-
-        <div class="setting-item d-flex align-items-center">
-            <span class="material-icons icon mr-2">
-                settings
-
-            </span>
-            <p class="title"> Energy 30</p>
-        </div>
-        <div class="setting-item d-flex align-items-center">
-            <span class="material-icons icon mr-2">
-                settings
-
-            </span>
-            <p class="title"> Reposts 10</p>
-        </div>
-
-    </div>
-
 </div>

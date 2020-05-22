@@ -17,6 +17,11 @@
         </div>
     </div>
     <div class="feed-item">
-        <app-post-card-item [text]="true" [image]="true" [combinations]="true" [chicken]="true" [video]="true"></app-post-card-item>
+        <app-post-card-item [postType]="'text'"></app-post-card-item>
+        <app-post-card-item [postType]="'image'"></app-post-card-item>
+        <app-post-card-item [postType]="'video'"></app-post-card-item>
+        <app-post-card-item [postType]="'combinations'"></app-post-card-item>
+        <app-post-card-item [postType]="'chicken'"></app-post-card-item>
     </div>
 </div>
+

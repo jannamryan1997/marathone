@@ -41,42 +41,9 @@
         </div>
    
     </div>
-    <div class="setting-content d-flex">
-            <div class="setting-item d-flex align-items-center">
-                <span class="material-icons icon mr-2">
-                    settings
-
-                </span>
-                <p class="title">Comments 29</p>
-            </div>
-
-            <div class="setting-item d-flex align-items-center">
-                <span class="material-icons icon mr-2">
-                    settings
-
-                </span>
-                <p class="title"> Energy 30</p>
-            </div>
-            <div class="setting-item d-flex align-items-center">
-                <span class="material-icons icon mr-2">
-                    settings
-
-                </span>
-                <p class="title"> Reposts 10</p>
-            </div>
-        </div>
+    <app-settings (openChanges)='onClickOpen($event)'></app-settings>
+    <div class="posts-comments" *ngIf="isOpen">
         <app-comments *ngFor="let item of comments" [comments]="item"></app-comments>
-        <div class="form-container">
-        <form [formGroup]="emojiForm"  (clickOutside)="onClickedOutside($event)">
-                <emoji-mart (emojiClick)="addEmoji($event)" emoji="point_up" class="d-none"
-                [ngClass]="{'d-block':showemoji}"></emoji-mart>
-            <div class="form-content d-flex">
-                <textarea type="text" formControlName="inputField" class="message-input"
-                    placeholder="Write a comment..." (keyup.enter)="addInput($event)"></textarea>
-                    
-                <img src="assets/icons/smile.png" class="smile-image" (click)="showEmoji()">
-            </div>
-        
-        </form>
+        <app-posts-comments [comments]="comments"></app-posts-comments>
     </div>
 </div>
