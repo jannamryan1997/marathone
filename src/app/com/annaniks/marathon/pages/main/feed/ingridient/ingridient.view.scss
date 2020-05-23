@@ -7,6 +7,7 @@
 .chicken-content {
     background: #ffff;
     padding: 0 10px;
+
     .chicken-header {
         position: relative;
 
@@ -36,7 +37,6 @@
             padding: 17px 20px 0px 20px;
             border-top: 1px solid #F1F1F6;
 
-
             .title {
                 @include text(28px, 33px, #45535C);
             }
@@ -50,41 +50,46 @@
             }
 
             .loader-container {
-                margin-top: 35px;
-                padding: 0 70px;
+                margin: 20px 0;
 
-                .loader {
-                    border: 6px solid #f3f3f3;
-                    border-radius: 50%;
-                    border-top: 6px solid #5899F9;
-                    width: 60px;
-                    height: 60px;
-                    -webkit-animation: spin 2s linear infinite;
-                    animation: spin 2s linear infinite;
-                    background: #F1F5FD 0% 0% no-repeat padding-box;
-                    box-shadow: 6px 22px 43px #89B5F626;
-                    opacity: 1;
+                .loader-item {
+                    width: 25%;
+                    padding: 1.2em;
+
+                    text-align: center;
+
+                    .loader {
+                        opacity: 1;
+                        border: 6px solid #f3f3f3;
+                        border-radius: 50%;
+                        border-top: 6px solid #5899F9;
+                        width: 60px;
+                        height: 60px;
+                        -webkit-animation: spin 2s linear infinite;
+                        animation: spin 2s linear infinite;
+                        background: #F1F5FD 0% 0% no-repeat padding-box;
+                        box-shadow: 6px 22px 43px #89B5F626;
+                        margin: auto;
+                    }
+
+                    .circle-text {
+                        @include text(16px, 31px, #45535C);
+                    }
                 }
 
-                .circle-text {
-                    @include text(16px, 31px, #45535C);
+                .btn-content {
+                    display: flex;
 
-                }
-            }
-
-            .btn-content {
-                margin: 35px 0;
-                padding: 0 70px;
-
-                .btn {
-                    color: #AFC1D1;
-                    border: 1px solid #d0dae4;
-                    border: 1px solid #D0DBF0;
-                    border-radius: 21px;
-                    opacity: 0.65;
-                    padding: 10px 17px;
-                    margin-left: 15px;
-                    width: 134px;
+                    .button-item {
+                        width: 33.333333%;
+                        color: #AFC1D1;
+                        border: 1px solid #d0dae4;
+                        border: 1px solid #D0DBF0;
+                        border-radius: 21px;
+                        opacity: 0.65;
+                        margin-left: 15px;
+                        padding: 10px 17px;
+                    }
                 }
             }
 
@@ -141,18 +146,21 @@
                         font-weight: 600;
                     }
                 }
-              
+
             }
-            .setting-content{
+
+            .setting-content {
                 border-top: 1px solid #F1F1F6;
                 border-bottom: 1px solid #F1F1F6;
                 padding: 0 !important;
-                .setting-item{
+
+                .setting-item {
                     padding: 19px 0;
-                .title{
-                    margin: 0 !important;
+
+                    .title {
+                        margin: 0 !important;
+                    }
                 }
-            }
             }
         }
     }

@@ -1,25 +1,20 @@
-<div class="setting-content d-flex">
-        <div class="setting-item d-flex align-items-center">
-            <span class="material-icons icon mr-2">
-                settings
-
-            </span>
-            <p class="title" (click)="onClickOpenComments()">Comments 29</p>
-        </div>
-
-        <div class="setting-item d-flex align-items-center">
-            <span class="material-icons icon mr-2">
-                settings
-
-            </span>
-            <p class="title"> Energy 30</p>
-        </div>
-        <div class="setting-item d-flex align-items-center">
-            <span class="material-icons icon mr-2">
-                settings
-
-            </span>
-            <p class="title"> Reposts 10</p>
-        </div>
-
+<div class="settings d-flex align-items-center justify-content-between">
+    <div class="setting-item">
+        <span class="material-icons icon">
+            settings
+        </span>
+        <p class="title" [ngClass]="{'fontSize':type}" (click)="onClickOpenComments()">Comments 30</p>
     </div>
+    <div class="setting-item">
+        <span class="material-icons icon">
+            settings
+        </span>
+        <p class="title"   [ngClass]="{'fontSize':type}"> Energy 30</p>
+    </div>
+    <div class="setting-item">
+        <span class="material-icons icon ">
+            settings
+        </span>
+        <p class="title"  [ngClass]="{'fontSize':type}">Reposts 10</p>
+    </div>
+</div>

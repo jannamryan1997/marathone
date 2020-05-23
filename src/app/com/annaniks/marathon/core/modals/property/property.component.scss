@@ -1,6 +1,4 @@
 .property-content {
- 
-
     .property-main {
         .image-content {
             width: 100%;
@@ -44,8 +42,9 @@
 ::ng-deep .mat-dialog-container{
     padding: 0 !important;
     background: #FFFFFF 0% 0% no-repeat padding-box !important;
-    border-radius: 15px !important;
-    opacity: 1 !important;
+    // border-radius: 15px !important;
+    // opacity:1 !important;
+
 }
 
 .setting-item .title{
@@ -54,4 +53,7 @@
 }
 .setting-content{
     padding: 20px 0px !important;
+}
+::ng-deep .cdk-global-overlay-wrapper{
+    background: #EDEDED 0% 0% no-repeat padding-box;
 }

@@ -3,6 +3,7 @@
     line-height: $lineHeight;
     color: $color;
 }
+
 .pg-container {
     width: 100%;
     max-width: 1280px;
@@ -34,19 +35,22 @@
     padding: 24px 0;
     background: #ffffff;
 }
+
 .post-content {
-    .post-container{
-    .title {
-        @include text(16px, 30px, #45535C);
-    }
-    .more {
-        color: #65a4fe;
-        cursor: pointer;
-        font-weight: bold;
-        line-height: 20px !important;
-    }
+    .post-container {
+        .title {
+            @include text(16px, 30px, #45535C);
+        }
+
+        .more {
+            color: #65a4fe;
+            cursor: pointer;
+            font-weight: bold;
+            line-height: 20px !important;
+        }
     }
 }
+
 .item-header {
     display: flex;
     justify-content: space-between;

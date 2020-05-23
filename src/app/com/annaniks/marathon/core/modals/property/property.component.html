@@ -1,42 +1,44 @@
 <div class="property-content">
     <div class="property-main d-flex justify-content-between">
         <div class="image-content">
-                <img src="assets/images/foodimg.png" class="image d-none" alt="Cinque Terre" [ngClass]="{'d-block':type==='image'}">
+            <img src="assets/images/foodimg.png" class="image d-none" alt="Cinque Terre"
+                [ngClass]="{'d-block':type==='image'}">
 
-                    <video controls class="video d-none w-100" poster="assets/images/img.4.png"  [ngClass]="{'d-block':type==='video'}">
-                        <source src="assets/images/vido.mp4">
-                    </video>
+            <video controls class="video d-none w-100" poster="assets/images/img.4.png"
+                [ngClass]="{'d-block':type==='video'}">
+                <source src="assets/images/vido.mp4">
+            </video>
         </div>
         <div class="property-description">
-                    <div class="item-header">
-                            <div class="item-head-description">
-                                <img src="assets/images/img1.png" class="image" alt="Cinque Terre" >
-                                <p class="name-title mb-0">Barbara Smith</p>
-                                <p class="time mb-0">1 hour ago</p>
-                            </div>
-                    
-                            <span class="material-icons icon">
-                                more_vert
-                            </span>
-                        </div>
-                        <div class="post-content">
-                                <div class="post-container" >
-                                    <p class="title show-content" [ngClass]="{'show':show}">{{title}}</p>
-                                    <p class="title more">...</p>
-                                    <p class="title more" (click)="onClickSeeMore()">See More</p>
-                                </div> 
-                            
-                            </div>
-                            
-                        <!-- <app-settings (openChanges)='onClickOpen($event)'></app-settings>
-                            <div class="posts-comments">
-                                <app-comments *ngFor="let item of comments" [comments]="item" [type]="type"></app-comments>
-                                <app-posts-comments [comments]="comments"></app-posts-comments>
-                            </div>
-                         -->
-             
+            <div class="item-header">
+                <div class="item-head-description">
+                    <img src="assets/images/img1.png" class="image" alt="Cinque Terre">
+                    <p class="name-title mb-0">Barbara Smith</p>
+                    <p class="time mb-0">1 hour ago</p>
+                </div>
+
+                <span class="material-icons icon">
+                    more_vert
+                </span>
+            </div>
+            <div class="post-content">
+                <div class="post-container">
+                    <p class="title show-content" [ngClass]="{'show':show}">{{title}}</p>
+                    <p class="title more">...</p>
+                    <p class="title more" (click)="onClickSeeMore()">See More</p>
+                </div>
+
+            </div>
+            <div *ngIf="isOpen">
+                <app-comments *ngFor="let item of comments" [comments]="item" [type]="type"></app-comments>
+            </div>
+            <app-settings (openChanges)='onClickOpen($event)' [type]="type"></app-settings>
+
+            <div *ngIf="isOpen">
+                <app-posts-comments [comments]="comments"></app-posts-comments>
+            </div>
+
         </div>
-      
+
     </div>
-    
 </div>

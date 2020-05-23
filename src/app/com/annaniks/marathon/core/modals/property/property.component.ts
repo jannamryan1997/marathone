@@ -1,6 +1,5 @@
 import { Component, OnInit, Inject } from "@angular/core";
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
     selector: "app-property",
@@ -11,6 +10,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 export class PropertyModal implements OnInit {
     public show: boolean = false;
     public type: string;
+    public isOpen:boolean=false;
     public comments = [
         {
             image: "assets/images/img8.png", name: "hanna mryan", time: "1 hour ago", message: "barevvvvvvvvv bari voxjuyn hiiiii", view: "2", like: "25", dislike: "6",
@@ -33,6 +33,8 @@ export class PropertyModal implements OnInit {
     public onClickSeeMore(): void {
         this.show = !this.show;
     }
-
+    public onClickOpen($event): void {
+        this.isOpen=$event;
+    }
 
 }

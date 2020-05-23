@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from "@angular/core";
+import { Component, OnInit, Output, EventEmitter, Input } from "@angular/core";
 
 @Component({
     selector: "app-settings",
@@ -8,10 +8,14 @@ import { Component, OnInit, Output, EventEmitter } from "@angular/core";
 
 export class SettingsComponent implements OnInit {
     public isOpen: boolean = false;
+    @Input() type: string;
     @Output() openChanges = new EventEmitter();
     constructor() { }
 
-    ngOnInit() { }
+    ngOnInit() { 
+        console.log(this.type);
+        
+    }
     
     public onClickOpenComments(): void {
         this.isOpen = !this.isOpen;
