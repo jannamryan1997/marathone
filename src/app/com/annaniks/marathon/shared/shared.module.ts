@@ -14,6 +14,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { ClickOutsideModule } from 'ng-click-outside';
 import { HttpClientModule } from '@angular/common/http';
+import { PostCardItemComponent } from '../pages/main/feed/posts/component/post-card-item/post-card-item.component';
 
 @NgModule({
     declarations: [
@@ -22,7 +23,8 @@ import { HttpClientModule } from '@angular/common/http';
         RightMenuComponent,
         CommentsComponent,
         SettingsComponent,
-        PostsComments
+        PostsComments,
+        PostCardItemComponent
     ],
     imports: [
         CommonModule,
@@ -49,7 +51,8 @@ import { HttpClientModule } from '@angular/common/http';
         ClickOutsideModule,
         SettingsComponent,
         PostsComments,
-        HttpClientModule
+        HttpClientModule,
+        PostCardItemComponent
 
     ]
 })

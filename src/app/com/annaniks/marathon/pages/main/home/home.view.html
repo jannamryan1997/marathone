@@ -1,0 +1,125 @@
+<div class="home-container">
+    <div class="home-main">
+        <div class="profile-description">
+            <img src="assets/images/profile-img.png" class="cover-image" alt="Cinque Terre">
+            <div class="profile-content">
+                <div class="profile-header-content display-flex">
+                    <img src="assets/images/img2.png" class="user-image" alt="Cinque Terre">
+                    <div class="btn-conmtent d-flex align-items-center">
+                        <button class="btn">Follow</button>
+                        <button class="btn">Packages</button>
+                        <button class="btn btn-loader">
+                            <span class="material-icons icon">
+                                alternate_email
+                            </span>
+                        </button>
+                        <button class="btn btn-loader">
+                            <span class="material-icons icon">
+                                alternate_email
+                            </span>
+                        </button>
+                        <button class="btn btn-loader">
+                            <span class="material-icons icon">
+                                alternate_email
+                            </span>
+                        </button>
+                        <button class="btn btn-loader">
+                            <span class="material-icons icon">
+                                more_vert
+                            </span>
+                        </button>
+                    </div>
+                </div>
+                <div class="review-content display-flex">
+                    <p class="name">Barbara Smith</p>
+                    <div class=" display-flex">
+                        <div class="review display-flex">
+                            <div class="review-item" *ngFor="let item of reviewItem">
+                                <span class="material-icons star-icon">
+                                    grade
+                                </span>
+                            </div>
+                        </div>
+                        <p class="title">2 review</p>
+                    </div>
+                </div>
+                <div class="profile-data display-flex">
+                    <div class="data-item">
+                        <p class="item-title">@Barbara_fitnes</p>
+
+                    </div>
+                    <div class="data-item">
+                        <p class="item-title">Belgium/Brussels</p>
+                    </div>
+                    <div class="data-item">
+                        <div class="display-flex">
+                            <img src="assets/images/eng.png" class="country-img" alt="Cinque Terre">
+                            <p class="country-name ml-2">Eng</p>
+                            <img src="assets/images/germ.png" class="country-img ml-2" alt="Cinque Terre">
+                            <p class="country-name ml-2">Ger</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="statistic display-flex">
+                    <div class="m-auto  display-flex">
+                        <div class="statistic-item">
+                            <p class="count">600</p>
+                            <p class="statistic-title">Energy</p>
+                        </div>
+                        <div class="statistic-item">
+                            <p class="count">600</p>
+                            <p class="statistic-title">Energy</p>
+                        </div>
+                        <div class="statistic-item">
+                            <p class="count">600</p>
+                            <p class="statistic-title">Energy</p>
+                        </div>
+                        <div class="statistic-item">
+                            <p class="count">600</p>
+                            <p class="statistic-title">Energy</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="post-content">
+                    <div class="post-container">
+                        <p class="title show-content" [ngClass]="{'show':showTitle}">Lorem ipsum dolor sit amet
+                            consectetur adipisicing elit. Sed porro quos cum ipsum, ex repellendus distinctio? Ullam
+                            cupiditate a natus, nemo inventore, pariatur asperiores aperiam, odio dolores quod debitis
+                            officia. Lorem ipsum dolor sit amet
+                            consectetur adipisicing elit. Sed porro quos cum ipsum, ex repellendus distinctio? Ullam
+                            cupiditate a natus, nemo inventore, pariatur asperiores aperiam, odio dolores quod debitis
+                            officia.</p>
+                        <p class="title more">...</p>
+                        <p class="title more" (click)="onClickSeeMore()">See More</p>
+                    </div>
+                </div>
+                <div class="events-tab display-flex" [ngSwitch]="tab">
+                    <div class="tab-item" (click)="onClickTab(1)" [ngClass]="{'activeTab':tab===1}">
+                        <p class="tab-text">Posts</p>
+                    </div>
+                    <div class="tab-item" (click)="onClickTab(2)"  [ngClass]="{'activeTab':tab===2}">
+                        <p class="tab-text">Gallery</p>
+                    </div>
+                    <div class="tab-item" (click)="onClickTab(3)"  [ngClass]="{'activeTab':tab===3}">
+                        <p class="tab-text">Information</p>
+                    </div>
+                </div>
+                <div class="events-header" *ngIf="tab===1">
+                        <p class="tab-text">Posts</p>
+                </div>
+                <div class="events-header" *ngIf="tab===2">
+                        <p class="tab-text">Gallery</p>
+                </div>
+                <div class="events-header" *ngIf="tab===3">
+                        <p class="tab-text">Information</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="feed-item">
+            <app-post-card-item [postType]="'image'"></app-post-card-item>
+            <app-post-card-item [postType]="'combinations'"></app-post-card-item>
+        </div>
+</div>

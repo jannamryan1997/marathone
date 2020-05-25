@@ -15,21 +15,6 @@
         .title {
             @include text(20px, 24px, #AFC1D1);
         }
-        .buttons-content {
-            margin-top: 20px;
-            .button-item{
-                width: 25%;
-                color: #AFC1D1;
-                border: 1px solid #d0dae4;
-                border-radius: 21px;
-                opacity: 0.65;
-                margin-right: 15px;
-                padding: 5px;
-                cursor: pointer;
-                &:first-child{
-                    margin-left: 15px;
-                }
-            }
-        }
+     
     }
 }

@@ -3,7 +3,7 @@
         <div class="message d-flex">
             <img [src]="comments?.image" class="user-image" alt="Cinque Terre">
             <div class="comments-container">
-                <div class="container-description align-items-center d-flex justify-content-between">
+                <div class="container-description display-flex">
                     <div class="d-flex">
                         <p class="name">{{comments?.name}}</p>
                         <p class="time ml-2">{{comments?.time}}</p>
@@ -37,7 +37,7 @@
             <div class="replay-message message d-flex" *ngFor="let item of comments?.chiled">
                 <img src="{{item?.image}}" class="user-image" alt="Cinque Terre">
                 <div class="comments-container">
-                    <div class="container-description align-items-center d-flex justify-content-between">
+                    <div class="container-description display-flex">
                         <div class="d-flex">
                             <p class="name">{{item?.name}}</p>
                             <p class="time ml-2">{{item?.time}}</p>
@@ -81,7 +81,7 @@
             </div>
             <p class="commet-message">{{comments?.message}}</p>
 
-            <div class="mb-2 d-flex align-items-center justify-content-between">
+            <div class="mb-2 display-flex">
                 <p class="view-title" (click)="isOpenReplay()">Replays 2</p>
                 <div class="d-flex">
                     <div class="like d-flex ml-2">
@@ -106,7 +106,7 @@
         </div>
         <div *ngIf="showReplay">
             <div class="replay-message message" *ngFor="let item of comments?.chiled">
-                <div class="d-flex  align-items-center justify-content-between">
+                <div class="display-flex">
                     <img src="{{item?.image}}" class="user-image" alt="Cinque Terre">
                     <div class="comments-container">
                         <div class="d-flex">
@@ -116,7 +116,7 @@
                     </div>
                 </div>
                 <p class="commet-message">{{item?.comments}}</p>
-                <div class="mb-2 d-flex align-items-center justify-content-between">
+                <div class="mb-2 display-flex">
                     <p class="view-title">Replays 2</p>
                     <div class="d-flex">
                         <div class="like d-flex ml-2">

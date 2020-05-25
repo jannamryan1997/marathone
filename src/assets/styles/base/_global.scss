@@ -10,6 +10,12 @@
     margin: 0 auto;
 }
 
+.display-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .activeTab {
     color: #65a4fe !important;
 }
@@ -113,4 +119,32 @@
         font-size: 35px;
         font-weight: bold;
     }
+}
+
+//button
+.buttons-content {
+    margin-top: 20px;
+    .button-item{
+        width: 25%;
+        color: #AFC1D1;
+        border: 1px solid #d0dae4;
+        border-radius: 21px;
+        opacity: 0.65;
+        margin-right: 15px;
+        padding: 5px;
+        cursor: pointer;
+        outline: none;
+        background: #ffffff;
+        &:first-child{
+            margin-left: 15px;
+        }
+    }
+}
+
+.show-content {
+    font-size: 16px;
+    line-height: 16px;
+    height:120px;
+    overflow: hidden;
+    transition: .5s all ease-out;
 }

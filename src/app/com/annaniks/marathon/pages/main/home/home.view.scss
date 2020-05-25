@@ -1,0 +1,137 @@
+@mixin text($fontSize, $lineHeight, $color) {
+    font-size: $fontSize;
+    line-height: $lineHeight;
+    color: $color;
+}
+
+.home-container {
+    .home-main {
+        background: #FFFFFF 0% 0% no-repeat padding-box;
+        box-shadow: 2px 30px 43px #5C687B17;
+        border: 0.5px solid #E3ECFD;
+        border-radius: 0px 0px 15px 15px;
+        opacity: 1;
+
+        .profile-description {
+            position: relative;
+
+            .cover-image {
+                height: 185px;
+                width: 100%;
+                background: #527AB2;
+
+            }
+
+            .profile-content {
+                padding: 0 23px 30px 23px;
+
+                .profile-header-content {
+
+                    .user-image {
+                        width: 147px;
+                        height: 147px;
+                        border-radius: 50%;
+                        background: #FEA6CC;
+                        border: 2px solid #ffff;
+                        margin-top: -80px;
+                    }
+
+                    .btn {
+                        border: 1px solid #BACBDB;
+                        color: #BACBDB;
+                        margin-left: 9px;
+                    }
+
+                    .btn-loader {
+                        padding: 5px !important;
+                        border-radius: 50% !important;
+
+                        .icon {
+                            font-size: 16px;
+                        }
+                    }
+                }
+
+                .review-content {
+                    padding: 28px 0 19px 0;
+
+                    .name {
+                        @include text(22px, 20px, #45535C);
+                        font-weight: 400;
+                    }
+
+                    .review {
+                        .review-item {
+                            width: 25%;
+                            padding: 5px;
+                            color: #FBD833;
+                            cursor: pointer;
+                        }
+
+                        .title {
+                            @include text(18px, 20px, #45535C);
+                        }
+                    }
+                }
+
+                .profile-data {
+                    .data-item {
+                        width: 33.333333%;
+                        margin-right: 30px;
+
+                        .item-title {
+                            @include text(22px, 26px, #BACBDB);
+                        }
+
+                        .country-img {
+                            width: 21px;
+                            height: 21px;
+                            border-radius: 50%;
+                        }
+
+                        .country-name {
+                            @include text(22px, 26px, #45535C);
+                        }
+                    }
+                }
+
+                .statistic {
+                    .statistic-item {
+                        width: 25%;
+                        padding: 1.2em;
+                        text-align: center;
+
+                        .count {
+                            @include text(22px, 33px, #589CFE);
+                        }
+
+                        .statistic-title {
+                            @include text(15px, 20px, #45535C);
+                        }
+                    }
+                }
+                .events-tab{
+                    .tab-item{
+                        border-bottom: 2px solid #BACBDB;
+                        padding: 1.2em 0;
+                        width: 33.333333%;
+                        @include text(25px, 33px, #BACBDB);   
+                        cursor: pointer;
+                        transition: .5s all ease-out;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.show {
+    overflow: visible;
+    height: auto;
+    transition: .5s all ease-out;
+}
+
+.activeTab{
+    color: #45535C !important;
+    border-bottom: 2px solid #589CFE !important;
+}

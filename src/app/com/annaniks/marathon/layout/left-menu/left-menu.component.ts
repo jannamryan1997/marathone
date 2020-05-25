@@ -10,7 +10,7 @@ import { MenuItem } from '../../core/models';
 export class LeftMenuCompomemtn implements OnInit {
     @ViewChild('navbar') private _navbarElement: ElementRef;
     public leftMenuItem:MenuItem[]= [
-        { routerLink: "/feed", title: "Home" },
+        { routerLink: "/home", title: "Home" },
         { routerLink: "#", title: "Profile" },
         { routerLink: "#", title: "Dashboard" },
         { routerLink: "#", title: "Marathon" },
