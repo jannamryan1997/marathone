@@ -8,7 +8,6 @@ import { ContactItem, FollowItem } from '../../core/models';
 })
 
 export class RightMenuComponent implements OnInit {
-    @ViewChild('navbar') private _navbarElement: ElementRef;
     public contactItem: ContactItem[] = [
         { image: "assets/images/img1.png", name: "Olivie Gipson" },
         { image: "assets/images/img2.png", name: "Olivie Gipson" },
@@ -28,19 +27,6 @@ export class RightMenuComponent implements OnInit {
     ]
     constructor() { }
 
-    ngOnInit() {
-        this._handleScrollPositionChange();
-     }
+    ngOnInit() {}
 
-    private _handleScrollPositionChange() {
-     
-        document.addEventListener('scroll', () => {
-            if (window.scrollY >= 1) {
-                this._navbarElement.nativeElement.classList.add('fixed');
-            }
-            else {
-                this._navbarElement.nativeElement.classList.remove('fixed');
-            }
-        })
-    }
 }

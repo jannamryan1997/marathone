@@ -1,14 +1,21 @@
 header {
     background: #FFFFFF 0% 0% no-repeat padding-box;
     box-shadow: 11px 13px 18px #3E598B0F;
-     opacity: 1;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index:1;
+
     .header-container {
         padding: 25px 0;
         align-items: center;
+
         .logo-image {
             width: 100%;
             max-width: 150px;
         }
+
         .header-category {
             .link {
                 color: #AFC1D1;
@@ -19,8 +26,9 @@ header {
                 font-weight: 600;
                 transition: .5s all ease-out;
                 height: fit-content;
-                &:hover{
-                    color:#65a4fe;
+
+                &:hover {
+                    color: #65a4fe;
                 }
             }
         }
@@ -34,29 +42,9 @@ header {
             width: 270px;
 
             &::placeholder {
-                color: #BEC8DD!important;
+                color: #BEC8DD !important;
                 font-size: 18px;
             }
         }
     }
-}
-
-
-// .li-activeTab {
-//     &::after {
-//         display: block;
-//         content: "";
-//         border: 1px solid #65a4fe;
-//         margin-top:27px;
-//     }
-// }
-
-.fixed {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
- background: #ffffff;
-    z-index: 999999;
-    box-shadow: 11px 4px 17px -8px rgba(0, 0, 0, 0.75);
 }

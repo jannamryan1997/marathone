@@ -5,6 +5,7 @@
 }
 
 .left-menu {
+    position: fixed;
     .left-menu-description {
         text-align: center;
 
@@ -31,9 +32,4 @@
             margin-top: 40px;
         }
     }
-}
-
-.fixed {
-    position: fixed;
-    top: 110px;
 }

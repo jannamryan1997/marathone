@@ -3,21 +3,27 @@
         .image-content {
             width: 100%;
             max-width: 980px;
-            .image{
+
+            .image {
                 height: 800px;
             }
-         .video{
-            height: 800px;   
-         }
+
+            .video {
+                height: 800px;
+            }
         }
-        .property-description{
+
+        .property-description {
             width: 100%;
             max-width: 420px;
             padding: 20px 20px;
-            .item-header{
+            max-height: 800px;
+            overflow-y: scroll;
+            .item-header {
                 padding: 0 !important;
             }
-            .post-content{
+
+            .post-content {
                 margin: 10px 0;
                 border-bottom: 1px solid #E3ECFD;
                 border-top: 1px solid #E3ECFD;
@@ -26,6 +32,7 @@
         }
     }
 }
+
 .show-content {
     font-size: 16px;
     line-height: 16px;
@@ -39,7 +46,8 @@
     height: auto;
     transition: .5s all ease-out;
 }
-::ng-deep .mat-dialog-container{
+
+::ng-deep .mat-dialog-container {
     padding: 0 !important;
     background: #FFFFFF 0% 0% no-repeat padding-box !important;
     // border-radius: 15px !important;
@@ -47,13 +55,15 @@
 
 }
 
-.setting-item .title{
+.setting-item .title {
     font-size: 15px !important;
     line-height: 25px !important;
 }
-.setting-content{
+
+.setting-content {
     padding: 20px 0px !important;
 }
-::ng-deep .cdk-global-overlay-wrapper{
+
+::ng-deep .cdk-global-overlay-wrapper {
     background: #EDEDED 0% 0% no-repeat padding-box;
 }

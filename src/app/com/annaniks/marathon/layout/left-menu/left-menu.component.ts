@@ -8,7 +8,6 @@ import { MenuItem } from '../../core/models';
 })
 
 export class LeftMenuCompomemtn implements OnInit {
-    @ViewChild('navbar') private _navbarElement: ElementRef;
     public leftMenuItem:MenuItem[]= [
         { routerLink: "/home", title: "Home" },
         { routerLink: "#", title: "Profile" },
@@ -19,19 +18,5 @@ export class LeftMenuCompomemtn implements OnInit {
     ]
     constructor() { }
 
-    ngOnInit() { 
-        this._handleScrollPositionChange();
-    }
-
-    private _handleScrollPositionChange() {
-     
-        document.addEventListener('scroll', () => {
-            if (window.scrollY >= 1) {
-                this._navbarElement.nativeElement.classList.add('fixed');
-            }
-            else {
-                this._navbarElement.nativeElement.classList.remove('fixed');
-            }
-        })
-    }
+    ngOnInit() {}
 }
