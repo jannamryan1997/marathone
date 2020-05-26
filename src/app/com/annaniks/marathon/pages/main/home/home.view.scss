@@ -3,7 +3,6 @@
     line-height: $lineHeight;
     color: $color;
 }
-
 .home-container {
     .home-main {
         background: #FFFFFF 0% 0% no-repeat padding-box;
@@ -11,30 +10,39 @@
         border: 0.5px solid #E3ECFD;
         border-radius: 0px 0px 15px 15px;
         opacity: 1;
-
         .profile-description {
             position: relative;
-
             .cover-image {
                 height: 185px;
                 width: 100%;
                 background: #527AB2;
-
             }
-
             .profile-content {
                 padding: 0 23px 30px 23px;
-
                 .profile-header-content {
-
-                    .user-image {
-                        width: 147px;
-                        height: 147px;
-                        border-radius: 50%;
-                        background: #FEA6CC;
-                        border: 2px solid #ffff;
+                    .profile-image{
                         margin-top: -80px;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        .user-image {
+                            width: 147px;
+                            height: 147px;
+                            border-radius: 50%;
+                            background: #FEA6CC;
+                            border: 2px solid #ffff;
+                        }
+                        .coach-btn{
+                            border: 2px solid #FFFFFF;
+                            border-radius: 16px;
+                            opacity: 1;
+                            background: #589CFE;
+                            padding: 3px 20px;
+                            color: #ffff;
+                            margin-top: -25px;
+                        }
                     }
+                    
 
                     .btn {
                         border: 1px solid #BACBDB;
@@ -43,7 +51,7 @@
                     }
 
                     .btn-loader {
-                        padding: 5px !important;
+                        padding: 8px !important;
                         border-radius: 50% !important;
 
                         .icon {
@@ -77,8 +85,6 @@
                 .profile-data {
                     .data-item {
                         width: 33.333333%;
-                        margin-right: 30px;
-
                         .item-title {
                             @include text(22px, 26px, #BACBDB);
                         }
@@ -110,28 +116,52 @@
                         }
                     }
                 }
-                .events-tab{
-                    .tab-item{
+
+                .events-tab {
+                    .tab-item {
                         border-bottom: 2px solid #BACBDB;
                         padding: 1.2em 0;
                         width: 33.333333%;
-                        @include text(25px, 33px, #BACBDB);   
+                        @include text(25px, 33px, #BACBDB);
                         cursor: pointer;
                         transition: .5s all ease-out;
                     }
+
+                }
+
+                .posts-tab {
+                    padding: 30px 0;
+                
                 }
             }
         }
     }
 }
-
+.btn-content {
+    .btn {
+        border: 1px solid #BACBDB;
+        color: #BACBDB;
+        padding: 7px 20px !important;
+        border-radius: 19px;
+    }
+}
 .show {
     overflow: visible;
     height: auto;
     transition: .5s all ease-out;
 }
 
-.activeTab{
+.activeTab {
     color: #45535C !important;
     border-bottom: 2px solid #589CFE !important;
+}
+
+.activePostButton {
+    background: #589CFE !important;
+    color: #ffff !important;
+    border: 0.5px solid #E3ECFD;
+    border-radius: 0px 0px 15px 15px;
+    opacity: 1;
+    border: 1px solid #589CFE !important;
+    box-shadow: 0px 2px 8px #589CFE;
 }

@@ -4,8 +4,12 @@
             <img src="assets/images/profile-img.png" class="cover-image" alt="Cinque Terre">
             <div class="profile-content">
                 <div class="profile-header-content display-flex">
-                    <img src="assets/images/img2.png" class="user-image" alt="Cinque Terre">
-                    <div class="btn-conmtent d-flex align-items-center">
+                    <div class="profile-image">
+                            <img src="assets/images/img2.png" class="user-image" alt="Cinque Terre">
+                            <button class="btn coach-btn">Coach</button>
+                    </div>
+            
+                    <div class="btn-content d-flex align-items-center">
                         <button class="btn">Follow</button>
                         <button class="btn">Packages</button>
                         <button class="btn btn-loader">
@@ -52,11 +56,11 @@
                         <p class="item-title">Belgium/Brussels</p>
                     </div>
                     <div class="data-item">
-                        <div class="display-flex">
+                        <div class="display-flex ml-3">
                             <img src="assets/images/eng.png" class="country-img" alt="Cinque Terre">
-                            <p class="country-name ml-2">Eng</p>
+                            <p class="country-name">Eng</p>
                             <img src="assets/images/germ.png" class="country-img ml-2" alt="Cinque Terre">
-                            <p class="country-name ml-2">Ger</p>
+                            <p class="country-name">Ger</p>
                         </div>
                     </div>
                 </div>
@@ -90,8 +94,15 @@
                             consectetur adipisicing elit. Sed porro quos cum ipsum, ex repellendus distinctio? Ullam
                             cupiditate a natus, nemo inventore, pariatur asperiores aperiam, odio dolores quod debitis
                             officia.</p>
-                        <p class="title more">...</p>
-                        <p class="title more" (click)="onClickSeeMore()">See More</p>
+                        <span class="title more">...</span>
+                        <span class="title more" (click)="onClickSeeMore()">See More</span>
+                    </div>
+                </div>
+                <div class="d-flex mt-4">
+                <div class="btn-content display-flex m-auto">
+                        <button class="btn mr-3">Bodybuilding</button>
+                        <button class="btn  mr-3">Fat Loss</button>
+                        <button class="btn">Power Lifting</button>
                     </div>
                 </div>
                 <div class="events-tab display-flex" [ngSwitch]="tab">
@@ -106,7 +117,16 @@
                     </div>
                 </div>
                 <div class="events-header" *ngIf="tab===1">
-                        <p class="tab-text">Posts</p>
+                     <div class="posts-tab">
+                         <div class="btn-content display-flex">
+                             <button class="btn" [ngClass]="{'activePostButton':tab===1}">All</button>
+                             <button class="btn">Articles</button>
+                             <button class="btn">Q & a</button>
+                             <button class="btn">Recipes</button>
+                             <button class="btn">Workouts</button>
+                             <button class="btn">Music</button>
+                         </div>
+                     </div>
                 </div>
                 <div class="events-header" *ngIf="tab===2">
                         <p class="tab-text">Gallery</p>
