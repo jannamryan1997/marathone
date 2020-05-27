@@ -135,6 +135,7 @@
         cursor: pointer;
         outline: none;
         background: #ffffff;
+        transition: .5s all ease-out;
         &:first-child{
             margin-left: 15px;
         }
@@ -147,4 +148,17 @@
     height:120px;
     overflow: hidden;
     transition: .5s all ease-out;
+}
+
+//review
+.review {
+    .review-item {
+        width: 25%;
+        padding: 5px;
+        color: #FBD833;
+        cursor: pointer;
+    }
+    .title {
+        @include text(18px, 20px, #45535C);
+    }
 }

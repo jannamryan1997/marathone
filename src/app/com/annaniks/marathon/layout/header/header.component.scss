@@ -5,45 +5,57 @@ header {
     top: 0;
     left: 0;
     right: 0;
-    z-index:1;
+    z-index: 1;
 
     .header-container {
         padding: 25px 0;
-        align-items: center;
 
-        .logo-image {
-            width: 100%;
-            max-width: 150px;
-        }
+        .header-content {
+            .logo-image {
+                width: 100%;
+                max-width: 120px;
+            }
 
-        .header-category {
-            .link {
-                color: #AFC1D1;
-                font-size: 18px;
-                text-decoration: none;
-                margin-right: 32px;
-                cursor: pointer;
-                font-weight: 600;
-                transition: .5s all ease-out;
-                height: fit-content;
+            .header-category {
+                .link {
+                    color: #AFC1D1;
+                    font-size: 18px;
+                    text-decoration: none;
+                    margin-right: 32px;
+                    cursor: pointer;
+                    font-weight: 600;
+                    transition: .5s all ease-out;
+                    height: fit-content;
 
-                &:hover {
-                    color: #65a4fe;
+                    &:hover {
+                        color: #65a4fe;
+                    }
+                }
+            }
+
+            .search-input {
+                background: #F3F3FA 0% 0% no-repeat padding-box;
+                border: 0.5px solid #ACC3D9;
+                border-radius: 21px;
+                opacity: 0.66;
+                padding: 6px 18px;
+                width: 270px;
+
+                &::placeholder {
+                    color: #BEC8DD !important;
+                    font-size: 18px;
                 }
             }
         }
 
-        .search-input {
-            background: #F3F3FA 0% 0% no-repeat padding-box;
-            border: 0.5px solid #ACC3D9;
-            border-radius: 21px;
-            opacity: 0.66;
-            padding: 6px 18px;
-            width: 270px;
+        .header-manu {
+            text-align: end;
 
-            &::placeholder {
-                color: #BEC8DD !important;
-                font-size: 18px;
+            .open-icon {
+                color: #65a4fe;
+                font-weight: 400;
+                cursor: pointer;
+                font-size: 45px;
             }
         }
     }

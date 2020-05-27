@@ -9,6 +9,8 @@ import { Component, OnInit } from "@angular/core";
 export class HomeView implements OnInit {
     public showTitle: boolean;
     public tab: number = 1;
+    public galerryTab: number = 1;
+    public openReview:boolean=false;
     public reviewItem = [{}, {}, {}, {}, {}]
     constructor() { }
 
@@ -20,7 +22,19 @@ export class HomeView implements OnInit {
     }
     public onClickTab(tab): void {
         this.tab = tab;
-        console.log(this.tab);
+        if(this.tab===4){
+            this.openReview = !this.openReview; 
+        }
+        else{
+            this.openReview =false;
+        }
 
     }
+    public onClickGalerryTab(tab): void {
+        this.galerryTab = tab;
+    }
+    public onClickShowTotalReview():void{
+            this.openReview = !this.openReview;
+    }
+
 }

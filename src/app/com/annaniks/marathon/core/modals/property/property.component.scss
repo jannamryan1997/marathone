@@ -1,15 +1,30 @@
 .property-content {
+padding: 0 20px;
+    .clear-icon{
+        padding: 10px 20px;
+        font-weight: bold;
+        cursor: pointer;
+        font-size: 30px;
+    }
     .property-main {
+        background: #FFFFFF;
+        border-radius: 15px;
+        opacity: 1;
+        margin: auto !important;
+
         .image-content {
             width: 100%;
             max-width: 980px;
+       
 
             .image {
                 height: 800px;
+                border-radius: 15px 0px 0px 15px;
             }
 
             .video {
                 height: 800px;
+                border-radius: 0 0 0 15px;
             }
         }
 
@@ -19,6 +34,8 @@
             padding: 20px 20px;
             max-height: 800px;
             overflow-y: scroll;
+            border-radius: 15px;
+
             .item-header {
                 padding: 0 !important;
             }
@@ -50,9 +67,6 @@
 ::ng-deep .mat-dialog-container {
     padding: 0 !important;
     background: #FFFFFF 0% 0% no-repeat padding-box !important;
-    // border-radius: 15px !important;
-    // opacity:1 !important;
-
 }
 
 .setting-item .title {
@@ -64,6 +78,7 @@
     padding: 20px 0px !important;
 }
 
-::ng-deep .cdk-global-overlay-wrapper {
-    background: #EDEDED 0% 0% no-repeat padding-box;
+::ng-deep .mat-dialog-container {
+    background: #EDEDED44 0% 0% no-repeat padding-box !important;
+
 }

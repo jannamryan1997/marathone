@@ -12,10 +12,7 @@ export class SettingsComponent implements OnInit {
     @Output() openChanges = new EventEmitter();
     constructor() { }
 
-    ngOnInit() { 
-        console.log(this.type);
-        
-    }
+    ngOnInit() { }
     
     public onClickOpenComments(): void {
         this.isOpen = !this.isOpen;

@@ -1,11 +1,35 @@
-@media only screen and (max-width:1279px){
-    .right-content{
+@media only screen and (max-width:1400px) {
+    .header-category {
+    .link {
+        font-size: 15px !important;
+        margin-right: 25px !important;
+    }
+}
+    .search-input {
+        width: 170px !important;
+    }
+}
+
+@media only screen and (max-width:1100px) {
+    .header-container {
+        padding:15px 0 !important;
+        .header-content {
+            display: none !important;
+        }
+    }
+    .header-manu {
+        display: block !important;
+    }
+}
+
+@media only screen and (max-width:1279px) {
+    .right-content {
         display: none !important;
     }
 }
 
-@media only screen and (max-width:900px){
-    .left-content{
-        display: none !important;    
+@media only screen and (max-width:900px) {
+    .left-content {
+        display: none !important;
     }
 }

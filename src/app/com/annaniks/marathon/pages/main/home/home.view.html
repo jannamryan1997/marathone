@@ -5,10 +5,10 @@
             <div class="profile-content">
                 <div class="profile-header-content display-flex">
                     <div class="profile-image">
-                            <img src="assets/images/img2.png" class="user-image" alt="Cinque Terre">
-                            <button class="btn coach-btn">Coach</button>
+                        <img src="assets/images/img2.png" class="user-image" alt="Cinque Terre">
+                        <button class="btn coach-btn">Coach</button>
                     </div>
-            
+
                     <div class="btn-content d-flex align-items-center">
                         <button class="btn">Follow</button>
                         <button class="btn">Packages</button>
@@ -99,7 +99,7 @@
                     </div>
                 </div>
                 <div class="d-flex mt-4">
-                <div class="btn-content display-flex m-auto">
+                    <div class="btn-content display-flex m-auto">
                         <button class="btn mr-3">Bodybuilding</button>
                         <button class="btn  mr-3">Fat Loss</button>
                         <button class="btn">Power Lifting</button>
@@ -109,37 +109,67 @@
                     <div class="tab-item" (click)="onClickTab(1)" [ngClass]="{'activeTab':tab===1}">
                         <p class="tab-text">Posts</p>
                     </div>
-                    <div class="tab-item" (click)="onClickTab(2)"  [ngClass]="{'activeTab':tab===2}">
+                    <div class="tab-item" (click)="onClickTab(2)" [ngClass]="{'activeTab':tab===2}">
                         <p class="tab-text">Gallery</p>
                     </div>
-                    <div class="tab-item" (click)="onClickTab(3)"  [ngClass]="{'activeTab':tab===3}">
+                    <div class="tab-item" (click)="onClickTab(3)" [ngClass]="{'activeTab':tab===3}">
                         <p class="tab-text">Information</p>
+                    </div>
+                    <div class="tab-item" (click)="onClickTab(4)" [ngClass]="{'activeTab':tab===4}">
+                        <p class="tab-text">Reviews</p>
                     </div>
                 </div>
                 <div class="events-header" *ngIf="tab===1">
-                     <div class="posts-tab">
-                         <div class="btn-content display-flex">
-                             <button class="btn" [ngClass]="{'activePostButton':tab===1}">All</button>
-                             <button class="btn">Articles</button>
-                             <button class="btn">Q & a</button>
-                             <button class="btn">Recipes</button>
-                             <button class="btn">Workouts</button>
-                             <button class="btn">Music</button>
-                         </div>
-                     </div>
+                    <div class="posts-tab">
+                        <div class="btn-content display-flex">
+                            <button class="btn" [ngClass]="{'activePostButton':tab===1}">All</button>
+                            <button class="btn">Articles</button>
+                            <button class="btn">Q & a</button>
+                            <button class="btn">Recipes</button>
+                            <button class="btn">Workouts</button>
+                            <button class="btn">Music</button>
+                        </div>
+                    </div>
                 </div>
-                <div class="events-header" *ngIf="tab===2">
-                        <p class="tab-text">Gallery</p>
+                <div class="events-header d-flex flex-column" *ngIf="tab===2">
+                    <div class="gallery-tab m-auto">
+                        <div class="btn-content display-flex m-auto">
+                            <button class="btn ml-2" [ngClass]="{'activePostButton':galerryTab===1}"
+                                (click)="onClickGalerryTab(1)">All</button>
+                            <button class="btn ml-2" [ngClass]="{'activePostButton':galerryTab===2}"
+                                (click)="onClickGalerryTab(2)">Photos</button>
+                            <button class="btn ml-2" [ngClass]="{'activePostButton':galerryTab===3}"
+                                (click)="onClickGalerryTab(3)">Videos</button>
+                        </div>
+                    </div>
+                    <div class="events-content" [ngSwitch]="galerryTab">
+                        <app-galery *ngIf="galerryTab===1"></app-galery>
+                        <p *ngIf="galerryTab===2">photo</p>
+                        <p *ngIf="galerryTab===3">video</p>
+                    </div>
+
                 </div>
                 <div class="events-header" *ngIf="tab===3">
-                        <p class="tab-text">Information</p>
+                    <p class="tab-text">Information</p>
+                </div>
+                <div class="events-header" *ngIf="tab===4">
+                    <div>
+                        <p class="review-text" (click)="onClickShowTotalReview()">Total reviews 20</p>
+                    </div>
+
                 </div>
             </div>
         </div>
     </div>
-
+<div class="review-content" *ngIf="openReview">
+        <app-review></app-review>
+        <app-review></app-review>
+        <app-review></app-review>
+        <app-review></app-review>
+        <app-review></app-review>
+</div>
     <div class="feed-item">
-            <app-post-card-item [postType]="'image'"></app-post-card-item>
-            <app-post-card-item [postType]="'combinations'"></app-post-card-item>
-        </div>
+        <app-post-card-item [postType]="'image'"></app-post-card-item>
+        <app-post-card-item [postType]="'combinations'"></app-post-card-item>
+    </div>
 </div>

@@ -38,7 +38,8 @@ export class PostCardItemComponent implements OnInit {
     public openPropertyModalByImage(): void {
         const dialogRef = this._matDialog.open(PropertyModal, {
             width: "100%",
-            maxWidth: "1280px",
+            maxWidth:"100vw",
+            height:"100vh",
             data: {
                 type: 'image',
             }
@@ -48,7 +49,8 @@ export class PostCardItemComponent implements OnInit {
     public openPropertyModalByVideo(): void {
         const dialogRef = this._matDialog.open(PropertyModal, {
             width: "100%",
-            maxWidth: "1280px",
+            maxWidth:"100vw",
+            height:"100vh",
             data: {
                 type: 'video',
             }

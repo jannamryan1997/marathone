@@ -1,12 +1,18 @@
 <header>
-    <div class="header-container pg-container d-flex justify-content-between">
-        <img src="..." class="logo-image" alt="Responsive image">
-        <div class="header-category d-flex">
-            <li *ngFor="let item of menuItem"  routerLinkActive="li-activeTab"><a class="link"
-                    [routerLink]="item.routerLink" routerLinkActive="activeTab">{{item?.title}}</a></li>
-        </div>
- 
+    <div class="header-container pg-container">
+        <div class="header-content display-flex">
+            <img src="..." class="logo-image" alt="Logo">
+            <div class="header-category d-flex">
+                <li *ngFor="let item of menuItem" routerLinkActive="li-activeTab"><a class="link"
+                        [routerLink]="item.routerLink" routerLinkActive="activeTab">{{item?.title}}</a></li>
+            </div>
+
             <input type="text" class="form-control search-input" placeholder="Search">
-      
+        </div>
+        <div class="header-manu d-none">
+            <span class="material-icons  open-icon">
+                view_headline
+            </span>
+        </div>
     </div>
 </header>

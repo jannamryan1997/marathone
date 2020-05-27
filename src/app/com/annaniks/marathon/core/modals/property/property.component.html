@@ -1,5 +1,11 @@
 <div class="property-content">
-    <div class="property-main d-flex justify-content-between">
+    <div class="text-right">
+        <span class="material-icons clear-icon" (click)="closeModal()">
+            clear
+        </span>
+    </div>
+
+    <div class="property-main d-flex justify-content-between pg-container">
         <div class="image-content">
             <img src="assets/images/foodimg.png" class="image d-none" alt="Cinque Terre"
                 [ngClass]="{'d-block':type==='image'}">
