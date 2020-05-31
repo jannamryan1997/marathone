@@ -162,11 +162,14 @@
         </div>
     </div>
 <div class="review-content" *ngIf="openReview">
+    <div class="review w-100 d-flex flex-wrap flex-column">
         <app-review></app-review>
         <app-review></app-review>
         <app-review></app-review>
         <app-review></app-review>
         <app-review></app-review>
+    </div>
+      
 </div>
     <div class="feed-item">
         <app-post-card-item [postType]="'image'"></app-post-card-item>

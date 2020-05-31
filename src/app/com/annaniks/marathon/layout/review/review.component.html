@@ -1,24 +1,22 @@
-<div class="review-container">
-    <div class="review-content display-flex">
-        <div class="review-items">
-            <div class="review-item-header d-flex">
+<div class="review-item w-100">
+    <div class="review-item-description">
+        <div class="d-flex justify-content-between">
+            <div class="d-flex">
                 <img src="assets/images/img8.png" class="review-user-image" alt="Cinque Terre">
-                <div class="review-description">
-                    <p class="name-title">Shwain Mendes</p>
-                    <p class="title">Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae, qui possimus!</p>
-                </div>
-
-                     
-                    <div class="review d-flex">
-                           <!-- <p class="title">4.5</p> -->
-                        <div class="review-item" *ngFor="let item of reviewItem">
-                            <span class="material-icons star-icon">
-                                grade
-                            </span>
-                        </div>
-                    </div>
-               
+                <p class="name-title ml-3">Shwain Mendes</p>
             </div>
+            <div class="d-flex">
+                <p class="review-text mr-3">4.5</p>
+                <div class="star-item" *ngFor="let item of reviewItem">
+                    <span class="material-icons star-icon">
+                        grade
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="title-description">
+        <p class="title">Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae, qui possimus!</p>
+        <p class="date">Jun 25,2020</p>
         </div>
     </div>
 </div>
