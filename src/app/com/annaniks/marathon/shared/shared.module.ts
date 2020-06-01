@@ -5,7 +5,8 @@ import {
     RightMenuComponent,
     CommentsComponent,
     SettingsComponent,
-    PostsComments
+    PostsComments,
+    LoadingComponent
 } from '../layout';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -24,7 +25,8 @@ import { PostCardItemComponent } from '../pages/main/feed/posts/component/post-c
         CommentsComponent,
         SettingsComponent,
         PostsComments,
-        PostCardItemComponent
+        PostCardItemComponent,
+        LoadingComponent
     ],
     imports: [
         CommonModule,
@@ -43,6 +45,7 @@ import { PostCardItemComponent } from '../pages/main/feed/posts/component/post-c
         LeftMenuCompomemtn,
         RightMenuComponent,
         CommonModule,
+        RouterModule,
         MatDialogModule,
         CommentsComponent,
         ReactiveFormsModule,
@@ -52,7 +55,8 @@ import { PostCardItemComponent } from '../pages/main/feed/posts/component/post-c
         SettingsComponent,
         PostsComments,
         HttpClientModule,
-        PostCardItemComponent
+        PostCardItemComponent,
+        LoadingComponent
 
     ]
 })

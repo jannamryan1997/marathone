@@ -1,0 +1,28 @@
+<div class="login-content d-flex flex-column">
+    <div class="login-main w-100">
+        <p class="auth-title">Log In</p>
+        <div class="form-content">
+            <form [formGroup]="loginForm">
+                <div class="form-group">
+                    <label class="lable"  [ngClass]="{'color':chackIsValid('email')}">Email</label>
+                    <input type="email" class="form-control" formControlName="email" [ngClass]="{'border':chackIsValid('email')}">
+                    <label class="text-danger d-none"
+                    [ngClass]="{'d-block':loginForm.get('email').hasError('pattern') && loginForm.get('email').touched}">
+                    We'll never share your email with anyone else.</label>
+                </div>
+                <div class="form-group">
+                        <label class="lable" [ngClass]="{'color':chackIsValid('password')}">Password</label>
+                        <input type="password" class="form-control" formControlName="password" [ngClass]="{'border':chackIsValid('password')}">
+                    </div>
+                    <div class="display-flex mt-4">
+                            <button type="submit" class="btn form-btn" [disabled]="loginForm.invalid" (click)="onClickLogin()"><span>Log In </span>
+                                <app-loading *ngIf="loading"></app-loading>
+                             </button>
+                            <p class="form-title"> I don’t have an account.<b class="title-danger"
+                                routerLink="/auth/registration">Registration</b></p>
+                    </div>
+                
+            </form>
+        </div>
+    </div>
+</div>

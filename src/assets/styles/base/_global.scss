@@ -124,7 +124,8 @@
 //button
 .buttons-content {
     margin-top: 20px;
-    .button-item{
+
+    .button-item {
         width: 25%;
         color: #AFC1D1;
         border: 1px solid #d0dae4;
@@ -136,7 +137,8 @@
         outline: none;
         background: #ffffff;
         transition: .5s all ease-out;
-        &:first-child{
+
+        &:first-child {
             margin-left: 15px;
         }
     }
@@ -145,7 +147,7 @@
 .show-content {
     font-size: 16px;
     line-height: 16px;
-    height:120px;
+    height: 120px;
     overflow: hidden;
     transition: .5s all ease-out;
 }
@@ -158,7 +160,77 @@
         color: #FBD833;
         cursor: pointer;
     }
+
     .title {
         @include text(18px, 20px, #45535C);
+    }
+}
+
+/////main
+
+.main-layout {
+    padding: 20px;
+
+    .auth-title {
+        @include text(30px, 30px, #57A1F2);
+        font-weight: bold;
+    }
+
+    .form-content {
+        width: 100%;
+        margin: 20px 0;
+        margin: auto;
+        width: 100%;
+        max-width: 400px;
+        text-align: start;
+
+
+        .form-group {
+            padding: 10px 0;
+            margin: 0;
+
+            .lable {
+                @include text(18px, 30px, #57A1F2);
+                font-weight: 600;
+            }
+
+            .form-control {
+                background: #F3F3FA 0% 0% no-repeat padding-box;
+                border: 0.5px solid #ACC3D9;
+                border-radius: 12px;
+                opacity: 0.66;
+            }
+        }
+
+        .form-btn {
+            background-color: #57A1F2;
+            border-radius: 28px;
+            border: 0.5px solid #ACC3D9;
+            display: inline-block;
+            cursor: pointer;
+            color: #ffffff;
+            font-family: Arial;
+            font-size: 17px;
+            padding: 15px 30px;
+            text-decoration: none;
+            text-shadow: 0px 1px 0px #57A1F2;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+        }
+
+        .form-title {
+            @include text(15px, 0px, #ACC3D9);
+        }
+
+        .title-danger {
+            color: #57A1F2;
+            cursor: pointer;
+
+        }
+        .text-danger{
+        margin-top: 10px;
+        font-weight: 600;
+        }
     }
 }
