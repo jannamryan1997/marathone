@@ -7,3 +7,5 @@ export * from "../layout/posts-comments/posts-comments.component";
 export * from "../layout/gallery/gallery.component";
 export * from "../layout/review/review.component";
 export * from "../layout/loading/loading.component";
+export * from "../layout/signIn/signIn.component";
+export * from "../layout/signUp/signUp.component";

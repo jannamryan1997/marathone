@@ -3,11 +3,11 @@ import { Routes, RouterModule } from '@angular/router';
 
 
 const routes: Routes = [
-  { path: "", pathMatch: "full", redirectTo: "auth" },
-  {
-    path: "auth",
-    loadChildren: () => import('./com/annaniks/marathon/pages/auth/auth.module').then(m => m.AuthModule),
-  },
+  { path: "", pathMatch: "full", redirectTo: "" },
+  // {
+  //   path: "auth",
+  //   loadChildren: () => import('./com/annaniks/marathon/pages/auth/auth.module').then(m => m.AuthModule),
+  // },
   {
     path: "",
     loadChildren: () => import('./com/annaniks/marathon/pages/main/main.module').then(m => m.MainModule),

@@ -168,69 +168,48 @@
 
 /////main
 
-.main-layout {
-    padding: 20px;
 
-    .auth-title {
-        @include text(30px, 30px, #57A1F2);
-        font-weight: bold;
+
+.auth-form {
+    .form-group {
+        padding: 15px 0;
+        margin: 0;
+        .form-input {
+            background: #FFFFFF 0% 0% no-repeat padding-box;
+            border: 0.5px solid #CFCFE9;
+            border-radius: 26px;
+            opacity: 1;
+            height: none !important;
+            padding: 15px 30px !important;
+            @include text(17px, 18px, #BECDE8);
+            &::placeholder{
+                @include text(17px, 18px, #BECDE8);
+            }
+        }
     }
 
-    .form-content {
-        width: 100%;
-        margin: 20px 0;
-        margin: auto;
-        width: 100%;
-        max-width: 400px;
-        text-align: start;
-
-
-        .form-group {
-            padding: 10px 0;
-            margin: 0;
-
-            .lable {
-                @include text(18px, 30px, #57A1F2);
-                font-weight: 600;
-            }
-
-            .form-control {
-                background: #F3F3FA 0% 0% no-repeat padding-box;
-                border: 0.5px solid #ACC3D9;
-                border-radius: 12px;
-                opacity: 0.66;
-            }
-        }
-
-        .form-btn {
-            background-color: #57A1F2;
-            border-radius: 28px;
-            border: 0.5px solid #ACC3D9;
-            display: inline-block;
-            cursor: pointer;
-            color: #ffffff;
-            font-family: Arial;
-            font-size: 17px;
-            padding: 15px 30px;
-            text-decoration: none;
-            text-shadow: 0px 1px 0px #57A1F2;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-        }
-
-        .form-title {
-            @include text(15px, 0px, #ACC3D9);
-        }
-
-        .title-danger {
-            color: #57A1F2;
-            cursor: pointer;
-
-        }
-        .text-danger{
-        margin-top: 10px;
+    .form-btn {
+        background-color: #57A1F2;
+        border-radius: 28px;
+        border: 0.5px solid #ACC3D9;
+        display: inline-block;
+        cursor: pointer;
+        color: #ffffff;
+        font-family: Arial;
+        font-size: 17px;
+        padding: 15px 30px;
+        text-decoration: none;
+        text-shadow: 0px 1px 0px #57A1F2;
         font-weight: 600;
-        }
+        display: flex;
+        align-items: center;
     }
+
+}
+
+.clear-icon{
+    padding: 10px 20px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 30px;
 }

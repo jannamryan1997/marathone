@@ -43,40 +43,39 @@ export class RegistrationView implements OnInit {
     private _signIn(): void {
         this.loading = true;
         this.registrationForm.disable();
-        let signInResponse: SignInResponse =
-        {
-            username: this.registrationForm.value.userName,
-            email: this.registrationForm.value.email,
-            phone: this.registrationForm.value.phone,
-            password: this.registrationForm.value.confirmPassword,
+        // let signInResponse: SignInResponse =
+        // {
+            // username: this.registrationForm.value.userName,
+            // phone: this.registrationForm.value.phone,
+            // password: this.registrationForm.value.confirmPassword,
         }
-        this._authService.SignIn(signInResponse)
-            .pipe(
-                finalize(() => {
-                    this.loading = false;
-                    this.registrationForm.enable();
-                })
-            )
-            .subscribe((data) => {
-                console.log(data);
-                this._router.navigate(['auth/login'])
+        // this._authService.SignIn(signInResponse)
+            // .pipe(
+            //     finalize(() => {
+            //         this.loading = false;
+            //         this.registrationForm.enable();
+            //     })
+            // )
+            // .subscribe((data) => {
+            //     console.log(data);
+            //     this._router.navigate(['auth/login'])
 
-            },
-                err => {
+            // },
+                // err => {
                    
-                    this.errorMessage = err.error;
-                }
-            )
+                //     this.errorMessage = err.error;
+                // }
+            //)
       
     }
 
-    public checkIsValid(controlName: string): boolean {
-        return this.registrationForm.get(controlName).hasError('required') && this.registrationForm.get(controlName).touched 
-    }
+    // public checkIsValid(controlName: string): boolean {
+    //     return this.registrationForm.get(controlName).hasError('required') && this.registrationForm.get(controlName).touched 
+    // }
 
-    public onClickSignIn(): void {
-        this._signIn();
+    // public onClickSignIn(): void {
+    //     this._signIn();
 
-    }
-}
+    //}
+//}
 

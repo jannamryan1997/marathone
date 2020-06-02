@@ -1,0 +1,93 @@
+@mixin text($fontSize, $lineHeight, $color) {
+    font-size: $fontSize;
+    line-height: $lineHeight;
+    color: $color;
+}
+
+.signUp-main {
+    .title {
+        @include text(26px, 30px, #5897F6);
+        font-weight: 600;
+    }
+
+    .main-header {
+        margin-top: 15px;
+
+        .title {
+            @include text(14px, 16px, #45535C);
+        }
+
+        .text {
+            @include text(14px, 16px, #5897F6);
+            cursor: pointer;
+        }
+
+    }
+
+    .signUp-form {
+        margin-top: 30px;
+
+        .checkbox {
+            background: #FFFFFF 0% 0% no-repeat padding-box;
+            border: 1px solid #E3ECFD;
+            opacity: 1;
+            width: 23px;
+            height: 23px;
+            border-radius: 50% !important;
+        }
+
+        .checkbox-lable {
+            @include text(16px, 16px, #BECDE8);
+            margin-left: 15px;
+            font-weight: bold;
+        }
+
+        .form-group {
+            padding-top: 20px;
+            display: flex;
+            flex-direction: column;
+            .checkbox-group {
+                margin-bottom: 20px;
+            }
+
+            .label {
+                @include text(11px, 13px, #BECDE8);
+            }
+
+            .input {
+                border-right: none;
+                border-left: none;
+                border-top: none;
+                border-bottom: 1px solid #E3ECFD;
+                font-style: normal;
+                font-weight: bold;
+                font-size: 15px;
+                line-height: 20px;
+                color: #45535C;
+                padding: 7px 0;
+            }
+        }
+
+        .signUp-btn {
+            padding: 10px 20px;
+            @include text(18px, 21px, #5897F6);
+            cursor: pointer;
+            font-weight: bold;
+            border: 1px solid #6CA7FE;
+            border-radius: 23px;
+            opacity: 1;
+        }
+    }
+}
+
+.form-group {
+    padding-top: 0 !important;
+}
+
+.border{
+    border-bottom: 1px solid #ff1a1aAA !important;
+    border-right: none !important;
+    border-left: none !important;
+    border-top: none !important;
+}
+

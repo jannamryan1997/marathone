@@ -1,0 +1,76 @@
+@mixin text($fontSize, $lineHeight, $color) {
+    font-size: $fontSize;
+    line-height: $lineHeight;
+    color: $color;
+}
+
+.signIn-main {
+    .logo {
+        border: 1px solid red;
+        width: 57px;
+        height: 64px;
+    }
+
+    .button-item {
+        box-shadow: 1px 20px 79px #5C687B69;
+        border: 0.5px solid #CFCFE9;
+        border-radius: 26px;
+        opacity: 1;
+
+        .sign-btn {
+            border: none !important;
+            width: 50%;
+            cursor: pointer;
+            transition: .5 all ease-out;
+        }
+    }
+
+    .auth-description {
+        margin-top: 30px;
+
+
+        .text {
+            @include text(14px, 30px, #45535C);
+            font-weight: 600;
+        }
+
+        .title {
+            @include text(14px, 30px, #5897F6);
+            font-weight: 600;
+        }
+
+        .checkbox {
+            background: #FFFFFF 0% 0% no-repeat padding-box;
+            border: 1px solid #E3ECFD;
+            opacity: 1;
+            width: 23px;
+            height: 23px;
+            border-radius: 50% !important;
+        }
+
+        .icon {
+            color: #D1DCF1;
+            font-size: 21px;
+            cursor: pointer;
+        }
+    }
+
+    .social-media {
+        &::before {
+            border-bottom: 2px solid #BECDE8;
+            display: block;
+            content: "";
+            width: 100%;
+            margin: 20px 0;
+        }
+    }
+}
+
+.border {
+    border: 1px solid #ff1a1aAA !important;
+}
+
+.activTab {
+    background: #589CFE 0% 0% no-repeat padding-box !important;
+    color: #FFFFFF !important;
+}

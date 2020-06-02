@@ -25,6 +25,7 @@
     }
     .left-menu-item{
         margin-left: 20px;
+        cursor: pointer;
         .link{
             @include text(22px,25px, #45535C);  
         }

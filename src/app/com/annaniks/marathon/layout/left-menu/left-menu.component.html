@@ -6,6 +6,6 @@
     </div>
     <div class="left-menu-item">
             <li *ngFor="let item of leftMenuItem"><a class="link"
-                [routerLink]="item.routerLink" routerLinkActive="activeTab">{{item?.title}}</a></li>
+             [ngClass]="{'activeTab':activeTab===item?.routerLink}" (click)="onClickTab(item,item.routerLink)">{{item?.title}}</a></li>
     </div>
 </div>

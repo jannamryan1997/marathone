@@ -1,0 +1,74 @@
+<div class="signUp-main">
+    <p class="title">Welcome to Marathone</p>
+    <div class="main-header display-flex">
+        <p class="title">Registr new Account</p>
+        <p class="text" (click)="onChangeAuthMain(1)">Sign In</p>
+    </div>
+    <form [formGroup]="signUpGroup">
+        <div class="signUp-form">
+            <div class="form-group">
+                <div class="d-flex checkbox-group align-items-center">
+                    <input type="radio" id="male" name="User" value="User" class="checkbox">
+                    <label for="male" class="checkbox-lable">User</label>
+                    <input type="radio" id="male" name="User" value="Cach" class="checkbox ml-4">
+                    <label for="male" class="checkbox-lable">Cach</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="label">First Name </label>
+                <input type="text" class="input" formControlName="firstName"
+                    [ngClass]="{'border':chackIsValid('firstName')}">
+
+            </div>
+            <div class="form-group">
+                <label class="label">Last Name</label>
+                <input type="text" class="input" formControlName="lastName"
+                    [ngClass]="{'border':chackIsValid('lastName')}">
+
+            </div>
+            <div class="form-group">
+                <label class="label">User Name</label>
+                <input type="text" class="input" formControlName="userName"
+                    [ngClass]="{'border':chackIsValid('userName')}">
+
+            </div>
+            <div class="form-group d-flex flex-row">
+                <mat-form-field class="w-50">
+                    <mat-label>Country</mat-label>
+                    <mat-select>
+                        <mat-option value="Armenia">
+                            Armenia
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="w-50">
+                    <mat-label>City</mat-label>
+                    <mat-select>
+                        <mat-option value="Gyumry">
+                            Gyumry
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="form-group">
+                <label class="label">Email</label>
+                <input type="email" class="input" formControlName="email" [ngClass]="{'border':chackIsValid('email')}">
+
+            </div>
+            <div class="form-group">
+                <label class="label">Password</label>
+                <input type="password" class="input" formControlName="password"
+                    [ngClass]="{'border':chackIsValid('password')}">
+
+            </div>
+            <div class="d-flex justify-content-end">
+                <button class="btn signUp-btn" [disabled]="signUpGroup.invalid" (click)="onClickSignUp()"><span>Get
+                        Started</span>
+                    <app-loading *ngIf="loading"></app-loading>
+                </button>
+            </div>
+        </div>
+
+    </form>
+</div>

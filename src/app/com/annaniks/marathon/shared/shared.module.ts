@@ -6,7 +6,9 @@ import {
     CommentsComponent,
     SettingsComponent,
     PostsComments,
-    LoadingComponent
+    LoadingComponent,
+    SignInComponent,
+    SignUpComponent
 } from '../layout';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -16,7 +18,9 @@ import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { ClickOutsideModule } from 'ng-click-outside';
 import { HttpClientModule } from '@angular/common/http';
 import { PostCardItemComponent } from '../pages/main/feed/posts/component/post-card-item/post-card-item.component';
-
+import {AuthModal } from '../core/modals';
+import {MatSelectModule} from '@angular/material/select';
+import { AuthService } from '../core/services/auth.services';
 @NgModule({
     declarations: [
         HeaderComponent,
@@ -26,7 +30,12 @@ import { PostCardItemComponent } from '../pages/main/feed/posts/component/post-c
         SettingsComponent,
         PostsComments,
         PostCardItemComponent,
-        LoadingComponent
+        LoadingComponent,
+        AuthModal,
+        SignInComponent,
+        SignUpComponent,
+     
+        
     ],
     imports: [
         CommonModule,
@@ -36,9 +45,10 @@ import { PostCardItemComponent } from '../pages/main/feed/posts/component/post-c
         FormsModule,
         PickerModule,
         ClickOutsideModule,
-        HttpClientModule
+        HttpClientModule,
+        MatSelectModule
     ],
-    providers: [],
+    providers: [AuthService],
     entryComponents: [],
     exports: [
         HeaderComponent,
@@ -56,7 +66,11 @@ import { PostCardItemComponent } from '../pages/main/feed/posts/component/post-c
         PostsComments,
         HttpClientModule,
         PostCardItemComponent,
-        LoadingComponent
+        LoadingComponent,
+        AuthModal,
+        SignInComponent,
+        SignUpComponent,
+        MatSelectModule
 
     ]
 })
