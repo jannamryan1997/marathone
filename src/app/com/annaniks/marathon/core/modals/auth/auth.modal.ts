@@ -24,6 +24,8 @@ export class AuthModal implements OnInit {
     }
 
     public closeAuthModal(event):void{
+        console.log(event);
+        
         if(event){
             this._matDialogRef.close();
         }

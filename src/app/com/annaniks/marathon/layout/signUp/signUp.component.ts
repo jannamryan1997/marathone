@@ -15,7 +15,6 @@ export class SignUpComponent implements OnInit {
     public errorMessage: string;
     public loading: boolean = false;
     public signUpGroup: FormGroup;
-    @Input() leftContent: string;
     @Output() changeSigntab = new EventEmitter;
     constructor(private _fb: FormBuilder, private _router: Router, private _authService: AuthService) { }
 
@@ -45,7 +44,7 @@ export class SignUpComponent implements OnInit {
     private _signUp(): void {
         this.loading = true;
         this.signUpGroup.disable();
-        let signInResponse =
+        let signUpData =
         {
             user: {
                 email: this.signUpGroup.value.email,
@@ -57,7 +56,7 @@ export class SignUpComponent implements OnInit {
             ui_language: "http://annaniks.com:6262/api/utils/language/3/",
             metric: "http://annaniks.com:6262/api/utils/metric/1/",
         }
-        this._authService.signUp(signInResponse)
+        this._authService.signUp(signUpData)
             .pipe(
                 finalize(() => {
                     this.loading = false;

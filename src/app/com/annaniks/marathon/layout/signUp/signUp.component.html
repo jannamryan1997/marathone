@@ -1,5 +1,5 @@
 <div class="signUp-main">
-    <p class="title" [ngClass]="{'leftContentStyle':leftContent}">Welcome to Marathone</p>
+    <p class="title" >Welcome to Marathone</p>
     <div class="main-header display-flex">
         <p class="title">Registr new Account</p>
         <p class="text" (click)="onChangeAuthMain(tab)">Sign In</p>
@@ -18,19 +18,19 @@
             <div class="form-group">
                 <label class="label">First Name </label>
                 <input type="text" class="input" formControlName="firstName"
-                    [ngClass]="{'border':chackIsValid('firstName')}" [ngClass]="{'background':leftContent}">
+                    [ngClass]="{'border':chackIsValid('firstName')}">
 
             </div>
             <div class="form-group">
                 <label class="label">Last Name</label>
                 <input type="text" class="input" formControlName="lastName"
-                    [ngClass]="{'border':chackIsValid('lastName')}" [ngClass]="{'background':leftContent}">
+                    [ngClass]="{'border':chackIsValid('lastName')}">
 
             </div>
             <div class="form-group">
                 <label class="label">User Name</label>
                 <input type="text" class="input" formControlName="userName"
-                    [ngClass]="{'border':chackIsValid('userName')}" [ngClass]="{'background':leftContent}">
+                    [ngClass]="{'border':chackIsValid('userName')}">
 
             </div>
             <div class="form-group d-flex flex-row">
@@ -53,14 +53,13 @@
             </div>
             <div class="form-group">
                 <label class="label">Email</label>
-                <input type="email" class="input" formControlName="email" [ngClass]="{'border':chackIsValid('email')}"
-                    [ngClass]="{'background':leftContent}">
+                <input type="email" class="input" formControlName="email" [ngClass]="{'border':chackIsValid('email')}">
 
             </div>
             <div class="form-group">
                 <label class="label">Password</label>
                 <input type="password" class="input" formControlName="password"
-                    [ngClass]="{'border':chackIsValid('password')}" [ngClass]="{'background':leftContent}">
+                    [ngClass]="{'border':chackIsValid('password')}">
 
             </div>
             <div class="d-flex justify-content-end">

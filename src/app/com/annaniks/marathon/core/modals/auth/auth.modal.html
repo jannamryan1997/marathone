@@ -1,9 +1,9 @@
 <div class="auth-container d-flex">
-        <div class="text-right">
-                <span class="material-icons clear-icon" (click)="closeModal()">
-                    clear
-                </span>
-            </div>
+    <div class="text-right">
+        <span class="material-icons clear-icon" (click)="closeModal()">
+            clear
+        </span>
+    </div>
     <div class="auth-main pg-container m-auto">
         <div class="main-container display-flex">
             <div class="auth-left-content d-flex">
@@ -11,18 +11,15 @@
             </div>
             <div class="auth-right-content d-flex m-auto">
                 <div class="right-content-main m-auto">
-                        
-                            <div class="auth-form w-100">
-                                <app-signIn (tabChanges)="onChangeTab($event)" *ngIf="tab===1" (closeModal)="closeAuthModal($event)"></app-signIn>
-                                <app-signUp *ngIf="tab===2" (changeSigntab)="onClickOpenSignIn($event)"></app-signUp>
-                            </div>
+
+                    <div class="auth-form w-100">
+                        <app-signIn *ngIf="tab===1" (tabChanges)="onChangeTab($event)"
+                            (closeModal)="closeAuthModal($event)"></app-signIn>
+                        <app-signUp *ngIf="tab===2" (changeSigntab)="onClickOpenSignIn($event)"></app-signUp>
+                    </div>
                 </div>
-             
+
             </div>
         </div>
     </div>
 </div>
-
-
-
-

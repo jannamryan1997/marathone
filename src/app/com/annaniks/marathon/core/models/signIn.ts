@@ -1,4 +1,9 @@
 export interface SignInResponse {
-    username: string,
-    password: string;
+    access: string,
+    refresh: string,
+}
+
+export interface SignInData {
+        username: string,
+        password: string,
 }
