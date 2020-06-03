@@ -1,19 +1,19 @@
-<div class="left-menu" [ngClass]="{'position':token}">
+<div class="left-menu" [ngClass]="{'position':showUserData}">
     <div class="left-header">
-        <div class="auth-form w-100" *ngIf="!token">
-            <app-signIn (tabChanges)="onChangeTab($event)" *ngIf="tab===1" [leftContent]="true"></app-signIn>
+        <div class="auth-form w-100" *ngIf="!showUserData">
+            <app-signIn *ngIf="tab===1" (tabChanges)="onChangeTab($event)"></app-signIn>
             <div class="signUp-content">
-                <app-signUp *ngIf="tab===2" (changeSigntab)="onClickOpenSignIn($event)" [leftContent]="true">
+                <app-signUp *ngIf="tab===2" (changeSigntab)="onClickOpenSignIn($event)">
                 </app-signUp>
             </div>
         </div>
-        <div class="left-menu-description" *ngIf="token">
+        <div class="left-menu-description" *ngIf="showUserData">
             <img src="assets/images/img2.png" class="user-image" alt="Cinque Terre">
             <p class="name">Maya Crouche</p>
             <p class="user-name">@mayacrouch</p>
         </div>
     </div>
-    <div class="left-menu-item" [ngClass]="{'textAlign':token}">
+    <div class="left-menu-item">
         <li *ngFor="let item of leftMenuItem">
                 <span class="material-icons" [ngClass]="{'activeTab':activeTab===item?.routerLink}">
                         {{item?.icon}}

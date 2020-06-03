@@ -4,6 +4,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthModal } from '../../core/modals';
+import { AuthService } from '../../core/services/auth.services';
 
 @Component({
     selector: "app-left-menu",
@@ -11,8 +12,8 @@ import { AuthModal } from '../../core/modals';
     styleUrls: ["left-menu.component.scss"]
 })
 
-export class LeftMenuCompomemtn implements OnInit,AfterViewInit {
-    public token: string;
+export class LeftMenuCompomemtn implements OnInit, AfterViewInit {
+    public showUserData: boolean = false;
     public tab: number = 1;
     public activeTab: string;
     public leftMenuItem: MenuItem[] = [
@@ -23,15 +24,13 @@ export class LeftMenuCompomemtn implements OnInit,AfterViewInit {
         { routerLink: "#", title: "My Recips", icon: "person" },
         { routerLink: "#", title: "My Training", icon: "person" },
     ]
-    constructor(private _cookieService: CookieService, private _router: Router, private _mathDialog: MatDialog) {
-        this.token = this._cookieService.get('token');
+    constructor(private _cookieService: CookieService,
+        private _router: Router, private _mathDialog: MatDialog, private _authService: AuthService) {
     }
 
     ngOnInit() { }
 
-    ngAfterViewInit(){
-        
-    }
+    ngAfterViewInit() { }
 
     public onClickTab(item, routerLink): void {
 
