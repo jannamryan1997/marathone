@@ -5,6 +5,7 @@ import { SignInResponse, SignInData } from '../../core/models';
 import { finalize } from 'rxjs/operators';
 import { AuthService } from '../../core/services/auth.services';
 import { CookieService } from 'ngx-cookie-service';
+import { UserService } from '../../core/services/user.service';
 
 @Component({
     selector: "app-signIn",
@@ -13,17 +14,23 @@ import { CookieService } from 'ngx-cookie-service';
 })
 
 export class SignInComponent implements OnInit {
-  
+
     public loading: boolean = false;
     public signInGroup: FormGroup;
     public errorMessage: string;
     public tab: number = 1;
-    
+
     @Output() tabChanges = new EventEmitter();
-    @Output() closeModal=new EventEmitter();
+    @Output() closeModal = new EventEmitter();
 
 
-    constructor(private _fb: FormBuilder, private _router: Router, private _authService: AuthService,private _cookieService:CookieService) { }
+    constructor(
+        private _fb: FormBuilder,
+        private _router: Router,
+        private _authService: AuthService,
+        private _cookieService: CookieService,
+        private _userService: UserService
+    ) { }
 
     ngOnInit() {
         this._formBuilder();
@@ -38,7 +45,7 @@ export class SignInComponent implements OnInit {
     private _signIn(): void {
         this.loading = true;
         this.signInGroup.disable();
-        let signInResponse:SignInData =
+        let signInResponse: SignInData =
         {
             username: this.signInGroup.value.email,
             password: this.signInGroup.value.password,
@@ -50,11 +57,12 @@ export class SignInComponent implements OnInit {
                     this.signInGroup.enable();
                 })
             )
-            .subscribe((data:SignInResponse) => {
+            .subscribe((data: SignInResponse) => {
                 console.log(data);
                 this.closeModal.emit('true');
-                this._cookieService.set('access',data.access);
-                this._cookieService.set('refresh',data.refresh);
+                this._cookieService.set('access', data.access);
+                this._cookieService.set('refresh', data.refresh);
+                this._userService.isAuthorized = true;
 
             },
                 err => {
@@ -63,6 +71,14 @@ export class SignInComponent implements OnInit {
                 }
             )
 
+    }
+
+    public getUser(): void {
+        // this._authService.getUser()
+        //     .subscribe((data) => {
+        //         this._userService.user = data;
+        //         this._userService.isAuthorized = true;
+        //     })
     }
 
     public chackIsValid(controlName: string): boolean {

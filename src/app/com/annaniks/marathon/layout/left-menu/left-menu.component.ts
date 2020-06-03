@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthModal } from '../../core/modals';
 import { AuthService } from '../../core/services/auth.services';
+import { UserService } from '../../core/services/user.service';
 
 @Component({
     selector: "app-left-menu",
@@ -13,7 +14,6 @@ import { AuthService } from '../../core/services/auth.services';
 })
 
 export class LeftMenuCompomemtn implements OnInit, AfterViewInit {
-    public showUserData: boolean = false;
     public tab: number = 1;
     public activeTab: string;
     public leftMenuItem: MenuItem[] = [
@@ -25,7 +25,11 @@ export class LeftMenuCompomemtn implements OnInit, AfterViewInit {
         { routerLink: "#", title: "My Training", icon: "person" },
     ]
     constructor(private _cookieService: CookieService,
-        private _router: Router, private _mathDialog: MatDialog, private _authService: AuthService) {
+        private _router: Router, private _mathDialog: MatDialog,
+        private _authService: AuthService,
+        private _userService: UserService
+
+    ) {
     }
 
     ngOnInit() { }
@@ -53,5 +57,9 @@ export class LeftMenuCompomemtn implements OnInit, AfterViewInit {
     }
     public onClickOpenSignIn(event): void {
         this.tab = event;
+    }
+
+    get showUserData(): boolean {
+        return this._userService.isAuthorized;
     }
 }
