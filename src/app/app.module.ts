@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment';
 import { HTTP_INTERCEPTORS,HttpClientModule } from '@angular/common/http';
 import { ApiInterceptor } from './com/annaniks/marathon/core/interceptore/api.interceptor';
 import { CookieService} from 'ngx-cookie-service';
+import { AuthService } from './com/annaniks/marathon/core/services/auth.services';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { CookieService} from 'ngx-cookie-service';
       useClass: ApiInterceptor,
       multi: true
     },
-    CookieService
+    CookieService,
+    AuthService
   ],
   bootstrap: [AppComponent]
 })

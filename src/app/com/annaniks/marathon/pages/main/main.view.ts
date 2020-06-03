@@ -1,4 +1,5 @@
-import { Component, OnInit} from "@angular/core";
+import { Component, OnInit } from "@angular/core";
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
     selector: "main-view",
@@ -7,12 +8,12 @@ import { Component, OnInit} from "@angular/core";
 })
 
 export class MainView implements OnInit {
+    public token: string;
+    constructor(private _cookieService: CookieService) {
+       this.token= this._cookieService.get('token');
+    }
 
-    constructor() { }
-
-    ngOnInit() {
-
-     }
+    ngOnInit() { }
 
 
 }

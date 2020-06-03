@@ -3,34 +3,40 @@
     line-height: $lineHeight;
     color: $color;
 }
-
 .left-menu {
-    position: fixed;
-    .left-menu-description {
-        text-align: center;
+    .left-header {
+        .left-menu-description {
+            .user-image {
+                width: 131px;
+                height: 131px;
+                border-radius: 50%;
+                background: #FEA6CC;
+            }
 
-        .user-image {
-            width: 131px;
-            height: 131px;
-            border-radius: 50%;
-            background: #FEA6CC;
-        }
-
-        .name {
-            @include text(20px, 40px, #45535C);
-        }
-        .user-name{
-            @include text(20px,none,#D0DBF0);
+            .name {
+                @include text(20px, 40px, #45535C);
+            }
+            .user-name {
+                @include text(20px, none, #D0DBF0);
+            }
         }
     }
-    .left-menu-item{
-        margin-left: 20px;
+
+    .left-menu-item {
         cursor: pointer;
-        .link{
-            @include text(22px,25px, #45535C);  
+        .link {
+            @include text(22px, 25px, #45535C);
+            font-weight:500;
+            margin-left: 20px;
         }
-        li{
-            margin-top: 40px;
+
+        li {
+            margin-top: 30px;
+            display: flex;
         }
     }
+}
+
+.position {
+    position: fixed !important;
 }

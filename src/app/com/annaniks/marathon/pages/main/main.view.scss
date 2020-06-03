@@ -3,19 +3,28 @@
         width: 100%;
         max-width: 1200px;
         margin: 110px auto;
-        .left-content{
-            width: 100%;
-            max-width: 150px;
 
+        .left-content {
+            width: 100%;
+            max-width: 250px;
         }
+
         .router-outlet {
             width: 100%;
             max-width: 600px;
-            margin: 0 40px 0 100px;
         }
-        .right-content{
+
+        .right-content {
             width: 100%;
             max-width: 300px;
         }
     }
+}
+
+.maxWidth {
+    max-width: 180px !important;
+}
+
+.fixed {
+    position: fixed !important;
 }

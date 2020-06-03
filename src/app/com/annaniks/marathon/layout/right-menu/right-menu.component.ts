@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { ContactItem, FollowItem } from '../../core/models';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
     selector: "app-right-menu",
@@ -8,6 +9,7 @@ import { ContactItem, FollowItem } from '../../core/models';
 })
 
 export class RightMenuComponent implements OnInit {
+    public token:string;
     public contactItem: ContactItem[] = [
         { image: "assets/images/img1.png", name: "Olivie Gipson" },
         { image: "assets/images/img2.png", name: "Olivie Gipson" },
@@ -25,7 +27,9 @@ export class RightMenuComponent implements OnInit {
         { image: "assets/images/img1.png", name: "Olivie Gipson",email:"@oliviegipson" }, 
         { image: "assets/images/img1.png", name: "Olivie Gipson",email:"@oliviegipson" }, 
     ]
-    constructor() { }
+    constructor(private _cookieService:CookieService) {
+        this.token=this._cookieService.get('token');
+     }
 
     ngOnInit() {}
 

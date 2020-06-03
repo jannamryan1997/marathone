@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from "@angular/core";
+import { Component, OnInit, Output, EventEmitter, Input } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { finalize } from 'rxjs/operators';
 import { Router } from '@angular/router';
@@ -11,9 +11,11 @@ import { AuthService } from '../../core/services/auth.services';
 })
 
 export class SignUpComponent implements OnInit {
+    public tab: number = 1;
     public errorMessage: string;
     public loading: boolean = false;
     public signUpGroup: FormGroup;
+    @Input() leftContent: string;
     @Output() changeSigntab = new EventEmitter;
     constructor(private _fb: FormBuilder, private _router: Router, private _authService: AuthService) { }
 
@@ -23,15 +25,15 @@ export class SignUpComponent implements OnInit {
 
     private _formBuilder(): void {
         this.signUpGroup = this._fb.group({
-            firstName: [null, Validators.required],
-            lastName: [null, Validators.required],
-            userName: [null, Validators.required],
-            email: [null, Validators.required],
-            password: [null, Validators.required],
+            firstName: ["wogipa4708", Validators.required],
+            lastName: ["wogipa4708", Validators.required],
+            userName: ["wogipa4708", Validators.required],
+            email: ["wogipa4708@tashjw.com", Validators.required],
+            password: ["wogipa4708", Validators.required],
         })
     }
 
-    public onChangeAuthMain(event) {
+    public onChangeAuthMain(event = this.tab) {
         this.changeSigntab.emit(event);
     }
     public chackIsValid(controlName: string): boolean {
@@ -45,10 +47,15 @@ export class SignUpComponent implements OnInit {
         this.signUpGroup.disable();
         let signInResponse =
         {
-            username: this.signUpGroup.value.userName,
-            email: this.signUpGroup.value.email,
-            phone: this.signUpGroup.value.phone,
-            password: this.signUpGroup.value.confirmPassword,
+            user: {
+                email: this.signUpGroup.value.email,
+                password: this.signUpGroup.value.password,
+                first_name: this.signUpGroup.value.firstName,
+                last_name: this.signUpGroup.value.lastName,
+            },
+            google_id: null,
+            ui_language: "http://annaniks.com:6262/api/utils/language/3/",
+            metric: "http://annaniks.com:6262/api/utils/metric/1/",
         }
         this._authService.signUp(signInResponse)
             .pipe(
@@ -58,13 +65,13 @@ export class SignUpComponent implements OnInit {
                 })
             )
             .subscribe((data) => {
+                this.changeSigntab.emit(this.tab);
                 console.log(data);
-                this._router.navigate(['auth/login'])
-
             },
                 err => {
-
                     this.errorMessage = err.error;
+                    console.log(err);
+
                 }
             )
 

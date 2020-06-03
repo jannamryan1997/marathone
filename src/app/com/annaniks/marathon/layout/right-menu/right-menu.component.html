@@ -1,7 +1,7 @@
-<div class="right-menu">
+<div class="right-menu" [ngClass]="{'fixed':token}">
     <div class="follow">
         <p class="title mt-0">Who to follow</p>
-        <div *ngFor="let item of followItem" class="user-item d-flex">
+        <div *ngFor="let item of followItem" class="user-item follow-item d-flex">
             <img [src]="item?.image" class="user-image" alt="Cinque Terre">
             <div>
                 <p class="name">{{item?.name}}</p>

@@ -5,15 +5,24 @@
 }
 
 .right-menu {
-    position: fixed;
+
+    // position: fixed;
     .title {
         @include text(20px, 20px, #65a4fe);
         margin: 33px 0 31px 0;
     }
 
+    .contact {
+        height: 100%;
+        max-height: 400px;
+        overflow-y: auto;
+    }
+
     .user-item {
         align-items: center;
-        padding: 10px 0;
+        padding: 10px;
+        cursor: pointer;
+
 
         .user-image {
             border-radius: 50%;
@@ -31,4 +40,14 @@
             @include text(12px, 15px, #d0dae4);
         }
     }
+}
+
+.follow-item {
+    background: #F7F7FC 0% 0% no-repeat padding-box;
+    opacity: 1;
+    margin: 10px 0;
+}
+
+.fixed {
+    position: fixed !important;
 }

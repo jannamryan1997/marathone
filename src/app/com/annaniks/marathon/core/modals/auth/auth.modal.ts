@@ -22,4 +22,10 @@ export class AuthModal implements OnInit {
     public closeModal(): void {
         this._matDialogRef.close();
     }
+
+    public closeAuthModal(event):void{
+        if(event){
+            this._matDialogRef.close();
+        }
+    }
 }

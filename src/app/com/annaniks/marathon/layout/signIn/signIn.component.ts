@@ -1,9 +1,10 @@
-import { Component, OnInit, Output, EventEmitter } from "@angular/core";
+import { Component, OnInit, Output, EventEmitter, Input } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SignInResponse } from '../../core/models';
 import { finalize } from 'rxjs/operators';
 import { AuthService } from '../../core/services/auth.services';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
     selector: "app-signIn",
@@ -16,9 +17,11 @@ export class SignInComponent implements OnInit {
     public signInGroup: FormGroup;
     public errorMessage: string;
     public tab: number = 1;
+    @Input() leftContent: string;
     @Output() tabChanges = new EventEmitter();
+    @Output() closeModal=new EventEmitter();
 
-    constructor(private _fb: FormBuilder, private _router: Router, private _authService: AuthService) { }
+    constructor(private _fb: FormBuilder, private _router: Router, private _authService: AuthService,private _cookieService:CookieService) { }
 
     ngOnInit() {
         this._formBuilder();
@@ -26,14 +29,14 @@ export class SignInComponent implements OnInit {
 
     private _formBuilder(): void {
         this.signInGroup = this._fb.group({
-            userName: [null, Validators.required],
-            password: [null, Validators.required]
+            userName: ["wogipa4708@tashjw.com", Validators.required],
+            password: ["wogipa4708", Validators.required]
         })
     }
     private _signIn(): void {
         this.loading = true;
         this.signInGroup.disable();
-        let signInResponse: SignInResponse =
+        let signInResponse =
         {
             username: this.signInGroup.value.userName,
             password: this.signInGroup.value.password,
@@ -47,11 +50,11 @@ export class SignInComponent implements OnInit {
             )
             .subscribe((data) => {
                 console.log(data);
-                this._router.navigate(['auth/login'])
-
+                this.closeModal.emit('true');
+                this._cookieService.set('token','true');
             },
                 err => {
-
+                    console.log(err);
                     this.errorMessage = err.error;
                 }
             )

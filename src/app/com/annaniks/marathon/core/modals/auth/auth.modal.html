@@ -13,7 +13,7 @@
                 <div class="right-content-main m-auto">
                         
                             <div class="auth-form w-100">
-                                <app-signIn (tabChanges)="onChangeTab($event)" *ngIf="tab===1"></app-signIn>
+                                <app-signIn (tabChanges)="onChangeTab($event)" *ngIf="tab===1" (closeModal)="closeAuthModal($event)"></app-signIn>
                                 <app-signUp *ngIf="tab===2" (changeSigntab)="onClickOpenSignIn($event)"></app-signUp>
                             </div>
                 </div>

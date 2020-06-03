@@ -20,7 +20,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { PostCardItemComponent } from '../pages/main/feed/posts/component/post-card-item/post-card-item.component';
 import {AuthModal } from '../core/modals';
 import {MatSelectModule} from '@angular/material/select';
-import { AuthService } from '../core/services/auth.services';
 @NgModule({
     declarations: [
         HeaderComponent,
@@ -48,7 +47,7 @@ import { AuthService } from '../core/services/auth.services';
         HttpClientModule,
         MatSelectModule
     ],
-    providers: [AuthService],
+    providers: [],
     entryComponents: [],
     exports: [
         HeaderComponent,

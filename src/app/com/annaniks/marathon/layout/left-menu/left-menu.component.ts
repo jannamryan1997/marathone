@@ -1,6 +1,5 @@
-import { Component, OnInit} from "@angular/core";
+import { Component, OnInit, AfterViewInit } from "@angular/core";
 import { MenuItem } from '../../core/models';
-import { AuthService } from '../../pages/auth/auth.service';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
@@ -12,22 +11,30 @@ import { AuthModal } from '../../core/modals';
     styleUrls: ["left-menu.component.scss"]
 })
 
-export class LeftMenuCompomemtn implements OnInit {
+export class LeftMenuCompomemtn implements OnInit,AfterViewInit {
+    public token: string;
+    public tab: number = 1;
     public activeTab: string;
     public leftMenuItem: MenuItem[] = [
-        { routerLink: "/home", title: "Home" },
-        { routerLink: "#", title: "Profile" },
-        { routerLink: "#", title: "Dashboard" },
-        { routerLink: "#", title: "Marathon" },
-        { routerLink: "#", title: "My Recips" },
-        { routerLink: "#", title: "My Training" },
+        { routerLink: "/home", title: "Home", icon: "home" },
+        { routerLink: "#", title: "Profile", icon: "person" },
+        { routerLink: "#", title: "Dashboard", icon: "person" },
+        { routerLink: "#", title: "Marathon", icon: "person" },
+        { routerLink: "#", title: "My Recips", icon: "person" },
+        { routerLink: "#", title: "My Training", icon: "person" },
     ]
-    constructor(private _cookieService: CookieService, private _router: Router, private _mathDialog: MatDialog) { }
+    constructor(private _cookieService: CookieService, private _router: Router, private _mathDialog: MatDialog) {
+        this.token = this._cookieService.get('token');
+    }
 
     ngOnInit() { }
 
+    ngAfterViewInit(){
+        
+    }
+
     public onClickTab(item, routerLink): void {
-   
+
 
         if (!this._cookieService.get('token')) {
             this._mathDialog.open(AuthModal, {
@@ -41,5 +48,11 @@ export class LeftMenuCompomemtn implements OnInit {
 
 
         }
+    }
+    public onChangeTab(event): void {
+        this.tab = event;
+    }
+    public onClickOpenSignIn(event): void {
+        this.tab = event;
     }
 }
