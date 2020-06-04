@@ -1,7 +1,8 @@
-@mixin text($fontSize, $lineHeight, $color) {
+@mixin text($fontSize, $lineHeight, $color,$fontFamily) {
     font-size: $fontSize;
     line-height: $lineHeight;
     color: $color;
+   font-family:  $fontFamily;
 }
 .post-container {
     padding: 0 50px 0px 21px;
@@ -26,13 +27,13 @@
     padding: 0 50px 0px 21px;
 
     .title {
-        @include text(20px, 32px, #45535C);
+        @include text(20px, 32px, #45535C,MicrosoftYaHeiUI);
         font-weight: bold;
 
     }
 
     .name {
-        @include text(18px, 21px, #BEC9DF);
+        @include text(18px, 21px, #BEC9DF,MicrosoftYaHeiUI);
     }
 
 }
@@ -72,11 +73,11 @@
             padding: 15px 15px;
 
             .text {
-                @include text(15px, 20px, #ffffff);
+                @include text(15px, 20px, #ffffff,MicrosoftYaHeiUI);
             }
 
             .title {
-                @include text(20px, 20px, #ffffff);
+                @include text(20px, 20px, #ffffff,MicrosoftYaHeiUI);
             }
         }
 

@@ -1,7 +1,8 @@
-@mixin text($fontSize, $lineHeight, $color) {
+@mixin text($fontSize, $lineHeight, $color,$fontFamily) {
     font-size: $fontSize;
     line-height: $lineHeight;
     color: $color;
+    font-family: $fontFamily;
 }
 .form-content{
     border-top: 1px solid #F1F1F6 !important;
@@ -10,14 +11,14 @@
         .message-input {
             max-height: 90px;
             border: none;
-            @include text(15px, 24px, #BEC8DD);
+            @include text(15px, 24px, #BEC8DD,BarlowCondensed-Light);
             resize: none;
             background: #FFFFFF 0% 0% no-repeat padding-box;
             opacity: 1;
             width: 100%;
             margin-top: 20px;
             &::placeholder {
-                @include text(15px, 24px, #BEC8DD);
+                @include text(15px, 24px, #BEC8DD,BarlowCondensed-Light);
             }
           
         }

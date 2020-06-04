@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { CookieService } from 'ngx-cookie-service';
+import { UserService } from '../../core/services/user.service';
 
 @Component({
     selector: "main-view",
@@ -8,12 +8,13 @@ import { CookieService } from 'ngx-cookie-service';
 })
 
 export class MainView implements OnInit {
-    public token: string;
-    constructor(private _cookieService: CookieService) {
-       this.token= this._cookieService.get('token');
+    constructor(private _userService:UserService) {
     }
 
     ngOnInit() { }
 
+    get showUserData(): boolean {
+        return this._userService.isAuthorized;
+    }
 
 }

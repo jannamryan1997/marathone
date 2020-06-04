@@ -1,8 +1,10 @@
-@mixin text($fontSize, $lineHeight, $color) {
+@mixin text($fontSize, $lineHeight, $color, $fontFamily) {
     font-size: $fontSize;
     line-height: $lineHeight;
     color: $color;
+    font-family: $fontFamily;
 }
+
 .home-container {
     .home-main {
         background: #FFFFFF 0% 0% no-repeat padding-box;
@@ -10,21 +12,26 @@
         border: 0.5px solid #E3ECFD;
         border-radius: 0px 0px 15px 15px;
         opacity: 1;
+
         .profile-description {
             position: relative;
+
             .cover-image {
                 height: 185px;
                 width: 100%;
                 background: #527AB2;
             }
+
             .profile-content {
                 padding: 0 20px;
+
                 .profile-header-content {
-                    .profile-image{
+                    .profile-image {
                         margin-top: -80px;
                         display: flex;
                         flex-direction: column;
                         align-items: center;
+
                         .user-image {
                             width: 147px;
                             height: 147px;
@@ -32,7 +39,8 @@
                             background: #FEA6CC;
                             border: 2px solid #ffff;
                         }
-                        .coach-btn{
+
+                        .coach-btn {
                             border: 2px solid #FFFFFF;
                             border-radius: 16px;
                             opacity: 1;
@@ -42,7 +50,7 @@
                             margin-top: -25px;
                         }
                     }
-                    
+
 
                     .btn {
                         border: 1px solid #BACBDB;
@@ -64,7 +72,7 @@
                     padding: 28px 0 19px 0;
 
                     .name {
-                        @include text(22px, 20px, #45535C);
+                        @include text(22px, 20px, #45535C, BarlowCondensed-Medium);
                         font-weight: 400;
                     }
                 }
@@ -72,8 +80,9 @@
                 .profile-data {
                     .data-item {
                         width: 33.333333%;
+
                         .item-title {
-                            @include text(22px, 26px, #BACBDB);
+                            @include text(20px, 26px, #BACBDB, BarlowCondensed-Regular);
                         }
 
                         .country-img {
@@ -83,23 +92,39 @@
                         }
 
                         .country-name {
-                            @include text(22px, 26px, #45535C);
+                            @include text(22px, 26px, #45535C, BarlowCondensed-Regular);
                         }
                     }
                 }
 
                 .statistic {
                     .statistic-item {
-                        width: 25%;
+                        // width: 25%;
                         padding: 1.2em;
                         text-align: center;
+                        text-align: center;
+                        display: flex;
+
+                        &::after {
+                            display: inline-block;
+                            content: "";
+                            border-right: 1px solid #D1E3FC;
+                            height: 50px;
+                            margin-left: 30px;
+                        }
+
+                        &:last-child {
+                            &::after {
+                                content: none !important;
+                            }
+                        }
 
                         .count {
-                            @include text(22px, 33px, #589CFE);
+                            @include text(28px, 33px, #589CFE, BarlowCondensed-Regular);
                         }
 
                         .statistic-title {
-                            @include text(15px, 20px, #45535C);
+                            @include text(20px, 20px, #45535C, BarlowCondensed-Regular);
                         }
                     }
                 }
@@ -109,7 +134,7 @@
                         border-bottom: 2px solid #BACBDB;
                         padding: 1.2em 0;
                         width: 25%;
-                        @include text(22px, 25px, #BACBDB);
+                        @include text(22px, 25px, #BACBDB, BarlowCondensed-Regular);
                         cursor: pointer;
                         transition: .5s all ease-out;
                     }
@@ -118,27 +143,37 @@
 
                 .events-header {
                     padding: 30px 0;
-                .events-content{
-                    padding-top: 20px;
-                   
-                }
-                .review-text{
-                    @include text(18px, 24px,#A6B3CC);  
-                    cursor: pointer;
-                }
+
+                    .gallery-tab {
+                        .btn {
+                            padding: 7px 30px !important;
+                        }
+                    }
+
+                    .events-content {
+                        padding-top: 20px;
+
+                    }
+
+                    .review-text {
+                        @include text(18px, 24px, #A6B3CC, BarlowCondensed-Light);
+                        cursor: pointer;
+                    }
                 }
             }
         }
     }
 }
+
 .btn-content {
     .btn {
         border: 1px solid #BACBDB;
         color: #BACBDB;
-        padding: 7px 20px !important;
+        padding: 7px 15px !important;
         border-radius: 19px;
     }
 }
+
 .show {
     overflow: visible;
     height: auto;

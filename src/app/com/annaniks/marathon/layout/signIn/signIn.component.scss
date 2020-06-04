@@ -1,7 +1,8 @@
-@mixin text($fontSize, $lineHeight, $color) {
+@mixin text($fontSize, $lineHeight,$color, $fontFamily) {
     font-size: $fontSize;
     line-height: $lineHeight;
     color: $color;
+    font-family: $fontFamily;
 }
 
 .signIn-main {
@@ -12,31 +13,30 @@
     }
 
     .button-item {
-        box-shadow: 1px 20px 79px #5C687B69;
-        border: 0.5px solid #CFCFE9;
-        border-radius: 26px;
+        box-shadow: 1px 20px 79px #f8f9fb44;
         opacity: 1;
+        background: #f8f9fb44 !important;
 
         .sign-btn {
             border: none !important;
             width: 50%;
             cursor: pointer;
             transition: .5 all ease-out;
+            padding: 15px;
+            border-radius: 26px;
+            font-family: EncodeSans-SemiBold;
         }
     }
 
     .auth-description {
         margin-top: 30px;
-
-
         .text {
-            @include text(14px, 30px, #45535C);
+            @include text(14px, 30px, #45535C,EncodeSans-SemiBold);
             font-weight: 600;
         }
 
         .title {
-            @include text(14px, 30px, #5897F6);
-            font-weight: 600;
+            @include text(14px, 30px, #5897F6,EncodeSans-SemiBold);
         }
 
         .checkbox {
@@ -57,7 +57,7 @@
 
     .social-media {
         &::before {
-            border-bottom: 2px solid #BECDE8;
+            border-bottom: 1px solid #BECDE8;
             display: block;
             content: "";
             width: 100%;
@@ -75,6 +75,41 @@
     color: #FFFFFF !important;
 }
 
-.signUp-btn{
+.signUp-btn {
     background: none !important;
+}
+
+
+.form-group {
+    margin: 15px 0;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: 0.5px solid #CFCFE9;
+    border-radius: 26px;
+    opacity: 1;
+    height: none !important;
+    padding: 15px 15px !important;
+    text-align: center;
+    align-items: center;
+
+    .form-input {
+        width: calc(100% - 60px);
+        border: none;
+        margin-left: 10px;
+        background:none !important;
+        @include text(17px, 18px, #BECDE8,MicrosoftYaHeiUI);
+
+        &::placeholder {
+            @include text(17px, 18px, #BECDE8,MicrosoftYaHeiUI);
+        }
+    }
+
+    .form-icon {
+        font-size: 20px;
+        line-height: 18px;
+        color: #BECDE8;
+    }
+}
+
+.button-content {
+    padding: 0 !important;
 }

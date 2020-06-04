@@ -2,8 +2,8 @@
   <div class="main-layout">
     <app-header></app-header>
   </div>
-  <div class="main-container d-flex justify-content-between">
-    <div class="left-content" [ngClass]="{'maxWidth':token}">
+  <div class="main-container d-flex">
+    <div class="left-content" [ngClass]="{'maxLength':showUserData}">
         <app-left-menu></app-left-menu>
     </div>
     <div class="router-outlet">

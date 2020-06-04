@@ -1,8 +1,10 @@
-@mixin text($fontSize, $lineHeight, $color) {
+@mixin text($fontSize, $lineHeight, $color, $fontFamily) {
     font-size: $fontSize;
     line-height: $lineHeight;
     color: $color;
+    font-family: $fontFamily;
 }
+
 .comments-item {
     margin-top: 25px;
     .comments {
@@ -18,10 +20,10 @@
             width: 100%;
             margin-left: 20px;
             .name {
-                @include text(16px, 27px, #45535C);
+                @include text(20px, 27px, #45535C, BarlowCondensed-Regular);
             }
             .time {
-                @include text(12px, 27px, #BEC8DD);
+                @include text(12px, 27px, #BEC8DD,BarlowCondensed-Regular);
             }
         }
         .like {
@@ -39,15 +41,15 @@
                 }
             }
             .like-count {
-                @include text(17px, 21px, #45535C);
+                @include text(17px, 21px, #45535C, BarlowCondensed-Regular);
             }
         }
         .commet-message {
-            @include text(15px, 26px, #45535C);
+            @include text(17px, 26px, #45535C,BarlowCondensed-Regular);
             padding: 10px 0;
         }
         .view-title {
-            @include text(14px, 25px, #BEC8DD);
+            @include text(14px, 25px, #BEC8DD,BarlowCondensed-Light);
             text-align: end;
             cursor: pointer;
         }
@@ -73,5 +75,5 @@
     margin: 0 !important;
 }
 .replay-title {
-    @include text(17px, 21px, #589CFE);
+    @include text(17px, 21px, #589CFE,BarlowCondensed-Regular);
 }

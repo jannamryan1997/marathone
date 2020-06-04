@@ -1,7 +1,8 @@
-@mixin text($fontSize, $lineHeight, $color) {
+@mixin text($fontSize, $lineHeight, $color, $fontFamily) {
     font-size: $fontSize;
     line-height: $lineHeight;
     color: $color;
+    font-family: $fontFamily;
 }
 
 .chicken-content {
@@ -24,7 +25,7 @@
             }
 
             .title {
-                @include text(22px, 26px, #45535C);
+                @include text(22px, 26px, #45535C,BarlowCondensed-Regular);
             }
 
             .icon {
@@ -38,15 +39,15 @@
             border-top: 1px solid #F1F1F6;
 
             .title {
-                @include text(28px, 33px, #45535C);
+                @include text(28px, 33px, #45535C,BarlowCondensed-Medium);
             }
 
             .name {
-                @include text(18px, 21px, #BDC0D5);
+                @include text(18px, 21px, #BDC0D5,BarlowCondensed-Regular);
             }
 
             .date {
-                @include text(15px, 21px, #45535C);
+                @include text(15px, 21px, #45535C,BarlowCondensed-Light);
             }
 
             .loader-container {
@@ -73,7 +74,7 @@
                     }
 
                     .circle-text {
-                        @include text(16px, 31px, #45535C);
+                        @include text(22px, 31px, #45535C,BarlowCondensed-Light);
                     }
                 }
 
@@ -94,7 +95,7 @@
             }
 
             .title {
-                @include text(17px, 26px, #45535C);
+                @include text(17px, 26px, #45535C,BarlowCondensed-Medium);
                 margin-bottom: 20px;
             }
 
@@ -102,15 +103,15 @@
                 border-top: 1px solid #F1F1F6;
 
                 .title {
-                    @include text(28px, 33px, #BDC0D5);
+                    @include text(28px, 33px, #BDC0D5,BarlowCondensed-Medium);
                     margin: 20px 0;
 
                 }
 
                 .ingridient-item {
-                    @include text(18px, 16px, #45535C);
+                    @include text(18px, 16px, #45535C,BarlowCondensed-Regular);
                     padding: 15px 0;
-                    font-weight: 600;
+                    font-weight: 500;
                 }
             }
 
@@ -119,7 +120,7 @@
                 margin: 26px 0;
 
                 .title {
-                    @include text(28px, 33px, #BDC0D5);
+                    @include text(28px, 33px, #BDC0D5,BarlowCondensed-Medium);
                     margin: 20px 0;
 
                 }
@@ -128,7 +129,7 @@
                     padding: 15px 0;
 
                     .instruction-item-text {
-                        @include text(18px, 30px, #45535C);
+                        @include text(18px, 30px, #45535C,BarlowCondensed-Light);
 
                         &:after {
                             content: "";
@@ -142,7 +143,7 @@
 
                     .number {
                         margin-right: 28px;
-                        @include text(25px, 36px, #45535C);
+                        @include text(25px, 36px, #45535C,BarlowCondensed-Medium);
                         font-weight: 600;
                     }
                 }

@@ -1,13 +1,18 @@
 <header>
     <div class="header-container pg-container">
         <div class="header-content display-flex">
-            <img src="..." class="logo-image" alt="Logo">
+        <p class="logo-text">marathon</p>
             <div class="header-category d-flex">
                 <li *ngFor="let item of menuItem" routerLinkActive="li-activeTab"><a class="link"
                         [routerLink]="item.routerLink" routerLinkActive="activeTab">{{item?.title}}</a></li>
             </div>
 
-            <input type="text" class="form-control search-input" placeholder="Search">
+            <div class="serch-content">
+                <input type="tex" class="search-input" placeholder="Search">
+                <span class="material-icons search-icon">
+                    search
+                </span>
+            </div>
         </div>
         <div class="header-manu d-none">
             <span class="material-icons  open-icon">

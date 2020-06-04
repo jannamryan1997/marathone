@@ -1,58 +1,77 @@
-@mixin text($fontSize, $lineHeight, $color) {
+@mixin text($fontSize, $lineHeight, $color, $fontFamily) {
     font-size: $fontSize;
     line-height: $lineHeight;
     color: $color;
+    font-family: $fontFamily;
 }
+
 .combination-content {
     background: #ffff;
     padding: 0 0px 10px 0px;
+
     .combination-header {
         position: relative;
+
         .combination-image {
             height: 260px;
         }
+
         .header-container {
             padding: 20px 20px;
+
             .icon {
                 font-size: 28px;
                 cursor: pointer;
             }
         }
     }
+
     .combination-main-content {
         border-top: 1px solid #F1F1F6;
         padding: 14px 10px;
+
         .title {
-            @include text(25px, 33px, #45535C);
-            font-weight: 600;
+            @include text(25px, 33px, #45535C, BarlowCondensed-Medium);
+            font-weight: bold;
         }
+
         .name {
-            @include text(18px, 21px, #BDC0D5);
+            @include text(18px, 21px, #BDC0D5, BarlowCondensed-Regular);
         }
+
         .date {
-            @include text(15px, 21px, #45535C);
+            @include text(15px, 21px, #45535C, BarlowCondensed-Light);
         }
-        .combination-item{
+
+        .combination-item {
             padding: 20px 0;
-           .text{
-            @include text(18px, 26px,#45535C);  
-           } 
-           .title{
-            @include text(25px, 26px,#45535C);  
-            margin-bottom: 15px;
-           }
+
+            .text {
+                @include text(18px, 26px, #45535C, BarlowCondensed-Regular);
+                font-weight: 500;
+            }
+
+            .title {
+                @include text(25px, 26px, #45535C, BarlowCondensed-Medium);
+                margin-bottom: 15px;
+                font-weight: bold;
+
+            }
         }
     }
-    .setting-content{
+
+    .setting-content {
         border-top: 1px solid #F1F1F6;
         border-bottom: 1px solid #F1F1F6;
         padding: 0 !important;
-        .setting-item{
+
+        .setting-item {
             padding: 19px 0;
-        .title{
-            margin: 0 !important;
+
+            .title {
+                margin: 0 !important;
+            }
         }
-    }
     }
 
 }

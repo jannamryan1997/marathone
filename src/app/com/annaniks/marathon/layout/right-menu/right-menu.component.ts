@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { ContactItem, FollowItem } from '../../core/models';
-import { CookieService } from 'ngx-cookie-service';
+import { UserService } from '../../core/services/user.service';
 
 @Component({
     selector: "app-right-menu",
@@ -9,7 +9,6 @@ import { CookieService } from 'ngx-cookie-service';
 })
 
 export class RightMenuComponent implements OnInit {
-    public token:string;
     public contactItem: ContactItem[] = [
         { image: "assets/images/img1.png", name: "Olivie Gipson" },
         { image: "assets/images/img2.png", name: "Olivie Gipson" },
@@ -20,17 +19,20 @@ export class RightMenuComponent implements OnInit {
         { image: "assets/images/img7.png", name: "Olivie Gipson" },
         { image: "assets/images/img8.png", name: "Olivie Gipson" },
     ]
-    public followItem:FollowItem[]=[
-        { image: "assets/images/img1.png", name: "Olivie Gipson",email:"@oliviegipson" }, 
-        { image: "assets/images/img1.png", name: "Olivie Gipson",email:"@oliviegipson" }, 
-        { image: "assets/images/img1.png", name: "Olivie Gipson",email:"@oliviegipson" }, 
-        { image: "assets/images/img1.png", name: "Olivie Gipson",email:"@oliviegipson" }, 
-        { image: "assets/images/img1.png", name: "Olivie Gipson",email:"@oliviegipson" }, 
+    public followItem: FollowItem[] = [
+        { image: "assets/images/img1.png", name: "Olivie Gipson", email: "@oliviegipson" },
+        { image: "assets/images/img1.png", name: "Olivie Gipson", email: "@oliviegipson" },
+        { image: "assets/images/img1.png", name: "Olivie Gipson", email: "@oliviegipson" },
+        { image: "assets/images/img1.png", name: "Olivie Gipson", email: "@oliviegipson" },
+        { image: "assets/images/img1.png", name: "Olivie Gipson", email: "@oliviegipson" },
     ]
-    constructor(private _cookieService:CookieService) {
-        this.token=this._cookieService.get('token');
-     }
+    constructor(private _userService: UserService) {
+    }
 
-    ngOnInit() {}
+    ngOnInit() { }
+
+    get showUserData(): boolean {
+        return this._userService.isAuthorized;
+    }
 
 }

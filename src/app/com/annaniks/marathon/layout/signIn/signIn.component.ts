@@ -63,6 +63,7 @@ export class SignInComponent implements OnInit {
                 this._cookieService.set('access', data.access);
                 this._cookieService.set('refresh', data.refresh);
                 this._userService.isAuthorized = true;
+                console.log(this._userService.isAuthorized);
 
             },
                 err => {

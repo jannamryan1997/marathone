@@ -1,3 +1,10 @@
+@mixin text($fontSize, $lineHeight, $color, $fontFamily) {
+    font-size: $fontSize;
+    line-height: $lineHeight;
+    color: $color;
+    font-family: $fontFamily,
+}
+
 header {
     background: #FFFFFF 0% 0% no-repeat padding-box;
     box-shadow: 11px 13px 18px #3E598B0F;
@@ -8,42 +15,54 @@ header {
     z-index: 1;
 
     .header-container {
-        padding: 25px 0;
+        padding: 20px 0;
 
         .header-content {
-            .logo-image {
-                width: 100%;
-                max-width: 120px;
+            .logo-text {
+                @include text(30px, 20px, #589CFE, Roboto);
+                letter-spacing: 3px;
+                font-weight: bold;
             }
 
             .header-category {
                 .link {
-                    color: #AFC1D1;
-                    font-size: 18px;
+                    @include text(18px, 21px, #AFC1D1, EncodeSans-Medium);
                     text-decoration: none;
                     margin-right: 32px;
                     cursor: pointer;
-                    font-weight: 600;
                     transition: .5s all ease-out;
                     height: fit-content;
 
                     &:hover {
                         color: #65a4fe;
                     }
+
                 }
             }
 
-            .search-input {
+            .serch-content {
+                display: flex;
+                justify-content: space-between;
+                padding: 9px 25px;
                 background: #F3F3FA 0% 0% no-repeat padding-box;
                 border: 0.5px solid #ACC3D9;
-                border-radius: 21px;
-                opacity: 0.66;
-                padding: 6px 18px;
-                width: 270px;
+                border-radius: 24px;
+                opacity: 1;
 
-                &::placeholder {
-                    color: #BEC8DD !important;
-                    font-size: 18px;
+                .search-input {
+                    width: calc(100% - 40px);
+                    border: none;
+                    background: none;
+                    @include text(16px, 20px, #BEC8DD, YuGothicUI-Regular);
+
+                    &::placeholder {
+                        @include text(16px, 20px, #BEC8DD, YuGothicUI-Regular);
+                    }
+                }
+
+                .search-icon {
+                    font-size: 22px;
+                    color: #BEC8DD;
                 }
             }
         }

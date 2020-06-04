@@ -1,5 +1,4 @@
-import { Injectable, Inject } from "@angular/core";
-import { CookieService } from 'ngx-cookie-service';
+import { Injectable } from "@angular/core";
 import { HttpParams, HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { SignInResponse, SignUpData, SignUpResponse, SignInData } from '../models';

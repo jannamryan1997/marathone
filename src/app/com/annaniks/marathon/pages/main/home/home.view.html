@@ -67,20 +67,29 @@
                 <div class="statistic display-flex">
                     <div class="m-auto  display-flex">
                         <div class="statistic-item">
+                            <div>
                             <p class="count">600</p>
                             <p class="statistic-title">Energy</p>
                         </div>
+                        </div>
                         <div class="statistic-item">
+                            <div>
                             <p class="count">600</p>
                             <p class="statistic-title">Energy</p>
                         </div>
-                        <div class="statistic-item">
-                            <p class="count">600</p>
-                            <p class="statistic-title">Energy</p>
                         </div>
                         <div class="statistic-item">
+                                <div>
                             <p class="count">600</p>
                             <p class="statistic-title">Energy</p>
+                            </div>
+                        </div>
+                        <div class="statistic-item">
+                            <div>
+                                <p class="count">600</p>
+                                <p class="statistic-title">Energy</p>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -161,16 +170,16 @@
             </div>
         </div>
     </div>
-<div class="review-content" *ngIf="openReview">
-    <div class="review w-100 d-flex flex-wrap flex-column">
-        <app-review></app-review>
-        <app-review></app-review>
-        <app-review></app-review>
-        <app-review></app-review>
-        <app-review></app-review>
+    <div class="review-content" *ngIf="openReview">
+        <div class="review w-100 d-flex flex-wrap flex-column">
+            <app-review></app-review>
+            <app-review></app-review>
+            <app-review></app-review>
+            <app-review></app-review>
+            <app-review></app-review>
+        </div>
+
     </div>
-      
-</div>
     <div class="feed-item">
         <app-post-card-item [postType]="'image'"></app-post-card-item>
         <app-post-card-item [postType]="'combinations'"></app-post-card-item>

@@ -1,11 +1,12 @@
-@mixin text($fontSize, $lineHeight, $color) {
+@mixin text($fontSize, $lineHeight, $color, $fontFamily) {
     font-size: $fontSize;
     line-height: $lineHeight;
     color: $color;
+    font-family: $fontFamily;
 }
 .feed-container {
     .feed-header-content {
-        padding: 10px 0px;
+        padding: 14px 0px;
         background: #FFFFFF 0% 0% no-repeat padding-box;
         box-shadow: 0.77px 11px 43px #5C687B17;
         border: 0.5px solid #E3ECFD;
@@ -13,8 +14,10 @@
         opacity: 1;
         text-align: center;
         .title {
-            @include text(20px, 24px, #AFC1D1);
+            @include text(20px, 24px, #AFC1D1,BarlowCondensed-Regular);
         }
-     
+    }
+    .button-text{
+        @include text(18px, 21px, #AFC1D1,BarlowCondensed-Regular);
     }
 }

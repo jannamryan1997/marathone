@@ -1,4 +1,4 @@
-<div class="right-menu" [ngClass]="{'fixed':token}">
+<div class="right-menu" [ngClass]="{'position':showUserData}">
     <div class="follow">
         <p class="title mt-0">Who to follow</p>
         <div *ngFor="let item of followItem" class="user-item follow-item d-flex">
@@ -11,10 +11,17 @@
         </div>
     </div>
     <div class="contact">
-        <p class="title">Contacts</p>
-        <div *ngFor="let item of contactItem" class="user-item d-flex">
-            <img [src]="item?.image" class="user-image" alt="Cinque Terre">
-            <p class="name">{{item?.name}}</p>
+        <div class="serch-content">
+            <input type="tex" class="search-input" placeholder="Contacts">
+            <span class="material-icons search-icon">
+                search
+            </span>
+        </div>
+        <div class="contact-item">
+            <div *ngFor="let item of contactItem" class="user-item d-flex">
+                <img [src]="item?.image" class="user-image" alt="Cinque Terre">
+                <p class="name">{{item?.name}}</p>
+            </div>
         </div>
     </div>
 </div>

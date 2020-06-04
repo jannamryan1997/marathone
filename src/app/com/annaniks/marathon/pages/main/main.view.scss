@@ -11,7 +11,8 @@
 
         .router-outlet {
             width: 100%;
-            max-width: 600px;
+            max-width: 650px;
+            padding: 0 25px;
         }
 
         .right-content {
@@ -21,10 +22,6 @@
     }
 }
 
-.maxWidth {
-    max-width: 180px !important;
-}
-
-.fixed {
-    position: fixed !important;
+.maxLength {
+    max-width: 200px !important;
 }

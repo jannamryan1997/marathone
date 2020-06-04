@@ -1,7 +1,8 @@
-@mixin text($fontSize, $lineHeight, $color) {
+@mixin text($fontSize, $lineHeight, $color,$fontFamily) {
     font-size: $fontSize;
     line-height: $lineHeight;
     color: $color;
+    font-family: $fontFamily;
 }
 
 .pg-container {
@@ -45,7 +46,7 @@
 .post-content {
     .post-container {
         .title {
-            @include text(16px, 30px, #45535C);
+            @include text(16px, 30px, #45535C,MicrosoftYaHeiUI);
         }
 
         .more {
@@ -74,13 +75,13 @@
         }
 
         .name-title {
-            @include text(21px, 33px, #45535C);
+            @include text(21px, 33px, #45535C,EncodeSans-Bold);
             margin-left: 20px;
             font-weight: bold;
         }
 
         .time {
-            @include text(15px, 33px, #E3ECFD);
+            @include text(15px, 33px, #E3ECFD,EncodeSans-Medium);
             margin-left: 30px;
         }
     }
@@ -93,10 +94,14 @@
 
 .follow-btn {
     border: 1px solid #B9B9D5;
-    border-radius: 16px;
+    border-radius: 20px;
     opacity: 1;
     margin-left: 35px;
     color: #B9B9D5;
+    font-family: EncodeSans-SemiBold;
+    padding: 9px 20px;
+    background: #F7F7FC 0% 0% no-repeat padding-box;
+    font-weight: 600;
 }
 
 //radius
@@ -135,7 +140,7 @@
         padding: 5px;
         cursor: pointer;
         outline: none;
-        background: #ffffff;
+        // background: #ffffff;
         transition: .5s all ease-out;
 
         &:first-child {
@@ -162,7 +167,7 @@
     }
 
     .title {
-        @include text(18px, 20px, #45535C);
+        @include text(18px, 20px, #45535C,MicrosoftYaHeiUI);
     }
 }
 
@@ -171,23 +176,6 @@
 
 
 .auth-form {
-    .form-group {
-        padding: 15px 0;
-        margin: 0;
-        .form-input {
-            background: #FFFFFF 0% 0% no-repeat padding-box;
-            border: 0.5px solid #CFCFE9;
-            border-radius: 26px;
-            opacity: 1;
-            height: none !important;
-            padding: 15px 15px !important;
-            @include text(17px, 18px, #BECDE8);
-            &::placeholder{
-                @include text(17px, 18px, #BECDE8);
-            }
-        }
-    }
-
     .form-btn {
         background-color: #57A1F2;
         border-radius: 28px;

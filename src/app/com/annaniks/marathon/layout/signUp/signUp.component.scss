@@ -1,12 +1,13 @@
-@mixin text($fontSize, $lineHeight, $color) {
+@mixin text($fontSize, $lineHeight, $color, $fontFamily) {
     font-size: $fontSize;
     line-height: $lineHeight;
     color: $color;
+    font-family: $fontFamily;
 }
 
 .signUp-main {
     .title {
-        @include text(22px, 30px, #5897F6);
+        @include text(25px, 30px, #5897F6, EncodeSans-Bold);
         font-weight: 600;
     }
 
@@ -14,11 +15,11 @@
         margin-top: 15px;
 
         .title {
-            @include text(14px, 16px, #45535C);
+            @include text(14px, 16px, #45535C, EncodeSans-Medium);
         }
 
         .text {
-            @include text(14px, 16px, #5897F6);
+            @include text(14px, 16px, #5897F6, EncodeSans-Medium);
             cursor: pointer;
         }
 
@@ -37,7 +38,7 @@
         }
 
         .checkbox-lable {
-            @include text(16px, 16px, #BECDE8);
+            @include text(16px, 16px, #BECDE8, EncodeSans-SemiBold);
             margin-left: 15px;
             font-weight: bold;
         }
@@ -52,19 +53,17 @@
             }
 
             .label {
-                @include text(11px, 13px, #BECDE8);
+                @include text(11px, 13px, #BECDE8, MicrosoftYaHeiUI);
             }
 
             .input {
+                @include text(15px, 20px, #45535C, MicrosoftYaHeiUI);
                 border-right: none;
                 border-left: none;
                 border-top: none;
                 border-bottom: 2px solid #E3ECFD;
                 font-style: normal;
                 font-weight: bold;
-                font-size: 15px;
-                line-height: 20px;
-                color: #45535C;
                 padding: 7px 0;
                 background: none !important;
             }
@@ -72,7 +71,7 @@
 
         .signUp-btn {
             padding: 10px 20px;
-            @include text(18px, 21px, #5897F6);
+            @include text(18px, 21px, #5897F6, EncodeSans-Bold);
             cursor: pointer;
             font-weight: bold;
             border: 1px solid #6CA7FE;
@@ -81,6 +80,7 @@
         }
     }
 }
+
 
 .form-group {
     padding-top: 0 !important;
@@ -92,11 +92,6 @@
     border-left: none !important;
     border-top: none !important;
     background: none !important;
-}
-
-
-::ng-deep.mat-form-field {
-    padding: 0 5px !important;
 }
 
 ::ng-deep .mat-form-field {
@@ -159,11 +154,11 @@
 }
 
 ::ng-deep .mat-select-arrow {
-        color: #E3ECFD !important
-    }
+    color: #E3ECFD !important
+}
 
 
-::ng-deep.mat-select-value{
-        color: #45535C !important;
-        font-weight: bold !important;
-    }
+::ng-deep.mat-select-value {
+    color: #45535C !important;
+    font-weight: bold !important;
+}

@@ -4,7 +4,6 @@ import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthModal } from '../../core/modals';
-import { AuthService } from '../../core/services/auth.services';
 import { UserService } from '../../core/services/user.service';
 
 @Component({
@@ -26,7 +25,6 @@ export class LeftMenuCompomemtn implements OnInit, AfterViewInit {
     ]
     constructor(private _cookieService: CookieService,
         private _router: Router, private _mathDialog: MatDialog,
-        private _authService: AuthService,
         private _userService: UserService
 
     ) {
@@ -37,9 +35,7 @@ export class LeftMenuCompomemtn implements OnInit, AfterViewInit {
     ngAfterViewInit() { }
 
     public onClickTab(item, routerLink): void {
-
-
-        if (!this._cookieService.get('token')) {
+        if (!this._cookieService.get('access') && !this._cookieService.get('refresh')) {
             this._mathDialog.open(AuthModal, {
                 width: "100%",
                 maxWidth: "100vw",
