@@ -19,7 +19,7 @@
         }
 
         .title {
-            @include text(20px, 20px, #45535C,EncodeSans-SemiBold);
+            @include text(17px, 20px, #45535C,EncodeSans-SemiBold);
             cursor: pointer;
             margin-left: 5px;
             font-weight: 600;

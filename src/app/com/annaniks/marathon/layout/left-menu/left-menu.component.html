@@ -8,9 +8,9 @@
             </div>
         </div>
         <div class="left-menu-description" *ngIf="showUserData">
-            <img src="assets/images/img2.png" class="user-image" alt="Cinque Terre">
-            <p class="name">Maya Crouche</p>
-            <p class="user-name">@mayacrouch</p>
+            <img [src]="profileUser?.photoUrl" class="user-image" alt="Cinque Terre">
+            <p class="name">{{profileUser?.name}}</p>
+            <p class="user-name">{{profileUser?.email}}</p> 
         </div>
     </div>
     <div class="left-menu-item">
@@ -23,3 +23,4 @@
     </div>
 
 </div>
+

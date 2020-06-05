@@ -34,10 +34,16 @@
         <div class="auth-description social-media">
             <div class=" display-flex">
                 <p class="text">Sign in with</p>
-                <i class="fa fa-google icon" aria-hidden="true"></i>
-                <i class="fa fa-facebook icon" aria-hidden="true"></i>
+                <i class="fa fa-google icon" aria-hidden="true" (click)="signInWithGoogle()"></i>
+                <i class="fa fa-facebook icon" aria-hidden="true" (click)="signInWithFB()"></i>
                 <i class="fa fa-twitter icon" aria-hidden="true"></i>
             </div>
         </div>
     </form>
+</div>
+
+<img src="{{ user?.photoUrl }}">
+<div>
+  <h4>{{ user?.name }}</h4>
+  <p>{{ user?.email }}</p>
 </div>

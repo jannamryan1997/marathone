@@ -1,11 +1,14 @@
-import { Component, OnInit, Output, EventEmitter, Input } from "@angular/core";
+import { Component, OnInit, Output, EventEmitter} from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SignInResponse, SignInData } from '../../core/models';
 import { finalize } from 'rxjs/operators';
-import { AuthService } from '../../core/services/auth.services';
+import { AuthUserService } from '../../core/services/auth.services';
 import { CookieService } from 'ngx-cookie-service';
-import { UserService } from '../../core/services/user.service';
+import { ProfileUserService } from '../../core/services/user.service';
+import { SocialUser} from 'angularx-social-login';
+import { FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
+import { AuthService } from "angularx-social-login";
 
 @Component({
     selector: "app-signIn",
@@ -19,21 +22,27 @@ export class SignInComponent implements OnInit {
     public signInGroup: FormGroup;
     public errorMessage: string;
     public tab: number = 1;
-
+    public user: SocialUser;
+    public loggedIn: boolean;
     @Output() tabChanges = new EventEmitter();
     @Output() closeModal = new EventEmitter();
 
 
     constructor(
         private _fb: FormBuilder,
-        private _router: Router,
-        private _authService: AuthService,
+        private _authUserService: AuthUserService,
         private _cookieService: CookieService,
-        private _userService: UserService
-    ) { }
+        private _profileUserService: ProfileUserService,
+        private _socialAuthService: AuthService,
+     
+    ) { 
+
+        
+    }
 
     ngOnInit() {
         this._formBuilder();
+     
     }
 
     private _formBuilder(): void {
@@ -50,7 +59,7 @@ export class SignInComponent implements OnInit {
             username: this.signInGroup.value.email,
             password: this.signInGroup.value.password,
         }
-        this._authService.SignIn(signInResponse)
+        this._authUserService.SignIn(signInResponse)
             .pipe(
                 finalize(() => {
                     this.loading = false;
@@ -62,8 +71,13 @@ export class SignInComponent implements OnInit {
                 this.closeModal.emit('true');
                 this._cookieService.set('access', data.access);
                 this._cookieService.set('refresh', data.refresh);
-                this._userService.isAuthorized = true;
-                console.log(this._userService.isAuthorized);
+                this._profileUserService.isAuthorized = true;
+                this._profileUserService.user = {
+                    name: "Maya Crouche",
+                    email: "@mayacrouch",
+                    photoUrl: "assets/images/img2.png"
+                };
+                console.log(this._profileUserService.isAuthorized);
 
             },
                 err => {
@@ -75,7 +89,7 @@ export class SignInComponent implements OnInit {
     }
 
     public getUser(): void {
-        // this._authService.getUser()
+        // this._profileUserService.getUser()
         //     .subscribe((data) => {
         //         this._userService.user = data;
         //         this._userService.isAuthorized = true;
@@ -92,6 +106,39 @@ export class SignInComponent implements OnInit {
             this._signIn();
         }
     }
+    signInWithFB(): void {
+        this._socialAuthService.authState.subscribe((user) => {
+            this.loggedIn = (user != null);
+            this._profileUserService.user = user;
+            this._profileUserService.isAuthorized = true;
 
+        });
+        this._socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
+
+    }
+
+    signInWithGoogle(): void {
+      console.log(this._socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID));
+      this._socialAuthService.authState.subscribe((user) => {
+        this.loggedIn = (user != null);
+        // this._profileUserService.user = user;
+        this._profileUserService.user = {
+            name: "Maya Crouche",
+            email: "@mayacrouch",
+            photoUrl: "assets/images/img2.png"
+        };
+        this._profileUserService.isAuthorized = true;
+        console.log(user);
+
+    });
+        this._socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
+
+    }
+
+
+
+    // signOut(): void {
+    //     this._socialAuthService.signOut();
+    // }
 
 }

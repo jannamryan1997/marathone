@@ -8,8 +8,26 @@ import { environment } from 'src/environments/environment';
 import { HTTP_INTERCEPTORS,HttpClientModule } from '@angular/common/http';
 import { ApiInterceptor } from './com/annaniks/marathon/core/interceptore/api.interceptor';
 import { CookieService} from 'ngx-cookie-service';
-import { AuthService } from './com/annaniks/marathon/core/services/auth.services';
+import { AuthUserService } from './com/annaniks/marathon/core/services/auth.services';
+import { SocialLoginModule, AuthServiceConfig } from "angularx-social-login";
+import { GoogleLoginProvider, FacebookLoginProvider } from "angularx-social-login";
 
+let config = new AuthServiceConfig([
+  {
+    id: FacebookLoginProvider.PROVIDER_ID,
+    provider: new FacebookLoginProvider('521112195089951'),
+  },
+  {
+    id: GoogleLoginProvider.PROVIDER_ID,
+    provider: new GoogleLoginProvider("549571475008-6h8o014lk4kcmjajeug8lmvhjr6aqgdh.apps.googleusercontent.com")
+  },
+
+]);
+ 
+
+export function provideConfig() {
+  return config;
+}
 @NgModule({
   declarations: [
     AppComponent
@@ -20,6 +38,7 @@ import { AuthService } from './com/annaniks/marathon/core/services/auth.services
     SharedModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    SocialLoginModule
 
   ],
   providers: [
@@ -33,8 +52,12 @@ import { AuthService } from './com/annaniks/marathon/core/services/auth.services
       useClass: ApiInterceptor,
       multi: true
     },
+    {
+      provide: AuthServiceConfig,
+      useFactory: provideConfig
+    },
     CookieService,
-    AuthService
+    AuthUserService,
   ],
   bootstrap: [AppComponent]
 })

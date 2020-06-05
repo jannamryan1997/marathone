@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { UserService } from '../../core/services/user.service';
+import { ProfileUserService } from '../../core/services/user.service';
 
 @Component({
     selector: "main-view",
@@ -8,13 +8,13 @@ import { UserService } from '../../core/services/user.service';
 })
 
 export class MainView implements OnInit {
-    constructor(private _userService:UserService) {
+    constructor(private _profileUserService:ProfileUserService) {
     }
 
     ngOnInit() { }
 
     get showUserData(): boolean {
-        return this._userService.isAuthorized;
+        return this._profileUserService.isAuthorized;
     }
 
 }

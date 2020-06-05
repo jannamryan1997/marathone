@@ -18,11 +18,11 @@ export class FeedView implements OnInit {
     private _getFeed(): void {
         this._feedService.feed()
             .subscribe((data) => {
-                console.log(data,"feeeeeddddddd");
+                // console.log(data,"feeeeeddddddd");
 
             },
                 error => {
-                    console.log(error);
+                    // console.log(error);
 
                 }
             )

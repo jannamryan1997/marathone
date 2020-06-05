@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
+import { Component, OnInit} from "@angular/core";
 import { ContactItem, FollowItem } from '../../core/models';
-import { UserService } from '../../core/services/user.service';
+import { ProfileUserService } from '../../core/services/user.service';
 
 @Component({
     selector: "app-right-menu",
@@ -26,13 +26,13 @@ export class RightMenuComponent implements OnInit {
         { image: "assets/images/img1.png", name: "Olivie Gipson", email: "@oliviegipson" },
         { image: "assets/images/img1.png", name: "Olivie Gipson", email: "@oliviegipson" },
     ]
-    constructor(private _userService: UserService) {
+    constructor(private _profileUserService: ProfileUserService) {
     }
 
     ngOnInit() { }
 
     get showUserData(): boolean {
-        return this._userService.isAuthorized;
+        return this._profileUserService.isAuthorized;
     }
 
 }

@@ -2,7 +2,7 @@ import { Component, OnInit, Output, EventEmitter, Input } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { finalize } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { AuthService } from '../../core/services/auth.services';
+import { AuthUserService } from '../../core/services/auth.services';
 
 @Component({
     selector: "app-signUp",
@@ -16,7 +16,10 @@ export class SignUpComponent implements OnInit {
     public loading: boolean = false;
     public signUpGroup: FormGroup;
     @Output() changeSigntab = new EventEmitter;
-    constructor(private _fb: FormBuilder, private _router: Router, private _authService: AuthService) { }
+    constructor(
+        private _fb: FormBuilder, 
+        private _router: Router, 
+        private _authUserService: AuthUserService) { }
 
     ngOnInit() {
         this._formBuilder();
@@ -56,7 +59,7 @@ export class SignUpComponent implements OnInit {
             ui_language: "http://annaniks.com:6262/api/utils/language/3/",
             metric: "http://annaniks.com:6262/api/utils/metric/1/",
         }
-        this._authService.signUp(signUpData)
+        this._authUserService.signUp(signUpData)
             .pipe(
                 finalize(() => {
                     this.loading = false;

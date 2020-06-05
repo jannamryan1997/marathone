@@ -6,7 +6,7 @@ import { SignInResponse, SignUpData, SignUpResponse, SignInData } from '../model
 @Injectable()
 
 
-export class AuthService {
+export class AuthUserService {
 
     constructor(private _httpCliet: HttpClient) {}
 
