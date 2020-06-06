@@ -108,9 +108,15 @@ export class SignInComponent implements OnInit {
     }
     signInWithFB(): void {
         this._socialAuthService.authState.subscribe((user) => {
-            this.loggedIn = (user != null);
-            this._profileUserService.user = user;
-            this._profileUserService.isAuthorized = true;
+            if(this.loggedIn = (user != null)){
+                this._profileUserService.user = user;
+                this._profileUserService.isAuthorized = true;
+                this.closeModal.emit('true');
+                this._cookieService.set("fbUser","true");
+            }
+            console.log(this.loggedIn,"this.loggedInkkkkkkk");
+            
+         
 
         });
         this._socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
