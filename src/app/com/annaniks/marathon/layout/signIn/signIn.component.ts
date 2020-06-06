@@ -124,19 +124,18 @@ export class SignInComponent implements OnInit {
     }
 
     signInWithGoogle(): void {
-      console.log(this._socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID));
-      this._socialAuthService.authState.subscribe((user) => {
-        this.loggedIn = (user != null);
-        // this._profileUserService.user = user;
-        this._profileUserService.user = {
-            name: "Maya Crouche",
-            email: "@mayacrouch",
-            photoUrl: "assets/images/img2.png"
-        };
-        this._profileUserService.isAuthorized = true;
-        console.log(user);
+        this._socialAuthService.authState.subscribe((user) => {
+            if(this.loggedIn = (user != null)){
+                this._profileUserService.user = user;
+                this._profileUserService.isAuthorized = true;
+                this.closeModal.emit('true');
+                this._cookieService.set("googleUser","true");
+            }
+            console.log(this.loggedIn,"this.loggedInkkkkkkk");
+            
+         
 
-    });
+        });
         this._socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
 
     }

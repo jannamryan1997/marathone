@@ -19,7 +19,7 @@ let config = new AuthServiceConfig([
   },
   {
     id: GoogleLoginProvider.PROVIDER_ID,
-    provider: new GoogleLoginProvider("549571475008-6h8o014lk4kcmjajeug8lmvhjr6aqgdh.apps.googleusercontent.com")
+    provider: new GoogleLoginProvider("378578336151-2e84bss75kp699ivffbprtslmv7a8pk2.apps.googleusercontent.com")
   },
 
 ]);

@@ -41,13 +41,17 @@ export class LeftMenuCompomemtn implements OnInit, AfterViewInit {
 
     public onClickTab(item, routerLink): void {
 
-        if (!this._cookieService.get('access') && !this._cookieService.get('refresh') && !this._cookieService.get('fbUser')) {
+        if (!this._cookieService.get('access') && !this._cookieService.get('refresh') && !this._cookieService.get('fbUser') && !this._cookieService.get('googleUser')) {
             this._mathDialog.open(AuthModal, {
                 width: "100%",
                 maxWidth: "100vw",
             })
         }
         else if (this._cookieService.get('fbUser')) {
+            this.activeTab = item.routerLink;
+            this._router.navigate([routerLink]);
+        }
+        else if(this._cookieService.get('googleUser')){
             this.activeTab = item.routerLink;
             this._router.navigate([routerLink]);
         }
