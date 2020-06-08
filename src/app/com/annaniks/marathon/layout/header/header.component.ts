@@ -1,5 +1,6 @@
 import { Component, OnInit, ElementRef, ViewChild } from "@angular/core";
 import { MenuItem } from '../../core/models';
+import { ProfileUserService } from '../../core/services/user.service';
 
 @Component({
     selector: "app-header",
@@ -8,6 +9,8 @@ import { MenuItem } from '../../core/models';
 })
 
 export class HeaderComponent implements OnInit {
+    public profileUser;
+    public showPfofileMenu:boolean=false;
     public menuItem: MenuItem[] = [
         { routerLink: "/feed", title: "Feed" },
         { routerLink: "#", title: "Coaches" },
@@ -18,8 +21,17 @@ export class HeaderComponent implements OnInit {
         { routerLink: "#", title: "Transform" },
         { routerLink: "#", title: "Workout Music" },
     ]
-    constructor() { }
+    constructor(private _profileUserService: ProfileUserService,) { }
 
     ngOnInit() { }
+
+public showProfile():void{
+    this.showPfofileMenu =! this.showPfofileMenu;
+}
+
+    get showUserData(): boolean {
+        this.profileUser = this._profileUserService.user;
+        return this._profileUserService.isAuthorized;
+    }
     }
 

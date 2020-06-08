@@ -99,7 +99,7 @@
     margin-left: 35px;
     color: #B9B9D5;
     font-family: EncodeSans-SemiBold;
-    padding: 9px 20px;
+    padding: 5px 20px;
     background: #F7F7FC 0% 0% no-repeat padding-box;
     font-weight: 600;
 }
@@ -220,3 +220,96 @@
     border-radius: 8px;
     width: 10px;
   }
+
+
+
+  /////forms
+
+  .form-group {
+    margin: 15px 0;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: 0.5px solid #CFCFE9;
+    border-radius: 26px;
+    opacity: 1;
+    height: none !important;
+    padding: 15px 15px !important;
+    text-align: center;
+    align-items: center;
+
+    .form-input {
+        width: calc(100% - 60px);
+        border: none;
+        margin-left: 10px;
+        background:none !important;
+        @include text(17px, 18px, #BECDE8,MicrosoftYaHeiUI);
+
+        &::placeholder {
+            @include text(17px, 18px, #BECDE8,MicrosoftYaHeiUI);
+        }
+    }
+
+    .form-icon {
+        font-size: 20px;
+        line-height: 18px;
+        color: #BECDE8;
+    }
+}
+
+.auth-description {
+    margin-top: 30px;
+    .text {
+        @include text(14px, 30px, #45535C,EncodeSans-SemiBold);
+        font-weight: 600;
+    }
+
+    .title {
+        @include text(14px, 30px, #5897F6,EncodeSans-SemiBold);
+        font-weight: bold;
+    }
+
+    .checkbox {
+        background: #FFFFFF 0% 0% no-repeat padding-box;
+        border: 1px solid #E3ECFD;
+        opacity: 1;
+        width: 23px;
+        height: 23px;
+        border-radius: 50% !important;
+    }
+
+    .icon {
+        color: #D1DCF1;
+        font-size: 21px;
+        cursor: pointer;
+    }
+}
+
+.button-item {
+    box-shadow: 1px 20px 79px #f8f9fb44;
+    opacity: 1;
+    background: #f8f9fb44 !important;
+
+    .sign-btn {
+        border: 1px solid#589CFE;
+        width: 50%;
+        cursor: pointer;
+        transition: .5 all ease-out;
+        padding: 15px;
+        border-radius: 26px;
+        font-weight: bold;
+        background: #FFFFFF;
+        @include text(16px,19px,#589CFE,EncodeSans-SemiBold);
+        margin: 0 15px 0 0;
+    }
+    .signUp-btn{
+        border: 1px solid#589CFE;
+        width: 50%;
+        cursor: pointer;
+        transition: .5 all ease-out;
+        padding: 15px;
+        border-radius: 26px;
+        font-weight: bold;
+        background: #589CFE 0% 0% no-repeat padding-box !important;
+        box-shadow: -5.29px 7px 10px #589BFD36;
+        @include text(16px,19px,#ffffff,EncodeSans-SemiBold);
+    }
+}

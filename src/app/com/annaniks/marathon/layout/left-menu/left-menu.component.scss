@@ -6,6 +6,12 @@
 
 }
 .left-menu {
+    min-height:1080px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 250px;
     .left-header {
         .left-menu-description {
             .user-image {
@@ -27,17 +33,43 @@
         .menu-icon {
             color: #45535C;
             font-size: 22px;
+            font-weight: bold;
         }
         .link {
             @include text(22px, 26px, #45535C, EncodeSans-Bold);
             margin-left: 20px;
             cursor: pointer;
+            font-weight: bold;
         }
 
         li {
             margin-top: 30px;
             display: flex;
         }
+    }
+    .follow-item {
+        background: #FFFFFF 0% 0% no-repeat padding-box;
+        box-shadow: 2px 30px 43px #5C687B17;
+        border: 0.5px solid #E3ECFD;
+        border-radius: 6px;
+        opacity: 1;
+        margin: 10px 0;
+        padding: 15px 7px;
+            .user-image {
+                border-radius: 50%;
+                width: 42px;
+                height: 42px;
+            }
+    
+            .name {
+                margin-left: 20px;
+                @include text(16px, 20px, #5a666e, EncodeSans-Bold);
+                font-weight: bold;
+            }
+            .email-title{
+                margin-left: 20px;
+                @include text(14px, 15px, #45535C, EncodeSans-Regular); 
+            }
     }
 }
 

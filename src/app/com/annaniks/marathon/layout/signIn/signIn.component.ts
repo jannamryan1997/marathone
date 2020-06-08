@@ -114,7 +114,7 @@ export class SignInComponent implements OnInit {
                 this.closeModal.emit('true');
                 this._cookieService.set("fbUser","true");
             }
-            console.log(this.loggedIn,"this.loggedInkkkkkkk");
+            console.log(this._profileUserService.user,"this.loggedInkkkkkkk");
             
          
 
@@ -131,10 +131,6 @@ export class SignInComponent implements OnInit {
                 this.closeModal.emit('true');
                 this._cookieService.set("googleUser","true");
             }
-            console.log(this.loggedIn,"this.loggedInkkkkkkk");
-            
-         
-
         });
         this._socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
 

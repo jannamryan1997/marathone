@@ -1,6 +1,10 @@
 <div class="right-menu" [ngClass]="{'position':showUserData}">
     <div class="follow">
-        <p class="title mt-0">Who to follow</p>
+        <div class="display-flex mt-0">
+                <p class="title">Suggestions</p>
+                <p class="text">See All</p>
+        </div>
+       
         <div *ngFor="let item of followItem" class="user-item follow-item d-flex">
             <img [src]="item?.image" class="user-image" alt="Cinque Terre">
             <div>
@@ -10,7 +14,7 @@
             <button type="button" class="btn  round follow-btn">Follow</button>
         </div>
     </div>
-    <div class="contact">
+    <div class="contact" *ngIf="showUserData">
         <div class="serch-content">
             <input type="tex" class="search-input" placeholder="Contacts">
             <span class="material-icons search-icon">

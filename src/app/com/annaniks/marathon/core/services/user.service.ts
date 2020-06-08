@@ -7,6 +7,9 @@ export class ProfileUserService {
     public user;
     public isAuthorized: boolean = false;
 
-    constructor() { }
+    constructor() {
+        console.log(this.user);
+        
+     }
 
 }

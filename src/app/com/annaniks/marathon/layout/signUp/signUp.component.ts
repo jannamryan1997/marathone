@@ -3,6 +3,9 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { finalize } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { AuthUserService } from '../../core/services/auth.services';
+import { SocialUser, FacebookLoginProvider, GoogleLoginProvider, AuthService } from 'angularx-social-login';
+import { CookieService } from 'ngx-cookie-service';
+import { ProfileUserService } from '../../core/services/user.service';
 
 @Component({
     selector: "app-signUp",
@@ -15,11 +18,18 @@ export class SignUpComponent implements OnInit {
     public errorMessage: string;
     public loading: boolean = false;
     public signUpGroup: FormGroup;
+    public user: SocialUser;
+    public loggedIn: boolean;
     @Output() changeSigntab = new EventEmitter;
+    @Output() closeModal = new EventEmitter();
     constructor(
         private _fb: FormBuilder, 
         private _router: Router, 
-        private _authUserService: AuthUserService) { }
+        private _authUserService: AuthUserService,
+        private _cookieService: CookieService,
+        private _profileUserService: ProfileUserService,
+        private _socialAuthService: AuthService,
+        ) { }
 
     ngOnInit() {
         this._formBuilder();
@@ -78,6 +88,40 @@ export class SignUpComponent implements OnInit {
             )
 
     }
+
+    signInWithFB(): void {
+        this._socialAuthService.authState.subscribe((user) => {
+            if(this.loggedIn = (user != null)){
+                this._profileUserService.user = user;
+                this._profileUserService.isAuthorized = true;
+                this.closeModal.emit('true');
+                this._cookieService.set("fbUser","true");
+            }
+            console.log(this._profileUserService.user,"this.loggedInkkkkkkk");
+            
+         
+
+        });
+        this._socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
+
+    }
+
+    signInWithGoogle(): void {
+        this._socialAuthService.authState.subscribe((user) => {
+            if(this.loggedIn = (user != null)){
+                this._profileUserService.user = user;
+                this._profileUserService.isAuthorized = true;
+                this.closeModal.emit('true');
+                this._cookieService.set("googleUser","true");
+            }
+        });
+        this._socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
+
+    }
+
+
+
+
 
     public onClickSignUp(): void {
         this._signUp();

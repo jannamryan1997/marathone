@@ -9,6 +9,12 @@
     .title {
         @include text(20px, 20px, #65a4fe, EncodeSans-Bold);
         margin: 33px 0 31px 0;
+        font-weight: 600;
+    }
+    .text{
+        @include text(14px,16px, #BDBDD7, EncodeSans-Bold);
+        cursor: pointer;
+        font-weight: bold;
     }
     .contact {
         .serch-content {

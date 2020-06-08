@@ -25,7 +25,7 @@
             }
 
             .title {
-                @include text(22px, 26px, #45535C,BarlowCondensed-Regular);
+                @include text(22px, 26px, #45535C, BarlowCondensed-Regular);
             }
 
             .icon {
@@ -39,15 +39,15 @@
             border-top: 1px solid #F1F1F6;
 
             .title {
-                @include text(28px, 33px, #45535C,BarlowCondensed-Medium);
+                @include text(28px, 33px, #45535C, BarlowCondensed-Medium);
             }
 
             .name {
-                @include text(18px, 21px, #BDC0D5,BarlowCondensed-Regular);
+                @include text(18px, 21px, #BDC0D5, BarlowCondensed-Regular);
             }
 
             .date {
-                @include text(15px, 21px, #45535C,BarlowCondensed-Light);
+                @include text(15px, 21px, #45535C, BarlowCondensed-Light);
             }
 
             .loader-container {
@@ -74,7 +74,7 @@
                     }
 
                     .circle-text {
-                        @include text(22px, 31px, #45535C,BarlowCondensed-Light);
+                        @include text(22px, 31px, #45535C, BarlowCondensed-Light);
                     }
                 }
 
@@ -85,7 +85,6 @@
                         width: 33.333333%;
                         color: #AFC1D1;
                         border: 1px solid #d0dae4;
-                        border: 1px solid #D0DBF0;
                         border-radius: 21px;
                         opacity: 0.65;
                         margin-left: 15px;
@@ -95,7 +94,7 @@
             }
 
             .title {
-                @include text(17px, 26px, #45535C,BarlowCondensed-Medium);
+                @include text(17px, 26px, #45535C, BarlowCondensed-Medium);
                 margin-bottom: 20px;
             }
 
@@ -103,15 +102,60 @@
                 border-top: 1px solid #F1F1F6;
 
                 .title {
-                    @include text(28px, 33px, #BDC0D5,BarlowCondensed-Medium);
+                    @include text(28px, 33px, #589CFE, BarlowCondensed-Medium);
                     margin: 20px 0;
 
                 }
 
                 .ingridient-item {
-                    @include text(18px, 16px, #45535C,BarlowCondensed-Regular);
-                    padding: 15px 0;
-                    font-weight: 500;
+                    background: #FFFFFF 0% 0% no-repeat padding-box;
+                    box-shadow: 0.63px 9px 40px #5C687B17;
+                    border: 0.5px solid #E3ECFD;
+                    border-radius: 20px;
+                    opacity: 1;
+                    margin: 10px 0;
+
+                    .ingridient-item-description {
+                      
+                        .ingridient-image{
+                            width: 100%;
+                            padding: 15px 0;
+                            max-width: 110px;
+                            border-right: 1px solid #E3ECFD;
+                            text-align: center;
+                            .image{
+                                width: 60px;
+                            }
+                        }
+                        .ingridient-description{
+                            width: 100%;
+                            max-width: 400px;
+                            border-right: 1px solid #E3ECFD;
+                            display: flex;
+                            flex-direction: column;
+                            padding: 25px 0;
+                            .ingridient-name{
+                                @include text(22px, 26px, #45535C,EncodeSans-SemiBold);
+                                margin:auto 20px;
+                            }
+                            .vegetable{
+                                @include text(14px, 16px, #BACBDB,EncodeSans-SemiBold);
+                                margin:auto 20px;
+                            }
+                        }
+                        .ingridient-kcal{
+                            width: 100%;
+                            max-width: 150px; 
+                            .kcal{
+                                @include text(22px, 26px, #45535C,EncodeSans-SemiBold);   
+                            } 
+                        }
+
+                    }
+
+
+
+
                 }
             }
 
@@ -120,7 +164,7 @@
                 margin: 26px 0;
 
                 .title {
-                    @include text(28px, 33px, #BDC0D5,BarlowCondensed-Medium);
+                    @include text(28px, 33px, #589CFE, BarlowCondensed-Medium);
                     margin: 20px 0;
 
                 }
@@ -129,7 +173,7 @@
                     padding: 15px 0;
 
                     .instruction-item-text {
-                        @include text(18px, 30px, #45535C,BarlowCondensed-Light);
+                        @include text(18px, 30px, #45535C, BarlowCondensed-Light);
 
                         &:after {
                             content: "";
@@ -140,14 +184,13 @@
 
 
                     }
-
                     .number {
                         margin-right: 28px;
-                        @include text(25px, 36px, #45535C,BarlowCondensed-Medium);
+                        @include text(25px, 36px, #589CFE, BarlowCondensed-Medium);
                         font-weight: 600;
                     }
-                }
 
+                }
             }
 
             .setting-content {
@@ -165,4 +208,10 @@
             }
         }
     }
+}
+
+.follow-btn {
+    color: #589CFE;
+    border: 1px solid #589CFE;
+    background: #ffff !important;
 }

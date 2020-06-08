@@ -48,6 +48,7 @@ header {
                 border: 0.5px solid #ACC3D9;
                 border-radius: 24px;
                 opacity: 1;
+                width: 230px;
 
                 .search-input {
                     width: calc(100% - 40px);
@@ -63,6 +64,78 @@ header {
                 .search-icon {
                     font-size: 22px;
                     color: #BEC8DD;
+                }
+            }
+
+            .button-item {
+                width: 100%;
+                max-width: 200px;
+
+                .sign-btn,
+                .signUp-btn {
+                    padding: 10px 15px !important;
+                }
+            }
+
+            .profile-content {
+                width: 90px;
+                background: #F7F7FC 0% 0% no-repeat padding-box;
+                border: 1px solid #E3ECFD;
+                border-radius: 21px;
+
+                .profile-container {
+                    .proflle-image {
+                        width: 40px;
+                        height: 40px;
+                        border-radius: 50%;
+                        background: #FEA6CC;
+                        border: 2px solid #ffff;
+                    }
+
+                    .material-icons {
+                        color: #B9B9D5;
+                        font-size: 27px;
+                        cursor: pointer;
+                    }
+                }
+
+                .profile-menu {
+                    background: #FFFFFF 0% 0% no-repeat padding-box;
+                    box-shadow: 2px 30px 43px #5C687B36;
+                    border: 0.5px solid #E3ECFD;
+                    opacity: 1;
+                    position: absolute;
+                    top: 90px;
+                    right: 200px;
+                    width: 300px;
+                    text-align: center;
+
+                    .profile-menu-item {
+                        padding: 20px 0;
+                        cursor: pointer;
+
+                        .menu-item-title {
+                            @include text(16px, 10px, #45535C, EncodeSans-Medium);
+                        }
+
+                        &:hover {
+                            background: #F7F7FC 0% 0% no-repeat padding-box !important;
+                            opacity: 1;
+                        }
+                    }
+
+                    .trigne {
+                        border: 0.5px solid #E3ECFD;
+                        background: #FFFFFF 0% 0% no-repeat padding-box;
+                        width: 0;
+                        height: 0;
+                        border-left: 10px solid transparent;
+                        border-right: 10px solid transparent;
+                        border-bottom: 10px solid #FFFFFF;
+                        position: absolute;
+                        top: -11px;
+                        right: 60px;
+                    }
                 }
             }
         }

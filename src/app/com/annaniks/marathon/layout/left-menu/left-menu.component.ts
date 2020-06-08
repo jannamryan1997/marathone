@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit } from "@angular/core";
-import { MenuItem } from '../../core/models';
+import { MenuItem, FollowItem } from '../../core/models';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
@@ -24,6 +24,13 @@ export class LeftMenuCompomemtn implements OnInit, AfterViewInit {
         { routerLink: "#", title: "Marathon", icon: "person" },
         { routerLink: "#", title: "My Recips", icon: "person" },
         { routerLink: "#", title: "My Training", icon: "person" },
+    ]
+    public settingItem: FollowItem[] = [
+        { image: "assets/images/img1.png", name: "Olivie Gipson", email: "starting following you" },
+        { image: "assets/images/img1.png", name: "Olivie Gipson", email: "starting following you" },
+        { image: "assets/images/img1.png", name: "Olivie Gipson", email: "starting following you" },
+        { image: "assets/images/img1.png", name: "Olivie Gipson", email: "starting following you" },
+        { image: "assets/images/img1.png", name: "Olivie Gipson", email: "starting following you" },
     ]
 
 

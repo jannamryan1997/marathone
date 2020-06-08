@@ -1,5 +1,5 @@
 <div class="left-menu" [ngClass]="{'position':showUserData}">
-    <div class="left-header">
+    <!-- <div class="left-header">
         <div class="auth-form w-100" *ngIf="!showUserData">
             <app-signIn *ngIf="tab===1" (tabChanges)="onChangeTab($event)"></app-signIn>
             <div class="signUp-content">
@@ -12,15 +12,26 @@
             <p class="name">{{profileUser?.name}}</p>
             <p class="user-name">{{profileUser?.email}}</p> 
         </div>
-    </div>
+    </div> -->
     <div class="left-menu-item">
         <li *ngFor="let item of leftMenuItem">
-                <span class="material-icons menu-icon" [ngClass]="{'activeTab':activeTab===item?.routerLink}">
+                <span class="material-icons menu-icon" routerLinkActive="activeTab"    [routerLink]="item?.routerLink">
                         {{item?.icon}}
                         </span>
-            <a class="link" [ngClass]="{'activeTab':activeTab===item?.routerLink}"
+            <a class="link" routerLinkActive="activeTab"    [routerLink]="item?.routerLink"
                 (click)="onClickTab(item,item.routerLink)"> {{item?.title}}</a></li>
     </div>
+
+
+    <div class="follow" *ngIf="showUserData">
+            <div *ngFor="let item of settingItem" class="user-item follow-item d-flex">
+                <img [src]="item?.image" class="user-image" alt="Cinque Terre">
+                <div>
+                    <p class="name">{{item?.name}}</p>
+                    <p class="email-title">{{item?.email}}</p>
+                </div>
+            </div>
+        </div>
 
 </div>
 
