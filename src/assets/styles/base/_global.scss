@@ -155,6 +155,7 @@
     height: 120px;
     overflow: hidden;
     transition: .5s all ease-out;
+    font-weight: bold;
 }
 
 //review
@@ -312,4 +313,16 @@
         box-shadow: -5.29px 7px 10px #589BFD36;
         @include text(16px,19px,#ffffff,EncodeSans-SemiBold);
     }
+}
+
+.arrow {
+    border: 1px solid #E3ECFD;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+    position: absolute;
+    top: -6px;
+    right: 27px
 }

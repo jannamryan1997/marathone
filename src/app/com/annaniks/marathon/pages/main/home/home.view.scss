@@ -23,9 +23,10 @@
             }
 
             .profile-content {
-                padding: 0 20px;
+                // padding: 0 20px;
 
                 .profile-header-content {
+                    padding: 0 20px;
                     .profile-image {
                         margin-top: -80px;
                         display: flex;
@@ -51,13 +52,6 @@
                         }
                     }
 
-
-                    .btn {
-                        border: 1px solid #BACBDB;
-                        color: #BACBDB;
-                        margin-left: 9px;
-                    }
-
                     .btn-loader {
                         padding: 8px !important;
                         border-radius: 50% !important;
@@ -66,131 +60,76 @@
                             font-size: 16px;
                         }
                     }
-                }
 
-                .review-content {
-                    padding: 28px 0 19px 0;
-
-                    .name {
-                        @include text(22px, 20px, #45535C, BarlowCondensed-Medium);
-                        font-weight: 400;
+                    .follow-btn,
+                    .btn-loader {
+                        background: #FFFFFF 0% 0% no-repeat padding-box !important;
+                        border: 1px solid #589CFE;
+                        border-radius: 18px;
+                        opacity: 1;
+                        color: #589CFE !important;
+                        margin-left: 10px !important;
+                        padding: 7px 18px;
                     }
                 }
 
-                .profile-data {
-                    .data-item {
-                        width: 33.333333%;
+                .social-media {
+                    background: #FFFFFF 0% 0% no-repeat padding-box;
+                    box-shadow: 2px 30px 43px #5C687B36;
+                    border: 0.5px solid #E3ECFD;
+                    opacity: 1;
+                    position: absolute;
+                    border-radius: 10px;
+                    right: 50px;
 
-                        .item-title {
-                            @include text(20px, 26px, #BACBDB, BarlowCondensed-Regular);
-                        }
+                    .social-media-description {
+                        display: flex;
+                        flex-direction: column;
+                        padding: 20px;
 
-                        .country-img {
-                            width: 21px;
-                            height: 21px;
-                            border-radius: 50%;
-                        }
-
-                        .country-name {
-                            @include text(22px, 26px, #45535C, BarlowCondensed-Regular);
+                        .social-image {
+                            width: 26px;
+                            height: 26px;
+                            margin-top: 20px;
+                            cursor: pointer;
                         }
                     }
                 }
 
-                .statistic {
-                    .statistic-item {
-                        // width: 25%;
-                        padding: 1.2em;
-                        text-align: center;
+                .more-content {
+                    background: #FFFFFF 0% 0% no-repeat padding-box;
+                    box-shadow: 2px 30px 43px #5C687B36;
+                    border: 1px solid #E3ECFD;
+                    opacity: 1;
+                    width: 190px;
+                    position: absolute;
+                    border-radius: 10px;
+                    right: 0;
+
+                    .more-description {
+                        align-items: center;
                         text-align: center;
                         display: flex;
+                        flex-direction: column;
 
-                        &::after {
-                            display: inline-block;
-                            content: "";
-                            border-right: 1px solid #D1E3FC;
-                            height: 50px;
-                            margin-left: 30px;
-                        }
+                        .more-item {
+                            @include text(16px, 19px, #45535C, EncodeSans-Medium);
+                            padding: 15px 0;
+                            font-weight: 600;
 
-                        &:last-child {
-                            &::after {
-                                content: none !important;
+                            &:hover {
+                                background: #F7F7FC 0% 0% no-repeat padding-box !important;
+                                opacity: 1;
                             }
                         }
-
-                        .count {
-                            @include text(28px, 33px, #589CFE, BarlowCondensed-Regular);
-                        }
-
-                        .statistic-title {
-                            @include text(20px, 20px, #45535C, BarlowCondensed-Regular);
-                        }
                     }
                 }
 
-                .events-tab {
-                    .tab-item {
-                        border-bottom: 2px solid #BACBDB;
-                        padding: 1.2em 0;
-                        width: 25%;
-                        @include text(22px, 25px, #BACBDB, BarlowCondensed-Regular);
-                        cursor: pointer;
-                        transition: .5s all ease-out;
-                    }
-
+                .main-layout {
+                    // margin: 30px 0;
                 }
 
-                .events-header {
-                    padding: 30px 0;
-
-                    .gallery-tab {
-                        .btn {
-                            padding: 7px 30px !important;
-                        }
-                    }
-
-                    .events-content {
-                        padding-top: 20px;
-
-                    }
-
-                    .review-text {
-                        @include text(18px, 24px, #A6B3CC, BarlowCondensed-Light);
-                        cursor: pointer;
-                    }
-                }
             }
         }
     }
-}
-
-.btn-content {
-    .btn {
-        border: 1px solid #BACBDB;
-        color: #BACBDB;
-        padding: 7px 15px !important;
-        border-radius: 19px;
-    }
-}
-
-.show {
-    overflow: visible;
-    height: auto;
-    transition: .5s all ease-out;
-}
-
-.activeTab {
-    color: #45535C !important;
-    border-bottom: 2px solid #589CFE !important;
-}
-
-.activePostButton {
-    background: #589CFE !important;
-    color: #ffff !important;
-    border: 0.5px solid #E3ECFD;
-    border-radius: 0px 0px 15px 15px;
-    opacity: 1;
-    border: 1px solid #589CFE !important;
-    box-shadow: 0px 2px 8px #589CFE;
 }

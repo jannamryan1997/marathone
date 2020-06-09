@@ -1,0 +1,42 @@
+@mixin text($fontSize, $lineHeight, $color, $fontFamily) {
+    font-size: $fontSize;
+    line-height: $lineHeight;
+    color: $color;
+    font-family: $fontFamily;
+    font-weight: bold;
+}
+
+.information-content {
+    .title {
+        @include text(20px, 24px, #589CFE, EncodeSans-SemiBold);
+    }
+
+    .text {
+        @include text(16px, 22px, #45535C, MicrosoftYaHeiUI);
+        margin: 15px 0;
+    }
+
+    .information-item-content {
+        flex-wrap: wrap;
+        .information-item {
+            width: 25%;
+            margin-right: 30px;
+            margin-top: 20px;
+            border-radius: 10px;
+
+            .information-image {
+                width: 100%;
+            }
+        }
+    }
+    .education-title{
+        margin: 38px 0 17px 0;
+    }
+    .date{
+        @include text(17px, 20px, #BACBDB, EncodeSans-SemiBold);
+    }
+    .name{
+        @include text(20px, 22px, #45535C, EncodeSans-SemiBold);
+        margin-top: 15px;
+    }
+}

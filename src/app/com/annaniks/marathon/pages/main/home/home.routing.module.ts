@@ -3,7 +3,21 @@ import { RouterModule, Routes } from "@angular/router";
 import { HomeView } from './home.view';
 
 const homeRoutes: Routes = [
-    { path: "", component: HomeView }
+    {
+        path: "", component: HomeView, children:
+
+            [
+                { path: "", pathMatch: "full", redirectTo: "coach" },
+                {
+                    path: "coach",
+                    loadChildren: () => import('./coach/coach.module').then(m => m.CoachModule),
+                },
+                {
+                    path: "profile",
+                    loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule),
+                }
+            ]
+    }
 ]
 
 @NgModule({

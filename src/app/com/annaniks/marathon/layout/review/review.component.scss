@@ -3,15 +3,16 @@
     line-height: $lineHeight;
     color: $color;
     font-family: $fontFamily;
+    font-weight: bold;
 }
 
 .review-item {
     background: #FFFFFF 0% 0% no-repeat padding-box;
     box-shadow: 2px 30px 43px #5C687B17;
     border: 0.5px solid #E3ECFD;
-    border-radius: 24px;
+    // border-radius: 24px;
     opacity: 1;
-    margin: 10px auto;
+    // margin: 10px auto;
 
     .review-item-description {
         padding: 28px 35px 14px 28px;
@@ -23,7 +24,7 @@
         }
 
         .name-title {
-            @include text(16px, 23px, #45535C, BarlowCondensed-Regular !important);
+            @include text(17px, 20px, #45535C, EncodeSans-Bold !important);
             font-weight: 600;
         }
 
@@ -31,7 +32,7 @@
             margin-left: 55px;
 
             .title {
-                @include text(16px, 25px, #45535C, BarlowCondensed-Light);
+                @include text(16px, 25px, #45535C, MicrosoftYaHeiUI);
                 width: 100%;
                 max-width: 375px;
             }
@@ -42,9 +43,14 @@
             }
         }
 
-        .review-text {
-            @include text(18px, 25px, #45535C, BarlowCondensed-Regular !important);
-            font-weight: 500 !important;
+        .review-button {
+            @include text(16px, 19px, #589CFE, EncodeSans-Bold !important);
+            border: 1px solid #589CFE;
+            border-radius: 14px;
+            opacity: 1;
+            background: #FFFFFF;
+            height: fit-content;
+            padding: 5px 15px;
         }
     }
 }

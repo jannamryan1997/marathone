@@ -10,176 +10,53 @@
                     </div>
 
                     <div class="btn-content d-flex align-items-center">
-                        <button class="btn">Follow</button>
-                        <button class="btn">Packages</button>
+                        <button class="btn follow-btn">Follow</button>
+                        <button class="btn follow-btn">Packages</button>
                         <button class="btn btn-loader">
+                            <span class="material-icons icon">
+                                insert_comment
+                            </span>
+                        </button>
+                        <button class="btn btn-loader" (click)="onClickShowSocialMedium()">
                             <span class="material-icons icon">
                                 alternate_email
                             </span>
                         </button>
-                        <button class="btn btn-loader">
+                        <button class="btn btn-loader" (click)="onClickShowMore()">
                             <span class="material-icons icon">
-                                alternate_email
-                            </span>
-                        </button>
-                        <button class="btn btn-loader">
-                            <span class="material-icons icon">
-                                alternate_email
-                            </span>
-                        </button>
-                        <button class="btn btn-loader">
-                            <span class="material-icons icon">
-                                more_vert
+                                more_horiz
                             </span>
                         </button>
                     </div>
                 </div>
-                <div class="review-content display-flex">
-                    <p class="name">Barbara Smith</p>
-                    <div class=" display-flex">
-                        <div class="review display-flex">
-                            <div class="review-item" *ngFor="let item of reviewItem">
-                                <span class="material-icons star-icon">
-                                    grade
-                                </span>
-                            </div>
-                        </div>
-                        <p class="title">2 review</p>
+                <div class="social-media" *ngIf="showSocialMedium">
+                    <p> <i class="arrow up"></i></p>
+                    <div class="social-media-description">
+                        <img src="assets/images/social/inst.png.png" class="social-image mt-0" alt="Cinque Terre">
+                        <img src="assets/images/social/facebook.png" class="social-image" alt="Cinque Terre">
+                        <img src="assets/images/social/linkedin.png.png" class="social-image" alt="Cinque Terre">
+                        <img src="assets/images/social/twitter.png" class="social-image" alt="Cinque Terre">
                     </div>
                 </div>
-                <div class="profile-data display-flex">
-                    <div class="data-item">
-                        <p class="item-title">@Barbara_fitnes</p>
-
-                    </div>
-                    <div class="data-item">
-                        <p class="item-title">Belgium/Brussels</p>
-                    </div>
-                    <div class="data-item">
-                        <div class="display-flex ml-3">
-                            <img src="assets/images/eng.png" class="country-img" alt="Cinque Terre">
-                            <p class="country-name">Eng</p>
-                            <img src="assets/images/germ.png" class="country-img ml-2" alt="Cinque Terre">
-                            <p class="country-name">Ger</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="statistic display-flex">
-                    <div class="m-auto  display-flex">
-                        <div class="statistic-item">
-                            <div>
-                            <p class="count">600</p>
-                            <p class="statistic-title">Energy</p>
-                        </div>
-                        </div>
-                        <div class="statistic-item">
-                            <div>
-                            <p class="count">600</p>
-                            <p class="statistic-title">Energy</p>
-                        </div>
-                        </div>
-                        <div class="statistic-item">
-                                <div>
-                            <p class="count">600</p>
-                            <p class="statistic-title">Energy</p>
-                            </div>
-                        </div>
-                        <div class="statistic-item">
-                            <div>
-                                <p class="count">600</p>
-                                <p class="statistic-title">Energy</p>
-                            </div>
-
-                        </div>
+                <div class="more-content" *ngIf="showMore">
+                    <p> <i class="arrow up"></i></p>
+                    <div class="more-description">
+                        <p class="more-item w-100">Copy Profile URL</p>
+                        <p class="more-item w-100">Block</p>
+                        <p class="more-item w-100">Report</p>
                     </div>
                 </div>
 
-                <div class="post-content">
-                    <div class="post-container">
-                        <p class="title show-content" [ngClass]="{'show':showTitle}">Lorem ipsum dolor sit amet
-                            consectetur adipisicing elit. Sed porro quos cum ipsum, ex repellendus distinctio? Ullam
-                            cupiditate a natus, nemo inventore, pariatur asperiores aperiam, odio dolores quod debitis
-                            officia. Lorem ipsum dolor sit amet
-                            consectetur adipisicing elit. Sed porro quos cum ipsum, ex repellendus distinctio? Ullam
-                            cupiditate a natus, nemo inventore, pariatur asperiores aperiam, odio dolores quod debitis
-                            officia.</p>
-                        <span class="title more">...</span>
-                        <span class="title more" (click)="onClickSeeMore()">See More</span>
-                    </div>
-                </div>
-                <div class="d-flex mt-4">
-                    <div class="btn-content display-flex m-auto">
-                        <button class="btn mr-3">Bodybuilding</button>
-                        <button class="btn  mr-3">Fat Loss</button>
-                        <button class="btn">Power Lifting</button>
-                    </div>
-                </div>
-                <div class="events-tab display-flex" [ngSwitch]="tab">
-                    <div class="tab-item" (click)="onClickTab(1)" [ngClass]="{'activeTab':tab===1}">
-                        <p class="tab-text">Posts</p>
-                    </div>
-                    <div class="tab-item" (click)="onClickTab(2)" [ngClass]="{'activeTab':tab===2}">
-                        <p class="tab-text">Gallery</p>
-                    </div>
-                    <div class="tab-item" (click)="onClickTab(3)" [ngClass]="{'activeTab':tab===3}">
-                        <p class="tab-text">Information</p>
-                    </div>
-                    <div class="tab-item" (click)="onClickTab(4)" [ngClass]="{'activeTab':tab===4}">
-                        <p class="tab-text">Reviews</p>
-                    </div>
-                </div>
-                <div class="events-header" *ngIf="tab===1">
-                    <div class="posts-tab">
-                        <div class="btn-content display-flex">
-                            <button class="btn" [ngClass]="{'activePostButton':tab===1}">All</button>
-                            <button class="btn">Articles</button>
-                            <button class="btn">Q & a</button>
-                            <button class="btn">Recipes</button>
-                            <button class="btn">Workouts</button>
-                            <button class="btn">Music</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="events-header d-flex flex-column" *ngIf="tab===2">
-                    <div class="gallery-tab m-auto">
-                        <div class="btn-content display-flex m-auto">
-                            <button class="btn ml-2" [ngClass]="{'activePostButton':galerryTab===1}"
-                                (click)="onClickGalerryTab(1)">All</button>
-                            <button class="btn ml-2" [ngClass]="{'activePostButton':galerryTab===2}"
-                                (click)="onClickGalerryTab(2)">Photos</button>
-                            <button class="btn ml-2" [ngClass]="{'activePostButton':galerryTab===3}"
-                                (click)="onClickGalerryTab(3)">Videos</button>
-                        </div>
-                    </div>
-                    <div class="events-content" [ngSwitch]="galerryTab">
-                        <app-galery *ngIf="galerryTab===1"></app-galery>
-                        <p *ngIf="galerryTab===2">photo</p>
-                        <p *ngIf="galerryTab===3">video</p>
-                    </div>
 
-                </div>
-                <div class="events-header" *ngIf="tab===3">
-                    <p class="tab-text">Information</p>
-                </div>
-                <div class="events-header" *ngIf="tab===4">
-                    <div>
-                        <p class="review-text" (click)="onClickShowTotalReview()">Total reviews 20</p>
-                    </div>
-
+                <div class="main-layout">
+                    <router-outlet></router-outlet>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="review-content" *ngIf="openReview">
-        <div class="review w-100 d-flex flex-wrap flex-column">
-            <app-review></app-review>
-            <app-review></app-review>
-            <app-review></app-review>
-            <app-review></app-review>
-            <app-review></app-review>
-        </div>
+   
 
-    </div>
+</div>
+
+</div>
     <div class="feed-item">
         <app-post-card-item [postType]="'image'"></app-post-card-item>
         <app-post-card-item [postType]="'combinations'"></app-post-card-item>

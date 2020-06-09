@@ -7,34 +7,23 @@ import { Component, OnInit } from "@angular/core";
 })
 
 export class HomeView implements OnInit {
-    public showTitle: boolean;
-    public tab: number = 1;
-    public galerryTab: number = 1;
-    public openReview:boolean=false;
-    public reviewItem = [{}, {}, {}, {}, {}]
+   
+    public showSocialMedium: boolean = false;
+    public showMore: boolean = false;
+  
     constructor() { }
 
     ngOnInit() { }
 
 
-    public onClickSeeMore(): void {
-        this.showTitle = !this.showTitle;
-    }
-    public onClickTab(tab): void {
-        this.tab = tab;
-        if(this.tab===4){
-            this.openReview = !this.openReview; 
-        }
-        else{
-            this.openReview =false;
-        }
 
+  
+
+    public onClickShowSocialMedium(): void {
+        this.showSocialMedium = !this.showSocialMedium;
     }
-    public onClickGalerryTab(tab): void {
-        this.galerryTab = tab;
-    }
-    public onClickShowTotalReview():void{
-            this.openReview = !this.openReview;
+    public onClickShowMore(): void {
+        this.showMore = !this.showMore;
     }
 
 }
