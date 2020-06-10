@@ -1,16 +1,104 @@
-<!-- <div class="profile-container">
-    <form [formGroup]="profuleFormGroup">
-        <div class="form-container">
-<div class="display-flex">
-        <input required='' type='text'>
-        <label alt='Full Name' placeholder='Full Name' formControlNmae="fullName"></label>
-        <input required='' type='text'>
-        <label alt='User Name' placeholder='User Name' formControlNmae="userName"></label>
-</div>
-           
+<div class="profile-container">
+    <form [formGroup]="profileFormGroup">
+        <div class="display-flex">
+            <div class="form-group">
+                    <label>First Name</label>
+                <input type="text" class="form-input w-100" formControlName="fullName" placeholder="">
+            </div>
+            <div class="form-group">
+                    <label>User Name</label>
+                <input type="text" class="form-input w-100" formControlName="userName" placeholder="">
+            </div>
+        </div>
+        <div class="form-group">
+                <label>Location</label>
+            <input type="text" class="form-input w-100" formControlName="location" placeholder="">
+        </div>
 
+<div class="autocomplete">
+        <label>Languages</label>
+        <p-autoComplete class="w-100 " formControlName="languages" [suggestions]="filteredCountriesMultiple"
+            (completeMethod)="filterCountryMultiple($event)" [minLength]="1" placeholder="" field="name"
+            field="name" [multiple]="true">
+   
+        </p-autoComplete>
+    </div>
+        <div class="form-group">
+                <label>Staus</label>
+            <textarea type="text" class="form-input w-100 text-area" formControlName="staus"
+             ></textarea>
+        </div>
+        <div class="autocomplete">
+                <label>Speciality</label>
+        <p-autoComplete class="w-100" formControlName="speciality" [suggestions]="filteredCountriesMultiple"
+            (completeMethod)="filterCountryMultiple($event)" [minLength]="1" placeholder="" field="name"
+            field="name" [multiple]="true">
+        </p-autoComplete>
+        </div>
+        <div class="form-group d-flex  flex-column">
+                <label>Social Accounts</label>
+            <div class="display-flex">
+                <div class="link-form">
+                    <label class="lable">Facebook</label>
+                    <input type="text" class="form-group-link w-100" formControlName="facebook"
+                        placeholder="Insert Link">
+                </div>
+                <div class="link-form">
+                    <label class="lable">Instagram</label>
+                    <input type="text" class="form-group-link w-100 " formControlName="instagram"
+                        placeholder="Insert Link">
+                </div>
+            </div>
+            <div class="display-flex">
+                <div class="link-form">
+                    <label class="lable">Linkedin</label>
+                    <input type="text" class="form-group-link w-100" formControlName="linkedin"
+                        placeholder="Insert Link">
+                </div>
+                <div class="link-form">
+                    <label class="lable">Youtube</label>
+                    <input type="text" class="form-group-link w-100 " formControlName="youtube"
+                        placeholder="Insert Link">
+                </div>
+            </div>
 
         </div>
+
+        <div class="form-group about-form">
+                <label>About</label>
+            <textarea type="text" class="form-input w-100 text-area" formControlName="about"
+                placeholder=""></textarea>
+        </div>
+        <div class="form-group about-form">
+                <label>Certificates</label>
+            <app-information [profileCertificates]="true"></app-information>
+            <app-information [profileCertificates]="true"></app-information>
+            <div class="add-certificates display-flex">
+                <div class="add-file d-flex">
+                    <span class="material-icons m-auto">
+                        insert_drive_file
+                    </span>
+                </div>
+                <div class="form-group d-flex type-form-group">
+                    <input type="text" class="form-input w-100" formControlName="location"
+                        placeholder="Type Cerificate Information">
+                        <span class="material-icons add-icon">
+                                add
+                                </span>
+                </div>
+
+
+            </div>
+        </div>
+
+        <div class="form-group about-form">
+                <label>Education</label>
+                <app-education [profileEducation]="true"></app-education>
+        </div>
+
+        <div class="form-group about-form">
+                <label>Experience</label>
+                <app-experience [profileExperience]="true"></app-experience>
+        </div>
     </form>
-</div> -->
-<p>profile</p>
+</div>

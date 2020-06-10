@@ -1,4 +1,4 @@
-<div class="information-content">
+<div class="information-content" *ngIf="!profileCertificates">
     <p class="title">About</p>
     <p class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima aliquid quod tenetur hic ab
         reprehenderit ad, odio eos fugiat animi aspernatur voluptates unde cumque, autem eligendi iure et accusamus
@@ -30,5 +30,27 @@
         <p class="text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Reprehenderit recusandae temporibus
             molestiae. Nemo, magni unde expedita veritatis quia possimus odio odit vitae, animi dicta nostrum? Tempora
             fugiat fuga sequi reiciendis.</p>
+    </div>
+</div>
+
+
+<div class="certificates-content" *ngIf="profileCertificates">
+    <div class="certificates-item d-flex justify-content-between">
+        <div class="position-relative">
+            <img src="assets/images/certificate.png" class="certificates-image" alt="Cinque Terre">
+            <div class="icon-content d-flex">
+                <span class="material-icons m-auto">
+                    close
+                </span>
+            </div>
+
+        </div>
+
+
+        <p class="text">Contrary to popular belasief, Lorem Ipsum is not simply random text. It has roots in a piece of
+            clasassical Latin literature from 45 BC, making over 2000 years . Richard McCsasalintock, a Latin.</p>
+        <span class="material-icons">
+            close
+        </span>
     </div>
 </div>

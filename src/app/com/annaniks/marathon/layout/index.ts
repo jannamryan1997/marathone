@@ -10,3 +10,5 @@ export * from "../layout/loading/loading.component";
 export * from "../layout/signIn/signIn.component";
 export * from "../layout/signUp/signUp.component";
 export * from "../layout/information/information.component";
+export * from "../layout/education/education.component";
+export * from "../layout/experience/experience.component";

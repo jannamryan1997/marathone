@@ -18,6 +18,7 @@
 
     .information-item-content {
         flex-wrap: wrap;
+
         .information-item {
             width: 25%;
             margin-right: 30px;
@@ -29,14 +30,61 @@
             }
         }
     }
-    .education-title{
+
+    .education-title {
         margin: 38px 0 17px 0;
     }
-    .date{
+
+    .date {
         @include text(17px, 20px, #BACBDB, EncodeSans-SemiBold);
     }
-    .name{
+
+    .name {
         @include text(20px, 22px, #45535C, EncodeSans-SemiBold);
         margin-top: 15px;
+    }
+}
+
+.certificates-content {
+    margin: 20px 0;
+
+    &::after {
+        width: 100%;
+        display: inline-block;
+        content: "";
+        border: 1px solid #E3ECFD;
+
+    }
+
+    .certificates-image {
+        width: 86px;
+        height: 53px;
+    }
+
+    .certificates-item {
+        .icon-content {
+            background: #FFFFFF 0% 0% no-repeat padding-box;
+            box-shadow: -3.76px 7px 7px #7377A54F;
+            border-radius: 0px 8px;
+            opacity: 0.85;
+            width: 26px;
+            height: 25px;
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+
+        .text {
+            @include text(16px, 22px, #45535C, MicrosoftYaHeiUI);
+            font-weight: 600;
+            padding: 0 23px;
+        }
+
+        .material-icons {
+            font-weight: bold;
+            cursor: pointer;
+            color: #C2D2E2;
+            font-size: 20px;
+        }
     }
 }

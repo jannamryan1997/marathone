@@ -1,4 +1,4 @@
-import { NgModule } from "@angular/core";
+ import { NgModule } from "@angular/core";
 import {
     HeaderComponent,
     LeftMenuCompomemtn,
@@ -8,7 +8,10 @@ import {
     PostsComments,
     LoadingComponent,
     SignInComponent,
-    SignUpComponent
+    SignUpComponent,
+    InformationComponent,
+    EducationComponent,
+    ExperienceComponent,
 } from '../layout';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -34,8 +37,9 @@ import { AuthGuard } from '../core/guards/auth.guard';
         AuthModal,
         SignInComponent,
         SignUpComponent,
-     
-        
+        InformationComponent,
+        EducationComponent,
+        ExperienceComponent
     ],
     imports: [
         CommonModule,
@@ -71,7 +75,9 @@ import { AuthGuard } from '../core/guards/auth.guard';
         SignInComponent,
         SignUpComponent,
         MatSelectModule,
-
+        InformationComponent,
+        EducationComponent,
+        ExperienceComponent
     ]
 })
 

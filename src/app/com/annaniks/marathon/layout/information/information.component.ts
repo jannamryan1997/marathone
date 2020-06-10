@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 
 @Component({
     selector: "app-information",
@@ -7,8 +7,11 @@ import { Component, OnInit } from "@angular/core";
 })
 
 export class InformationComponent implements OnInit {
-
+@Input() profileCertificates;
     constructor() { }
 
-    ngOnInit() { }
+    ngOnInit() {
+        console.log(this.profileCertificates);
+        
+     }
 }

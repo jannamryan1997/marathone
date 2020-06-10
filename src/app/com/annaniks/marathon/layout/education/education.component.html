@@ -1,0 +1,47 @@
+<div class="education" *ngIf="profileEducation">
+    <div class="education-content">
+        <div class="education-item d-flex justify-content-between">
+            <span class="material-icons hat-icon">
+                school
+            </span>
+            <div>
+            <div class="education-description">
+                    <p class="name">Insitute Nmae</p>
+                    <p class="example">For example:Fitnes Trainer Marathone Fit Academy</p>
+                </div>
+
+                <div class="education-description">
+                    <p class="name">Specialisiation</p>
+                    <p class="example">For example:Fitnes Trainer</p>
+                </div>
+            </div>
+            <div class="close">
+                <span class="material-icons close-icon">
+                    close
+                </span>
+            </div>
+
+        </div>
+                <div class="display-flex w-100">
+                    <div class="link-form w-50">
+                        <label class="lable">Starting Year</label>
+                            <mat-select class="form-group-link w-100" >
+                                    <mat-option>Year</mat-option>
+                                    <mat-option  [value]="1">2015</mat-option>
+                                    <mat-option  [value]="1">2015</mat-option>
+                                    <mat-option  [value]="1">2015</mat-option>
+                                  </mat-select>
+                    </div>
+                    <div class="link-form w-50">
+                        <label class="lable">Ending Year</label>
+                        <mat-select class="form-group-link w-100" >
+                                <mat-option>Year</mat-option>
+                                <mat-option  [value]="1">2015</mat-option>
+                                <mat-option  [value]="1">2015</mat-option>
+                                <mat-option  [value]="1">2015</mat-option>
+                              </mat-select>
+                    </div>
+                </div>
+                <button class="add-btn d-flex w-100"><span class="m-auto btn-text">Add more</span></button>
+    </div>
+</div>

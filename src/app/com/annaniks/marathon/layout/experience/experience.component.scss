@@ -1,0 +1,88 @@
+@mixin text($fontSize, $lineHeight, $color, $fontFamily) {
+    font-size: $fontSize;
+    line-height: $lineHeight;
+    color: $color;
+    font-family: $fontFamily;
+    font-weight: bold;
+}
+
+.education {
+    .hat-icon {
+        font-weight: bold;
+        color: #BACBDB;
+        font-size: 30px;
+    }
+
+    .education-description {
+        margin: 20px 0;
+        text-align: start;
+
+        &::after {
+            width: 100%;
+            display: inline-block;
+            content: "";
+            border: 1px solid #E3ECFD;
+
+        }
+
+        .name {
+            @include text(16px, 22px, #C6D5E4, MicrosoftYaHeiUI);
+        }
+
+        .example {
+            @include text(18px, 22px, #C2D2E2, MicrosoftYaHeiUI-Bold);
+        }
+    }
+
+    .close {
+        .close-icon {
+            font-weight: bold;
+            cursor: pointer;
+            color: #C2D2E2;
+            font-size: 20px;
+        }
+    }
+
+    .link-form {
+        padding: 0 1.2em;
+
+        .lable {
+            @include text(17px, 18px, #BBCDDF, EncodeSans-SemiBold);
+        }
+
+        .form-group-link {
+            margin: 15px 0;
+            background: #FFFFFF 0% 0% no-repeat padding-box;
+            border: 0.5px solid #CFCFE9;
+            border-radius: 26px;
+            opacity: 1;
+            height: none !important;
+            padding: 15px 15px !important;
+            @include text(17px, 18px, #45535C, MicrosoftYaHeiUI !important);
+            font-weight: 500 !important;
+
+            &::placeholder {
+                @include text(17px, 18px, #BECDE8, MicrosoftYaHeiUI !important);
+            }
+        }
+    }
+
+    .add-btn {
+        flex-direction: column;
+        cursor: pointer;
+        background: #ffffff;
+        border: none;
+        &::before {
+            display: block;
+            content: "";
+            border: 1px solid #E3ECFD;
+            width: 100%;
+        }
+
+        .btn-text {
+            padding: 15px 0;
+            @include text(18px, 21px, #BBCDDF, EncodeSans-SemiBold);
+        }
+    }
+
+}

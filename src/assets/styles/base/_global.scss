@@ -326,3 +326,9 @@
     top: -6px;
     right: 27px
 }
+
+textarea {
+    overflow: auto;
+    vertical-align: top;
+    resize: vertical;
+}

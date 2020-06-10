@@ -1,55 +1,149 @@
-.profile-container{
-    margin: 10px 20px;
-    border: 1px solid black;
+@mixin text($fontSize, $lineHeight, $color, $fontFamily) {
+    font-size: $fontSize;
+    line-height: $lineHeight;
+    color: $color;
+    font-family: $fontFamily;
 }
 
-input[type="text"] {
-    box-sizing: border-box;
-    width: 100%;
-    height: calc(3em + 2px);
-    margin: 0 0 1em;
-    padding: 1em;
-    border: 1px solid #ccc;
-    border-radius: 1.5em;
-    background: #fff;
-    resize: none;
-    outline: none;
+.profile-container {
+    margin: 10px 20px;
+}
+
+.text-area {
+    min-height: 60px;
+    max-height: 110px;
+    outline: none !important;
+}
+
+.link-form {
+    padding: 0 1.2em;
+
+    .lable {
+        @include text(17px, 18px, #BBCDDF, EncodeSans-SemiBold);
+    }
+
+    .form-group-link {
+        margin: 15px 0;
+        background: #FFFFFF 0% 0% no-repeat padding-box;
+        border: 0.5px solid #CFCFE9;
+        border-radius: 26px;
+        opacity: 1;
+        height: none !important;
+        padding: 15px 15px !important;
+        @include text(17px, 18px, #45535C, MicrosoftYaHeiUI !important);
+        font-weight: 500 !important;
+
+        &::placeholder {
+            @include text(17px, 18px, #BECDE8, MicrosoftYaHeiUI !important);
+        }
+    }
+}
+
+.form-input {
+    @include text(17px, 18px, #45535C, MicrosoftYaHeiUI !important);
+    font-weight: 500 !important;
+}
+
+.add-certificates {
+    .add-file {
+        background: #FFFFFF 0% 0% no-repeat padding-box;
+        box-shadow: -1.63px 5px 18px #5C687B0D;
+        border: 1px solid #E3ECFD;
+        opacity: 1;
+        border-radius: 50%;
+        width: 53px;
+height: 53px;
+        .material-icons{
+            font-weight: bold;
+            color:#589CFE;
+            font-size: 25px;
+            cursor: pointer;
+        }
+    }
+    .type-form-group{
+        width: 100%;
+        max-width: 400px;
+        border-radius: 16px !important;
+        .add-icon{
+            color:#C2D2E2;
+            font-weight: bold;
+            font-size: 25px;
+            cursor: pointer;
+        }
+    }
+}
+
+.about-form{
+    margin-top: 30px ;
+}
+::ng-deep .ui-autocomplete-multiple-container {
+    margin: 15px 0 !important;
+    background: #FFFFFF 0% 0% no-repeat padding-box !important;
+    border: 0.5px solid #CFCFE9 !important;
+    border-radius: 26px !important;
+    opacity: 1 !important;
+    height: none !important;
+    padding: 15px 15px !important;
+    @include text(17px, 18px, #BECDE8, MicrosoftYaHeiUI !important);
+
+    &::placeholder {
+        @include text(17px, 18px, #BECDE8, MicrosoftYaHeiUI !important);
+    }
+}
+
+::ng-deep .ui-widget {
+    width: 100% !important;
+}
+
+::ng-deep .ui-autocomplete-token {
+    background: #F5F5FA 0% 0% no-repeat padding-box !important;
+    border-radius: 18px !important;
+    opacity: 1 !important;
+    padding: 10px !important;
+    color: #45535C !important;
+    font-weight: 600 !important;
+    font-size: 16px !important;
+    line-height: 19px !important;
+    margin-bottom: 10px !important;
+    font-family: EncodeSans-Medium !important;
+}
+
+::ng-deep .ui-autocomplete-token-icon {
+    font-size: 13px !important;
+    color: #BBCDDF !important;
+    font-weight: bold !important;
+    margin-right: 12px !important;
+
+}
+
+::ng-deep .ng-tns-c114-0 {
+    &::placeholder {
+        @include text(17px, 18px, #BECDE8, MicrosoftYaHeiUI !important);
+    }
+}
+
+
+  .form-group,.autocomplete{
+   position: relative;
   }
-  input[type="text"][required]:focus {
-    border-color: #00bafa;
+  .form-group>label{
+    position: absolute;
+    top: -11px;
+    left: 25px;
+    background-color:white;
+    font-weight: 600;
+    @include text(16px, 19px, #589CFE,EncodeSans-Medium);
   }
-  input[type="text"][required]:focus + label[placeholder]:before {
-    color: #00bafa;
+  
+  .form-group>input{
+    border:none;
   }
-  input[type="text"][required]:focus + label[placeholder]:before,
-  input[type="text"][required]:valid + label[placeholder]:before {
-    -webkit-transition-duration: 0.2s;
-            transition-duration: 0.2s;
-    -webkit-transform: translate(0, -1.5em) scale(0.9, 0.9);
-            transform: translate(0, -1.5em) scale(0.9, 0.9);
-  }
-  input[type="text"][required]:invalid + label[placeholder][alt]:before {
-    content: attr(alt);
-  }
-  input[type="text"][required] + label[placeholder] {
-    display: block;
-    pointer-events: none;
-    line-height: 1.25em;
-    margin-top: calc(-3em - 2px);
-    margin-bottom: calc((3em - 1em) + 2px);
-  }
-  input[type="text"][required] + label[placeholder]:before {
-    content: attr(placeholder);
-    display: inline-block;
-    margin: 0 calc(1em + 2px);
-    padding: 0 2px;
-    color: #898989;
-    white-space: nowrap;
-    -webkit-transition: 0.3s ease-in-out;
-    transition: 0.3s ease-in-out;
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#fff));
-    background-image: linear-gradient(to bottom, #fff, #fff);
-    background-size: 100% 5px;
-    background-repeat: no-repeat;
-    background-position: center;
+  .autocomplete>label{
+    position: absolute;
+    top: 5px;
+    left: 25px;
+    background-color:white;
+    font-weight: 600;
+    z-index: 99999999;
+    @include text(16px, 19px, #589CFE,EncodeSans-Medium);
   }
