@@ -1,6 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CountryService } from '../../../../core/services/country.service';
+import { Router } from '@angular/router';
+import { Country } from '../../../../core/models';
+import { element } from 'protractor';
 
 @Component({
     selector: "app-profile",
@@ -8,6 +11,7 @@ import { CountryService } from '../../../../core/services/country.service';
     styleUrls: ["profile.view.scss"]
 })
 export class ProfileView implements OnInit {
+    public router:string;
     country: any;
     filteredCountriesSingle: any[];
 
@@ -16,7 +20,11 @@ export class ProfileView implements OnInit {
 
     public profileFormGroup: FormGroup;
 
-    constructor(private _fb: FormBuilder, private _countryService: CountryService) { }
+    constructor(private _fb: FormBuilder, private _countryService: CountryService,private _router:Router) {
+        this.router=this._router.url;
+        console.log(this.router);
+        
+     }
 
     ngOnInit() {
         this._formBuilder();
@@ -39,22 +47,22 @@ export class ProfileView implements OnInit {
     }
 
 
-    filterCountrySingle(event) {
-        let query = event.query;
-        this._countryService.getCountries().subscribe((data: any) => {
-            this.filteredCountriesSingle = this.filterCountry(query, data);
-        })
-    }
+    // filterCountrySingle(event) {
+    //     let query = event.query;
+    //     this._countryService.getCountries().subscribe((data: any) => {
+    //         this.filteredCountriesSingle = this.filterCountry(query, data);
+    //     })
+    // }
 
     filterCountryMultiple(event) {
         let query = event.query;
-        this._countryService.getCountries().subscribe((countries: any) => {
+        this._countryService.getCountries().subscribe((countries:Country[]) => {
             console.log(countries);
-
-            this.filteredCountriesMultiple = this.filterCountry(query, countries);
+    
+            this.filteredCountriesMultiple = this.filterCountry(query,countries);
         });
     }
-    filterCountry(query, countries: any[]): any[] {
+    filterCountry(query, countries: Country[]): Country[] {
 
         let filtered: any[] = [];
         for (let i = 0; i < countries.length; i++) {
@@ -62,6 +70,7 @@ export class ProfileView implements OnInit {
             if (country.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
                 filtered.push(country);
             }
+            
         }
         return filtered;
     }

@@ -6,6 +6,7 @@
 }
 
 .signUp-main {
+    padding: 20px 0;
     .title {
         @include text(25px, 30px, #5897F6, EncodeSans-Bold);
         font-weight: 600;
@@ -35,6 +36,11 @@
             width: 23px;
             height: 23px;
             border-radius: 50% !important;
+        }
+
+        .form-group {
+         text-align: start !important;
+         color: #BECDE8;
         }
 
         .checkbox-lable {
@@ -67,7 +73,9 @@
     border-top: none !important;
     background: none !important;
 }
-
+.color{
+    color: red !important;
+}
 ::ng-deep .mat-form-field {
     .mat-input-element {
         color: #E3ECFD !important;
@@ -135,4 +143,45 @@
 ::ng-deep.mat-select-value {
     color: #45535C !important;
     font-weight: bold !important;
+}
+
+
+input[type="text"][required]:focus+label[placeholder]:before {
+    color: #CFCFE9;
+}
+
+input[type="text"][required]:focus+label[placeholder]:before,
+input[type="text"][required]:valid+label[placeholder]:before {
+    -webkit-transition-duration: 0.2s;
+    transition-duration: 0.2s;
+    -webkit-transform: translate(0, -1.5em) scale(0.9, 0.9);
+    transform: translate(0, -1.5em) scale(0.9, 0.9);
+}
+
+input[type="text"][required]:invalid+label[placeholder][alt]:before {
+    content: attr(alt);
+}
+
+input[type="text"][required]+label[placeholder] {
+    display: block;
+    pointer-events: none;
+    line-height: 1.25em;
+    margin-top: calc(-3em - 2px);
+    margin-bottom: calc((3em - 1em) + 2px);
+}
+
+input[type="text"][required]+label[placeholder]:before {
+    content: attr(placeholder);
+    display: inline-block;
+    margin: 0 calc(1em + 2px);
+    padding: 0 2px;
+    color: #CFCFE9 !important;
+    white-space: nowrap;
+    -webkit-transition: 0.3s ease-in-out;
+    transition: 0.3s ease-in-out;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#fff));
+    background-image: linear-gradient(to bottom, #fff, #fff);
+    background-size: 100% 5px;
+    background-repeat: no-repeat;
+    background-position: center;
 }

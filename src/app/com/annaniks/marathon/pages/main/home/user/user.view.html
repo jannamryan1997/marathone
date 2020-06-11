@@ -1,0 +1,129 @@
+<div class="main-container">
+        <div class="user-main">
+        <div class="review-content display-flex">
+            <p class="name">Barbara Smith</p>
+            <div class=" display-flex">
+                <div class="review display-flex">
+                    <div class="review-item" *ngFor="let item of reviewItem">
+                        <span class="material-icons star-icon">
+                            grade
+                        </span>
+                    </div>
+                </div>
+                <p class="title">2 review</p>
+            </div>
+        </div>
+        <div class="profile-data display-flex">
+            <div class="data-item">
+                <p class="item-title">@Barbara_fitnes</p>
+    
+            </div>
+            <div class="data-item">
+                <p class="item-title">Belgium/Brussels</p>
+            </div>
+            <div class="data-item">
+                <div class="display-flex ml-3">
+                    <img src="assets/images/eng.png" class="country-img" alt="Cinque Terre">
+                    <p class="country-name">Eng</p>
+                    <img src="assets/images/germ.png" class="country-img ml-2" alt="Cinque Terre">
+                    <p class="country-name">Ger</p>
+                </div>
+            </div>
+        </div>
+        <div class="statistic display-flex">
+            <div class="m-auto  display-flex">
+                <div class="statistic-item">
+                    <div>
+                        <p class="count">600</p>
+                        <p class="statistic-title">Energy</p>
+                    </div>
+                </div>
+                <div class="statistic-item">
+                    <div>
+                        <p class="count">600</p>
+                        <p class="statistic-title">Energy</p>
+                    </div>
+                </div>
+                <div class="statistic-item">
+                    <div>
+                        <p class="count">600</p>
+                        <p class="statistic-title">Energy</p>
+                    </div>
+                </div>
+                <div class="statistic-item">
+                    <div>
+                        <p class="count">600</p>
+                        <p class="statistic-title">Energy</p>
+                    </div>
+    
+                </div>
+            </div>
+        </div>
+    
+        <div class="post-content">
+            <div class="post-container">
+                <p class="title show-content" [ngClass]="{'show':showTitle}">Contrary to popular belasief, Lorem
+                    Ipsum is not simply random text. It has roots in a piece of clasassical Latin literature
+                    from 45 BC, making over 2000 years . Richard McCsasalintock, a Latin fessor at.
+                    Contrary to popular belasief, Lorem
+                    Ipsum is not simply random text. It has roots in a piece of clasassical Latin literature
+                    from 45 BC, making over 2000 years . Richard McCsasalintock, a Latin fessor at.
+                    Contrary to popular belasief, Lorem
+                    Ipsum is not simply random text. It has roots in a piece of clasassical Latin literature
+                    from 45 BC, making over 2000 years . Richard McCsasalintock, a Latin fessor at.
+                </p>
+                <span class="title more">...</span>
+                <span class="title more" (click)="onClickSeeMore()">See More</span>
+    
+            </div>
+        </div>
+        <div class="d-flex mt-4">
+            <div class="btn-content display-flex m-auto">
+                <button class="btn mr-3">Body Building</button>
+                <button class="btn  mr-3">Fat Loss</button>
+                <button class="btn">Power Lifting</button>
+            </div>
+        </div>
+        <div class="events-tab d-flex" [ngSwitch]="tab">
+          
+            <div class="tab-item" (click)="onClickTab(1)" [ngClass]="{'activeTab':tab===1}">
+                <p class="tab-text">Posts</p>
+            </div>
+            <div class="tab-item" (click)="onClickTab(2)" [ngClass]="{'activeTab':tab===2}">
+                <p class="tab-text">Gallery</p>
+            </div>
+        
+        </div>
+        <div class="events-header" *ngIf="tab===1">
+            <div class="posts-tab">
+                <div class="btn-content display-flex">
+                    <p class="post-item" [ngClass]="{'activePostButton':tab===1}">All</p>
+                    <p class="post-item">Articles</p>
+                    <p class="post-item">Q & A</p>
+                    <p class="post-item">Recipes</p>
+                    <p class="post-item">Workouts</p>
+                    <p class="post-item">Music</p>
+                </div>
+            </div>
+        </div>
+        <div class="events-header d-flex flex-column" *ngIf="tab===2">
+            <div class="gallery-tab m-auto">
+                <div class="btn-content display-flex m-auto">
+                    <p class="post-item ml-2" [ngClass]="{'activePostButton':galerryTab===1}"
+                        (click)="onClickGalerryTab(1)">All</p>
+                    <p class="post-item ml-2" [ngClass]="{'activePostButton':galerryTab===2}"
+                        (click)="onClickGalerryTab(2)">Photos</p>
+                    <p class="post-item ml-2" [ngClass]="{'activePostButton':galerryTab===3}"
+                        (click)="onClickGalerryTab(3)">Videos</p>
+                </div>
+            </div>
+            <div class="events-content" [ngSwitch]="galerryTab">
+                <app-galery *ngIf="galerryTab===1"></app-galery>
+                <p *ngIf="galerryTab===2">photo</p>
+                <p *ngIf="galerryTab===3">video</p>
+            </div>
+    
+        </div>
+    </div>
+
+    </div>

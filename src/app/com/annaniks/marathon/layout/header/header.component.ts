@@ -1,6 +1,8 @@
 import { Component, OnInit, ElementRef, ViewChild } from "@angular/core";
 import { MenuItem } from '../../core/models';
 import { ProfileUserService } from '../../core/services/user.service';
+import { AuthModal } from '../../core/modals';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
     selector: "app-header",
@@ -21,12 +23,19 @@ export class HeaderComponent implements OnInit {
         { routerLink: "#", title: "Transform" },
         { routerLink: "#", title: "Workout Music" },
     ]
-    constructor(private _profileUserService: ProfileUserService,) { }
+    constructor(private _profileUserService: ProfileUserService,private _mathDialog:MatDialog) { }
 
     ngOnInit() { }
 
 public showProfile():void{
     this.showPfofileMenu =! this.showPfofileMenu;
+}
+
+public onClickOpenAuth():void{
+    this._mathDialog.open(AuthModal, {
+        width: "100%",
+        maxWidth: "100vw",
+    })
 }
 
     get showUserData(): boolean {

@@ -23,13 +23,13 @@ export class SignUpComponent implements OnInit {
     @Output() changeSigntab = new EventEmitter;
     @Output() closeModal = new EventEmitter();
     constructor(
-        private _fb: FormBuilder, 
-        private _router: Router, 
+        private _fb: FormBuilder,
+        private _router: Router,
         private _authUserService: AuthUserService,
         private _cookieService: CookieService,
         private _profileUserService: ProfileUserService,
         private _socialAuthService: AuthService,
-        ) { }
+    ) { }
 
     ngOnInit() {
         this._formBuilder();
@@ -37,11 +37,11 @@ export class SignUpComponent implements OnInit {
 
     private _formBuilder(): void {
         this.signUpGroup = this._fb.group({
-            firstName: ["wogipa4708", Validators.required],
-            lastName: ["wogipa4708", Validators.required],
-            userName: ["wogipa4708", Validators.required],
-            email: ["wogipa4708@tashjw.com", Validators.required],
-            password: ["wogipa4708", Validators.required],
+            firstName: [null, Validators.required],
+            lastName: [null, Validators.required],
+            userName: [null, Validators.required],
+            email: [null, Validators.required],
+            password: [null, Validators.required],
         })
     }
 
@@ -91,15 +91,15 @@ export class SignUpComponent implements OnInit {
 
     signInWithFB(): void {
         this._socialAuthService.authState.subscribe((user) => {
-            if(this.loggedIn = (user != null)){
+            if (this.loggedIn = (user != null)) {
                 this._profileUserService.user = user;
                 this._profileUserService.isAuthorized = true;
                 this.closeModal.emit('true');
-                this._cookieService.set("fbUser","true");
+                this._cookieService.set("fbUser", "true");
             }
-            console.log(this._profileUserService.user,"this.loggedInkkkkkkk");
-            
-         
+            console.log(this._profileUserService.user, "this.loggedInkkkkkkk");
+
+
 
         });
         this._socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
@@ -108,11 +108,11 @@ export class SignUpComponent implements OnInit {
 
     signInWithGoogle(): void {
         this._socialAuthService.authState.subscribe((user) => {
-            if(this.loggedIn = (user != null)){
+            if (this.loggedIn = (user != null)) {
                 this._profileUserService.user = user;
                 this._profileUserService.isAuthorized = true;
                 this.closeModal.emit('true');
-                this._cookieService.set("googleUser","true");
+                this._cookieService.set("googleUser", "true");
             }
         });
         this._socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);

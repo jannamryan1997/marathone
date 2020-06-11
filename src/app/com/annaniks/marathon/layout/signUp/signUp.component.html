@@ -6,26 +6,35 @@
     </div>
     <form [formGroup]="signUpGroup">
         <div class="signUp-form">
-            <div class="form-group d-flex" [ngClass]="{'border':chackIsValid('email')}">
-                <input type="email" class="form-input w-100" formControlName="email" placeholder="email">
+            <div>
+                <input type="text" required='' class="form-group w-100" formControlName="firstName">
+                <label alt='First Name' placeholder='First Name'></label>
             </div>
-            <div class="form-group d-flex" [ngClass]="{'border':chackIsValid('firstName')}">
-                <input type="email" class="form-input w-100" formControlName="Full Nmae" placeholder="firstName">
+            <div>
+                <input type="text" required='' class="form-group w-100" formControlName="userName">
+                <label alt='User Name' placeholder='User Name'></label>
+
             </div>
-            <div class="form-group d-flex" [ngClass]="{'border':chackIsValid('userName')}">
-                <input type="email" class="form-input w-100" formControlName="userName" placeholder="User Name">
+            <div>
+                <input type="text" required='' class="form-group w-100" formControlName="email">
+                <label alt='email' placeholder='email'></label>
             </div>
-            <div class="form-group d-flex" [ngClass]="{'border':chackIsValid('password')}">
-                <input type="email" class="form-input w-100" formControlName="password" placeholder="Password">
+            <div>
+                <input type="text" required='' class="form-group w-100" formControlName="lastName">
+                <label alt='Last Name' placeholder='Last Name'></label>
+            </div>
+            <div>
+                <input type="text" required='' class="form-group w-100" formControlName="password">
+                <label alt='password' placeholder='password'></label>
             </div>
             <div class="auth-description social-media">
-                    <div class=" display-flex">
-                        <p class="text">Sign in with</p>
-                        <i class="fa fa-google icon" aria-hidden="true" (click)="signInWithGoogle()"></i>
-                        <i class="fa fa-facebook icon" aria-hidden="true" (click)="signInWithFB()"></i>
-                        <i class="fa fa-twitter icon" aria-hidden="true"></i>
-                    </div>
+                <div class=" display-flex">
+                    <p class="text">Sign in with</p>
+                    <i class="fa fa-google icon" aria-hidden="true" (click)="signInWithGoogle()"></i>
+                    <i class="fa fa-facebook icon" aria-hidden="true" (click)="signInWithFB()"></i>
+                    <i class="fa fa-twitter icon" aria-hidden="true"></i>
                 </div>
+            </div>
             <div class="btn-content d-flex justify-content-end">
                 <button class="btn signUp-btn" [disabled]="signUpGroup.invalid" (click)="onClickSignUp()"><span>Get
                         Started</span>

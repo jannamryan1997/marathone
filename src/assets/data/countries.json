@@ -1,40 +1,42 @@
 [
     {
         
-        "name": "Afghanistan"
+        "name": "Afghanistan",
+        "flag":"assets/images/flags/englend.jpg"
      
     },
     {
 
-        "name": "Åland Islands"
-   
+        "name": "Åland Islands",
+        "flag":"assets/images/flags/englend.jpg"
     },
     {
-        "name": "Albania"
-       
+        "name": "Albania",
+           "flag":"assets/images/flags/englend.jpg"
     },
     {
-        "name": "Algeria"
-        
+        "name": "Algeria",
+        "flag":"assets/images/flags/englend.jpg"
     },
     {
-        "name": "American Samoa"
-    
+        "name": "American Samoa",
+        "flag":"assets/images/flags/englend.jpg"
     },
     {
-        "name": "AndorrA"
-      
+        "name": "AndorrA",
+          "flag":"assets/images/flags/englend.jpg"
     },
     {
-        "name": "Angola"
-     
+        "name": "Angola",
+         "flag":"assets/images/flags/englend.jpg"
     },
     {
-        "name": "Anguilla"
-     
+        "name": "Anguilla",
+         "flag":"assets/images/flags/englend.jpg"
     },
     {
-        "name":"Gyumry"
+        "name":"Gyumry",
+        "flag":"assets/images/flags/englend.jpg"
     }
 
 ]

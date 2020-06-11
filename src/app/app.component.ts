@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 })
 export class AppComponent implements OnInit {
   title = 'marathon';
+  filteredCountriesMultiple: any[];
 
   constructor(private _router: Router) { }
 
@@ -26,4 +27,6 @@ export class AppComponent implements OnInit {
       }
     }, 1);
   }
+
+
 }

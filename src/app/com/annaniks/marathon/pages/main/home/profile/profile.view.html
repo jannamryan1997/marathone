@@ -17,10 +17,9 @@
 
 <div class="autocomplete">
         <label>Languages</label>
-        <p-autoComplete class="w-100 " formControlName="languages" [suggestions]="filteredCountriesMultiple"
-            (completeMethod)="filterCountryMultiple($event)" [minLength]="1" placeholder="" field="name"
+        <p-autoComplete class="w-100" formControlName="languages" [suggestions]="filteredCountriesMultiple"
+            (completeMethod)="filterCountryMultiple($event)" [minLength]="1" placeholder=""
             field="name" [multiple]="true">
-   
         </p-autoComplete>
     </div>
         <div class="form-group">
@@ -31,7 +30,7 @@
         <div class="autocomplete">
                 <label>Speciality</label>
         <p-autoComplete class="w-100" formControlName="speciality" [suggestions]="filteredCountriesMultiple"
-            (completeMethod)="filterCountryMultiple($event)" [minLength]="1" placeholder="" field="name"
+            (completeMethod)="filterCountryMultiple($event)" [minLength]="1" placeholder=""
             field="name" [multiple]="true">
         </p-autoComplete>
         </div>
@@ -64,12 +63,12 @@
 
         </div>
 
-        <div class="form-group about-form">
+        <div class="form-group about-form" *ngIf="router==='/home/coach/profile'">
                 <label>About</label>
             <textarea type="text" class="form-input w-100 text-area" formControlName="about"
                 placeholder=""></textarea>
         </div>
-        <div class="form-group about-form">
+        <div class="form-group about-form"  *ngIf="router==='/home/coach/profile'">
                 <label>Certificates</label>
             <app-information [profileCertificates]="true"></app-information>
             <app-information [profileCertificates]="true"></app-information>
@@ -91,12 +90,12 @@
             </div>
         </div>
 
-        <div class="form-group about-form">
+        <div class="form-group about-form" *ngIf="router==='/home/coach/profile'">
                 <label>Education</label>
                 <app-education [profileEducation]="true"></app-education>
         </div>
 
-        <div class="form-group about-form">
+        <div class="form-group about-form" *ngIf="router==='/home/coach/profile'">
                 <label>Experience</label>
                 <app-experience [profileExperience]="true"></app-experience>
         </div>

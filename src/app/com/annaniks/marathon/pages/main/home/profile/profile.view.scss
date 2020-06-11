@@ -144,6 +144,6 @@ height: 53px;
     left: 25px;
     background-color:white;
     font-weight: 600;
-    z-index: 99999999;
+    z-index:1;
     @include text(16px, 19px, #589CFE,EncodeSans-Medium);
   }

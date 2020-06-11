@@ -14,16 +14,16 @@
                 </span>
             </div>
             <div class="button-item display-flex"  *ngIf="!showUserData">
-                    <div class="sign-btn d-flex w-50" >
+                    <div class="sign-btn d-flex w-50" (click)="onClickOpenAuth()">
                         <span class="m-auto">Log In</span>
                     </div>
-                    <div class="form-input  signUp-btn d-flex w-50">
+                    <div class="form-input  signUp-btn d-flex w-50" (click)="onClickOpenAuth()">
                         <span class="m-auto">Sign up</span></div>
                 </div>
 
 <div class="profile-content" *ngIf="showUserData">
     <div class="profile-container display-flex">
-            <img src="assets/images/img2.png" class="proflle-image" alt="Cinque Terre">
+            <img [src]="profileUser?.photoUrl" class="proflle-image" alt="Cinque Terre">
             <span class="material-icons" (click)="showProfile()">
                     arrow_drop_down
                     </span>

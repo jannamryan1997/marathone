@@ -12,6 +12,7 @@ import {
     InformationComponent,
     EducationComponent,
     ExperienceComponent,
+    GelleryComponent,
 } from '../layout';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -24,6 +25,7 @@ import { PostCardItemComponent } from '../pages/main/feed/posts/component/post-c
 import {AuthModal } from '../core/modals';
 import {MatSelectModule} from '@angular/material/select';
 import { AuthGuard } from '../core/guards/auth.guard';
+import {MatFormFieldModule} from '@angular/material/form-field';
 @NgModule({
     declarations: [
         HeaderComponent,
@@ -39,7 +41,8 @@ import { AuthGuard } from '../core/guards/auth.guard';
         SignUpComponent,
         InformationComponent,
         EducationComponent,
-        ExperienceComponent
+        ExperienceComponent,
+        GelleryComponent,
     ],
     imports: [
         CommonModule,
@@ -50,7 +53,8 @@ import { AuthGuard } from '../core/guards/auth.guard';
         PickerModule,
         ClickOutsideModule,
         HttpClientModule,
-        MatSelectModule
+        MatSelectModule,
+        MatFormFieldModule
     ],
     providers: [AuthGuard],
     entryComponents: [],
@@ -77,7 +81,9 @@ import { AuthGuard } from '../core/guards/auth.guard';
         MatSelectModule,
         InformationComponent,
         EducationComponent,
-        ExperienceComponent
+        ExperienceComponent,
+        GelleryComponent,
+        MatFormFieldModule
     ]
 })
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter} from "@angular/core";
+import { Component, OnInit, Output, EventEmitter, Inject} from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SignInResponse, SignInData } from '../../core/models';
@@ -9,6 +9,8 @@ import { ProfileUserService } from '../../core/services/user.service';
 import { SocialUser} from 'angularx-social-login';
 import { FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
 import { AuthService } from "angularx-social-login";
+import { MatDialogRef } from '@angular/material/dialog';
+import { AuthModal } from '../../core/modals';
 
 @Component({
     selector: "app-signIn",
@@ -34,6 +36,7 @@ export class SignInComponent implements OnInit {
         private _cookieService: CookieService,
         private _profileUserService: ProfileUserService,
         private _socialAuthService: AuthService,
+    private _dialogRef:MatDialogRef<AuthModal>
      
     ) { 
 
@@ -107,6 +110,7 @@ export class SignInComponent implements OnInit {
         }
     }
     signInWithFB(): void {
+        this._dialogRef.close();
         this._socialAuthService.authState.subscribe((user) => {
             if(this.loggedIn = (user != null)){
                 this._profileUserService.user = user;
@@ -124,6 +128,7 @@ export class SignInComponent implements OnInit {
     }
 
     signInWithGoogle(): void {
+        this._dialogRef.close();
         this._socialAuthService.authState.subscribe((user) => {
             if(this.loggedIn = (user != null)){
                 this._profileUserService.user = user;

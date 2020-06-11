@@ -13,7 +13,15 @@ const homeRoutes: Routes = [
                     loadChildren: () => import('./coach/coach.module').then(m => m.CoachModule),
                 },
                 {
-                    path: "profile",
+                    path: "user",
+                    loadChildren: () => import('./user/user.module').then(m => m.UserModule),
+                },
+                {
+                    path: "coach/profile",
+                    loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule),
+                },
+                {
+                    path: "user/profile",
                     loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule),
                 }
             ]
