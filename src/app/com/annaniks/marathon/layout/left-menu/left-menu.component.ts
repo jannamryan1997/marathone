@@ -13,13 +13,13 @@ import { ProfileUserService } from '../../core/services/user.service';
 })
 
 export class LeftMenuCompomemtn implements OnInit, AfterViewInit {
-
+    role: string;
     public tab: number = 1;
     public activeTab: string;
     public profileUser;
     public leftMenuItem: MenuItem[] = [
         { routerLink: "/home", title: "Home", icon: "home" },
-        { routerLink: "#", title: "Profile", icon: "person" },
+        { routerLink: "/home/profile", title: "Profile", icon: "person" },
         { routerLink: "#", title: "Dashboard", icon: "person" },
         { routerLink: "#", title: "Marathon", icon: "person" },
         { routerLink: "#", title: "My Recips", icon: "person" },
@@ -38,13 +38,17 @@ export class LeftMenuCompomemtn implements OnInit, AfterViewInit {
         private _router: Router, private _mathDialog: MatDialog,
         private _profileUserService: ProfileUserService,
 
-    ) { }
+    ) {
+        this.role = this._cookieService.get('role');
+    }
 
     ngOnInit() {
 
     }
 
     ngAfterViewInit() { }
+
+
 
     public onClickTab(item, routerLink): void {
 
@@ -58,7 +62,7 @@ export class LeftMenuCompomemtn implements OnInit, AfterViewInit {
             this.activeTab = item.routerLink;
             this._router.navigate([routerLink]);
         }
-        else if(this._cookieService.get('googleUser')){
+        else if (this._cookieService.get('googleUser')) {
             this.activeTab = item.routerLink;
             this._router.navigate([routerLink]);
         }
@@ -79,6 +83,5 @@ export class LeftMenuCompomemtn implements OnInit, AfterViewInit {
         this.profileUser = this._profileUserService.user;
         return this._profileUserService.isAuthorized;
     }
-
 
 }

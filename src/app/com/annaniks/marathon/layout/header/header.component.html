@@ -23,7 +23,7 @@
 
 <div class="profile-content" *ngIf="showUserData">
     <div class="profile-container display-flex">
-            <img [src]="profileUser?.photoUrl" class="proflle-image" alt="Cinque Terre">
+            <img [src]="profileUser?.photoUrl" class="proflle-image" alt="">
             <span class="material-icons" (click)="showProfile()">
                     arrow_drop_down
                     </span>
@@ -45,7 +45,7 @@
         <div class="profile-menu-item">
                 <p class="menu-item-title">Help Center</p>
         </div>
-        <div class="profile-menu-item">
+        <div class="profile-menu-item" (click)="logOut()">
                 <p class="menu-item-title">Log Out</p>
         </div>
       

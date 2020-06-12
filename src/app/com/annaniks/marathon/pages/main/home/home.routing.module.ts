@@ -13,17 +13,13 @@ const homeRoutes: Routes = [
                     loadChildren: () => import('./coach/coach.module').then(m => m.CoachModule),
                 },
                 {
-                    path: "user",
-                    loadChildren: () => import('./user/user.module').then(m => m.UserModule),
+                    path: "client",
+                    loadChildren: () => import('./client/client.module').then(m => m.ClientModule),
                 },
                 {
-                    path: "coach/profile",
+                    path: "profile",
                     loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule),
                 },
-                {
-                    path: "user/profile",
-                    loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule),
-                }
             ]
     }
 ]

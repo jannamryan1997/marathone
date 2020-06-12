@@ -28,7 +28,12 @@
                 <label alt='password' placeholder='password'></label>
             </div>
             <div class="auth-description social-media">
+               
                 <div class=" display-flex">
+                        <div>
+                                <input type="checkbox" id="scales" name="scales"  formControlName="coach">
+                                <label for="scales" class="text ml-2">Coach</label>
+                            </div>
                     <p class="text">Sign in with</p>
                     <i class="fa fa-google icon" aria-hidden="true" (click)="signInWithGoogle()"></i>
                     <i class="fa fa-facebook icon" aria-hidden="true" (click)="signInWithFB()"></i>

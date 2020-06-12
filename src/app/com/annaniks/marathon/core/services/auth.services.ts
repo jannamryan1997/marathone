@@ -15,10 +15,16 @@ export class AuthUserService {
         params.set('authorization', 'false');
         return this._httpCliet.post<SignInResponse>('/client-login/', body, { params });
     }
-    public signUp(body: SignUpData): Observable<SignUpResponse> {
+    public signUpClient(body: SignUpData): Observable<SignUpResponse> {
         let params = new HttpParams();
         params.set('authorization', 'false');
         return this._httpCliet.post<SignUpResponse>('/client/user/', body, { params });
+    }
+
+    public signUpCoach(body:SignUpData):Observable<SignUpResponse>{
+        let params =new HttpParams();
+        params.set('authorization','false');
+        return this._httpCliet.post<SignUpResponse>('/coach/coach/', body, { params });
     }
 
 }

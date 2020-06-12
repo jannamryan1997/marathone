@@ -1,9 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CountryService } from '../../../../core/services/country.service';
-import { Router } from '@angular/router';
 import { Country } from '../../../../core/models';
-import { element } from 'protractor';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
     selector: "app-profile",
@@ -11,7 +10,7 @@ import { element } from 'protractor';
     styleUrls: ["profile.view.scss"]
 })
 export class ProfileView implements OnInit {
-    public router:string;
+    public role: string;
     country: any;
     filteredCountriesSingle: any[];
 
@@ -20,11 +19,9 @@ export class ProfileView implements OnInit {
 
     public profileFormGroup: FormGroup;
 
-    constructor(private _fb: FormBuilder, private _countryService: CountryService,private _router:Router) {
-        this.router=this._router.url;
-        console.log(this.router);
-        
-     }
+    constructor(private _fb: FormBuilder, private _countryService: CountryService, private _cookieService: CookieService) {
+        this.role = this._cookieService.get('role');
+    }
 
     ngOnInit() {
         this._formBuilder();
@@ -37,12 +34,12 @@ export class ProfileView implements OnInit {
             location: [null, Validators.required],
             languages: [null],
             staus: ["Contrary to popular belasief, Lorem Ipsum is not simply random text. It has roots in a piece of clasassical Latin literature from 45 BC, making over 2000 years . Richard McCsasalintock, a Latin .fessor at", Validators.required],
-            speciality:[null],
-            facebook:[null],
-            instagram:[null],
-            linkedin:[null],
-            youtube:[null],
-            about:["Contrary to popular belasief, Lorem Ipsum is not simply random text. It has roots in a piece of clasassical Latin literature from 45 BC, making over 2000 years . Richard McCsasalintock, a Latin .fessor at"]
+            speciality: [null],
+            facebook: [null],
+            instagram: [null],
+            linkedin: [null],
+            youtube: [null],
+            about: ["Contrary to popular belasief, Lorem Ipsum is not simply random text. It has roots in a piece of clasassical Latin literature from 45 BC, making over 2000 years . Richard McCsasalintock, a Latin .fessor at"]
         })
     }
 
@@ -56,10 +53,10 @@ export class ProfileView implements OnInit {
 
     filterCountryMultiple(event) {
         let query = event.query;
-        this._countryService.getCountries().subscribe((countries:Country[]) => {
+        this._countryService.getCountries().subscribe((countries: Country[]) => {
             console.log(countries);
-    
-            this.filteredCountriesMultiple = this.filterCountry(query,countries);
+
+            this.filteredCountriesMultiple = this.filterCountry(query, countries);
         });
     }
     filterCountry(query, countries: Country[]): Country[] {
@@ -70,7 +67,7 @@ export class ProfileView implements OnInit {
             if (country.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
                 filtered.push(country);
             }
-            
+
         }
         return filtered;
     }

@@ -63,12 +63,12 @@
 
         </div>
 
-        <div class="form-group about-form" *ngIf="router==='/home/coach/profile'">
+        <div class="form-group about-form" *ngIf="role=='coach'">
                 <label>About</label>
             <textarea type="text" class="form-input w-100 text-area" formControlName="about"
                 placeholder=""></textarea>
         </div>
-        <div class="form-group about-form"  *ngIf="router==='/home/coach/profile'">
+        <div class="form-group about-form"  *ngIf="role=='coach'">
                 <label>Certificates</label>
             <app-information [profileCertificates]="true"></app-information>
             <app-information [profileCertificates]="true"></app-information>
@@ -90,12 +90,12 @@
             </div>
         </div>
 
-        <div class="form-group about-form" *ngIf="router==='/home/coach/profile'">
+        <div class="form-group about-form" *ngIf="role=='coach'">
                 <label>Education</label>
                 <app-education [profileEducation]="true"></app-education>
         </div>
 
-        <div class="form-group about-form" *ngIf="router==='/home/coach/profile'">
+        <div class="form-group about-form" *ngIf="role=='coach'">
                 <label>Experience</label>
                 <app-experience [profileExperience]="true"></app-experience>
         </div>

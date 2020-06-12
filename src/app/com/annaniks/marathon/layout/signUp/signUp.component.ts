@@ -42,6 +42,7 @@ export class SignUpComponent implements OnInit {
             userName: [null, Validators.required],
             email: [null, Validators.required],
             password: [null, Validators.required],
+            coach: [null],
         })
     }
 
@@ -54,7 +55,7 @@ export class SignUpComponent implements OnInit {
 
 
 
-    private _signUp(): void {
+    private _signUpClient(): void {
         this.loading = true;
         this.signUpGroup.disable();
         let signUpData =
@@ -66,10 +67,45 @@ export class SignUpComponent implements OnInit {
                 last_name: this.signUpGroup.value.lastName,
             },
             google_id: null,
-            ui_language: "http://annaniks.com:6262/api/utils/language/3/",
-            metric: "http://annaniks.com:6262/api/utils/metric/1/",
+            ui_language: "http://192.168.1.115:8000/api/utils/language/3/",
+            metric: "http://192.168.1.115:8000/api/utils/metric/1/",
         }
-        this._authUserService.signUp(signUpData)
+        this._authUserService.signUpClient(signUpData)
+            .pipe(
+                finalize(() => {
+                    this.loading = false;
+                    this.signUpGroup.enable();
+                })
+            )
+            .subscribe((data) => {
+                this.changeSigntab.emit(this.tab);
+                console.log(data);
+            },
+                err => {
+                    this.errorMessage = err.error;
+                    console.log(err);
+
+                }
+            )
+
+    }
+
+    private _signUpCoatch(): void {
+        this.loading = true;
+        this.signUpGroup.disable();
+        let signUpData =
+        {
+            user: {
+                email: this.signUpGroup.value.email,
+                password: this.signUpGroup.value.password,
+                first_name: this.signUpGroup.value.firstName,
+                last_name: this.signUpGroup.value.lastName,
+            },
+            google_id: null,
+            // ui_language:null,
+            //metric: null,
+        }
+        this._authUserService.signUpCoach(signUpData)
             .pipe(
                 finalize(() => {
                     this.loading = false;
@@ -124,6 +160,13 @@ export class SignUpComponent implements OnInit {
 
 
     public onClickSignUp(): void {
-        this._signUp();
+        if (this.signUpGroup.value.coach === true) {
+            this._signUpCoatch();
+
+        }
+        else {
+            this._signUpClient();
+
+        }
     }
 }

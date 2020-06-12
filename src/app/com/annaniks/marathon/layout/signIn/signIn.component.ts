@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Inject} from "@angular/core";
+import { Component, OnInit, Output, EventEmitter, Inject } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SignInResponse, SignInData } from '../../core/models';
@@ -6,7 +6,7 @@ import { finalize } from 'rxjs/operators';
 import { AuthUserService } from '../../core/services/auth.services';
 import { CookieService } from 'ngx-cookie-service';
 import { ProfileUserService } from '../../core/services/user.service';
-import { SocialUser} from 'angularx-social-login';
+import { SocialUser } from 'angularx-social-login';
 import { FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
 import { AuthService } from "angularx-social-login";
 import { MatDialogRef } from '@angular/material/dialog';
@@ -36,16 +36,16 @@ export class SignInComponent implements OnInit {
         private _cookieService: CookieService,
         private _profileUserService: ProfileUserService,
         private _socialAuthService: AuthService,
-    private _dialogRef:MatDialogRef<AuthModal>
-     
-    ) { 
+        private _dialogRef: MatDialogRef<AuthModal>
 
-        
+    ) {
+
+
     }
 
     ngOnInit() {
         this._formBuilder();
-     
+
     }
 
     private _formBuilder(): void {
@@ -74,14 +74,9 @@ export class SignInComponent implements OnInit {
                 this.closeModal.emit('true');
                 this._cookieService.set('access', data.access);
                 this._cookieService.set('refresh', data.refresh);
+                this._cookieService.set('role', data.role);
                 this._profileUserService.isAuthorized = true;
-                this._profileUserService.user = {
-                    name: "Maya Crouche",
-                    email: "@mayacrouch",
-                    photoUrl: "assets/images/img2.png"
-                };
                 console.log(this._profileUserService.isAuthorized);
-
             },
                 err => {
                     console.log(err);
@@ -91,13 +86,6 @@ export class SignInComponent implements OnInit {
 
     }
 
-    public getUser(): void {
-        // this._profileUserService.getUser()
-        //     .subscribe((data) => {
-        //         this._userService.user = data;
-        //         this._userService.isAuthorized = true;
-        //     })
-    }
 
     public chackIsValid(controlName: string): boolean {
         return this.signInGroup.get(controlName).hasError('required') && this.signInGroup.get(controlName).touched;
@@ -112,15 +100,15 @@ export class SignInComponent implements OnInit {
     signInWithFB(): void {
         this._dialogRef.close();
         this._socialAuthService.authState.subscribe((user) => {
-            if(this.loggedIn = (user != null)){
+            if (this.loggedIn = (user != null)) {
                 this._profileUserService.user = user;
                 this._profileUserService.isAuthorized = true;
                 this.closeModal.emit('true');
-                this._cookieService.set("fbUser","true");
+                this._cookieService.set("fbUser", "true");
             }
-            console.log(this._profileUserService.user,"this.loggedInkkkkkkk");
-            
-         
+            console.log(this._profileUserService.user, "this.loggedInkkkkkkk");
+
+
 
         });
         this._socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
@@ -130,11 +118,11 @@ export class SignInComponent implements OnInit {
     signInWithGoogle(): void {
         this._dialogRef.close();
         this._socialAuthService.authState.subscribe((user) => {
-            if(this.loggedIn = (user != null)){
+            if (this.loggedIn = (user != null)) {
                 this._profileUserService.user = user;
                 this._profileUserService.isAuthorized = true;
                 this.closeModal.emit('true');
-                this._cookieService.set("googleUser","true");
+                this._cookieService.set("googleUser", "true");
             }
         });
         this._socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);

@@ -1,12 +1,12 @@
 import { Component, OnInit } from "@angular/core";
 
 @Component({
-    selector: "app-user",
-    templateUrl: "user.view.html",
-    styleUrls: ["user.view.scss"]
+    selector: "app-client",
+    templateUrl: "client.view.html",
+    styleUrls: ["client.view.scss"]
 })
 
-export class UserView implements OnInit {
+export class ClientView implements OnInit {
     public showTitle: boolean;
     public tab: number = 1;
     public galerryTab: number = 1;

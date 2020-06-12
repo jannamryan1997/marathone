@@ -1,5 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from '@angular/router';
+import { ProfileUserService } from '../../../core/services/user.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
     selector: "home-view",
@@ -8,20 +10,16 @@ import { Router } from '@angular/router';
 })
 
 export class HomeView implements OnInit {
-    public router: string;
+    public role: string;
     public showSocialMedium: boolean = false;
     public showMore: boolean = false;
     public showProfile: boolean = false;
 
-    constructor(private _router: Router) {
-      
-        
+    constructor(private _router: Router, private _profileUserService: ProfileUserService, private _cookieService: CookieService) {
+        this.role = this._cookieService.get('role');
     }
 
-    ngOnInit() { 
-        this.router=this._router.url;
-        console.log(this.router);
-    }
+    ngOnInit() { }
 
     public onClickShowSocialMedium(): void {
         this.showSocialMedium = !this.showSocialMedium;
@@ -32,14 +30,5 @@ export class HomeView implements OnInit {
 
     public reloadProfile() {
         this.showProfile = !this.showProfile;
-    }
-
-    public onClickEditProfile():void{
-        if(this.router==='/home/coach'){
-            this._router.navigate(['/home/coach/profile'])
-        }
-        else if(this.router==='/home/user'){
-            this._router.navigate(['/home/user/profile'])
-        }
     }
 }

@@ -3,6 +3,7 @@ import { MenuItem } from '../../core/models';
 import { ProfileUserService } from '../../core/services/user.service';
 import { AuthModal } from '../../core/modals';
 import { MatDialog } from '@angular/material/dialog';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
     selector: "app-header",
@@ -12,7 +13,7 @@ import { MatDialog } from '@angular/material/dialog';
 
 export class HeaderComponent implements OnInit {
     public profileUser;
-    public showPfofileMenu:boolean=false;
+    public showPfofileMenu: boolean = false;
     public menuItem: MenuItem[] = [
         { routerLink: "/feed", title: "Feed" },
         { routerLink: "#", title: "Coaches" },
@@ -23,24 +24,33 @@ export class HeaderComponent implements OnInit {
         { routerLink: "#", title: "Transform" },
         { routerLink: "#", title: "Workout Music" },
     ]
-    constructor(private _profileUserService: ProfileUserService,private _mathDialog:MatDialog) { }
+    constructor(private _profileUserService: ProfileUserService, private _mathDialog: MatDialog, private _cookieService: CookieService) { }
 
     ngOnInit() { }
 
-public showProfile():void{
-    this.showPfofileMenu =! this.showPfofileMenu;
-}
+    public showProfile(): void {
+        this.showPfofileMenu = !this.showPfofileMenu;
+    }
 
-public onClickOpenAuth():void{
-    this._mathDialog.open(AuthModal, {
-        width: "100%",
-        maxWidth: "100vw",
-    })
-}
+    public onClickOpenAuth(): void {
+        this._mathDialog.open(AuthModal, {
+            width: "100%",
+            maxWidth: "100vw",
+        })
+    }
 
     get showUserData(): boolean {
         this.profileUser = this._profileUserService.user;
         return this._profileUserService.isAuthorized;
+
     }
+    onClick(): void {
+        console.log(this.profileUser);
     }
+
+    public logOut():void{
+        this._cookieService.deleteAll();
+        location.reload();
+    }
+}
 
