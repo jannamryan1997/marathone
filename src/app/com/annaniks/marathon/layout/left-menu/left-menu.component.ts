@@ -13,14 +13,13 @@ import { ProfileUserService } from '../../core/services/user.service';
 })
 
 export class LeftMenuCompomemtn implements OnInit, AfterViewInit {
-    role: string;
     public tab: number = 1;
     public activeTab: string;
     public profileUser;
     public leftMenuItem: MenuItem[] = [
         { routerLink: "/home", title: "Home", icon: "home" },
         { routerLink: "/home/profile", title: "Profile", icon: "person" },
-        { routerLink: "#", title: "Dashboard", icon: "person" },
+        { routerLink: "/feed", title: "Dashboard", icon: "person" },
         { routerLink: "#", title: "Marathon", icon: "person" },
         { routerLink: "#", title: "My Recips", icon: "person" },
         { routerLink: "#", title: "My Training", icon: "person" },
@@ -38,45 +37,35 @@ export class LeftMenuCompomemtn implements OnInit, AfterViewInit {
         private _router: Router, private _mathDialog: MatDialog,
         private _profileUserService: ProfileUserService,
 
-    ) {
-        this.role = this._cookieService.get('role');
-    }
+    ) { }
 
     ngOnInit() {
-
-    }
+        if(this._router.url==="/home/client" ||this._router.url==="/home/coach" ){
+            this.activeTab="/home";
+        }
+        else{
+            this.activeTab=this._router.url;
+        }
+ 
+     }
 
     ngAfterViewInit() { }
 
+    public onCkickActiveTab(item): void {
+        this.activeTab=item;
+        let role: string;
+        role = this._cookieService.get('role');
+        if (item === '/home' && role === 'client') {
+            this._router.navigate(['/home/client'])
 
-
-    public onClickTab(item, routerLink): void {
-
-        if (!this._cookieService.get('access') && !this._cookieService.get('refresh') && !this._cookieService.get('fbUser') && !this._cookieService.get('googleUser')) {
-            this._mathDialog.open(AuthModal, {
-                width: "100%",
-                maxWidth: "100vw",
-            })
         }
-        else if (this._cookieService.get('fbUser')) {
-            this.activeTab = item.routerLink;
-            this._router.navigate([routerLink]);
+        else if (item === '/home' && role === 'coach') {
+            this._router.navigate(['/home/coach'])
         }
-        else if (this._cookieService.get('googleUser')) {
-            this.activeTab = item.routerLink;
-            this._router.navigate([routerLink]);
-        }
-        else if (this._cookieService.get('access') && this._cookieService.get('refresh')) {
-            this.activeTab = item.routerLink;
-            this._router.navigate([routerLink]);
+        else {
+            this._router.navigate([item]);
         }
 
-    }
-    public onChangeTab(event): void {
-        this.tab = event;
-    }
-    public onClickOpenSignIn(event): void {
-        this.tab = event;
     }
 
     get showUserData(): boolean {

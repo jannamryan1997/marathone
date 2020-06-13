@@ -8,6 +8,7 @@ import { CountryService } from '../../../../core/services/country.service';
 import { SharedModule } from '../../../../shared/shared.module';
 
 
+
 @NgModule({
     declarations: [ProfileView],
     imports: [
@@ -15,7 +16,8 @@ import { SharedModule } from '../../../../shared/shared.module';
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        AutoCompleteModule,SharedModule],
+        AutoCompleteModule,
+        SharedModule],
     providers:[CountryService]
 })
 

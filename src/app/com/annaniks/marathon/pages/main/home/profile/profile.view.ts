@@ -1,8 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { CountryService } from '../../../../core/services/country.service';
-import { Country } from '../../../../core/models';
 import { CookieService } from 'ngx-cookie-service';
+import { Country } from '../../../../core/models';
+import { CountryService } from '../../../../core/services/country.service';
+
 
 @Component({
     selector: "app-profile",
@@ -19,7 +20,10 @@ export class ProfileView implements OnInit {
 
     public profileFormGroup: FormGroup;
 
-    constructor(private _fb: FormBuilder, private _countryService: CountryService, private _cookieService: CookieService) {
+    constructor(
+        private _fb: FormBuilder, 
+        private _countryService: CountryService, 
+        private _cookieService: CookieService) {
         this.role = this._cookieService.get('role');
     }
 

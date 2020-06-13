@@ -1,24 +1,23 @@
 <div class="left-menu" [ngClass]="{'position':showUserData}">
     <div class="left-menu-item">
         <li *ngFor="let item of leftMenuItem">
-                <span class="material-icons menu-icon" routerLinkActive="activeTab"    [routerLink]="item?.routerLink" >
-                        {{item?.icon}}
-                        </span>
-            <a class="link" routerLinkActive="activeTab"    [routerLink]="item?.routerLink"
-             > {{item?.title}}</a></li>
+            <span class="material-icons menu-icon" [ngClass]="{'activeTab':activeTab===item?.routerLink}">
+                {{item?.icon}}
+            </span>
+            <a class="link" (click)="onCkickActiveTab(item?.routerLink)"
+                [ngClass]="{'activeTab':activeTab===item?.routerLink}"> {{item?.title}}</a></li>
     </div>
 
 
     <div class="follow" *ngIf="showUserData">
-            <div *ngFor="let item of settingItem" class="user-item follow-item d-flex">
-                <img [src]="item?.image" class="user-image" alt="Cinque Terre">
-                <div>
-                    <p class="name">{{item?.name}}</p>
-                    <p class="email-title">{{item?.email}}</p>
-                </div>
+        <div *ngFor="let item of settingItem" class="user-item follow-item d-flex">
+            <img [src]="item?.image" class="user-image" alt="Cinque Terre">
+            <div>
+                <p class="name">{{item?.name}}</p>
+                <p class="email-title">{{item?.email}}</p>
             </div>
         </div>
-    
+    </div>
+
 
 </div>
-

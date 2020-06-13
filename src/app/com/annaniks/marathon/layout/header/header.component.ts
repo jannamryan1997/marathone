@@ -4,6 +4,7 @@ import { ProfileUserService } from '../../core/services/user.service';
 import { AuthModal } from '../../core/modals';
 import { MatDialog } from '@angular/material/dialog';
 import { CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: "app-header",
@@ -24,7 +25,10 @@ export class HeaderComponent implements OnInit {
         { routerLink: "#", title: "Transform" },
         { routerLink: "#", title: "Workout Music" },
     ]
-    constructor(private _profileUserService: ProfileUserService, private _mathDialog: MatDialog, private _cookieService: CookieService) { }
+    constructor(private _profileUserService: ProfileUserService,
+         private _mathDialog: MatDialog, 
+         private _cookieService: CookieService,
+         private _router:Router) { }
 
     ngOnInit() { }
 
@@ -50,7 +54,8 @@ export class HeaderComponent implements OnInit {
 
     public logOut():void{
         this._cookieService.deleteAll();
+        this._cookieService.delete('role');
         location.reload();
-    }
 }
 
+}

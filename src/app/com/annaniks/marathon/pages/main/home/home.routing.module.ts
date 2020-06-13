@@ -7,7 +7,6 @@ const homeRoutes: Routes = [
         path: "", component: HomeView, children:
 
             [
-                { path: "", pathMatch: "full", redirectTo: "coach" },
                 {
                     path: "coach",
                     loadChildren: () => import('./coach/coach.module').then(m => m.CoachModule),
@@ -19,7 +18,7 @@ const homeRoutes: Routes = [
                 {
                     path: "profile",
                     loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule),
-                },
+                }
             ]
     }
 ]
