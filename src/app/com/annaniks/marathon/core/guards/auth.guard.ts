@@ -1,48 +1,59 @@
 import { Injectable } from "@angular/core";
-import { Observable, throwError } from 'rxjs';
-import { CanActivate, Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
-import { MatDialog } from '@angular/material/dialog';
-import { ProfileUserService } from '../services/user.service';
+import { Observable, throwError, of } from 'rxjs';
+import { CanActivate } from '@angular/router';
+import { UserService } from '../services/user.service';
 import { map, catchError } from 'rxjs/operators';
-import { AuthModal } from '../modals';
+import { CookieService } from 'ngx-cookie';
 
 @Injectable()
 
 export class AuthGuard implements CanActivate {
-    constructor(
-        private _router: Router,
-        private _matDialog: MatDialog,
-        private _ProfileUserService: ProfileUserService) {
 
+    constructor(
+        private _userService: UserService,
+        private _cookieService: CookieService
+    ) {
     }
 
     canActivate(): Promise<boolean> | Observable<boolean> | boolean {
-        return this._ProfileUserService.getClient()
-            .pipe(
-                map((data) => {
-                    console.log(data,"dataaaaaaaaaaaaaaa");
-                    
-                    if (data) {
-                        this._ProfileUserService.user = data;
-                        console.log(this._ProfileUserService.user);
-                        return true;
+        const role: string = this._cookieService.get('role');
 
-                    }
-                    else {
-                        this._matDialog.open(AuthModal, {
-                            width: "100%",
-                            maxWidth: "100vw",
+        switch (role) {
+            case 'client': {
+                return this._userService.getClient()
+                    .pipe(
+                        map((data) => {
+                            this._userService.user = data;
+                            this._userService.isAuthorized = true;
+                            return true;
+                        }),
+                        catchError(() => {
+                            this._userService.user = null;
+                            this._userService.isAuthorized = false;
+                            return throwError(true);
                         })
-                    }
-                }),
-                catchError((err) => {
-                    this._matDialog.open(AuthModal, {
-                        width: "100%",
-                        maxWidth: "100vw",
-                    })
-                    return throwError(false);
-                })
-            )
+                    )
+            }
+            case 'coach': {
+                return this._userService.getCoatch()
+                    .pipe(
+                        map((data) => {
+                            this._userService.user = data;
+                            this._userService.isAuthorized = true;
+                            return true;
+                        }),
+                        catchError(() => {
+                            this._userService.user = null;
+                            this._userService.isAuthorized = false;
+                            return throwError(true);
+                        })
+                    )
+            }
+            default: {
+                this._userService.user = null;
+                this._userService.isAuthorized = false;
+                return true;
+            }
+        }
     }
 }

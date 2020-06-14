@@ -1,16 +1,22 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+
 import { SharedModule } from './com/annaniks/marathon/shared/shared.module';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { environment } from 'src/environments/environment';
-import { HTTP_INTERCEPTORS,HttpClientModule } from '@angular/common/http';
 import { ApiInterceptor } from './com/annaniks/marathon/core/interceptore/api.interceptor';
-import { CookieService} from 'ngx-cookie-service';
 import { AuthUserService } from './com/annaniks/marathon/core/services/auth.services';
+
+import { environment } from 'src/environments/environment';
+
 import { SocialLoginModule, AuthServiceConfig } from "angularx-social-login";
 import { GoogleLoginProvider, FacebookLoginProvider } from "angularx-social-login";
+
+
+import { CookieModule } from 'ngx-cookie';
 
 let config = new AuthServiceConfig([
   {
@@ -23,7 +29,7 @@ let config = new AuthServiceConfig([
   },
 
 ]);
- 
+
 
 export function provideConfig() {
   return config;
@@ -38,8 +44,8 @@ export function provideConfig() {
     SharedModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    SocialLoginModule
-
+    SocialLoginModule,
+    CookieModule.forRoot()
   ],
   providers: [
     {
@@ -56,7 +62,6 @@ export function provideConfig() {
       provide: AuthServiceConfig,
       useFactory: provideConfig
     },
-    CookieService,
     AuthUserService,
   ],
   bootstrap: [AppComponent]

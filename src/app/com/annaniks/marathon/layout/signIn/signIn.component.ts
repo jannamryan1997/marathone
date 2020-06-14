@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 import { SignInResponse, SignInData } from '../../core/models';
 import { finalize } from 'rxjs/operators';
 import { AuthUserService } from '../../core/services/auth.services';
-import { CookieService } from 'ngx-cookie-service';
-import { ProfileUserService } from '../../core/services/user.service';
+import { CookieService } from 'ngx-cookie';
+import { UserService } from '../../core/services/user.service';
 import { SocialUser } from 'angularx-social-login';
 import { FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
 import { AuthService } from "angularx-social-login";
@@ -34,7 +34,7 @@ export class SignInComponent implements OnInit {
         private _fb: FormBuilder,
         private _authUserService: AuthUserService,
         private _cookieService: CookieService,
-        private _profileUserService: ProfileUserService,
+        private _profileUserService: UserService,
         private _socialAuthService: AuthService,
         private _dialogRef: MatDialogRef<AuthModal>
 
@@ -72,9 +72,9 @@ export class SignInComponent implements OnInit {
             .subscribe((data: SignInResponse) => {
                 console.log(data);
                 this.closeModal.emit('true');
-                this._cookieService.set('access', data.access);
-                this._cookieService.set('refresh', data.refresh);
-                this._cookieService.set('role', data.role);
+                this._cookieService.put('access', data.access);
+                this._cookieService.put('refresh', data.refresh);
+                this._cookieService.put('role', data.role);
                 this._profileUserService.isAuthorized = true;
                 console.log(this._profileUserService.isAuthorized);
             },
@@ -104,7 +104,7 @@ export class SignInComponent implements OnInit {
                 this._profileUserService.user = user;
                 this._profileUserService.isAuthorized = true;
                 this.closeModal.emit('true');
-                this._cookieService.set("fbUser", "true");
+                this._cookieService.put("fbUser", "true");
             }
             console.log(this._profileUserService.user, "this.loggedInkkkkkkk");
 
@@ -122,7 +122,7 @@ export class SignInComponent implements OnInit {
                 this._profileUserService.user = user;
                 this._profileUserService.isAuthorized = true;
                 this.closeModal.emit('true');
-                this._cookieService.set("googleUser", "true");
+                this._cookieService.put("googleUser", "true");
             }
         });
         this._socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);

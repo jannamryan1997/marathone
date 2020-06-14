@@ -4,8 +4,8 @@ import { finalize } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { AuthUserService } from '../../core/services/auth.services';
 import { SocialUser, FacebookLoginProvider, GoogleLoginProvider, AuthService } from 'angularx-social-login';
-import { CookieService } from 'ngx-cookie-service';
-import { ProfileUserService } from '../../core/services/user.service';
+import { CookieService } from 'ngx-cookie';
+import { UserService } from '../../core/services/user.service';
 
 @Component({
     selector: "app-signUp",
@@ -27,7 +27,7 @@ export class SignUpComponent implements OnInit {
         private _router: Router,
         private _authUserService: AuthUserService,
         private _cookieService: CookieService,
-        private _profileUserService: ProfileUserService,
+        private _profileUserService: UserService,
         private _socialAuthService: AuthService,
     ) { }
 
@@ -131,7 +131,7 @@ export class SignUpComponent implements OnInit {
                 this._profileUserService.user = user;
                 this._profileUserService.isAuthorized = true;
                 this.closeModal.emit('true');
-                this._cookieService.set("fbUser", "true");
+                this._cookieService.put("fbUser", "true");
             }
             console.log(this._profileUserService.user, "this.loggedInkkkkkkk");
 
@@ -148,7 +148,7 @@ export class SignUpComponent implements OnInit {
                 this._profileUserService.user = user;
                 this._profileUserService.isAuthorized = true;
                 this.closeModal.emit('true');
-                this._cookieService.set("googleUser", "true");
+                this._cookieService.put("googleUser", "true");
             }
         });
         this._socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);

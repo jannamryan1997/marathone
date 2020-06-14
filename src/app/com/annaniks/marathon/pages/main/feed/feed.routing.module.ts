@@ -7,16 +7,16 @@ const feedRoutes: Routes = [
         path: "", component: FeedView, children: [
             {
                 path: "",
-                loadChildren: () => import('../feed/posts/posts.module').then(m => m.PostsModule),
+                loadChildren: () => import('./posts/posts.module').then(m => m.PostsModule),
             },
             {
                 path: "ingridient/:id",
-                loadChildren: () => import('../feed/ingridient/ingridient.module').then(m => m.IngridientModule),
+                loadChildren: () => import('./ingridient/ingridient.module').then(m => m.IngridientModule),
 
             },
             {
                 path: "combination/:id",
-                loadChildren: () => import('../feed/combination/combination.module').then(m => m.CombinationModule),
+                loadChildren: () => import('./combination/combination.module').then(m => m.CombinationModule),
             }
         ]
     }

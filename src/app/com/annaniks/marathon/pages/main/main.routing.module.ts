@@ -1,7 +1,8 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
+
 import { MainView } from './main.view';
-import { AuthGuard } from '../../core/guards/auth.guard';
+import { RoleGuard } from '../../core/guards/role.guard';
 
 const mainRoutes: Routes = [
     {
@@ -9,14 +10,14 @@ const mainRoutes: Routes = [
             { path: "", redirectTo: "feed", pathMatch: "full" },
             {
                 path: "feed",
-                loadChildren: () => import('../main/feed/feed.module').then(m => m.FeedModule),
+                loadChildren: () => import('./feed/feed.module').then(m => m.FeedModule),
             },
             {
                 path: "home",
-                loadChildren: () => import('../main/home/home.module').then(m => m.HomeModule),
-                // canActivate:[AuthGuard]
+                loadChildren: () => import('./home/home.module').then(m => m.HomeModule),
+                canActivate: [RoleGuard]
             },
-           
+
         ]
     }
 ]

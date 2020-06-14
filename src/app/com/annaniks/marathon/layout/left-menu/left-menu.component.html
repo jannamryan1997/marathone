@@ -1,11 +1,11 @@
 <div class="left-menu" [ngClass]="{'position':showUserData}">
     <div class="left-menu-item">
-        <li *ngFor="let item of leftMenuItem">
-            <span class="material-icons menu-icon" [ngClass]="{'activeTab':activeTab===item?.routerLink}">
+        <a *ngFor="let item of leftMenuItem" class="d-block w-100" [routerLink]="item?.routerLink" routerLinkActive="activeRoute">
+            <span class="material-icons menu-icon">
                 {{item?.icon}}
             </span>
-            <a class="link" (click)="onCkickActiveTab(item?.routerLink)"
-                [ngClass]="{'activeTab':activeTab===item?.routerLink}"> {{item?.title}}</a></li>
+            <span class="link"> {{item?.title}}</span>
+        </a>
     </div>
 
 

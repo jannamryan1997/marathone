@@ -1,6 +1,6 @@
 import { Component, OnInit} from "@angular/core";
 import { ContactItem, FollowItem } from '../../core/models';
-import { ProfileUserService } from '../../core/services/user.service';
+import { UserService } from '../../core/services/user.service';
 
 @Component({
     selector: "app-right-menu",
@@ -26,7 +26,7 @@ export class RightMenuComponent implements OnInit {
         { image: "assets/images/img1.png", name: "Olivie Gipson", email: "@oliviegipson" },
         { image: "assets/images/img1.png", name: "Olivie Gipson", email: "@oliviegipson" },
     ]
-    constructor(private _profileUserService: ProfileUserService) {
+    constructor(private _profileUserService: UserService) {
     }
 
     ngOnInit() { }

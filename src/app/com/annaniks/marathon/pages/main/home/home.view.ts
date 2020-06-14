@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from '@angular/router';
-import { ProfileUserService } from '../../../core/services/user.service';
-import { CookieService } from 'ngx-cookie-service';
+import { UserService } from '../../../core/services/user.service';
+import { CookieService } from 'ngx-cookie';
 
 @Component({
     selector: "home-view",
@@ -15,7 +15,7 @@ export class HomeView implements OnInit {
     public showMore: boolean = false;
     public showProfile: boolean = false;
 
-    constructor(private _router: Router, private _profileUserService: ProfileUserService, private _cookieService: CookieService) {
+    constructor(private _router: Router, private _profileUserService: UserService, private _cookieService: CookieService) {
         this.role = this._cookieService.get('role');
     }
 

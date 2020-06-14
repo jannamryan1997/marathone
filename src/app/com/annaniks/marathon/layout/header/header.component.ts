@@ -1,9 +1,9 @@
 import { Component, OnInit, ElementRef, ViewChild } from "@angular/core";
 import { MenuItem } from '../../core/models';
-import { ProfileUserService } from '../../core/services/user.service';
+import { UserService } from '../../core/services/user.service';
 import { AuthModal } from '../../core/modals';
 import { MatDialog } from '@angular/material/dialog';
-import { CookieService } from 'ngx-cookie-service';
+import { CookieService } from 'ngx-cookie';
 import { Router } from '@angular/router';
 
 @Component({
@@ -25,10 +25,12 @@ export class HeaderComponent implements OnInit {
         { routerLink: "#", title: "Transform" },
         { routerLink: "#", title: "Workout Music" },
     ]
-    constructor(private _profileUserService: ProfileUserService,
-         private _mathDialog: MatDialog, 
-         private _cookieService: CookieService,
-         private _router:Router) { }
+    constructor(private _profileUserService: UserService,
+        private _mathDialog: MatDialog,
+        private _cookieService: CookieService,
+        private _userService: UserService,
+        private _router: Router
+    ) { }
 
     ngOnInit() { }
 
@@ -52,10 +54,11 @@ export class HeaderComponent implements OnInit {
         console.log(this.profileUser);
     }
 
-    public logOut():void{
-        this._cookieService.deleteAll();
-        this._cookieService.delete('role');
-        location.reload();
-}
+    public logOut(): void {
+        this._cookieService.removeAll();
+        this._userService.isAuthorized = false;
+        this._userService.user = null;
+        this._router.navigate(['/']);
+    }
 
 }

@@ -1,4 +1,4 @@
-@mixin text($fontSize, $lineHeight, $color,$fontFamily) {
+@mixin text($fontSize, $lineHeight, $color, $fontFamily) {
     font-size: $fontSize;
     line-height: $lineHeight;
     color: $color;
@@ -21,6 +21,12 @@
     color: #65a4fe !important;
 }
 
+.activeRoute {
+    span {
+        color: #65a4fe !important;
+    }
+}
+
 .btn {
     display: inline-block;
     font-size: 14px;
@@ -35,7 +41,7 @@
 }
 
 .card-item {
-    border: 0.5px solid #E3ECFD;
+    border: 0.5px solid #e3ecfd;
     border-radius: 15px;
     opacity: 1;
     margin-top: 32px;
@@ -46,7 +52,7 @@
 .post-content {
     .post-container {
         .title {
-            @include text(16px, 30px, #45535C,MicrosoftYaHeiUI);
+            @include text(16px, 30px, #45535c, MicrosoftYaHeiUI);
         }
 
         .more {
@@ -75,13 +81,13 @@
         }
 
         .name-title {
-            @include text(21px, 33px, #45535C,EncodeSans-Bold);
+            @include text(21px, 33px, #45535c, EncodeSans-Bold);
             margin-left: 20px;
             font-weight: bold;
         }
 
         .time {
-            @include text(15px, 33px, #E3ECFD,EncodeSans-Medium);
+            @include text(15px, 33px, #e3ecfd, EncodeSans-Medium);
             margin-left: 30px;
         }
     }
@@ -93,20 +99,20 @@
 }
 
 .follow-btn {
-    border: 1px solid #B9B9D5;
+    border: 1px solid #b9b9d5;
     border-radius: 20px;
     opacity: 1;
     margin-left: 35px;
-    color: #B9B9D5;
+    color: #b9b9d5;
     font-family: EncodeSans-SemiBold;
     padding: 5px 20px;
-    background: #F7F7FC 0% 0% no-repeat padding-box;
+    background: #f7f7fc 0% 0% no-repeat padding-box;
     font-weight: 600;
 }
 
 //radius
 .radius {
-    background: #FFFFFF 0% 0% no-repeat padding-box;
+    background: #ffffff 0% 0% no-repeat padding-box;
     border-radius: 26px;
     opacity: 1;
     width: 52px;
@@ -120,7 +126,7 @@
     border: none;
 
     .icon {
-        color: #ACB9D1 !important;
+        color: #acb9d1 !important;
         font-size: 35px;
         font-weight: bold;
     }
@@ -132,7 +138,7 @@
 
     .button-item {
         width: 25%;
-        color: #AFC1D1;
+        color: #afc1d1;
         border: 1px solid #d0dae4;
         border-radius: 21px;
         opacity: 0.65;
@@ -141,7 +147,7 @@
         cursor: pointer;
         outline: none;
         // background: #ffffff;
-        transition: .5s all ease-out;
+        transition: 0.5s all ease-out;
 
         &:first-child {
             margin-left: 15px;
@@ -154,7 +160,7 @@
     line-height: 16px;
     height: 120px;
     overflow: hidden;
-    transition: .5s all ease-out;
+    transition: 0.5s all ease-out;
     font-weight: bold;
 }
 
@@ -163,24 +169,22 @@
     .review-item {
         width: 25%;
         padding: 5px;
-        color: #FBD833;
+        color: #fbd833;
         cursor: pointer;
     }
 
     .title {
-        @include text(18px, 20px, #45535C,MicrosoftYaHeiUI);
+        @include text(18px, 20px, #45535c, MicrosoftYaHeiUI);
     }
 }
 
 /////main
 
-
-
 .auth-form {
     .form-btn {
-        background-color: #57A1F2;
+        background-color: #57a1f2;
         border-radius: 28px;
-        border: 0.5px solid #ACC3D9;
+        border: 0.5px solid #acc3d9;
         display: inline-block;
         cursor: pointer;
         color: #ffffff;
@@ -188,15 +192,14 @@
         font-size: 17px;
         padding: 15px 30px;
         text-decoration: none;
-        text-shadow: 0px 1px 0px #57A1F2;
+        text-shadow: 0px 1px 0px #57a1f2;
         font-weight: 600;
         display: flex;
         align-items: center;
     }
-
 }
 
-.clear-icon{
+.clear-icon {
     padding: 10px 20px;
     font-weight: bold;
     cursor: pointer;
@@ -206,30 +209,28 @@
 ///scroll
 ::-webkit-scrollbar {
     width: 10px;
-  }
-  
-  /* Track */
-  ::-webkit-scrollbar-track {
-  background: #F7F7FC 0% 0% no-repeat padding-box;
-  border-radius: 8px;
-  opacity: 1;
-  }
-   
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: #CBDAE8; 
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f7f7fc 0% 0% no-repeat padding-box;
+    border-radius: 8px;
+    opacity: 1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #cbdae8;
     border-radius: 8px;
     width: 10px;
-  }
+}
 
+/////forms
 
-
-  /////forms
-
-  .form-group {
+.form-group {
     margin: 15px 0;
-    background: #FFFFFF 0% 0% no-repeat padding-box;
-    border: 0.5px solid #CFCFE9;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    border: 0.5px solid #cfcfe9;
     border-radius: 26px;
     opacity: 1;
     height: none !important;
@@ -241,36 +242,36 @@
         width: calc(100% - 60px);
         border: none;
         margin-left: 10px;
-        background:none !important;
-        @include text(17px, 18px, #BECDE8,MicrosoftYaHeiUI);
+        background: none !important;
+        @include text(17px, 18px, #becde8, MicrosoftYaHeiUI);
 
         &::placeholder {
-            @include text(17px, 18px, #BECDE8,MicrosoftYaHeiUI);
+            @include text(17px, 18px, #becde8, MicrosoftYaHeiUI);
         }
     }
 
     .form-icon {
         font-size: 20px;
         line-height: 18px;
-        color: #BECDE8;
+        color: #becde8;
     }
 }
 
 .auth-description {
     margin-top: 30px;
     .text {
-        @include text(14px, 30px, #45535C,EncodeSans-SemiBold);
+        @include text(14px, 30px, #45535c, EncodeSans-SemiBold);
         font-weight: 600;
     }
 
     .title {
-        @include text(14px, 30px, #5897F6,EncodeSans-SemiBold);
+        @include text(14px, 30px, #5897f6, EncodeSans-SemiBold);
         font-weight: bold;
     }
 
     .checkbox {
-        background: #FFFFFF 0% 0% no-repeat padding-box;
-        border: 1px solid #E3ECFD;
+        background: #ffffff 0% 0% no-repeat padding-box;
+        border: 1px solid #e3ecfd;
         opacity: 1;
         width: 23px;
         height: 23px;
@@ -278,7 +279,7 @@
     }
 
     .icon {
-        color: #D1DCF1;
+        color: #d1dcf1;
         font-size: 21px;
         cursor: pointer;
     }
@@ -293,30 +294,30 @@
         border: 1px solid#589CFE;
         width: 50%;
         cursor: pointer;
-        transition: .5 all ease-out;
+        transition: 0.5 all ease-out;
         padding: 15px;
         border-radius: 26px;
         font-weight: bold;
-        background: #FFFFFF;
-        @include text(16px,19px,#589CFE,EncodeSans-SemiBold);
+        background: #ffffff;
+        @include text(16px, 19px, #589cfe, EncodeSans-SemiBold);
         margin: 0 15px 0 0;
     }
-    .signUp-btn{
+    .signUp-btn {
         border: 1px solid#589CFE;
         width: 50%;
         cursor: pointer;
-        transition: .5 all ease-out;
+        transition: 0.5 all ease-out;
         padding: 15px;
         border-radius: 26px;
         font-weight: bold;
-        background: #589CFE 0% 0% no-repeat padding-box !important;
-        box-shadow: -5.29px 7px 10px #589BFD36;
-        @include text(16px,19px,#ffffff,EncodeSans-SemiBold);
+        background: #589cfe 0% 0% no-repeat padding-box !important;
+        box-shadow: -5.29px 7px 10px #589bfd36;
+        @include text(16px, 19px, #ffffff, EncodeSans-SemiBold);
     }
 }
 
 .arrow {
-    border: 1px solid #E3ECFD;
+    border: 1px solid #e3ecfd;
     border-width: 0 3px 3px 0;
     display: inline-block;
     padding: 3px;
@@ -324,7 +325,7 @@
     -webkit-transform: rotate(-135deg);
     position: absolute;
     top: -6px;
-    right: 27px
+    right: 27px;
 }
 
 textarea {

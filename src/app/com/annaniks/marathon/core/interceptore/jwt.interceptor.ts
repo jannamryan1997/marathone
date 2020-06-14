@@ -2,7 +2,7 @@
 // import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 // import { Observable, throwError, BehaviorSubject } from 'rxjs';
 // import { catchError, map, finalize, switchMap, take, filter } from 'rxjs/operators';
-// import { CookieService } from 'ngx-cookie-service';
+// import { CookieService } from 'ngx-cookie';
 // import { Router } from '@angular/router';
 // import { environment } from 'src/environments/environment';
 
@@ -86,7 +86,7 @@
 //     }
 
 //     private _updateCookies(data: TokenResponse): void {
-//         this._cookieService.set('access', data.access);
+//         this._cookieService.put('access', data.access);
 //     }
 
 //     private _setNewHeaders(req: HttpRequest<any>): HttpRequest<any> {

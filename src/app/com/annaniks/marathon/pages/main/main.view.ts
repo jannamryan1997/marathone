@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { ProfileUserService } from '../../core/services/user.service';
-import { CookieService } from 'ngx-cookie-service';
+import { UserService } from '../../core/services/user.service';
+import { CookieService } from 'ngx-cookie';
 
 @Component({
     selector: "main-view",
@@ -9,7 +9,7 @@ import { CookieService } from 'ngx-cookie-service';
 })
 
 export class MainView implements OnInit {
-    constructor(private _profileUserService:ProfileUserService,private _cookieService:CookieService) {
+    constructor(private _profileUserService:UserService,private _cookieService:CookieService) {
     }
 
     ngOnInit() { 
