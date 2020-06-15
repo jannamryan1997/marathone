@@ -1,46 +1,6 @@
 <div class="feed-container">
-    <div class="feed-header-content">
-        <p class="title">Inspir someone today.Share something ...</p>
-        <div class="buttons-content d-flex">
-            <div class="button-item d-flex">
-                <div class="m-auto d-flex align-items-center">
-                    <span class="material-icons mr-2">
-                        description
-                    </span>
-                    <p class="button-text">Article</p>
-                </div>
-            </div>
-            <div class="button-item d-flex">
-                <div class="m-auto d-flex align-items-center">
-                    <span class="material-icons mr-2">
-                        description
-                    </span>
-                    <p class="button-text">Recipe</p>
-                </div>
-            </div>
-            <div class="button-item d-flex">
-                <div class="m-auto d-flex align-items-center">
-                    <span class="material-icons mr-2">
-                        description
-                    </span>
-                    <p class="button-text">Query</p>
-                </div>
-            </div>
-            <div class="button-item d-flex">
-                <div class="m-auto d-flex align-items-center">
-                    <span class="material-icons mr-2">
-                        description
-                    </span>
-                    <p class="button-text">Image</p>
-                </div>
-            </div>
-        </div>
-    </div>
+    <app-create-publication [postItem]="postItem"></app-create-publication>
     <div class="feed-item">
-        <app-post-card-item [postType]="'text'"></app-post-card-item>
-        <app-post-card-item [postType]="'image'"></app-post-card-item>
-        <app-post-card-item [postType]="'video'"></app-post-card-item>
-        <app-post-card-item [postType]="'combinations'"></app-post-card-item>
-        <app-post-card-item [postType]="'chicken'"></app-post-card-item>
+        <app-post-card-item *ngFor="let item of postItem" [postType]="item?.postType" [postItem]="item"></app-post-card-item>
     </div>
 </div>

@@ -12,6 +12,7 @@ export type PostType = "video" | "text" | "image" | "combinations" | "chicken"
 
 export class PostCardItemComponent implements OnInit {
     @Input('postType') public postType: PostType;
+    @Input() postItem;
     public showTitle: boolean;
     public isOpen: boolean = false;
     public comments = [
@@ -23,7 +24,6 @@ export class PostCardItemComponent implements OnInit {
             ]
         },
     ]
-    public title: string = "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Blanditiis deleniti mollitia aut suntdolorum odit modi dolore ratione beatae quisquam consequuntur sed, amet optio doloribus inventore deseruntillo incidunt tempora.Lorem ipsum, dolor sit amet consectetur adipisicing elit. Blanditiis deleniti mollitia aut suntdolorum odit modi dolore ratione beatae quisquam consequuntur sed, amet optio doloribus inventore deseruntillo incidunt tempora.Lorem ipsum, dolor sit amet consectetur adipisicing elit. Blanditiis deleniti mollitia aut suntdolorum odit modi dolore ratione beatae quisquam consequuntur sed, amet optio doloribus inventore deseruntillo incidunt tempora.Lorem ipsum, dolor sit amet consectetur adipisicing elit. Blanditiis deleniti mollitia aut suntdolorum odit modi dolore ratione beatae quisquam consequuntur sed, amet optio doloribus inventore deseruntillo incidunt tempora."
 
     constructor(private _matDialog: MatDialog) { }
 
@@ -38,8 +38,8 @@ export class PostCardItemComponent implements OnInit {
     public openPropertyModalByImage(): void {
         const dialogRef = this._matDialog.open(PropertyModal, {
             width: "100%",
-            maxWidth:"100vw",
-            height:"100vh",
+            maxWidth: "100vw",
+            height: "100vh",
             data: {
                 type: 'image',
             }
@@ -49,14 +49,14 @@ export class PostCardItemComponent implements OnInit {
     public openPropertyModalByVideo(): void {
         const dialogRef = this._matDialog.open(PropertyModal, {
             width: "100%",
-            maxWidth:"100vw",
-            height:"100vh",
+            maxWidth: "100vw",
+            height: "100vh",
             data: {
                 type: 'video',
             }
         })
     }
     public onClickOpen($event): void {
-        this.isOpen=$event;
+        this.isOpen = $event;
     }
 }

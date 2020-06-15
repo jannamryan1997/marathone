@@ -34,15 +34,14 @@ export class LeftMenuCompomemtn implements OnInit, AfterViewInit {
         this.leftMenuItem = [
             { routerLink: `/home/${role}`, title: "Home", icon: "home" },
             { routerLink: "/home/profile", title: "Profile", icon: "person" },
-            { routerLink: "/feed", title: "Dashboard", icon: "person" },
+            { routerLink: "#", title: "Dashboard", icon: "person" },
             { routerLink: "#", title: "Marathon", icon: "person" },
             { routerLink: "#", title: "My Recips", icon: "person" },
             { routerLink: "#", title: "My Training", icon: "person" },
         ]
     }
 
-    ngOnInit() {
-    }
+    ngOnInit() {}
 
     ngAfterViewInit() { }
 

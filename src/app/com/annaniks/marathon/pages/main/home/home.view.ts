@@ -14,6 +14,17 @@ export class HomeView implements OnInit {
     public showSocialMedium: boolean = false;
     public showMore: boolean = false;
     public showProfile: boolean = false;
+    public postItem = [
+        {
+            postType: "image",
+            image:"assets/images/foodimg.png"
+        },
+
+        {
+            postType: "combinations",
+            image:"assets/images/img3.png",
+        }
+    ]
 
     constructor(private _router: Router, private _profileUserService: UserService, private _cookieService: CookieService) {
         this.role = this._cookieService.get('role');

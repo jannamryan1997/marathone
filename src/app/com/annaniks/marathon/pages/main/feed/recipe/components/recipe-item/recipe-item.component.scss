@@ -1,0 +1,106 @@
+@mixin text($fontSize, $lineHeight, $color, $fontFamily) {
+    font-size: $fontSize;
+    line-height: $lineHeight;
+    color: $color;
+    font-family: $fontFamily;
+}
+
+.recipe-item {
+    margin-top: 50px;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 2px 30px 43px #5C687B17;
+    border: 0.5px solid #E3ECFD;
+    border-radius: 15px;
+    opacity: 1;
+
+    .recipe-main {
+        padding: 18px 24px 10px 24px;
+
+        .recipe-header {
+            .title {
+                @include text(16px, 19px, #BEC8DD, EncodeSans-Bold);
+                font-weight: bold;
+            }
+
+            .material-icons {
+                font-size: 22px;
+                line-height: 19px;
+                color: #BEC8DD;
+                font-weight: bold;
+                cursor: pointer;
+            }
+        }
+
+        .information-posts {
+            width: 100%;
+            margin-top: 25px;
+
+            .message-input {
+                width: 100%;
+                min-height: 80px;
+                max-height: 270px;
+                border: none;
+                background: none;
+                @include text(16px, 22px, #45535C, MicrosoftYaHeiUI);
+                resize: none;
+
+                &::placeholder {
+                    color: #BEC8DD;
+                }
+            }
+
+            .smile-image {
+                width: 28px;
+                height: 28px;
+                cursor: pointer;
+            }
+        }
+    }
+
+    .image-content {
+        position: relative;
+
+        .recipe-image {
+            height: 330px;
+        }
+
+        .close-img {
+            background: #C0C9DE 0% 0% no-repeat padding-box;
+            box-shadow: -3.76px 7px 7px #C0C9DC4F;
+            border: 1px solid #FFFFFF;
+            border-radius: 0px 0px 0px 20px;
+            opacity: 0.85;
+            width: 52px;
+            height: 48px;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            color: #FFFFFF;
+            cursor: pointer;
+
+            .material-icons {
+                font-weight: bold;
+            }
+        }
+    }
+
+    .post-btn {
+        background: #589CFE 0% 0% no-repeat padding-box;
+        box-shadow: 0.84px 12px 35px #589CFE1A;
+        border-radius: 0px 0px 15px 15px;
+        opacity: 1;
+        border: 1px solid #589CFE;
+        padding: 16px 0;
+        @include text(20px, 24px, #FFFFFF, EncodeSans-Bold);
+        font-weight: bold;
+    }
+}
+
+::ng-deep .emoji-mart {
+    width: 100% !important;
+}
+
+::ng-deep .emoji-mart-search input {
+    padding: 5px 0px 5px 0px !important;
+}

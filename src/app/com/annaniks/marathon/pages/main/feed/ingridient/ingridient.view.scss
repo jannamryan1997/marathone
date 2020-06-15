@@ -116,39 +116,45 @@
                     margin: 10px 0;
 
                     .ingridient-item-description {
-                      
-                        .ingridient-image{
+
+                        .ingridient-image {
                             width: 100%;
                             padding: 15px 0;
                             max-width: 110px;
                             border-right: 1px solid #E3ECFD;
                             text-align: center;
-                            .image{
+
+                            .image {
                                 width: 60px;
                             }
                         }
-                        .ingridient-description{
+
+                        .ingridient-description {
                             width: 100%;
                             max-width: 400px;
                             border-right: 1px solid #E3ECFD;
                             display: flex;
                             flex-direction: column;
                             padding: 25px 0;
-                            .ingridient-name{
-                                @include text(22px, 26px, #45535C,EncodeSans-SemiBold);
-                                margin:auto 20px;
+
+                            .ingridient-name {
+                                @include text(22px, 26px, #45535C, EncodeSans-SemiBold);
+                                margin: auto 20px;
                             }
-                            .vegetable{
-                                @include text(14px, 16px, #BACBDB,EncodeSans-SemiBold);
-                                margin:auto 20px;
+
+                            .vegetable {
+                                @include text(14px, 16px, #BACBDB, EncodeSans-SemiBold);
+                                margin: auto 20px;
                             }
                         }
-                        .ingridient-kcal{
+
+                        .ingridient-kcal {
                             width: 100%;
-                            max-width: 150px; 
-                            .kcal{
-                                @include text(22px, 26px, #45535C,EncodeSans-SemiBold);   
-                            } 
+                            max-width: 150px;
+
+                            .kcal {
+                                @include text(22px, 26px, #45535C, EncodeSans-SemiBold);
+                            }
                         }
 
                     }
@@ -178,12 +184,13 @@
                         &:after {
                             content: "";
                             display: block;
-                            border: 2px dotted #BDC0D5;
+                            border: 1px solid #E3ECFD;
                             margin-top: 25px
                         }
 
 
                     }
+
                     .number {
                         margin-right: 28px;
                         @include text(25px, 36px, #589CFE, BarlowCondensed-Medium);

@@ -1,0 +1,59 @@
+@mixin text($fontSize, $lineHeight, $color, $fontFamily) {
+    font-size: $fontSize;
+    line-height: $lineHeight;
+    color: $color;
+    font-family: $fontFamily;
+}
+
+.feed-header-content {
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 0.77px 11px 43px #5C687B17;
+    border: 0.5px solid #E3ECFD;
+    border-radius: 15px;
+    opacity: 1 !important;
+    text-align: center;
+
+    .recipe-header {
+        padding:18px 24px;
+        .title {
+            @include text(16px, 19px, #BEC8DD, EncodeSans-Bold);
+            font-weight: bold;
+        }
+        .material-icons {
+            font-size: 22px;
+            line-height: 19px;
+            color: #BEC8DD;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .message-input {
+            width: 100%;
+            min-height: 80px;
+            max-height: 260px;
+            border: none;
+            background: none;
+            @include text(16px, 22px, #45535C, MicrosoftYaHeiUI);
+            resize: none;
+            margin-top: 16px;
+    
+            &::placeholder {
+                color: #BEC8DD;
+            }
+        }
+    }
+  .button-content{
+      border-top: 0.5px solid #E3ECFD;
+      @include text(20px, 21px, #AFC1D1, EncodeSans-SemiBold);
+      flex-wrap: wrap;
+      .button-item{
+        border-right: 0.5px solid #E3ECFD;
+        align-items: center;
+          cursor: pointer;
+          padding: 19px 33px;
+          &:last-child{
+              border-right: none !important;
+          }
+      }
+  }
+
+}

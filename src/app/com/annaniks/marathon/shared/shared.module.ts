@@ -13,6 +13,7 @@ import {
     EducationComponent,
     ExperienceComponent,
     GelleryComponent,
+    CreatePublicationComponent,
 } from '../layout';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -43,6 +44,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
         EducationComponent,
         ExperienceComponent,
         GelleryComponent,
+        CreatePublicationComponent
     ],
     imports: [
         CommonModule,
@@ -83,7 +85,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
         EducationComponent,
         ExperienceComponent,
         GelleryComponent,
-        MatFormFieldModule
+        MatFormFieldModule,
+        CreatePublicationComponent
     ]
 })
 

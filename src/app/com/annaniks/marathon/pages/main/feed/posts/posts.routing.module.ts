@@ -5,6 +5,7 @@ import { PostsView } from './posts.view';
 const postsRoutes: Routes = [
     {
         path: "", component: PostsView, children: [
+            
     ]
     },
 

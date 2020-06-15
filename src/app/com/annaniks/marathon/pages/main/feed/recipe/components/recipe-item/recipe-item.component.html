@@ -1,0 +1,39 @@
+<div class="recipe-item">
+    <div class="recipe-main">
+        <div class="recipe-header display-flex">
+            <p class="title">Create Pablication</p>
+            <div class="display-flex">
+                <span class="material-icons">
+                    panorama
+                </span>
+                <p class="title ml-2 mr-2">Photo/Video</p>
+                <span class="material-icons cursor-pointer">
+                    close
+                </span>
+            </div>
+        </div>
+        <div class="information-posts">
+            <form [formGroup]="emojiForm">
+                <emoji-mart (emojiClick)="addEmoji($event)" emoji="point_up" class="d-none"
+                    [ngClass]="{'d-block':showemoji}"></emoji-mart>
+                <div class="text-right">
+                    <textarea type="text" formControlName="inputField" class="message-input"
+                        placeholder="Write a comment..."></textarea>
+
+                    <img src="assets/icons/smile.png" class="smile-image" (click)="showEmoji()">
+                </div>
+
+            </form>
+        </div>
+    </div>
+    <div class="image-content">
+            <img src="assets/images/feed-item-img.png" class="recipe-image" alt="Cinque Terre">
+            <div class="close-img d-flex">
+                    <span class="material-icons m-auto">
+                            close
+                        </span>
+            </div>
+    </div>
+    <button class="post-btn w-100"><span>Post</span></button>
+</div>
+

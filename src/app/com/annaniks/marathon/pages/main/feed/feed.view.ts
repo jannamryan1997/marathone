@@ -1,5 +1,6 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, AfterViewInit, AfterViewChecked } from "@angular/core";
 import { FeedService } from './feed.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: "feed-view",
@@ -7,22 +8,26 @@ import { FeedService } from './feed.service';
     styleUrls: ["feed.view.scss"]
 })
 
-export class FeedView implements OnInit {
+export class FeedView implements OnInit,AfterViewInit {
 
-    constructor(public _feedService: FeedService) { }
+    constructor(public _feedService: FeedService) {
+       
+    }
 
     ngOnInit() {
         this._getFeed();
-     }
+    }
+
+    ngAfterViewInit(){
+      
+    }
 
     private _getFeed(): void {
         this._feedService.feed()
             .subscribe((data) => {
-                // console.log(data,"feeeeeddddddd");
 
             },
                 error => {
-                    // console.log(error);
 
                 }
             )

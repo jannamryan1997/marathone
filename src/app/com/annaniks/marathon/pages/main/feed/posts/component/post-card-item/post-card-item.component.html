@@ -12,7 +12,7 @@
     </div>
     <div class="post-content" *ngIf="postType === 'text'">
         <div class="post-container">
-            <p class="title show-content" [ngClass]="{'show':showTitle}">{{title}}</p>
+            <p class="title show-content" [ngClass]="{'show':showTitle}">{{postItem?.title}}</p>
             <p class="title more">...</p>
             <p class="title more" (click)="onClickSeeMore()">See More</p>
         </div>
@@ -20,13 +20,13 @@
     </div>
     <div class="post-content" *ngIf="postType === 'image'">
         <div class="post-container p-0">
-            <img src="assets/images/foodimg.png" class="image" alt="Cinque Terre" (click)="openPropertyModalByImage()">
+            <img src="{{postItem?.image}}" class="image" alt="Cinque Terre" (click)="openPropertyModalByImage()">
         </div>
     </div>
 
     <div class="post-content" *ngIf="postType === 'combinations'">
         <div class="post-container p-0">
-            <img src="assets/images/img3.png" class="food-image" alt="Cinque Terre" routerLink="/feed/combination/12">
+            <img src="{{postItem?.image}}" class="food-image" alt="Cinque Terre" routerLink="/feed/combination/12">
             <div class="combinations-description">
                 <p class="title">8 unusual food combinations that can make you lose weigth in just 30 days!</p>
                 <p class="name">by Maya Crouche</p>
@@ -36,7 +36,7 @@
     <div class="post-content" *ngIf="postType === 'video'">
         <div class="post-container p-0" (click)="openPropertyModalByVideo()">
             <video controls class="vido w-100" poster="assets/images/img.4.png">
-                <source src="assets/images/vido.mp4">
+                <source src="{{postItem?.video}}">
             </video>
         </div>
 
@@ -44,7 +44,7 @@
 
     <div class="post-content" *ngIf="postType === 'chicken'">
         <div class="post-container chicken-content p-0">
-            <img src="assets/images/chicken.png" class="chicken-image" alt="Cinque Terre">
+            <img src="{{postItem?.image}}" class="chicken-image" alt="Cinque Terre">
             <button class="btn position-absolute" routerLink='ingridient/1'>Gluten Free</button>
             <div class="comments  d-flex position-absolute w-100 justify-content-between">
                 <div class="comments-description">

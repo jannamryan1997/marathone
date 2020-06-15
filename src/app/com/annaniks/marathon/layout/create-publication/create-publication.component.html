@@ -1,0 +1,41 @@
+<div class="feed-header-content">
+    <div class="recipe-header">
+        <div class="display-flex">
+            <p class="title">Create Pablication</p>
+            <div class="display-flex">
+                <span class="material-icons">
+                    panorama
+                </span>
+                <p class="title ml-2 mr-2">Photo/ Video</p>
+            </div>
+        </div>
+        <textarea type="text" [(ngModel)]="type" class="message-input" placeholder="Type Something..." (keydown.enter)="createdPost()"></textarea>
+    </div>
+    <div class="button-content display-flex">
+        <div class="button-item d-flex">
+            <span class="material-icons mr-1">
+                description
+            </span>
+            <span>Article</span>
+        </div>
+        <div class="button-item d-flex" routerLink="/feed/recipe" routerLinkActive="activeTab">
+            <span class="material-icons mr-1">
+                description
+            </span>
+            <span>Recipe</span>
+        </div>
+        <div class="button-item d-flex">
+            <span class="material-icons mr-1">
+                sms
+            </span>
+            <span>Query</span>
+        </div>
+        <div class="button-item d-flex">
+            <span class="material-icons mr-1">
+                panorama
+            </span>
+            <span>B / A</span>
+        </div>
+
+    </div>
+</div>

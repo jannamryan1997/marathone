@@ -17,6 +17,10 @@ const feedRoutes: Routes = [
             {
                 path: "combination/:id",
                 loadChildren: () => import('./combination/combination.module').then(m => m.CombinationModule),
+            },
+            {
+                path: "recipe",
+                loadChildren: () => import('./recipe/recipe.module').then(m => m.RecipeModule),
             }
         ]
     }

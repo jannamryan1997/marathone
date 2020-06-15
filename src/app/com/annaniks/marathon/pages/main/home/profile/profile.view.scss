@@ -147,3 +147,7 @@ height: 53px;
     z-index:1;
     @include text(16px, 19px, #589CFE,EncodeSans-Medium);
   }
+
+  textarea{
+      resize:none;
+  }
