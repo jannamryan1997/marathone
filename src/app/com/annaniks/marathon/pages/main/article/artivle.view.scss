@@ -1,0 +1,119 @@
+@mixin text($fontSize, $lineHeight, $color, $fontFamily) {
+    font-size: $fontSize;
+    line-height: $lineHeight;
+    color: $color;
+    font-family: $fontFamily;
+}
+.article{
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+box-shadow: 2px 30px 43px #5C687B17;
+border: 0.5px solid #E3ECFD;
+.article-header{
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+box-shadow: 11px 13px 18px #3E598B0F;
+.header-content{
+    padding: 25px 30px;
+    .created{
+        cursor: pointer;
+        .info{
+            color: #BEC8DD;
+        }
+    }
+ .text{
+    @include text(14px, 16px, #589CFE,EncodeSans-SemiBold); 
+ }
+    .btn-loader {
+        padding: 8px !important;
+        border-radius: 50% !important;
+
+        .icon {
+            font-size: 16px;
+        }
+    }
+
+    .follow-btn,
+    .btn-loader {
+        background: #FFFFFF 0% 0% no-repeat padding-box;
+        border: 1px solid #589CFE;
+        border-radius: 18px;
+        opacity: 1;
+        color: #589CFE;
+        margin-left: 10px !important;
+        padding: 7px 18px;
+        .material-icons{
+            font-size: 17px;
+        }
+    }  
+ }
+}.created-main{
+    position: relative;
+    .setting{
+        position: absolute;
+        background: #FFFFFF 0% 0% no-repeat padding-box;
+        box-shadow: -7.18px 15px 40px #5C687B36;
+        border: 0.5px solid #E3ECFD;
+        opacity: 1;
+        width: 100%;
+        max-width: 210px;
+        border-radius: 18px;
+        z-index: 1;
+    }
+.created-menu{
+left: 0;
+.created-menu-description{
+    padding: 5px 15px;
+    .created-menu-contet{
+flex-wrap: wrap;
+flex-direction: column;
+.created-item{
+    margin: 12px 0;
+    &::after{
+        display: block;
+        content: "";
+        border: 1px solid #E3ECFD;
+    }
+    .title{
+        @include text(13px, 33px, #BEC8DD,EncodeSans-Medium);
+    }
+    .date{
+        @include text(13px, 33px, #45535C,EncodeSans-Medium);
+    }
+}
+    }
+}
+}
+.setting-menu{
+    right:0 !important;
+.title-setting{
+    @include text(16px, 20px, #45535C,EncodeSans-Medium);
+    font-weight: bold;
+}
+.setting-item{
+    margin:30px 0;
+}
+}
+}
+.add-item-content{
+    margin:25px 0;
+   .add-container{
+       flex-wrap: wrap;
+       .add-item{
+        background: #FFFFFF 0% 0% no-repeat padding-box;
+        box-shadow: -1.63px 5px 18px #5C687B0D;
+        border: 1px solid #E3ECFD;
+        opacity: 1;
+        width: 50px;
+        height: 50px;
+        margin-right: 22px;
+        color:#589CFE;
+        border-radius: 50%;
+        display: flex;;
+       }
+   } 
+}
+}
+
+.activeButton{
+    color:#FFFFFF !important;
+    background: #589CFE !important;
+}

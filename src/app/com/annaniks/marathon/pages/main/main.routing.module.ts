@@ -17,6 +17,10 @@ const mainRoutes: Routes = [
                 loadChildren: () => import('./home/home.module').then(m => m.HomeModule),
                 canActivate: [RoleGuard]
             },
+            {
+                path:"article",
+                loadChildren:() =>import('./article/article.module').then(m=>m.ArticleModule)
+            }
 
         ]
     }

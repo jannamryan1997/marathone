@@ -1,0 +1,96 @@
+<div class="article">
+    <div class="article-header">
+        <div class="header-content display-flex">
+            <div class="created" (click)="onClickShowCreatedMenu()">
+                <span class="material-icons info">
+                    info
+                    </span>
+            </div>
+            <div class="display-flex">
+                <p class="text">Save Draft</p>
+                <div class="btn-content d-flex align-items-center">
+                    <button class="btn follow-btn">Preview</button>
+                    <button class="btn follow-btn" routerLink="/article/publish" routerLinkActive="activeButton">Publish</button>
+                    <button class="btn btn-loader" (click)="onClickShowSetting()">
+                        <span class="material-icons icon">
+                            more_horiz
+                        </span>
+                    </button>
+                </div>
+            </div>
+          
+        </div>
+    </div>
+    <div class="created-main">
+    <div class="setting created-menu" *ngIf="showCreatedMenu">
+        <div class="created-menu-description">
+            <div class="created-menu-contet display-flex">
+                <div class="created-item  w-100">
+                    <div class="display-flex">
+                        <p class="title">Created</p>
+                        <p clas="date">June 10,2020</p>
+                    </div>
+                  
+                </div>
+                <div class="created-item w-100">
+                    <div class=" display-flex">
+                        <p class="title">Last Edit</p>
+                        <p clas="date">June 10,2020</p>
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="setting setting-menu" *ngIf="showSetting">
+        <div class="created-menu-description">
+            <div class="created-menu-contet">
+                <div class="setting-item w-100">
+                    <div class="display-flex">
+                        <p class="title-setting m-auto">Seo Setting</p>
+                    </div>
+                  
+                </div>
+                <div class="setting-item w-100">
+                    <div class=" display-flex">
+                        <p class="title-setting  m-auto">Delete Article</p>
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="router-leyout">
+        <router-outlet></router-outlet>
+    </div>
+    <div class="add-item-content d-flex w-100">
+        <div class="add-container w-80 m-auto display-flex">
+            <div class="add-item">
+                <span class="material-icons m-auto">
+                    title
+                    </span>
+            </div>
+            <div class="add-item">
+                <span class="material-icons m-auto">
+                    panorama
+                    </span>
+            </div>
+            <div class="add-item">
+                <span class="material-icons m-auto">
+                    videocam
+                    </span>
+            </div>
+            <div class="add-item">
+                <span class="material-icons m-auto">
+                    maps_ugc
+                    </span>
+            </div>
+            <div class="add-item">
+                <span class="material-icons m-auto">
+                    integration_instructions
+                    </span>
+            </div>
+        </div>
+        </div>
+</div>
