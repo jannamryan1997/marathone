@@ -84,24 +84,4 @@
             }
         }
     }
-
-    .add-btn {
-      
-        flex-direction: column;
-        cursor: pointer;
-        background: #ffffff;
-        border: none;
-        &::before {
-            display: block;
-            content: "";
-            border: 1px solid #E3ECFD;
-            width: 100%;
-        }
-
-        .btn-text {
-            padding: 15px 0;
-            @include text(18px, 21px, #BBCDDF, EncodeSans-SemiBold);
-        }
-    }
-
 }

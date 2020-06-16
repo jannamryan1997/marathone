@@ -1,1 +1,57 @@
-<p>update</p>
+<div class="update-container">
+    <div class="image-content">
+        <img src="assets/images/update.png" class="update-image" alt="Cinque Terre">
+        <div class="close-img d-flex">
+            <span class="material-icons m-auto">
+                close
+            </span>
+        </div>
+
+    </div>
+    <div class="forms-group">
+        <div class="form-group">
+            <label>Article Title</label>
+            <input type="text" class="form-input w-100" placeholder="Type Title">
+        </div>
+        <div class="form-group d-flex align-items-start">
+            <label>Content / Text</label>
+            <textarea type="text" class="form-input w-100" placeholder="Type Text Hear"></textarea>
+            <span class="material-icons close">
+                close
+            </span>
+        </div>
+
+        <div class="form-group broves-file-form d-flex align-items-start">
+            <label>Content / Image</label>
+            <div class="m-auto">
+                <button class="btn follow-btn">Broves Files <span class="material-icons ml-2">
+                        save_alt
+                    </span></button>
+            </div>
+            <span class="material-icons close">
+                    close
+                </span>
+        </div>
+
+        <div class="content-image display-flex">
+            <app-content-image></app-content-image>
+            <app-content-image></app-content-image>
+        </div>
+        <div class="form-group broves-file-form d-flex align-items-start">
+            <label>Content / Youtube Image</label>
+            <div class="m-auto">
+                <button class="update-video-btn"> 
+                    <span class="material-icons mr-2">
+                        slideshow
+                    </span>Insert Youtube Link </button>
+            </div>
+            <span class="material-icons close">
+                    close
+                </span>
+        </div>
+        <div class="content-image display-flex">
+                <app-content-video class="w-100"></app-content-video>
+            </div>
+       
+    </div>
+</div>

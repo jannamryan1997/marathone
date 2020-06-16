@@ -1,10 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { SharedModule } from './com/annaniks/marathon/shared/shared.module';
 import { ApiInterceptor } from './com/annaniks/marathon/core/interceptore/api.interceptor';
@@ -46,6 +46,7 @@ export function provideConfig() {
     HttpClientModule,
     SocialLoginModule,
     CookieModule.forRoot()
+    
   ],
   providers: [
     {

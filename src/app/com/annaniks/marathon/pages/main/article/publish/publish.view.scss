@@ -34,18 +34,7 @@ margin: 25px 0 0 0 !important;
 }
 
 }
-.form-group,.autocomplete{
-    margin: 40px 0 0 0 !important;
-    position: relative;
-   }
-   .form-group>label{
-     position: absolute;
-     top: -11px;
-     left: 25px;
-     background-color:white;
-     font-weight: 600;
-     @include text(16px, 19px, #589CFE,EncodeSans-Medium);
-   }
+
    .close{
 cursor: pointer;
 color: #BEC8DD;

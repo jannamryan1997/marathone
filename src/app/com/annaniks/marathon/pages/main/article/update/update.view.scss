@@ -1,0 +1,37 @@
+.update-container {
+  
+    .image-content {
+        position: relative;
+        .update-image {
+            height: 360px;
+        }
+    }
+
+    .forms-group {
+        padding: 0 24px;
+        margin-top: 30px;
+        .follow-btn{
+            background: #FFFFFF 0% 0% no-repeat padding-box;
+            border: 1px solid #589CFE;
+            border-radius: 18px;
+            opacity: 1;
+            color: #589CFE;
+            padding: 7px 18px;
+            margin: 25px 0 0 0 !important;
+            .material-icons{
+                font-size: 17px;
+            }
+                }
+    }
+    .content-image{
+        flex-wrap: wrap;
+        flex-direction: column;
+    }
+}
+.broves-file-form{
+    height: 150px;
+}
+textarea {
+    resize: none;
+    height: 350px;
+}

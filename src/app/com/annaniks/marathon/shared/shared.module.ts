@@ -1,4 +1,22 @@
- import { NgModule } from "@angular/core";
+import { NgModule } from "@angular/core";
+import { RouterModule } from '@angular/router';
+
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDialogModule } from '@angular/material/dialog';
+import { CommonModule } from '@angular/common';
+import { MatFormFieldModule } from '@angular/material/form-field';
+
+import { PickerModule } from '@ctrl/ngx-emoji-mart';
+import { ClickOutsideModule } from 'ng-click-outside';
+
+import { AuthModal } from '../core/modals';
+import { AuthGuard } from '../core/guards/auth.guard';
+import { PostCardItemComponent } from '../pages/main/feed/posts/component/post-card-item/post-card-item.component';
+
+
+
 import {
     HeaderComponent,
     LeftMenuCompomemtn,
@@ -14,19 +32,11 @@ import {
     ExperienceComponent,
     GelleryComponent,
     CreatePublicationComponent,
+    ContentImageComponent,
+    ContentVideoComponent,
+    IngridientItemComponent
 } from '../layout';
-import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { MatDialogModule } from '@angular/material/dialog';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { PickerModule } from '@ctrl/ngx-emoji-mart';
-import { ClickOutsideModule } from 'ng-click-outside';
-import { HttpClientModule } from '@angular/common/http';
-import { PostCardItemComponent } from '../pages/main/feed/posts/component/post-card-item/post-card-item.component';
-import {AuthModal } from '../core/modals';
-import {MatSelectModule} from '@angular/material/select';
-import { AuthGuard } from '../core/guards/auth.guard';
-import {MatFormFieldModule} from '@angular/material/form-field';
+
 @NgModule({
     declarations: [
         HeaderComponent,
@@ -44,49 +54,56 @@ import {MatFormFieldModule} from '@angular/material/form-field';
         EducationComponent,
         ExperienceComponent,
         GelleryComponent,
-        CreatePublicationComponent
+        CreatePublicationComponent,
+        ContentImageComponent,
+        ContentVideoComponent,
+        IngridientItemComponent
     ],
     imports: [
+        ReactiveFormsModule,
+        FormsModule,
         CommonModule,
         RouterModule,
         MatDialogModule,
-        ReactiveFormsModule,
-        FormsModule,
         PickerModule,
         ClickOutsideModule,
         HttpClientModule,
         MatSelectModule,
-        MatFormFieldModule
+        MatFormFieldModule,
     ],
     providers: [AuthGuard],
     entryComponents: [],
+
     exports: [
-        HeaderComponent,
-        LeftMenuCompomemtn,
-        RightMenuComponent,
-        CommonModule,
-        RouterModule,
-        MatDialogModule,
-        CommentsComponent,
         ReactiveFormsModule,
         FormsModule,
         PickerModule,
+        RouterModule,
+        MatDialogModule,
+        CommonModule,
+        MatFormFieldModule,
         ClickOutsideModule,
+        AuthModal,
+        MatSelectModule,
+        HttpClientModule,
+        HeaderComponent,
+        LeftMenuCompomemtn,
+        RightMenuComponent,
+        CommentsComponent,
         SettingsComponent,
         PostsComments,
-        HttpClientModule,
         PostCardItemComponent,
         LoadingComponent,
-        AuthModal,
         SignInComponent,
         SignUpComponent,
-        MatSelectModule,
         InformationComponent,
         EducationComponent,
         ExperienceComponent,
         GelleryComponent,
-        MatFormFieldModule,
-        CreatePublicationComponent
+        CreatePublicationComponent,
+        ContentImageComponent,
+        ContentVideoComponent,
+        IngridientItemComponent
     ]
 })
 

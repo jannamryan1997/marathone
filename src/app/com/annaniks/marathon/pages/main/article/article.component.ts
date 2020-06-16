@@ -2,8 +2,8 @@ import { Component, OnInit } from "@angular/core";
 
 @Component({
     selector: "artivle-view",
-    templateUrl: "artivle.view.html",
-    styleUrls: ["artivle.view.scss"]
+    templateUrl: "article.view.html",
+    styleUrls: ["article.view.scss"]
 })
 
 export class ArticleView implements OnInit {

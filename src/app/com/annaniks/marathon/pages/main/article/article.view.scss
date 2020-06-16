@@ -94,7 +94,7 @@ flex-direction: column;
 }
 }
 .add-item-content{
-    margin:25px 0;
+    margin:60px 0;
    .add-container{
        flex-wrap: wrap;
        .add-item{
@@ -107,7 +107,8 @@ flex-direction: column;
         margin-right: 22px;
         color:#589CFE;
         border-radius: 50%;
-        display: flex;;
+        display: flex;
+        cursor: pointer;
        }
    } 
 }

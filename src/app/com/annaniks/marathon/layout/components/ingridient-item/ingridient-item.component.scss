@@ -1,0 +1,41 @@
+@mixin text($fontSize, $lineHeight, $color, $fontFamily) {
+    font-size: $fontSize;
+    line-height: $lineHeight;
+    color: $color;
+    font-family: $fontFamily;
+}
+
+.ingridient-item {
+    .form-group {
+        padding: 0 !important;
+    }
+
+    .input-content {
+        border-right: 1px solid #E3ECFD;
+        padding: 15px 0;
+        width: 500px;
+    }
+
+    .value-content {
+        width: 350px;
+        padding: 0 25px;
+
+        .value-input {
+            border: none;
+            background: none !important;
+            @include text(17px, 18px, #becde8, MicrosoftYaHeiUI);
+
+            &::placeholder {
+                @include text(17px, 18px, #becde8, MicrosoftYaHeiUI);
+
+            }
+        }
+        .add-icon{
+            cursor: pointer;
+            color: #C2D2E2;
+            font-weight: bold;
+            font-size: 30px;
+        }
+    }
+
+}

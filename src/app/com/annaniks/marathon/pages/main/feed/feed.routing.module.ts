@@ -21,6 +21,10 @@ const feedRoutes: Routes = [
             {
                 path: "recipe",
                 loadChildren: () => import('./recipe/recipe.module').then(m => m.RecipeModule),
+            },
+            {
+                path:"recipe/:id",
+                loadChildren:() => import('./ingridient-recipe/ingridient-recipe.module').then(m=>m.IngridientRecipeModule)
             }
         ]
     }
