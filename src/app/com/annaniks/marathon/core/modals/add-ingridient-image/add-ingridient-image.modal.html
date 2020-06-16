@@ -1,0 +1,29 @@
+<div class="ingridient-modal">
+    <div class="ingridient-modal-header d-flex">
+        <span class="material-icons clear-icon" (click)="closeModal()">
+            clear
+        </span>
+    </div>
+    <div class="ingridient-main d-flex m-auto">
+        <div class="slider-content w-100">
+            <ngx-slick-carousel class="carousel w-100" #slickModal="slick-carousel" [config]="slideConfig"
+                (init)="slickInit($event)" (breakpoint)="breakpoint($event)" (afterChange)="afterChange($event)"
+                (beforeChange)="beforeChange($event)">
+                <div ngxSlickItem *ngFor="let slide of slides" class="slide">
+                    <img src="{{ slide.img }}" alt="" width="100%" height="100%">
+                </div>
+            </ngx-slick-carousel>
+        </div>
+        <div class="add-ingridiet-image-content d-flex">
+                <app-add-ingridient-image></app-add-ingridient-image>
+                <app-add-ingridient-image></app-add-ingridient-image>
+                <app-add-ingridient-image></app-add-ingridient-image>
+            
+            <div class="add-image d-flex">
+                <span class="material-icons add-icon m-auto">
+                    add
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

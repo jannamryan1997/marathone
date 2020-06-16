@@ -1,0 +1,86 @@
+@mixin text($fontSize, $lineHeight, $color, $fontFamily) {
+    font-size: $fontSize;
+    line-height: $lineHeight;
+    color: $color;
+    font-family: $fontFamily;
+}
+.ingridient-modal{
+  .ingridient-modal-header{
+      justify-content:flex-end;
+      .clear-icon{
+          cursor: pointer;
+          color:#45535C;
+          font-weight: bold;
+          font-size: 30px;
+      }
+  } 
+  .ingridient-main{
+      width:100%;
+    max-width: 970px;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 1px 20px 79px #5C687B69;
+    border-radius: 15px;
+    opacity: 1;
+    flex-wrap: wrap;
+    .slider-content{
+        padding: 14px;
+     
+        .slide{
+            height: 480px;
+            img{
+                border-radius: 15px 15px 0 0;
+            }
+        }
+    }
+  } 
+  .add-ingridiet-image-content{
+      width: 50%;
+      margin: 15px auto;
+      flex-wrap: wrap;
+      .add-image{
+        background: #FFFFFF 0% 0% no-repeat padding-box;
+        box-shadow: -1.63px 5px 18px #5C687B0D;
+        border: 1px dashed #C2D2E2;
+        opacity: 1;
+        width: 88px;
+       height: 87px;
+        padding: 1.2em;
+        margin:10px;
+        border-radius: 50%;
+        cursor: pointer;
+        .add-icon{
+      color:#BBCDDF;
+     font-size: 30px;
+     font-weight: bold;
+        }
+      }
+  }
+}
+
+::ng-deep .mat-dialog-container {
+    background: #EDEDED44 0% 0% no-repeat padding-box !important;
+    padding:0 !important;
+
+}
+
+::ng-deep .slick-next{
+position:absolute !important;
+right: 26px !important;
+z-index: 1;
+}
+::ng-deep .slick-next:before{
+    font-size: 50px !important;
+    opacity: 1 !important;
+}
+
+::ng-deep .slick-prev{
+    position:absolute !important;
+    left: 0 !important;
+    z-index: 1;
+    
+    }
+
+    ::ng-deep .slick-prev:before{
+        font-size: 50px !important;
+        opacity: 1 !important;
+    }
