@@ -22,56 +22,160 @@
         </div>
     </div>
     <div class="recipe-layout">
-    <div class="broves-file">
-        <div class="m-auto">
-            <div class="d-flex w-50 m-auto">
+        <div class="broves-file">
+            <div class="m-auto">
+                <div class="d-flex w-50 m-auto">
                     <img src="assets/icons/recipe.png" class="recipe-image" alt="Cinque Terre">
                     <img src="assets/icons/recipe.png" class="recipe-image" alt="Cinque Terre">
-            </div>
-            <p class="title">Set Recipe cover and cookig video</p>
-            <button class="btn follow-btn">Broves Files <span class="material-icons ml-2">
-                save_alt
-                </span></button>
-                <p class="img-version">jpg/png/mp4</p> 
+                </div>
+                <p class="title">Set Recipe cover and cookig video</p>
+                <button class="btn follow-btn">Broves Files <span class="material-icons ml-2">
+                        save_alt
+                    </span></button>
+                <p class="img-version">jpg/png/mp4</p>
                 <div class="m-auto">
-                    <button class="update-video-btn"> 
+                    <button class="update-video-btn">
                         <span class="material-icons mr-2">
                             slideshow
                         </span>Insert Youtube Link </button>
                 </div>
+            </div>
         </div>
-    </div>
-    <div class="forms-group">
+        <div class="forms-group">
             <div class="form-group">
                 <label>Recipe Title</label>
                 <input type="text" class="form-input w-100" placeholder="Type Title">
             </div>
-
-
             <div class="form-group pt-15 pl-0 pr-0 pb-0">
-                    <label>Ingridient</label>
-                    <div class="form-group  d-flex">
+                <label>Ingridient</label>
+                <div class="form-group  d-flex">
                     <input type="text" class="form-input w-100" placeholder="Search Ingridient">
                     <span class="material-icons search-icon">
-                            search
-                            </span>
-                    </div>
-                    <app-ingridient-item></app-ingridient-item>
-                    <app-ingridient-item></app-ingridient-item>
-                    <button class="add-btn d-flex w-100 "><span class="m-auto btn-text">Add Ingridient</span></button>
+                        search
+                    </span>
                 </div>
+                <app-ingridient-item></app-ingridient-item>
+                <app-ingridient-item></app-ingridient-item>
+                <button class="add-btn d-flex w-100 "><span class="m-auto btn-text">Add Ingridient</span></button>
+            </div>
+
 
 
             <div class="form-group">
-                    <label>Information</label>
-                    <input type="text" class="form-input w-100" placeholder="Type Recipe info here">
-               
+                <label>Caloris</label>
+                <div class="checked  m-auto">
+                    <input type="radio" class="radio" id="Auto Calcualted" name="form" value="Auto Calcualted">
+                    <label for="male" class="label">Auto Calcualted</label>
+                    <input type="radio" class="radio" id="Edit Manually" name="form" value="Edit Manually">
+                    <label for="female" class="label">Edit Manually</label>
                 </div>
+
+                <div class="form-group display-flex p-0">
+                    <div class="caloris-content d-flex">
+                        <span class="material-icons">
+                            whatshot
+                        </span>
+                        <input type="text" class="form-input w-100" placeholder="Calories">
+                    </div>
+                    <div class="kcal-content">
+                        <input type="text" class="form-input w-100" placeholder="Kcal">
+                    </div>
+                    <div class="macronutrients-content w-100">
+                        <p class="title w-100">Macronutrients</p>
+                        <mat-slide-toggle></mat-slide-toggle>
+                    </div>
+
+                </div>
+
+                <div>
+                    <div class="lable-content">
+                        <label class="lable">Carbs</label>
+                        <label class="lable">Protein</label>
+                        <label class="lable">Fat</label>
+                    </div>
+
+                    <div class="form-group display-flex p-0 mt-20">
+                        <div class="caloris-content d-flex">
+                            <input type="text" class="form-input w-100" placeholder="0">
+                        </div>
+                        <div class="kcal-content">
+                            <input type="text" class="form-input w-100" placeholder="0">
+                        </div>
+                        <div class="macronutrients-content">
+                            <input type="text" class="form-input w-100" placeholder="0">
+
+                        </div>
+
+                    </div>
+                    <div class="checked gram-checked w-50">
+                        <input type="radio" class="radio" id="Gram" name="form" value="Gram">
+                        <label for="male" class="label">Gram</label>
+                        <input type="radio" class="radio" id="Percentage" name="form" value="Percentage">
+                        <label for="female" class="label">Percentage</label>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="form-group display-flex p-0 ">
+                <label>Serving</label>
+                <div class="caloris-content d-flex w-100 align-items-center">
+                    <span class="material-icons">
+                        room_service
+                    </span>
+                    <p class="title ml-2">Set serving size</p>
+                </div>
+                <div class="macronutrients-content">
+                    <input type="text" class="form-input w-100" placeholder="1">
+                </div>
+
             </div>
 
-         
+            <div class="form-group display-flex p-0 ">
+                <label>Cooking time</label>
+                <div class="caloris-content d-flex w-100 align-items-center">
+                    <span class="material-icons">
+                        query_builder
+                    </span>
+                    <p class="title ml-2">Set time</p>
+                </div>
+                <div class="macronutrients-content display-flex align-items-center">
+                    <input type="text" class="form-input w-100" placeholder="1">
+                    <!-- <p class="title ml-2">min</p>  -->
+                </div>
+
+            </div>
+            <div class="form-group pt-15 pl-0 pr-0 pb-0">
+                <label>Preparation Steps</label>
+                <app-preparation-step></app-preparation-step>
+                <app-preparation-step></app-preparation-step>
+                <app-preparation-step></app-preparation-step>
+                <button class="add-btn d-flex w-100 "><span class="m-auto btn-text">Add Step</span></button>
+            </div>
+
+            <div class="form-group">
+                <label>Tags</label>
+                <div class="d-flex justify-content-end">
+                    <span class="material-icons tags-icon">
+                        add_circle
+                    </span>
+                </div>
+
+                <button class="add-btn d-flex w-100 "><span class="m-auto btn-text">Add Tag</span></button>
+            </div>
 
 
-</div>
+
+            <div class="form-group">
+                <label>Information</label>
+                <input type="text" class="form-input w-100" placeholder="Type Recipe info here">
+
+            </div>
+        </div>
+
+
+
+
+    </div>
 
 </div>

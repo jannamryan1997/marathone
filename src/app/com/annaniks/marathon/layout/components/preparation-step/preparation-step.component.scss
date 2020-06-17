@@ -1,0 +1,28 @@
+.preparation-step-item{
+padding: 15px;
+.item{
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+box-shadow: -1.63px 5px 18px #5C687B0D;
+border: 1px solid #E3ECFD;
+opacity: 1;
+width: 53px;
+height: 53px;
+border-radius: 50%;
+.value{
+color: #C2D2E2;
+font-size: 27px;
+line-height: 24px;
+font-family: EncodeSans-SemiBold;
+}
+}
+.form-group{
+    width: 100%;
+    max-width: 400px;
+    .material-icons{
+        color: #C2D2E2;
+        font-size: 27px;
+        line-height: 24px;
+        cursor: pointer;
+    }
+}
+}

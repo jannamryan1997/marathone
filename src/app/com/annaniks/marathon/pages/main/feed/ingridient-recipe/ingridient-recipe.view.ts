@@ -20,7 +20,6 @@ export class IngridientRecipeView implements OnInit {
         const dialogRef = this._matDialog.open(AddIngridientImageModal, {
             width: "100%",
             maxWidth: "100vw",
-            height: "100vh",
         })
     }
 }

@@ -1,0 +1,108 @@
+@mixin text($fontSize, $lineHeight, $color, $fontFamily) {
+    font-size: $fontSize;
+    line-height: $lineHeight;
+    color: $color;
+    font-family: $fontFamily;
+}
+
+.information-content {
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 2px 30px 43px #5C687B17;
+    border: 0.5px solid #E3ECFD;
+    opacity: 1;
+    .information-header {
+        padding: 30px 0;
+        .image {
+            width: 250px;
+            height: 200px;
+        }
+    }
+
+    .information-description {
+        text-align: center;
+        &::after {
+            display: block;
+            content: "";
+            width: 100%;
+            border-bottom: 0.5px solid #E3ECFD;
+        }
+        &::before {
+            display: block;
+            content: "";
+            width: 100%;
+            border-top: 0.5px solid #E3ECFD;
+        }
+
+        .title {
+            @include text(27px, 25px, #45535C, EncodeSans-Bold);
+            font-weight: bold;
+            margin: 22px 0;
+        }
+
+        .text {
+            @include text(17px, 17px, #45535C, EncodeSans-Regular);
+            margin: 10px 0 35px 0;
+        }
+    }
+
+    .information-main {
+        padding: 25px 40px;
+        .main-content {
+            .title {
+                @include text(21px, 25px, #45535C, EncodeSans-Bold);
+                font-weight: bold;
+            }
+        }
+
+        .loader-item {
+            width: 25%;
+            padding: 1.2em;
+            text-align: center;
+
+            .loader {
+                opacity: 1;
+                border: 6px solid #f3f3f3;
+                border-radius: 50%;
+                border-top: 6px solid #5899F9;
+                width: 60px;
+                height: 60px;
+                -webkit-animation: spin 2s linear infinite;
+                animation: spin 2s linear infinite;
+                background: #ffffff 0% 0% no-repeat padding-box;
+                box-shadow: 6px 22px 43px #89B5F626;
+                margin: auto;
+            }
+
+            .circle-text {
+                @include text(22px, 31px, #45535C, BarlowCondensed-Light);
+            }
+        }
+
+        .text {
+            @include text(16px, 22px, #45535C, MicrosoftYaHeiUI);
+            margin: 40px 0;
+        }
+    }
+}
+
+.form-group-link,
+.input-content {
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: 1px solid #E3ECFD;
+    border-radius: 23px;
+    opacity: 1;
+    width: 138px;
+    padding: 10px 25px;
+    align-items: center;
+    text-align: center;
+    @include text(18px, 21px, #45535C, MicrosoftYaHeiUI);
+    font-weight: bold;
+
+    &::placeholder {
+        @include text(17px, 18px, #BECDE8, MicrosoftYaHeiUI !important);
+    }
+}
+
+.input-content {
+    margin-left: 15px;
+}

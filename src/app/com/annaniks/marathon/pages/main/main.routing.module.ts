@@ -18,8 +18,12 @@ const mainRoutes: Routes = [
                 canActivate: [RoleGuard]
             },
             {
-                path:"article",
-                loadChildren:() =>import('./article/article.module').then(m=>m.ArticleModule)
+                path: "article",
+                loadChildren: () => import('./article/article.module').then(m => m.ArticleModule)
+            },
+            {
+                path: "information",
+                loadChildren: () => import('./nutrition-information/nutrition-information.module').then(m => m.NutritionInformationModule)
             }
 
         ]

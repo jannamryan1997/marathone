@@ -93,20 +93,83 @@
                 margin: 20px 0;
             }
 
-            .recipe-image{
+            .recipe-image {
                 width: 90px;
                 height: 85px;
             }
         }
     }
+
+    .checked {
+        align-items: center;
+        text-align: center;
+        display: flex;
+        width: 70%;
+
+        .label {
+            @include text(16px, 16px, #C2D2E2, EncodeSans-Bold);
+            margin: 0 23px 0 14px;
+        }
+
+        .radio {
+            width: 22px;
+            height: 22px;
+            border: 0.5px solid #BBCDDF;
+        }
+       
+    }
 }
-.search-icon{
+.caloris-content{
+    border-right: 1px solid #E3ECFD;
+    padding: 15px;
+    .material-icons{
+        color: #C2D2E2; 
+    }
+    .title{
+        @include text(16px, 16px, #C2D2E2, EncodeSans-Bold);  
+    }
+}
+.kcal-content{
+    padding: 15px;
+    border-right: 1px solid #E3ECFD;   
+}
+.macronutrients-content{
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    .title{
+        @include text(16px, 16px, #C2D2E2, EncodeSans-Bold);
+    }
+}
+.lable-content{
+    justify-content: space-between;
+    display: flex;
+    width: 70%;
+    margin: auto;
+    .lable{
+        @include text(18px, 21px, #C2D2E2, EncodeSans-SemiBold);
+    }
+}
+.gram-checked {
+    margin: 30px auto;
+}
+.search-icon {
     color: #B9B9D5;
     font-weight: bold;
     font-size: 26px;
     cursor: pointer;
 }
-.add-btn{
+
+.add-btn {
     border-radius: 0 0 26px 26px;
     margin-top: 30px;
+}
+.tags-icon{
+    color: #F5F5FA;
+    font-size: 40px;
+    cursor: pointer;
+}
+
+.activeRadio{
+color: #589CFE !important;
 }
