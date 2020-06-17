@@ -15,7 +15,8 @@
         </div>
         <div class="form-group d-flex align-items-start">
             <label>Content / Text</label>
-            <textarea type="text" class="form-input w-100" placeholder="Type Text Hear"></textarea>
+            <ckeditor  [(ngModel)]="ckeditorContent" class="form-input w-100"></ckeditor>
+            <!-- <textarea type="text" class="form-input w-100" placeholder="Type Text Hear"></textarea> -->
             <span class="material-icons close">
                 close
             </span>
@@ -55,3 +56,7 @@
        
     </div>
 </div>
+
+
+
+

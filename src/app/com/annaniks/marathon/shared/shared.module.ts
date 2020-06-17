@@ -7,7 +7,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
-
+import { CKEditorModule } from 'ng2-ckeditor';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { ClickOutsideModule } from 'ng-click-outside';
 
@@ -70,6 +70,7 @@ import {
         HttpClientModule,
         MatSelectModule,
         MatFormFieldModule,
+        CKEditorModule,
     ],
     providers: [AuthGuard],
     entryComponents: [],
@@ -79,6 +80,7 @@ import {
         FormsModule,
         PickerModule,
         RouterModule,
+        CKEditorModule,
         MatDialogModule,
         CommonModule,
         MatFormFieldModule,

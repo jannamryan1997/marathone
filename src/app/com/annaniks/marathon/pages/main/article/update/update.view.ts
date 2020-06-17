@@ -7,7 +7,9 @@ import { Component, OnInit } from "@angular/core";
 })
 
 export class UpdateView implements OnInit {
+    ckeditorContent: string = '<p>Type Text Hear</p>';
     constructor() { }
 
     ngOnInit() { }
+
 }

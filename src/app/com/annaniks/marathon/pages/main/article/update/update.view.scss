@@ -35,3 +35,15 @@ textarea {
     resize: none;
     height: 350px;
 }
+
+::ng-deep .cke_bottom {
+    display: none !important;
+}
+
+::ng-deep .cke_chrome{
+    border: none !important;
+}
+::ng-deep .cke_top{
+    border-bottom: none !important;
+    background: #FFFFFF !important;
+}
