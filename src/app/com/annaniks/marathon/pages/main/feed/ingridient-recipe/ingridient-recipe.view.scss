@@ -98,6 +98,38 @@
                 height: 85px;
             }
         }
+        .localimage-content{
+            display: flex;
+            flex-direction: column;
+            .image{
+                width: 100%;
+                height: 360px;
+            }
+            .add-ingridiet-image-content {
+                margin: 0 auto;
+                flex-wrap: wrap;
+                margin-top: -60px;
+                .add-image {
+                    background: #FFFFFF 0% 0% no-repeat padding-box;
+                    box-shadow: -1.63px 5px 18px #5C687B0D;
+                    border: 1px dashed #C2D2E2;
+                    opacity: 1;
+                    width: 88px;
+                    height: 87px;
+                    padding: 1.2em;
+                    margin: 10px;
+                    border-radius: 50%;
+                    cursor: pointer;
+                    z-index: 1;
+            
+                    .add-icon {
+                        color: #BBCDDF;
+                        font-size: 30px;
+                        font-weight: bold;
+                    }
+                }
+            }
+            }
     }
 
     .checked {
@@ -172,4 +204,29 @@
 
 .activeRadio{
 color: #589CFE !important;
+}
+
+input[type="file"] {
+ display: none;
+}
+.label-btn{
+    width: 140px !important;
+}
+
+.form-input{
+  color:#45535C !important;
+  font-weight: bold !important;
+}
+
+
+::ng-deep .mat-slide-toggle.mat-checked .mat-slide-toggle-thumb{
+    background-color: #589CFE !important;
+}
+::ng-deep .mat-slide-toggle.mat-checked .mat-slide-toggle-bar{
+    background-color: #C2D2E2 !important;
+}
+
+.activeIngridientTab{
+    color: #FFFFFF !important;
+    background: #589CFE !important;
 }

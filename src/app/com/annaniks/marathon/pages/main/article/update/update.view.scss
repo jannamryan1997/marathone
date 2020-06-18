@@ -36,6 +36,13 @@ textarea {
     height: 350px;
 }
 
+input[type="file"] {
+    display: none;
+   }
+   .label-btn{
+       width: 140px !important;
+   }
+
 ::ng-deep .cke_bottom {
     display: none !important;
 }

@@ -11,6 +11,7 @@ import { CKEditorModule } from 'ng2-ckeditor';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { ClickOutsideModule } from 'ng-click-outside';
 
+
 import { AuthModal } from '../core/modals';
 import { AuthGuard } from '../core/guards/auth.guard';
 import { PostCardItemComponent } from '../pages/main/feed/posts/component/post-card-item/post-card-item.component';

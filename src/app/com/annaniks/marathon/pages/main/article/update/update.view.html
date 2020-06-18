@@ -15,8 +15,7 @@
         </div>
         <div class="form-group d-flex align-items-start">
             <label>Content / Text</label>
-            <ckeditor  [(ngModel)]="ckeditorContent" class="form-input w-100"></ckeditor>
-            <!-- <textarea type="text" class="form-input w-100" placeholder="Type Text Hear"></textarea> -->
+            <ckeditor [(ngModel)]="ckeditorContent" class="form-input w-100"></ckeditor>
             <span class="material-icons close">
                 close
             </span>
@@ -25,38 +24,36 @@
         <div class="form-group broves-file-form d-flex align-items-start">
             <label>Content / Image</label>
             <div class="m-auto">
-                <button class="btn follow-btn">Broves Files <span class="material-icons ml-2">
+
+                <input class="" type="file" id="file" name="avatar" (change)="setServicePhoto($event)">
+                <label class="btn follow-btn label-btn d-flex" for="file"> Broves Files <span
+                        class="material-icons ml-2">
                         save_alt
-                    </span></button>
+                    </span></label>
             </div>
             <span class="material-icons close">
-                    close
-                </span>
+                close
+            </span>
         </div>
 
-        <div class="content-image display-flex">
-            <app-content-image></app-content-image>
-            <app-content-image></app-content-image>
+        <div class="content-image display-flex w-100">
+            <app-content-image class="w-100" *ngFor="let item of contentImageItem" [contentImageItem]="item" [contentImage]="contentImageItem" ></app-content-image>
         </div>
         <div class="form-group broves-file-form d-flex align-items-start">
             <label>Content / Youtube Image</label>
             <div class="m-auto">
-                <button class="update-video-btn"> 
+                <button class="update-video-btn">
                     <span class="material-icons mr-2">
                         slideshow
                     </span>Insert Youtube Link </button>
             </div>
             <span class="material-icons close">
-                    close
-                </span>
+                close
+            </span>
         </div>
         <div class="content-image display-flex">
-                <app-content-video class="w-100"></app-content-video>
-            </div>
-       
+            <app-content-video class="w-100"></app-content-video>
+        </div>
+
     </div>
 </div>
-
-
-
-

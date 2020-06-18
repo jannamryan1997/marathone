@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { Router } from '@angular/router';
 
 @Component({
     selector: "artivle-view",
@@ -7,18 +8,20 @@ import { Component, OnInit } from "@angular/core";
 })
 
 export class ArticleView implements OnInit {
-public showCreatedMenu:boolean=false;
-public showSetting:boolean=false;
 
-    constructor() { }
+    public showCreatedMenu: boolean = false;
+    public showSetting: boolean = false;
+
+    constructor(public router: Router) {
+    }
 
     ngOnInit() { }
 
-    public onClickShowCreatedMenu():void{
-        this.showCreatedMenu =! this.showCreatedMenu;
+    public onClickShowCreatedMenu(): void {
+        this.showCreatedMenu = !this.showCreatedMenu;
     }
 
-    public onClickShowSetting():void{
-        this.showSetting =! this.showSetting;
+    public onClickShowSetting(): void {
+        this.showSetting = !this.showSetting;
     }
 }
