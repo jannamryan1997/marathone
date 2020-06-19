@@ -1,15 +1,15 @@
-import {Injectable} from "@angular/core";
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable()
 
-export class PostsService{
+export class FeedPostsService{
 
     constructor(private _httpClient:HttpClient){}
 
     public getPosts():Observable<any>{
-       return this._httpClient.get('');
+       return this._httpClient.get<any>('');
 
     }
 }

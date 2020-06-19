@@ -1,10 +1,10 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { PostsView } from './posts.view';
+import { FeedPostsView } from './feed-posts.view';
 
 const postsRoutes: Routes = [
     {
-        path: "", component: PostsView, children: [
+        path: "", component: FeedPostsView, children: [
             
     ]
     },
@@ -15,4 +15,4 @@ const postsRoutes: Routes = [
     exports: [RouterModule]
 })
 
-export class PostsRoutingModule { }
+export class FeedPostsRoutingModule { }

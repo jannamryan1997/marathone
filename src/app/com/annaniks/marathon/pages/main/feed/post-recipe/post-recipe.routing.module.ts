@@ -1,16 +1,16 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 
-import { RecipeView } from "./recipe.view";
+import { PostRecipeView } from "./post-recipe.view";
 
 const recipeRoutes: Routes = [
-    { path: "", component: RecipeView }
+    { path: "", component: PostRecipeView }
 ]
 @NgModule({
     imports: [RouterModule.forChild(recipeRoutes)],
     exports: [RouterModule]
 })
 
-export class RecipeRoutingModule {
+export class PostRecipeRoutingModule {
 
 }

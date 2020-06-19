@@ -16,5 +16,5 @@ export * from "../layout/components/create-publication/create-publication.compon
 export * from "../layout/components/content-image/content-image.component";
 export * from "../layout/components/content-video/content-video.component";
 export * from "../layout/components/ingridient-item/ingridient-item.component";
-export * from "../layout/components/add-ingridient-image/add-ingridient-image.component";
+export * from "../layout/components/add-recipe-image/add-recipe-image.component";
 export *from "../layout/components/preparation-step/preparation-step.component";

@@ -42,6 +42,9 @@
          text-align: start !important;
          color: #BECDE8;
          margin: 15px 0px !important;
+         &::placeholder{
+       color: #CFCFE9 !important;
+         }
         }
 
         .checkbox-lable {
@@ -148,7 +151,7 @@
 
 
 input[type="text"][required]:focus+label[placeholder]:before {
-    color: #CFCFE9;
+    color: #CFCFE9 !important;
 }
 
 input[type="text"][required]:focus+label[placeholder]:before,
@@ -185,4 +188,8 @@ input[type="text"][required]+label[placeholder]:before {
     background-size: 100% 5px;
     background-repeat: no-repeat;
     background-position: center;
+}
+
+.form-group, .autocomplete {
+    position: unset !important;
 }

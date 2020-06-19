@@ -1,1 +1,0 @@
-export * from "../components/recipe-item/recipe-item.component";

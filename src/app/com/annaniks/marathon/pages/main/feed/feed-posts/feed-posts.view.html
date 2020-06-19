@@ -1,6 +1,6 @@
 <div class="feed-container">
     <app-create-publication [postItem]="postItem"></app-create-publication>
     <div class="feed-item">
-        <app-post-card-item *ngFor="let item of postItem" [postType]="item?.postType" [postItem]="item"></app-post-card-item>
+        <app-feed-post-card-item *ngFor="let item of postItem" [postType]="item?.postType" [postItem]="item"></app-feed-post-card-item>
     </div>
 </div>

@@ -1,22 +1,23 @@
 import { Component, OnInit } from "@angular/core";
 import { MatDialog } from '@angular/material/dialog';
-import { AddIngridientImageModal } from '../../../../core/modals';
-import { Slider } from '../../../../core/models';
+import { Slider } from '../../../core/models';
+import { AddIngridientImageModal } from '../../../core/modals';
 
 @Component({
-    selector: "ingridient-recipe-view",
-    templateUrl: "ingridient-recipe.view.html",
-    styleUrls: ["ingridient-recipe.view.scss"]
+    selector: "recipe-view",
+    templateUrl: "recipe.view.html",
+    styleUrls: ["recipe.view.scss"]
 })
 
-export class IngridientRecipeView implements OnInit {
+export class RecipeView implements OnInit {
+
     public showImage:boolean=false;
     public localImage: string;
    public  slides:Slider[]= [
-        {img: "assets/images/food.png"},
-        {img: "/assets/images/foodimg.png"},
-        {img: "assets/images/food.png"},
-        {img: "/assets/images/foodimg.png"}
+        // {img: "assets/images/food.png"},
+        // {img: "/assets/images/foodimg.png"},
+        // {img: "assets/images/food.png"},
+        // {img: "/assets/images/foodimg.png"}
       ];
 
       slideConfig = {"slidesToShow": 1, "slidesToScroll": 1};

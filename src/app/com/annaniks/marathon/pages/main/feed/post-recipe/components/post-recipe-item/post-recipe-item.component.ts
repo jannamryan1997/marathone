@@ -2,12 +2,12 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
-    selector: "app-recipe-item",
-    templateUrl: "recipe-item.component.html",
-    styleUrls: ["recipe-item.component.scss"]
+    selector: "app-post-recipe-item",
+    templateUrl: "post-recipe-item.component.html",
+    styleUrls: ["post-recipe-item.component.scss"]
 })
 
-export class RecipeItemComponent implements OnInit {
+export class PostRecipeItemComponent implements OnInit {
     public emojiForm: FormGroup;
     public showemoji: boolean = false;
 

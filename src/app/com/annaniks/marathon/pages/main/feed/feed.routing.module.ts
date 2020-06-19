@@ -7,7 +7,7 @@ const feedRoutes: Routes = [
         path: "", component: FeedView, children: [
             {
                 path: "",
-                loadChildren: () => import('./posts/posts.module').then(m => m.PostsModule),
+                loadChildren: () => import('./feed-posts/feed-posts.module').then(m => m.FeedPostsModule),
             },
             {
                 path: "ingridient/:id",
@@ -19,13 +19,9 @@ const feedRoutes: Routes = [
                 loadChildren: () => import('./combination/combination.module').then(m => m.CombinationModule),
             },
             {
-                path: "recipe",
-                loadChildren: () => import('./recipe/recipe.module').then(m => m.RecipeModule),
+                path: "post-recipe",
+                loadChildren: () => import('./post-recipe/post-recipe.module').then(m => m.PostRecipeModule),
             },
-            {
-                path:"recipe/:id",
-                loadChildren:() => import('./ingridient-recipe/ingridient-recipe.module').then(m=>m.IngridientRecipeModule)
-            }
         ]
     }
 ]

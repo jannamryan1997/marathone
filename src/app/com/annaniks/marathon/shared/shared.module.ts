@@ -14,8 +14,8 @@ import { ClickOutsideModule } from 'ng-click-outside';
 
 import { AuthModal } from '../core/modals';
 import { AuthGuard } from '../core/guards/auth.guard';
-import { PostCardItemComponent } from '../pages/main/feed/posts/component/post-card-item/post-card-item.component';
 
+import { FeedPostCardItemComponent } from '../pages/main/feed/feed-posts/component/feed-post-card-item/feed-post-card-item.component';
 
 
 import {
@@ -38,6 +38,7 @@ import {
     IngridientItemComponent
 } from '../layout';
 
+
 @NgModule({
     declarations: [
         HeaderComponent,
@@ -46,7 +47,7 @@ import {
         CommentsComponent,
         SettingsComponent,
         PostsComments,
-        PostCardItemComponent,
+        FeedPostCardItemComponent,
         LoadingComponent,
         AuthModal,
         SignInComponent,
@@ -95,7 +96,7 @@ import {
         CommentsComponent,
         SettingsComponent,
         PostsComments,
-        PostCardItemComponent,
+        FeedPostCardItemComponent,
         LoadingComponent,
         SignInComponent,
         SignUpComponent,

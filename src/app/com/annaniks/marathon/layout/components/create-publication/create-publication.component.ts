@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, AfterViewChecked } from "@angular/core";
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
     selector: "app-create-publication",
@@ -7,24 +8,94 @@ import { Component, OnInit, Input } from "@angular/core";
 })
 
 export class CreatePublicationComponent implements OnInit {
+
+    public postType = new FormControl('');
+    public post: boolean = false;
+    public showImage: boolean = false;
+    public showemoji:boolean=false;
+    public contentImageItem: string;
+
     @Input() postItem;
-    public type: string;
+
     constructor() { }
 
     ngOnInit() { }
 
+
+    public showPost(): void {
+        this.post = true;
+    }
+    public hidePost(): void {
+        if (this.postType.value ==='' || this.postType.value ===null  && this.showImage === false) {
+            this.post = false;
+        }
+    }
+    public setServicePhoto(event): void {
+        if (event) {
+            this.showImage = true;
+            const reader = new FileReader();
+            reader.onload = (e: any) => {
+                this.contentImageItem = e.target.result;
+            };
+            if (event.target.files[0]) {
+                reader.readAsDataURL(event.target.files[0]);
+            }
+            this.showImage = true;
+            this.post = true;
+        }
+    }
+
+    addEmoji($event) {
+        let data = this.postType.value+ $event.emoji.native;
+        this.postType.patchValue(data)
+        
+    }
+
+    public showEmoji(): void {
+        this.post=true;
+        this.showemoji = !this.showemoji;
+    }
+
     public createdPost(): void {
-        this.postItem.map((element, index) => {
-            this.postItem.push(
-                {
-
-                    postType: "text",
-                    title:this.type,
-
-                }
-            )
-        })
-        console.log(this.postItem);
+        this.postItem.push(
+            {
+                img: this.contentImageItem,
+                title:this.postType.value,
+            }
+        )
+   
+this.post=false;
+this.postType.patchValue('');
+this.showImage=false;
 
     }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

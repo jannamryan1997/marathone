@@ -19,7 +19,11 @@ const mainRoutes: Routes = [
             },
             {
                 path: "article",
-                loadChildren: () => import('./article/article.module').then(m => m.ArticleModule)
+                loadChildren: () => import('./article/article.module').then(m => m.ArticleModule),
+            },
+            {
+                path: "recipe",
+                loadChildren: () => import('./recipe/recipe.module').then(m => m.RecipeModule)
             },
             {
                 path: "information",

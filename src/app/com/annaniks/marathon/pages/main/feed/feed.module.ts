@@ -4,8 +4,9 @@ import { CommonModule } from '@angular/common';
 
 import { FeedView } from './feed.view';
 import { FeedRoutingModule } from './feed.routing.module';
-import { FeedService } from './feed.service';
+
 import { SharedModule } from '../../../shared/shared.module';
+import { FeedService } from './feed.service';
 
 
 @NgModule({

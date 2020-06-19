@@ -10,7 +10,7 @@
                 <p class="text">Save Draft</p>
                 <div class="btn-content d-flex align-items-center">
                     <button class="btn follow-btn" routerLink="/information" routerLinkActive="activeIngridientTab">Preview</button>
-                    <button class="btn follow-btn" routerLink="/feed/recipe/1" routerLinkActive="activeIngridientTab">Publish</button>
+                    <button class="btn follow-btn" routerLink="/recipe" routerLinkActive="activeIngridientTab">Publish</button>
                     <button class="btn btn-loader">
                         <span class="material-icons icon">
                             more_horiz
@@ -37,7 +37,7 @@
                 </div>
 
                 <div class="add-ingridiet-image-content d-flex">
-                    <app-add-ingridient-image></app-add-ingridient-image>
+                    <app-add-recipe-image></app-add-recipe-image>
                     <div class="add-image d-flex" (click)="onClickOpenIngridientModal()">
                         <span class="material-icons add-icon m-auto">
                             add

@@ -5,12 +5,12 @@ import { PropertyModal } from 'src/app/com/annaniks/marathon/core/modals';
 export type PostType = "video" | "text" | "image" | "combinations" | "chicken"
 
 @Component({
-    selector: "app-post-card-item",
-    templateUrl: "post-card-item.component.html",
-    styleUrls: ["post-card-item.component.scss"]
+    selector: "app-feed-post-card-item",
+    templateUrl: "feed-post-card-item.component.html",
+    styleUrls: ["feed-post-card-item.component.scss"]
 })
 
-export class PostCardItemComponent implements OnInit {
+export class FeedPostCardItemComponent implements OnInit {
     @Input('postType') public postType: PostType;
     @Input() postItem;
     public showTitle: boolean;

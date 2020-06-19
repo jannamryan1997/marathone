@@ -1,12 +1,12 @@
 import { Component, OnInit } from "@angular/core";
 
 @Component({
-    selector: "posts-view",
-    templateUrl: "posts.view.html",
-    styleUrls: ["posts.view.scss"]
+    selector: "feed-posts-view",
+    templateUrl: "feed-posts.view.html",
+    styleUrls: ["feed-posts.view.scss"]
 })
 
-export class PostsView implements OnInit {
+export class FeedPostsView implements OnInit {
 
     public postItem = [
         {
@@ -15,20 +15,20 @@ export class PostsView implements OnInit {
         },
         {
             postType: "image",
-            image:"assets/images/foodimg.png"
+            image: "assets/images/foodimg.png"
         },
 
         {
             postType: "video",
-            video:"assets/images/vido.mp4"
+            video: "assets/images/vido.mp4"
         },
         {
             postType: "combinations",
-            image:"assets/images/img3.png",
+            image: "assets/images/img3.png",
         },
         {
             postType: "chicken",
-            image:"assets/images/chicken.png",
+            image: "assets/images/chicken.png",
         },
     ]
     constructor() { }

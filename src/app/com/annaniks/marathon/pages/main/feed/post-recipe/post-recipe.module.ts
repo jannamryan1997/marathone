@@ -1,27 +1,27 @@
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { RecipeView } from './recipe.view';
-import { RecipeItemComponent } from './components';
+import { PostRecipeView } from './post-recipe.view';
+import { PostRecipeItemComponent } from './components';
 import { CommonModule } from '@angular/common';
 
-import { RecipeRoutingModule } from './recipe.routing.module';
+import { PostRecipeRoutingModule } from './post-recipe.routing.module';
 import { SharedModule } from '../../../../shared/shared.module';
 
 
 
 
 @NgModule({
-    declarations: [RecipeView,RecipeItemComponent],
+    declarations: [PostRecipeView,PostRecipeItemComponent],
     imports: [
         SharedModule,
-        RecipeRoutingModule,   
+        PostRecipeRoutingModule,   
         FormsModule,
         ReactiveFormsModule,
         CommonModule
         ]
 })
 
-export class RecipeModule {
+export class PostRecipeModule {
 
 }

@@ -2,23 +2,45 @@
     <div class="recipe-header">
         <div class="display-flex">
             <p class="title">Create Pablication</p>
-            <div class="display-flex">
-                <span class="material-icons">
-                    panorama
-                </span>
-                <p class="title ml-2 mr-2">Photo/ Video</p>
+            <div>
+                <input class="" type="file" id="file" name="avatar" (change)="setServicePhoto($event)">
+                <label class="btn  label-btn d-flex" for="file">
+
+                    <div class="display-flex">
+                        <span class="material-icons">
+                            panorama
+                        </span>
+                        <p class="title ml-2 mr-2">Photo/ Video</p>
+                    </div>
+                </label>
             </div>
         </div>
-        <textarea type="text" [(ngModel)]="type" class="message-input" placeholder="Type Something..." (keydown.enter)="createdPost()"></textarea>
+        <div class="emoji-content">
+        <emoji-mart (emojiClick)="addEmoji($event)" emoji="point_up" *ngIf="showemoji"></emoji-mart>
+        <textarea type="text" [formControl]="postType" class="message-input" placeholder="Type Something..."
+            (focus)="showPost()" (blur)="hidePost()">
+        </textarea>
+        <img src="assets/icons/smile.png" class="smile-image" (click)="showEmoji()">
+        </div>
     </div>
-    <div class="button-content display-flex">
+
+    <div class="image-content" *ngIf="showImage" >
+        <img [src]="contentImageItem" class="recipe-image" alt="" >
+        <div class="close-img d-flex">
+            <span class="material-icons m-auto">
+                close
+            </span>
+        </div>
+    </div>
+
+    <div class="button-content display-flex" *ngIf="!post">
         <div class="button-item d-flex">
             <span class="material-icons mr-1">
                 description
             </span>
             <span>Article</span>
         </div>
-        <div class="button-item d-flex" routerLink="/feed/recipe" routerLinkActive="activeTab">
+        <div class="button-item d-flex" routerLink="/feed/post-recipe" routerLinkActive="activeTab">
             <span class="material-icons mr-1">
                 description
             </span>
@@ -37,5 +59,8 @@
             <span>B / A</span>
         </div>
 
+    </div>
+    <div *ngIf="post">
+        <button class="post-btn w-100" (click)="createdPost()"><span>Post</span></button>
     </div>
 </div>

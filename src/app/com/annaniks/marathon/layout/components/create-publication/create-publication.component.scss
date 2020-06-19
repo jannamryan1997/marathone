@@ -18,6 +18,7 @@
         .title {
             @include text(16px, 19px, #BEC8DD, EncodeSans-Bold);
             font-weight: bold;
+            cursor: pointer;
         }
         .material-icons {
             font-size: 22px;
@@ -40,6 +41,23 @@
                 color: #BEC8DD;
             }
         }
+        .emoji-content{
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            .smile-image{
+                width: 30px;
+                height: 30px;
+                cursor: pointer;
+            }
+        }
+    }
+    .image-content {
+        position: relative;
+
+        .recipe-image {
+            height: 330px;
+        }
     }
   .button-content{
       border-top: 0.5px solid #E3ECFD;
@@ -56,4 +74,27 @@
       }
   }
 
+}
+.post-btn {
+    background: #589CFE 0% 0% no-repeat padding-box;
+    box-shadow: 0.84px 12px 35px #589CFE1A;
+    border-radius: 0px 0px 15px 15px;
+    opacity: 1;
+    border: 1px solid #589CFE;
+    padding: 16px 0;
+    @include text(20px, 24px, #FFFFFF, EncodeSans-Bold);
+    font-weight: bold;
+}
+
+input[type="file"] {
+    display: none;
+   }
+
+
+   ::ng-deep .emoji-mart {
+    width: 100% !important;
+}
+
+::ng-deep .emoji-mart-search input {
+    padding: 5px 0px 5px 0px !important;
 }
