@@ -87,7 +87,6 @@ export class SignUpComponent implements OnInit {
 
                 }
             )
-
     }
 
     private _signUpCoatch(): void {

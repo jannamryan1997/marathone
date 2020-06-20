@@ -6,27 +6,33 @@
     </div>
     <form [formGroup]="signUpGroup">
         <div class="signUp-form">
-            <div>
-                <input type="text" required='' class="form-group w-100" formControlName="firstName">
-                <label alt='First Name' placeholder='First Name'></label>
+            <div class="form-group">
+                <label>First Name</label>
+                <input type="text" required='' class="form-input w-100" formControlName="firstName">
+              
             </div>
-            <div>
-                <input type="text" required='' class="form-group w-100" formControlName="userName">
-                <label alt='User Name' placeholder='User Name'></label>
+            <div class="form-group">
+                <label>User Name</label>
+                <input type="text" required='' class="form-input w-100" formControlName="userName">
+            </div>
 
+            <div  class="form-group">
+                <label>email</label>
+                <input type="text" required='' class="form-input w-100" formControlName="email">
+            
             </div>
-            <div>
-                <input type="text" required='' class="form-group w-100" formControlName="email">
-                <label alt='email' placeholder='email'></label>
+            <div class="form-group">
+                <label>Last Name</label>
+                <input type="text" required='' class="form-input w-100" formControlName="lastName">
+ 
             </div>
-            <div>
-                <input type="text" required='' class="form-group w-100" formControlName="lastName">
-                <label alt='Last Name' placeholder='Last Name'></label>
+
+            <div class="form-group">
+                <label>password</label>
+                <input type="text" required='' class="form-input w-100" formControlName="password">
+           
             </div>
-            <div>
-                <input type="text" required='' class="form-group w-100" formControlName="password">
-                <label alt='password' placeholder='password'></label>
-            </div>
+
             <div class="auth-description social-media">
                
                 <div class=" display-flex">
