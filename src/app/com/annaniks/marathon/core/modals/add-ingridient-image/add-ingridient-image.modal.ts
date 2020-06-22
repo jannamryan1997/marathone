@@ -9,7 +9,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 
 export class AddIngridientImageModal implements OnInit {
   slides = [
-    { img: "assets/images/food.png" },
+    { img: "/assets/images/food.png" },
     { img: "/assets/images/foodimg.png" },
     { img: "assets/images/food.png" },
     { img: "/assets/images/foodimg.png" }
@@ -23,6 +23,23 @@ export class AddIngridientImageModal implements OnInit {
   public closeModal(): void {
     this._matDialogRf.close();
   }
+
+
+  public setServicePhoto(event): void {
+    if (event) {
+        const reader = new FileReader();
+        reader.onload = (e: any) => {
+            this.slides.push({ img: e.target.result });
+        };
+        if (event.target.files[0]) {
+            reader.readAsDataURL(event.target.files[0]);
+        }
+        console.log(this.slides);
+
+    }
+}
+
+  
 
   slickInit(e) {
     console.log('slick initialized');

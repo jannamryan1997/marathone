@@ -98,17 +98,21 @@
                 height: 85px;
             }
         }
-        .localimage-content{
+
+        .localimage-content {
             display: flex;
             flex-direction: column;
-            .image{
+
+            .image {
                 width: 100%;
                 height: 360px;
             }
+
             .add-ingridiet-image-content {
                 margin: 0 auto;
                 flex-wrap: wrap;
                 margin-top: -60px;
+
                 .add-image {
                     background: #FFFFFF 0% 0% no-repeat padding-box;
                     box-shadow: -1.63px 5px 18px #5C687B0D;
@@ -121,7 +125,7 @@
                     border-radius: 50%;
                     cursor: pointer;
                     z-index: 1;
-            
+
                     .add-icon {
                         color: #BBCDDF;
                         font-size: 30px;
@@ -129,7 +133,7 @@
                     }
                 }
             }
-            }
+        }
     }
 
     .checked {
@@ -148,43 +152,90 @@
             height: 22px;
             border: 0.5px solid #BBCDDF;
         }
-       
+
     }
 }
-.caloris-content{
+
+.ingridient-group {
+    padding: 0 !important;
+    box-shadow: 2px 30px 43px #5C687B36;
+    border: 1px solid #E3ECFD;
+    margin: 30px 10px 70px 0 !important;
+
+    label {
+        z-index: 1;
+    }
+
+    .ingridient-header {
+        background: #F5F5FA 0% 0% no-repeat padding-box;
+        border-radius: 20px 20px 0px 0px;
+        padding: 20px 50px;
+        opacity: 0.5;
+        z-index: 0;
+
+        .title {
+            @include text(16px, 22px, #45535C, MicrosoftYaHeiUI);
+            font-weight: bold;
+        }
+
+        .close {
+            cursor: pointer;
+            font-weight: bold;
+        }
+    }
+}
+
+.information-input {
+    height: 110px;
+}
+
+textarea {
+    resize: none;
+}
+
+.caloris-content {
     border-right: 1px solid #E3ECFD;
     padding: 15px;
-    .material-icons{
-        color: #C2D2E2; 
+
+    .material-icons {
+        color: #C2D2E2;
     }
-    .title{
-        @include text(16px, 16px, #C2D2E2, EncodeSans-Bold);  
-    }
-}
-.kcal-content{
-    padding: 15px;
-    border-right: 1px solid #E3ECFD;   
-}
-.macronutrients-content{
-    padding: 15px;
-    display: flex;
-    align-items: center;
-    .title{
+
+    .title {
         @include text(16px, 16px, #C2D2E2, EncodeSans-Bold);
     }
 }
-.lable-content{
+
+.kcal-content {
+    padding: 15px;
+    border-right: 1px solid #E3ECFD;
+}
+
+.macronutrients-content {
+    padding: 15px;
+    display: flex;
+    align-items: center;
+
+    .title {
+        @include text(16px, 16px, #C2D2E2, EncodeSans-Bold);
+    }
+}
+
+.lable-content {
     justify-content: space-between;
     display: flex;
     width: 70%;
     margin: auto;
-    .lable{
+
+    .lable {
         @include text(18px, 21px, #C2D2E2, EncodeSans-SemiBold);
     }
 }
+
 .gram-checked {
     margin: 30px auto;
 }
+
 .search-icon {
     color: #B9B9D5;
     font-weight: bold;
@@ -196,37 +247,68 @@
     border-radius: 0 0 26px 26px;
     margin-top: 30px;
 }
-.tags-icon{
+
+.tags-icon {
     color: #F5F5FA;
     font-size: 40px;
     cursor: pointer;
 }
 
-.activeRadio{
-color: #589CFE !important;
+.activeRadio {
+    color: #589CFE !important;
 }
 
 input[type="file"] {
- display: none;
+    display: none;
 }
-.label-btn{
+
+.label-btn {
     width: 140px !important;
 }
 
-.form-input{
-  color:#45535C !important;
-  font-weight: bold !important;
+.form-input {
+    color: #45535C !important;
+    font-weight: bold !important;
 }
 
 
-::ng-deep .mat-slide-toggle.mat-checked .mat-slide-toggle-thumb{
+::ng-deep .mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
     background-color: #589CFE !important;
 }
-::ng-deep .mat-slide-toggle.mat-checked .mat-slide-toggle-bar{
+
+::ng-deep .mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
     background-color: #C2D2E2 !important;
 }
 
-.activeIngridientTab{
+.activeIngridientTab {
     color: #FFFFFF !important;
     background: #589CFE !important;
+}
+
+.tags {
+    flex-wrap: wrap;
+
+    .tags-item {
+        background: #F5F5FA 0% 0% no-repeat padding-box;
+        border-radius: 18px;
+        opacity: 1;
+        padding: 7px 20px;
+        padding: 9px 7px;
+        margin: 0 7px 15px 0;
+
+        .title {
+            @include text(15px, 16px, #45535C, EncodeSans-Bold);
+            font-weight: bold;
+        }
+
+        .tag-image {
+            width: 17px;
+            height: 17px;
+            border-radius: 50%;
+        }
+
+        .close {
+            cursor: pointer;
+        }
+    }
 }

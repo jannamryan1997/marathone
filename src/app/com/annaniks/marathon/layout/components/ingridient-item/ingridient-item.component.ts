@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 
 @Component({
     selector: "app-ingridient-item",
@@ -7,7 +7,7 @@ import { Component, OnInit } from "@angular/core";
 })
 
 export class IngridientItemComponent implements OnInit {
-
+    @Input() titleItem;
     constructor() { }
 
     ngOnInit() { }

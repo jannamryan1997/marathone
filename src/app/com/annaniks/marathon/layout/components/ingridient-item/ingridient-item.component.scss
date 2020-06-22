@@ -30,7 +30,8 @@
 
             }
         }
-        .add-icon{
+
+        .add-icon {
             cursor: pointer;
             color: #C2D2E2;
             font-weight: bold;
@@ -38,7 +39,43 @@
         }
     }
 }
-.form-input{
-    color:#45535C !important;
+
+.form-input {
+    color: #45535C !important;
     font-weight: bold !important;
-  }
+
+}
+
+.add-ingridient {
+    border-top: 1px solid #E3ECFD;
+    .add-ingridient-item {
+        padding: 15px 40px;
+
+        .title {
+            @include text(16px, 22px, #45535C, MicrosoftYaHeiUI);
+        }
+
+        .kcal {
+            @include text(14px, 22px, #45535C, MicrosoftYaHeiUILight);
+        }
+
+        .text {
+            @include text(14px, 16px, #BBCDDF, EncodeSans-SemiBold);
+        }
+
+        .follow-btn {
+            background: #FFFFFF 0% 0% no-repeat padding-box;
+            border: 1px solid #589CFE;
+            border-radius: 18px;
+            opacity: 1;
+            color: #589CFE;
+            padding: 5px 20px;
+        }
+    }
+}
+
+.add-ingridient {
+    &::first-child{
+        border-top: none !important;
+    }
+}

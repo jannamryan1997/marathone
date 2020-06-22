@@ -11,21 +11,31 @@ import { AddIngridientImageModal } from '../../../core/modals';
 
 export class RecipeView implements OnInit {
 
-    public showImage:boolean=false;
+    public showImage: boolean = false;
     public localImage: string;
-   public  slides:Slider[]= [
-        // {img: "assets/images/food.png"},
-        // {img: "/assets/images/foodimg.png"},
-        // {img: "assets/images/food.png"},
-        // {img: "/assets/images/foodimg.png"}
-      ];
+    public preparationStepItem = [
+        {}
+    ];
 
-      slideConfig = {"slidesToShow": 1, "slidesToScroll": 1};
+    public ingridientItem = [{}];
+
+    public tagsItem = [
+        { img: "", title: "" }
+    ]
+
+    public slides: Slider[] = [
+        {img: "assets/images/food.png"},
+        {img: "/assets/images/foodimg.png"},
+        {img: "assets/images/food.png"},
+        {img: "/assets/images/foodimg.png"},
+    ];
+
+    slideConfig = { "slidesToShow": 1, "slidesToScroll": 1 };
     constructor(private _matDialog: MatDialog) { }
 
     ngOnInit() {
-        if(this.slides.length){
-        this.showImage=true;
+        if (this.slides.length) {
+            this.showImage = true;
         }
     }
 
@@ -35,42 +45,56 @@ export class RecipeView implements OnInit {
             maxWidth: "100vw",
         })
     }
-   public  setServicePhoto(event): void {
+    public setServicePhoto(event): void {
         if (event) {
             const reader = new FileReader();
             reader.onload = (e: any) => {
-                this.slides.push({img:e.target.result});
-                this.slides.map((element,index)=>{
-                
-                    console.log(element,"element");
+                this.slides.push({ img: e.target.result });
+                this.slides.map((element, index) => {
+
+                    console.log(element, "element");
                 })
             };
             if (event.target.files[0]) {
                 reader.readAsDataURL(event.target.files[0]);
             }
-            this.showImage=true;
+            this.showImage = true;
             console.log(this.slides);
-            
+
         }
     }
 
-    public onClickOpenIngridientModal():void{
+    public addPreparationStep(): void {
+        this.preparationStepItem.push({});
+    }
+    public addIngridientItem(): void {
+        this.ingridientItem.push({});
+    }
+
+    public onClickOpenIngridientModal(): void {
         this._openAddIngridientImageModal();
+    }
+
+    public addTag(): void {
+        this.tagsItem.push({ img: "", title: "lanch" })
+    }
+    public removeTegsItem(ind): void {
+        this.tagsItem.splice(ind, 1);
     }
 
     slickInit(e) {
         console.log('slick initialized');
-      }
-      
-      breakpoint(e) {
+    }
+
+    breakpoint(e) {
         console.log('breakpoint');
-      }
-      
-      afterChange(e) {
+    }
+
+    afterChange(e) {
         console.log('afterChange');
-      }
-      
-      beforeChange(e) {
+    }
+
+    beforeChange(e) {
         console.log('beforeChange');
-      }
+    }
 }

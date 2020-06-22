@@ -1,4 +1,4 @@
-<div class="ingridient-item  w-100">
+<div class="ingridient-item  w-100" *ngIf="!titleItem">
     <div class="form-group  d-flex">
         <div class="input-content">
             <input class="form-input" placeholder="Ingridient Name">
@@ -12,4 +12,18 @@
 
     </div>
 
+</div>
+
+<div class="add-ingridient" *ngIf="titleItem">
+    <div class="add-ingridient-item display-flex">
+        <div class="d-flex">
+            <p class="title">Apple</p>
+            <p class="kcal ml-3">100g /54 kcal</p>
+        </div>
+        <div  class="d-flex align-items-center">
+            <p class="text">USDA</p>
+            <button class="btn follow-btn">Add</button>
+        </div>
+
+    </div>
 </div>

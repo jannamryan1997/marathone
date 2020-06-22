@@ -1,19 +1,24 @@
 <div class="gallery-content">
     <div class="gallery-container display-flex">
         <div class="gallery-item" *ngFor="let item of galleryItem">
+            <div class="image-content">
+
+      
             <img [src]="item?.image" class="gallery-image">
             <div class="gallery-hovher d-flex">
-                <div class="gallery-hovher-item d-flex m-auto">
-                    <span class="material-icons">
-                        mode_comment
-                    </span>
-                    <p>30</p>
-                    <span class="material-icons">
-                        flash_on
-                    </span>
-                    <p>60</p>
+                    <div class="gallery-hovher-item d-flex m-auto">
+                        <span class="material-icons">
+                            mode_comment
+                        </span>
+                        <p>30</p>
+                        <span class="material-icons">
+                            flash_on
+                        </span>
+                        <p>60</p>
+                    </div>
                 </div>
-            </div>
+        </div>
+        
         </div>
     </div>
 </div>

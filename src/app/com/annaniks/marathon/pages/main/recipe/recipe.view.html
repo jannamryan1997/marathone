@@ -9,8 +9,10 @@
             <div class="display-flex">
                 <p class="text">Save Draft</p>
                 <div class="btn-content d-flex align-items-center">
-                    <button class="btn follow-btn" routerLink="/information" routerLinkActive="activeIngridientTab">Preview</button>
-                    <button class="btn follow-btn" routerLink="/recipe" routerLinkActive="activeIngridientTab">Publish</button>
+                    <button class="btn follow-btn" routerLink="/information"
+                        routerLinkActive="activeIngridientTab">Preview</button>
+                    <button class="btn follow-btn" routerLink="/recipe"
+                        routerLinkActive="activeIngridientTab">Publish</button>
                     <button class="btn btn-loader">
                         <span class="material-icons icon">
                             more_horiz
@@ -24,7 +26,7 @@
     <div class="recipe-layout">
         <div class="recipe-layout-hrader">
             <div class="localimage-content" *ngIf="showImage">
-                <div >
+                <div>
                     <ngx-slick-carousel class="carousel w-100" #slickModal="slick-carousel" [config]="slideConfig"
                         (init)="slickInit($event)" (breakpoint)="breakpoint($event)" (afterChange)="afterChange($event)"
                         (beforeChange)="beforeChange($event)">
@@ -37,7 +39,7 @@
                 </div>
 
                 <div class="add-ingridiet-image-content d-flex">
-                    <app-add-recipe-image></app-add-recipe-image>
+                    <app-add-recipe-image *ngFor="let item of slides"  [recipeImageItem]="item"></app-add-recipe-image>
                     <div class="add-image d-flex" (click)="onClickOpenIngridientModal()">
                         <span class="material-icons add-icon m-auto">
                             add
@@ -83,11 +85,29 @@
                         search
                     </span>
                 </div>
-                <app-ingridient-item></app-ingridient-item>
-                <app-ingridient-item></app-ingridient-item>
-                <button class="add-btn d-flex w-100 "><span class="m-auto btn-text">Add Ingridient</span></button>
-            </div>
+                <app-ingridient-item *ngFor="let item of ingridientItem"></app-ingridient-item>
 
+                <button class="add-btn d-flex w-100 " (click)="addIngridientItem()"><span class="m-auto btn-text">Add
+                        Ingridient</span></button>
+            </div>
+            <div class="form-group ingridient-group pt-15 pl-0 pr-0 pb-0">
+                <label>Ingridient</label>
+                <div class="ingridient-header display-flex">
+                    <p class="title">Apple</p>
+                    <span class="material-icons close">
+                        close
+                    </span>
+                </div>
+                <div class="ingridient-item-content">
+                    <app-ingridient-item [titleItem]="true"></app-ingridient-item>
+                    <app-ingridient-item [titleItem]="true"></app-ingridient-item>
+                    <app-ingridient-item [titleItem]="true"></app-ingridient-item>
+                    <app-ingridient-item [titleItem]="true"></app-ingridient-item>
+                    <app-ingridient-item [titleItem]="true"></app-ingridient-item>
+                    <app-ingridient-item [titleItem]="true"></app-ingridient-item>
+                </div>
+
+            </div>
 
 
             <div class="form-group">
@@ -176,29 +196,41 @@
             </div>
             <div class="form-group pt-15 pl-0 pr-0 pb-0">
                 <label>Preparation Steps</label>
-                <app-preparation-step></app-preparation-step>
-                <app-preparation-step></app-preparation-step>
-                <app-preparation-step></app-preparation-step>
-                <button class="add-btn d-flex w-100 "><span class="m-auto btn-text">Add Step</span></button>
+                <app-preparation-step *ngFor="let item of preparationStepItem;let ind=index" [index]="ind+1">
+                </app-preparation-step>
+                <button class="add-btn d-flex w-100"><span class="m-auto btn-text" (click)="addPreparationStep()">Add
+                        Step</span></button>
             </div>
             <div class="form-group">
-                    <label>Information</label>
-                    <input type="text" class="form-input w-100" placeholder="Type Recipe info here">
-    
-                </div>
+                <label>Information</label>
+                <textarea type="text" class="form-input w-100 information-input"
+                    placeholder="Type Recipe info here"></textarea>
+
+            </div>
 
             <div class="form-group">
                 <label>Tags</label>
                 <div class="d-flex justify-content-end">
+                    <div class="tags w-100 d-flex">
+                            <div class="tags-item display-flex" *ngFor="let item of tagsItem;let ind=index">
+                                <div class="d-flex">
+                                    <img class="tag-image" src="/assets/images/flags/germ.png">
+                                    <p class="title ml-2">FastCooking</p>
+                                </div>
+
+                                <span class="material-icons close" (click)="removeTegsItem(ind)">
+                                    close
+                                </span>
+                            </div>
+                    
+                    </div>
                     <span class="material-icons tags-icon">
                         add_circle
                     </span>
                 </div>
-
-                <button class="add-btn d-flex w-100 "><span class="m-auto btn-text">Add Tag</span></button>
+                <button class="add-btn d-flex w-100" (click)="addTag()"><span class="m-auto btn-text">Add Tag</span></button>
             </div>
-           
+
         </div>
     </div>
-
 </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 
 @Component({
     selector: "app-preparation-step",
@@ -8,7 +8,11 @@ import { Component, OnInit } from "@angular/core";
 
 export class PreparationStepComponent implements OnInit {
 
+    @Input() index: number;
+
     constructor() { }
 
-    ngOnInit() { }
+    ngOnInit() {
+        console.log(this.index);
+    }
 }
