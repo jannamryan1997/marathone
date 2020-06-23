@@ -8,23 +8,24 @@ import { Router } from '@angular/router';
     styleUrls: ["feed.view.scss"]
 })
 
-export class FeedView implements OnInit,AfterViewInit {
+export class FeedView implements OnInit, AfterViewInit {
 
     constructor(public _feedService: FeedService) {
-       
+
     }
 
     ngOnInit() {
-        this._getFeed();
+        // this._getFeed();
     }
 
-    ngAfterViewInit(){
-      
+    ngAfterViewInit() {
+
     }
 
     private _getFeed(): void {
         this._feedService.feed()
             .subscribe((data) => {
+                console.log(data);
 
             },
                 error => {

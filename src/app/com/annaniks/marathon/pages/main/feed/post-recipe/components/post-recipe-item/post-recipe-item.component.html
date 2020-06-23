@@ -12,8 +12,8 @@
                 </span>
             </div>
         </div>
-        <div class="information-posts">
-            <form [formGroup]="emojiForm">
+        <div class="information-posts" >
+            <form [formGroup]="emojiForm" *ngIf="postItem.title">
                 <emoji-mart (emojiClick)="addEmoji($event)" emoji="point_up" class="d-none"
                     [ngClass]="{'d-block':showemoji}"></emoji-mart>
                 <div class="text-right">
@@ -26,14 +26,24 @@
             </form>
         </div>
     </div>
-    <div class="image-content">
-            <img src="assets/images/feed-item-img.png" class="recipe-image" alt="Cinque Terre">
+    <div class="image-content" *ngIf="postItem.img">
+            <img [src]="postItem?.img" class="recipe-image" alt="Cinque Terre">
             <div class="close-img d-flex">
                     <span class="material-icons m-auto">
                             close
                         </span>
             </div>
     </div>
+
+    <div class="image-content" *ngIf="postItem.video">
+            <video controls class="recipe-image"  poster="" [src]="postItem?.video"></video>
+            <div class="close-img d-flex">
+                    <span class="material-icons m-auto">
+                            close
+                        </span>
+            </div>
+    </div>
+
     <button class="post-btn w-100"><span>Post</span></button>
 </div>
 

@@ -4,11 +4,13 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 
-export class FeedService{
+export class FeedService {
 
-    constructor(private _httpClient:HttpClient, @Inject('BASE_URL') private _baseUrl){}
+    constructor(private _httpClient: HttpClient, @Inject('BASE_URL') private _baseUrl) { }
 
-    public feed():Observable<any>{
-        return this._httpClient.get<any>(this._baseUrl+'/feed/feed/')
+    public feed(): Observable<any> {
+        let params = new HttpParams();
+     params.set('authorization', 'false');
+        return this._httpClient.get<any>(this._baseUrl + '/feed/feed/', { params })
     }
 }

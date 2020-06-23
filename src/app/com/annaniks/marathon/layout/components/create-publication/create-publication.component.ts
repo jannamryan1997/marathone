@@ -1,5 +1,7 @@
-import { Component, OnInit, Input, AfterViewChecked } from "@angular/core";
+import { Component, OnInit, Input, AfterViewChecked, ViewChild, ElementRef } from "@angular/core";
 import { FormControl, Validators } from '@angular/forms';
+import { UserService } from '../../../core/services/user.service';
+import { RecipeResponseData, UploadFileResponse } from '../../../core/models';
 
 @Component({
     selector: "app-create-publication",
@@ -8,16 +10,19 @@ import { FormControl, Validators } from '@angular/forms';
 })
 
 export class CreatePublicationComponent implements OnInit {
-
+    public uploadType: string;
     public postType = new FormControl('');
     public post: boolean = false;
-    public showImage: boolean = false;
-    public showemoji:boolean=false;
-    public contentImageItem: string;
+    public showemoji: boolean = false;
+    public controImageItem: string="";
+    public controVideoItem: string="";
 
-    @Input() postItem;
+    @Input() postItem: RecipeResponseData[];
 
-    constructor() { }
+    @ViewChild('inputImageReference') private _inputImageReference:ElementRef;
+    @ViewChild('inputVideoReference') private _inputVideoReference:ElementRef;
+
+    constructor(public _userService: UserService) { }
 
     ngOnInit() { }
 
@@ -26,50 +31,105 @@ export class CreatePublicationComponent implements OnInit {
         this.post = true;
     }
     public hidePost(): void {
-        if (this.postType.value ==='' || this.postType.value ===null  && this.showImage === false) {
+        if (this.postType.value === '' || this.postType.value === null && this.uploadType === '') {
             this.post = false;
         }
     }
-    public setServicePhoto(event): void {
-        if (event) {
-            this.showImage = true;
-            const reader = new FileReader();
-            reader.onload = (e: any) => {
-                this.contentImageItem = e.target.result;
-            };
-            if (event.target.files[0]) {
-                reader.readAsDataURL(event.target.files[0]);
+
+    private _setFormDataForImage(image) {
+        let fileName: string;
+        if (image && image.target) {
+            const formData = new FormData();
+            let fileList: FileList = image.target.files;
+            if (fileList.length > 0) {
+                let file: File = fileList[0];
+                formData.append('file', file, file.name);
+                this._userService.uploadVideoFile(formData)
+                    .subscribe((data:UploadFileResponse) => {
+                        console.log(data);
+                        fileName='http://annaniks.com:6262/media/'+data.file_name;
+                        if (this.uploadType === 'image') {
+                            this.resetImageUplaodInput()
+                            this.controImageItem = fileName;
+                        }
+                        else if (this.uploadType === 'video') {
+                            this.resetVideoUplaodInput()
+                            this.controVideoItem = fileName;
+                        }
+                        this.post = true;
+                        console.log(this.uploadType);
+                    })
             }
-            this.showImage = true;
-            this.post = true;
         }
     }
 
-    addEmoji($event) {
-        let data = this.postType.value+ $event.emoji.native;
+
+    private resetImageUplaodInput() :void{
+        this._inputImageReference.nativeElement.value = ''
+    }
+
+    private resetVideoUplaodInput() :void{
+        this._inputVideoReference.nativeElement.value = ''
+    }
+
+    public addEmoji($event): void {
+        let data = this.postType.value + $event.emoji.native;
         this.postType.patchValue(data)
-        
+
     }
 
     public showEmoji(): void {
-        this.post=true;
+        this.post = true;
         this.showemoji = !this.showemoji;
     }
 
     public createdPost(): void {
+
         this.postItem.push(
             {
-                img: this.contentImageItem,
-                title:this.postType.value,
+                img: this.controImageItem,
+                title: this.postType.value,
+                video: this.controVideoItem
             }
         )
-   
-this.post=false;
-this.postType.patchValue('');
-this.showImage=false;
 
+        this.post = false;
+        this.postType.patchValue('');
+        this.uploadType = null;
+        this.controImageItem='';
+        this.controVideoItem='';
+        console.log(this.controImageItem,"image",this.controVideoItem,"video");
+        
     }
 
+
+    public setServicePhoto(event, type) {
+        if (type === 'image') {
+            this.uploadType = 'image';
+        }
+        else {
+            this.uploadType = 'video';
+        }
+
+        this._setFormDataForImage(event);
+    }
+
+
+    public setServiceVideo(event) {
+        this.uploadType = 'video';
+        this._setFormDataForImage(event);
+    }
+
+
+    public closeControlItem(): void {
+        this.uploadType = null;
+        console.log(this.uploadType);
+
+        if (this.postType.value === '' || this.postType.value === null) {
+            this.post = false;
+        }
+
+    }
 }
 
 
