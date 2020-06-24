@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { PropertyModal } from '../../../../core/modals';
 import { FeedPostsService } from './feed-posts.service';
 
+
 @NgModule({
     declarations: [FeedPostsView,PropertyModal],
     imports: [FeedPostsRoutingModule,SharedModule,CommonModule],

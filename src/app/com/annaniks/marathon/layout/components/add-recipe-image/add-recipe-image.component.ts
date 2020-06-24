@@ -11,8 +11,5 @@ export class AddRecipeImageComponent implements OnInit {
 
     constructor() { }
 
-    ngOnInit() { 
-        console.log(this.recipeImageItem,"hhhhhhhhhhhhh");
-        
-    }
+    ngOnInit() { }
 }

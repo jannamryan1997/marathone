@@ -10,41 +10,59 @@
             more_vert
         </span>
     </div>
-    <div class="post-content" *ngIf="postType === 'text'">
+    <div class="post-content" *ngIf="feedItem.text && feedItem.image ==='' && feedItem.video ==='' ">
         <div class="post-container">
-            <p class="title show-content" [ngClass]="{'show':showTitle}">{{postItem?.title}}</p>
+            <p class="title show-content" [ngClass]="{'show':showTitle}">{{feedItem?.text}}</p>
             <p class="title more">...</p>
             <p class="title more" (click)="onClickSeeMore()">See More</p>
         </div>
 
     </div>
-    <div class="post-content" *ngIf="postType === 'image'">
+    <div class="post-content" *ngIf="feedItem.video ==='' && feedItem.text ==='' && feedItem.image">
         <div class="post-container p-0">
-            <img src="{{postItem?.image}}" class="image" alt="Cinque Terre" (click)="openPropertyModalByImage()">
+            <img src="{{feedItem?.image}}" class="image" alt="Cinque Terre" (click)="openPropertyModalByImage()">
         </div>
     </div>
 
-    <div class="post-content" *ngIf="postType === 'combinations'">
+    <div class="post-content" *ngIf="feedItem.video ==='' && feedItem.text && feedItem.image">
         <div class="post-container p-0">
-            <img src="{{postItem?.image}}" class="food-image" alt="Cinque Terre" routerLink="/feed/combination/12">
+            <img src="{{feedItem?.image}}" class="food-image" alt="Cinque Terre" routerLink="/feed/combination/12">
             <div class="combinations-description">
-                <p class="title">8 unusual food combinations that can make you lose weigth in just 30 days!</p>
+                <p class="title">{{feedItem?.text}}</p>
                 <p class="name">by Maya Crouche</p>
             </div>
         </div>
     </div>
-    <div class="post-content" *ngIf="postType === 'video'">
+
+    <div class="post-content" *ngIf="feedItem.video && feedItem.text && feedItem.image==''">
+        <div class="post-container p-0">
+            <video controls class="vido w-100" poster="assets/images/img.4.png" src="{{feedItem?.video}}"> </video>
+            <!-- <img src="{{feedItem?.image}}" class="food-image" alt="Cinque Terre" routerLink="/feed/combination/12"> -->
+            <div class="combinations-description">
+                <p class="title">{{feedItem?.text}}</p>
+                <p class="name">by Maya Crouche</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-content" *ngIf="feedItem.video && feedItem.text==='' && feedItem.image===''">
         <div class="post-container p-0" (click)="openPropertyModalByVideo()">
-            <video controls class="vido w-100" poster="assets/images/img.4.png">
-                <source src="{{postItem?.video}}">
+            <video controls class="vido w-100" poster="assets/images/img.4.png" src="{{feedItem?.video}}">
             </video>
         </div>
 
     </div>
+    <div class="post-content" *ngIf="feedItem.videoLink">
+        <div class="post-container p-0" >
+            <iframe  class="vido w-100" src="https://www.youtube.com/embed/tgbNymZ7vqY">
+            </iframe>
+        </div>
 
-    <div class="post-content" *ngIf="postType === 'chicken'">
+    </div>
+
+    <!-- <div class="post-content" *ngIf="postType === 'chicken'">
         <div class="post-container chicken-content p-0">
-            <img src="{{postItem?.image}}" class="chicken-image" alt="Cinque Terre">
+            <img src="{{feedItem?.image}}" class="chicken-image" alt="Cinque Terre">
             <button class="btn position-absolute" routerLink='ingridient/1'>Gluten Free</button>
             <div class="comments  d-flex position-absolute w-100 justify-content-between">
                 <div class="comments-description">
@@ -75,10 +93,14 @@
             </div>
         </div>
 
-    </div>
+    </div> -->
     <app-settings (openChanges)='onClickOpen($event)'></app-settings>
     <div class="posts-comments" *ngIf="isOpen">
         <app-comments *ngFor="let item of comments" [comments]="item"></app-comments>
         <app-posts-comments [comments]="comments"></app-posts-comments>
     </div>
 </div>
+
+
+
+

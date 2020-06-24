@@ -1,7 +1,8 @@
-import { Component, OnInit, Input, AfterViewChecked, ViewChild, ElementRef } from "@angular/core";
+import { Component, OnInit, Input, AfterViewChecked, ViewChild, ElementRef, AfterViewInit } from "@angular/core";
 import { FormControl, Validators } from '@angular/forms';
 import { UserService } from '../../../core/services/user.service';
 import { RecipeResponseData, UploadFileResponse } from '../../../core/models';
+import { FeedService } from '../../../pages/main/feed/feed.service';
 
 @Component({
     selector: "app-create-publication",
@@ -10,31 +11,107 @@ import { RecipeResponseData, UploadFileResponse } from '../../../core/models';
 })
 
 export class CreatePublicationComponent implements OnInit {
+    @Input() feedItem: any;
+    @ViewChild('inputImageReference') private _inputImageReference: ElementRef;
+    @ViewChild('inputVideoReference') private _inputVideoReference: ElementRef;
     public uploadType: string;
-    public postType = new FormControl('');
+    public postType = new FormControl();
     public post: boolean = false;
     public showemoji: boolean = false;
-    public controImageItem: string="";
-    public controVideoItem: string="";
+    public controImageItem: string = "";
+    public controVideoItem: string = "";
+    public player;
+    public YT: any;
+    private _videoId: string;
+    public videoTumble: string;
+    public contentFileName:string='';
 
-    @Input() postItem: RecipeResponseData[];
+    constructor(public _userService: UserService, private _feedService: FeedService) { }
 
-    @ViewChild('inputImageReference') private _inputImageReference:ElementRef;
-    @ViewChild('inputVideoReference') private _inputVideoReference:ElementRef;
+    ngOnInit() {}
 
-    constructor(public _userService: UserService) { }
-
-    ngOnInit() { }
-
-
-    public showPost(): void {
-        this.post = true;
+    private _parseYoutubeUrl(url: string): string {
+        var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
+        var match = url.match(regExp);
+        return (match && match[7].length == 11) ? match[7] : null;
     }
-    public hidePost(): void {
-        if (this.postType.value === '' || this.postType.value === null && this.uploadType === '') {
-            this.post = false;
+
+    private _initPlayer(): void {
+        if (window['YT']) {
+            this._startVideo();
+            return;
         }
+        let tag = document.createElement('script');
+        tag.src = 'https://www.youtube.com/iframe_api';
+        let firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        window['onYouTubeIframeAPIReady'] = () => this._startVideo();
     }
+
+    private _startVideo(): void {
+        this.YT = window['YT'];
+        if (this.player) {
+            this.player.loadVideoById({
+                videoId: this._videoId,
+            });
+            return;
+        }
+        this.player = new window['YT'].Player('player', {
+            events: {
+                onStateChange: this._onPlayerStateChange.bind(this),
+                onError: this._onPlayerError.bind(this),
+                onReady: (e) => {
+                    this.player.loadVideoById({
+                        videoId: this._videoId,
+                    });
+                }
+
+            }
+        });
+        this.contentFileName=this._videoId;
+        console.log(this.contentFileName);
+        
+    }
+
+
+    private _onPlayerStateChange(event): void {
+        switch (event.data) {
+            case window['YT'].PlayerState.PLAYING:
+                if (this._cleanTime() == 0) {
+                    console.log('started ' + this._cleanTime());
+                } else {
+                    console.log('playing ' + this._cleanTime())
+                };
+                break;
+            case window['YT'].PlayerState.PAUSED:
+                if (this.player.getDuration() - this.player.getCurrentTime() != 0) {
+                    console.log('paused' + ' @ ' + this._cleanTime());
+                };
+                break;
+            case window['YT'].PlayerState.ENDED:
+                break;
+        };
+    };
+
+
+
+    private _cleanTime(): number {
+        this._videoId = this._parseYoutubeUrl(this.postType.value);
+        return Math.round(this.player.getCurrentTime())
+    };
+
+    private _onPlayerError(event): void {
+        switch (event.data) {
+            case 2:
+                break;
+            case 100:
+                break;
+            case 101 || 150:
+                break;
+        };
+    }
+
 
     private _setFormDataForImage(image) {
         let fileName: string;
@@ -43,11 +120,20 @@ export class CreatePublicationComponent implements OnInit {
             let fileList: FileList = image.target.files;
             if (fileList.length > 0) {
                 let file: File = fileList[0];
-                formData.append('file', file, file.name);
+                if (this.uploadType === 'video') {
+                    formData.append('video', file, file.name);
+                }
+                else {
+                    formData.append('file', file, file.name);
+                }
+
                 this._userService.uploadVideoFile(formData)
-                    .subscribe((data:UploadFileResponse) => {
+                    .subscribe((data: UploadFileResponse) => {
                         console.log(data);
-                        fileName='http://annaniks.com:6262/media/'+data.file_name;
+                        // fileName = 'http://annaniks.com:6262/media/' + data.file_name;
+                        fileName = 'http://192.168.1.115:9000/media/' + data.file_name;
+                        this.contentFileName= data.file_name;
+                        this.videoTumble = 'http://192.168.1.115:9000/media/vido_tumbl/' + data.file_name_tumbl;
                         if (this.uploadType === 'image') {
                             this.resetImageUplaodInput()
                             this.controImageItem = fileName;
@@ -57,18 +143,17 @@ export class CreatePublicationComponent implements OnInit {
                             this.controVideoItem = fileName;
                         }
                         this.post = true;
-                        console.log(this.uploadType);
                     })
             }
         }
     }
 
 
-    private resetImageUplaodInput() :void{
+    private resetImageUplaodInput(): void {
         this._inputImageReference.nativeElement.value = ''
     }
 
-    private resetVideoUplaodInput() :void{
+    private resetVideoUplaodInput(): void {
         this._inputVideoReference.nativeElement.value = ''
     }
 
@@ -83,24 +168,7 @@ export class CreatePublicationComponent implements OnInit {
         this.showemoji = !this.showemoji;
     }
 
-    public createdPost(): void {
 
-        this.postItem.push(
-            {
-                img: this.controImageItem,
-                title: this.postType.value,
-                video: this.controVideoItem
-            }
-        )
-
-        this.post = false;
-        this.postType.patchValue('');
-        this.uploadType = null;
-        this.controImageItem='';
-        this.controVideoItem='';
-        console.log(this.controImageItem,"image",this.controVideoItem,"video");
-        
-    }
 
 
     public setServicePhoto(event, type) {
@@ -112,24 +180,74 @@ export class CreatePublicationComponent implements OnInit {
         }
 
         this._setFormDataForImage(event);
+         this.player.stopVideo();
+            this.player.destroy();
+            this.player = null; 
     }
 
 
-    public setServiceVideo(event) {
+    public setServiceVideo(event, type) {
         this.uploadType = 'video';
         this._setFormDataForImage(event);
+         this.player.stopVideo();
+            this.player.destroy();
+            this.player = null; 
     }
 
 
     public closeControlItem(): void {
         this.uploadType = null;
         console.log(this.uploadType);
-
         if (this.postType.value === '' || this.postType.value === null) {
             this.post = false;
         }
-
     }
+
+    public showPost(): void {
+        this.post = true;
+    }
+
+    public hidePost(): void {
+        if (this.postType.value === '' || this.postType.value === null && this.uploadType === '') {
+            this.post = false;
+        }
+        this._videoId = this._parseYoutubeUrl(this.postType.value);
+        if (this._videoId) {
+            this._initPlayer();
+        }
+        else {
+            this._destroyYoutubePlayer();
+        }
+    }
+
+    private _destroyYoutubePlayer(): void {
+        if (this.player) {
+            this.player.stopVideo();
+            this.player.destroy();
+            this.player = null;
+        }
+    }
+
+    public createdPost(): void {
+        this._userService.postFeed({
+            title: this.postType.value,
+            content:this.contentFileName,
+        }).subscribe((data)=>{
+            console.log(data);
+            this.post = false;
+            this.postType.patchValue('');
+            this.uploadType = null;
+            this.controImageItem = '';
+            this.controVideoItem = '';
+            // this.player.stopVideo();
+            // this.player.destroy();
+            // this.player = null; 
+            console.log(data);
+        })
+
+       
+    }
+
 }
 
 

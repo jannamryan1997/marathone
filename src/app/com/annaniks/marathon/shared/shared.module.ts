@@ -10,10 +10,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { CKEditorModule } from 'ng2-ckeditor';
 import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { ClickOutsideModule } from 'ng-click-outside';
-
+import { PlyrModule } from 'ngx-plyr';
 
 import { AuthModal } from '../core/modals';
 import { AuthGuard } from '../core/guards/auth.guard';
+
 
 import { FeedPostCardItemComponent } from '../pages/main/feed/feed-posts/component/feed-post-card-item/feed-post-card-item.component';
 
@@ -73,6 +74,7 @@ import {
         MatSelectModule,
         MatFormFieldModule,
         CKEditorModule,
+        PlyrModule,
     ],
     providers: [AuthGuard],
     entryComponents: [],
@@ -107,7 +109,8 @@ import {
         CreatePublicationComponent,
         ContentImageComponent,
         ContentVideoComponent,
-        IngridientItemComponent
+        IngridientItemComponent,
+        PlyrModule
     ]
 })
 

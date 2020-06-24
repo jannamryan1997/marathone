@@ -65,6 +65,7 @@ export function provideConfig() {
       useFactory: provideConfig
     },
     AuthUserService,
+  
   ],
   bootstrap: [AppComponent]
 })

@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+
   title = 'marathon';
   filteredCountriesMultiple: any[];
 
@@ -16,6 +17,8 @@ export class AppComponent implements OnInit {
     this._router.events.subscribe((evt) => {
       window.scrollTo(0, 0)
     });
+
+    
   }
   onActivate(event) {
     let scrollToTop = window.setInterval(() => {
@@ -28,5 +31,5 @@ export class AppComponent implements OnInit {
     }, 1);
   }
 
-
+ 
 }

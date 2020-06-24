@@ -4,8 +4,8 @@
             <p class="title">Create Pablication</p>
             <div class="d-flex">
                 <div class="d-flex">
-                    <input #inputImageReference class="" type="file" id="file" name="avatar" accept="image/png,image/jpeg"
-                        (change)="setServicePhoto($event,'image')">
+                    <input #inputImageReference class="" type="file" id="file" name="avatar"
+                        accept="image/png,image/jpeg" (change)="setServicePhoto($event,'image')">
                     <label class="label-btn d-flex" for="file">
                         <div class="display-flex">
                             <span class="material-icons">
@@ -17,8 +17,8 @@
                 </div>
 
                 <div class="d-flex">
-                    <input #inputVideoReference class="" type="file" id="videofile" name="videofile" accept="video/mp4,video/x-m4v,video/"
-                        (change)="setServicePhoto($event,'video')">
+                    <input #inputVideoReference class="" type="file" id="videofile" name="videofile"
+                        accept="video/mp4,video/x-m4v,video/" (change)="setServicePhoto($event,'video')">
                     <label class=" label-btn d-flex" for="videofile">
                         <div class="display-flex">
                             <p class="title ml-2 mr-2">Video</p>
@@ -46,8 +46,7 @@
         </div>
     </div>
     <div class="image-content" *ngIf="uploadType==='video'">
-        <video controls class="update-image w-100" poster="" [src]="controVideoItem">
-          
+        <video controls class="update-image w-100" poster="{{videoTumble}}" [src]="controVideoItem">
         </video>
         <div class="close-img d-flex" (click)="closeControlItem()">
             <span class="material-icons m-auto">
@@ -55,6 +54,11 @@
             </span>
         </div>
     </div>
+
+    <div class="image-content">
+        <div id="player" class="update-image w-100"></div>
+    </div>
+
 
     <div class="button-content display-flex" *ngIf="!post">
         <div class="button-item d-flex">

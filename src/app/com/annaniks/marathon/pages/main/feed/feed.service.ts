@@ -10,7 +10,9 @@ export class FeedService {
 
     public feed(): Observable<any> {
         let params = new HttpParams();
-     params.set('authorization', 'false');
+        params= params.set('authorization', 'false');
         return this._httpClient.get<any>(this._baseUrl + '/feed/feed/', { params })
     }
+
+    
 }

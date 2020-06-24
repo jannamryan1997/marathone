@@ -17,9 +17,7 @@ export class PostRecipeItemComponent implements OnInit {
 
     ngOnInit() {
         this._formBuilder();
-        this._setPatchValue();
-        console.log(this.postItem,"hhhhhhhhhhhhhhhhhhh");
-        
+        this._setPatchValue(); 
     }
 
     private _formBuilder(): void {

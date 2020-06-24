@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from "@angular/core";
 import { MatDialog } from '@angular/material/dialog';
 import { PropertyModal } from 'src/app/com/annaniks/marathon/core/modals';
 
-export type PostType = "video" | "text" | "image" | "combinations" | "chicken"
+// export type PostType = "video" | "text" | "image" | "combinations" | "chicken"
 
 @Component({
     selector: "app-feed-post-card-item",
@@ -11,10 +11,11 @@ export type PostType = "video" | "text" | "image" | "combinations" | "chicken"
 })
 
 export class FeedPostCardItemComponent implements OnInit {
-    @Input('postType') public postType: PostType;
-    @Input() postItem;
+    // @Input('postType') public postType: PostType;
+    @Input() feedItem:any;
     public showTitle: boolean;
     public isOpen: boolean = false;
+
     public comments = [
         {
             image: "assets/images/img8.png", name: "hanna mryan", time: "1 hour ago", message: "barevvvvvvvvv bari voxjuyn hiiiii", view: "2", like: "25", dislike: "6",
@@ -27,7 +28,7 @@ export class FeedPostCardItemComponent implements OnInit {
 
     constructor(private _matDialog: MatDialog) { }
 
-    ngOnInit() { }
+    ngOnInit() {}
 
 
 
@@ -59,4 +60,6 @@ export class FeedPostCardItemComponent implements OnInit {
     public onClickOpen($event): void {
         this.isOpen = $event;
     }
+
+
 }

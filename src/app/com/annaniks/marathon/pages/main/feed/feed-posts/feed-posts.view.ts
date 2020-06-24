@@ -10,26 +10,37 @@ export class FeedPostsView implements OnInit {
 
     public postItem = [
         {
-            postType: "text",
-            title: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Blanditiis deleniti mollitia aut suntdolorum odit modi dolore ratione beatae quisquam consequuntur sed, amet optio doloribus inventore deseruntillo incidunt tempora.Lorem ipsum, dolor sit amet consectetur adipisicing elit. Blanditiis deleniti mollitia aut suntdolorum odit modi dolore ratione beatae quisquam consequuntur sed, amet optio doloribus inventore deseruntillo incidunt tempora.Lorem ipsum, dolor sit amet consectetur adipisicing elit. Blanditiis deleniti mollitia aut suntdolorum odit modi dolore ratione beatae quisquam consequuntur sed, amet optio doloribus inventore deseruntillo incidunt tempora.Lorem ipsum, dolor sit amet consectetur adipisicing elit. Blanditiis deleniti mollitia aut suntdolorum odit modi dolore ratione beatae quisquam consequuntur sed, amet optio doloribus inventore deseruntillo incidunt tempora."
+            video: '',
+            image: '',
+            videoLink:"",
+            text: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Blanditiis deleniti mollitia aut suntdolorum odit modi dolore ratione beatae quisquam consequuntur sed, amet optio doloribus inventore deseruntillo incidunt tempora.Lorem ipsum, dolor sit amet consectetur adipisicing elit. Blanditiis deleniti mollitia aut suntdolorum odit modi dolore ratione beatae quisquam consequuntur sed, amet optio doloribus inventore deseruntillo incidunt tempora.Lorem ipsum, dolor sit amet consectetur adipisicing elit. Blanditiis deleniti mollitia aut suntdolorum odit modi dolore ratione beatae quisquam consequuntur sed, amet optio doloribus inventore deseruntillo incidunt tempora.Lorem ipsum, dolor sit amet consectetur adipisicing elit. Blanditiis deleniti mollitia aut suntdolorum odit modi dolore ratione beatae quisquam consequuntur sed, amet optio doloribus inventore deseruntillo incidunt tempora."
         },
         {
-            postType: "image",
-            image: "assets/images/foodimg.png"
+
+            image: "assets/images/foodimg.png",
+            video: '',
+            text: '',
+            videoLink:""
         },
 
         {
-            postType: "video",
-            video: "assets/images/vido.mp4"
+            image: '',
+            video: "assets/images/vido.mp4",
+            text: '',
+            videoLink:""
         },
         {
-            postType: "combinations",
+
             image: "assets/images/img3.png",
+            video: '',
+            text: 'barevvvvvvvvvv',
+            videoLink:""
         },
-        {
-            postType: "chicken",
-            image: "assets/images/chicken.png",
-        },
+
+        // {
+        //     postType: "chicken",
+        //     image: "assets/images/chicken.png",
+        // },
     ]
     constructor() { }
 
