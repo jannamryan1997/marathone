@@ -8,37 +8,37 @@ import { RecipeResponseData } from 'src/app/com/annaniks/marathon/core/models';
     styleUrls: ["post-recipe-item.component.scss"]
 })
 
-export class PostRecipeItemComponent implements OnInit {
-    public emojiForm: FormGroup;
-    public showemoji: boolean = false;
-    @Input() postItem:RecipeResponseData;
+export class PostRecipeItemComponent  {
+    // public emojiForm: FormGroup;
+    // public showemoji: boolean = false;
+    // @Input() postItem:RecipeResponseData;
 
-    constructor(private _fb: FormBuilder) { }
+    // constructor(private _fb: FormBuilder) { }
 
-    ngOnInit() {
-        this._formBuilder();
-        this._setPatchValue(); 
-    }
+    // ngOnInit() {
+    //     this._formBuilder();
+    //     this._setPatchValue(); 
+    // }
 
-    private _formBuilder(): void {
-        this.emojiForm = this._fb.group({
-            inputField: [null],
-        })
-    }
+    // private _formBuilder(): void {
+    //     this.emojiForm = this._fb.group({
+    //         inputField: [null],
+    //     })
+    // }
 
-    private _setPatchValue():void{
-        this.emojiForm.patchValue({
-            inputField:this.postItem.title,
-        })
-    }
+    // private _setPatchValue():void{
+    //     this.emojiForm.patchValue({
+    //         inputField:this.postItem.title,
+    //     })
+    // }
 
-    public addEmoji($event):void {
-        let data = this.emojiForm.get('inputField');
-        data.patchValue(data.value + $event.emoji.native)
-    }
+    // public addEmoji($event):void {
+    //     let data = this.emojiForm.get('inputField');
+    //     data.patchValue(data.value + $event.emoji.native)
+    // }
 
-    public showEmoji(): void {
-        this.showemoji = !this.showemoji;
-    }
+    // public showEmoji(): void {
+    //     this.showemoji = !this.showemoji;
+    // }
 
 }

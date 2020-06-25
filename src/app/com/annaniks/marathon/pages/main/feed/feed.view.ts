@@ -15,7 +15,7 @@ export class FeedView implements OnInit, AfterViewInit {
     }
 
     ngOnInit() {
-        // this._getFeed();
+         this._getFeed();
     }
 
     ngAfterViewInit() {

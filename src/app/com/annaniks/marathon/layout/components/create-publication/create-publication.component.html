@@ -1,4 +1,4 @@
-<div class="feed-header-content">
+<div class="feed-header-content" >
     <div class="recipe-header">
         <div class="display-flex">
             <p class="title">Create Pablication</p>
@@ -37,14 +37,18 @@
         </div>
     </div>
 
-    <div class="image-content" *ngIf="uploadType==='image'">
-        <img [src]="controImageItem" class="recipe-image" alt="">
-        <div class="close-img d-flex">
-            <span class="material-icons m-auto" (click)="closeControlItem()">
-                close
-            </span>
+  
+      
+        <div class="image-content" *ngIf="uploadType==='image'" >
+         
+            <img [src]="controImageItem" class="recipe-image" alt="" >
+            <div class="close-img d-flex">
+                <span class="material-icons m-auto" (click)="closeControlItem()">
+                    close
+                </span>
+            </div>
         </div>
-    </div>
+
     <div class="image-content" *ngIf="uploadType==='video'">
         <video controls class="update-image w-100" poster="{{videoTumble}}" [src]="controVideoItem">
         </video>
@@ -67,7 +71,7 @@
             </span>
             <span>Article</span>
         </div>
-        <div class="button-item d-flex" routerLink="/feed/post-recipe" routerLinkActive="activeTab">
+        <div class="button-item d-flex" routerLink="/recipe" routerLinkActive="activeTab">
             <span class="material-icons mr-1">
                 description
             </span>
@@ -90,4 +94,5 @@
     <div *ngIf="post">
         <button class="post-btn w-100" (click)="createdPost()"><span>Post</span></button>
     </div>
+    <spinner-loading *ngIf="loading"></spinner-loading>
 </div>

@@ -10,16 +10,19 @@ import { SharedModule } from '../../../../shared/shared.module';
 
 
 
-
 @NgModule({
-    declarations: [PostRecipeView,PostRecipeItemComponent],
+    declarations: [
+        PostRecipeView,
+        PostRecipeItemComponent,
+    ],
     imports: [
         SharedModule,
-        PostRecipeRoutingModule,   
+        PostRecipeRoutingModule,
         FormsModule,
         ReactiveFormsModule,
         CommonModule
-        ]
+    ],
+    entryComponents: []
 })
 
 export class PostRecipeModule {

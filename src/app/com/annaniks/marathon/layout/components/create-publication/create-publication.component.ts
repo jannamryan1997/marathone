@@ -3,6 +3,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { UserService } from '../../../core/services/user.service';
 import { RecipeResponseData, UploadFileResponse } from '../../../core/models';
 import { FeedService } from '../../../pages/main/feed/feed.service';
+import { CookieService } from 'ngx-cookie';
 
 @Component({
     selector: "app-create-publication",
@@ -14,6 +15,7 @@ export class CreatePublicationComponent implements OnInit {
     @Input() feedItem: any;
     @ViewChild('inputImageReference') private _inputImageReference: ElementRef;
     @ViewChild('inputVideoReference') private _inputVideoReference: ElementRef;
+    private _videoId: string;
     public uploadType: string;
     public postType = new FormControl();
     public post: boolean = false;
@@ -22,13 +24,18 @@ export class CreatePublicationComponent implements OnInit {
     public controVideoItem: string = "";
     public player;
     public YT: any;
-    private _videoId: string;
+
     public videoTumble: string;
-    public contentFileName:string='';
+    public contentFileName: string = '';
+    public loading = false;
 
-    constructor(public _userService: UserService, private _feedService: FeedService) { }
+    constructor(
+        public _userService: UserService,
+        private _feedService: FeedService,
+        private _cookieServie: CookieService
+    ) { }
 
-    ngOnInit() {}
+    ngOnInit() { }
 
     private _parseYoutubeUrl(url: string): string {
         var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
@@ -69,9 +76,10 @@ export class CreatePublicationComponent implements OnInit {
 
             }
         });
-        this.contentFileName=this._videoId;
+        this.contentFileName = this._videoId;
+        this.uploadType='videoLink';
         console.log(this.contentFileName);
-        
+
     }
 
 
@@ -114,6 +122,7 @@ export class CreatePublicationComponent implements OnInit {
 
 
     private _setFormDataForImage(image) {
+        this.loading = true;
         let fileName: string;
         if (image && image.target) {
             const formData = new FormData();
@@ -132,7 +141,7 @@ export class CreatePublicationComponent implements OnInit {
                         console.log(data);
                         // fileName = 'http://annaniks.com:6262/media/' + data.file_name;
                         fileName = 'http://192.168.1.115:9000/media/' + data.file_name;
-                        this.contentFileName= data.file_name;
+                        this.contentFileName = data.file_name;
                         this.videoTumble = 'http://192.168.1.115:9000/media/vido_tumbl/' + data.file_name_tumbl;
                         if (this.uploadType === 'image') {
                             this.resetImageUplaodInput()
@@ -141,8 +150,10 @@ export class CreatePublicationComponent implements OnInit {
                         else if (this.uploadType === 'video') {
                             this.resetVideoUplaodInput()
                             this.controVideoItem = fileName;
+                            
                         }
                         this.post = true;
+                        this.loading = false;
                     })
             }
         }
@@ -180,18 +191,18 @@ export class CreatePublicationComponent implements OnInit {
         }
 
         this._setFormDataForImage(event);
-         this.player.stopVideo();
-            this.player.destroy();
-            this.player = null; 
+        this.player.stopVideo();
+        this.player.destroy();
+        this.player = null;
     }
 
 
     public setServiceVideo(event, type) {
         this.uploadType = 'video';
         this._setFormDataForImage(event);
-         this.player.stopVideo();
-            this.player.destroy();
-            this.player = null; 
+        this.player.stopVideo();
+        this.player.destroy();
+        this.player = null;
     }
 
 
@@ -229,10 +240,20 @@ export class CreatePublicationComponent implements OnInit {
     }
 
     public createdPost(): void {
+        this.loading=true;
+        let role: string = this._cookieServie.get('role');
         this._userService.postFeed({
             title: this.postType.value,
-            content:this.contentFileName,
-        }).subscribe((data)=>{
+            content: JSON.stringify(
+                {
+                    url:this.contentFileName,
+                    type:this.uploadType,
+                }
+                ),
+            role: role,
+
+        }).subscribe((data) => {
+            this.loading=false;
             console.log(data);
             this.post = false;
             this.postType.patchValue('');
@@ -245,7 +266,7 @@ export class CreatePublicationComponent implements OnInit {
             console.log(data);
         })
 
-       
+
     }
 
 }

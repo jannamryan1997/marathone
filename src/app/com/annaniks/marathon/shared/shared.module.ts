@@ -12,9 +12,10 @@ import { PickerModule } from '@ctrl/ngx-emoji-mart';
 import { ClickOutsideModule } from 'ng-click-outside';
 import { PlyrModule } from 'ngx-plyr';
 
+
 import { AuthModal } from '../core/modals';
 import { AuthGuard } from '../core/guards/auth.guard';
-
+import { NgxLoadingModule } from 'ngx-loading';
 
 import { FeedPostCardItemComponent } from '../pages/main/feed/feed-posts/component/feed-post-card-item/feed-post-card-item.component';
 
@@ -36,7 +37,7 @@ import {
     CreatePublicationComponent,
     ContentImageComponent,
     ContentVideoComponent,
-    IngridientItemComponent
+    SpinnerLoadingComponent,
 } from '../layout';
 
 
@@ -60,7 +61,7 @@ import {
         CreatePublicationComponent,
         ContentImageComponent,
         ContentVideoComponent,
-        IngridientItemComponent
+        SpinnerLoadingComponent
     ],
     imports: [
         ReactiveFormsModule,
@@ -75,6 +76,8 @@ import {
         MatFormFieldModule,
         CKEditorModule,
         PlyrModule,
+        NgxLoadingModule,
+ 
     ],
     providers: [AuthGuard],
     entryComponents: [],
@@ -92,10 +95,14 @@ import {
         AuthModal,
         MatSelectModule,
         HttpClientModule,
+        PlyrModule,
+        NgxLoadingModule,
+        
         HeaderComponent,
         LeftMenuCompomemtn,
         RightMenuComponent,
         CommentsComponent,
+        SpinnerLoadingComponent,
         SettingsComponent,
         PostsComments,
         FeedPostCardItemComponent,
@@ -109,8 +116,7 @@ import {
         CreatePublicationComponent,
         ContentImageComponent,
         ContentVideoComponent,
-        IngridientItemComponent,
-        PlyrModule
+   
     ]
 })
 

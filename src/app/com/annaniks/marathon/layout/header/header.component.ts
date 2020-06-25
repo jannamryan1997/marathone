@@ -18,7 +18,7 @@ export class HeaderComponent implements OnInit {
     public menuItem: MenuItem[] = [
         { routerLink: "/feed", title: "Feed" },
         { routerLink: "#", title: "Coaches" },
-        { routerLink: "/recipe", title: "Recipes" },
+        { routerLink: "#", title: "Recipes" },
         { routerLink: "#", title: "Workouts" },
         { routerLink: "/article", title: "Articels" },
         { routerLink: "#", title: "Q & A" },
