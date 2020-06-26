@@ -1,6 +1,7 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { MatDialog } from '@angular/material/dialog';
 import { PropertyModal } from 'src/app/com/annaniks/marathon/core/modals';
+import { FeedResponseData, Content } from 'src/app/com/annaniks/marathon/core/models';
 
 // export type PostType = "video" | "text" | "image" | "combinations" | "chicken"
 
@@ -12,9 +13,10 @@ import { PropertyModal } from 'src/app/com/annaniks/marathon/core/modals';
 
 export class FeedPostCardItemComponent implements OnInit {
     // @Input('postType') public postType: PostType;
-    @Input() feedItem:any;
-    public showTitle: boolean;
+    @Input() feedItem: FeedResponseData;
+    public showTitle: boolean = false;
     public isOpen: boolean = false;
+    public content;
 
     public comments = [
         {
@@ -28,7 +30,14 @@ export class FeedPostCardItemComponent implements OnInit {
 
     constructor(private _matDialog: MatDialog) { }
 
-    ngOnInit() {}
+    ngOnInit() {
+        if (this.feedItem.feed_media && this.feedItem.feed_media.length) {
+            this.content = this.feedItem.feed_media[0].content;
+            console.log(this.feedItem.feed_media[0].content);
+        }
+
+
+    }
 
 
 
@@ -60,6 +69,10 @@ export class FeedPostCardItemComponent implements OnInit {
     public onClickOpen($event): void {
         this.isOpen = $event;
     }
+
+
+
+  
 
 
 }

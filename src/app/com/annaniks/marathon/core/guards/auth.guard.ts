@@ -23,8 +23,11 @@ export class AuthGuard implements CanActivate {
                 return this._userService.getClient()
                     .pipe(
                         map((data) => {
+                            const getmeiD = data.data.id;
+
                             this._userService.user = data;
                             this._userService.isAuthorized = true;
+                            this._cookieService.put('userId', getmeiD)
                             return true;
                         }),
                         catchError(() => {
@@ -38,8 +41,12 @@ export class AuthGuard implements CanActivate {
                 return this._userService.getCoatch()
                     .pipe(
                         map((data) => {
+                            const getmeiD = data.data.id;
+                            console.log(getmeiD);
+                            
                             this._userService.user = data;
                             this._userService.isAuthorized = true;
+                            this._cookieService.put('userId', getmeiD)
                             return true;
                         }),
                         catchError(() => {

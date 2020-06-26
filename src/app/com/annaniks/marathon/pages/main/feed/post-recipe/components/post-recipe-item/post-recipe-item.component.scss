@@ -19,14 +19,14 @@
         .recipe-header {
             .title {
                 @include text(16px, 19px, #BEC8DD, EncodeSans-Bold);
-                font-weight: bold;
+                
             }
 
             .material-icons {
                 font-size: 22px;
                 line-height: 19px;
                 color: #BEC8DD;
-                font-weight: bold;
+                
                 cursor: pointer;
             }
         }
@@ -73,7 +73,7 @@
         border: 1px solid #589CFE;
         padding: 16px 0;
         @include text(20px, 24px, #FFFFFF, EncodeSans-Bold);
-        font-weight: bold;
+        
     }
 }
 

@@ -1,4 +1,6 @@
 import { Component, OnInit } from "@angular/core";
+import { FeedService } from '../feed.service';
+import { FeedData, FeedResponseData } from '../../../../core/models';
 
 @Component({
     selector: "feed-posts-view",
@@ -7,43 +9,34 @@ import { Component, OnInit } from "@angular/core";
 })
 
 export class FeedPostsView implements OnInit {
+    public feedItem: FeedResponseData[];
+    public content: any;
+    constructor(public _feedService: FeedService) { }
 
-    public postItem = [
-        {
-            video: '',
-            image: '',
-            videoLink:"",
-            text: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Blanditiis deleniti mollitia aut suntdolorum odit modi dolore ratione beatae quisquam consequuntur sed, amet optio doloribus inventore deseruntillo incidunt tempora.Lorem ipsum, dolor sit amet consectetur adipisicing elit. Blanditiis deleniti mollitia aut suntdolorum odit modi dolore ratione beatae quisquam consequuntur sed, amet optio doloribus inventore deseruntillo incidunt tempora.Lorem ipsum, dolor sit amet consectetur adipisicing elit. Blanditiis deleniti mollitia aut suntdolorum odit modi dolore ratione beatae quisquam consequuntur sed, amet optio doloribus inventore deseruntillo incidunt tempora.Lorem ipsum, dolor sit amet consectetur adipisicing elit. Blanditiis deleniti mollitia aut suntdolorum odit modi dolore ratione beatae quisquam consequuntur sed, amet optio doloribus inventore deseruntillo incidunt tempora."
-        },
-        {
+    ngOnInit() {
+        this._getFeed();
+    }
 
-            image: "assets/images/foodimg.png",
-            video: '',
-            text: '',
-            videoLink:""
-        },
+    private _getFeed(): void {
+        this._feedService.feed()
+            .subscribe((data: FeedData) => {
+                console.log(data,"feddddddddddddddddddddddddd");
+                this.feedItem = data.results;
+                for (let item of this.feedItem) {
+                    for (let media of item.feed_media) {
+                        media.content = JSON.parse(media.content)
+                    }
+                }
+                
+            },
+                error => {
 
-        {
-            image: '',
-            video: "assets/images/vido.mp4",
-            text: '',
-            videoLink:""
-        },
-        {
+                }
+            )
+    }
 
-            image: "assets/images/img3.png",
-            video: '',
-            text: 'barevvvvvvvvvv',
-            videoLink:""
-        },
-
-        // {
-        //     postType: "chicken",
-        //     image: "assets/images/chicken.png",
-        // },
-    ]
-    constructor() { }
-
-    ngOnInit() { }
+    public onPostCreated(): void {
+        console.log('calleeeedddd');
+        this._getFeed();
+    }
 }
-

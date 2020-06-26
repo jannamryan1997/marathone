@@ -77,6 +77,7 @@ export class SignInComponent implements OnInit {
                 this._cookieService.put('role', data.role);
                 this._profileUserService.isAuthorized = true;
                 console.log(this._profileUserService.isAuthorized);
+                location.reload();
             },
                 err => {
                     console.log(err);

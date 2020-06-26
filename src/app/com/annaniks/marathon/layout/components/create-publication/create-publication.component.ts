@@ -1,7 +1,7 @@
-import { Component, OnInit, Input, AfterViewChecked, ViewChild, ElementRef, AfterViewInit } from "@angular/core";
+import { Component, OnInit, Input, AfterViewChecked, ViewChild, ElementRef, AfterViewInit, Output, EventEmitter } from "@angular/core";
 import { FormControl, Validators } from '@angular/forms';
 import { UserService } from '../../../core/services/user.service';
-import { RecipeResponseData, UploadFileResponse } from '../../../core/models';
+import { RecipeResponseData, UploadFileResponse, FeedData } from '../../../core/models';
 import { FeedService } from '../../../pages/main/feed/feed.service';
 import { CookieService } from 'ngx-cookie';
 
@@ -13,6 +13,7 @@ import { CookieService } from 'ngx-cookie';
 
 export class CreatePublicationComponent implements OnInit {
     @Input() feedItem: any;
+    @Output('postCreateEvent') private _postCreateEvent: EventEmitter<void> = new EventEmitter<void>();
     @ViewChild('inputImageReference') private _inputImageReference: ElementRef;
     @ViewChild('inputVideoReference') private _inputVideoReference: ElementRef;
     private _videoId: string;
@@ -35,7 +36,8 @@ export class CreatePublicationComponent implements OnInit {
         private _cookieServie: CookieService
     ) { }
 
-    ngOnInit() { }
+    ngOnInit() {
+    }
 
     private _parseYoutubeUrl(url: string): string {
         var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
@@ -77,7 +79,7 @@ export class CreatePublicationComponent implements OnInit {
             }
         });
         this.contentFileName = this._videoId;
-        this.uploadType='videoLink';
+        this.uploadType = 'videoLink';
         console.log(this.contentFileName);
 
     }
@@ -140,9 +142,9 @@ export class CreatePublicationComponent implements OnInit {
                     .subscribe((data: UploadFileResponse) => {
                         console.log(data);
                         // fileName = 'http://annaniks.com:6262/media/' + data.file_name;
-                        fileName = 'http://192.168.1.115:9000/media/' + data.file_name;
+                        fileName = 'http://annaniks.com:6262/media/' + data.file_name;
                         this.contentFileName = data.file_name;
-                        this.videoTumble = 'http://192.168.1.115:9000/media/vido_tumbl/' + data.file_name_tumbl;
+                        this.videoTumble = 'http://annaniks.com:6262/media/vido_tumbl/' + data.file_name_tumbl;
                         if (this.uploadType === 'image') {
                             this.resetImageUplaodInput()
                             this.controImageItem = fileName;
@@ -150,7 +152,7 @@ export class CreatePublicationComponent implements OnInit {
                         else if (this.uploadType === 'video') {
                             this.resetVideoUplaodInput()
                             this.controVideoItem = fileName;
-                            
+
                         }
                         this.post = true;
                         this.loading = false;
@@ -191,8 +193,10 @@ export class CreatePublicationComponent implements OnInit {
         }
 
         this._setFormDataForImage(event);
-        this.player.stopVideo();
-        this.player.destroy();
+        if (this.player) {
+            this.player.stopVideo();
+            this.player.destroy();
+        }
         this.player = null;
     }
 
@@ -200,8 +204,10 @@ export class CreatePublicationComponent implements OnInit {
     public setServiceVideo(event, type) {
         this.uploadType = 'video';
         this._setFormDataForImage(event);
-        this.player.stopVideo();
-        this.player.destroy();
+        if (this.player) {
+            this.player.stopVideo();
+            this.player.destroy();
+        }
         this.player = null;
     }
 
@@ -219,9 +225,11 @@ export class CreatePublicationComponent implements OnInit {
     }
 
     public hidePost(): void {
-        if (this.postType.value === '' || this.postType.value === null && this.uploadType === '') {
-            this.post = false;
-        }
+        console.log("dfsdsds");
+
+        // if (this.postType.value === '' || this.postType.value === null && this.uploadType === '' || this.uploadType ===undefined) {
+        //     this.post = false;
+        // }
         this._videoId = this._parseYoutubeUrl(this.postType.value);
         if (this._videoId) {
             this._initPlayer();
@@ -229,6 +237,8 @@ export class CreatePublicationComponent implements OnInit {
         else {
             this._destroyYoutubePlayer();
         }
+        console.log(this.uploadType, this.postType.value);
+
     }
 
     private _destroyYoutubePlayer(): void {
@@ -240,20 +250,20 @@ export class CreatePublicationComponent implements OnInit {
     }
 
     public createdPost(): void {
-        this.loading=true;
+        this.loading = true;
         let role: string = this._cookieServie.get('role');
         this._userService.postFeed({
             title: this.postType.value,
             content: JSON.stringify(
                 {
-                    url:this.contentFileName,
-                    type:this.uploadType,
+                    url: this.contentFileName,
+                    type: this.uploadType,
                 }
-                ),
+            ),
             role: role,
 
         }).subscribe((data) => {
-            this.loading=false;
+            this.loading = false;
             console.log(data);
             this.post = false;
             this.postType.patchValue('');
@@ -263,10 +273,27 @@ export class CreatePublicationComponent implements OnInit {
             // this.player.stopVideo();
             // this.player.destroy();
             // this.player = null; 
-            console.log(data);
+            this._postCreateEvent.emit();
+            console.log(data, 1);
+
         })
+        console.log(this.contentFileName);
+
+    }
 
 
+
+    private _getFeed(): void {
+        this._feedService.feed()
+            .subscribe((data: FeedData) => {
+                this.feedItem = data.results;
+                console.log(this.feedItem);
+
+            },
+                error => {
+
+                }
+            )
     }
 
 }

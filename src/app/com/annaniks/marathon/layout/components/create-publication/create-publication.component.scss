@@ -17,15 +17,13 @@
     .recipe-header {
         padding:18px 24px;
         .title {
-            @include text(16px, 19px, #BEC8DD, EncodeSans-Bold);
-            font-weight: bold;
+            @include text(16px, 19px, #BEC8DD,SemiBold);
             cursor: pointer;
         }
         .material-icons {
             font-size: 22px;
             line-height: 19px;
             color: #BEC8DD;
-            font-weight: bold;
             cursor: pointer;
         }
         .message-input {
@@ -61,13 +59,14 @@
     }
   .button-content{
       border-top: 0.5px solid #E3ECFD;
-      @include text(20px, 21px, #AFC1D1, EncodeSans-SemiBold);
+      @include text(16px, 21px, #AFC1D1, EncodeSans-SemiBold);
       flex-wrap: wrap;
       .button-item{
         border-right: 0.5px solid #E3ECFD;
         align-items: center;
           cursor: pointer;
           padding: 19px 33px;
+          font-size: 16px;
           &:last-child{
               border-right: none !important;
           }
@@ -83,7 +82,6 @@
     border: 1px solid #589CFE;
     padding: 16px 0;
     @include text(20px, 24px, #FFFFFF, EncodeSans-Bold);
-    font-weight: bold;
 }
 
 input[type="file"] {

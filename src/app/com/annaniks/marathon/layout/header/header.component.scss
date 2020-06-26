@@ -19,16 +19,16 @@ header {
 
         .header-content {
             .logo-text {
-                @include text(30px, 20px, #589CFE, Roboto);
+                @include text(30px, 20px, #589CFE,  EncodeSans-Bold);
                 letter-spacing: 3px;
-                font-weight: bold;
+                
             }
 
             .header-category {
                 .link {
                     @include text(18px, 21px, #AFC1D1, EncodeSans-Medium);
                     text-decoration: none;
-                    margin-right: 32px;
+                    margin-right: 24px;
                     cursor: pointer;
                     transition: .5s all ease-out;
                     height: fit-content;

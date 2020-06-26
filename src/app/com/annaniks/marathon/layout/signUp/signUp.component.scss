@@ -8,8 +8,7 @@
 .signUp-main {
     padding: 20px 0;
     .title {
-        @include text(25px, 30px, #5897F6, EncodeSans-Bold);
-        font-weight: 600;
+        @include text(22px, 30px, #5897F6, EncodeSans-Bold);
     }
 
     .main-header {
@@ -50,7 +49,7 @@
         .checkbox-lable {
             @include text(16px, 16px, #BECDE8, EncodeSans-SemiBold);
             margin-left: 15px;
-            font-weight: bold;
+            
         }
 
         .btn-content {
@@ -60,7 +59,7 @@
                 padding: 10px 20px;
                 @include text(18px, 21px, #5897F6, EncodeSans-Bold);
                 cursor: pointer;
-                font-weight: bold;
+                
                 border: 1px solid #6CA7FE;
                 border-radius: 23px;
                 opacity: 1;

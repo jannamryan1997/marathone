@@ -15,7 +15,6 @@
         .clear-icon {
             cursor: pointer;
             color: #45535C;
-            font-weight: bold;
             font-size: 30px;
         }
     }
@@ -61,7 +60,6 @@
                 .add-icon {
                     color: #BBCDDF;
                     font-size: 30px;
-                    font-weight: bold;
                 }
             }
         }
@@ -80,7 +78,6 @@
             .footer-description {
                 .title {
                     @include text(21px, 25px, #45535C, EncodeSans-Bold);
-                    font-weight: bold;
                 }
 
                 .star-icon {

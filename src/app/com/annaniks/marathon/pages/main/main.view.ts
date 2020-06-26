@@ -9,10 +9,11 @@ import { CookieService } from 'ngx-cookie';
 })
 
 export class MainView implements OnInit {
-    constructor(private _profileUserService:UserService,private _cookieService:CookieService) {
+    public getmeiD: string;
+    constructor(private _profileUserService: UserService, private _cookieService: CookieService) {
     }
 
-    ngOnInit() { 
+    ngOnInit() {
         this._getProfileData();
     }
 
@@ -22,30 +23,36 @@ export class MainView implements OnInit {
 
     private _getClient(): void {
         this._profileUserService.getClient()
-            .subscribe((data) => {
+            .subscribe((data:any) => {
+                this.getmeiD=data.data.id;
                 this._profileUserService.user = data;
                 this._profileUserService.isAuthorized = true;
+                this._cookieService.put('userId',this.getmeiD)
+                console.log(this.getmeiD);
+                
                 console.log(data);
             })
     }
 
     private _getCoatch(): void {
         this._profileUserService.getCoatch()
-            .subscribe((data) => {
+            .subscribe((data:any) => {
+                this.getmeiD=data.data.id;
                 this._profileUserService.user = data;
                 this._profileUserService.isAuthorized = true;
-                console.log(data);
+                this._cookieService.put('userId',this.getmeiD)
+                console.log(data,this.getmeiD);
             })
-         
-            
+
+
     }
 
     private _getProfileData(): void {
         let role: string;
         role = this._cookieService.get('role');
         if (role === 'coach') {
-            console.log(role,"roleeeeeeeeeee");
-            
+            console.log(role, "roleeeeeeeeeee");
+
             this._getCoatch();
         }
         else {

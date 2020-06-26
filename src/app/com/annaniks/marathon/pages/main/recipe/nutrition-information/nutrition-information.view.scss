@@ -35,7 +35,7 @@
 
         .title {
             @include text(27px, 25px, #45535C, EncodeSans-Bold);
-            font-weight: bold;
+            
             margin: 22px 0;
         }
 
@@ -50,7 +50,7 @@
         .main-content {
             .title {
                 @include text(21px, 25px, #45535C, EncodeSans-Bold);
-                font-weight: bold;
+                
             }
         }
 
@@ -96,7 +96,7 @@
     align-items: center;
     text-align: center;
     @include text(18px, 21px, #45535C, MicrosoftYaHeiUI);
-    font-weight: bold;
+    
 
     &::placeholder {
         @include text(17px, 18px, #BECDE8, MicrosoftYaHeiUI !important);

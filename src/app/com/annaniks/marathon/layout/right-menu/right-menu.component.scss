@@ -9,13 +9,12 @@
     .title {
         @include text(20px, 20px, #65a4fe, EncodeSans-Bold);
         margin: 33px 0 31px 0;
-        font-weight: 600;
     }
     .text{
         @include text(14px,16px, #BDBDD7, EncodeSans-Bold);
         cursor: pointer;
-        font-weight: bold;
     }
+
     .contact {
         .serch-content {
             display: flex;
@@ -31,11 +30,9 @@
                 width: calc(100% - 60px);
                 border: none;
                 @include text(16px, 20px, #65a4fe, EncodeSans-Bold);
-                font-weight: 500;
 
                 &::placeholder {
                     @include text(16px, 20px, #65a4fe, EncodeSans-Bold);
-                    font-weight: 500;
                 }
             }
 
@@ -67,7 +64,6 @@
         .name {
             margin-left: 20px;
             @include text(16px, 20px, #5a666e, EncodeSans-Bold);
-            font-weight: bold;
         }
 
         .email-title {
@@ -81,6 +77,7 @@
     background: #F7F7FC 0% 0% no-repeat padding-box;
     opacity: 1;
     margin: 10px 0;
+    padding: 0 !important;
 }
 
 .position {

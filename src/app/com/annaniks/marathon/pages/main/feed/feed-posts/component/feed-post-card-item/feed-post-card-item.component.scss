@@ -5,13 +5,16 @@
    font-family:  $fontFamily;
 }
 .post-container {
-    padding: 0 50px 0px 21px;
+    // padding: 0 50px 0px 21px;
     .image,.vido {
         height: 380px;
         cursor: pointer;
     }
 }
 
+.title-content{
+     padding: 0 50px 0px 21px; 
+}
 .show {
     overflow: visible;
     height: auto;
@@ -28,7 +31,7 @@
 
     .title {
         @include text(20px, 32px, #45535C,MicrosoftYaHeiUI);
-        font-weight: bold;
+    
 
     }
 
@@ -54,7 +57,7 @@
         padding: 5px 15px;
         top: 30px;
         right: 20px;
-        font-weight: bold;
+        
     }
 
     &:hover {
@@ -88,4 +91,12 @@
 }
 .posts-comments{
     padding: 0 10px;
+}
+
+.d-none{
+    display: none !important;
+}
+
+.d-block{
+    display: block !important;
 }

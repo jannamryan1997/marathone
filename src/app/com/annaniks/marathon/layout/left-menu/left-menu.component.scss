@@ -31,13 +31,11 @@
         .menu-icon {
             color: #45535C;
             font-size: 22px;
-            font-weight: bold;
         }
         .link {
             @include text(22px, 26px, #45535C, EncodeSans-Bold);
             margin-left: 20px;
             cursor: pointer;
-            font-weight: bold;
         }
 
         a {
@@ -70,7 +68,7 @@
             .name {
                 margin-left: 20px;
                 @include text(16px, 20px, #5a666e, EncodeSans-Bold);
-                font-weight: bold;
+                
             }
             .email-title{
                 margin-left: 20px;

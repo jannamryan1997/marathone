@@ -129,7 +129,7 @@
                     .add-icon {
                         color: #BBCDDF;
                         font-size: 30px;
-                        font-weight: bold;
+                        
                     }
                 }
             }
@@ -175,12 +175,12 @@
 
         .title {
             @include text(16px, 22px, #45535C, MicrosoftYaHeiUI);
-            font-weight: bold;
+            
         }
 
         .close {
             cursor: pointer;
-            font-weight: bold;
+            
         }
     }
 }
@@ -238,7 +238,7 @@ textarea {
 
 .search-icon {
     color: #B9B9D5;
-    font-weight: bold;
+    
     font-size: 26px;
     cursor: pointer;
 }
@@ -298,7 +298,7 @@ input[type="file"] {
 
         .title {
             @include text(15px, 16px, #45535C, EncodeSans-Bold);
-            font-weight: bold;
+            
         }
 
         .tag-image {

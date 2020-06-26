@@ -29,5 +29,37 @@ img{
   object-position: center;
 }
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+
+@font-face {
+  font-family: "EncodeSans-Medium";
+  src: url("assets/fonts/EncodeSans-Medium.ttf");
+}
+
+@font-face {
+  font-family: "YuGothicUI-Regular";
+  src: url("assets/fonts/EncodeSans-Medium.ttf");
+}
+
+
+@font-face {
+  font-family: "EncodeSans-Bold";
+  src: url("assets/fonts/EncodeSans-Bold.ttf");
+}
+
+
+@font-face {
+  font-family: "EncodeSans-Regular";
+  src: url("assets/fonts/EncodeSans-Regular.ttf");
+}
+
+
+@font-face {
+  font-family: "EncodeSans-SemiBold";
+  src: url("assets/fonts/EncodeSans-SemiBold.ttf");
+}
+
+@font-face {
+  font-family: "MicrosoftYaHeiUI";
+  src: url("assets/fonts/EncodeSans-Regular.ttf");
+}

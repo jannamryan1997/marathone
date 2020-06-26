@@ -59,6 +59,7 @@ export class HeaderComponent implements OnInit {
         this._userService.isAuthorized = false;
         this._userService.user = null;
         this._router.navigate(['/']);
+        location.reload();
     }
 
 }

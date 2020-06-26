@@ -58,7 +58,7 @@
         .more {
             color: #65a4fe;
             cursor: pointer;
-            font-weight: bold;
+            
             line-height: 20px !important;
         }
     }
@@ -81,9 +81,8 @@
         }
 
         .name-title {
-            @include text(21px, 33px, #45535c, EncodeSans-Bold);
+            @include text(21px, 33px, #45535c,EncodeSans-Bold);
             margin-left: 20px;
-            font-weight: bold;
         }
 
         .time {
@@ -128,7 +127,7 @@
     .icon {
         color: #acb9d1 !important;
         font-size: 35px;
-        font-weight: bold;
+        
     }
 }
 
@@ -161,7 +160,7 @@
     height: 120px;
     overflow: hidden;
     transition: 0.5s all ease-out;
-    font-weight: bold;
+    
 }
 
 //review
@@ -201,7 +200,7 @@
 
 .clear-icon {
     padding: 10px 20px;
-    font-weight: bold;
+    
     cursor: pointer;
     font-size: 30px;
 }
@@ -266,7 +265,7 @@
 
     .title {
         @include text(14px, 30px, #5897f6, EncodeSans-SemiBold);
-        font-weight: bold;
+        
     }
 
     .checkbox {
@@ -297,7 +296,7 @@
         transition: 0.5 all ease-out;
         padding: 15px;
         border-radius: 26px;
-        font-weight: bold;
+        
         background: #ffffff;
         @include text(16px, 19px, #589cfe, EncodeSans-SemiBold);
         margin: 0 15px 0 0;
@@ -309,7 +308,7 @@
         transition: 0.5 all ease-out;
         padding: 15px;
         border-radius: 26px;
-        font-weight: bold;
+        
         background: #589cfe 0% 0% no-repeat padding-box !important;
         box-shadow: -5.29px 7px 10px #589bfd36;
         @include text(16px, 19px, #ffffff, EncodeSans-SemiBold);
@@ -350,7 +349,7 @@ textarea {
     cursor: pointer;
 
     .material-icons {
-        font-weight: bold;
+        
     }
 }
 
@@ -365,7 +364,7 @@ textarea {
      left: 25px;
      background-color:white;
      font-weight: 600;
-     @include text(16px, 19px, #589CFE,EncodeSans-Medium);
+     @include text(16px, 19px, #589CFE,MicrosoftYaHeiUI);
    }
 
    .update-video-btn{
