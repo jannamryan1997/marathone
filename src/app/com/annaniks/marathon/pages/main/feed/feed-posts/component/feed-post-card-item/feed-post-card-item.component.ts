@@ -4,7 +4,8 @@ import { PropertyModal } from 'src/app/com/annaniks/marathon/core/modals';
 import { FeedResponseData, Content } from 'src/app/com/annaniks/marathon/core/models';
 
 // export type PostType = "video" | "text" | "image" | "combinations" | "chicken"
-
+import * as moment from 'moment'
+import { tick } from '@angular/core/testing';
 @Component({
     selector: "app-feed-post-card-item",
     templateUrl: "feed-post-card-item.component.html",
@@ -17,7 +18,7 @@ export class FeedPostCardItemComponent implements OnInit {
     public showTitle: boolean = false;
     public isOpen: boolean = false;
     public content;
-
+    public time;
     public comments = [
         {
             image: "assets/images/img8.png", name: "hanna mryan", time: "1 hour ago", message: "barevvvvvvvvv bari voxjuyn hiiiii", view: "2", like: "25", dislike: "6",
@@ -31,9 +32,13 @@ export class FeedPostCardItemComponent implements OnInit {
     constructor(private _matDialog: MatDialog) { }
 
     ngOnInit() {
+        console.log(this.feedItem);
+        this.time = moment(this.feedItem.timeStamp).fromNow();
+        console.log(this.time);
+
         if (this.feedItem.feed_media && this.feedItem.feed_media.length) {
             this.content = this.feedItem.feed_media[0].content;
-            console.log(this.feedItem.feed_media[0].content);
+            // console.log(this.feedItem.feed_media[0].content);
         }
 
 
@@ -72,7 +77,7 @@ export class FeedPostCardItemComponent implements OnInit {
 
 
 
-  
+
 
 
 }

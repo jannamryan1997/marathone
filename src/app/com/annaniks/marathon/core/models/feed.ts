@@ -21,6 +21,7 @@ export interface FeedResponseData {
     timeStamp: string;
     title: string;
     url: string;
+    creator_client_info:any;
 }
 
 export interface FeedMedia {
