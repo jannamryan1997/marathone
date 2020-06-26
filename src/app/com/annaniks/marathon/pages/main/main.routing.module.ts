@@ -11,6 +11,8 @@ const mainRoutes: Routes = [
             {
                 path: "feed",
                 loadChildren: () => import('./feed/feed.module').then(m => m.FeedModule),
+                canActivate: [RoleGuard]
+
             },
             {
                 path: "home",
