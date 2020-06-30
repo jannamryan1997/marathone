@@ -12,14 +12,15 @@ import { CookieService } from 'ngx-cookie';
 })
 
 export class CreatePublicationComponent implements OnInit {
+    public isModalMode: boolean = false;
     @Input() feedItem: any;
+    public postType = new FormControl();
     @Output('postCreateEvent') private _postCreateEvent: EventEmitter<void> = new EventEmitter<void>();
     @ViewChild('inputImageReference') private _inputImageReference: ElementRef;
     @ViewChild('inputVideoReference') private _inputVideoReference: ElementRef;
+
     private _videoId: string;
     public uploadType: string;
-    public postType = new FormControl();
-    public post: boolean = false;
     public showemoji: boolean = false;
     public controImageItem: string = "";
     public controVideoItem: string = "";
@@ -154,7 +155,6 @@ export class CreatePublicationComponent implements OnInit {
                             this.controVideoItem = fileName;
 
                         }
-                        this.post = true;
                         this.loading = false;
                     })
             }
@@ -177,11 +177,28 @@ export class CreatePublicationComponent implements OnInit {
     }
 
     public showEmoji(): void {
-        this.post = true;
         this.showemoji = !this.showemoji;
     }
 
-
+    ////blur-i jamanak youtube-i video linke cuyc tal
+    public hidePost(): void {
+        this._videoId = this._parseYoutubeUrl(this.postType.value);
+        if (this._videoId) {
+            this._initPlayer();
+        }
+        else {
+            this._destroyYoutubePlayer();
+        }
+        console.log(this.uploadType, this.postType.value);
+    }
+    ///////youtube-i video link
+    private _destroyYoutubePlayer(): void {
+        if (this.player) {
+            this.player.stopVideo();
+            this.player.destroy();
+            this.player = null;
+        }
+    }
 
 
     public setServicePhoto(event, type) {
@@ -216,38 +233,10 @@ export class CreatePublicationComponent implements OnInit {
         this.uploadType = null;
         console.log(this.uploadType);
         if (this.postType.value === '' || this.postType.value === null) {
-            this.post = false;
         }
     }
 
-    public showPost(): void {
-        this.post = true;
-    }
 
-    public hidePost(): void {
-        console.log("dfsdsds");
-
-        // if (this.postType.value === '' || this.postType.value === null && this.uploadType === '' || this.uploadType ===undefined) {
-        //     this.post = false;
-        // }
-        this._videoId = this._parseYoutubeUrl(this.postType.value);
-        if (this._videoId) {
-            this._initPlayer();
-        }
-        else {
-            this._destroyYoutubePlayer();
-        }
-        console.log(this.uploadType, this.postType.value);
-
-    }
-
-    private _destroyYoutubePlayer(): void {
-        if (this.player) {
-            this.player.stopVideo();
-            this.player.destroy();
-            this.player = null;
-        }
-    }
 
     public createdPost(): void {
         this.loading = true;
@@ -264,40 +253,43 @@ export class CreatePublicationComponent implements OnInit {
 
         }).subscribe((data) => {
             this.loading = false;
-            console.log(data);
-            this.post = false;
             this.postType.patchValue('');
             this.uploadType = null;
             this.controImageItem = '';
             this.controVideoItem = '';
-            // this.player.stopVideo();
-            // this.player.destroy();
-            // this.player = null; 
+            this.isModalMode = false;
+            if (this.player) {
+                this.player.stopVideo();
+                this.player.destroy();
+                this.player = null;
+            }
+
             this._postCreateEvent.emit();
             console.log(data, 1);
 
         })
-        console.log(this.contentFileName);
-
     }
 
 
-
-    private _getFeed(): void {
-        this._feedService.feed()
-            .subscribe((data: FeedData) => {
-                this.feedItem = data.results;
-                console.log(this.feedItem);
-
-            },
-                error => {
-
-                }
-            )
+    public showPost(): void {
+        this.isModalMode = true;
     }
+
+
+    public onClickOverlay(): void {
+        this.isModalMode = false;
+        this.postType.patchValue('');
+        this.uploadType = null;
+        this.controImageItem = '';
+        this.controVideoItem = '';
+        this.isModalMode = false;
+        this.player.stopVideo();
+        this.player.destroy();
+        this.player = null;
+    }
+
 
 }
-
 
 
 

@@ -6,24 +6,24 @@
 }
 
 .feed-header-content {
-    background: #FFFFFF 0% 0% no-repeat padding-box;
-    box-shadow: 0.77px 11px 43px #5C687B17;
-    border: 0.5px solid #E3ECFD;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    box-shadow: 0.77px 11px 43px #5c687b17;
+    border: 0.5px solid #e3ecfd;
     border-radius: 15px;
     opacity: 1 !important;
     text-align: center;
     position: relative;
 
     .recipe-header {
-        padding:18px 24px;
+        padding: 18px 24px;
         .title {
-            @include text(16px, 19px, #BEC8DD,SemiBold);
+            @include text(16px, 19px, #bec8dd, SemiBold);
             cursor: pointer;
         }
         .material-icons {
             font-size: 22px;
             line-height: 19px;
-            color: #BEC8DD;
+            color: #bec8dd;
             cursor: pointer;
         }
         .message-input {
@@ -32,19 +32,19 @@
             max-height: 260px;
             border: none;
             background: none;
-            @include text(16px, 22px, #45535C, MicrosoftYaHeiUI);
+            @include text(16px, 22px, #45535c, MicrosoftYaHeiUI);
             resize: none;
             margin-top: 16px;
-    
+
             &::placeholder {
-                color: #BEC8DD;
+                color: #bec8dd;
             }
         }
-        .emoji-content{
+        .emoji-content {
             display: flex;
             flex-direction: column;
             align-items: flex-end;
-            .smile-image{
+            .smile-image {
                 width: 30px;
                 height: 30px;
                 cursor: pointer;
@@ -54,42 +54,40 @@
     .image-content {
         position: relative;
         .recipe-image {
-     height: 330px;
+            height: 330px;
         }
     }
-  .button-content{
-      border-top: 0.5px solid #E3ECFD;
-      @include text(16px, 21px, #AFC1D1, EncodeSans-SemiBold);
-      flex-wrap: wrap;
-      .button-item{
-        border-right: 0.5px solid #E3ECFD;
-        align-items: center;
-          cursor: pointer;
-          padding: 19px 33px;
-          font-size: 16px;
-          &:last-child{
-              border-right: none !important;
-          }
-      }
-  }
-
+    .button-content {
+        border-top: 0.5px solid #e3ecfd;
+        @include text(16px, 21px, #afc1d1, EncodeSans-SemiBold);
+        flex-wrap: wrap;
+        .button-item {
+            border-right: 0.5px solid #e3ecfd;
+            align-items: center;
+            cursor: pointer;
+            padding: 19px 33px;
+            font-size: 16px;
+            &:last-child {
+                border-right: none !important;
+            }
+        }
+    }
 }
 .post-btn {
-    background: #589CFE 0% 0% no-repeat padding-box;
-    box-shadow: 0.84px 12px 35px #589CFE1A;
+    background: #589cfe 0% 0% no-repeat padding-box;
+    box-shadow: 0.84px 12px 35px #589cfe1a;
     border-radius: 0px 0px 15px 15px;
     opacity: 1;
-    border: 1px solid #589CFE;
+    border: 1px solid #589cfe;
     padding: 16px 0;
-    @include text(20px, 24px, #FFFFFF, EncodeSans-Bold);
+    @include text(20px, 24px, #ffffff, EncodeSans-Bold);
 }
 
 input[type="file"] {
     display: none;
-   }
+}
 
-
-   ::ng-deep .emoji-mart {
+::ng-deep .emoji-mart {
     width: 100% !important;
 }
 
@@ -97,18 +95,40 @@ input[type="file"] {
     padding: 5px 0px 5px 0px !important;
 }
 
-::ng-deep .backdrop{
+::ng-deep .backdrop {
     border-radius: 18px !important;
     z-index: 99999 !important;
-display: none !important;
+    display: none !important;
 }
 
-::ng-deep .bounce1{
-    background-color: #589CFE !important;
+::ng-deep .bounce1 {
+    background-color: #589cfe !important;
 }
-::ng-deep .bounce2{
-    background-color: #589CFE !important;
+::ng-deep .bounce2 {
+    background-color: #589cfe !important;
 }
-::ng-deep .bounce3{
-    background-color: #589CFE !important;
+::ng-deep .bounce3 {
+    background-color: #589cfe !important;
 }
+
+.overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    animation: animateBackground 0.2s ease-in;
+    animation-fill-mode: forwards; 
+
+}
+
+.modal-mode{
+    position: relative;
+    z-index: 1001;
+}
+
+@keyframes animateBackground {
+    from {background-color: transparent}
+    to {    background-color:#bec8dd;opacity: .8}
+  }
