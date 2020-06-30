@@ -13,6 +13,7 @@ export interface FeedResponseData {
     category: any;
     creator: any;
     creator_client: string;
+    creator_info:any;
     duration: any;
     feed_media: FeedMedia[];
     id: number;

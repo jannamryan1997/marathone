@@ -1,4 +1,4 @@
-@mixin text($fontSize, $lineHeight,$color, $fontFamily) {
+@mixin text($fontSize, $lineHeight, $color, $fontFamily) {
     font-size: $fontSize;
     line-height: $lineHeight;
     color: $color;
@@ -7,12 +7,15 @@
 
 .signIn-main {
     .logo {
-        border: 1px solid red;
-        width: 57px;
-        height: 64px;
+        .logo-title {
+            font-size: 90px;
+            color: #589CFE;
+            font-family: EncodeSans-Bold;
+            margin: auto;
+        }
     }
 
-  
+
     .social-media {
         &::before {
             border-bottom: 1px solid #BECDE8;
@@ -23,13 +26,14 @@
         }
     }
 
- 
-    .form-content{
+
+    .form-content {
         border: 1px solid red;
     }
 }
-.button-item{
-margin-top: 20px;
+
+.button-item {
+    margin-top: 20px;
 }
 
 .border {
@@ -40,5 +44,3 @@ margin-top: 20px;
 .button-content {
     padding: 0 !important;
 }
-
-

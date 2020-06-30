@@ -48,7 +48,7 @@ padding: 0 20px;
 .show-content {
     font-size: 16px;
     line-height: 16px;
-    height: 210px;
+    height: 60px;
     overflow: hidden;
     transition: .5s all ease-out;
 }
@@ -76,4 +76,17 @@ padding: 0 20px;
 ::ng-deep .mat-dialog-container {
     background: #EDEDED44 0% 0% no-repeat padding-box !important;
 
+}
+.time{
+    margin-left: 12px !important;
+    font-size: 12px !important;
+
+}
+.name-title {
+    font-size: 14px !important;
+    display: inline-block !important;
+    width: 130px !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
 }

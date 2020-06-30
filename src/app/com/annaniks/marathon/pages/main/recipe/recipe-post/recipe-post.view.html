@@ -5,7 +5,7 @@
                 <ngx-slick-carousel class="carousel w-100" #slickModal="slick-carousel" [config]="slideConfig"
                     (init)="slickInit($event)" (breakpoint)="breakpoint($event)" (afterChange)="afterChange($event)"
                     (beforeChange)="beforeChange($event)">
-                    <div ngxSlickItem *ngFor="let slide of slides" class="slide">
+                    <div ngxSlickItem *ngFor="let slide of slides" class="slide"  (click)="onClickOpenIngridientModal()">
                         <img src="{{ slide.img }}" alt="" width="100%" class="image">
                     </div>
                 </ngx-slick-carousel>
@@ -15,23 +15,24 @@
 
             <div class="add-ingridiet-image-content d-flex">
                 <app-add-recipe-image *ngFor="let item of slides"  [recipeImageItem]="item"></app-add-recipe-image>
-                <div class="add-image d-flex" (click)="onClickOpenIngridientModal()">
-                    <span class="material-icons add-icon m-auto">
-                        add
-                    </span>
-                </div>
+                <input class="" type="file" id="file1" name="avatar" (change)="setServicePhoto($event)">
+                <label class="add-image d-flex" for="file1"> 
+                        <span class="material-icons add-icon m-auto">
+                                add
+                            </span>
+                
+                </label>
             </div>
         </div>
-
         <div class="broves-file" *ngIf="!showImage">
             <div class="m-auto">
                 <div class="d-flex w-50 m-auto">
-                    <img src="assets/icons/recipe.png" class="recipe-image" alt="Cinque Terre">
-                    <img src="assets/icons/recipe.png" class="recipe-image" alt="Cinque Terre">
+                    <img src="assets/icons/recipe.png" class="recipe-image m-auto" alt="Cinque Terre">
+                    <!-- <img src="assets/icons/recipe.png" class="recipe-image" alt="Cinque Terre"> -->
                 </div>
                 <p class="title">Set Recipe cover and cookig video</p>
                 <input class="" type="file" id="file" name="avatar" (change)="setServicePhoto($event)">
-                <label class="btn follow-btn label-btn d-flex" for="file"> Broves Files <span
+                <label class="btn follow-btn label-btn d-flex" for="file"> <p>Broves Files</p> <span
                         class="material-icons ml-2">
                         save_alt
                     </span></label>

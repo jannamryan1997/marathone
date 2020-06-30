@@ -25,10 +25,10 @@ export class RecipePostView implements OnInit {
     ]
 
     public slides: Slider[] = [
-        {img: "assets/images/food.png"},
-        {img: "/assets/images/foodimg.png"},
-        {img: "assets/images/food.png"},
-        {img: "/assets/images/foodimg.png"},
+        // {img: "assets/images/food.png"},
+        // {img: "/assets/images/foodimg.png"},
+        // {img: "assets/images/food.png"},
+        // {img: "/assets/images/foodimg.png"},
     ];
 
     slideConfig = { "slidesToShow": 1, "slidesToScroll": 1 };

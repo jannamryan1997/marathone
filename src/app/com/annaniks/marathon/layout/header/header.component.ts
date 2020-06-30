@@ -20,7 +20,7 @@ export class HeaderComponent implements OnInit {
         { routerLink: "#", title: "Coaches" },
         { routerLink: "#", title: "Recipes" },
         { routerLink: "#", title: "Workouts" },
-        { routerLink: "/article", title: "Articels" },
+        { routerLink: "#", title: "Articels" },
         { routerLink: "#", title: "Q & A" },
         { routerLink: "#", title: "Transform" },
         { routerLink: "#", title: "Workout Music" },

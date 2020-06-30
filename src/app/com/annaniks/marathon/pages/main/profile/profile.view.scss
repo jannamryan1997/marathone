@@ -1,3 +1,11 @@
+
+
+
+
+
+
+//////////////////////////
+
 @mixin text($fontSize, $lineHeight, $color, $fontFamily) {
     font-size: $fontSize;
     line-height: $lineHeight;
@@ -16,7 +24,7 @@
         .profile-description {
             position: relative;
 
-          
+
 
             .cover-image {
                 height: 185px;
@@ -47,11 +55,14 @@
                             border-radius: 50%;
                             top: 84px;
                             left: 125px;
-                            i{
+                            cursor: pointer;
+
+                            i {
                                 color: #B6C1D7;
                                 font-size: 15px;
                             }
                         }
+
                         .user-image {
                             width: 147px;
                             height: 147px;
@@ -89,11 +100,12 @@
                         color: #589CFE;
                         margin-left: 10px !important;
                         padding: 7px 18px;
-                        .material-icons{
+
+                        .material-icons {
                             font-size: 17px;
                         }
                     }
-                   
+
                 }
 
                 .social-media {
@@ -152,10 +164,170 @@
             }
         }
     }
-}
 
-.profileActiveTab{
+    .main-layout{
+        .profile-container {
+            margin: 10px 20px;
+        }
+        
+        .text-area {
+            min-height: 60px;
+            max-height: 110px;
+            outline: none !important;
+        }
+        
+        .link-form {
+            padding: 0 1.2em;
+        
+            .lable {
+                @include text(17px, 18px, #BBCDDF, EncodeSans-SemiBold);
+            }
+        
+            .form-group-link {
+                margin: 15px 0;
+                background: #FFFFFF 0% 0% no-repeat padding-box;
+                border: 0.5px solid #CFCFE9;
+                border-radius: 26px;
+                opacity: 1;
+                height: none !important;
+                padding: 15px 15px !important;
+                @include text(17px, 18px, #45535C, MicrosoftYaHeiUI !important);
+                font-weight: 500 !important;
+        
+                &::placeholder {
+                    @include text(17px, 18px, #BECDE8, MicrosoftYaHeiUI !important);
+                }
+            }
+        }
+        
+        .form-input {
+            @include text(17px, 18px, #45535C, MicrosoftYaHeiUI !important);
+            font-weight: 500 !important;
+        }
+        
+        .add-certificates {
+            .add-file {
+                background: #FFFFFF 0% 0% no-repeat padding-box;
+                box-shadow: -1.63px 5px 18px #5C687B0D;
+                border: 1px solid #E3ECFD;
+                opacity: 1;
+                border-radius: 50%;
+                width: 53px;
+                height: 53px;
+        
+                .material-icons {
+        
+                    color: #589CFE;
+                    font-size: 25px;
+                    cursor: pointer;
+                }
+            }
+        
+            .type-form-group {
+                width: 100%;
+                max-width: 400px;
+                border-radius: 16px !important;
+        
+                .add-icon {
+                    color: #C2D2E2;
+        
+                    font-size: 25px;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}
+.profileActiveTab {
     color: #ffff !important;
     background: #589CFE !important;
     border: 1px solid #589CFE !important;
 }
+
+
+.about-form {
+    margin-top: 30px;
+}
+
+::ng-deep .ui-autocomplete-multiple-container {
+    margin: 15px 0 !important;
+    background: #FFFFFF 0% 0% no-repeat padding-box !important;
+    border: 0.5px solid #CFCFE9 !important;
+    border-radius: 26px !important;
+    opacity: 1 !important;
+    height: none !important;
+    padding: 15px 15px !important;
+    @include text(17px, 18px, #BECDE8, MicrosoftYaHeiUI !important);
+
+    &::placeholder {
+        @include text(17px, 18px, #BECDE8, MicrosoftYaHeiUI !important);
+    }
+}
+
+::ng-deep .ui-widget {
+    width: 100% !important;
+}
+
+::ng-deep .ui-autocomplete-token {
+    background: #F5F5FA 0% 0% no-repeat padding-box !important;
+    border-radius: 18px !important;
+    opacity: 1 !important;
+    padding: 10px !important;
+    color: #45535C !important;
+    font-weight: 600 !important;
+    font-size: 16px !important;
+    line-height: 19px !important;
+    margin-bottom: 10px !important;
+    font-family: EncodeSans-Medium !important;
+}
+
+::ng-deep .ui-autocomplete-token-icon {
+    font-size: 13px !important;
+    color: #BBCDDF !important;
+    font-weight: bold !important;
+    margin-right: 12px !important;
+
+}
+
+::ng-deep .ng-tns-c114-0 {
+    &::placeholder {
+        @include text(17px, 18px, #BECDE8, MicrosoftYaHeiUI !important);
+    }
+}
+
+
+.form-group,
+.autocomplete {
+    position: relative;
+}
+
+.form-group>label {
+    position: absolute;
+    top: -11px;
+    left: 25px;
+    background-color: white;
+    font-weight: 600;
+    @include text(16px, 19px, #589CFE, EncodeSans-Medium);
+}
+
+.form-group>input {
+    border: none;
+}
+
+.autocomplete>label {
+    position: absolute;
+    top: 5px;
+    left: 25px;
+    background-color: white;
+    font-weight: 600;
+    z-index: 1;
+    @include text(16px, 19px, #589CFE, EncodeSans-Medium);
+}
+
+textarea {
+    resize: none;
+}
+
+input[type="file"] {
+    display: none;
+   }

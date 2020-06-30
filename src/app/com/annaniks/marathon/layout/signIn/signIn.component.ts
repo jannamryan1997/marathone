@@ -50,8 +50,8 @@ export class SignInComponent implements OnInit {
 
     private _formBuilder(): void {
         this.signInGroup = this._fb.group({
-            email: ["wogipa4708@tashjw.com", Validators.required],
-            password: ["wogipa4708", Validators.required]
+            email: ["tovona9389@farmdeu.com", Validators.required],
+            password: ["tovona9389@farmdeu.com", Validators.required]
         })
     }
     private _signIn(): void {

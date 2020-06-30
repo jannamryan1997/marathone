@@ -15,10 +15,7 @@ const homeRoutes: Routes = [
                     path: "client",
                     loadChildren: () => import('./client/client.module').then(m => m.ClientModule),
                 },
-                {
-                    path: "profile",
-                    loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule),
-                }
+               
             ]
     }
 ]

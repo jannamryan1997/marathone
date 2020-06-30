@@ -20,6 +20,10 @@ const mainRoutes: Routes = [
                 canActivate: [RoleGuard]
             },
             {
+                path: "profile",
+                loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule),
+            },
+            {
                 path: "article",
                 loadChildren: () => import('./article/article.module').then(m => m.ArticleModule),
             },

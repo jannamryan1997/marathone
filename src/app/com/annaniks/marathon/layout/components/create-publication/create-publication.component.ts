@@ -14,7 +14,7 @@ import { CookieService } from 'ngx-cookie';
 export class CreatePublicationComponent implements OnInit {
     public isModalMode: boolean = false;
     @Input() feedItem: any;
-    public postType = new FormControl();
+    public postType = new FormControl('');
     @Output('postCreateEvent') private _postCreateEvent: EventEmitter<void> = new EventEmitter<void>();
     @ViewChild('inputImageReference') private _inputImageReference: ElementRef;
     @ViewChild('inputVideoReference') private _inputVideoReference: ElementRef;
@@ -170,8 +170,10 @@ export class CreatePublicationComponent implements OnInit {
         this._inputVideoReference.nativeElement.value = ''
     }
 
-    public addEmoji($event): void {
-        let data = this.postType.value + $event.emoji.native;
+    public addEmoji(event): void {
+        console.log(event);
+        
+        let data = this.postType.value + event.emoji.native;
         this.postType.patchValue(data)
 
     }

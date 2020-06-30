@@ -33,7 +33,7 @@ export class LeftMenuCompomemtn implements OnInit, AfterViewInit {
         const role = this._cookieService.get('role') || '';
         this.leftMenuItem = [
             { routerLink: `/home/${role}`, title: "Home", icon: "home" },
-            { routerLink: "/home/profile", title: "Profile", icon: "person" },
+            { routerLink: "/profile", title: "Profile", icon: "person" },
             { routerLink: "#", title: "Dashboard", icon: "person" },
             { routerLink: "#", title: "Marathon", icon: "person" },
             { routerLink: "#", title: "My Recips", icon: "person" },

@@ -20,7 +20,6 @@ export class FeedPostsView implements OnInit {
     private _getFeed(): void {
         this._feedService.feed()
             .subscribe((data: FeedData) => {
-                console.log(data,"feddddddddddddddddddddddddd");
                 this.feedItem = data.results;
                 for (let item of this.feedItem) {
                     for (let media of item.feed_media) {
@@ -36,7 +35,6 @@ export class FeedPostsView implements OnInit {
     }
 
     public onPostCreated(): void {
-        console.log('calleeeedddd');
         this._getFeed();
     }
 }

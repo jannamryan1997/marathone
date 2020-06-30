@@ -7,20 +7,24 @@
 
     <div class="property-main d-flex justify-content-between pg-container">
         <div class="image-content">
-            <img src="assets/images/foodimg.png" class="image d-none" alt="Cinque Terre"
-                [ngClass]="{'d-block':type==='image'}">
+            <img src="{{'http://annaniks.com:6262/media/'+content?.url}}" class="image d-none" alt="Cinque Terre"
+                [ngClass]="{'d-block':content.type==='image'}">
 
-            <video controls class="video d-none w-100" poster="assets/images/img.4.png"
-                [ngClass]="{'d-block':type==='video'}">
-                <source src="assets/images/vido.mp4">
+            <video controls class="video d-none w-100" poster="" [ngClass]="{'d-block':content.type==='video'}"
+                src="{{'http://annaniks.com:6262/media/'+content?.url}}">
             </video>
+            <div class="d-none" [ngClass]="{'d-block':content?.type === 'videoLink'}">
+                <iframe  class="vido w-100" src="https://www.youtube.com/embed/tgbNymZ7vqY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+
         </div>
         <div class="property-description">
             <div class="item-header">
                 <div class="item-head-description">
                     <img src="assets/images/img1.png" class="image" alt="Cinque Terre">
-                    <p class="name-title mb-0">Barbara Smith</p>
-                    <p class="time mb-0">1 hour ago</p>
+                    <p class="name-title mb-0"  *ngIf="role==='client'">{{feedItem?.creator_client_info?.user?.first_name}}</p>
+                    <p class="name-title mb-0" *ngIf="role==='coach'">{{feedItem?.creator_info?.user?.first_name}}</p>
+                    <p class="time mb-0">{{timeStamp}}</p>
                 </div>
 
                 <span class="material-icons icon">
@@ -29,16 +33,18 @@
             </div>
             <div class="post-content">
                 <div class="post-container">
-                    <p class="title show-content" [ngClass]="{'show':show}">{{title}}</p>
-                    <p class="title more">...</p>
-                    <p class="title more" (click)="onClickSeeMore()">See More</p>
+                    <p class="title show-content" [ngClass]="{'show':show}">{{feedItem?.title}}</p>
+                    <div *ngIf="seeMore">
+                            <p class="title more">...</p>
+                            <p class="title more" (click)="onClickSeeMore()">See More</p>
+                        </div>
                 </div>
 
             </div>
             <div *ngIf="isOpen">
-                <app-comments *ngFor="let item of comments" [comments]="item" [type]="type"></app-comments>
+                <app-comments *ngFor="let item of comments" [comments]="item" [type]="content?.type"></app-comments>
             </div>
-            <app-settings (openChanges)='onClickOpen($event)' [type]="type"></app-settings>
+            <app-settings (openChanges)='onClickOpen($event)' [type]="content?.type"></app-settings>
 
             <div *ngIf="isOpen">
                 <app-posts-comments [comments]="comments"></app-posts-comments>

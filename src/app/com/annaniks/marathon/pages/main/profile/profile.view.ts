@@ -1,8 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CookieService } from 'ngx-cookie';
-import { Country } from '../../../../core/models';
-import { CountryService } from '../../../../core/services/country.service';
+import { CountryService } from '../../../core/services/country.service';
+import { Country, UploadFileResponse } from '../../../core/models';
+import { UserService } from '../../../core/services/user.service';
+
 
 
 @Component({
@@ -12,22 +14,25 @@ import { CountryService } from '../../../../core/services/country.service';
 })
 export class ProfileView implements OnInit {
     public role: string;
-    country: any;
-    filteredCountriesSingle: any[];
-
-    filteredCountriesMultiple: any[];
-
-
+    public country: any;
+    public filteredCountriesSingle: any[];
+    public filteredCountriesMultiple: any[];
     public profileFormGroup: FormGroup;
+    public showSocialMedium: boolean = false;
+    public showMore: boolean = false;
+    public localImage: string = 'assets/images/img2.png';
 
     constructor(
-        private _fb: FormBuilder, 
-        private _countryService: CountryService, 
-        private _cookieService: CookieService) {
+        private _fb: FormBuilder,
+        private _countryService: CountryService,
+        private _cookieService: CookieService,
+        private _userService: UserService,
+    ) {
         this.role = this._cookieService.get('role');
     }
 
     ngOnInit() {
+        console.log(this._userService);
         this._formBuilder();
     }
 
@@ -47,15 +52,36 @@ export class ProfileView implements OnInit {
         })
     }
 
+    private _setFormDataForImage(image) {
+        if (image && image.target) {
+            const formData = new FormData();
+            let fileList: FileList = image.target.files;
+            if (fileList.length > 0) {
+                let file: File = fileList[0];
+                formData.append('file', file, file.name);
 
-    // filterCountrySingle(event) {
-    //     let query = event.query;
-    //     this._countryService.getCountries().subscribe((data: any) => {
-    //         this.filteredCountriesSingle = this.filterCountry(query, data);
-    //     })
-    // }
+                this._userService.uploadVideoFile(formData)
+                    .subscribe((data: UploadFileResponse) => {
+                        console.log(data);
+                        this.localImage = 'http://annaniks.com:6262/media/' + data.file_name;
 
-    filterCountryMultiple(event) {
+                    })
+            }
+        }
+    }
+
+
+    public setServicePhoto(event) {
+        if (event) {
+            this._setFormDataForImage(event);
+
+        }
+
+    }
+
+
+
+    public filterCountryMultiple(event) {
         let query = event.query;
         this._countryService.getCountries().subscribe((countries: Country[]) => {
             console.log(countries);
@@ -63,7 +89,7 @@ export class ProfileView implements OnInit {
             this.filteredCountriesMultiple = this.filterCountry(query, countries);
         });
     }
-    filterCountry(query, countries: Country[]): Country[] {
+    public filterCountry(query, countries: Country[]): Country[] {
 
         let filtered: any[] = [];
         for (let i = 0; i < countries.length; i++) {
@@ -76,4 +102,20 @@ export class ProfileView implements OnInit {
         return filtered;
     }
 
+
+    public onClickShowSocialMedium(): void {
+        this.showSocialMedium = !this.showSocialMedium;
+    }
+    public onClickShowMore(): void {
+        this.showMore = !this.showMore;
+    }
+
 }
+
+
+    // filterCountrySingle(event) {
+    //     let query = event.query;
+    //     this._countryService.getCountries().subscribe((data: any) => {
+    //         this.filteredCountriesSingle = this.filterCountry(query, data);
+    //     })
+    // }
