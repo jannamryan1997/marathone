@@ -1,4 +1,6 @@
 import { Component, OnInit } from "@angular/core";
+import { UserService } from '../../../../core/services/user.service';
+import { UserResponseData } from '../../../../core/models/user';
 
 @Component({
     selector: "app-coach",
@@ -7,11 +9,15 @@ import { Component, OnInit } from "@angular/core";
 })
 
 export class CoachView implements OnInit {
+    public user:UserResponseData;
     public showTitle: boolean;
     public tab: number = 1;
     public galerryTab: number = 1;
     public reviewItem = [{}, {}, {}, {}, {}]
-    constructor() { }
+    
+    constructor(private _profileUserService: UserService) { 
+        this.user = this._profileUserService.user;
+    }
 
     ngOnInit() { }
 

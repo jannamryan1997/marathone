@@ -11,7 +11,7 @@ const mainRoutes: Routes = [
             {
                 path: "feed",
                 loadChildren: () => import('./feed/feed.module').then(m => m.FeedModule),
-                canActivate: [RoleGuard]
+                //  canActivate: [RoleGuard]
 
             },
             {
@@ -22,6 +22,7 @@ const mainRoutes: Routes = [
             {
                 path: "profile",
                 loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule),
+                canActivate: [RoleGuard]
             },
             {
                 path: "article",

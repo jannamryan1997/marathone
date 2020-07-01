@@ -1,25 +1,30 @@
-@mixin text($fontSize, $lineHeight, $color,$fontFamily) {
+@mixin text($fontSize, $lineHeight, $color, $fontFamily) {
     font-size: $fontSize;
     line-height: $lineHeight;
     color: $color;
-   font-family:  $fontFamily;
+    font-family: $fontFamily;
 }
+
 .post-container {
+
     // padding: 0 50px 0px 21px;
-    .image,.vido {
+    .image,
+    .vido {
         height: 380px;
         cursor: pointer;
     }
 }
 
-.title-content{
-     padding: 0 50px 0px 21px; 
+.title-content {
+    padding: 0 50px 0px 21px;
 }
+
 .show {
     overflow: visible;
     height: auto;
     transition: .5s all ease-out;
 }
+
 .food-image,
 .chicken-image {
     height: 260px;
@@ -30,13 +35,13 @@
     padding: 0 50px 0px 21px;
 
     .title {
-        @include text(20px, 32px, #45535C,MicrosoftYaHeiUI);
-    
+        @include text(20px, 32px, #45535C, MicrosoftYaHeiUI);
+
 
     }
 
     .name {
-        @include text(18px, 21px, #BEC9DF,MicrosoftYaHeiUI);
+        @include text(18px, 21px, #BEC9DF, MicrosoftYaHeiUI);
     }
 
 }
@@ -57,7 +62,7 @@
         padding: 5px 15px;
         top: 30px;
         right: 20px;
-        
+
     }
 
     &:hover {
@@ -76,11 +81,11 @@
             padding: 15px 15px;
 
             .text {
-                @include text(15px, 20px, #ffffff,MicrosoftYaHeiUI);
+                @include text(15px, 20px, #ffffff, MicrosoftYaHeiUI);
             }
 
             .title {
-                @include text(20px, 20px, #ffffff,MicrosoftYaHeiUI);
+                @include text(20px, 20px, #ffffff, MicrosoftYaHeiUI);
             }
         }
 
@@ -89,17 +94,25 @@
         }
     }
 }
-.posts-comments{
+
+.posts-comments {
     padding: 0 10px;
 }
 
-.d-none{
+.d-none {
     display: none !important;
 }
 
-.d-block{
+.d-block {
     display: block !important;
 }
-.time{
+
+.time {
     font-weight: bold;
+}
+
+.item-head-description {
+    .image {
+        background: #FEA6CC;
+    }
 }

@@ -18,6 +18,7 @@ export class PropertyModal implements OnInit {
     public content: any;
     public feedItem: FeedResponseData;
     public role: string;
+    public localImage:string;
     public comments = [
         {
             image: "assets/images/img8.png", name: "hanna mryan", time: "1 hour ago", message: "barevvvvvvvvv bari voxjuyn hiiiii", view: "2", like: "25", dislike: "6",
@@ -32,6 +33,7 @@ export class PropertyModal implements OnInit {
         private _cookieService: CookieService,
     ) {
         this.feedItem = _data.data;
+        this.localImage=this._data.localImage;
         this.timeStamp = moment(this.feedItem.timeStamp).fromNow();
         this.role = this._cookieService.get('role')
 

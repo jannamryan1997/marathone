@@ -5,6 +5,7 @@ import { AuthModal } from '../../core/modals';
 import { MatDialog } from '@angular/material/dialog';
 import { CookieService } from 'ngx-cookie';
 import { Router } from '@angular/router';
+import { UserResponseData } from '../../core/models/user';
 
 @Component({
     selector: "app-header",
@@ -13,8 +14,10 @@ import { Router } from '@angular/router';
 })
 
 export class HeaderComponent implements OnInit {
-    public profileUser;
+    public profileUser:UserResponseData;
     public showPfofileMenu: boolean = false;
+    public localImage:string;
+
     public menuItem: MenuItem[] = [
         { routerLink: "/feed", title: "Feed" },
         { routerLink: "#", title: "Coaches" },
@@ -28,9 +31,10 @@ export class HeaderComponent implements OnInit {
     constructor(private _profileUserService: UserService,
         private _mathDialog: MatDialog,
         private _cookieService: CookieService,
-        private _userService: UserService,
         private _router: Router
-    ) { }
+    ) { 
+      
+    }
 
     ngOnInit() { }
 
@@ -46,18 +50,23 @@ export class HeaderComponent implements OnInit {
     }
 
     get showUserData(): boolean {
-        this.profileUser = this._profileUserService.user;
-        return this._profileUserService.isAuthorized;
+        if(this._profileUserService.user){
 
+        this.profileUser = this._profileUserService.user;
+        // this.localImage = 'http://192.168.1.115:9000/media/' + this.profileUser.data.avatar;
+        this.localImage = 'http://annaniks.com:6262/media/' + this.profileUser.data.avatar;
+        return this._profileUserService.isAuthorized;
+        }
     }
+    
     onClick(): void {
         console.log(this.profileUser);
     }
 
     public logOut(): void {
         this._cookieService.removeAll();
-        this._userService.isAuthorized = false;
-        this._userService.user = null;
+        this._profileUserService.isAuthorized = false;
+        this._profileUserService.user = null;
         this._router.navigate(['/']);
         location.reload();
     }

@@ -38,6 +38,7 @@ import {
     ContentImageComponent,
     ContentVideoComponent,
     SpinnerLoadingComponent,
+    FullScreenLoaderComponent
 } from '../layout';
 
 
@@ -61,7 +62,8 @@ import {
         CreatePublicationComponent,
         ContentImageComponent,
         ContentVideoComponent,
-        SpinnerLoadingComponent
+        SpinnerLoadingComponent,
+        FullScreenLoaderComponent
     ],
     imports: [
         ReactiveFormsModule,
@@ -116,6 +118,7 @@ import {
         CreatePublicationComponent,
         ContentImageComponent,
         ContentVideoComponent,
+        FullScreenLoaderComponent
    
     ]
 })

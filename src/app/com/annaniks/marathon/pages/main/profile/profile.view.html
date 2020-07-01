@@ -14,6 +14,7 @@
                         </div>
                         <img [src]="localImage" class="user-image" alt="Cinque Terre">
                         <button class="btn coach-btn" *ngIf="role==='coach'">Coach</button>
+                        <spinner-loading [profileLoading]="true" *ngIf="loading"></spinner-loading>
                     </div>
 
                     <div class="btn-content d-flex align-items-center">
@@ -177,3 +178,4 @@
 
     </div>
 </div>
+

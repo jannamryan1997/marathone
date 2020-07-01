@@ -8,25 +8,34 @@ import { FeedData } from '../../../core/models';
 @Injectable()
 
 export class FeedService {
-    role:string;
+    role: string;
     public userId;
-    constructor(private _httpClient: HttpClient, @Inject('BASE_URL') private _baseUrl,private _cookieService:CookieService) {
-        this.role=this._cookieService.get('role');
-        this.userId=this._cookieService.get('userId') ;
+    constructor(private _httpClient: HttpClient, @Inject('BASE_URL') private _baseUrl, private _cookieService: CookieService) {
+        this.role = this._cookieService.get('role');
+        this.userId = this._cookieService.get('userId');
 
-     }
-
-    public feed(): Observable<FeedData> {
-        if(this.role==='client'){
-            return this._httpClient.get<FeedData>( this._baseUrl+'/feed/feeds/'+`?creator_client=${this.userId}`)
-        }
-        else if(this.role==='coach'){
-            return this._httpClient.get<FeedData>( this._baseUrl+'/feed/feeds/'+`?creator=${this.userId}`)   
-        }
-     
     }
 
-    
+    public feed(): Observable<FeedData> {
+        let params = new HttpParams();
+        params = params.set('authorization', 'false');
+        if (this.role === 'client') {
+            return this._httpClient.get<FeedData>(this._baseUrl + '/feed/feeds/' + `?creator_client=${this.userId}`, { params })
+        }
+        else if (this.role === 'coach') {
+            return this._httpClient.get<FeedData>(this._baseUrl + '/feed/feeds/' + `?creator=${this.userId}`, { params })
+        }
+        else {
+            console.log(this._baseUrl);
+            return this._httpClient.get<FeedData>(this._baseUrl + '/feed/feeds/',{params})
+        }
+
+
+
+
+    }
+
+
 }
 
 

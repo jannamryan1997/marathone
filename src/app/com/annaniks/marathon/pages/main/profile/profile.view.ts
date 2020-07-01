@@ -4,6 +4,7 @@ import { CookieService } from 'ngx-cookie';
 import { CountryService } from '../../../core/services/country.service';
 import { Country, UploadFileResponse } from '../../../core/models';
 import { UserService } from '../../../core/services/user.service';
+import { UserResponseData } from '../../../core/models/user';
 
 
 
@@ -13,6 +14,7 @@ import { UserService } from '../../../core/services/user.service';
     styleUrls: ["profile.view.scss"]
 })
 export class ProfileView implements OnInit {
+    public user: UserResponseData;
     public role: string;
     public country: any;
     public filteredCountriesSingle: any[];
@@ -20,7 +22,8 @@ export class ProfileView implements OnInit {
     public profileFormGroup: FormGroup;
     public showSocialMedium: boolean = false;
     public showMore: boolean = false;
-    public localImage: string = 'assets/images/img2.png';
+    public localImage: string = "/assets/images/img2.png";
+    public loading: boolean = false;
 
     constructor(
         private _fb: FormBuilder,
@@ -29,11 +32,19 @@ export class ProfileView implements OnInit {
         private _userService: UserService,
     ) {
         this.role = this._cookieService.get('role');
+        this.user = this._userService.user;
+     
+        if (this._userService.user.data.avatar) {
+            // this.localImage = 'http://192.168.1.115:9000/media/' + this._userService.user.data.avatar;
+               this.localImage = 'http://annaniks.com:6262/media/' +this._userService.user.data.avatar;
+        }
+
     }
 
     ngOnInit() {
-        console.log(this._userService);
+        console.log(this._userService.user);
         this._formBuilder();
+        this._setPatchValue();
     }
 
     private _formBuilder(): void {
@@ -42,15 +53,23 @@ export class ProfileView implements OnInit {
             userName: [null, Validators.required],
             location: [null, Validators.required],
             languages: [null],
-            staus: ["Contrary to popular belasief, Lorem Ipsum is not simply random text. It has roots in a piece of clasassical Latin literature from 45 BC, making over 2000 years . Richard McCsasalintock, a Latin .fessor at", Validators.required],
+            staus: [null, Validators.required],
             speciality: [null],
             facebook: [null],
             instagram: [null],
             linkedin: [null],
             youtube: [null],
-            about: ["Contrary to popular belasief, Lorem Ipsum is not simply random text. It has roots in a piece of clasassical Latin literature from 45 BC, making over 2000 years . Richard McCsasalintock, a Latin .fessor at"]
+            about: [null]
         })
     }
+
+    private _setPatchValue(): void {
+        this.profileFormGroup.patchValue({
+            fullName: this.user.data.user.last_name,
+            userName: this.user.data.user.email,
+        })
+    }
+
 
     private _setFormDataForImage(image) {
         if (image && image.target) {
@@ -63,15 +82,49 @@ export class ProfileView implements OnInit {
                 this._userService.uploadVideoFile(formData)
                     .subscribe((data: UploadFileResponse) => {
                         console.log(data);
-                        this.localImage = 'http://annaniks.com:6262/media/' + data.file_name;
 
+                        this._putClient(data.file_name);
+                        this.loading = false;
                     })
             }
         }
     }
 
+    private _putClient(file_name): void {
+        this._userService.user.data.avatar = file_name;
+        if (this.role === 'client') {
+            this._userService.putClient(this._userService.user.data.id, this._userService.user.data)
+                .subscribe((data) => {
+                    this._userService.getClient().subscribe((data) => {
+                        this.localImage = 'http://annaniks.com:6262/media/' + data.data.avatar;
+                        console.log(data);
+
+                    });
+
+
+                }),
+                err=>{
+                    this.loading=false;
+                }
+        }
+        else {
+            this._userService.putCoatch(this._userService.user.data.id, this._userService.user.data)
+                .subscribe((data) => {
+                    this._userService.getCoatch().subscribe((data) => {
+                        this.localImage = 'http://annaniks.com:6262/media/' + data.data.avatar;
+                        console.log(data);
+
+                    });
+
+
+                })
+        }
+    }
+
+
 
     public setServicePhoto(event) {
+        this.loading=true;
         if (event) {
             this._setFormDataForImage(event);
 
