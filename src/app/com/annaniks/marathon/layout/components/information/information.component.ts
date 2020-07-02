@@ -10,8 +10,5 @@ export class InformationComponent implements OnInit {
 @Input() profileCertificates;
     constructor() { }
 
-    ngOnInit() {
-        console.log(this.profileCertificates);
-        
-     }
+    ngOnInit() { }
 }

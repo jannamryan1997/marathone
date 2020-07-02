@@ -50,8 +50,8 @@ export class SignInComponent implements OnInit {
 
     private _formBuilder(): void {
         this.signInGroup = this._fb.group({
-            email: ["tovona9389@farmdeu.com", Validators.required],
-            password: ["tovona9389@farmdeu.com", Validators.required]
+            email: [null, Validators.required],
+            password: [null, Validators.required]
         })
     }
     private _signIn(): void {
@@ -70,17 +70,14 @@ export class SignInComponent implements OnInit {
                 })
             )
             .subscribe((data: SignInResponse) => {
-                console.log(data);
                 this.closeModal.emit('true');
                 this._cookieService.put('access', data.access);
                 this._cookieService.put('refresh', data.refresh);
                 this._cookieService.put('role', data.role);
                 this._profileUserService.isAuthorized = true;
-                console.log(this._profileUserService.isAuthorized);
                 location.reload();
             },
                 err => {
-                    console.log(err);
                     this.errorMessage = err.error;
                 }
             )
@@ -107,10 +104,6 @@ export class SignInComponent implements OnInit {
                 this.closeModal.emit('true');
                 this._cookieService.put("fbUser", "true");
             }
-            console.log(this._profileUserService.user, "this.loggedInkkkkkkk");
-
-
-
         });
         this._socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
 

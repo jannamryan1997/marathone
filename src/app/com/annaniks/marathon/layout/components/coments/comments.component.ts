@@ -13,15 +13,10 @@ export class CommentsComponent implements OnInit {
 
     constructor() { }
 
-    ngOnInit() {
-        console.log(this.comments, this.type);
-
-    }
+    ngOnInit() {}
 
     public isOpenReplay(): void {
         this.showReplay = !this.showReplay;
-        console.log(   this.showReplay );
-        
     }
 }
 

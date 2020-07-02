@@ -34,26 +34,17 @@ export class AddIngridientImageModal implements OnInit {
         if (event.target.files[0]) {
             reader.readAsDataURL(event.target.files[0]);
         }
-        console.log(this.slides);
 
     }
 }
 
   
 
-  slickInit(e) {
-    console.log('slick initialized');
-  }
+  slickInit(e) {}
 
-  breakpoint(e) {
-    console.log('breakpoint');
-  }
+  breakpoint(e) {}
 
-  afterChange(e) {
-    console.log('afterChange');
-  }
+  afterChange(e) {}
 
-  beforeChange(e) {
-    console.log('beforeChange');
-  }
+  beforeChange(e) { }
 }

@@ -29,7 +29,6 @@ export class UpdateView implements OnInit {
             if (event.target.files[0]) {
                 reader.readAsDataURL(event.target.files[0]);
             }
-            console.log(this.contentImageItem);
 
         }
     }

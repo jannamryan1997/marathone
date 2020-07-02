@@ -30,6 +30,7 @@
     "ng-click-outside": "^6.0.0",
     "ng2-ckeditor": "^1.2.7",
     "ngx-cookie": "^4.1.2",
+    "ngx-infinite-scroll": "^9.0.0",
     "ngx-loading": "^8.0.0",
     "ngx-plyr": "^4.0.0",
     "ngx-slick-carousel": "^0.5.1",

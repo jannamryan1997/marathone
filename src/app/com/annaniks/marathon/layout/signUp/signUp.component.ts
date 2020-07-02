@@ -79,11 +79,9 @@ export class SignUpComponent implements OnInit {
             )
             .subscribe((data) => {
                 this.changeSigntab.emit(this.tab);
-                console.log(data);
             },
                 err => {
                     this.errorMessage = err.error;
-                    console.log(err);
 
                 }
             )
@@ -113,11 +111,9 @@ export class SignUpComponent implements OnInit {
             )
             .subscribe((data) => {
                 this.changeSigntab.emit(this.tab);
-                console.log(data);
             },
                 err => {
                     this.errorMessage = err.error;
-                    console.log(err);
 
                 }
             )
@@ -132,9 +128,6 @@ export class SignUpComponent implements OnInit {
                 this.closeModal.emit('true');
                 this._cookieService.put("fbUser", "true");
             }
-            console.log(this._profileUserService.user, "this.loggedInkkkkkkk");
-
-
 
         });
         this._socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);

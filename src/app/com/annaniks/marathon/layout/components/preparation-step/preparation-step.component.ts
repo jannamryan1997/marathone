@@ -12,7 +12,5 @@ export class PreparationStepComponent implements OnInit {
 
     constructor() { }
 
-    ngOnInit() {
-        console.log(this.index);
-    }
+    ngOnInit() {}
 }

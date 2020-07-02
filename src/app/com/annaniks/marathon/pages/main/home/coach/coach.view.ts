@@ -29,7 +29,6 @@ export class CoachView implements OnInit {
 
     }
     public onClickGalerryTab(tab): void {
-        console.log(tab);
         
         this.galerryTab = tab;
     }

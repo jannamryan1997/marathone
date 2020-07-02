@@ -18,9 +18,9 @@ header {
         padding: 20px 0;
 
         .header-content {
-            .logo-text {
-                @include text(30px, 20px, #589CFE,  EncodeSans-Bold);
-                letter-spacing: 3px;
+            .logo {
+                width: 190px;
+                height: 27px;
                 
             }
 
@@ -28,7 +28,7 @@ header {
                 .link {
                     @include text(18px, 21px, #AFC1D1, EncodeSans-Medium);
                     text-decoration: none;
-                    margin-right: 24px;
+                    margin-right: 26px;
                     cursor: pointer;
                     transition: .5s all ease-out;
                     height: fit-content;
@@ -89,7 +89,6 @@ header {
                         width: 40px;
                         height: 40px;
                         border-radius: 50%;
-                        background: #FEA6CC;
                         border: 2px solid #ffff;
                     }
 

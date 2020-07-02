@@ -19,6 +19,7 @@ import { NgxLoadingModule } from 'ngx-loading';
 
 import { FeedPostCardItemComponent } from '../pages/main/feed/feed-posts/component/feed-post-card-item/feed-post-card-item.component';
 
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 import {
     HeaderComponent,
@@ -79,6 +80,7 @@ import {
         CKEditorModule,
         PlyrModule,
         NgxLoadingModule,
+        InfiniteScrollModule
  
     ],
     providers: [AuthGuard],
@@ -99,6 +101,7 @@ import {
         HttpClientModule,
         PlyrModule,
         NgxLoadingModule,
+        InfiniteScrollModule,
         
         HeaderComponent,
         LeftMenuCompomemtn,

@@ -1,8 +1,13 @@
 <div class="feed-container">
     <div *ngIf="userService.user">
-        <app-create-publication [feedItem]="feedItem" (postCreateEvent)="onPostCreated()"></app-create-publication>
+        <app-create-publication [feedItem]="feedItem" (postCreateEvent)="onPostCreated($event)"></app-create-publication>
     </div>
-    <div class="feed-item">
+    <div *ngIf="feedItem?.length > 0" class="feed-item" infinite-scroll
+        [infiniteScrollDistance]="scrollDistance"
+        [infiniteScrollUpDistance]="scrollUpDistance"
+        [infiniteScrollThrottle]="throttle"
+        [infiniteScrollDisabled]="infiniteScrollDisabled"
+    (scrolled)="onScroll()">
         <app-feed-post-card-item *ngFor="let item of feedItem" [feedItem]="item"></app-feed-post-card-item>
     </div>
 </div>

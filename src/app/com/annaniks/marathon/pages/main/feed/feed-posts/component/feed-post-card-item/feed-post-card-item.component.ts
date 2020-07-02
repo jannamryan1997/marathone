@@ -11,7 +11,8 @@ import { UserService } from 'src/app/com/annaniks/marathon/core/services/user.se
 @Component({
     selector: "app-feed-post-card-item",
     templateUrl: "feed-post-card-item.component.html",
-    styleUrls: ["feed-post-card-item.component.scss"]
+    styleUrls: ["feed-post-card-item.component.scss"],
+
 })
 
 export class FeedPostCardItemComponent implements OnInit {
@@ -23,7 +24,7 @@ export class FeedPostCardItemComponent implements OnInit {
     public time: string;
     public seeMore: boolean = false;
     public role: string;
-    public localImage: string = "/assets/images/img2.png";
+    public localImage: string = "/assets/images/user-icon-image.png";
     public comments = [
         {
             image: "assets/images/img8.png", name: "hanna mryan", time: "1 hour ago", message: "barevvvvvvvvv bari voxjuyn hiiiii", view: "2", like: "25", dislike: "6",
@@ -37,30 +38,35 @@ export class FeedPostCardItemComponent implements OnInit {
     constructor(private _matDialog: MatDialog, private _cookieService: CookieService, private _userService: UserService) {
         this.role = this._cookieService.get('role');
 
-
     }
 
     ngOnInit() {
-        console.log(this.feedItem);
-
         this.time = moment(this.feedItem.timeStamp).fromNow();
 
         if (this.feedItem.feed_media && this.feedItem.feed_media.length) {
             this.content = this.feedItem.feed_media[0].content;
         }
+
         if (!this.role) {
-            if (this.feedItem.creator_info && this.feedItem.creator_info.avatar === null) {
+            if (this.feedItem.creator_info && this.feedItem.creator_info.avatar) {
                 this.localImage = 'http://annaniks.com:6262/media/' + this.feedItem.creator_info.avatar;
-            }else{
-                this.localImage = '/assets/images/img2.png';
+            }
+
+            else if (this.feedItem.creator_client_info && this.feedItem.creator_client_info.avatar) {
+                this.localImage = 'http://annaniks.com:6262/media/' + this.feedItem.creator_client_info.avatar;
+            }
+            else {
+                this.localImage = '/assets/images/user-icon-image.png';
             }
         }
-        if ( this.feedItem.creator_info && this.feedItem.creator_info.avatar === null) {
-            this.localImage = '/assets/images/img2.png';
-        }
-        if (this.role) {
+
+        else if (this.role && this._userService.user.data.avatar) {
             this.localImage = 'http://annaniks.com:6262/media/' + this._userService.user.data.avatar;
         }
+        else if (this.role && this._userService.user.data.avatar === null) {
+            this.localImage = "/assets/images/user-icon-image.png";
+        }
+
 
 
         this._showseeMore();

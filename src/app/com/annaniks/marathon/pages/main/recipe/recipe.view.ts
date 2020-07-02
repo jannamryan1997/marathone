@@ -51,15 +51,12 @@ export class RecipeView implements OnInit {
             reader.onload = (e: any) => {
                 this.slides.push({ img: e.target.result });
                 this.slides.map((element, index) => {
-
-                    console.log(element, "element");
                 })
             };
             if (event.target.files[0]) {
                 reader.readAsDataURL(event.target.files[0]);
             }
             this.showImage = true;
-            console.log(this.slides);
 
         }
     }
@@ -83,18 +80,14 @@ export class RecipeView implements OnInit {
     }
 
     slickInit(e) {
-        console.log('slick initialized');
     }
 
     breakpoint(e) {
-        console.log('breakpoint');
     }
 
     afterChange(e) {
-        console.log('afterChange');
     }
 
     beforeChange(e) {
-        console.log('beforeChange');
     }
 }

@@ -14,7 +14,6 @@ export class PostsComments implements OnInit {
     constructor(private _fb: FormBuilder) { }
 
     ngOnInit() {
-        console.log(this.comments,"post-comments");
         
         this._formBuilder();
     }

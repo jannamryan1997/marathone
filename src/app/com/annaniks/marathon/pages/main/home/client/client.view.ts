@@ -19,10 +19,8 @@ export class ClientView implements OnInit {
         this.user = this._profileUserService.user;
      }
 
-    ngOnInit() { 
-        console.log(this.user);
-        
-    }
+    ngOnInit() {  }
+
     public onClickSeeMore(): void {
         this.showTitle = !this.showTitle;
     }
@@ -31,7 +29,6 @@ export class ClientView implements OnInit {
 
     }
     public onClickGalerryTab(tab): void {
-        console.log(tab);
         
         this.galerryTab = tab;
     }

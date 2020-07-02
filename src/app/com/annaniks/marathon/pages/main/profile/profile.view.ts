@@ -22,7 +22,7 @@ export class ProfileView implements OnInit {
     public profileFormGroup: FormGroup;
     public showSocialMedium: boolean = false;
     public showMore: boolean = false;
-    public localImage: string = "/assets/images/img2.png";
+    public localImage: string = "/assets/images/user-icon-image.png";
     public loading: boolean = false;
 
     constructor(
@@ -42,7 +42,6 @@ export class ProfileView implements OnInit {
     }
 
     ngOnInit() {
-        console.log(this._userService.user);
         this._formBuilder();
         this._setPatchValue();
     }
@@ -81,8 +80,6 @@ export class ProfileView implements OnInit {
 
                 this._userService.uploadVideoFile(formData)
                     .subscribe((data: UploadFileResponse) => {
-                        console.log(data);
-
                         this._putClient(data.file_name);
                         this.loading = false;
                     })
@@ -97,7 +94,6 @@ export class ProfileView implements OnInit {
                 .subscribe((data) => {
                     this._userService.getClient().subscribe((data) => {
                         this.localImage = 'http://annaniks.com:6262/media/' + data.data.avatar;
-                        console.log(data);
 
                     });
 
@@ -112,7 +108,6 @@ export class ProfileView implements OnInit {
                 .subscribe((data) => {
                     this._userService.getCoatch().subscribe((data) => {
                         this.localImage = 'http://annaniks.com:6262/media/' + data.data.avatar;
-                        console.log(data);
 
                     });
 
@@ -137,7 +132,6 @@ export class ProfileView implements OnInit {
     public filterCountryMultiple(event) {
         let query = event.query;
         this._countryService.getCountries().subscribe((countries: Country[]) => {
-            console.log(countries);
 
             this.filteredCountriesMultiple = this.filterCountry(query, countries);
         });
@@ -165,10 +159,3 @@ export class ProfileView implements OnInit {
 
 }
 
-
-    // filterCountrySingle(event) {
-    //     let query = event.query;
-    //     this._countryService.getCountries().subscribe((data: any) => {
-    //         this.filteredCountriesSingle = this.filterCountry(query, data);
-    //     })
-    // }

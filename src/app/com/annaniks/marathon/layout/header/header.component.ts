@@ -16,16 +16,15 @@ import { UserResponseData } from '../../core/models/user';
 export class HeaderComponent implements OnInit {
     public profileUser:UserResponseData;
     public showPfofileMenu: boolean = false;
-    public localImage:string;
+    public localImage:string="/assets/images/user-icon-image.png";
 
     public menuItem: MenuItem[] = [
         { routerLink: "/feed", title: "Feed" },
         { routerLink: "#", title: "Coaches" },
         { routerLink: "#", title: "Recipes" },
-        { routerLink: "#", title: "Workouts" },
         { routerLink: "#", title: "Articels" },
         { routerLink: "#", title: "Q & A" },
-        { routerLink: "#", title: "Transform" },
+        { routerLink: "#", title: "Package" },
         { routerLink: "#", title: "Workout Music" },
     ]
     constructor(private _profileUserService: UserService,
@@ -54,21 +53,23 @@ export class HeaderComponent implements OnInit {
 
         this.profileUser = this._profileUserService.user;
         // this.localImage = 'http://192.168.1.115:9000/media/' + this.profileUser.data.avatar;
-        this.localImage = 'http://annaniks.com:6262/media/' + this.profileUser.data.avatar;
+        if( this.profileUser.data.avatar){
+            this.localImage = 'http://annaniks.com:6262/media/' + this.profileUser.data.avatar;
+        }
+   
         return this._profileUserService.isAuthorized;
         }
     }
     
     onClick(): void {
-        console.log(this.profileUser);
     }
 
     public logOut(): void {
         this._cookieService.removeAll();
         this._profileUserService.isAuthorized = false;
         this._profileUserService.user = null;
-        this._router.navigate(['/']);
-        location.reload();
+        this._router.navigate(['/feed']);
+         location.reload();
     }
 
 }

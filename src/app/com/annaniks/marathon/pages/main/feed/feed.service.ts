@@ -16,25 +16,20 @@ export class FeedService {
 
     }
 
-    public feed(): Observable<FeedData> {
+    public feed(page:number): Observable<FeedData> {
         let params = new HttpParams();
         params = params.set('authorization', 'false');
         if (this.role === 'client') {
-            return this._httpClient.get<FeedData>(this._baseUrl + '/feed/feeds/' + `?creator_client=${this.userId}`, { params })
+            return this._httpClient.get<FeedData>(this._baseUrl + '/feed/feeds/' + `?creator_client=${this.userId}&page=${page}`, { params })
         }
         else if (this.role === 'coach') {
-            return this._httpClient.get<FeedData>(this._baseUrl + '/feed/feeds/' + `?creator=${this.userId}`, { params })
+            return this._httpClient.get<FeedData>(this._baseUrl + '/feed/feeds/' + `?creator=${this.userId}&page=${page}`, { params })
         }
         else {
-            console.log(this._baseUrl);
-            return this._httpClient.get<FeedData>(this._baseUrl + '/feed/feeds/',{params})
+            return this._httpClient.get<FeedData>(this._baseUrl + '/feed/feeds/'+ `?page=${page}`,{params})
         }
 
-
-
-
     }
-
 
 }
 

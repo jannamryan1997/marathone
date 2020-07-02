@@ -24,7 +24,8 @@
                     <img [src]="localImage" class="image" alt="Cinque Terre">
                     <p class="name-title mb-0"  *ngIf="role==='client'">{{feedItem?.creator_client_info?.user?.first_name}}</p>
                     <p class="name-title mb-0" *ngIf="role==='coach'">{{feedItem?.creator_info?.user?.first_name}}</p>
-                    <p class="name-title mb-0" *ngIf="!role">{{feedItem?.creator_info?.user?.first_name}}</p>
+                    <p class="name-title mb-0" *ngIf="!role && feedItem.creator_info">{{feedItem?.creator_info?.user?.first_name}}</p>
+                    <p class="name-title mb-0" *ngIf="!role && feedItem.creator_client_info">{{feedItem?.creator_client_info?.user?.first_name}}</p>
                     
                     <p class="time mb-0">{{timeStamp}}</p>
                 </div>

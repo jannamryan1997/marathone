@@ -16,7 +16,7 @@ export class HomeView implements OnInit {
     public showSocialMedium: boolean = false;
     public showMore: boolean = false;
     public showProfile: boolean = false;
-    public localImage:string='/assets/images/img2.png';
+    public localImage:string='/assets/images/user-icon-image.png';
     public postItem = [
         {
             postType: "image",

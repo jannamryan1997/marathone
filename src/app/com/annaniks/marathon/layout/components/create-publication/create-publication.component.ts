@@ -81,8 +81,6 @@ export class CreatePublicationComponent implements OnInit {
         });
         this.contentFileName = this._videoId;
         this.uploadType = 'videoLink';
-        console.log(this.contentFileName);
-
     }
 
 
@@ -90,14 +88,11 @@ export class CreatePublicationComponent implements OnInit {
         switch (event.data) {
             case window['YT'].PlayerState.PLAYING:
                 if (this._cleanTime() == 0) {
-                    console.log('started ' + this._cleanTime());
                 } else {
-                    console.log('playing ' + this._cleanTime())
                 };
                 break;
             case window['YT'].PlayerState.PAUSED:
                 if (this.player.getDuration() - this.player.getCurrentTime() != 0) {
-                    console.log('paused' + ' @ ' + this._cleanTime());
                 };
                 break;
             case window['YT'].PlayerState.ENDED:
@@ -141,7 +136,6 @@ export class CreatePublicationComponent implements OnInit {
 
                 this._userService.uploadVideoFile(formData)
                     .subscribe((data: UploadFileResponse) => {
-                        console.log(data);
                         // fileName = 'http://annaniks.com:6262/media/' + data.file_name;
                         fileName = 'http://annaniks.com:6262/media/' + data.file_name;
                         this.contentFileName = data.file_name;
@@ -171,7 +165,6 @@ export class CreatePublicationComponent implements OnInit {
     }
 
     public addEmoji(event): void {
-        console.log(event);
         
         let data = this.postType.value + event.emoji.native;
         this.postType.patchValue(data)
@@ -191,7 +184,6 @@ export class CreatePublicationComponent implements OnInit {
         else {
             this._destroyYoutubePlayer();
         }
-        console.log(this.uploadType, this.postType.value);
     }
     ///////youtube-i video link
     private _destroyYoutubePlayer(): void {
@@ -233,7 +225,6 @@ export class CreatePublicationComponent implements OnInit {
 
     public closeControlItem(): void {
         this.uploadType = null;
-        console.log(this.uploadType);
         if (this.postType.value === '' || this.postType.value === null) {
         }
     }
@@ -267,7 +258,6 @@ export class CreatePublicationComponent implements OnInit {
             }
 
             this._postCreateEvent.emit();
-            console.log(data, 1);
 
         })
     }

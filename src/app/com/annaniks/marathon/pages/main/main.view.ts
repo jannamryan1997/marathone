@@ -28,9 +28,6 @@ export class MainView implements OnInit {
                 this._profileUserService.user = data;
                 this._profileUserService.isAuthorized = true;
                 this._cookieService.put('userId',this.getmeiD)
-                console.log(this.getmeiD);
-                
-                console.log(data);
             })
     }
 
@@ -41,7 +38,6 @@ export class MainView implements OnInit {
                 this._profileUserService.user = data;
                 this._profileUserService.isAuthorized = true;
                 this._cookieService.put('userId',this.getmeiD)
-                console.log(data,this.getmeiD);
             })
 
 
@@ -51,7 +47,6 @@ export class MainView implements OnInit {
         let role: string;
         role = this._cookieService.get('role');
         if (role === 'coach') {
-            console.log(role, "roleeeeeeeeeee");
 
             this._getCoatch();
         }

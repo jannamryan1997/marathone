@@ -53,14 +53,12 @@ export class RecipePostView implements OnInit {
                 this.slides.push({ img: e.target.result });
                 this.slides.map((element, index) => {
 
-                    console.log(element, "element");
                 })
             };
             if (event.target.files[0]) {
                 reader.readAsDataURL(event.target.files[0]);
             }
             this.showImage = true;
-            console.log(this.slides);
 
         }
     }
@@ -83,19 +81,11 @@ export class RecipePostView implements OnInit {
         this.tagsItem.splice(ind, 1);
     }
 
-    slickInit(e) {
-        console.log('slick initialized');
-    }
+    slickInit(e) {}
 
-    breakpoint(e) {
-        console.log('breakpoint');
-    }
+    breakpoint(e) { }
 
-    afterChange(e) {
-        console.log('afterChange');
-    }
+    afterChange(e) {}
 
-    beforeChange(e) {
-        console.log('beforeChange');
-    }
+    beforeChange(e) {}
 }
