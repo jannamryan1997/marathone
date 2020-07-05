@@ -20,11 +20,17 @@
             width: 100%;
             margin: 20px 0;
         }
+        .social-media-icon{
+            width: 20px;
+        }
     }
 
 
     .form-content {
         border: 1px solid red;
+    }
+    .form-group-icon{
+        width: 15px;
     }
 }
 
@@ -40,3 +46,4 @@
 .button-content {
     padding: 0 !important;
 }
+

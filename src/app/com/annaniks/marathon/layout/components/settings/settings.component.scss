@@ -1,46 +1,34 @@
-@mixin text($fontSize, $lineHeight, $color,$fontFamily) {
+@mixin text($fontSize, $lineHeight, $color, $fontFamily) {
     font-size: $fontSize;
     line-height: $lineHeight;
     color: $color;
     font-family: $fontFamily;
 }
-
 .settings {
-    width: 100%;
+    height: 60px;
+    display: flex;
     flex-wrap: wrap;
-    padding: 0 43px;
-    .setting-item {
-        // width: 33.3333333333%;
-        padding: 10px;
-        display: flex;
-        align-items: center;
-        .icon {
-            font-size: 20px;
-            color: #E3ECFD;
+    .setting-item-btn {
+        width: 33.33333%;
+        border: none;
+        background: none;
+        border-right: 1px solid #d1e3fc;
+        cursor: pointer;
+        @include text(16px, 20px, #45535c, EncodeSans-SemiBold);
+        &:last-child {
+            border-right: none !important;
         }
-
+        .settings-icon {
+            width: 20px;
+            height: 20px;
+        }
         .title {
-            @include text(17px, 20px, #45535C,EncodeSans-SemiBold);
-            cursor: pointer;
-            margin-left: 5px;
-            font-weight: 600;
-
-        }
-        &::after {
-            display: inline-block;
-            content: "";
-            border-right: 1px solid #D1E3FC;
-            height: 30px;
-            margin-left: 30px;
-        }
-        &:last-child{
-            &::after{
-                content: none !important;
-            }
+            margin-left: 16px;
         }
     }
 }
 
-.fontSize {
+.class-type {
+    border: none !important;
     font-size: 9px !important;
 }

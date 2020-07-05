@@ -22,10 +22,10 @@ export class HeaderComponent implements OnInit {
         { routerLink: "/feed", title: "Feed" },
         { routerLink: "#", title: "Coaches" },
         { routerLink: "#", title: "Recipes" },
-        { routerLink: "#", title: "Articels" },
+        { routerLink: "#", title: "Articles" },
         { routerLink: "#", title: "Q & A" },
-        { routerLink: "#", title: "Package" },
-        { routerLink: "#", title: "Workout Music" },
+        { routerLink: "#", title: "Packages"},
+        // { routerLink: "#", title: "Workout Music" },
     ]
     constructor(private _profileUserService: UserService,
         private _mathDialog: MatDialog,

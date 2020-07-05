@@ -7,7 +7,7 @@
 
 .feed-header-content {
     background: #ffffff 0% 0% no-repeat padding-box;
-    box-shadow: 0.77px 11px 43px #5c687b17;
+    box-shadow: 2.09px 30px 43px #5C687B17;
     border: 0.5px solid #e3ecfd;
     border-radius: 15px;
     opacity: 1 !important;
@@ -70,6 +70,9 @@
             &:last-child {
                 border-right: none !important;
             }
+        }
+        .publication-icon{
+            width: 20px;
         }
     }
 }

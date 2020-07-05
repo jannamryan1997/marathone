@@ -45,8 +45,9 @@
     border-radius: 15px;
     opacity: 1;
     margin-top: 32px;
-    padding: 24px 0;
+    padding:0;
     background: #ffffff;
+    box-shadow: 2.09px 30px 43px #5C687B17;
 }
 
 .post-content {
@@ -67,8 +68,9 @@
 .item-header {
     display: flex;
     justify-content: space-between;
-    padding: 0 42px 20px 21px;
+    padding: 0 42px 0px 21px;
     align-items: center;
+    height: 75px;
 
     .item-head-description {
         display: flex;

@@ -4,9 +4,7 @@
     </div>
     <form [formGroup]="signInGroup" >
         <div class="form-group d-flex" [ngClass]="{'border':chackIsValid('email')}">
-            <span class="material-icons form-icon">
-                person
-            </span>
+         <img src="/assets/icons/Profile.svg" class="form-group-icon"> 
             <input type="email" class="form-input w-100" formControlName="email" placeholder="email">
         </div>
         <div class="form-group d-flex" [ngClass]="{'border':chackIsValid('password')}">
@@ -33,11 +31,11 @@
             <p class="title">Forgot Password?</p>
         </div>
         <div class="auth-description social-media">
-            <div class=" display-flex">
+            <div class="display-flex m-auto" [ngStyle]="{'width':'80%'}">
                 <p class="text">Sign in with</p>
-                <i class="fa fa-google icon" aria-hidden="true" (click)="signInWithGoogle()"></i>
-                <i class="fa fa-facebook icon" aria-hidden="true" (click)="signInWithFB()"></i>
-                <i class="fa fa-twitter icon" aria-hidden="true"></i>
+                <img src="/assets/icons/Gogole.svg" class="social-media-icon"  (click)="signInWithGoogle()"> 
+                <img src="/assets/icons/Facebook.svg" class="social-media-icon"  (click)="signInWithFB()"> 
+                <img src="/assets/icons/Twitter.svg" class="social-media-icon"> 
             </div>
         </div>
     </form>
