@@ -37,18 +37,26 @@ padding: 0 20px;
 
             .post-content {
                 margin: 10px 0;
-                border-bottom: 1px solid #E3ECFD;
-                border-top: 1px solid #E3ECFD;
+                border-bottom: 1px solid #bbcddf;
+                border-top: 1px solid #bbcddf;
                 padding: 10px 0;
             }
+        }
+        .name-title{
+            font-size: 19px !important;
+        }
+        .time{
+            font-size: 14px !important;
+        }
+        .icon{
+            color: #45535c;
         }
     }
 }
 
 .show-content {
-    font-size: 16px;
+    font-size: 14px !important;
     line-height: 16px;
-    height: 60px;
     overflow: hidden;
     transition: .5s all ease-out;
 }

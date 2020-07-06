@@ -15,15 +15,11 @@ const mainRoutes: Routes = [
 
             },
             {
-                path: "home",
-                loadChildren: () => import('./home/home.module').then(m => m.HomeModule),
-                canActivate: [RoleGuard]
-            },
-            {
                 path: "profile",
                 loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule),
                 canActivate: [RoleGuard]
             },
+           
             {
                 path: "article",
                 loadChildren: () => import('./article/article.module').then(m => m.ArticleModule),

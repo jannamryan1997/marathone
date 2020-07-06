@@ -8,7 +8,7 @@
 .feed-header-content {
     background: #ffffff 0% 0% no-repeat padding-box;
     box-shadow: 2.09px 30px 43px #5C687B17;
-    border: 0.5px solid #e3ecfd;
+    border: 0.5px solid #E3ECFD;
     border-radius: 15px;
     opacity: 1 !important;
     text-align: center;
@@ -17,13 +17,13 @@
     .recipe-header {
         padding: 18px 24px;
         .title {
-            @include text(16px, 19px, #bec8dd, SemiBold);
+            @include text(16px, 19px, #bbcddf, SemiBold);
             cursor: pointer;
         }
         .material-icons {
             font-size: 22px;
             line-height: 19px;
-            color: #bec8dd;
+            color: #bbcddf;
             cursor: pointer;
         }
         .message-input {
@@ -37,7 +37,7 @@
             margin-top: 16px;
 
             &::placeholder {
-                color: #bec8dd;
+                color: #bbcddf;
             }
         }
         .emoji-content {
@@ -58,11 +58,11 @@
         }
     }
     .button-content {
-        border-top: 0.5px solid #e3ecfd;
-        @include text(16px, 21px, #afc1d1, EncodeSans-SemiBold);
+        border-top: 0.5px solid #E3ECFD;
+        @include text(16px, 21px, #bbcddf, EncodeSans-SemiBold);
         flex-wrap: wrap;
         .button-item {
-            border-right: 0.5px solid #e3ecfd;
+            border-right: 0.5px solid #E3ECFD;
             align-items: center;
             cursor: pointer;
             padding: 19px 33px;
@@ -133,5 +133,5 @@ input[type="file"] {
 
 @keyframes animateBackground {
     from {background-color: transparent}
-    to {    background-color:#bec8dd;opacity: .8}
+    to {    background-color:#bbcddf;opacity: .8}
   }

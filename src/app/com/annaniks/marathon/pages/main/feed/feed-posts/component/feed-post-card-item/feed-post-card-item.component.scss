@@ -6,12 +6,13 @@
 }
 
 .post-container {
-
+   
     // padding: 0 50px 0px 21px;
     .image,
     .vido {
         height: 380px;
         cursor: pointer;
+        margin-top: 10px;
     }
 }
 
@@ -19,10 +20,13 @@
     padding: 0 50px 0px 21px;
     align-items: flex-end;
 }
+.icon{
+    color: #45535c;
+}
 
 .show {
     overflow: visible;
-    height: auto;
+    // height: auto;
     transition: .5s all ease-out;
 }
 
@@ -109,7 +113,7 @@
 }
 
 .time {
-    font-weight: bold;
+      
 }
 
 .item-head-description {

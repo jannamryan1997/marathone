@@ -1,0 +1,181 @@
+<div class="home-container">
+    <div class="home-main">
+        <div class="profile-description">
+            <!-- <img src="assets/images/profile-img.png" class="cover-image" alt="Cinque Terre"> -->
+            <div class="profile-content">
+                <!-- <div class="profile-header-content display-flex">
+                    <div class="profile-image">
+                        <div class=" d-flex">
+                            <input class="" type="file" id="file" name="avatar" accept="image/png,image/jpeg"
+                                (change)="setServicePhoto($event)">
+                            <label class="icon-btn d-flex m-auto" for="file">
+                                <i class="fa fa-refresh m-auto" aria-hidden="true"></i>
+                            </label>
+                        </div>
+                        <img [src]="localImage" class="user-image" alt="Cinque Terre">
+                        <button class="btn coach-btn" *ngIf="role==='coach'">Coach</button>
+                        <spinner-loading [profileLoading]="true" *ngIf="loading"></spinner-loading>
+                    </div>
+
+                    <div class="btn-content d-flex align-items-center">
+                        <button class="btn follow-btn">Packages</button>
+                        <button class="btn follow-btn d-flex" routerLink="/profile"
+                            routerLinkActive="profileActiveTab">Edit Profile
+                            <span class="ml-2 material-icons">
+                                create
+                            </span>
+                        </button>
+
+                        <button class="btn btn-loader">
+                            <span class="material-icons icon">
+                                insert_comment
+                            </span>
+                        </button>
+                        <button class="btn btn-loader" (click)="onClickShowSocialMedium()">
+                            <span class="material-icons icon">
+                                alternate_email
+                            </span>
+                        </button>
+                        <button class="btn btn-loader" (click)="onClickShowMore()">
+                            <span class="material-icons icon">
+                                more_horiz
+                            </span>
+                        </button>
+                    </div>
+                </div> -->
+                <div class="social-media" *ngIf="showSocialMedium">
+                    <p> <i class="arrow up"></i></p>
+                    <div class="social-media-description">
+                        <img src="assets/images/social/inst.png.png" class="social-image mt-0" alt="Cinque Terre">
+                        <img src="assets/images/social/facebook.png" class="social-image" alt="Cinque Terre">
+                        <img src="assets/images/social/linkedin.png.png" class="social-image" alt="Cinque Terre">
+                        <img src="assets/images/social/twitter.png" class="social-image" alt="Cinque Terre">
+                    </div>
+                </div>
+                <div class="more-content" *ngIf="showMore">
+                    <p> <i class="arrow up"></i></p>
+                    <div class="more-description">
+                        <p class="more-item w-100">Copy Profile URL</p>
+                        <p class="more-item w-100">Block</p>
+                        <p class="more-item w-100">Report</p>
+                    </div>
+                </div>
+
+
+                <div class="main-layout">
+                    <div class="profile-container">
+                        <form [formGroup]="profileFormGroup">
+                            <div class="display-flex">
+                                <div class="form-group">
+                                    <label>First Name</label>
+                                    <input type="text" class="form-input w-100" formControlName="fullName"
+                                        placeholder="">
+                                </div>
+                                <div class="form-group">
+                                    <label>User Name</label>
+                                    <input type="text" class="form-input w-100" formControlName="userName"
+                                        placeholder="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Location</label>
+                                <input type="text" class="form-input w-100" formControlName="location" placeholder="">
+                            </div>
+
+                            <div class="autocomplete">
+                                <label>Languages</label>
+                                <p-autoComplete class="w-100" formControlName="languages"
+                                    [suggestions]="filteredCountriesMultiple"
+                                    (completeMethod)="filterCountryMultiple($event)" [minLength]="1" placeholder=""
+                                    field="name" [multiple]="true">
+                                </p-autoComplete>
+                            </div>
+                            <div class="form-group">
+                                <label>Staus</label>
+                                <textarea type="text" class="form-input w-100 text-area"
+                                    formControlName="staus"></textarea>
+                            </div>
+                            <div class="autocomplete">
+                                <label>Speciality</label>
+                                <p-autoComplete class="w-100" formControlName="speciality"
+                                    [suggestions]="filteredCountriesMultiple"
+                                    (completeMethod)="filterCountryMultiple($event)" [minLength]="1" placeholder=""
+                                    field="name" [multiple]="true">
+                                </p-autoComplete>
+                            </div>
+                            <div class="form-group d-flex  flex-column">
+                                <label>Social Accounts</label>
+                                <div class="display-flex">
+                                    <div class="link-form">
+                                        <label class="lable">Facebook</label>
+                                        <input type="text" class="form-group-link w-100" formControlName="facebook"
+                                            placeholder="Insert Link">
+                                    </div>
+                                    <div class="link-form">
+                                        <label class="lable">Instagram</label>
+                                        <input type="text" class="form-group-link w-100 " formControlName="instagram"
+                                            placeholder="Insert Link">
+                                    </div>
+                                </div>
+                                <div class="display-flex">
+                                    <div class="link-form">
+                                        <label class="lable">Linkedin</label>
+                                        <input type="text" class="form-group-link w-100" formControlName="linkedin"
+                                            placeholder="Insert Link">
+                                    </div>
+                                    <div class="link-form">
+                                        <label class="lable">Youtube</label>
+                                        <input type="text" class="form-group-link w-100 " formControlName="youtube"
+                                            placeholder="Insert Link">
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="form-group about-form" *ngIf="role=='coach'">
+                                <label>About</label>
+                                <textarea type="text" class="form-input w-100 text-area" formControlName="about"
+                                    placeholder=""></textarea>
+                            </div>
+                            <div class="form-group about-form" *ngIf="role=='coach'">
+                                <label>Certificates</label>
+                                <app-information [profileCertificates]="true"></app-information>
+                                <app-information [profileCertificates]="true"></app-information>
+                                <div class="add-certificates display-flex">
+                                    <div class="add-file d-flex">
+                                        <span class="material-icons m-auto">
+                                            insert_drive_file
+                                        </span>
+                                    </div>
+                                    <div class="form-group d-flex type-form-group">
+                                        <input type="text" class="form-input w-100" formControlName="location"
+                                            placeholder="Type Cerificate Information">
+                                        <span class="material-icons add-icon">
+                                            add
+                                        </span>
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+                            <div class="form-group about-form" *ngIf="role=='coach'">
+                                <label>Education</label>
+                                <app-education [profileEducation]="true"></app-education>
+                            </div>
+
+                            <div class="form-group about-form" *ngIf="role=='coach'">
+                                <label>Experience</label>
+                                <app-experience [profileExperience]="true"></app-experience>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+

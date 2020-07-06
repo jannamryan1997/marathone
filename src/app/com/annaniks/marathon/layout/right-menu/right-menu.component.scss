@@ -11,7 +11,7 @@
         margin: 33px 0 31px 0;
     }
     .text{
-        @include text(14px,16px, #BDBDD7, EncodeSans-Bold);
+        @include text(14px,16px, #bbcddf, EncodeSans-Bold);
         cursor: pointer;
     }
 
@@ -21,7 +21,7 @@
             justify-content: space-between;
             padding: 13px 21px;
             background: #FFFFFF 0% 0% no-repeat padding-box;
-            border: 1px solid #E3ECFD;
+            border: 1px solid #bbcddf;
             border-radius: 24px;
             opacity: 1;
             margin: 20px 0;
@@ -63,12 +63,13 @@
 
         .name {
             margin-left: 20px;
-            @include text(16px, 20px, #5a666e, EncodeSans-Bold);
+            @include text(16px, 20px, #45535c, EncodeSans-Bold);
         }
 
         .email-title {
             margin-left: 18px;
-            @include text(12px, 15px, #d0dae4, EncodeSans-Regular);
+            margin-top: 5px;
+            @include text(14px, 16px, #bbcddf, EncodeSans-Regular);
         }
     }
 }
@@ -78,6 +79,7 @@
     opacity: 1;
     margin: 10px 0;
     padding: 0 !important;
+    height: 70px;
 }
 
 .position {

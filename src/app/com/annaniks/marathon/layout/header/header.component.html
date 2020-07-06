@@ -6,6 +6,11 @@
                 <li *ngFor="let item of menuItem" routerLinkActive="li-activeTab"><a class="link"
                         [routerLink]="item.routerLink" routerLinkActive="activeTab">{{item?.title}}</a></li>
             </div>
+            <div class="dashboard-search d-flex" *ngIf="!showUserData">
+                <span class="material-icons search-icon m-auto">
+                    search
+                </span> 
+            </div>
 
             <div class="serch-content" *ngIf="showUserData">
                 <input type="tex" class="search-input" placeholder="Search">

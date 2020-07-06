@@ -24,6 +24,7 @@ export class FeedPostCardItemComponent implements OnInit {
     public time: string;
     public seeMore: boolean = false;
     public role: string;
+    public feedTitle: string;
     public localImage: string = "/assets/images/user-icon-image.png";
     public comments = [
         {
@@ -74,20 +75,25 @@ export class FeedPostCardItemComponent implements OnInit {
     }
 
     private _showseeMore(): void {
+        let titleLength: number;
         if (this.feedItem.title) {
-            let titleLength: number;
             titleLength = this.feedItem.title.length;
+            this.feedTitle = this.feedItem.title;
             if (titleLength > 100) {
                 this.seeMore = true;
+                this.feedTitle = this.feedItem.title.slice(0, 100);
             }
             else {
                 this.seeMore = false;
             }
         }
+
+
     }
 
     public onClickSeeMore(): void {
-        this.showTitle = !this.showTitle;
+        this.feedTitle = this.feedItem.title.slice(0, this.feedItem.title.length);
+        this.seeMore = false;
     }
 
     public openPropertyModalByImage(): void {

@@ -4,8 +4,10 @@
             <img [src]="localImage" class="image" alt="Cinque Terre">
             <p class="name-title mb-0" *ngIf="role==='client'">{{feedItem?.creator_client_info?.user?.first_name}}</p>
             <p class="name-title mb-0" *ngIf="role==='coach'">{{feedItem?.creator_info?.user?.first_name}}</p>
-            <p class="name-title mb-0" *ngIf="!role && feedItem.creator_info">{{feedItem?.creator_info?.user?.first_name}}</p>
-            <p class="name-title mb-0" *ngIf="!role && feedItem.creator_client_info">{{feedItem?.creator_client_info?.user?.first_name}}</p>
+            <p class="name-title mb-0" *ngIf="!role && feedItem.creator_info">
+                {{feedItem?.creator_info?.user?.first_name}}</p>
+            <p class="name-title mb-0" *ngIf="!role && feedItem.creator_client_info">
+                {{feedItem?.creator_client_info?.user?.first_name}}</p>
             <p class="time mb-0">{{time}}</p>
         </div>
 
@@ -16,11 +18,8 @@
     <div class="post-content">
         <div class="post-container">
             <div class="title-content">
-                <p class="title show-content" [ngClass]="{'show':showTitle}">{{feedItem?.title}}</p>
-                <div *ngIf="seeMore">
-                        <p class="title more">...</p>
-                        <p class="title more" (click)="onClickSeeMore()">See More</p>
-                    </div>
+                <p class="title show-content" >{{feedTitle}} <span *ngIf="seeMore"
+                        class="title more" (click)="onClickSeeMore()">... See More</span></p>
             </div>
 
             <div class="d-none" [ngClass]="{'d-block':content?.type ==='image'}">
@@ -29,12 +28,14 @@
             </div>
 
             <div class="d-none" [ngClass]="{'d-block':content?.type ==='video'}">
-                <video controls class="vido w-100" poster=""
-                    src="{{'http://annaniks.com:6262/media/'+content?.url}}" (click)="openPropertyModalByVideo()">
+                <video controls class="vido w-100" poster="" src="{{'http://annaniks.com:6262/media/'+content?.url}}"
+                    (click)="openPropertyModalByVideo()">
                 </video>
             </div>
             <div class="d-none" [ngClass]="{'d-block':content?.type === 'videoLink'}">
-                <iframe  class="vido w-100" src="https://www.youtube.com/embed/tgbNymZ7vqY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <iframe class="vido w-100" src="https://www.youtube.com/embed/tgbNymZ7vqY" frameborder="0"
+                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
             </div>
         </div>
     </div>

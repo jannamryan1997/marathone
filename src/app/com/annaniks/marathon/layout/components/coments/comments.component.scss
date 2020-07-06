@@ -23,7 +23,7 @@
                 @include text(20px, 27px, #45535C, BarlowCondensed-Regular);
             }
             .time {
-                @include text(12px, 27px, #BEC8DD,BarlowCondensed-Regular);
+                @include text(12px, 27px, #bbcddf,BarlowCondensed-Regular);
             }
         }
         .like {
@@ -36,7 +36,7 @@
                 border: 1px solid #D1DCF1;
                 cursor: pointer;
                 .icon {
-                    color: #BEC8DD;
+                    color: #bbcddf;
                     font-size: 15px;
                 }
             }
@@ -49,7 +49,7 @@
             padding: 10px 0;
         }
         .view-title {
-            @include text(14px, 25px, #BEC8DD,BarlowCondensed-Light);
+            @include text(14px, 25px, #bbcddf,BarlowCondensed-Light);
             text-align: end;
             cursor: pointer;
         }

@@ -47,7 +47,7 @@
             width: 100%;
             display: inline-block;
             content: "";
-            border: 1px solid #E3ECFD;
+            border: 1px solid #bbcddf;
 
         }
 
@@ -73,7 +73,7 @@
         padding: 0 1.2em;
 
         .lable {
-            @include text(17px, 18px, #BBCDDF, EncodeSans-SemiBold);
+            @include text(17px, 18px, #bbcddf, EncodeSans-SemiBold);
         }
 
         .form-group-link {
@@ -88,7 +88,7 @@
             font-weight: 500 !important;
 
             &::placeholder {
-                @include text(17px, 18px, #BECDE8, MicrosoftYaHeiUI !important);
+                @include text(17px, 18px, #bbcddf, MicrosoftYaHeiUI !important);
             }
         }
     }
@@ -107,7 +107,7 @@
 
         .btn-text {
             padding: 15px 0;
-            @include text(18px, 21px, #BBCDDF, EncodeSans-SemiBold);
+            @include text(18px, 21px, #bbcddf, EncodeSans-SemiBold);
         }
     }
 

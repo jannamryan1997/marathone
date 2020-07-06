@@ -8,7 +8,7 @@
 .information-content {
     background: #FFFFFF 0% 0% no-repeat padding-box;
     box-shadow: 2px 30px 43px #5C687B17;
-    border: 0.5px solid #E3ECFD;
+    border: 0.5px solid #bbcddf;
     opacity: 1;
     .information-header {
         padding: 30px 0;
@@ -24,13 +24,13 @@
             display: block;
             content: "";
             width: 100%;
-            border-bottom: 0.5px solid #E3ECFD;
+            border-bottom: 0.5px solid #bbcddf;
         }
         &::before {
             display: block;
             content: "";
             width: 100%;
-            border-top: 0.5px solid #E3ECFD;
+            border-top: 0.5px solid #bbcddf;
         }
 
         .title {
@@ -88,7 +88,7 @@
 .form-group-link,
 .input-content {
     background: #FFFFFF 0% 0% no-repeat padding-box;
-    border: 1px solid #E3ECFD;
+    border: 1px solid #bbcddf;
     border-radius: 23px;
     opacity: 1;
     width: 138px;
@@ -99,7 +99,7 @@
     
 
     &::placeholder {
-        @include text(17px, 18px, #BECDE8, MicrosoftYaHeiUI !important);
+        @include text(17px, 18px, #bbcddf, MicrosoftYaHeiUI !important);
     }
 }
 

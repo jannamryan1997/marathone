@@ -36,12 +36,10 @@
             </div>
             <div class="post-content">
                 <div class="post-container">
-                    <p class="title show-content" [ngClass]="{'show':show}">{{feedItem?.title}}</p>
-                    <div *ngIf="seeMore">
-                            <p class="title more">...</p>
-                            <p class="title more" (click)="onClickSeeMore()">See More</p>
-                        </div>
-                </div>
+                        <p class="title show-content" >{{feedTitle}} <span *ngIf="seeMore"
+                                class="title more" (click)="onClickSeeMore()">... See More</span></p>
+                    </div>
+                   
 
             </div>
             <div *ngIf="isOpen">

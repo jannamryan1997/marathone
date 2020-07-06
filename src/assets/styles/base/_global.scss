@@ -7,7 +7,7 @@
 
 .pg-container {
     width: 100%;
-    max-width: 1280px;
+    max-width: 1200px;
     margin: 0 auto;
 }
 
@@ -41,7 +41,7 @@
 }
 
 .card-item {
-    border: 0.5px solid #e3ecfd;
+    border: 0.5px solid #E3ECFD;
     border-radius: 15px;
     opacity: 1;
     margin-top: 32px;
@@ -53,7 +53,7 @@
 .post-content {
     .post-container {
         .title {
-            @include text(16px, 30px, #45535c, MicrosoftYaHeiUI);
+            @include text(16px, 22px, #45535c, MicrosoftYaHeiUI);
         }
 
         .more {
@@ -83,12 +83,12 @@
         }
 
         .name-title {
-            @include text(21px, 33px, #45535c,EncodeSans-Bold);
+            @include text(19px, 33px, #45535c,EncodeSans-Bold);
             margin-left: 20px;
         }
 
         .time {
-            @include text(15px, 33px, #e3ecfd, EncodeSans-Medium);
+            @include text(14px, 33px, #bbcddf, EncodeSans-Medium);
             margin-left: 30px;
         }
     }
@@ -100,15 +100,15 @@
 }
 
 .follow-btn {
-    border: 1px solid #b9b9d5;
+    border: 1px solid #bbcddf;
     border-radius: 20px;
     opacity: 1;
     margin-left: 35px;
-    color: #b9b9d5;
-    font-family: EncodeSans-SemiBold;
-    padding: 5px 20px;
+    @include text(14px, 16px, #bbcddf,  EncodeSans-SemiBold);
+    padding: 9px 17px 9px 20px;
     background: #f7f7fc 0% 0% no-repeat padding-box;
-    font-weight: 600;
+
+
 }
 
 //radius
@@ -159,7 +159,7 @@
 .show-content {
     font-size: 16px;
     line-height: 16px;
-    height: 60px;
+    // height: 45px;
     overflow: hidden;
     transition: 0.5s all ease-out;
     
@@ -194,7 +194,7 @@
         padding: 15px 30px;
         text-decoration: none;
         text-shadow: 0px 1px 0px #57a1f2;
-        font-weight: 600;
+         
         display: flex;
         align-items: center;
     }
@@ -244,17 +244,17 @@
         border: none;
         margin-left: 10px;
         background: none !important;
-        @include text(17px, 18px, #becde8, MicrosoftYaHeiUI);
+        @include text(17px, 1px, #bbcddf, MicrosoftYaHeiUI);
 
         &::placeholder {
-            @include text(17px, 18px, #becde8, MicrosoftYaHeiUI);
+            @include text(17px, 18px, #bbcddf, MicrosoftYaHeiUI);
         }
     }
 
     .form-icon {
         font-size: 20px;
         line-height: 18px;
-        color: #becde8;
+        color: #bbcddf;
     }
 }
 
@@ -262,7 +262,7 @@
     margin-top: 30px;
     .text {
         @include text(14px, 30px, #45535c, EncodeSans-SemiBold);
-        font-weight: 600;
+         
     }
 
     .title {
@@ -272,7 +272,7 @@
 
     .checkbox {
         background: #ffffff 0% 0% no-repeat padding-box;
-        border: 1px solid #e3ecfd;
+        border: 1px solid #bbcddf;
         opacity: 1;
         width: 23px;
         height: 23px;
@@ -298,7 +298,6 @@
         transition: 0.5 all ease-out;
         padding: 15px;
         border-radius: 26px;
-        
         background: #ffffff;
         @include text(16px, 19px, #589cfe, EncodeSans-SemiBold);
         margin: 0 15px 0 0;
@@ -318,7 +317,7 @@
 }
 
 .arrow {
-    border: 1px solid #e3ecfd;
+    border: 1px solid #bbcddf;
     border-width: 0 3px 3px 0;
     display: inline-block;
     padding: 3px;
@@ -365,16 +364,16 @@ textarea {
      top: -11px;
      left: 25px;
      background-color:white;
-     font-weight: 600;
+      
      @include text(16px, 19px, #589CFE,MicrosoftYaHeiUI);
    }
 
    .update-video-btn{
     background: #FFFFFF 0% 0% no-repeat padding-box;
-    border: 1px solid #E3ECFD;
+    border: 1px solid #bbcddf;
     border-radius: 18px;
     opacity: 1;
-    color: #BBCDDF;
+    color: #bbcddf;
     width: 364px;
     justify-content: center;
     padding: 5px 0;
@@ -395,6 +394,6 @@ textarea {
 
     .btn-text {
         padding: 15px 0;
-        @include text(18px, 21px, #BBCDDF, EncodeSans-SemiBold);
+        @include text(18px, 21px, #bbcddf, EncodeSans-SemiBold);
     }
 }

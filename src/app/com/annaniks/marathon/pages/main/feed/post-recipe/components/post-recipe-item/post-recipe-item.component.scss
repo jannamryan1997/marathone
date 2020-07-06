@@ -9,7 +9,7 @@
     margin-top: 50px;
     background: #FFFFFF 0% 0% no-repeat padding-box;
     box-shadow: 2px 30px 43px #5C687B17;
-    border: 0.5px solid #E3ECFD;
+    border: 0.5px solid #bbcddf;
     border-radius: 15px;
     opacity: 1;
 
@@ -18,14 +18,14 @@
 
         .recipe-header {
             .title {
-                @include text(16px, 19px, #BEC8DD, EncodeSans-Bold);
+                @include text(16px, 19px, #bbcddf, EncodeSans-Bold);
                 
             }
 
             .material-icons {
                 font-size: 22px;
                 line-height: 19px;
-                color: #BEC8DD;
+                color: #bbcddf;
                 
                 cursor: pointer;
             }
@@ -45,7 +45,7 @@
                 resize: none;
 
                 &::placeholder {
-                    color: #BEC8DD;
+                    color: #bbcddf;
                 }
             }
 

@@ -11,7 +11,7 @@
     }
 
     .input-content {
-        border-right: 1px solid #E3ECFD;
+        border-right: 1px solid #bbcddf;
         padding: 15px 0;
         width: 500px;
     }
@@ -23,10 +23,10 @@
         .value-input {
             border: none;
             background: none !important;
-            @include text(17px, 18px, #becde8, MicrosoftYaHeiUI);
+            @include text(17px, 18px, #bbcddf, MicrosoftYaHeiUI);
 
             &::placeholder {
-                @include text(17px, 18px, #becde8, MicrosoftYaHeiUI);
+                @include text(17px, 18px, #bbcddf, MicrosoftYaHeiUI);
 
             }
         }
@@ -45,7 +45,7 @@
 }
 
 .add-ingridient {
-    border-top: 1px solid #E3ECFD;
+    border-top: 1px solid #bbcddf;
     .add-ingridient-item {
         padding: 15px 40px;
 
@@ -58,7 +58,7 @@
         }
 
         .text {
-            @include text(14px, 16px, #BBCDDF, EncodeSans-SemiBold);
+            @include text(14px, 16px, #bbcddf, EncodeSans-SemiBold);
         }
 
         .follow-btn {
@@ -67,7 +67,7 @@
             border-radius: 18px;
             opacity: 1;
             color: #589CFE;
-            padding: 5px 20px;
+            padding: 9px 17px 9px 20px;
         }
     }
 }

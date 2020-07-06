@@ -25,7 +25,7 @@
 
         .name-title {
             @include text(17px, 20px, #45535C, EncodeSans-Bold !important);
-            font-weight: 600;
+             
         }
 
         .title-description {
@@ -38,7 +38,7 @@
             }
 
             .date {
-                @include text(14px, 25px, #BEC8DD, BarlowCondensed-Regular);
+                @include text(14px, 25px, #bbcddf, BarlowCondensed-Regular);
 
             }
         }

@@ -21,7 +21,7 @@
                 cursor: pointer;
 
                 .info {
-                    color: #BEC8DD;
+                    color: #bbcddf;
                 }
             }
 
@@ -46,7 +46,7 @@
                 opacity: 1;
                 color: #589CFE;
                 margin-left: 10px !important;
-                padding: 7px 18px;
+                padding: 9px 30px 9px 28px;
 
                 .material-icons {
                     font-size: 17px;
@@ -69,26 +69,12 @@
             padding: 32px 0;
 
             .title {
-                @include text(22px, 24px, #BEC8DD, EncodeSans-Bold);
+                @include text(22px, 24px, #bbcddf, EncodeSans-Bold);
                 text-align: center;
             }
 
-            .follow-btn {
-                background: #FFFFFF 0% 0% no-repeat padding-box;
-                border: 1px solid #589CFE;
-                border-radius: 18px;
-                opacity: 1;
-                color: #589CFE;
-                padding: 7px 18px;
-                margin: 25px auto !important;
-
-                .material-icons {
-                    font-size: 17px;
-                }
-            }
-
             .img-version {
-                @include text(15px, 14px, #BEC8DD, EncodeSans-Regular);
+                @include text(15px, 14px, #bbcddf, EncodeSans-Regular);
                 text-align: center;
                 margin: 20px 0;
             }
@@ -127,7 +113,7 @@
                     z-index: 1;
 
                     .add-icon {
-                        color: #BBCDDF;
+                        color: #bbcddf;
                         font-size: 30px;
                         
                     }
@@ -150,7 +136,7 @@
         .radio {
             width: 22px;
             height: 22px;
-            border: 0.5px solid #BBCDDF;
+            border: 0.5px solid #bbcddf;
         }
 
     }
@@ -159,7 +145,7 @@
 .ingridient-group {
     padding: 0 !important;
     box-shadow: 2px 30px 43px #5C687B36;
-    border: 1px solid #E3ECFD;
+    border: 1px solid #bbcddf;
     margin: 30px 10px 70px 0 !important;
 
     label {
@@ -194,7 +180,7 @@ textarea {
 }
 
 .caloris-content {
-    border-right: 1px solid #E3ECFD;
+    border-right: 1px solid #bbcddf;
     padding: 15px;
 
     .material-icons {
@@ -208,7 +194,7 @@ textarea {
 
 .kcal-content {
     padding: 15px;
-    border-right: 1px solid #E3ECFD;
+    border-right: 1px solid #bbcddf;
 }
 
 .macronutrients-content {

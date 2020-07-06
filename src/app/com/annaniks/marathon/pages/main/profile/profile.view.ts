@@ -1,72 +1,64 @@
-import { Component, OnInit } from "@angular/core";
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { CookieService } from 'ngx-cookie';
-import { CountryService } from '../../../core/services/country.service';
-import { Country, UploadFileResponse } from '../../../core/models';
+import { Component, OnInit, AfterViewChecked, AfterViewInit, AfterContentChecked } from "@angular/core";
+import { Router } from '@angular/router';
 import { UserService } from '../../../core/services/user.service';
+import { CookieService } from 'ngx-cookie';
 import { UserResponseData } from '../../../core/models/user';
-
-
+import { UploadFileResponse } from '../../../core/models';
 
 @Component({
-    selector: "app-profile",
+    selector: "profile-view",
     templateUrl: "profile.view.html",
     styleUrls: ["profile.view.scss"]
 })
-export class ProfileView implements OnInit {
-    public user: UserResponseData;
+
+export class ProfileView implements OnInit, AfterContentChecked {
+
     public role: string;
-    public country: any;
-    public filteredCountriesSingle: any[];
-    public filteredCountriesMultiple: any[];
-    public profileFormGroup: FormGroup;
     public showSocialMedium: boolean = false;
     public showMore: boolean = false;
-    public localImage: string = "/assets/images/user-icon-image.png";
+    public showProfile: boolean = false;
+    public router: boolean = false;
     public loading: boolean = false;
+    public localImage: string = '/assets/images/user-icon-image.png';
+    public postItem = [
+        {
+            postType: "image",
+            image: "assets/images/foodimg.png"
+        },
 
-    constructor(
-        private _fb: FormBuilder,
-        private _countryService: CountryService,
-        private _cookieService: CookieService,
+        {
+            postType: "combinations",
+            image: "assets/images/img3.png",
+        }
+    ]
+
+    constructor(private _router: Router,
         private _userService: UserService,
-    ) {
+        private _cookieService: CookieService) {
         this.role = this._cookieService.get('role');
-        this.user = this._userService.user;
-     
         if (this._userService.user.data.avatar) {
-            // this.localImage = 'http://192.168.1.115:9000/media/' + this._userService.user.data.avatar;
-               this.localImage = 'http://annaniks.com:6262/media/' +this._userService.user.data.avatar;
+            // this.localImage = 'http://192.168.1.115:9000/media/' + this._profileUserService.user.data.avatar;
+            this.localImage = 'http://annaniks.com:6262/media/' + this._userService.user.data.avatar;
         }
 
+
     }
 
-    ngOnInit() {
-        this._formBuilder();
-        this._setPatchValue();
+    ngOnInit() { }
+
+    ngAfterContentChecked() {
+        this._showImageLoader();
     }
 
-    private _formBuilder(): void {
-        this.profileFormGroup = this._fb.group({
-            fullName: [null, Validators.required],
-            userName: [null, Validators.required],
-            location: [null, Validators.required],
-            languages: [null],
-            staus: [null, Validators.required],
-            speciality: [null],
-            facebook: [null],
-            instagram: [null],
-            linkedin: [null],
-            youtube: [null],
-            about: [null]
-        })
-    }
 
-    private _setPatchValue(): void {
-        this.profileFormGroup.patchValue({
-            fullName: this.user.data.user.last_name,
-            userName: this.user.data.user.email,
-        })
+
+    private _showImageLoader(): void {
+        if (this._router.url === '/profile/edit-profile') {
+            this.router = true;
+        }
+        else {
+            this.router = false;
+        }
     }
 
 
@@ -96,11 +88,9 @@ export class ProfileView implements OnInit {
                         this.localImage = 'http://annaniks.com:6262/media/' + data.data.avatar;
 
                     });
-
-
                 }),
-                err=>{
-                    this.loading=false;
+                err => {
+                    this.loading = false;
                 }
         }
         else {
@@ -116,39 +106,14 @@ export class ProfileView implements OnInit {
         }
     }
 
-
-
     public setServicePhoto(event) {
-        this.loading=true;
+        this.loading = true;
         if (event) {
             this._setFormDataForImage(event);
 
         }
 
     }
-
-
-
-    public filterCountryMultiple(event) {
-        let query = event.query;
-        this._countryService.getCountries().subscribe((countries: Country[]) => {
-
-            this.filteredCountriesMultiple = this.filterCountry(query, countries);
-        });
-    }
-    public filterCountry(query, countries: Country[]): Country[] {
-
-        let filtered: any[] = [];
-        for (let i = 0; i < countries.length; i++) {
-            let country = countries[i];
-            if (country.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-                filtered.push(country);
-            }
-
-        }
-        return filtered;
-    }
-
 
     public onClickShowSocialMedium(): void {
         this.showSocialMedium = !this.showSocialMedium;
@@ -157,5 +122,7 @@ export class ProfileView implements OnInit {
         this.showMore = !this.showMore;
     }
 
+    public reloadProfile() {
+        this.showProfile = !this.showProfile;
+    }
 }
-

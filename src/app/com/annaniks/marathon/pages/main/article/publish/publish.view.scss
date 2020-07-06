@@ -19,7 +19,7 @@
         height: 150px;
 
         .title {
-            @include text(22px, 24px, #BEC8DD, EncodeSans-Bold);
+            @include text(22px, 24px, #bbcddf, EncodeSans-Bold);
         }
 
         .follow-btn {
@@ -41,7 +41,7 @@
 
 .close {
     cursor: pointer;
-    color: #BEC8DD;
+    color: #bbcddf;
     
 }
 

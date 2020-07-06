@@ -17,6 +17,7 @@ export class PropertyModal implements OnInit {
     public timeStamp: string;
     public content: any;
     public feedItem: FeedResponseData;
+    public feedTitle: string;
     public role: string;
     public localImage:string;
     public comments = [
@@ -49,19 +50,27 @@ export class PropertyModal implements OnInit {
 
     private _showseeMore(): void {
         let titleLength: number;
-        titleLength = this.feedItem.title.length;
+        if (this.feedItem.title) {
+            titleLength = this.feedItem.title.length;
+            this.feedTitle = this.feedItem.title;
+            if (titleLength > 100) {
+                this.seeMore = true;
+                this.feedTitle = this.feedItem.title.slice(0, 100);
+            }
+            else {
+                this.seeMore = false;
+            }
+        }
 
-        if (titleLength > 100) {
-            this.seeMore = true;
-        }
-        else {
-            this.seeMore = false;
-        }
+
     }
 
     public onClickSeeMore(): void {
-        this.show = !this.show;
+        this.feedTitle = this.feedItem.title.slice(0, this.feedItem.title.length);
+        this.seeMore = false;
     }
+
+
     public onClickOpen($event): void {
         this.isOpen = $event;
     }

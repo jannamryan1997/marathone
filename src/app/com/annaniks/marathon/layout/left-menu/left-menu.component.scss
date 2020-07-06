@@ -29,12 +29,11 @@
     }
     .left-menu-item {
         .menu-icon {
-            color: #45535C;
-            font-size: 22px;
+            width: 19px;
         }
         .link {
-            @include text(22px, 26px, #45535C, EncodeSans-Bold);
-            margin-left: 20px;
+            @include text(22px, 26px, #45535c, EncodeSans-Bold);
+            margin-left: 31px;
             cursor: pointer;
         }
 
@@ -67,12 +66,13 @@
     
             .name {
                 margin-left: 20px;
-                @include text(16px, 20px, #5a666e, EncodeSans-Bold);
+                @include text(15px, 18px, #45535c, EncodeSans-Bold);
                 
             }
             .email-title{
                 margin-left: 20px;
-                @include text(14px, 15px, #45535C, EncodeSans-Regular); 
+                margin-top: 7px;
+                @include text(14px, 15px, #45535c, EncodeSans-Regular); 
             }
     }
 }

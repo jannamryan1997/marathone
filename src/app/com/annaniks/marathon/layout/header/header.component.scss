@@ -26,7 +26,7 @@ header {
 
             .header-category {
                 .link {
-                    @include text(18px, 21px, #AFC1D1, EncodeSans-Medium);
+                    @include text(18px, 21px, #bbcddf, EncodeSans-Medium);
                     text-decoration: none;
                     margin-right: 26px;
                     cursor: pointer;
@@ -39,13 +39,24 @@ header {
 
                 }
             }
+            .dashboard-search{
+                width: 42px;
+                height: 42px; 
+                background: #F7F7FC;
+                border-radius: 21px;
+                cursor: pointer;
+                .search-icon {
+                    font-size: 30px;
+                    color: #bbcddf;
+                }
+            }
 
             .serch-content {
                 display: flex;
                 justify-content: space-between;
                 padding: 9px 25px;
                 background: #F3F3FA 0% 0% no-repeat padding-box;
-                border: 0.5px solid #ACC3D9;
+                border: 0.5px solid #bbcddf;
                 border-radius: 24px;
                 opacity: 1;
                 width: 230px;
@@ -54,16 +65,16 @@ header {
                     width: calc(100% - 40px);
                     border: none;
                     background: none;
-                    @include text(16px, 20px, #BEC8DD, YuGothicUI-Regular);
+                    @include text(16px, 20px, #bbcddf, YuGothicUI-Regular);
 
                     &::placeholder {
-                        @include text(16px, 20px, #BEC8DD, YuGothicUI-Regular);
+                        @include text(16px, 20px, #bbcddf, YuGothicUI-Regular);
                     }
                 }
 
                 .search-icon {
                     font-size: 22px;
-                    color: #BEC8DD;
+                    color: #bbcddf;
                 }
             }
 
@@ -71,16 +82,22 @@ header {
                 width: 100%;
                 max-width: 200px;
 
-                .sign-btn,
-                .signUp-btn {
-                    padding: 10px 15px !important;
+                .sign-btn {
+                    padding: 7px 23px 9px 23px !important;
+                    font-size: 14px !important;
+                    line-height: 16px !important;
+                }
+                .signUp-btn{
+                    padding: 7px 18px 9px 18px !important;
+                    font-size: 14px !important;
+                    line-height: 16px !important;
                 }
             }
 
             .profile-content {
                 width: 90px;
                 background: #F7F7FC 0% 0% no-repeat padding-box;
-                border: 1px solid #E3ECFD;
+                border: 1px solid #bbcddf;
                 border-radius: 21px;
                 position: relative;
 
@@ -101,7 +118,7 @@ header {
 
                 .profile-menu {
                     background: #FFFFFF 0% 0% no-repeat padding-box;
-                    box-shadow: 2px 30px 43px #5C687B36;
+                    box-shadow: 2.09px 30px 43px #5C687B17;
                     border: 0.5px solid #E3ECFD;
                     opacity: 1;
                     position: absolute;

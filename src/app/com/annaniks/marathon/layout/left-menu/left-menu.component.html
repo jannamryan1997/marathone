@@ -1,9 +1,7 @@
 <div class="left-menu" [ngClass]="{'position':showUserData}">
     <div class="left-menu-item">
         <a *ngFor="let item of leftMenuItem" class="d-block w-100" [routerLink]="item?.routerLink" routerLinkActive="activeRoute">
-            <span class="material-icons menu-icon">
-                {{item?.icon}}
-            </span>
+            <img [src]="item?.icon" class="menu-icon">
             <span class="link"> {{item?.title}}</span>
         </a>
     </div>

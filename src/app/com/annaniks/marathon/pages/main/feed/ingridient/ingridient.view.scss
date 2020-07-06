@@ -110,7 +110,7 @@
                 .ingridient-item {
                     background: #FFFFFF 0% 0% no-repeat padding-box;
                     box-shadow: 0.63px 9px 40px #5C687B17;
-                    border: 0.5px solid #E3ECFD;
+                    border: 0.5px solid #bbcddf;
                     border-radius: 20px;
                     opacity: 1;
                     margin: 10px 0;
@@ -121,7 +121,7 @@
                             width: 100%;
                             padding: 15px 0;
                             max-width: 110px;
-                            border-right: 1px solid #E3ECFD;
+                            border-right: 1px solid #bbcddf;
                             text-align: center;
 
                             .image {
@@ -132,7 +132,7 @@
                         .ingridient-description {
                             width: 100%;
                             max-width: 400px;
-                            border-right: 1px solid #E3ECFD;
+                            border-right: 1px solid #bbcddf;
                             display: flex;
                             flex-direction: column;
                             padding: 25px 0;
@@ -184,7 +184,7 @@
                         &:after {
                             content: "";
                             display: block;
-                            border: 1px solid #E3ECFD;
+                            border: 1px solid #bbcddf;
                             margin-top: 25px
                         }
 
@@ -194,7 +194,7 @@
                     .number {
                         margin-right: 28px;
                         @include text(25px, 36px, #589CFE, BarlowCondensed-Medium);
-                        font-weight: 600;
+                         
                     }
 
                 }
