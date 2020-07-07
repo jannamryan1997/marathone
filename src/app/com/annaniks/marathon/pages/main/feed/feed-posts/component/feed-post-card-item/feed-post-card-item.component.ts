@@ -7,6 +7,7 @@ import { FeedResponseData, Content } from 'src/app/com/annaniks/marathon/core/mo
 import * as moment from 'moment'
 import { CookieService } from 'ngx-cookie';
 import { UserService } from 'src/app/com/annaniks/marathon/core/services/user.service';
+import { FeedService } from '../../../feed.service';
 
 @Component({
     selector: "app-feed-post-card-item",
@@ -36,7 +37,7 @@ export class FeedPostCardItemComponent implements OnInit {
         },
     ]
 
-    constructor(private _matDialog: MatDialog, private _cookieService: CookieService, private _userService: UserService) {
+    constructor(private _matDialog: MatDialog, private _cookieService: CookieService, private _userService: UserService,private _feedService:FeedService) {
         this.role = this._cookieService.get('role');
 
     }
@@ -121,5 +122,13 @@ export class FeedPostCardItemComponent implements OnInit {
     }
     public onClickOpen($event): void {
         this.isOpen = $event;
+    }
+
+    public deleteFeed(): void {
+        console.log("ffffffff");
+        
+        this._feedService.deleteFeed(this.feedItem.id).subscribe((data) => {
+            console.log(data);
+        })
     }
 }

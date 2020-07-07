@@ -8,8 +8,12 @@ import { Component, OnInit, Input } from "@angular/core";
 export class ExperienceComponent implements OnInit {
 
     @Input() profileExperience: boolean;
+    @Input() experience;
 
     constructor() { }
 
-    ngOnInit() { }
+    ngOnInit() { 
+        console.log(this.experience);
+        
+    }
 }

@@ -33,16 +33,16 @@ export class LeftMenuCompomemtn implements OnInit, AfterViewInit {
         const role = this._cookieService.get('role') || '';
         this.leftMenuItem = [
             // { routerLink: `/home/${role}`, title: "Home", icon: "home" },
-            { routerLink: `/feed`, title: "Home", icon: "/assets/icons/Profile-left.svg" },
-            { routerLink: `/profile/${role}`, title: "Profile", icon: "/assets/icons/Profile-left.svg" },
-            { routerLink: "#", title: "Dashboard", icon: "/assets/icons/Profile-left.svg" },
-            { routerLink: "#", title: "Marathon", icon: "/assets/icons/Profile-left.svg" },
-            { routerLink: "#", title: "My Recips", icon: "/assets/icons/Profile-left.svg" },
-            { routerLink: "#", title: "My Training", icon: "/assets/icons/Profile-left.svg" },
+            { routerLink: `/feed`, title: "Home", icon: "/assets/icons/Profile-left.svg", activeIcon: "assets/icons/Profile_blue.svg" },
+            { routerLink: `/profile/${role}`, title: "Profile", icon: "/assets/icons/Profile-left.svg", activeIcon: "assets/icons/Profile_blue.svg" },
+            { routerLink: "#", title: "Dashboard", icon: "/assets/icons/Profile-left.svg", activeIcon: "assets/icons/Profile_blue.svg" },
+            { routerLink: "#", title: "Marathon", icon: "/assets/icons/Profile-left.svg", activeIcon: "assets/icons/Profile_blue.svg" },
+            { routerLink: "#", title: "My Recips", icon: "/assets/icons/Profile-left.svg", activeIcon: "assets/icons/Profile_blue.svg" },
+            { routerLink: "#", title: "My Training", icon: "/assets/icons/Profile-left.svg", activeIcon: "assets/icons/Profile_blue.svg" },
         ]
     }
 
-    ngOnInit() {}
+    ngOnInit() { }
 
     ngAfterViewInit() { }
 

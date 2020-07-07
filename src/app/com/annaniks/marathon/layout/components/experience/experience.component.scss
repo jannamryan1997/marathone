@@ -5,66 +5,63 @@
     font-family: $fontFamily;
 }
 
-.experience-header{
+.experience-header {
     .title {
-        @include text(20px, 24px, #589CFE, EncodeSans-SemiBold);
+        @include text(20px, 24px, #589cfe, EncodeSans-SemiBold);
     }
 
     .text {
-        @include text(16px, 22px, #45535C, MicrosoftYaHeiUI);
+        @include text(16px, 22px, #45535c, MicrosoftYaHeiUI);
         margin: 15px 0;
     }
     .education-title {
         margin: 38px 0 17px 0;
-        @include text(20px, 24px, #589CFE, EncodeSans-SemiBold);
+        @include text(20px, 24px, #589cfe, EncodeSans-SemiBold);
     }
 
     .date {
-        @include text(17px, 20px, #BACBDB, EncodeSans-SemiBold);
+        @include text(17px, 20px, #bacbdb, EncodeSans-SemiBold);
     }
 
     .name {
-        @include text(20px, 22px, #45535C, EncodeSans-SemiBold);
+        @include text(20px, 22px, #45535c, EncodeSans-SemiBold);
         margin-top: 15px;
     }
 }
 
-
-
-
 .education {
     .hat-icon {
-        
-        color: #BACBDB;
+        color: #bacbdb;
         font-size: 30px;
     }
+    .education-description-container {
+        width: 80%;
+        .education-description {
+            margin: 20px 0;
+            text-align: start;
 
-    .education-description {
-        margin: 20px 0;
-        text-align: start;
+            &::after {
+                width: 100%;
+                display: inline-block;
+                content: "";
+                border: 1px solid #bbcddf;
+            }
 
-        &::after {
-            width: 100%;
-            display: inline-block;
-            content: "";
-            border: 1px solid #bbcddf;
+            .name {
+                @include text(16px, 22px, #c6d5e4, MicrosoftYaHeiUI);
+            }
 
-        }
-
-        .name {
-            @include text(16px, 22px, #C6D5E4, MicrosoftYaHeiUI);
-        }
-
-        .example {
-            @include text(18px, 22px, #C2D2E2, MicrosoftYaHeiUI-Bold);
+            .example {
+                @include text(18px, 22px, #c2d2e2, MicrosoftYaHeiUI-Bold);
+                border: none !important;
+            }
         }
     }
 
     .close {
         .close-icon {
-            
             cursor: pointer;
-            color: #C2D2E2;
+            color: #c2d2e2;
             font-size: 20px;
         }
     }
@@ -78,13 +75,13 @@
 
         .form-group-link {
             margin: 15px 0;
-            background: #FFFFFF 0% 0% no-repeat padding-box;
-            border: 0.5px solid #CFCFE9;
+            background: #ffffff 0% 0% no-repeat padding-box;
+            border: 0.5px solid #cfcfe9;
             border-radius: 26px;
             opacity: 1;
             height: none !important;
             padding: 15px 15px !important;
-            @include text(17px, 18px, #45535C, MicrosoftYaHeiUI !important);
+            @include text(17px, 18px, #45535c, MicrosoftYaHeiUI !important);
             font-weight: 500 !important;
 
             &::placeholder {
@@ -101,7 +98,7 @@
         &::before {
             display: block;
             content: "";
-            border: 1px solid #E3ECFD;
+            border: 1px solid #e3ecfd;
             width: 100%;
         }
 
@@ -110,5 +107,4 @@
             @include text(18px, 21px, #bbcddf, EncodeSans-SemiBold);
         }
     }
-
 }

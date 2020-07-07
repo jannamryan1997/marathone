@@ -5,6 +5,12 @@
     font-family: $fontFamily;
 }
 
+
+
+
+
+
+
 .home-container {
     .home-main {
         background: #FFFFFF 0% 0% no-repeat padding-box;
@@ -192,7 +198,7 @@
         }
         
         .form-input {
-            @include text(17px, 1px, #45535C, MicrosoftYaHeiUI !important);
+            @include text(17px, 15px, #45535C, MicrosoftYaHeiUI !important);
         }
         
         .add-certificates {

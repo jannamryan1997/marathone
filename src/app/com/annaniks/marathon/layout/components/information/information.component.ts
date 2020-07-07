@@ -7,7 +7,8 @@ import { Component, OnInit, Input } from "@angular/core";
 })
 
 export class InformationComponent implements OnInit {
-@Input() profileCertificates;
+    @Input() profileCertificates;
+    @Input() certificates;
     constructor() { }
 
     ngOnInit() { }

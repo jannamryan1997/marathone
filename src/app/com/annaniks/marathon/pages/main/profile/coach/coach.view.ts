@@ -9,14 +9,14 @@ import { UserResponseData } from '../../../../core/models/user';
 })
 
 export class CoachView implements OnInit {
-    public user:UserResponseData;
+    public user: UserResponseData;
     public showTitle: boolean;
     public tab: number = 1;
     public galerryTab: number = 1;
     public reviewItem = [{}, {}, {}, {}, {}]
-    
-    constructor(private _profileUserService: UserService) { 
-        this.user = this._profileUserService.user;
+
+    constructor(private _userService: UserService) {
+        this.user = this._userService.user;
     }
 
     ngOnInit() { }
@@ -29,7 +29,10 @@ export class CoachView implements OnInit {
 
     }
     public onClickGalerryTab(tab): void {
-        
+
         this.galerryTab = tab;
     }
+
+
+
 }

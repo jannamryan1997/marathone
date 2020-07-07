@@ -19,6 +19,11 @@ const mainRoutes: Routes = [
                 loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule),
                 canActivate: [RoleGuard]
             },
+            {
+                path: "edit-profile",
+                loadChildren: () => import('./edit-profile/edit-profile.module').then(m => m.EditProfileModule),
+                canActivate: [RoleGuard]
+            },
            
             {
                 path: "article",
