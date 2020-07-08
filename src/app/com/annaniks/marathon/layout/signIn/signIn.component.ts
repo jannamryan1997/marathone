@@ -25,6 +25,7 @@ export class SignInComponent implements OnInit {
     public errorMessage: string;
     public tab: number = 1;
     public user: SocialUser;
+    public profileUser;
     public loggedIn: boolean;
     @Output() tabChanges = new EventEmitter();
     @Output() closeModal = new EventEmitter();
@@ -36,10 +37,11 @@ export class SignInComponent implements OnInit {
         private _cookieService: CookieService,
         private _profileUserService: UserService,
         private _socialAuthService: AuthService,
-        private _dialogRef: MatDialogRef<AuthModal>
+        private _dialogRef: MatDialogRef<AuthModal>,
+        private _router: Router
 
     ) {
-
+        this.profileUser = this._profileUserService.user;
 
     }
 
@@ -95,19 +97,19 @@ export class SignInComponent implements OnInit {
             this._signIn();
         }
     }
+    
     signInWithFB(): void {
         this._dialogRef.close();
         this._socialAuthService.authState.subscribe((user) => {
-            if (this.loggedIn = (user != null)) {
-                this._profileUserService.user = user;
-                this._profileUserService.isAuthorized = true;
-                this.closeModal.emit('true');
-                this._cookieService.put("fbUser", "true");
-            }
-        });
+         
+              
         this._socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
 
-    }
+
+    })
+}
+
+
 
     signInWithGoogle(): void {
         this._dialogRef.close();

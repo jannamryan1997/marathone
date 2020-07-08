@@ -20,6 +20,7 @@ export class SignUpComponent implements OnInit {
     public signUpGroup: FormGroup;
     public user: SocialUser;
     public loggedIn: boolean;
+    public profileUser;
     @Output() changeSigntab = new EventEmitter;
     @Output() closeModal = new EventEmitter();
     constructor(
@@ -29,7 +30,11 @@ export class SignUpComponent implements OnInit {
         private _cookieService: CookieService,
         private _profileUserService: UserService,
         private _socialAuthService: AuthService,
-    ) { }
+
+    ) {
+        this.profileUser = this._profileUserService.user;
+
+    }
 
     ngOnInit() {
         this._formBuilder();
@@ -122,12 +127,13 @@ export class SignUpComponent implements OnInit {
 
     signInWithFB(): void {
         this._socialAuthService.authState.subscribe((user) => {
-            if (this.loggedIn = (user != null)) {
-                this._profileUserService.user = user;
-                this._profileUserService.isAuthorized = true;
-                this.closeModal.emit('true');
-                this._cookieService.put("fbUser", "true");
-            }
+            console.log(user, "jjjjjjjj");
+            // if (this.loggedIn = (user != null)) {
+            //     this._profileUserService.user = user;
+            //     this._profileUserService.isAuthorized = true;
+            //     this.closeModal.emit('true');
+            //     this._cookieService.put("fbUser", "true");
+            // }
 
         });
         this._socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);

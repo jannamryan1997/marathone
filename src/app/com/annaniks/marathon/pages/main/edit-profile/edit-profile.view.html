@@ -148,11 +148,19 @@
                                                     </app-information>
 
                                                     <div class="add-certificates display-flex">
+
                                                         <div class="add-file d-flex">
-                                                            <span class="material-icons m-auto">
+                                                            <input class="" type="file" id="file1" name="avatar1" accept="image/png,image/jpeg"
+                                                            (change)="setCeriticatesPhoto($event)">
+                                                            <div class="d-flex m-auto">
+                                                                <label class="icon-btn d-flex m-auto" for="file1">
+                                                            <span class="material-icons m-auto" >
                                                                 insert_drive_file
                                                             </span>
+                                                            </label>
+                                                            </div>
                                                         </div>
+
                                                         <div class="form-group d-flex type-form-group">
                                                             <input type="text" class="form-input w-100"
                                                                 formControlName="certificatesLocation"

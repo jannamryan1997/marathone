@@ -7,16 +7,16 @@ import { filter } from 'rxjs/operators';
     providedIn: 'root'
 })
 export class YoutubeService {
-    private _youtubeFrameReadyEvent$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);
+    // private _youtubeFrameReadyEvent$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);
 
-    constructor() { }
+    // constructor() { }
 
-    public getYoutubeFrameReadyEvent(): Observable<boolean> {
-        return this._youtubeFrameReadyEvent$.asObservable()
-            .pipe(filter(v => v != null));
-    }
+    // public getYoutubeFrameReadyEvent(): Observable<boolean> {
+    //     return this._youtubeFrameReadyEvent$.asObservable()
+    //         .pipe(filter(v => v != null));
+    // }
 
-    public setYoutubeFrameReadyEvent(isReady: boolean): void {
-        this._youtubeFrameReadyEvent$.next(isReady);
-    }
+    // public setYoutubeFrameReadyEvent(isReady: boolean): void {
+    //     this._youtubeFrameReadyEvent$.next(isReady);
+    // }
 }

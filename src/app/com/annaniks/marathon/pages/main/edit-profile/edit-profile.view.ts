@@ -28,7 +28,7 @@ export class EditProfileView implements OnInit {
     public education = [{}];
     public experience = [{}];
     public certificates = [
-        { title: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima aliquid quod tenetur hic abreprehenderit ad, odio eos fugiat animi aspernatur voluptates unde cumque, autem eligendi iure et accusamus" }
+        { image: "", title: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima aliquid quod tenetur hic abreprehenderit ad, odio eos fugiat animi aspernatur voluptates unde cumque, autem eligendi iure et accusamus" }
     ];
 
     // public postItem = [
@@ -198,8 +198,14 @@ export class EditProfileView implements OnInit {
         this.experience.push({});
     }
 
+
+    public setCeriticatesPhoto(event): void {
+        console.log(event);
+
+
+    }
     public addCertificates(): void {
-        this.certificates.push({ title: this.profileFormGroup.value.certificatesLocation });
+        this.certificates.push({ image: "", title: this.profileFormGroup.value.certificatesLocation });
     }
 
     public onClickShowSocialMedium(): void {
