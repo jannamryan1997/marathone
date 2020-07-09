@@ -12,8 +12,7 @@
                     <button class="btn follow-btn">Preview</button>
                     <button class="btn follow-btn" *ngIf="router.url==='/article/update'" routerLink="/article/update"
                         routerLinkActive="activeButton">Update</button>
-                    <button class="btn follow-btn" *ngIf="router.url==='/article/publish'" routerLink="/article/publish"
-                        routerLinkActive="activeButton">Publish</button>
+                    <button (click)="publish()" class="btn follow-btn activeButton">Publish</button>
                     <button class="btn btn-loader" (click)="onClickShowSetting()">
                         <span class="material-icons icon">
                             more_horiz
@@ -64,22 +63,106 @@
             </div>
         </div>
     </div>
-    <div class="router-leyout">
-        <router-outlet></router-outlet>
+    <div [formGroup]="articleGroup" class="router-leyout">
+        <div class="update-container">
+            <div *ngIf="!articleGroup.get('cover').value"
+                class="form-group broves-file broves-file-form d-flex align-items-start">
+                <div class="m-auto">
+                    <p class="title">Set Article Cover</p>
+                    <input class="" type="file" id="file1" name="cover" (change)="setArticleCover($event)">
+                    <label class="btn follow-btn label-btn d-flex" for="file1"> Broves Files <span
+                            class="material-icons ml-2">
+                            save_alt
+                        </span></label>
+                </div>
+            </div>
+            <div *ngIf="articleGroup.get('cover').value" class="image-content">
+                <img [src]="fileUrl+articleGroup.get('cover').value" class="update-image" alt="Cinque Terre">
+                <div (click)="deleteCover()" class="close-img d-flex">
+                    <span class="material-icons m-auto">
+                        close
+                    </span>
+                </div>
+
+            </div>
+            <div class="forms-group">
+                <div class="form-group">
+                    <label>Article Title</label>
+                    <input formControlName="title" type="text" class="form-input w-100" placeholder="Type Title">
+                </div>
+                <div *ngFor="let contentText of articleGroup.get('contentTexts').controls;let i=index"
+                    class="form-group d-flex align-items-start" [formGroup]="contentText">
+                    <label>Content / Text</label>
+                    <ckeditor formControlName="attribute" class="form-input w-100"></ckeditor>
+                    <span (click)="removeTextContent(i)" class="material-icons close">
+                        close
+                    </span>
+                </div>
+
+
+
+                <div *ngIf="articleGroup.get('images') && articleGroup.get('images').controls"
+                    class="content-image display-flex w-100">
+                    <app-content-image (delete)="deleteImageOrVideo($event,i,'images')" class="w-100"
+                        *ngFor="let image of articleGroup.get('images').controls;let i=index"
+                        [contentImageItem]="image.value"></app-content-image>
+                </div>
+                <div *ngIf="isShowImageRedacor" class="form-group broves-file-form d-flex align-items-start">
+                    <label>Content / Image</label>
+                    <div class="m-auto">
+
+                        <input class="" type="file" id="file" name="avatar" (change)="setServicePhoto($event)">
+                        <label class="btn follow-btn label-btn d-flex" for="file"> Broves Files <span
+                                class="material-icons ml-2">
+                                save_alt
+                            </span></label>
+                    </div>
+                    <span (click)="closeContentImage()" class="material-icons close">
+                        close
+                    </span>
+                </div>
+                <div *ngIf="articleGroup.get('videos') && articleGroup.get('videos').controls"
+                    class="content-image display-flex">
+                    <app-content-video (delete)="deleteImageOrVideo($event,i,'videos')" [source]="video.value"
+                        *ngFor="let video of articleGroup.get('videos').controls;let i=index" class="w-100">
+                    </app-content-video>
+                </div>
+                <div *ngIf="isShowVideoRedactor" class="form-group broves-file-form d-flex align-items-start">
+                    <label>Content / Youtube Image</label>
+                    <div class="m-auto">
+                        <button class="update-video-btn">
+                            <span class="material-icons mr-2">
+                                slideshow
+                            </span>
+                            <input formControlName="currentYoutubeLink" class="link-input" type="text"
+                                placeholder="Insert Youtube Link " name="" id="">
+                            <span (click)="sendVideo()" class="material-icons mr-2">
+                                send
+                            </span>
+                        </button>
+                    </div>
+                    <span (click)="closeContentVideo()" class="material-icons close">
+                        close
+                    </span>
+                </div>
+
+
+            </div>
+        </div>
     </div>
     <div class="add-item-content d-flex w-100">
         <div class="add-container w-80 m-auto display-flex">
-            <div class="add-item">
+            <div (click)="addContent('contentTexts')" class="add-item">
                 <span class="material-icons m-auto">
                     title
                 </span>
             </div>
-            <div class="add-item">
+            <div (click)="addImage()" class="add-item">
                 <span class="material-icons m-auto">
                     panorama
                 </span>
             </div>
-            <div class="add-item" routerLink="/article/update" routerLinkActive="activeButton">
+            <div class="add-item" (click)="addVideo()">
                 <span class="material-icons m-auto">
                     videocam
                 </span>

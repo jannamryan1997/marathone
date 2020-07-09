@@ -118,3 +118,100 @@ flex-direction: column;
     color:#FFFFFF !important;
     background: #589CFE !important;
 }
+.add-item:hover{
+    color:#FFFFFF !important;
+    background: #589CFE !important;
+}
+
+.update-container {
+  
+    .image-content {
+        position: relative;
+        .update-image {
+            height: 360px;
+        }
+    }
+
+    .forms-group {
+        padding: 0 24px;
+        margin-top: 30px;
+        .follow-btn{
+            background: #FFFFFF 0% 0% no-repeat padding-box;
+            border: 1px solid #589CFE;
+            border-radius: 18px;
+            opacity: 1;
+            color: #589CFE;
+            padding: 7px 10px;
+            margin: 25px 0 0 0 !important;
+            .material-icons{
+                font-size: 17px;
+            }
+                }
+    }
+    .content-image{
+        flex-wrap: wrap;
+        flex-direction: column;
+    }
+}
+.broves-file-form{
+    height: 150px;
+}
+textarea {
+    resize: none;
+    height: 350px;
+}
+
+input[type="file"] {
+    display: none;
+   }
+   .label-btn{
+       width: 141px !important;
+   }
+
+::ng-deep .cke_bottom {
+    display: none !important;
+}
+
+::ng-deep .cke_chrome{
+    border: none !important;
+}
+::ng-deep .cke_top{
+    border-bottom: none !important;
+    background: #FFFFFF !important;
+}
+.close{
+    cursor: pointer;
+}
+    .broves-file {
+        background: #FFFFFF 0% 0% no-repeat padding-box;
+        box-shadow: -1.63px 5px 18px #5C687B0D;
+        border: 1px dashed #C2D2E2;
+        border-radius: 20px;
+        opacity: 1;
+        display: flex;
+        flex-direction: column;
+        height: 150px;
+
+        .title {
+            @include text(22px, 24px, #bbcddf, EncodeSans-Bold);
+        }
+
+        .follow-btn {
+            background: #FFFFFF 0% 0% no-repeat padding-box;
+            border: 1px solid #589CFE;
+            border-radius: 18px;
+            opacity: 1;
+            color: #589CFE;
+            padding: 7px 18px;
+            margin: 25px 0 0 0 !important;
+
+            .material-icons {
+                font-size: 17px;
+            }
+        }
+    }
+    .link-input{
+        border: none;
+        font-size: 15px;
+        width: 70%;
+    }
