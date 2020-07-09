@@ -47,11 +47,16 @@ export function provideConfig() {
     HttpClientModule,
     SocialLoginModule,
     CookieModule.forRoot()
-    
+
   ],
   providers: [
     {
       provide: 'BASE_URL',
+      useValue: environment.apiUrl,
+      multi: true
+    },
+    {
+      provide: 'FILE_URL',
       useValue: environment.apiUrl,
       multi: true
     },
@@ -65,7 +70,7 @@ export function provideConfig() {
       useFactory: provideConfig
     },
     AuthUserService,
-  
+
   ],
   bootstrap: [AppComponent]
 })

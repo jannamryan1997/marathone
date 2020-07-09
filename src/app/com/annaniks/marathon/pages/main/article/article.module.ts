@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 
 import { ArticeRoutingModule } from './article.routing.module';
-import { ArticleView } from './article.component';
+import { ArticleView } from './article.view';
 
 @NgModule({
     declarations:[ArticleView],

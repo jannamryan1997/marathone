@@ -33,5 +33,11 @@
      padding: 5px 13px;
      background: #FFFFFF 0% 0% no-repeat padding-box;
      border-radius: 15px;
+     z-index: 1;
      @include text(16px, 19px, #589CFE,EncodeSans-Medium);
    }
+   :host::ng-deep{
+   .plyr--video{
+       border-radius: 20px;
+   }
+}

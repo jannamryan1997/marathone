@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { environment } from 'src/environments/environment';
 
 @Component({
     selector: "app-content-image",
@@ -7,6 +8,9 @@ import { Component, OnInit, Input } from "@angular/core";
 })
 
 export class ContentImageComponent implements OnInit {
+    public fileUrl: string = environment.fileUrl;
+
+    @Output('delete') private _isDelete: EventEmitter<boolean> = new EventEmitter()
 
     @Input() contentImageItem: any;
     @Input() contentImage;
@@ -15,11 +19,7 @@ export class ContentImageComponent implements OnInit {
 
     ngOnInit() { }
 
-    // public deletItem(): void {
-    //     this.contentImage.map((element, item) => {
-    //         this.contentImage.splice(item, 1);
-    //     })
-    //     console.log(this.contentImage);
-
-    // }
+    public delete() {
+        this._isDelete.emit(true)
+    }
 }
