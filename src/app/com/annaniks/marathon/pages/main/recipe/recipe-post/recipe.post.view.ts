@@ -1,7 +1,14 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { AddIngridientImageModal } from '../../../../core/modals';
 import { MatDialog } from '@angular/material/dialog';
-import { Slider } from '../../../../core/models';
+import { Slider, UploadFileResponse } from '../../../../core/models';
+import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
+import { CookieService } from 'ngx-cookie';
+import { UserService } from '../../../../core/services/user.service';
+import { forwardRef, HostBinding, Input } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Router } from '@angular/router';
+import { interval } from 'rxjs';
 
 @Component({
     selector: "recipe-post",
@@ -11,17 +18,18 @@ import { Slider } from '../../../../core/models';
 })
 
 export class RecipePostView implements OnInit {
-    
     public showImage: boolean = false;
     public localImage: string;
-    public preparationStepItem = [
-        {}
-    ];
+    public recipeFormGroup: FormGroup;
+    public role: string;
+    public recipeType: string = "recipeType";
 
-    public ingridientItem = [{}];
+    preparationStepItem = new FormArray([]);
+    ingridientItem = new FormArray([]);
+
 
     public tagsItem = [
-        { img: "", title: "" }
+        { tagimg: "", tagtitle: "" }
     ]
 
     public slides: Slider[] = [
@@ -32,12 +40,37 @@ export class RecipePostView implements OnInit {
     ];
 
     slideConfig = { "slidesToShow": 1, "slidesToScroll": 1 };
-    constructor(private _matDialog: MatDialog) { }
+    constructor(
+        private _matDialog: MatDialog,
+        private _fb: FormBuilder,
+        private _cookieService: CookieService,
+        private _userService: UserService,
+        private _router: Router,
+    ) {
+        this.role = this._cookieService.get('role');
+        console.log(this.role);
+
+    }
 
     ngOnInit() {
         if (this.slides.length) {
             this.showImage = true;
         }
+        this._formBuilder();
+    }
+
+    private _formBuilder(): void {
+        this.recipeFormGroup = this._fb.group({
+            title: [null, Validators.required],
+            calories: [null, Validators.required],
+            kcal: [null, Validators.required],
+            carbs: [null],
+            protein: [null],
+            fat: [null],
+            serving_size: [null],
+            time: [null],
+            information: [null],
+        })
     }
 
     private _openAddIngridientImageModal(): void {
@@ -64,10 +97,11 @@ export class RecipePostView implements OnInit {
     }
 
     public addPreparationStep(): void {
-        this.preparationStepItem.push({});
+        this.preparationStepItem.push(new FormControl(''));
     }
+
     public addIngridientItem(): void {
-        this.ingridientItem.push({});
+        this.ingridientItem.push(new FormControl(''));
     }
 
     public onClickOpenIngridientModal(): void {
@@ -75,17 +109,54 @@ export class RecipePostView implements OnInit {
     }
 
     public addTag(): void {
-        this.tagsItem.push({ img: "", title: "lanch" })
+        this.tagsItem.push({ tagimg: "", tagtitle: "lanch" })
     }
     public removeTegsItem(ind): void {
         this.tagsItem.splice(ind, 1);
     }
 
-    slickInit(e) {}
+    slickInit(e) { }
 
     breakpoint(e) { }
 
-    afterChange(e) {}
+    afterChange(e) { }
 
-    beforeChange(e) {}
+    beforeChange(e) { }
+
+
+
+
+
+    public postRecipe(): void {
+        const recipeResponseData = {
+            role: this.role,
+            title: this.recipeFormGroup.value.title,
+            calories: this.recipeFormGroup.value.calories,
+            kcal: this.recipeFormGroup.value.kcal,
+            carbs: this.recipeFormGroup.value.carbs,
+            protein: this.recipeFormGroup.value.protein,
+            fat: this.recipeFormGroup.value.fat,
+            serving_size: this.recipeFormGroup.value.serving_size,
+            time: this.recipeFormGroup.value.time,
+            information: this.recipeFormGroup.value.information,
+            preparationSteps: this.preparationStepItem.value,
+            ingridient: this.ingridientItem.value,
+            tag: this.tagsItem,
+
+            content: JSON.stringify(
+                {
+                    url: '',
+                    type: this.recipeType,
+                }
+            ),
+        }
+        this._userService.postFeed(recipeResponseData).subscribe
+            ((data) => {
+                console.log(data);
+         this._router.navigate(['/feed']);
+
+            })
+
+
+    }
 }

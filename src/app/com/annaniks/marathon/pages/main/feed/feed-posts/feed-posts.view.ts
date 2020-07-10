@@ -56,6 +56,7 @@ export class FeedPostsView implements OnInit, OnDestroy {
         }
 
         this.infiniteScrollDisabled = false
+console.log(this.feedItem);
 
     }
 

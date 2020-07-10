@@ -85,7 +85,6 @@ import {
     ],
     providers: [AuthGuard],
     entryComponents: [],
-
     exports: [
         ReactiveFormsModule,
         FormsModule,

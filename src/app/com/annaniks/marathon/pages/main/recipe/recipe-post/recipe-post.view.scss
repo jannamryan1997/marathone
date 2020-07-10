@@ -5,110 +5,107 @@
     font-family: $fontFamily;
 }
 
+.recipe-layout {
+    margin: 35px 25px;
 
-    .recipe-layout {
-        margin: 35px 25px;
-
-        .broves-file {
-            background: #FFFFFF 0% 0% no-repeat padding-box;
-            box-shadow: -1.63px 5px 18px #5C687B0D;
-            border: 1px dashed #C2D2E2;
-            border-radius: 20px;
-            opacity: 1;
-            display: flex;
-            flex-direction: column;
-            padding: 32px 0;
-
-            .title {
-                @include text(22px, 24px, #bbcddf, EncodeSans-Bold);
-                text-align: center;
-            }
-
-            .follow-btn {
-                background: #FFFFFF 0% 0% no-repeat padding-box;
-                border: 1px solid #589CFE;
-                border-radius: 18px;
-                opacity: 1;
-                color: #589CFE;
-                padding: 7px 10px;
-                margin: 25px auto !important;
-
-                .material-icons {
-                    font-size: 17px;
-                }
-            }
-
-            .img-version {
-                @include text(15px, 14px, #bbcddf, EncodeSans-Regular);
-                text-align: center;
-                margin: 20px 0;
-            }
-
-            .recipe-image {
-                width: 90px;
-                height: 85px;
-            }
-        }
-
-        .localimage-content {
-            display: flex;
-            flex-direction: column;
-
-            .image {
-                width: 100%;
-                height: 360px;
-            }
-
-            .add-ingridiet-image-content {
-                margin: 0 auto;
-                flex-wrap: wrap;
-                margin-top: -60px;
-
-                .add-image {
-                    background: #FFFFFF 0% 0% no-repeat padding-box;
-                    box-shadow: -1.63px 5px 18px #5C687B0D;
-                    border: 1px dashed #C2D2E2;
-                    opacity: 1;
-                    width: 88px;
-                    height: 87px;
-                    padding: 1.2em;
-                    margin: 10px;
-                    border-radius: 50%;
-                    cursor: pointer;
-                    z-index: 1;
-
-                    .add-icon {
-                        color: #bbcddf;
-                        font-size: 30px;
-                        
-                    }
-                }
-            }
-        }
-    }
-
-    .checked {
-        align-items: center;
-        text-align: center;
+    .broves-file {
+        background: #ffffff 0% 0% no-repeat padding-box;
+        box-shadow: -1.63px 5px 18px #5c687b0d;
+        border: 1px dashed #c2d2e2;
+        border-radius: 20px;
+        opacity: 1;
         display: flex;
-        width: 70%;
+        flex-direction: column;
+        padding: 32px 0;
 
-        .label {
-            @include text(16px, 16px, #C2D2E2, EncodeSans-Bold);
-            margin: 0 23px 0 14px;
+        .title {
+            @include text(22px, 24px, #bbcddf, EncodeSans-Bold);
+            text-align: center;
         }
 
-        .radio {
-            width: 22px;
-            height: 22px;
-            border: 0.5px solid #bbcddf;
+        .follow-btn {
+            background: #ffffff 0% 0% no-repeat padding-box;
+            border: 1px solid #589cfe;
+            border-radius: 18px;
+            opacity: 1;
+            color: #589cfe;
+            padding: 7px 10px;
+            margin: 25px auto !important;
+
+            .material-icons {
+                font-size: 17px;
+            }
         }
 
+        .img-version {
+            @include text(15px, 14px, #bbcddf, EncodeSans-Regular);
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .recipe-image {
+            width: 90px;
+            height: 85px;
+        }
     }
+
+    .localimage-content {
+        display: flex;
+        flex-direction: column;
+
+        .image {
+            width: 100%;
+            height: 360px;
+        }
+
+        .add-ingridiet-image-content {
+            margin: 0 auto;
+            flex-wrap: wrap;
+            margin-top: -60px;
+
+            .add-image {
+                background: #ffffff 0% 0% no-repeat padding-box;
+                box-shadow: -1.63px 5px 18px #5c687b0d;
+                border: 1px dashed #c2d2e2;
+                opacity: 1;
+                width: 88px;
+                height: 87px;
+                padding: 1.2em;
+                margin: 10px;
+                border-radius: 50%;
+                cursor: pointer;
+                z-index: 1;
+
+                .add-icon {
+                    color: #bbcddf;
+                    font-size: 30px;
+                }
+            }
+        }
+    }
+}
+
+.checked {
+    align-items: center;
+    text-align: center;
+    display: flex;
+    width: 70%;
+
+    .label {
+        @include text(16px, 16px, #c2d2e2, EncodeSans-Bold);
+        margin: 0 23px 0 14px;
+    }
+
+    .radio {
+        width: 22px;
+        height: 22px;
+        border: 0.5px solid #bbcddf;
+    }
+}
 
 .ingridient-group {
     padding: 0 !important;
-    box-shadow: 2px 30px 43px #5C687B36;
+    box-shadow: 2px 30px 43px #5c687b36;
     border: 1px solid #bbcddf;
     margin: 30px 10px 70px 0 !important;
 
@@ -117,20 +114,18 @@
     }
 
     .ingridient-header {
-        background: #F5F5FA 0% 0% no-repeat padding-box;
+        background: #f5f5fa 0% 0% no-repeat padding-box;
         border-radius: 20px 20px 0px 0px;
         padding: 20px 50px;
         opacity: 0.5;
         z-index: 0;
 
         .title {
-            @include text(16px, 22px, #45535C, MicrosoftYaHeiUI);
-            
+            @include text(16px, 22px, #45535c, MicrosoftYaHeiUI);
         }
 
         .close {
             cursor: pointer;
-            
         }
     }
 }
@@ -148,11 +143,11 @@ textarea {
     padding: 15px;
 
     .material-icons {
-        color: #C2D2E2;
+        color: #c2d2e2;
     }
 
     .title {
-        @include text(16px, 16px, #C2D2E2, EncodeSans-Bold);
+        @include text(16px, 16px, #c2d2e2, EncodeSans-Bold);
     }
 }
 
@@ -167,7 +162,7 @@ textarea {
     align-items: center;
 
     .title {
-        @include text(16px, 16px, #C2D2E2, EncodeSans-Bold);
+        @include text(16px, 16px, #c2d2e2, EncodeSans-Bold);
     }
 }
 
@@ -178,7 +173,7 @@ textarea {
     margin: auto;
 
     .lable {
-        @include text(18px, 21px, #C2D2E2, EncodeSans-SemiBold);
+        @include text(18px, 21px, #c2d2e2, EncodeSans-SemiBold);
     }
 }
 
@@ -187,8 +182,8 @@ textarea {
 }
 
 .search-icon {
-    color: #B9B9D5;
-    
+    color: #b9b9d5;
+
     font-size: 26px;
     cursor: pointer;
 }
@@ -199,13 +194,13 @@ textarea {
 }
 
 .tags-icon {
-    color: #F5F5FA;
+    color: #f5f5fa;
     font-size: 40px;
     cursor: pointer;
 }
 
 .activeRadio {
-    color: #589CFE !important;
+    color: #589cfe !important;
 }
 
 input[type="file"] {
@@ -217,29 +212,28 @@ input[type="file"] {
 }
 
 .form-input {
-    color: #45535C !important;
+    color: #45535c !important;
     font-weight: bold !important;
 }
 
-
 ::ng-deep .mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
-    background-color: #589CFE !important;
+    background-color: #589cfe !important;
 }
 
 ::ng-deep .mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
-    background-color: #C2D2E2 !important;
+    background-color: #c2d2e2 !important;
 }
 
 .activeIngridientTab {
-    color: #FFFFFF !important;
-    background: #589CFE !important;
+    color: #ffffff !important;
+    background: #589cfe !important;
 }
 
 .tags {
     flex-wrap: wrap;
 
     .tags-item {
-        background: #F5F5FA 0% 0% no-repeat padding-box;
+        background: #f5f5fa 0% 0% no-repeat padding-box;
         border-radius: 18px;
         opacity: 1;
         padding: 7px 20px;
@@ -247,7 +241,7 @@ input[type="file"] {
         margin: 0 7px 15px 0;
 
         .title {
-            @include text(15px, 16px, #45535C, EncodeSans-Bold);
+            @include text(15px, 16px, #45535c, EncodeSans-Bold);
         }
 
         .tag-image {
@@ -259,5 +253,20 @@ input[type="file"] {
         .close {
             cursor: pointer;
         }
+    }
+}
+
+.btn-content {
+    justify-content: flex-end;
+    display: flex;
+    .follow-btn {
+        border: 1px solid #589cfe;
+        border-radius: 18px;
+        opacity: 1;
+        color: #FFFFFF !important;
+        background: #589CFE !important;
+        margin-left: 10px !important;
+        padding: 9px 30px 9px 28px;
+
     }
 }

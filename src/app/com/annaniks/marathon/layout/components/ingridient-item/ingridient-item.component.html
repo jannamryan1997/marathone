@@ -1,17 +1,19 @@
 <div class="ingridient-item  w-100" *ngIf="!titleItem">
-    <div class="form-group  d-flex">
-        <div class="input-content">
-            <input class="form-input" placeholder="Ingridient Name">
-        </div>
-        <div class="value-content d-flex">
-            <input class="value-input w-100" placeholder="Value">
-            <span class="material-icons add-icon">
+    <form [formGroup]="ingridientFormGroup">
+        <div class="form-group  d-flex">
+            <div class="input-content">
+                <input class="form-input" placeholder="Ingridient Name" formControlName="name">
+            </div>
+            <div class="value-content d-flex">
+                <input class="value-input w-100" placeholder="Value" formControlName="value">
+                <!-- <span class="material-icons add-icon">
                 add
-            </span>
+            </span> -->
+            </div>
+
         </div>
 
-    </div>
-
+    </form>
 </div>
 
 <div class="add-ingridient" *ngIf="titleItem">
@@ -20,7 +22,7 @@
             <p class="title">Apple</p>
             <p class="kcal ml-3">100g /54 kcal</p>
         </div>
-        <div  class="d-flex align-items-center">
+        <div class="d-flex align-items-center">
             <p class="text">USDA</p>
             <button class="btn follow-btn">Add</button>
         </div>

@@ -48,25 +48,30 @@
             </div>
         </div>
     </div>
+    <form [formGroup]="recipeFormGroup">
     <div class="forms-group">
         <div class="form-group">
             <label>Recipe Title</label>
-            <input type="text" class="form-input w-100" placeholder="Type Title">
+            <input type="text" class="form-input w-100" placeholder="Type Title" formControlName="title">
         </div>
         <div class="form-group pt-15 pl-0 pr-0 pb-0">
             <label>Ingridient</label>
-            <div class="form-group  d-flex">
+            <!-- <div class="form-group  d-flex">
                 <input type="text" class="form-input w-100" placeholder="Search Ingridient">
                 <span class="material-icons search-icon">
                     search
                 </span>
-            </div>
-            <app-ingridient-item *ngFor="let item of ingridientItem"></app-ingridient-item>
+            </div> -->
 
-            <button class="add-btn d-flex w-100 " (click)="addIngridientItem()"><span class="m-auto btn-text">Add
+            <div class="preparation" *ngFor="let item of ingridientItem.controls; let ind=index">
+                <app-ingridient-item [formControl]="ingridientItem.controls[ind]"></app-ingridient-item>
+                </div>
+         
+
+            <button class="add-btn d-flex w-100" (click)="addIngridientItem()"><span class="m-auto btn-text">Add
                     Ingridient</span></button>
         </div>
-        <div class="form-group ingridient-group pt-15 pl-0 pr-0 pb-0">
+        <!-- <div class="form-group ingridient-group pt-15 pl-0 pr-0 pb-0">
             <label>Ingridient</label>
             <div class="ingridient-header display-flex">
                 <p class="title">Apple</p>
@@ -83,15 +88,15 @@
                 <app-ingridient-item [titleItem]="'true'"></app-ingridient-item>
             </div>
 
-        </div>
+        </div> -->
 
 
         <div class="form-group">
             <label>Caloris</label>
             <div class="checked  m-auto">
-                <input type="radio" class="radio" id="Auto Calcualted" name="form" value="Auto Calcualted">
+                <input type="radio" class="radio" id="Auto Calcualted" name="form" value="Auto Calcualted" disabled>
                 <label for="male" class="label">Auto Calcualted</label>
-                <input type="radio" class="radio" id="Edit Manually" name="form" value="Edit Manually">
+                <input type="radio" class="radio" id="Edit Manually" name="form" value="Edit Manually"  checked>
                 <label for="female" class="label">Edit Manually</label>
             </div>
 
@@ -100,10 +105,10 @@
                     <span class="material-icons">
                         whatshot
                     </span>
-                    <input type="text" class="form-input w-100" placeholder="Calories">
+                    <input type="text" class="form-input w-100" placeholder="Calories" formControlName="calories">
                 </div>
                 <div class="kcal-content">
-                    <input type="text" class="form-input w-100" placeholder="Kcal">
+                    <input type="text" class="form-input w-100" placeholder="Kcal" formControlName="kcal">
                 </div>
                 <div class="macronutrients-content w-100">
                     <p class="title w-100">Macronutrients</p>
@@ -121,13 +126,13 @@
 
                 <div class="form-group display-flex p-0 mt-20">
                     <div class="caloris-content d-flex">
-                        <input type="text" class="form-input w-100" placeholder="0">
+                        <input type="text" class="form-input w-100" placeholder="0" formControlName="carbs">
                     </div>
                     <div class="kcal-content">
-                        <input type="text" class="form-input w-100" placeholder="0">
+                        <input type="text" class="form-input w-100" placeholder="0" formControlName="protein">
                     </div>
                     <div class="macronutrients-content">
-                        <input type="text" class="form-input w-100" placeholder="0">
+                        <input type="text" class="form-input w-100" placeholder="0" formControlName="fat">
 
                     </div>
 
@@ -151,7 +156,7 @@
                 <p class="title ml-2">Set serving size</p>
             </div>
             <div class="macronutrients-content">
-                <input type="text" class="form-input w-100" placeholder="1">
+                <input type="text" class="form-input w-100" placeholder="1"  formControlName="serving_size">
             </div>
 
         </div>
@@ -165,21 +170,22 @@
                 <p class="title ml-2">Set time</p>
             </div>
             <div class="macronutrients-content display-flex align-items-center">
-                <input type="text" class="form-input w-100" placeholder="1">
+                <input type="text" class="form-input w-100" placeholder="1" formControlName="time">
             </div>
 
         </div>
         <div class="form-group pt-15 pl-0 pr-0 pb-0">
             <label>Preparation Steps</label>
-            <app-preparation-step *ngFor="let item of preparationStepItem;let ind=index" [index]="ind+1">
-            </app-preparation-step>
+            <div class="preparation" *ngFor="let control of preparationStepItem.controls; let ind=index">
+                <app-preparation-step [formControl]="preparationStepItem.controls[ind]" [index]="ind+1"> </app-preparation-step>
+                </div>
             <button class="add-btn d-flex w-100"><span class="m-auto btn-text" (click)="addPreparationStep()">Add
                     Step</span></button>
         </div>
         <div class="form-group">
             <label>Information</label>
             <textarea type="text" class="form-input w-100 information-input"
-                placeholder="Type Recipe info here"></textarea>
+                placeholder="Type Recipe info here"  formControlName="information"></textarea>
 
         </div>
 
@@ -207,4 +213,11 @@
         </div>
 
     </div>
+</form>
+<div class="d-flex btn-content">
+    <button class="btn follow-btn" (click)="postRecipe()">Post</button>
 </div>
+
+</div>
+
+

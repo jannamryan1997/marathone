@@ -1,16 +1,49 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, forwardRef } from "@angular/core";
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormControl } from '@angular/forms';
 
 @Component({
-    selector: "app-preparation-step",
-    templateUrl: "preparation-step.component.html",
-    styleUrls: ["preparation-step.component.scss"]
+  selector: "app-preparation-step",
+  templateUrl: "preparation-step.component.html",
+  styleUrls: ["preparation-step.component.scss"],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => PreparationStepComponent),
+      multi: true
+    }
+  ]
 })
 
-export class PreparationStepComponent implements OnInit {
+export class PreparationStepComponent implements OnInit, ControlValueAccessor {
+  @Input() index: number;
+  public stepControl: FormControl = new FormControl();
 
-    @Input() index: number;
+  constructor() { }
 
-    constructor() { }
+  onChange: any = () => { }
+  onTouch: any = () => { }
 
-    ngOnInit() {}
+  private _handleControlChanges(): void {
+    this.stepControl.valueChanges.subscribe((value) => {
+      this.onChange({ title: value })
+    })
+  }
+
+  ngOnInit() { 
+    this._handleControlChanges();
+  }
+
+
+  writeValue(val: any) {
+    this.stepControl.patchValue(val);
+  }
+
+  registerOnChange(fn: any) {
+    this.onChange = fn
+  }
+
+  registerOnTouched(fn: any) {
+    this.onTouch = fn
+  }
+
 }

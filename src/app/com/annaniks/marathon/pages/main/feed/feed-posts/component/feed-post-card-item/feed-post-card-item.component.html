@@ -37,6 +37,76 @@
                     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                     allowfullscreen></iframe>
             </div>
+
+
+            <div  class="d-none" [ngClass]="{'d-block':content?.type ==='recipeType'}">
+                <div class="post-container chicken-content p-0">
+                    <img src="assets/images/chicken.png" class="chicken-image" alt="Cinque Terre">
+                    <button class="btn position-absolute" routerLink='ingridient/{{feedItem.id}}'>Gluten Free</button>
+                    <div class="comments  d-flex position-absolute w-100 justify-content-between">
+                        <div class="comments-description">
+                            <p class="text">Coloris</p>
+                            <p class="title">400 kcal</p>
+                        </div>
+                        <div class="comments-description">
+                            <p class="text">Protein</p>
+                            <p class="title">10.5 gm</p>
+                        </div>
+                        <div class="comments-description">
+                            <p class="text">Fat</p>
+                            <p class="title">8.4 gm</p>
+                        </div>
+                        <div class="comments-description">
+                            <p class="text">Carbs</p>
+                            <p class="title">3.8 gm</p>
+                        </div>
+                        <div class="comments-description">
+                            <p class="text">Prep Time</p>
+                            <p class="title">25 min</p>
+                        </div>
+                    </div>
+        
+                    <div class="combinations-description">
+                        <p class="title">Chicken fajita drumsticks with Mexican corn salade</p>
+                        <div class="d-flex text-align-centre">
+                        <p class="name mr-2">by </p>
+                            <p class="name mb-0" *ngIf="role==='client'">{{feedItem?.creator_client_info?.user?.first_name}}</p>
+                            <p class="name mb-0" *ngIf="role==='coach'">{{feedItem?.creator_info?.user?.first_name}}</p>
+                            <p class="name mb-0" *ngIf="!role && feedItem.creator_info">
+                                {{feedItem?.creator_info?.user?.first_name}}</p>
+                            <p class="name mb-0" *ngIf="!role && feedItem.creator_client_info">
+                                {{feedItem?.creator_client_info?.user?.first_name}}</p>
+                    </div>
+
+                    </div>
+                </div>
+        
+            </div>
+
+
+<!-----ARTIVLE POST-->
+            <div class="d-none" [ngClass]="{'d-block':content?.type ==='article'}">
+                <div class="post-container p-0">
+                    <!-- <video controls class="vido w-100" poster="assets/images/img.4.png" src=""> </video> -->
+                    <img src="assets/images/chicken.png" class="food-image" alt="Cinque Terre" routerLink="/feed/combination/{{feedItem.id}}">
+                    <div class="combinations-description">
+                        <p class="title">{{feedItem?.title}}</p>
+                        <div class="d-flex text-align-centre">
+                            <p class="name mr-2">by </p>
+                                <p class="name mb-0" *ngIf="role==='client'">{{feedItem?.creator_client_info?.user?.first_name}}</p>
+                                <p class="name mb-0" *ngIf="role==='coach'">{{feedItem?.creator_info?.user?.first_name}}</p>
+                                <p class="name mb-0" *ngIf="!role && feedItem.creator_info">
+                                    {{feedItem?.creator_info?.user?.first_name}}</p>
+                                <p class="name mb-0" *ngIf="!role && feedItem.creator_client_info">
+                                    {{feedItem?.creator_client_info?.user?.first_name}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
         </div>
     </div>
     <app-settings (openChanges)='onClickOpen($event)'></app-settings>
@@ -48,48 +118,4 @@
 
 
 
-<!-- <div class="post-content" *ngIf="postType === 'chicken'">
-        <div class="post-container chicken-content p-0">
-            <img src="{{feedItem?.image}}" class="chicken-image" alt="Cinque Terre">
-            <button class="btn position-absolute" routerLink='ingridient/1'>Gluten Free</button>
-            <div class="comments  d-flex position-absolute w-100 justify-content-between">
-                <div class="comments-description">
-                    <p class="text">Coloris</p>
-                    <p class="title">400 kcal</p>
-                </div>
-                <div class="comments-description">
-                    <p class="text">Protein</p>
-                    <p class="title">10.5 gm</p>
-                </div>
-                <div class="comments-description">
-                    <p class="text">Fat</p>
-                    <p class="title">8.4 gm</p>
-                </div>
-                <div class="comments-description">
-                    <p class="text">Carbs</p>
-                    <p class="title">3.8 gm</p>
-                </div>
-                <div class="comments-description">
-                    <p class="text">Prep Time</p>
-                    <p class="title">25 min</p>
-                </div>
-            </div>
 
-            <div class="combinations-description">
-                <p class="title">Chicken fajita drumsticks with Mexican corn salade</p>
-                <p class="name">by Maya Crouche</p>
-            </div>
-        </div>
-
-    </div> -->
-<!--
-    <div class="post-content" >
-        <div class="post-container p-0">
-            <video controls class="vido w-100" poster="assets/images/img.4.png" src=""> </video>
-            <img src="{{feedItem?.image}}" class="food-image" alt="Cinque Terre" routerLink="/feed/combination/12">
-            <div class="combinations-description">
-                <p class="title">{{feedItem?.title}}</p>
-                <p class="name">by Maya Crouche</p>
-            </div>
-        </div>
-    </div> -->
