@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+
 
 @Component({
     selector: "app-add-recipe-image",
@@ -8,8 +9,13 @@ import { Component, OnInit, Input } from "@angular/core";
 
 export class AddRecipeImageComponent implements OnInit {
     @Input() recipeImageItem;
+    @Output() deleted = new EventEmitter<any>();
 
     constructor() { }
 
     ngOnInit() { }
+
+    public removeItem(): void {
+        this.deleted.emit(true);
+    }
 }

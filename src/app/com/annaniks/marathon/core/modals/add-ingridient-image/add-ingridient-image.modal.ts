@@ -1,5 +1,6 @@
-import { Component, OnInit } from "@angular/core";
-import { MatDialogRef } from '@angular/material/dialog';
+import { Component, OnInit, Injectable, Inject } from "@angular/core";
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Slider } from '../../models';
 
 @Component({
   selector: "add-ingridient-image",
@@ -8,17 +9,18 @@ import { MatDialogRef } from '@angular/material/dialog';
 })
 
 export class AddIngridientImageModal implements OnInit {
-  slides = [
-    { img: "/assets/images/food.png" },
-    { img: "/assets/images/foodimg.png" },
-    { img: "assets/images/food.png" },
-    { img: "/assets/images/foodimg.png" }
-  ];
+  slides:Slider[];
 
   slideConfig = { "slidesToShow": 1, "slidesToScroll": 1 };
-  constructor(private _matDialogRf: MatDialogRef<AddIngridientImageModal>) { }
 
-  ngOnInit() { }
+  constructor(@Inject(MAT_DIALOG_DATA) private _data,private _matDialogRf: MatDialogRef<AddIngridientImageModal>) { 
+    this.slides=this._data.data;
+  }
+
+  ngOnInit() { 
+    console.log(this.slides);
+    
+  }
 
   public closeModal(): void {
     this._matDialogRf.close();
@@ -38,6 +40,14 @@ export class AddIngridientImageModal implements OnInit {
     }
 }
 
+public removeRecipeImageItem(event,ind):void{
+  if(event){
+    this.slides.splice(ind,1);
+    if(this.slides.length===0){
+      this._matDialogRf.close('closeAfterrRemove');
+    }
+  }
+}
   
 
   slickInit(e) {}

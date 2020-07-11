@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
+import { Component, OnInit, ViewChild, ElementRef, AfterViewChecked, AfterViewInit } from "@angular/core";
 import { AddIngridientImageModal } from '../../../../core/modals';
 import { MatDialog } from '@angular/material/dialog';
 import { Slider, UploadFileResponse } from '../../../../core/models';
@@ -9,6 +9,7 @@ import { forwardRef, HostBinding, Input } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Router } from '@angular/router';
 import { interval } from 'rxjs';
+import { PlyrComponent } from 'ngx-plyr';
 
 @Component({
     selector: "recipe-post",
@@ -18,11 +19,16 @@ import { interval } from 'rxjs';
 })
 
 export class RecipePostView implements OnInit {
-    public showImage: boolean = false;
+
+    public showImage: boolean = true;
+    public showCarousel: boolean = false;
+    public showVideo: boolean = false;
     public localImage: string;
     public recipeFormGroup: FormGroup;
     public role: string;
     public recipeType: string = "recipeType";
+    public videoSources = [];
+    public youtubeLink = new FormControl('');
 
     preparationStepItem = new FormArray([]);
     ingridientItem = new FormArray([]);
@@ -32,12 +38,7 @@ export class RecipePostView implements OnInit {
         { tagimg: "", tagtitle: "" }
     ]
 
-    public slides: Slider[] = [
-        // {img: "assets/images/food.png"},
-        // {img: "/assets/images/foodimg.png"},
-        // {img: "assets/images/food.png"},
-        // {img: "/assets/images/foodimg.png"},
-    ];
+    public slides: Slider[] = [];
 
     slideConfig = { "slidesToShow": 1, "slidesToScroll": 1 };
     constructor(
@@ -54,7 +55,8 @@ export class RecipePostView implements OnInit {
 
     ngOnInit() {
         if (this.slides.length) {
-            this.showImage = true;
+            this.showCarousel = true;
+            this.showImage = false;
         }
         this._formBuilder();
     }
@@ -70,6 +72,7 @@ export class RecipePostView implements OnInit {
             serving_size: [null],
             time: [null],
             information: [null],
+            mass: [null]
         })
     }
 
@@ -77,6 +80,17 @@ export class RecipePostView implements OnInit {
         const dialogRef = this._matDialog.open(AddIngridientImageModal, {
             width: "100%",
             maxWidth: "100vw",
+            data: {
+                data: this.slides
+            }
+        })
+        dialogRef.afterClosed().subscribe((data)=>{
+            console.log(data);
+            if(data==='closeAfterrRemove'){
+                this.showCarousel = false;
+                this.showImage = true;
+            }
+            
         })
     }
     public setServicePhoto(event): void {
@@ -91,7 +105,8 @@ export class RecipePostView implements OnInit {
             if (event.target.files[0]) {
                 reader.readAsDataURL(event.target.files[0]);
             }
-            this.showImage = true;
+            this.showCarousel = true;
+            this.showImage = false;
 
         }
     }
@@ -142,6 +157,9 @@ export class RecipePostView implements OnInit {
             preparationSteps: this.preparationStepItem.value,
             ingridient: this.ingridientItem.value,
             tag: this.tagsItem,
+            mass: this.recipeFormGroup.value.mass,
+            imageSlider: this.slides,
+            videoLink: this.youtubeLink.value,
 
             content: JSON.stringify(
                 {
@@ -153,10 +171,33 @@ export class RecipePostView implements OnInit {
         this._userService.postFeed(recipeResponseData).subscribe
             ((data) => {
                 console.log(data);
-         this._router.navigate(['/feed']);
+                this._router.navigate(['/feed']);
 
             })
 
 
+    }
+    public removeRecipeImageItem(event, ind): void {
+        if(event){
+            this.slides.splice(ind, 1);
+            if (this.slides.length) {
+                this.showCarousel = true;
+                this.showImage = false;
+            }
+            else{
+                this.showCarousel = false;
+                this.showImage = true;
+            }
+   
+        }
+    }
+
+    play(): void {
+        this.videoSources = [{
+            src: this.youtubeLink.value,
+            provider: 'youtube',
+        }]
+        this.showVideo = true;
+        this.showImage = false;
     }
 }

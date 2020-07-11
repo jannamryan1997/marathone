@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+
 
 @Component({
     selector: "app-experience",
@@ -9,11 +10,13 @@ export class ExperienceComponent implements OnInit {
 
     @Input() profileExperience: boolean;
     @Input() experience;
+    @Output() deleted = new EventEmitter<any>()
 
     constructor() { }
 
-    ngOnInit() { 
-        console.log(this.experience);
-        
+    ngOnInit() { }
+
+    public deleteExperiance(): void {
+        this.deleted.emit(true);
     }
 }

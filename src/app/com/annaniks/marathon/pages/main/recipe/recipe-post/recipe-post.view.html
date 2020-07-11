@@ -1,6 +1,6 @@
 <div class="recipe-layout">
     <div class="recipe-layout-hrader">
-        <div class="localimage-content" *ngIf="showImage">
+        <div class="localimage-content" *ngIf="showCarousel">
             <div>
                 <ngx-slick-carousel class="carousel w-100" #slickModal="slick-carousel" [config]="slideConfig"
                     (init)="slickInit($event)" (breakpoint)="breakpoint($event)" (afterChange)="afterChange($event)"
@@ -9,13 +9,11 @@
                         <img src="{{ slide.img }}" alt="" width="100%" class="image">
                     </div>
                 </ngx-slick-carousel>
-
-
             </div>
 
             <div class="add-ingridiet-image-content d-flex">
-                <app-add-recipe-image *ngFor="let item of slides"  [recipeImageItem]="item"></app-add-recipe-image>
-                <input class="" type="file" id="file1" name="avatar" (change)="setServicePhoto($event)">
+                <app-add-recipe-image *ngFor="let item of slides; let ind=index"  [recipeImageItem]="item" (deleted)="removeRecipeImageItem($event,ind)"></app-add-recipe-image>
+                <input class="" type="file" id="file1" name="avatar" (change)="setServicePhoto($event)" >
                 <label class="add-image d-flex" for="file1"> 
                         <span class="material-icons add-icon m-auto">
                                 add
@@ -24,7 +22,15 @@
                 </label>
             </div>
         </div>
-        <div class="broves-file" *ngIf="!showImage">
+
+        <div class="localimage-content" *ngIf="showVideo">
+            <div>
+                <plyr style="display:block" plyrTitle="Video 1" [plyrSources]="videoSources"></plyr>
+            </div>
+       
+        </div>
+
+        <div class="broves-file" *ngIf="showImage">
             <div class="m-auto">
                 <div class="d-flex w-50 m-auto">
                     <img src="assets/icons/recipe.png" class="recipe-image m-auto" alt="Cinque Terre">
@@ -41,10 +47,12 @@
                 <p class="img-version">jpg/png/mp4</p>
                 <div class="m-auto">
                     <button class="update-video-btn">
-                        <span class="material-icons mr-2">
+                        <span class="material-icons mr-2" (click)="play()">
                             slideshow
-                        </span>Insert Youtube Link </button>
+                        </span><input class="youtube-input" placeholder="Insert Youtube Link" [formControl]="youtubeLink"> </button>
                 </div>
+               
+
             </div>
         </div>
     </div>
@@ -112,7 +120,7 @@
                 </div>
                 <div class="macronutrients-content w-100">
                     <p class="title w-100">Macronutrients</p>
-                    <mat-slide-toggle></mat-slide-toggle>
+                    <mat-slide-toggle disabled></mat-slide-toggle>
                 </div>
 
             </div>
@@ -137,14 +145,18 @@
                     </div>
 
                 </div>
-                <div class="checked gram-checked w-50">
-                    <input type="radio" class="radio" id="Gram" name="form" value="Gram">
+                    <!-- <input type="radio" class="radio" id="Gram" name="form" value="Gram">
                     <label for="male" class="label">Gram</label>
                     <input type="radio" class="radio" id="Percentage" name="form" value="Percentage">
-                    <label for="female" class="label">Percentage</label>
+                    <label for="female" class="label">Percentage</label> -->
+                  
+                <div>
+                <mat-radio-group aria-label="Select an option" formControlName="mass">
+                    <mat-radio-button value="gram" class="radio">Gram</mat-radio-button>
+                    <mat-radio-button value="kcal" class="radio">Percentage</mat-radio-button>
+                  </mat-radio-group>
                 </div>
-
-            </div>
+                  </div>
 
         </div>
         <div class="form-group display-flex p-0 ">

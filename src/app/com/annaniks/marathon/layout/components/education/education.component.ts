@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 
 @Component({
     selector: "app-education",
@@ -9,17 +9,15 @@ import { Component, OnInit, Input } from "@angular/core";
 export class EducationComponent implements OnInit {
     @Input() education;
     @Input() profileEducation: boolean;
-    @Input() index:number;
+    @Output() deleted = new EventEmitter<any>();
+
     constructor() { }
 
-    ngOnInit() {
-        console.log(this.education);
-        
-     }
 
-     public removeEducation(){
-         console.log(this.index);
-         
-this.education.splice(this.education,1);
-     }
+    ngOnInit() { }
+    
+    public deleteEducationItem(): void {
+        this.deleted.emit(true);
+    }
+
 }

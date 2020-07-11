@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
+import {MatRadioModule} from '@angular/material/radio';
 
 import { AddRecipeImageComponent, PreparationStepComponent, IngridientItemComponent } from '../../../../layout';
 import { AddIngridientImageModal } from '../../../../core/modals';
@@ -11,6 +12,7 @@ import { RecipePostView } from './recipe.post.view';
 
 
 import { SharedModule } from '../../../../shared/shared.module';
+import { CarouselComponent } from '../../../../layout/components/carousel/carousel.component';
 
 @NgModule({
     declarations: [
@@ -19,6 +21,7 @@ import { SharedModule } from '../../../../shared/shared.module';
         PreparationStepComponent,
         AddIngridientImageModal,
         IngridientItemComponent,
+        CarouselComponent
     ],
     imports: [
         RecipePostRoutingModule,
@@ -28,6 +31,7 @@ import { SharedModule } from '../../../../shared/shared.module';
         ReactiveFormsModule,
         MatSlideToggleModule,
         SharedModule,
+        MatRadioModule
     ],
     entryComponents: [AddIngridientImageModal]
 })

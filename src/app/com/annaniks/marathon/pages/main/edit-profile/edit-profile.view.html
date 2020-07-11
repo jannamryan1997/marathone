@@ -144,7 +144,7 @@
                                                 <div class="form-group about-form" *ngIf="role=='coach'">
                                                     <label>Certificates</label>
                                                     <app-information [profileCertificates]="true"
-                                                        *ngFor="let item of certificates" [certificates]="item">
+                                                        *ngFor="let item of certificates;let ind=index" [certificates]="item" (deleted)="removeCerticatesItem($event,ind)">
                                                     </app-information>
 
                                                     <div class="add-certificates display-flex">
@@ -178,7 +178,7 @@
                                                     <label>Education</label>
                                                     <app-education [profileEducation]="true"
                                                         *ngFor="let item of education,let ind=index" [education]="item"
-                                                        [index]="ind"></app-education>
+                                                       (deleted)="removeEducationItem($event,ind)"></app-education>
                                                     <button class="add-btn d-flex w-100"><span class="m-auto btn-text"
                                                             (click)="AddEducatin()">Add more</span></button>
                                                 </div>
@@ -186,7 +186,7 @@
                                                 <div class="form-group about-form" *ngIf="role=='coach'">
                                                     <label>Experience</label>
                                                     <app-experience [profileExperience]="true"
-                                                        *ngFor="let item of experience" [experience]="item">
+                                                        *ngFor="let item of experience;let ind=index" [experience]="item" (deleted)="removeExperianceItem($event,ind)">
                                                     </app-experience>
                                                     <button class="add-btn d-flex w-100"><span class="m-auto btn-text"
                                                             (click)="AddExperience()">Add more</span></button>

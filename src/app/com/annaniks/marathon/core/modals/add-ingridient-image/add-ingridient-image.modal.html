@@ -15,7 +15,7 @@
             </ngx-slick-carousel>
         </div>
         <div class="add-ingridiet-image-content d-flex">
-            <app-add-recipe-image *ngFor="let item of slides" [recipeImageItem]="item"></app-add-recipe-image>
+            <app-add-recipe-image *ngFor="let item of slides;let ind=index" [recipeImageItem]="item" (deleted)="removeRecipeImageItem($event,ind)"></app-add-recipe-image>
             <div class="add-image d-flex">
                 <input class="" type="file" id="file" name="avatar" (change)="setServicePhoto($event)">
                 <label class="d-flex m-auto" for="file"><span class="material-icons add-icon  m-auto">

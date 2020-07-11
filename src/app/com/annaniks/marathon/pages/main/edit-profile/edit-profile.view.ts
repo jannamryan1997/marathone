@@ -5,6 +5,7 @@ import { UserResponseData } from '../../../core/models/user';
 import { CountryService } from '../../../core/services/country.service';
 import { UserService } from '../../../core/services/user.service';
 import { Country, UploadFileResponse } from '../../../core/models';
+import { element } from 'protractor';
 
 
 
@@ -89,7 +90,7 @@ export class EditProfileView implements OnInit {
             userName: this.user.data.user.last_name,
             status: this.user.data.status,
             about: this.user.data.about,
-            // location: this.user.data.locationLocality,
+            languages: this.user.data.ui_language,
         })
     }
 
@@ -156,7 +157,7 @@ export class EditProfileView implements OnInit {
             this.user.data.user.first_name = this.profileFormGroup.value.firstName,
             this.user.data.status = this.profileFormGroup.value.status,
             this.user.data.about = this.profileFormGroup.value.about,
-
+            this.user.data.ui_language = [3],
             this._userService.putCoatch(this._userService.user.data.id, this.user.data)
                 .subscribe((data) => {
                     this._userService.getCoatch().subscribe((data) => {
@@ -194,8 +195,20 @@ export class EditProfileView implements OnInit {
         this.education.push({});
     }
 
+    public removeEducationItem(event, ind): void {
+        if (event) {
+            this.education.splice(ind, 1)
+        }
+
+    }
     public AddExperience(): void {
         this.experience.push({});
+    }
+
+    public removeExperianceItem(event, ind): void {
+        if (event) {
+            this.experience.splice(ind, 1);
+        }
     }
 
 
@@ -206,6 +219,12 @@ export class EditProfileView implements OnInit {
     }
     public addCertificates(): void {
         this.certificates.push({ image: "", title: this.profileFormGroup.value.certificatesLocation });
+    }
+
+    public removeCerticatesItem(event, ind): void {
+        if (event) {
+            this.certificates.splice(ind, 1);
+        }
     }
 
     public onClickShowSocialMedium(): void {
@@ -219,17 +238,24 @@ export class EditProfileView implements OnInit {
     public filterCountryMultiple(event) {
         let query = event.query;
         this._countryService.getCountries().subscribe((countries: Country[]) => {
+            console.log(this.profileFormGroup.value.languages, "languages");
 
             this.filteredCountriesMultiple = this.filterCountry(query, countries);
         });
+
+
     }
     public filterCountry(query, countries: Country[]): Country[] {
 
         let filtered: any[] = [];
+
         for (let i = 0; i < countries.length; i++) {
             let country = countries[i];
+
+
             if (country.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
                 filtered.push(country);
+
             }
 
         }

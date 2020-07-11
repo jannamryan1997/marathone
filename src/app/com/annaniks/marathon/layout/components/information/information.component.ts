@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 
 @Component({
     selector: "app-information",
@@ -9,7 +9,13 @@ import { Component, OnInit, Input } from "@angular/core";
 export class InformationComponent implements OnInit {
     @Input() profileCertificates;
     @Input() certificates;
+    @Output() deleted = new EventEmitter<any>();
+
     constructor() { }
 
     ngOnInit() { }
+
+    public deleteCertificatesItem(): void {
+        this.deleted.emit(true);
+    }
 }

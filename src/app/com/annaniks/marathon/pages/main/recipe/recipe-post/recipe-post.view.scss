@@ -270,3 +270,29 @@ input[type="file"] {
 
     }
 }
+.youtube-input{
+    width: 80%;
+    border: none;
+    @include text(15px, 15px, #bbcddf, EncodeSans-Bold);
+    &::placeholder{
+        @include text(15px, 15px, #bbcddf, EncodeSans-Bold);
+    }
+}
+::ng-deep .mat-radio-label-content{
+    font-size: 16px;
+    line-height: 16px;
+    color: #c2d2e2;
+    font-family: EncodeSans-Bold;
+    margin: 0 23px 0 14px;
+}
+::ng-deep .mat-radio-outer-circle{
+    width: 22px;
+    height: 22px;
+    border: 0.5px solid #bbcddf;
+}
+::ng-deep .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle{
+    border-color: #589CFE !important;
+}
+::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle{
+background-color: #589CFE !important;
+}
