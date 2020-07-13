@@ -18,8 +18,8 @@
     <div class="post-content">
         <div class="post-container">
             <div class="title-content">
-                <p class="title show-content" >{{feedTitle}} <span *ngIf="seeMore"
-                        class="title more" (click)="onClickSeeMore()">... See More</span></p>
+                <p class="title show-content">{{feedTitle}} <span *ngIf="seeMore" class="title more"
+                        (click)="onClickSeeMore()">... See More</span></p>
             </div>
 
             <div class="d-none" [ngClass]="{'d-block':content?.type ==='image'}">
@@ -33,13 +33,12 @@
                 </video>
             </div>
             <div class="d-none" [ngClass]="{'d-block':content?.type === 'videoLink'}">
-                <iframe class="vido w-100" src="https://www.youtube.com/embed/tgbNymZ7vqY" frameborder="0"
-                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen></iframe>
+                <plyr style="display:block" plyrTitle="Video 1" [plyrSources]="videoSources"></plyr>
+
             </div>
 
 
-            <div  class="d-none" [ngClass]="{'d-block':content?.type ==='recipeType'}">
+            <div class="d-none" [ngClass]="{'d-block':content?.type ==='recipeType'}">
                 <div class="post-container chicken-content p-0">
                     <img src="assets/images/chicken.png" class="chicken-image" alt="Cinque Terre">
                     <button class="btn position-absolute" routerLink='ingridient/{{feedItem.id}}'>Gluten Free</button>
@@ -65,40 +64,43 @@
                             <p class="title">25 min</p>
                         </div>
                     </div>
-        
+
                     <div class="combinations-description">
                         <p class="title">Chicken fajita drumsticks with Mexican corn salade</p>
                         <div class="d-flex text-align-centre">
-                        <p class="name mr-2">by </p>
-                            <p class="name mb-0" *ngIf="role==='client'">{{feedItem?.creator_client_info?.user?.first_name}}</p>
+                            <p class="name mr-2">by </p>
+                            <p class="name mb-0" *ngIf="role==='client'">
+                                {{feedItem?.creator_client_info?.user?.first_name}}</p>
                             <p class="name mb-0" *ngIf="role==='coach'">{{feedItem?.creator_info?.user?.first_name}}</p>
                             <p class="name mb-0" *ngIf="!role && feedItem.creator_info">
                                 {{feedItem?.creator_info?.user?.first_name}}</p>
                             <p class="name mb-0" *ngIf="!role && feedItem.creator_client_info">
                                 {{feedItem?.creator_client_info?.user?.first_name}}</p>
-                    </div>
+                        </div>
 
                     </div>
                 </div>
-        
+
             </div>
 
 
-<!-----ARTIVLE POST-->
+            <!-----ARTIVLE POST-->
             <div class="d-none" [ngClass]="{'d-block':content?.type ==='article'}">
                 <div class="post-container p-0">
                     <!-- <video controls class="vido w-100" poster="assets/images/img.4.png" src=""> </video> -->
-                    <img src="assets/images/chicken.png" class="food-image" alt="Cinque Terre" routerLink="/feed/combination/{{feedItem.id}}">
+                    <img src="assets/images/chicken.png" class="food-image" alt="Cinque Terre"
+                        routerLink="/feed/combination/{{feedItem.id}}">
                     <div class="combinations-description">
                         <p class="title">{{feedItem?.title}}</p>
                         <div class="d-flex text-align-centre">
                             <p class="name mr-2">by </p>
-                                <p class="name mb-0" *ngIf="role==='client'">{{feedItem?.creator_client_info?.user?.first_name}}</p>
-                                <p class="name mb-0" *ngIf="role==='coach'">{{feedItem?.creator_info?.user?.first_name}}</p>
-                                <p class="name mb-0" *ngIf="!role && feedItem.creator_info">
-                                    {{feedItem?.creator_info?.user?.first_name}}</p>
-                                <p class="name mb-0" *ngIf="!role && feedItem.creator_client_info">
-                                    {{feedItem?.creator_client_info?.user?.first_name}}</p>
+                            <p class="name mb-0" *ngIf="role==='client'">
+                                {{feedItem?.creator_client_info?.user?.first_name}}</p>
+                            <p class="name mb-0" *ngIf="role==='coach'">{{feedItem?.creator_info?.user?.first_name}}</p>
+                            <p class="name mb-0" *ngIf="!role && feedItem.creator_info">
+                                {{feedItem?.creator_info?.user?.first_name}}</p>
+                            <p class="name mb-0" *ngIf="!role && feedItem.creator_client_info">
+                                {{feedItem?.creator_client_info?.user?.first_name}}</p>
                         </div>
                     </div>
                 </div>
@@ -115,7 +117,3 @@
         <app-posts-comments [comments]="comments"></app-posts-comments>
     </div>
 </div>
-
-
-
-

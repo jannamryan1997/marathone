@@ -31,7 +31,7 @@
         <div class="emoji-content"  >
             <emoji-mart (emojiClick)="addEmoji($event)" emoji="point_up" *ngIf="showemoji"></emoji-mart>
             <textarea type="text" [formControl]="postType" class="message-input" placeholder="Type Something..."
-                (focus)="showPost()" (blur)="hidePost()">
+                (focus)="showPost()" (blur)="play()">
         </textarea>
             <img src="assets/icons/smile.png" class="smile-image" (click)="showEmoji()" *ngIf="isModalMode">
         </div>
@@ -58,9 +58,11 @@
             </span>
         </div>
     </div>
-
-    <div class="image-content">
-        <div id="player" class="update-image w-100"></div>
+    <div class="localimage-content" *ngIf="showYoutube">
+        <div>
+            <plyr style="display:block" plyrTitle="Video 1" [plyrSources]="videoSources"></plyr>
+        </div>
+   
     </div>
 
 

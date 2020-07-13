@@ -15,6 +15,7 @@ export class CreatePublicationComponent implements OnInit {
     public isModalMode: boolean = false;
     @Input() feedItem: any;
     public postType = new FormControl('');
+    public videoSources = [];
     @Output('postCreateEvent') private _postCreateEvent: EventEmitter<void> = new EventEmitter<void>();
     @ViewChild('inputImageReference') private _inputImageReference: ElementRef;
     @ViewChild('inputVideoReference') private _inputVideoReference: ElementRef;
@@ -30,6 +31,7 @@ export class CreatePublicationComponent implements OnInit {
     public videoTumble: string;
     public contentFileName: string = '';
     public loading = false;
+    public showYoutube: boolean = false;
 
     constructor(
         public _userService: UserService,
@@ -38,84 +40,6 @@ export class CreatePublicationComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-    }
-
-    private _parseYoutubeUrl(url: string): string {
-        var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
-        var match = url.match(regExp);
-        return (match && match[7].length == 11) ? match[7] : null;
-    }
-
-    private _initPlayer(): void {
-        if (window['YT']) {
-            this._startVideo();
-            return;
-        }
-        let tag = document.createElement('script');
-        tag.src = 'https://www.youtube.com/iframe_api';
-        let firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-        window['onYouTubeIframeAPIReady'] = () => this._startVideo();
-    }
-
-    private _startVideo(): void {
-        this.YT = window['YT'];
-        if (this.player) {
-            this.player.loadVideoById({
-                videoId: this._videoId,
-            });
-            return;
-        }
-        this.player = new window['YT'].Player('player', {
-            events: {
-                onStateChange: this._onPlayerStateChange.bind(this),
-                onError: this._onPlayerError.bind(this),
-                onReady: (e) => {
-                    this.player.loadVideoById({
-                        videoId: this._videoId,
-                    });
-                }
-
-            }
-        });
-        this.contentFileName = this._videoId;
-        this.uploadType = 'videoLink';
-    }
-
-
-    private _onPlayerStateChange(event): void {
-        switch (event.data) {
-            case window['YT'].PlayerState.PLAYING:
-                if (this._cleanTime() == 0) {
-                } else {
-                };
-                break;
-            case window['YT'].PlayerState.PAUSED:
-                if (this.player.getDuration() - this.player.getCurrentTime() != 0) {
-                };
-                break;
-            case window['YT'].PlayerState.ENDED:
-                break;
-        };
-    };
-
-
-
-    private _cleanTime(): number {
-        this._videoId = this._parseYoutubeUrl(this.postType.value);
-        return Math.round(this.player.getCurrentTime())
-    };
-
-    private _onPlayerError(event): void {
-        switch (event.data) {
-            case 2:
-                break;
-            case 100:
-                break;
-            case 101 || 150:
-                break;
-        };
     }
 
 
@@ -165,7 +89,7 @@ export class CreatePublicationComponent implements OnInit {
     }
 
     public addEmoji(event): void {
-        
+
         let data = this.postType.value + event.emoji.native;
         this.postType.patchValue(data)
 
@@ -175,24 +99,6 @@ export class CreatePublicationComponent implements OnInit {
         this.showemoji = !this.showemoji;
     }
 
-    ////blur-i jamanak youtube-i video linke cuyc tal
-    public hidePost(): void {
-        this._videoId = this._parseYoutubeUrl(this.postType.value);
-        if (this._videoId) {
-            this._initPlayer();
-        }
-        else {
-            this._destroyYoutubePlayer();
-        }
-    }
-    ///////youtube-i video link
-    private _destroyYoutubePlayer(): void {
-        if (this.player) {
-            this.player.stopVideo();
-            this.player.destroy();
-            this.player = null;
-        }
-    }
 
 
     public setServicePhoto(event, type) {
@@ -212,15 +118,6 @@ export class CreatePublicationComponent implements OnInit {
     }
 
 
-    public setServiceVideo(event, type) {
-        this.uploadType = 'video';
-        this._setFormDataForImage(event);
-        if (this.player) {
-            this.player.stopVideo();
-            this.player.destroy();
-        }
-        this.player = null;
-    }
 
 
     public closeControlItem(): void {
@@ -251,12 +148,7 @@ export class CreatePublicationComponent implements OnInit {
             this.controImageItem = '';
             this.controVideoItem = '';
             this.isModalMode = false;
-            if (this.player) {
-                this.player.stopVideo();
-                this.player.destroy();
-                this.player = null;
-            }
-
+            this.showYoutube = false;
             this._postCreateEvent.emit();
 
         })
@@ -275,11 +167,36 @@ export class CreatePublicationComponent implements OnInit {
         this.controImageItem = '';
         this.controVideoItem = '';
         this.isModalMode = false;
-        this.player.stopVideo();
-        this.player.destroy();
+        this.showYoutube = false;
+
         this.player = null;
     }
 
+    play(): void {
+        let title;
+        this.videoSources = [{
+            src: this.postType.value,
+            provider: 'youtube',
+        }]
+        if (this.postType.value.slice(0, 8) === 'https://') {
+            title = this.postType.value.slice(0, 30);
+        }
+        else {
+            title = this.postType.value.slice(0, 22);
+        }
+        if (title === 'www.youtube.com/watch?' || title === 'https://www.youtube.com/watch?') {
+            this.showYoutube = true;
+            this.contentFileName = this.postType.value,
+                this.uploadType = 'videoLink',
+                console.log(this.contentFileName, this.uploadType);
+
+        }
+        else {
+            this.showYoutube = false;
+        }
+
+
+    }
 
 }
 

@@ -26,6 +26,7 @@ export class FeedPostCardItemComponent implements OnInit {
     public seeMore: boolean = false;
     public role: string;
     public feedTitle: string;
+    public videoSources = [];
     public localImage: string = "/assets/images/user-icon-image.png";
     public comments = [
         {
@@ -37,7 +38,7 @@ export class FeedPostCardItemComponent implements OnInit {
         },
     ]
 
-    constructor(private _matDialog: MatDialog, private _cookieService: CookieService, private _userService: UserService,private _feedService:FeedService) {
+    constructor(private _matDialog: MatDialog, private _cookieService: CookieService, private _userService: UserService, private _feedService: FeedService) {
         this.role = this._cookieService.get('role');
 
     }
@@ -48,6 +49,14 @@ export class FeedPostCardItemComponent implements OnInit {
         if (this.feedItem.feed_media && this.feedItem.feed_media.length) {
             this.content = this.feedItem.feed_media[0].content;
         }
+
+        if ( this.content.type === "videoLink") {
+            this.videoSources = [{
+                src: 'http://annaniks.com:6262/media/'+this.content.url,
+                provider: 'youtube',
+            }]
+        }
+
 
         if (!this.role) {
             if (this.feedItem.creator_info && this.feedItem.creator_info.avatar) {
@@ -126,9 +135,11 @@ export class FeedPostCardItemComponent implements OnInit {
 
     public deleteFeed(): void {
         console.log("ffffffff");
-        
+
         this._feedService.deleteFeed(this.feedItem.id).subscribe((data) => {
             console.log(data);
         })
     }
 }
+
+
