@@ -1,7 +1,7 @@
-import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 import { MatDialog } from '@angular/material/dialog';
 import { PropertyModal } from 'src/app/com/annaniks/marathon/core/modals';
-import { FeedResponseData, Content } from 'src/app/com/annaniks/marathon/core/models';
+import { FeedResponseData } from 'src/app/com/annaniks/marathon/core/models';
 
 
 import * as moment from 'moment'
@@ -52,7 +52,7 @@ export class FeedPostCardItemComponent implements OnInit {
 
         if ( this.content.type === "videoLink") {
             this.videoSources = [{
-                src: 'http://annaniks.com:6262/media/'+this.content.url,
+                src: this.content.url,
                 provider: 'youtube',
             }]
         }

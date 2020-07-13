@@ -25,6 +25,7 @@
     "@nguniversal/express-engine": "^9.1.1",
     "angularx-social-login": "^2.3.1",
     "express-serve-static-core": "^0.1.1",
+    "http-server": "^0.12.3",
     "jquery": "^3.5.1",
     "moment": "^2.27.0",
     "ng-click-outside": "^6.0.0",
