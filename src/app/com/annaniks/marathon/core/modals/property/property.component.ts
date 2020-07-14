@@ -32,6 +32,7 @@ export class PropertyModal implements OnInit {
     constructor(@Inject(MAT_DIALOG_DATA) private _data,
         private _dialogRef: MatDialogRef<PropertyModal>,
         private _cookieService: CookieService,
+        @Inject("FILE_URL") public fileUrl: string
     ) {
         this.feedItem = _data.data;
         this.localImage=this._data.localImage;

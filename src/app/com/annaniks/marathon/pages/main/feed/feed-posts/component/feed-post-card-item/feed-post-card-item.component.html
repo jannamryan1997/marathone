@@ -23,12 +23,12 @@
             </div>
 
             <div class="d-none" [ngClass]="{'d-block':content?.type ==='image'}">
-                <img src="{{'http://annaniks.com:6262/media/'+content?.url}}" class="image" alt="Cinque Terre"
+                <img src="{{fileUrl+content?.url}}" class="image" alt="Cinque Terre"
                     (click)="openPropertyModalByImage()">
             </div>
 
             <div class="d-none" [ngClass]="{'d-block':content?.type ==='video'}">
-                <video controls class="vido w-100" poster="" src="{{'http://annaniks.com:6262/media/'+content?.url}}"
+                <video controls class="vido w-100" poster="" src="{{fileUrl+content?.url}}"
                     (click)="openPropertyModalByVideo()">
                 </video>
             </div>
@@ -87,7 +87,6 @@
             <!-----ARTIVLE POST-->
             <div class="d-none" [ngClass]="{'d-block':content?.type ==='article'}">
                 <div class="post-container p-0">
-                    <!-- <video controls class="vido w-100" poster="assets/images/img.4.png" src=""> </video> -->
                     <img src="assets/images/chicken.png" class="food-image" alt="Cinque Terre"
                         routerLink="/feed/combination/{{feedItem.id}}">
                     <div class="combinations-description">

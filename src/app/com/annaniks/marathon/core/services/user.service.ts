@@ -3,7 +3,6 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { UploadFileResponse } from '../models';
 import { CookieService } from 'ngx-cookie';
-import { UserResponseData } from '../models/user';
 
 @Injectable({
     providedIn: 'root'
@@ -39,12 +38,10 @@ export class UserService {
         let params = new HttpParams();
         params= params.set('authorization', 'false');
          return this._httpClient.post<UploadFileResponse>('http://annaniks.com:6262' + '/upload-file/', formData,{params})
-         // return this._httpClient.post<UploadFileResponse>('http://192.168.1.115:9000' + '/upload-file/', formData,{params})
     }
 
     public postFeed(body: any): Observable<any> {
         return this._httpClient.post<any>('http://annaniks.com:6262/api/feed/create', body);
-     //return this._httpClient.post<any>('http://192.168.1.115:9000/api/feed/create', body);
     }
 }
 

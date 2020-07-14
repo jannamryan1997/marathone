@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild } from "@angular/core";
+import { Component, OnInit, ElementRef, ViewChild, Inject } from "@angular/core";
 import { MenuItem } from '../../core/models';
 import { UserService } from '../../core/services/user.service';
 import { AuthModal } from '../../core/modals';
@@ -25,12 +25,12 @@ export class HeaderComponent implements OnInit {
         { routerLink: "#", title: "Articles" },
         { routerLink: "#", title: "Q & A" },
         { routerLink: "#", title: "Packages"},
-        // { routerLink: "#", title: "Workout Music" },
     ]
     constructor(private _profileUserService: UserService,
         private _mathDialog: MatDialog,
         private _cookieService: CookieService,
-        private _router: Router
+        private _router: Router,
+        @Inject("FILE_URL") private _fileUrl,
     ) { 
       
     }
@@ -52,9 +52,8 @@ export class HeaderComponent implements OnInit {
         if(this._profileUserService.user){
 
         this.profileUser = this._profileUserService.user;
-        // this.localImage = 'http://192.168.1.115:9000/media/' + this.profileUser.data.avatar;
         if( this.profileUser.data.avatar){
-            this.localImage = 'http://annaniks.com:6262/media/' + this.profileUser.data.avatar;
+            this.localImage = this._fileUrl + this.profileUser.data.avatar;
         }
    
         return this._profileUserService.isAuthorized;

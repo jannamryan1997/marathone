@@ -38,7 +38,7 @@ export class EditProfileView implements OnInit {
         private _countryService: CountryService,
         private _cookieService: CookieService,
         private _userService: UserService,
-        @Inject("FILE_URL") private _fileUrl: string
+        @Inject("FILE_URL") private _fileUrl: string,
     ) {
         this.role = this._cookieService.get('role');
         this.user = this._userService.user;

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, Inject } from "@angular/core";
 import { MatDialog } from '@angular/material/dialog';
 import { PropertyModal } from 'src/app/com/annaniks/marathon/core/modals';
 import { FeedResponseData } from 'src/app/com/annaniks/marathon/core/models';
@@ -38,7 +38,12 @@ export class FeedPostCardItemComponent implements OnInit {
         },
     ]
 
-    constructor(private _matDialog: MatDialog, private _cookieService: CookieService, private _userService: UserService, private _feedService: FeedService) {
+    constructor(
+        @Inject("FILE_URL") public fileUrl,
+        private _matDialog: MatDialog, 
+        private _cookieService: CookieService, 
+        private _userService: UserService, 
+        private _feedService: FeedService) {
         this.role = this._cookieService.get('role');
 
     }
@@ -60,11 +65,11 @@ export class FeedPostCardItemComponent implements OnInit {
 
         if (!this.role) {
             if (this.feedItem.creator_info && this.feedItem.creator_info.avatar) {
-                this.localImage = 'http://annaniks.com:6262/media/' + this.feedItem.creator_info.avatar;
+                this.localImage = this.fileUrl + this.feedItem.creator_info.avatar;
             }
 
             else if (this.feedItem.creator_client_info && this.feedItem.creator_client_info.avatar) {
-                this.localImage = 'http://annaniks.com:6262/media/' + this.feedItem.creator_client_info.avatar;
+                this.localImage = this.fileUrl + this.feedItem.creator_client_info.avatar;
             }
             else {
                 this.localImage = '/assets/images/user-icon-image.png';
@@ -72,7 +77,7 @@ export class FeedPostCardItemComponent implements OnInit {
         }
 
         else if (this.role && this._userService.user.data.avatar) {
-            this.localImage = 'http://annaniks.com:6262/media/' + this._userService.user.data.avatar;
+            this.localImage = this.fileUrl+ this._userService.user.data.avatar;
         }
         else if (this.role && this._userService.user.data.avatar === null) {
             this.localImage = "/assets/images/user-icon-image.png";
@@ -134,10 +139,7 @@ export class FeedPostCardItemComponent implements OnInit {
     }
 
     public deleteFeed(): void {
-        console.log("ffffffff");
-
         this._feedService.deleteFeed(this.feedItem.id).subscribe((data) => {
-            console.log(data);
         })
     }
 }

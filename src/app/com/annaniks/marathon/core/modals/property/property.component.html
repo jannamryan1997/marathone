@@ -7,15 +7,12 @@
 
     <div class="property-main d-flex justify-content-between pg-container">
         <div class="image-content">
-            <img src="{{'http://annaniks.com:6262/media/'+content?.url}}" class="image d-none" alt="Cinque Terre"
+            <img src="{{fileUrl+content?.url}}" class="image d-none" alt="Cinque Terre"
                 [ngClass]="{'d-block':content.type==='image'}">
 
             <video controls class="video d-none w-100" poster="" [ngClass]="{'d-block':content.type==='video'}"
-                src="{{'http://annaniks.com:6262/media/'+content?.url}}">
+                src="{{fileUrl+content?.url}}">
             </video>
-            <!-- <div class="d-none" [ngClass]="{'d-block':content?.type === 'videoLink'}">
-                <iframe  class="vido w-100" src="https://www.youtube.com/embed/tgbNymZ7vqY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div> -->
 
         </div>
         <div class="property-description">

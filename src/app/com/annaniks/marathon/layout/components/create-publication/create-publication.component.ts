@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, AfterViewChecked, ViewChild, ElementRef, AfterViewInit, Output, EventEmitter } from "@angular/core";
+import { Component, OnInit, Input, AfterViewChecked, ViewChild, ElementRef, AfterViewInit, Output, EventEmitter, Inject } from "@angular/core";
 import { FormControl, Validators } from '@angular/forms';
 import { UserService } from '../../../core/services/user.service';
 import { RecipeResponseData, UploadFileResponse, FeedData } from '../../../core/models';
@@ -36,7 +36,8 @@ export class CreatePublicationComponent implements OnInit {
     constructor(
         public _userService: UserService,
         private _feedService: FeedService,
-        private _cookieServie: CookieService
+        private _cookieServie: CookieService,
+        @Inject("FILE_URL") private _fileUrl,
     ) { }
 
     ngOnInit() {
@@ -60,10 +61,9 @@ export class CreatePublicationComponent implements OnInit {
 
                 this._userService.uploadVideoFile(formData)
                     .subscribe((data: UploadFileResponse) => {
-                        // fileName = 'http://annaniks.com:6262/media/' + data.file_name;
-                        fileName = 'http://annaniks.com:6262/media/' + data.file_name;
+                        fileName = this._fileUrl + data.file_name;
                         this.contentFileName = data.file_name;
-                        this.videoTumble = 'http://annaniks.com:6262/media/vido_tumbl/' + data.file_name_tumbl;
+                        this.videoTumble = this._fileUrl + 'vido_tumbl/' + data.file_name_tumbl;
                         if (this.uploadType === 'image') {
                             this.resetImageUplaodInput()
                             this.controImageItem = fileName;
