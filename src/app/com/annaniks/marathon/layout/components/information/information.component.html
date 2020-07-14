@@ -23,17 +23,17 @@
 <div class="certificates-content" *ngIf="profileCertificates">
     <div class="certificates-item d-flex justify-content-between">
         <div class="position-relative">
-            <img src="assets/images/certificate.png" class="certificates-image" alt="Cinque Terre">
-            <div class="icon-content d-flex">
+            <img [src]="fileUrl+certificates?.file" class="certificates-image" alt="">
+            <!-- <div class="icon-content d-flex">
                 <span class="material-icons m-auto" >
                     close
                 </span>
-            </div>
+            </div> -->
 
         </div>
 
 
-        <p class="text">{{certificates.title}}</p>
+        <p class="text">{{certificates?.description}}</p>
         <span class="material-icons" (click)="deleteCertificatesItem()">
             close
         </span>

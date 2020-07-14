@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter, Inject } from "@angular/core";
 
 @Component({
     selector: "app-information",
@@ -11,7 +11,7 @@ export class InformationComponent implements OnInit {
     @Input() certificates;
     @Output() deleted = new EventEmitter<any>();
 
-    constructor() { }
+    constructor(@Inject("FILE_URL") public fileUrl) { }
 
     ngOnInit() { }
 

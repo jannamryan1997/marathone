@@ -57,7 +57,7 @@ export function provideConfig() {
     },
     {
       provide: 'FILE_URL',
-      useValue: environment.apiUrl,
+      useValue: environment.fileUrl,
       multi: true
     },
     {

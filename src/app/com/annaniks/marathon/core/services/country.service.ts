@@ -1,17 +1,18 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
+import { Observable } from 'rxjs';
 
 
 @Injectable()
 export class CountryService {
 
-    constructor(private http:HttpClient) {}
+    constructor(@Inject("BASE_URL") private _baseUrl: string, private _httpClient: HttpClient) { }
 
-    getCountries() {
-        return this.http.get('assets/data/countries.json')
-                    // .toPromise()
-                    // .then(res => <any[]> res.json().data)
-                    // .then(data => { return data; });
+    getCountries(): Observable<any> {
+        return this._httpClient.get<any>(this._baseUrl + '/utils/location-country/');
     }
+    getSpeciality(): Observable<any> {
+        return this._httpClient.get<any>(this._baseUrl + '/career/speciality/');
+    }
+
 }

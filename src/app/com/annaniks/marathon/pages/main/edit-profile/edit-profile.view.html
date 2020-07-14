@@ -102,8 +102,8 @@
                                                 <div class="autocomplete">
                                                     <label>Speciality</label>
                                                     <p-autoComplete class="w-100" formControlName="speciality"
-                                                        [suggestions]="filteredCountriesMultiple"
-                                                        (completeMethod)="filterCountryMultiple($event)" [minLength]="1"
+                                                        [suggestions]="filteredSpecialitesMultiple"
+                                                        (completeMethod)="filterSpecialitypMultiple($event)" [minLength]="1"
                                                         placeholder="" field="name" [multiple]="true">
                                                     </p-autoComplete>
                                                 </div>
@@ -144,20 +144,24 @@
                                                 <div class="form-group about-form" *ngIf="role=='coach'">
                                                     <label>Certificates</label>
                                                     <app-information [profileCertificates]="true"
-                                                        *ngFor="let item of certificates;let ind=index" [certificates]="item" (deleted)="removeCerticatesItem($event,ind)">
+                                                        *ngFor="let item of certificates;let ind=index"
+                                                        [certificates]="item"
+                                                        (deleted)="removeCerticatesItem($event,ind)" >
                                                     </app-information>
+
 
                                                     <div class="add-certificates display-flex">
 
                                                         <div class="add-file d-flex">
-                                                            <input class="" type="file" id="file1" name="avatar1" accept="image/png,image/jpeg"
-                                                            (change)="setCeriticatesPhoto($event)">
+                                                            <input class="" type="file" id="file1" name="avatar1"
+                                                                accept="image/png,image/jpeg"
+                                                                (change)="setCeriticatesPhoto($event)">
                                                             <div class="d-flex m-auto">
                                                                 <label class="icon-btn d-flex m-auto" for="file1">
-                                                            <span class="material-icons m-auto" >
-                                                                insert_drive_file
-                                                            </span>
-                                                            </label>
+                                                                    <span class="material-icons m-auto">
+                                                                        insert_drive_file
+                                                                    </span>
+                                                                </label>
                                                             </div>
                                                         </div>
 
@@ -165,7 +169,8 @@
                                                             <input type="text" class="form-input w-100"
                                                                 formControlName="certificatesLocation"
                                                                 placeholder="Type Cerificate Information">
-                                                            <span class="material-icons add-icon" (click)="addCertificates()">
+                                                            <span class="material-icons add-icon"
+                                                                (click)="addCertificates()">
                                                                 add
                                                             </span>
                                                         </div>
@@ -177,19 +182,22 @@
                                                 <div class="form-group about-form" *ngIf="role=='coach'">
                                                     <label>Education</label>
                                                     <app-education [profileEducation]="true"
-                                                        *ngFor="let item of education,let ind=index" [education]="item"
-                                                       (deleted)="removeEducationItem($event,ind)"></app-education>
+                                                        *ngFor="let item of education.controls,let ind=index"
+                                                        [education]="item" (deleted)="removeEducationItem($event,ind)"
+                                                        [formControl]="education.controls[ind]"></app-education>
                                                     <button class="add-btn d-flex w-100"><span class="m-auto btn-text"
-                                                            (click)="AddEducatin()">Add more</span></button>
+                                                            (click)="addEducatin()">Add more</span></button>
                                                 </div>
 
                                                 <div class="form-group about-form" *ngIf="role=='coach'">
                                                     <label>Experience</label>
                                                     <app-experience [profileExperience]="true"
-                                                        *ngFor="let item of experience;let ind=index" [experience]="item" (deleted)="removeExperianceItem($event,ind)">
+                                                        *ngFor="let item of experience.controls,let ind=index"
+                                                        [experience]="item" (deleted)="removeExperianceItem($event,ind)"
+                                                        [formControl]="experience.controls[ind]">
                                                     </app-experience>
                                                     <button class="add-btn d-flex w-100"><span class="m-auto btn-text"
-                                                            (click)="AddExperience()">Add more</span></button>
+                                                            (click)="addExperience()">Add more</span></button>
                                                 </div>
                                             </form>
                                         </div>

@@ -1,42 +1,41 @@
 [
     {
-        
-        "name": "Afghanistan",
-        "flag":"assets/images/flags/englend.jpg"
-     
+        "count": 1,
+        "next": null,
+        "previous": null,
+        "results": [
+            {
+                "url": "",
+                "name": "Åland Islands",
+                "lat": 90,
+                "lng": 60
+            }
+        ]
     },
     {
-
-        "name": "Åland Islands",
-        "flag":"assets/images/flags/englend.jpg"
+        "count": 1,
+        "next": null,
+        "previous": null,
+        "results": [
+            {
+                "url": "",
+                "name": "Albania",
+                "lat": 90,
+                "lng": 60
+            }
+        ]
     },
     {
-        "name": "Albania",
-           "flag":"assets/images/flags/englend.jpg"
-    },
-    {
-        "name": "Algeria",
-        "flag":"assets/images/flags/englend.jpg"
-    },
-    {
-        "name": "American Samoa",
-        "flag":"assets/images/flags/englend.jpg"
-    },
-    {
-        "name": "AndorrA",
-          "flag":"assets/images/flags/englend.jpg"
-    },
-    {
-        "name": "Angola",
-         "flag":"assets/images/flags/englend.jpg"
-    },
-    {
-        "name": "Anguilla",
-         "flag":"assets/images/flags/englend.jpg"
-    },
-    {
-        "name":"Gyumry",
-        "flag":"assets/images/flags/englend.jpg"
+        "count": 1,
+        "next": null,
+        "previous": null,
+        "results": [
+            {
+                "url": "",
+                "name": "Gyumry",
+                "lat": 90,
+                "lng": 60
+            }
+        ]
     }
-
 ]

@@ -10,6 +10,7 @@
 </div>
 
 <div class="education" *ngIf="profileExperience">
+    <form [formGroup]="experianceFormGroup">
         <div class="education-content">
             <div class="education-item d-flex justify-content-between">
                 <span class="material-icons hat-icon">
@@ -18,12 +19,12 @@
                 <div  class="education-description-container">
                 <div class="education-description">
                         <p class="name">Insitute Nmae</p>
-                        <input  class="example w-100" placeholder="" value="For example:Fitnes Trainer Marathone Fit Academy"> 
+                        <input  class="example w-100" placeholder=""  formControlName="name"> 
                     </div>
     
                     <div class="education-description">
                         <p class="name">Specialisiation</p>
-                        <input  class="example w-100" placeholder="" value="For example:Fitnes Trainer"> 
+                        <input  class="example w-100" placeholder=""  formControlName="specialization"> 
                     </div>
                 </div>
                 <div class="close">
@@ -36,22 +37,23 @@
                     <div class="display-flex w-100">
                         <div class="link-form w-50">
                             <label class="lable">Starting Year</label>
-                                <mat-select class="form-group-link w-100" >
+                                <mat-select class="form-group-link w-100" formControlName="start_date">
                                         <mat-option>Year</mat-option>
-                                        <mat-option  [value]="1">2015</mat-option>
-                                        <mat-option  [value]="1">2015</mat-option>
-                                        <mat-option  [value]="1">2015</mat-option>
+                                        <mat-option  [value]="2015">2015</mat-option>
+                                        <mat-option  [value]="2016">2016</mat-option>
+                                        <mat-option  [value]="2017">2017</mat-option>
                                       </mat-select>
                         </div>
                         <div class="link-form w-50">
                             <label class="lable">Ending Year</label>
-                            <mat-select class="form-group-link w-100" >
+                            <mat-select class="form-group-link w-100"  formControlName="end_date">
                                     <mat-option>Year</mat-option>
-                                    <mat-option  [value]="1">2015</mat-option>
-                                    <mat-option  [value]="1">2015</mat-option>
-                                    <mat-option  [value]="1">2015</mat-option>
+                                    <mat-option  [value]="2019">2019</mat-option>
+                                    <mat-option  [value]="2020">2020</mat-option>
+                                    <mat-option  [value]="2021">2021</mat-option>
                                   </mat-select>
                         </div>
                     </div>
         </div>
+        </form>
     </div>
