@@ -120,7 +120,7 @@
                 </div>
                 <div class="macronutrients-content w-100">
                     <p class="title w-100">Macronutrients</p>
-                    <mat-slide-toggle disabled></mat-slide-toggle>
+                    <mat-slide-toggle></mat-slide-toggle>
                 </div>
 
             </div>
@@ -208,7 +208,7 @@
                         <div class="tags-item display-flex" *ngFor="let item of tagsItem;let ind=index">
                             <div class="d-flex">
                                 <img class="tag-image" src="/assets/images/flags/germ.png">
-                                <p class="title ml-2">FastCooking</p>
+                                <p class="title ml-2">{{item.tagtitle}}</p>
                             </div>
 
                             <span class="material-icons close" (click)="removeTegsItem(ind)">
@@ -221,7 +221,7 @@
                     add_circle
                 </span>
             </div>
-            <button class="add-btn d-flex w-100" (click)="addTag()"><span class="m-auto btn-text">Add Tag</span></button>
+            <input class="add-input d-flex w-100"  placeholder="Add Tag" (keyup.enter)="addTag()" formControlName="tags">
         </div>
 
     </div>

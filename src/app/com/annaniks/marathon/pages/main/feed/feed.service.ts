@@ -33,10 +33,10 @@ export class FeedService {
 
     public deleteFeed(feedId: number): Observable<any> {
         if (this.role === 'client') {
-            return this._httpClient.delete<any>(this._baseUrl + '/feed/feeds/' + `?creator_client=${this.userId}&id=${feedId}`)
+            return this._httpClient.delete<any>(this._baseUrl+`/feed/feeds/${feedId}/`);
         }
         else if (this.role === 'coach') {
-            return this._httpClient.delete<any>(this._baseUrl + '/feed/feeds/' + `?creator=${this.userId}&id=${feedId}`)
+            return this._httpClient.delete<any>(this._baseUrl+`/feed/feeds/${feedId}/`);
         }
     }
 

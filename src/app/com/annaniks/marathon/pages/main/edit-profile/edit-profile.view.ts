@@ -20,7 +20,7 @@ export class EditProfileView implements OnInit {
     public role: string;
     public country: any;
     public filteredCountriesMultiple: any[];
-    public filteredSpecialitesMultiple:any[];
+    public filteredSpecialitesMultiple: any[];
     public profileFormGroup: FormGroup;
     public showSocialMedium: boolean = false;
     public showMore: boolean = false;
@@ -31,7 +31,8 @@ export class EditProfileView implements OnInit {
     public experience = new FormArray([]);
     public certificates: CertificateData[] = [];
     public certificatesImage: string;
-    public languages=[];
+    public languages = [];
+    public speciality = [];
 
     constructor(
         private _fb: FormBuilder,
@@ -47,7 +48,6 @@ export class EditProfileView implements OnInit {
             this.localImage = this._fileUrl + this._userService.user.data.avatar;
         }
         console.log(this._userService.user);
-
     }
 
     ngOnInit() {
@@ -142,10 +142,6 @@ export class EditProfileView implements OnInit {
                 this._userService.uploadVideoFile(formData)
                     .subscribe((data: UploadFileResponse) => {
                         this.certificatesImage = data.file_name;
-                        console.log(this.certificatesImage);
-
-
-
                     })
             }
         }
@@ -204,7 +200,7 @@ export class EditProfileView implements OnInit {
             this.user.data.education = this.education.value,
             this.user.data.experience = this.experience.value,
             this.user.data.certificates = this.certificates,
-            // this.user.data.language = this.languages;
+            this.user.data.language = this.languages;
         this._userService.putCoatch(this._userService.user.data.id, this.user.data)
             .subscribe((data) => {
                 this._userService.getCoatch().subscribe((data) => {
@@ -217,12 +213,12 @@ export class EditProfileView implements OnInit {
     private _updateClient(): void {
         this.user.data.user.last_name = this.profileFormGroup.value.userName,
             this.user.data.user.first_name = this.profileFormGroup.value.firstName,
-             this.user.data.status = this.profileFormGroup.value.status,
-             this.user.data.facebook = this.profileFormGroup.value.facebook,
-             this.user.data.instagram = this.profileFormGroup.value.instagram,
-             this.user.data.youtube = this.profileFormGroup.value.youtube,
-             this.user.data.linkedin = this.profileFormGroup.value.linkedin,
-             this.user.data.location = this.profileFormGroup.value.location,
+            this.user.data.status = this.profileFormGroup.value.status,
+            this.user.data.facebook = this.profileFormGroup.value.facebook,
+            this.user.data.instagram = this.profileFormGroup.value.instagram,
+            this.user.data.youtube = this.profileFormGroup.value.youtube,
+            this.user.data.linkedin = this.profileFormGroup.value.linkedin,
+            this.user.data.location = this.profileFormGroup.value.location,
             this._userService.putClient(this._userService.user.data.id, this.user.data)
                 .subscribe((data) => {
                     this._userService.getClient().subscribe((data) => {
@@ -289,13 +285,30 @@ export class EditProfileView implements OnInit {
 
 
     public filterCountryMultiple(event) {
+        console.log(this.profileFormGroup.value.languages);
         let query = event.query;
         this._countryService.getCountries().subscribe((countries: Country[]) => {
             let contry = [];
+            let name: string;
             contry.push(countries)
-            this.filteredCountriesMultiple = this.filterCountry(query, contry);
+            for (let item of contry) {
+                for (let i of item.results) {
+                    if (i.name === this.profileFormGroup.value.languages) {
+                        console.log("fdfd");
 
+                    }
+                    console.log(i);
+
+
+
+                }
+            }
+
+            this.filteredCountriesMultiple = this.filterCountry(query, contry);
         });
+
+
+
     }
 
     public filterCountry(query, countries: Country[]): Country[] {
@@ -304,13 +317,9 @@ export class EditProfileView implements OnInit {
 
         for (let item of countries) {
             for (let language of item.results) {
-                this.languages.push(language.url),
-                console.log(this.languages);
-
+                this.languages.push(language.url)
                 if (language.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-                    filtered.push(language);
-
-
+                    filtered.push(language)
                 }
             }
         }
@@ -323,22 +332,19 @@ export class EditProfileView implements OnInit {
         this._countryService.getSpeciality().subscribe((speciality) => {
             let special = [];
             special.push(speciality)
-            console.log(special);
-            
+
+
             this.filteredSpecialitesMultiple = this.filterSpeciality(query, special);
 
         });
     }
 
 
-    public filterSpeciality(query, special){
-
+    public filterSpeciality(query, special) {
         let filtered: any[] = [];
-
         for (let item of special) {
             for (let name of item.results) {
-                console.log(special);
-                
+                this.speciality.push(name.url)
                 if (name.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
                     filtered.push(name);
 

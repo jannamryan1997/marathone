@@ -34,7 +34,7 @@ export class FeedPostsView implements OnInit, OnDestroy {
     private async _getFeed(page: number) {
         this.infiniteScrollDisabled = true
         const data = await this._feedService.feed(this._pageIndex).toPromise()
-  
+
         if (!this._isCountCalculated) {
             this._pagesCount = Math.ceil(data.count / 10);
             this._isCountCalculated = true;
@@ -52,11 +52,11 @@ export class FeedPostsView implements OnInit, OnDestroy {
                     media.content = JSON.parse(media.content)
                 }
             }
-        
+
         }
 
         this.infiniteScrollDisabled = false
-console.log(this.feedItem);
+        console.log(this.feedItem);
 
     }
 
@@ -77,7 +77,19 @@ console.log(this.feedItem);
     }
 
 
+    public deletedFeedItem(event): void {
+        console.log(event);
+        if (event) {
+            this._feedService.deleteFeed(event).subscribe((data) => {
+                this._pageIndex = 1;
+                this._isCountCalculated = false;
+                this._pagesCount = 0;
+                this.feedItem = [];
+                this._getFeed(this._pageIndex)
+    })
+        }
 
+    }
 
 
     ngOnDestroy() {

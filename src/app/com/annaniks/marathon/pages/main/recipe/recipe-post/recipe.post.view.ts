@@ -1,15 +1,12 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewChecked, AfterViewInit } from "@angular/core";
+import { Component, OnInit} from "@angular/core";
 import { AddIngridientImageModal } from '../../../../core/modals';
 import { MatDialog } from '@angular/material/dialog';
-import { Slider, UploadFileResponse } from '../../../../core/models';
+import { Slider } from '../../../../core/models';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { CookieService } from 'ngx-cookie';
 import { UserService } from '../../../../core/services/user.service';
-import { forwardRef, HostBinding, Input } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Router } from '@angular/router';
-import { interval } from 'rxjs';
-import { PlyrComponent } from 'ngx-plyr';
+
 
 @Component({
     selector: "recipe-post",
@@ -34,9 +31,7 @@ export class RecipePostView implements OnInit {
     ingridientItem = new FormArray([]);
 
 
-    public tagsItem = [
-        { tagimg: "", tagtitle: "" }
-    ]
+    public tagsItem = []
 
     public slides: Slider[] = [];
 
@@ -72,7 +67,8 @@ export class RecipePostView implements OnInit {
             serving_size: [null],
             time: [null],
             information: [null],
-            mass: [null]
+            mass: [null],
+            tags: [null],
         })
     }
 
@@ -84,13 +80,13 @@ export class RecipePostView implements OnInit {
                 data: this.slides
             }
         })
-        dialogRef.afterClosed().subscribe((data)=>{
+        dialogRef.afterClosed().subscribe((data) => {
             console.log(data);
-            if(data==='closeAfterrRemove'){
+            if (data === 'closeAfterrRemove') {
                 this.showCarousel = false;
                 this.showImage = true;
             }
-            
+
         })
     }
     public setServicePhoto(event): void {
@@ -124,7 +120,7 @@ export class RecipePostView implements OnInit {
     }
 
     public addTag(): void {
-        this.tagsItem.push({ tagimg: "", tagtitle: "lanch" })
+        this.tagsItem.push({ tagimg: "", tagtitle: this.recipeFormGroup.value.tags })
     }
     public removeTegsItem(ind): void {
         this.tagsItem.splice(ind, 1);
@@ -178,17 +174,17 @@ export class RecipePostView implements OnInit {
 
     }
     public removeRecipeImageItem(event, ind): void {
-        if(event){
+        if (event) {
             this.slides.splice(ind, 1);
             if (this.slides.length) {
                 this.showCarousel = true;
                 this.showImage = false;
             }
-            else{
+            else {
                 this.showCarousel = false;
                 this.showImage = true;
             }
-   
+
         }
     }
 

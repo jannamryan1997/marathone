@@ -8,7 +8,7 @@
         [infiniteScrollThrottle]="throttle"
         [infiniteScrollDisabled]="infiniteScrollDisabled"
     (scrolled)="onScroll()">
-        <app-feed-post-card-item *ngFor="let item of feedItem" [feedItem]="item"></app-feed-post-card-item>
+        <app-feed-post-card-item *ngFor="let item of feedItem" [feedItem]="item" (deletedItem)="deletedFeedItem($event)"></app-feed-post-card-item>
     </div>
 </div>
 <app-full-screen-loader *ngIf="fullScreenLoader"></app-full-screen-loader>
