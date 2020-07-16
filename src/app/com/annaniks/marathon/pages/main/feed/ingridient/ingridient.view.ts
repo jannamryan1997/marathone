@@ -48,7 +48,8 @@ export class IngridientViewComponent implements OnInit {
                 this.time = moment(this.feedItem.timeStamp).format('MMMM Do YYYY');
                 for (let item of data.feed_media) {
                     if (typeof item.content === 'string') {
-                        const content: ReceiptData = JSON.parse(item.content);
+                        // ReceiptData
+                        const content = JSON.parse(item.content);
                         item.content = content;
                         console.log(content);
                         if (content && content.receipt) {

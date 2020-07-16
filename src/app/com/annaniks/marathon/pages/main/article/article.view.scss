@@ -89,7 +89,12 @@
                 @include text(16px, 20px, #45535c, EncodeSans-Medium);
             }
             .setting-item {
-                margin: 30px 0;
+                margin: 10px 0;
+                cursor: pointer;
+                padding: 10px;
+                &:hover{
+                    background: #F7F7FC 0% 0% no-repeat padding-box;
+                }
             }
         }
     }
@@ -210,47 +215,5 @@ input[type="file"] {
     }
 }
 .link-input {
-    border: none;
-    font-size: 15px;
     width: 70%;
-}
-::ng-deep {
-    #cke_24,
-    #cke_17,
-    #cke_32,
-    #cke_83,
-    #cke_38,
-    #cke_39,
-    #cke_40,
-    #cke_41,
-    #cke_42,
-    #cke_43,
-    #cke_44,
-    #cke_45,
-    #cke_46,
-    #cke_84,
-    #cke_88,
-    #cke_89,
-    #cke_91,
-    #cke_59,
-    #cke_60,
-    #cke_61,
-    #cke_62,
-    #cke_67,
-    #cke_68,
-    #cke_69,
-    #cke_73,
-    #cke_74,
-    #cke_75,
-    #cke_76,
-    #cke_77,
-    #cke_78,
-    #cke_79,
-    #cke_80,
-    #cke_81,
-    #cke_82,
-    .cke_toolbar_separator
-     {
-        display: none !important;
-    }
 }

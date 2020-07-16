@@ -10,9 +10,8 @@
                 <p class="text">Save Draft</p>
                 <div class="btn-content d-flex align-items-center">
                     <button class="btn follow-btn">Preview</button>
-                    <button class="btn follow-btn" *ngIf="router.url==='/article/update'" routerLink="/article/update"
-                        routerLinkActive="activeButton">Update</button>
-                    <button (click)="publish()" class="btn follow-btn activeButton">Publish</button>
+                    <button (click)="publish()"
+                        class="btn follow-btn activeButton">{{articleId?'Update':'Publish'}}</button>
                     <button class="btn btn-loader" (click)="onClickShowSetting()">
                         <span class="material-icons icon">
                             more_horiz
@@ -51,10 +50,9 @@
                         <div class="display-flex">
                             <p class="title-setting m-auto">Seo Setting</p>
                         </div>
-
                     </div>
-                    <div class="setting-item w-100">
-                        <div class=" display-flex">
+                    <div *ngIf="articleId" class="setting-item w-100">
+                        <div (click)="deleteArticle()" class=" display-flex">
                             <p class="title-setting  m-auto">Delete Article</p>
                         </div>
 
@@ -90,21 +88,20 @@
                     <label>Article Title</label>
                     <input formControlName="title" type="text" class="form-input w-100" placeholder="Type Title">
                 </div>
-                <div *ngFor="let contentText of articleGroup.get('contentTexts').controls;let i=index"
+                <div *ngFor="let contentText of getControls('contentTexts');let i=index"
                     class="form-group d-flex align-items-start" [formGroup]="contentText">
                     <label>Content / Text</label>
-                    <ckeditor formControlName="attribute" class="form-input w-100"></ckeditor>
+                    <ckeditor [config]="config" formControlName="attribute" class="form-input w-100"></ckeditor>
                     <span (click)="removeTextContent(i)" class="material-icons close">
                         close
                     </span>
                 </div>
 
 
-
-                <div *ngIf="articleGroup.get('images') && articleGroup.get('images').controls"
+                <div *ngIf="articleGroup.get('images') && getControls('images')"
                     class="content-image display-flex w-100">
                     <app-content-image (delete)="deleteImageOrVideo($event,i,'images')" class="w-100"
-                        *ngFor="let image of articleGroup.get('images').controls;let i=index"
+                        *ngFor="let image of getControls('images');let i=index"
                         [contentImageItem]="image.value"></app-content-image>
                 </div>
                 <div *ngIf="isShowImageRedacor" class="form-group broves-file-form d-flex align-items-start">
@@ -121,10 +118,10 @@
                         close
                     </span>
                 </div>
-                <div *ngIf="articleGroup.get('videos') && articleGroup.get('videos').controls"
+                <div *ngIf="articleGroup.get('videos') && getControls('videos')"
                     class="content-image display-flex">
                     <app-content-video (delete)="deleteImageOrVideo($event,i,'videos')" [source]="video.value"
-                        *ngFor="let video of articleGroup.get('videos').controls;let i=index" class="w-100">
+                        *ngFor="let video of getControls('videos');let i=index" class="w-100">
                     </app-content-video>
                 </div>
                 <div *ngIf="isShowVideoRedactor" class="form-group broves-file-form d-flex align-items-start">
@@ -134,7 +131,7 @@
                             <span class="material-icons mr-2">
                                 slideshow
                             </span>
-                            <input formControlName="currentYoutubeLink" class="link-input" type="text"
+                            <input formControlName="currentYoutubeLink" class="form-input link-input" type="text"
                                 placeholder="Insert Youtube Link " name="" id="">
                             <span (click)="sendVideo()" class="material-icons mr-2">
                                 send

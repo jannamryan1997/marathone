@@ -43,6 +43,7 @@ export class UserService {
     public postFeed(body: any): Observable<any> {
         return this._httpClient.post<any>('http://annaniks.com:6262/api/feed/create', body);
     }
+    
 }
 
 
