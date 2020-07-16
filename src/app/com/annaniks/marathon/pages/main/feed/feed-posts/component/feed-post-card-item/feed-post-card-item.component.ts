@@ -66,9 +66,9 @@ export class FeedPostCardItemComponent implements OnInit {
 
         if (this.feedItem.feed_media && this.feedItem.feed_media.length) {
             this.content = this.feedItem.feed_media[0].content;
-            this.receipt=this.content.receipt;
-            console.log(  this.receipt);
-            
+            this.receipt = this.content.receipt;
+            console.log(this.receipt);
+
         }
 
         if (this.content.type === "videoLink") {
@@ -97,10 +97,10 @@ export class FeedPostCardItemComponent implements OnInit {
             }
         }
 
-        else if (this.role && this._userService.user.data.avatar) {
+        else if (this.role && this._userService.user && this._userService.user.data && this._userService.user.data.avatar) {
             this.localImage = this.fileUrl + this._userService.user.data.avatar;
         }
-        else if (this.role && this._userService.user.data.avatar === null) {
+        else if (this.role && (!this._userService.user || (this._userService.user && !this._userService.user.data ) || this._userService.user.data.avatar === null)) {
             this.localImage = "/assets/images/user-icon-image.png";
         }
 
@@ -154,6 +154,9 @@ export class FeedPostCardItemComponent implements OnInit {
                 localImage: this.localImage
             }
         })
+    }
+    public setImage() {
+        return this.content.cover ? this.fileUrl + this.content.cover : 'assets/images/chicken.png'
     }
     public onClickOpen($event): void {
         this.isOpen = $event;

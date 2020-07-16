@@ -28,7 +28,8 @@ export interface FeedResponseData {
 
 export interface FeedMedia {
     aspect_ratio: any;
-    content:string | ReceiptData;
+    content: string ;
+    // ReceiptData
     feed: string;
     path: null
     thumbnail: null
