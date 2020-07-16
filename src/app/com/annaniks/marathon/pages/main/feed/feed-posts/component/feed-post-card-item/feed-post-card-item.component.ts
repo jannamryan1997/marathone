@@ -8,6 +8,7 @@ import * as moment from 'moment'
 import { CookieService } from 'ngx-cookie';
 import { UserService } from 'src/app/com/annaniks/marathon/core/services/user.service';
 import { FeedService } from '../../../feed.service';
+import { ReceiptData, ReceiptResponseData } from 'src/app/com/annaniks/marathon/core/models/receipt';
 
 @Component({
     selector: "app-feed-post-card-item",
@@ -28,7 +29,9 @@ export class FeedPostCardItemComponent implements OnInit {
     public role: string;
     public feedTitle: string;
     public videoSources = [];
+    public receipt:ReceiptResponseData;
     public localImage: string = "/assets/images/user-icon-image.png";
+    public slideConfig = { "slidesToShow": 1, "slidesToScroll": 1 };
     public comments = [
         {
             image: "assets/images/img8.png", name: "hanna mryan", time: "1 hour ago", message: "barevvvvvvvvv bari voxjuyn hiiiii", view: "2", like: "25", dislike: "6",
@@ -54,6 +57,9 @@ export class FeedPostCardItemComponent implements OnInit {
 
         if (this.feedItem.feed_media && this.feedItem.feed_media.length) {
             this.content = this.feedItem.feed_media[0].content;
+            this.receipt=this.content.receipt;
+            console.log(  this.receipt);
+            
         }
 
         if (this.content.type === "videoLink") {
@@ -62,8 +68,6 @@ export class FeedPostCardItemComponent implements OnInit {
                 provider: 'youtube',
             }]
         }
-
-
         if (!this.role) {
             if (this.feedItem.creator_info && this.feedItem.creator_info.avatar) {
                 this.localImage = this.fileUrl + this.feedItem.creator_info.avatar;

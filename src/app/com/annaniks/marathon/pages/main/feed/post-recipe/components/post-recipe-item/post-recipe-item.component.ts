@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { RecipeResponseData } from 'src/app/com/annaniks/marathon/core/models';
 
 @Component({
     selector: "app-post-recipe-item",
@@ -11,7 +10,7 @@ import { RecipeResponseData } from 'src/app/com/annaniks/marathon/core/models';
 export class PostRecipeItemComponent  {
     // public emojiForm: FormGroup;
     // public showemoji: boolean = false;
-    // @Input() postItem:RecipeResponseData;
+    // @Input() postItem:ReceiptResponseData;
 
     // constructor(private _fb: FormBuilder) { }
 

@@ -1,3 +1,4 @@
+import { ReceiptData } from './receipt';
 
 export interface FeedData {
     count: number;
@@ -27,7 +28,7 @@ export interface FeedResponseData {
 
 export interface FeedMedia {
     aspect_ratio: any;
-    content:string;
+    content:string | ReceiptData;
     feed: string;
     path: null
     thumbnail: null
@@ -38,4 +39,5 @@ export interface FeedMedia {
 export interface Content {
     type: string;
     url: string;
+    recipe?:string;
 }

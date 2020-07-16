@@ -138,7 +138,7 @@
                             padding: 25px 0;
 
                             .ingridient-name {
-                                @include text(22px, 26px, #45535C, EncodeSans-SemiBold);
+                                @include text(17px, 26px, #45535C, EncodeSans-SemiBold);
                                 margin: auto 20px;
                             }
 
@@ -222,3 +222,25 @@
     border: 1px solid #589CFE;
     background: #ffff !important;
 }
+
+::ng-deep .slick-prev{
+    left: 7px !important;
+    z-index: 999 !important;
+    height: 40px !important;
+    width: 40px !important;
+    &::before{
+        font-size: 40px !important;
+    }
+}
+::ng-deep .slick-next{
+    right: 7px !important;
+    z-index: 999 !important;
+    height: 40px !important;
+    width: 40px !important;
+    &::before{
+        font-size: 40px !important;
+    }
+}
+
+
+

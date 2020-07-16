@@ -248,7 +248,9 @@ input[type="file"] {
     #cke_79,
     #cke_80,
     #cke_81,
-    #cke_82 {
+    #cke_82,
+    .cke_toolbar_separator
+     {
         display: none !important;
     }
 }

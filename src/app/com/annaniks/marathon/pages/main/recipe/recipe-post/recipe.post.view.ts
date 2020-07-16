@@ -1,4 +1,4 @@
-import { Component, OnInit} from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { AddIngridientImageModal } from '../../../../core/modals';
 import { MatDialog } from '@angular/material/dialog';
 import { Slider } from '../../../../core/models';
@@ -139,8 +139,7 @@ export class RecipePostView implements OnInit {
 
 
     public postRecipe(): void {
-        const recipeResponseData = {
-            role: this.role,
+        let receipt = {
             title: this.recipeFormGroup.value.title,
             calories: this.recipeFormGroup.value.calories,
             kcal: this.recipeFormGroup.value.kcal,
@@ -156,17 +155,20 @@ export class RecipePostView implements OnInit {
             mass: this.recipeFormGroup.value.mass,
             imageSlider: this.slides,
             videoLink: this.youtubeLink.value,
-
+        }
+        const ReceiptResponseData = {
+            role: this.role,
             content: JSON.stringify(
                 {
                     url: '',
                     type: this.recipeType,
+                    receipt: receipt
                 }
             ),
         }
-        this._userService.postFeed(recipeResponseData).subscribe
+        this._userService.postFeed(ReceiptResponseData).subscribe
             ((data) => {
-                console.log(data);
+                console.log(data, "ggggggggg");
                 this._router.navigate(['/feed']);
 
             })

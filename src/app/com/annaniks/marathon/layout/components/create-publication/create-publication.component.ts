@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, AfterViewChecked, ViewChild, ElementRef, AfterViewInit, Output, EventEmitter, Inject } from "@angular/core";
 import { FormControl, Validators } from '@angular/forms';
 import { UserService } from '../../../core/services/user.service';
-import { RecipeResponseData, UploadFileResponse, FeedData } from '../../../core/models';
+import { UploadFileResponse, FeedData } from '../../../core/models';
 import { FeedService } from '../../../pages/main/feed/feed.service';
 import { CookieService } from 'ngx-cookie';
 

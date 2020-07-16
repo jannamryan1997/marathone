@@ -1,7 +1,4 @@
 import { Component, OnInit } from "@angular/core";
-import { RecipeResponseData, Slider } from '../../../../core/models';
-import { MatDialog } from '@angular/material/dialog';
-import { AddIngridientImageModal } from '../../../../core/modals';
 
 @Component({
     selector: "post-recipe-view",

@@ -21,6 +21,7 @@ import { FeedPostCardItemComponent } from '../pages/main/feed/feed-posts/compone
 
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
+import { SlickCarouselModule } from 'ngx-slick-carousel';
 import {
     HeaderComponent,
     LeftMenuCompomemtn,
@@ -80,7 +81,8 @@ import {
         CKEditorModule,
         PlyrModule,
         NgxLoadingModule,
-        InfiniteScrollModule
+        InfiniteScrollModule,
+        SlickCarouselModule
  
     ],
     providers: [AuthGuard],
@@ -101,6 +103,7 @@ import {
         PlyrModule,
         NgxLoadingModule,
         InfiniteScrollModule,
+        SlickCarouselModule,
         
         HeaderComponent,
         LeftMenuCompomemtn,
