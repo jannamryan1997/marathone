@@ -8,7 +8,7 @@ import * as moment from 'moment'
 import { CookieService } from 'ngx-cookie';
 import { UserService } from 'src/app/com/annaniks/marathon/core/services/user.service';
 import { FeedService } from '../../../feed.service';
-import { ReceiptData, ReceiptResponseData } from 'src/app/com/annaniks/marathon/core/models/receipt';
+import { ReceiptResponseData } from 'src/app/com/annaniks/marathon/core/models/receipt';
 
 @Component({
     selector: "app-feed-post-card-item",
@@ -29,9 +29,10 @@ export class FeedPostCardItemComponent implements OnInit {
     public role: string;
     public feedTitle: string;
     public videoSources = [];
+    public receptvideoSources=[];
     public receipt:ReceiptResponseData;
     public localImage: string = "/assets/images/user-icon-image.png";
-    public slideConfig = { "slidesToShow": 1, "slidesToScroll": 1 };
+    public slideConfig = {};
     public comments = [
         {
             image: "assets/images/img8.png", name: "hanna mryan", time: "1 hour ago", message: "barevvvvvvvvv bari voxjuyn hiiiii", view: "2", like: "25", dislike: "6",
@@ -49,6 +50,14 @@ export class FeedPostCardItemComponent implements OnInit {
         private _userService: UserService,
         private _feedService: FeedService) {
         this.role = this._cookieService.get('role');
+        this.slideConfig = {
+            infinite: true,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            dots: false,
+            autoplay: true,
+            autoplaySpeed: 2000
+        }
 
     }
 
@@ -68,6 +77,13 @@ export class FeedPostCardItemComponent implements OnInit {
                 provider: 'youtube',
             }]
         }
+        if (this.content.type === "recipeType") {
+            this.receptvideoSources = [{
+                src: this.receipt.videoLink,
+                provider: 'youtube',
+            }]
+        }
+
         if (!this.role) {
             if (this.feedItem.creator_info && this.feedItem.creator_info.avatar) {
                 this.localImage = this.fileUrl + this.feedItem.creator_info.avatar;

@@ -30,8 +30,17 @@ export class RecipeView implements OnInit {
         {img: "/assets/images/foodimg.png"},
     ];
 
-    slideConfig = { "slidesToShow": 1, "slidesToScroll": 1 };
-    constructor(private _matDialog: MatDialog) { }
+    slideConfig = { };
+    constructor(private _matDialog: MatDialog) { 
+        this.slideConfig = {
+            infinite: true,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            dots: false,
+            autoplay: true,
+            autoplaySpeed: 2000
+        }
+    }
 
     ngOnInit() {
         if (this.slides.length) {

@@ -1,4 +1,4 @@
-import { Component, OnInit, Injectable, Inject } from "@angular/core";
+import { Component, OnInit, Inject } from "@angular/core";
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { CookieService } from 'ngx-cookie';
 import { UserResponseData } from '../../../core/models/user';
@@ -6,9 +6,9 @@ import { CountryService } from '../../../core/services/country.service';
 import { UserService } from '../../../core/services/user.service';
 import { Country, UploadFileResponse } from '../../../core/models';
 import { CertificateData } from '../../../core/models/certificates';
-import { element } from 'protractor';
 
-
+import { MatChipInputEvent } from '@angular/material/chips';
+import { map, startWith } from 'rxjs/operators';
 
 @Component({
     selector: "app-edit-profile",
@@ -48,6 +48,7 @@ export class EditProfileView implements OnInit {
             this.localImage = this._fileUrl + this._userService.user.data.avatar;
         }
         console.log(this._userService.user);
+
     }
 
     ngOnInit() {
@@ -287,7 +288,7 @@ export class EditProfileView implements OnInit {
     public filterCountryMultiple(event) {
         console.log(this.profileFormGroup.value.languages);
         let query = event.query;
-        this._countryService.getCountries().subscribe((countries: Country[]) => {
+        this._countryService.getCountries().subscribe((countries: Country[]) => { 
             let contry = [];
             let name: string;
             contry.push(countries)
@@ -312,7 +313,6 @@ export class EditProfileView implements OnInit {
     }
 
     public filterCountry(query, countries: Country[]): Country[] {
-
         let filtered: any[] = [];
 
         for (let item of countries) {
@@ -354,6 +354,13 @@ export class EditProfileView implements OnInit {
         }
         return filtered;
     }
+
+
+
+
+   
+
+
 
 }
 

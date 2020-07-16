@@ -1,10 +1,13 @@
 <div class="chicken-content">
     <div class="chicken-header">
-        <ngx-slick-carousel class="carousel w-100 chicken-image" #slickModal="slick-carousel" [config]="slideConfig">
-        <div ngxSlickItem *ngFor="let slide of receipt?.imageSlider" class="slide"  >
-            <img [src]="slide.img" alt="" width="100%" class="chicken-image">
-        </div>
-    </ngx-slick-carousel>
+        <ngx-slick-carousel *ngIf="receipt?.imageSlider" class="carousel w-100 chicken-image" #slickModal="slick-carousel" [config]="slideConfig">
+            <div ngxSlickItem *ngFor="let slide of receipt?.imageSlider" class="slide">
+                <img [src]="slide.img" alt="" width="100%" class="chicken-image">
+            </div>
+        </ngx-slick-carousel>
+        <div *ngIf="receipt?.videoLink !=''">
+                <plyr style="display:block" plyrTitle="Video 1" [plyrSources]="receptvideoSources"></plyr>
+                </div>
         <button class="radius d-flex" routerLink="/feed">
             <span class="material-icons m-auto icon">
                 keyboard_arrow_left
@@ -74,8 +77,8 @@
                     </div>
                     <div class="btn-content d-flex">
                         <button type="button" class="button-item ml-0">{{receipt?.time}} min</button>
-                        <button type="button" class="button-item">{{receipt?.time}} min</button>
-                        <button type="button" class="button-item">{{receipt?.time}} min</button>
+                        <button type="button" class="button-item ml-0" *ngFor="let item of receipt?.tag">{{item}}</button>
+                    
                     </div>
                 </div>
                 <p class="title">{{receipt?.information}}</p>
@@ -83,22 +86,10 @@
             </div>
             <div class="ingridient-content">
                 <p class="title">Ingredients</p>
-                <div *ngFor="let item of receipt?.ingridient">
-                    <div class="ingridient-item  w-100">
-                        <div class="ingridient-item-description display-flex">
-                            <div class="ingridient-image">
-                                <img src="assets/images/ingridient1.png.png" class="image" alt="Cinque Terre">
-                            </div>
-                            <div class="ingridient-description">
-                                <p class="ingridient-name">{{item?.name}}</p>
-                                <p class="vegetable">vegetable</p>
-                            </div>
-                            <div class="ingridient-kcal d-flex">
-                                <p class="kcal m-auto">{{item?.value}} gm</p>
-                            </div>
-
-                        </div>
-
+                <div class="ingridient m-auto" *ngFor="let item of receipt?.ingridient">
+                    <div class="ingridient-item d-flex justify-content-between">
+                        <p class="ingridient-title">{{item?.name}}</p>
+                        <p class="ingridient-value">{{item?.value}} gm</p>
                     </div>
                 </div>
             </div>
@@ -109,10 +100,11 @@
                     <div class="instruction-item d-flex">
                         <p class="number">{{ind+1}}</p>
 
-                        <p class="instruction-item-text">{{item?.title}}</p>
+                        <p class="instruction-item-text w-100">{{item?.title}}</p>
                     </div>
                 </div>
             </div>
+
             <app-settings (openChanges)='onClickOpen($event)'></app-settings>
             <div class="posts-comments" *ngIf="isOpen">
                 <app-comments *ngFor="let item of comments" [comments]="item"></app-comments>

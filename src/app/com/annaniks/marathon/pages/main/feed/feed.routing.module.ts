@@ -1,6 +1,7 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { FeedView } from './feed.view';
+import { RoleGuard } from '../../../core/guards/role.guard';
 
 const feedRoutes: Routes = [
     {
@@ -12,6 +13,7 @@ const feedRoutes: Routes = [
             {
                 path: "ingridient/:id",
                 loadChildren: () => import('./ingridient/ingridient.module').then(m => m.IngridientModule),
+                canActivate: [RoleGuard]
 
             },
             {

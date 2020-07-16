@@ -11,16 +11,21 @@ import { Slider } from '../../models';
 export class AddIngridientImageModal implements OnInit {
   slides:Slider[];
 
-  slideConfig = { "slidesToShow": 1, "slidesToScroll": 1 };
+  slideConfig = {};
 
   constructor(@Inject(MAT_DIALOG_DATA) private _data,private _matDialogRf: MatDialogRef<AddIngridientImageModal>) { 
     this.slides=this._data.data;
+    this.slideConfig = {
+      infinite: true,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      dots: false,
+      autoplay: true,
+      autoplaySpeed: 2000
+  }
   }
 
-  ngOnInit() { 
-    console.log(this.slides);
-    
-  }
+  ngOnInit() { }
 
   public closeModal(): void {
     this._matDialogRf.close();

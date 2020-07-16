@@ -299,3 +299,24 @@ input[type="file"] {
         }
     }
 }
+
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-label{
+    @include text(14px, 21px, #bbcddf, EncodeSans-SemiBold);
+}
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline{
+    background-color: #bbcddf !important;
+}
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-infix{
+    padding: 10px 0 !important;
+}
+
+::ng-deep .mat-focused {
+    .mat-form-field-label
+    {
+    color: #589CFE !important;
+    }
+   
+}
+::ng-deep.mat-form-field-ripple {
+    background-color: #589CFE !important;;
+   }

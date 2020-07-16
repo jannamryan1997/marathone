@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { RecipePostView } from './recipe.post.view';
+import { RecipePostView } from './recipe-post.view';
 
 const recipepostRoutes: Routes = [
     { path: "", component: RecipePostView }

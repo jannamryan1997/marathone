@@ -118,3 +118,21 @@
         background: #FEA6CC;
     }
 }
+::ng-deep .slick-prev{
+    left: 7px !important;
+    z-index: 999 !important;
+    height: 40px !important;
+    width: 40px !important;
+    &::before{
+        font-size: 40px !important;
+    }
+}
+::ng-deep .slick-next{
+    right: 7px !important;
+    z-index: 999 !important;
+    height: 40px !important;
+    width: 40px !important;
+    &::before{
+        font-size: 40px !important;
+    }
+}

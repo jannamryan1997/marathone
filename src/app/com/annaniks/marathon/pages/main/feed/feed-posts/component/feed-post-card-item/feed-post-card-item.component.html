@@ -38,13 +38,12 @@
             </div>
 
 
-            <div class="d-none" [ngClass]="{'d-block':content?.type ==='recipeType'}">
+            <div class="d-none" [ngClass]="{'d-block':content?.type ==='recipeType'}" routerLink='ingridient/{{feedItem.id}}'>
                 <div class="post-container chicken-content p-0">
-                    <ngx-slick-carousel class="carousel w-100 chicken-image" #slickModal="slick-carousel" [config]="slideConfig">
+                    <ngx-slick-carousel  *ngIf="receipt?.imageSlider.length>0" class="carousel w-100 chicken-image" #slickModal="slick-carousel" [config]="slideConfig">
                         <div ngxSlickItem *ngFor="let slide of receipt?.imageSlider" class="slide">
                             <img [src]="slide.img" alt="" width="100%" class="chicken-image">
                         </div></ngx-slick-carousel>
-                    <button class="btn position-absolute" routerLink='ingridient/{{feedItem.id}}'>Gluten Free</button>
                     <div class="comments  d-flex position-absolute w-100 justify-content-between">
                         <div class="comments-description">
                             <p class="text">Coloris</p>
@@ -67,7 +66,9 @@
                             <p class="title">{{receipt?.time}} min</p>
                         </div>
                     </div>
-
+                    <div *ngIf="receipt?.videoLink !=''">
+                            <plyr style="display:block" plyrTitle="Video 1" [plyrSources]="receptvideoSources"></plyr>
+                            </div>
                     <div class="combinations-description">
                         <p class="title">{{receipt?.title}}</p>
                         <div class="d-flex text-align-centre">

@@ -7,7 +7,9 @@
 
 .recipe-layout {
     margin: 35px 25px;
-
+.messages{
+    @include text(16px, 19px, #589CFE, EncodeSans-Bold);
+}
     .broves-file {
         background: #ffffff 0% 0% no-repeat padding-box;
         box-shadow: -1.63px 5px 18px #5c687b0d;
@@ -306,4 +308,26 @@ input[type="file"] {
 }
 ::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle{
 background-color: #589CFE !important;
+}
+::ng-deep .slick-prev{
+    left: 7px !important;
+    z-index: 999 !important;
+    height: 40px !important;
+    width: 40px !important;
+    &::before{
+        font-size: 40px !important;
+    }
+}
+::ng-deep .slick-next{
+    right: 7px !important;
+    z-index: 999 !important;
+    height: 40px !important;
+    width: 40px !important;
+    &::before{
+        font-size: 40px !important;
+    }
+}
+
+::ng-deep .mat-form-field{
+    width: 100% !important;
 }

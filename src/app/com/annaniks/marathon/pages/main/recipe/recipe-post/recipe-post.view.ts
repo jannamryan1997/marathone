@@ -6,7 +6,8 @@ import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@ang
 import { CookieService } from 'ngx-cookie';
 import { UserService } from '../../../../core/services/user.service';
 import { Router } from '@angular/router';
-
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { MatChipInputEvent } from '@angular/material/chips';
 
 @Component({
     selector: "recipe-post",
@@ -16,7 +17,7 @@ import { Router } from '@angular/router';
 })
 
 export class RecipePostView implements OnInit {
-
+    public errorMesage: string;
     public showImage: boolean = true;
     public showCarousel: boolean = false;
     public showVideo: boolean = false;
@@ -26,16 +27,19 @@ export class RecipePostView implements OnInit {
     public recipeType: string = "recipeType";
     public videoSources = [];
     public youtubeLink = new FormControl('');
-
-    preparationStepItem = new FormArray([]);
-    ingridientItem = new FormArray([]);
-
-
-    public tagsItem = []
-
+    public preparationStepItem = new FormArray([]);
+    public ingridientItem = new FormArray([]);
     public slides: Slider[] = [];
+    public slideConfig = {};
 
-    slideConfig = { "slidesToShow": 1, "slidesToScroll": 1 };
+
+    selectable = true;
+    removable = true;
+    separatorKeysCodes: number[] = [ENTER, COMMA];
+    tagCtrl = new FormControl();
+    tagsItem: string[] = [];
+
+
     constructor(
         private _matDialog: MatDialog,
         private _fb: FormBuilder,
@@ -44,8 +48,14 @@ export class RecipePostView implements OnInit {
         private _router: Router,
     ) {
         this.role = this._cookieService.get('role');
-        console.log(this.role);
-
+        this.slideConfig = {
+            infinite: true,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            dots: false,
+            autoplay: true,
+            autoplaySpeed: 2000
+        }
     }
 
     ngOnInit() {
@@ -68,7 +78,6 @@ export class RecipePostView implements OnInit {
             time: [null],
             information: [null],
             mass: [null],
-            tags: [null],
         })
     }
 
@@ -81,7 +90,6 @@ export class RecipePostView implements OnInit {
             }
         })
         dialogRef.afterClosed().subscribe((data) => {
-            console.log(data);
             if (data === 'closeAfterrRemove') {
                 this.showCarousel = false;
                 this.showImage = true;
@@ -119,24 +127,6 @@ export class RecipePostView implements OnInit {
         this._openAddIngridientImageModal();
     }
 
-    public addTag(): void {
-        this.tagsItem.push({ tagimg: "", tagtitle: this.recipeFormGroup.value.tags })
-    }
-    public removeTegsItem(ind): void {
-        this.tagsItem.splice(ind, 1);
-    }
-
-    slickInit(e) { }
-
-    breakpoint(e) { }
-
-    afterChange(e) { }
-
-    beforeChange(e) { }
-
-
-
-
 
     public postRecipe(): void {
         let receipt = {
@@ -166,13 +156,16 @@ export class RecipePostView implements OnInit {
                 }
             ),
         }
+        if (this.slides.length > 0 || this.youtubeLink.value ) {
         this._userService.postFeed(ReceiptResponseData).subscribe
             ((data) => {
-                console.log(data, "ggggggggg");
                 this._router.navigate(['/feed']);
 
             })
-
+        }
+        else{
+            this.errorMesage = "please post a picture or video";
+        }
 
     }
     public removeRecipeImageItem(event, ind): void {
@@ -190,12 +183,37 @@ export class RecipePostView implements OnInit {
         }
     }
 
-    play(): void {
+    public play(): void {
         this.videoSources = [{
             src: this.youtubeLink.value,
             provider: 'youtube',
         }]
         this.showVideo = true;
         this.showImage = false;
+    }
+
+
+    public add(event: MatChipInputEvent): void {
+        const input = event.input;
+        const value = event.value;
+        // Add our fruit
+        if ((value || '').trim()) {
+            this.tagsItem.push(value.trim());
+        }
+
+        // Reset the input value
+        if (input) {
+            input.value = '';
+        }
+
+        this.tagCtrl.setValue(null);
+    }
+
+    remove(fruit: string): void {
+        const index = this.tagsItem.indexOf(fruit);
+
+        if (index >= 0) {
+            this.tagsItem.splice(index, 1);
+        }
     }
 }

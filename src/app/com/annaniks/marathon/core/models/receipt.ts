@@ -19,7 +19,7 @@ export interface ReceiptResponseData {
     videoLink: string,
     preparationSteps: PreparationStep[],
     information: string,
-    tags: Tags[],
+    tag: Tags[],
     imageSlider: Slider[],
 
 }

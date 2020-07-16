@@ -8,8 +8,8 @@ import { CountryService } from '../../../core/services/country.service';
 import { SharedModule } from '../../../shared/shared.module';
 
 
-
-
+import {MatChipsModule} from '@angular/material/chips';
+import {MatAutocompleteModule} from '@angular/material/autocomplete'
 @NgModule({
     declarations: [EditProfileView],
     imports: [
@@ -18,6 +18,8 @@ import { SharedModule } from '../../../shared/shared.module';
         FormsModule,
         ReactiveFormsModule,
         AutoCompleteModule,
+        MatChipsModule,
+        MatAutocompleteModule,
         SharedModule],
     providers:[CountryService]
 })

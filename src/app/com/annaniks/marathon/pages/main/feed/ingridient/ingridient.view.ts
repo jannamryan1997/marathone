@@ -17,9 +17,10 @@ export class IngridientViewComponent implements OnInit {
     public feedId: number;
     public role: string;
     public isOpen: boolean = false;
+    public receptvideoSources=[];
     public time: string;
-    public receipt:ReceiptResponseData;
-    public slideConfig = { "slidesToShow": 1, "slidesToScroll": 1 };
+    public receipt: ReceiptResponseData;
+    public slideConfig = {};
     public comments = [
         {
             image: "assets/images/img8.png", name: "hanna mryan", time: "1 hour ago", message: "barevvvvvvvvv bari voxjuyn hiiiii", view: "2", like: "25", dislike: "6",
@@ -34,6 +35,14 @@ export class IngridientViewComponent implements OnInit {
             this.feedId = Number(params.id);
             this.role = this._cookieService.get('role');
         })
+        this.slideConfig = {
+            infinite: true,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            dots: false,
+            autoplay: true,
+            autoplaySpeed: 2000
+        }
     }
 
     ngOnInit() {
@@ -42,9 +51,12 @@ export class IngridientViewComponent implements OnInit {
 
 
     private _getFeedById(): void {
+        console.log("dfdfd");
         this._feedService.getFeedById(this.feedId)
             .subscribe((data: FeedResponseData) => {
                 this.feedItem = data;
+                console.log(data);
+
                 this.time = moment(this.feedItem.timeStamp).format('MMMM Do YYYY');
                 for (let item of data.feed_media) {
                     if (typeof item.content === 'string') {
@@ -53,6 +65,10 @@ export class IngridientViewComponent implements OnInit {
                         console.log(content);
                         if (content && content.receipt) {
                             this.receipt = content.receipt;
+                                this.receptvideoSources = [{
+                                    src: this.receipt.videoLink,
+                                    provider: 'youtube',
+                                }]
                         }
                     }
                     console.log(this.receipt);
