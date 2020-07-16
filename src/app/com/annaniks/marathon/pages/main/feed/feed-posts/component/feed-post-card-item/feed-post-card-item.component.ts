@@ -81,10 +81,10 @@ export class FeedPostCardItemComponent implements OnInit {
             }
         }
 
-        else if (this.role && this._userService.user.data.avatar) {
+        else if (this.role && this._userService.user && this._userService.user.data && this._userService.user.data.avatar) {
             this.localImage = this.fileUrl + this._userService.user.data.avatar;
         }
-        else if (this.role && this._userService.user.data.avatar === null) {
+        else if (this.role && (!this._userService.user || (this._userService.user && !this._userService.user.data ) || this._userService.user.data.avatar === null)) {
             this.localImage = "/assets/images/user-icon-image.png";
         }
 

@@ -13,12 +13,7 @@ export class ArticleService {
     }
 
     public getArticleById(feedId: number): Observable<any> {
-        if (this.role === 'client') {
-            return this._httpClient.get<any>(this._baseUrl + `/feed/feeds/${feedId}/`);
-        }
-        else if (this.role === 'coach') {
-            return this._httpClient.get<any>(this._baseUrl + `/feed/feeds/${feedId}/`);
-        }
+        return this._httpClient.get<any>(this._baseUrl + `/feed/feeds/${feedId}/`);
     }
     public deleteArticle(feedId: number): Observable<any> {
         if (this.role === 'client') {
@@ -28,12 +23,7 @@ export class ArticleService {
             return this._httpClient.delete<any>(this._baseUrl + `/feed/feeds/${feedId}/`);
         }
     }
-    public updateArticle(feedId: number,body): Observable<any> {
-        if (this.role === 'client') {
-            return this._httpClient.put<any>(this._baseUrl + `/feed/feeds/${feedId}/`,body);
-        }
-        else if (this.role === 'coach') {
-            return this._httpClient.put<any>(this._baseUrl + `/feed/feeds/${feedId}/`,body);
-        }
+    public updateArticle(feedId: number, body): Observable<any> {
+        return this._httpClient.put<any>(this._baseUrl + `/feed/feeds/${feedId}/`, body);
     }
 }
