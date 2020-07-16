@@ -30,6 +30,10 @@ const mainRoutes: Routes = [
                 loadChildren: () => import('./article/article.module').then(m => m.ArticleModule),
             },
             {
+                path: "article/:id",
+                loadChildren: () => import('./article/article.module').then(m => m.ArticleModule),
+            },
+            {
                 path: "recipe",
                 loadChildren: () => import('./recipe/recipe.module').then(m => m.RecipeModule)
             },

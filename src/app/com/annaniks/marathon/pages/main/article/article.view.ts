@@ -1,11 +1,13 @@
 import { Component, OnInit } from "@angular/core";
-import { Router } from '@angular/router';
-import { FormBuilder, FormArray } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormArray, FormGroup } from '@angular/forms';
 import { UserService } from '../../../core/services/user.service';
 import { CookieService } from 'ngx-cookie';
 import { environment } from 'src/environments/environment';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { ArticleService } from './article.service';
+import { FeedResponseData } from '../../../core/models';
 
 @Component({
     selector: "artivle-view",
@@ -14,22 +16,37 @@ import { takeUntil } from 'rxjs/operators';
 })
 
 export class ArticleView implements OnInit {
-    public articleGroup;
-    unsubscribe$ = new Subject<void>()
-
+    public articleGroup: FormGroup;
+    private unsubscribe$ = new Subject<void>()
+    public config;
     public showCreatedMenu: boolean = false;
     public showSetting: boolean = false;
     public isShowImageRedacor: boolean;
     public isShowVideoRedactor: boolean;
+    private _articleId: number;
+    private _article: FeedResponseData;
     public fileUrl: string = environment.fileUrl;
     constructor(public router: Router,
         private _cookieServie: CookieService,
         private _router: Router,
-        private _fb: FormBuilder, private _userService: UserService) {
+        private _articleService: ArticleService,
+        private _fb: FormBuilder, private _userService: UserService,
+        private _activatedRoute: ActivatedRoute) {
+        this._activatedRoute.params.pipe(takeUntil(this.unsubscribe$)).subscribe(params => {
+            if (params && params.id)
+                this._articleId = params.id;
+        })
     }
 
     ngOnInit() {
+        this._initConfig();
         this._initGroup()
+    }
+    private _initConfig() {
+        this.config = {
+            toolbar: [['Bold', 'Italic', 'Underline', 'Subscript', 'Superscript'], ['Blockquote'], ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+            ['NumberedList', 'BulletedList'], ['Link']]
+        };
     }
     private _initGroup() {
         this.articleGroup = this._fb.group({
@@ -40,29 +57,34 @@ export class ArticleView implements OnInit {
             images: this._fb.array([]),
             videos: this._fb.array([])
         })
+        if (this._articleId) {
+            this._getArticleById()
+        }
+    }
+    private _getArticleById() {
+        this._articleService.getArticleById(this._articleId).pipe(takeUntil(this.unsubscribe$)).subscribe((data: FeedResponseData) => {
+            this._article = data;
+            this.articleGroup.get('title').setValue(this._article.title);
+            this._setValue()
+        })
+    }
+    private _setValue() {
+        if (this._article && this._article.feed_media && this._article.feed_media[0] && this._article.feed_media[0].content) {
+            let data = JSON.parse(this._article.feed_media[0].content)
+            if (data.cover)
+                this.articleGroup.get('cover').setValue(data.cover)
+            for (const img of data.image) {
+                (this.articleGroup.get('images') as FormArray).push(this._fb.group(img))
+            }
+            for (const video of data.video) {
+                (this.articleGroup.get('videos') as FormArray).push(this._fb.group(video))
+            }
+            for (const text of data.text) {
+                (this.articleGroup.get('contentTexts') as FormArray).push(this._fb.group(text))
+            }
+        }
 
     }
-    // private _setValue(){
-    // let value = {
-    //     cover: "1e7b63404cd2fb8e6525b2fd4ee4d286.1e7b63404cd2fb8e6525_iJDAjNw.png",
-    //     text: [{ "attribute": "<p><strong>description</strong></p>\n" }],
-    //     image: [{ "url": "default-user-image_Rc0EAog.png" }],
-    //     video: [{ "link": "https://www.youtube.com/watch?v=S5hrP2wBaiE" }],
-    //     type: "article"
-    // };
-    // if (value.cover)
-    //     this.articleGroup.get('cover').setValue(value.cover)
-    // for (const img of value.image) {
-    //     this.articleGroup.get('images').push(this._fb.group(img))
-    // }
-    // for (const video of value.video) {
-    //     this.articleGroup.get('videos').push(this._fb.group(video))
-    // }
-    // for (const text of value.text) {
-    //     this.articleGroup.get('contentTexts').push(this._fb.group(text))
-    // }
-
-    // }
     public deleteImageOrVideo(event: boolean, index: number, controlName: string): void {
         if (event) {
             (this.articleGroup.get(controlName) as FormArray).removeAt(index);
@@ -77,6 +99,12 @@ export class ArticleView implements OnInit {
     }
     public deleteCover() {
         this.articleGroup.get('cover').reset()
+    }
+    public deleteArticle() {
+        if (this._articleId)
+            this._articleService.deleteArticle(this._articleId).pipe(takeUntil(this.unsubscribe$)).subscribe(() => {
+                this._router.navigate(['/feed']);
+            })
     }
     public setArticleCover(event) {
         if (event) {
@@ -152,6 +180,7 @@ export class ArticleView implements OnInit {
     }
 
     public publish() {
+
         if (this.articleGroup.value) {
             const articleValue = this.articleGroup.value;
             let content = {
@@ -161,21 +190,33 @@ export class ArticleView implements OnInit {
                 video: articleValue.videos,
                 type: 'article',
             };
-            let role: string = this._cookieServie.get('role');
-            this._userService.postFeed({
+            let articleData = {
                 title: articleValue.title,
                 content: JSON.stringify(
                     content
                 ),
-                role: role,
+                role: this._cookieServie.get('role'),
 
-            }).pipe(takeUntil(this.unsubscribe$)).subscribe((data) => {
-                this._router.navigate(['/feed']);
-            })
+            }
+            if (!this._articleId) {
+                this._userService.postFeed(articleData).pipe(takeUntil(this.unsubscribe$)).subscribe((data) => {
+                    this._router.navigate(['/feed']);
+                })
+            } else {
+                this._articleService.updateArticle(this._articleId, articleData).pipe(takeUntil(this.unsubscribe$)).subscribe((data) => {
+                    this._router.navigate(['/feed']);
+                })
+            }
         }
+    }
+    public getControls(controlName: string) {
+        return (this.articleGroup.get(controlName) as FormArray).controls
     }
     ngOnDestroy() {
         this.unsubscribe$.next();
         this.unsubscribe$.complete();
+    }
+    get articleId(): number {
+        return this._articleId
     }
 }

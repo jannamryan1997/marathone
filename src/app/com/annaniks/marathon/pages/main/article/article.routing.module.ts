@@ -8,7 +8,7 @@ import { SharedModule } from '../../../shared/shared.module';
 import { ArticleView } from "./article.view";
 
 const articleRoutes: Routes = [
-    { path: "", pathMatch: "full", redirectTo: "publish" },
+    // { path: "", pathMatch: "full", redirectTo: "publish" },
     {
         path: "", component: ArticleView
         // , children: [
