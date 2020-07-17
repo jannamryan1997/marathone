@@ -1,4 +1,5 @@
 <div class="chicken-content">
+        <spinner-loading *ngIf="loading"></spinner-loading>
     <div class="chicken-header">
         <ngx-slick-carousel *ngIf="receipt?.imageSlider" class="carousel w-100 chicken-image" #slickModal="slick-carousel" [config]="slideConfig">
             <div ngxSlickItem *ngFor="let slide of receipt?.imageSlider" class="slide">
@@ -114,3 +115,4 @@
         </div>
     </div>
 </div>
+

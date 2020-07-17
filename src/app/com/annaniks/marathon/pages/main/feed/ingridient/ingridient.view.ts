@@ -6,6 +6,7 @@ import { FeedResponseData } from '../../../../core/models';
 
 import * as moment from 'moment';
 import { ReceiptResponseData } from '../../../../core/models/receipt';
+
 @Component({
     selector: "ingridient-view",
     templateUrl: "ingridient.view.html",
@@ -17,9 +18,10 @@ export class IngridientViewComponent implements OnInit {
     public feedId: number;
     public role: string;
     public isOpen: boolean = false;
-    public receptvideoSources=[];
+    public receptvideoSources = [];
     public time: string;
     public receipt: ReceiptResponseData;
+    public loading: boolean = false;
     public slideConfig = {};
     public comments = [
         {
@@ -51,30 +53,31 @@ export class IngridientViewComponent implements OnInit {
 
 
     private _getFeedById(): void {
-        console.log("dfdfd");
+        this.loading = true;
         this._feedService.getFeedById(this.feedId)
             .subscribe((data: FeedResponseData) => {
                 this.feedItem = data;
-                console.log(data);
+                this.loading = false;
 
                 this.time = moment(this.feedItem.timeStamp).format('MMMM Do YYYY');
                 for (let item of data.feed_media) {
                     if (typeof item.content === 'string') {
-                        // ReceiptData
                         const content = JSON.parse(item.content);
                         item.content = content;
-                        console.log(content);
                         if (content && content.receipt) {
                             this.receipt = content.receipt;
-                                this.receptvideoSources = [{
-                                    src: this.receipt.videoLink,
-                                    provider: 'youtube',
-                                }]
+                            this.receptvideoSources = [{
+                                src: this.receipt.videoLink,
+                                provider: 'youtube',
+                            }]
                         }
                     }
-                    console.log(this.receipt);
                 }
-            })
+            },
+            err=>{
+                this.loading=false;
+            }
+            )
     }
 
 

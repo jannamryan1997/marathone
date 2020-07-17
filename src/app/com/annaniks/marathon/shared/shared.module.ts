@@ -40,7 +40,8 @@ import {
     ContentImageComponent,
     ContentVideoComponent,
     SpinnerLoadingComponent,
-    FullScreenLoaderComponent
+    FullScreenLoaderComponent,
+    DeleteFeedItemComponent
 } from '../layout';
 
 
@@ -65,7 +66,8 @@ import {
         ContentImageComponent,
         ContentVideoComponent,
         SpinnerLoadingComponent,
-        FullScreenLoaderComponent
+        FullScreenLoaderComponent,
+        DeleteFeedItemComponent
     ],
     imports: [
         ReactiveFormsModule,
@@ -123,7 +125,8 @@ import {
         CreatePublicationComponent,
         ContentImageComponent,
         ContentVideoComponent,
-        FullScreenLoaderComponent
+        FullScreenLoaderComponent,
+        DeleteFeedItemComponent
    
     ]
 })

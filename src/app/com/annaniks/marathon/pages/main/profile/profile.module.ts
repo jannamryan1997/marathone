@@ -5,7 +5,7 @@ import { ProfileRoutingModule } from './profile.routing.module';
 
 @NgModule({
     declarations: [ProfileView],
-    imports: [SharedModule,ProfileRoutingModule]
+    imports: [SharedModule,ProfileRoutingModule],
 })
 
 export class ProfileModule { }

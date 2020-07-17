@@ -29,9 +29,10 @@ export class FeedPostCardItemComponent implements OnInit {
     public role: string;
     public feedTitle: string;
     public videoSources = [];
-    public receptvideoSources=[];
-    public receipt:ReceiptResponseData;
+    public receptvideoSources = [];
+    public receipt: ReceiptResponseData;
     public localImage: string = "/assets/images/user-icon-image.png";
+    public showDeleteModal: boolean = false;
     public slideConfig = {};
     public comments = [
         {
@@ -100,7 +101,7 @@ export class FeedPostCardItemComponent implements OnInit {
         else if (this.role && this._userService.user && this._userService.user.data && this._userService.user.data.avatar) {
             this.localImage = this.fileUrl + this._userService.user.data.avatar;
         }
-        else if (this.role && (!this._userService.user || (this._userService.user && !this._userService.user.data ) || this._userService.user.data.avatar === null)) {
+        else if (this.role && (!this._userService.user || (this._userService.user && !this._userService.user.data) || this._userService.user.data.avatar === null)) {
             this.localImage = "/assets/images/user-icon-image.png";
         }
 
@@ -162,8 +163,14 @@ export class FeedPostCardItemComponent implements OnInit {
         this.isOpen = $event;
     }
 
-    public deleteFeed(): void {
-        this.deletedItem.emit(this.feedItem.id);
+    public showDeletedModal(): void {
+        this.showDeleteModal = !this.showDeleteModal;
+    }
+    
+    public deleteFeedItem(event) {
+        if (event) {
+            this.deletedItem.emit(this.feedItem.id);
+        }
     }
 }
 

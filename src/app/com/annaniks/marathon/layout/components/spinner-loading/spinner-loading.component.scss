@@ -1,5 +1,4 @@
 .spinner-container{
-    position: absolute;
     top: 0;
     right: 0;
     left: 0;
@@ -8,6 +7,7 @@
     display: flex;
     background: #F7F7FCAA 0% 0% no-repeat padding-box;
     z-index: 1;
+    position: fixed;
 
 }
 .lds-ellipsis {
@@ -70,4 +70,5 @@
 
   .profileLoading{
     border-radius: 50% !important;
+    position: absolute !important;
   }

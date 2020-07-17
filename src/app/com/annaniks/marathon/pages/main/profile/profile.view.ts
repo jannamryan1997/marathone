@@ -1,6 +1,8 @@
-import { Component, OnInit, Inject } from "@angular/core";
+import { Component, OnInit, Inject} from "@angular/core";
 import { UserService } from '../../../core/services/user.service';
 import { CookieService } from 'ngx-cookie';
+
+
 
 @Component({
     selector: "profile-view",
@@ -9,6 +11,7 @@ import { CookieService } from 'ngx-cookie';
 })
 
 export class ProfileView implements OnInit {
+ 
 
     public role: string;
     public showSocialMedium: boolean = false;
@@ -37,6 +40,8 @@ export class ProfileView implements OnInit {
         if (this._userService.user.data.avatar) {
             this.localImage = this._fileUrl + this._userService.user.data.avatar;
         }
+    
+            
     }
 
     ngOnInit() { }
@@ -48,7 +53,5 @@ export class ProfileView implements OnInit {
         this.showMore = !this.showMore;
     }
 
-    public reloadProfile() {
-        this.showProfile = !this.showProfile;
-    }
 }
+

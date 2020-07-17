@@ -5,7 +5,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import {MatRadioModule} from '@angular/material/radio';
+
 import {MatChipsModule} from '@angular/material/chips';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatSelectModule} from '@angular/material/select';
 
 import { AddRecipeImageComponent, PreparationStepComponent, IngridientItemComponent } from '../../../../layout';
 import { AddIngridientImageModal } from '../../../../core/modals';
@@ -14,6 +17,7 @@ import { RecipePostView } from './recipe-post.view';
 
 import { SharedModule } from '../../../../shared/shared.module';
 import { CarouselComponent } from '../../../../layout/components/carousel/carousel.component';
+import { CountryService } from '../../../../core/services/country.service';
 
 @NgModule({
     declarations: [
@@ -33,9 +37,12 @@ import { CarouselComponent } from '../../../../layout/components/carousel/carous
         MatSlideToggleModule,
         SharedModule,
         MatRadioModule,
-        MatChipsModule
+        MatChipsModule,
+        MatAutocompleteModule,
+        MatSelectModule
     ],
-    entryComponents: [AddIngridientImageModal]
+    entryComponents: [AddIngridientImageModal],
+    providers:[CountryService]
 })
 
 export class RecipePostModule { }

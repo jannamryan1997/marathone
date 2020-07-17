@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { AddIngridientImageModal } from '../../../../core/modals';
 import { MatDialog } from '@angular/material/dialog';
 import { Slider } from '../../../../core/models';
@@ -8,6 +8,10 @@ import { UserService } from '../../../../core/services/user.service';
 import { Router } from '@angular/router';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
+import { CountryService } from '../../../../core/services/country.service';
+import { startWith, map, takeUntil, finalize } from 'rxjs/operators';
+import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { Observable } from 'rxjs';
 
 @Component({
     selector: "recipe-post",
@@ -17,6 +21,9 @@ import { MatChipInputEvent } from '@angular/material/chips';
 })
 
 export class RecipePostView implements OnInit {
+    public visible = true;
+    public selectable = true;
+    public removable = true;
     public errorMesage: string;
     public showImage: boolean = true;
     public showCarousel: boolean = false;
@@ -31,13 +38,16 @@ export class RecipePostView implements OnInit {
     public ingridientItem = new FormArray([]);
     public slides: Slider[] = [];
     public slideConfig = {};
+    public allTags = [];
+    public tagsItem: string[] = [];
+    public filteredTags: Observable<string[]>;
+    public tag: string[] = [];
+    public tagsCtrl = new FormControl();
+    public separatorKeysCodes: number[] = [ENTER, COMMA];
+    public loading:boolean=false;
 
-
-    selectable = true;
-    removable = true;
-    separatorKeysCodes: number[] = [ENTER, COMMA];
-    tagCtrl = new FormControl();
-    tagsItem: string[] = [];
+    @ViewChild('fruitInput') fruitInput: ElementRef<HTMLInputElement>;
+    @ViewChild('auto') matAutocomplete: MatAutocomplete;
 
 
     constructor(
@@ -46,6 +56,7 @@ export class RecipePostView implements OnInit {
         private _cookieService: CookieService,
         private _userService: UserService,
         private _router: Router,
+        private _countryService: CountryService,
     ) {
         this.role = this._cookieService.get('role');
         this.slideConfig = {
@@ -58,12 +69,14 @@ export class RecipePostView implements OnInit {
         }
     }
 
+
     ngOnInit() {
         if (this.slides.length) {
             this.showCarousel = true;
             this.showImage = false;
         }
         this._formBuilder();
+        this._getCountry();
     }
 
     private _formBuilder(): void {
@@ -97,6 +110,20 @@ export class RecipePostView implements OnInit {
 
         })
     }
+
+    private _getCountry(): void {
+        this._countryService.getCountry().subscribe((data) => {
+            this.allTags = data;
+            for (let item of this.allTags) {
+                this.tagsItem.push(item.name)
+                this.filteredTags = this.tagsCtrl.valueChanges.pipe(
+                    startWith(null),
+                    map((fruit: string | null) => fruit ? this._filter(fruit) : this.tagsItem.slice()));
+
+            }
+        })
+    }
+
     public setServicePhoto(event): void {
         if (event) {
             const reader = new FileReader();
@@ -129,6 +156,7 @@ export class RecipePostView implements OnInit {
 
 
     public postRecipe(): void {
+        this.loading=true;
         let receipt = {
             title: this.recipeFormGroup.value.title,
             calories: this.recipeFormGroup.value.calories,
@@ -141,7 +169,7 @@ export class RecipePostView implements OnInit {
             information: this.recipeFormGroup.value.information,
             preparationSteps: this.preparationStepItem.value,
             ingridient: this.ingridientItem.value,
-            tag: this.tagsItem,
+            tag: this.tag,
             mass: this.recipeFormGroup.value.mass,
             imageSlider: this.slides,
             videoLink: this.youtubeLink.value,
@@ -156,14 +184,20 @@ export class RecipePostView implements OnInit {
                 }
             ),
         }
-        if (this.slides.length > 0 || this.youtubeLink.value ) {
-        this._userService.postFeed(ReceiptResponseData).subscribe
-            ((data) => {
-                this._router.navigate(['/feed']);
+        if (this.slides.length > 0 || this.youtubeLink.value) {
+            this._userService.postFeed(ReceiptResponseData).pipe(
+                finalize(()=>{
+                    this.loading=false;
+                } )
+            )
+            .subscribe
+                ((data) => {
+                    this._router.navigate(['/feed']);
 
-            })
+                })
         }
-        else{
+        else {
+            this.loading=false;
             this.errorMesage = "please post a picture or video";
         }
 
@@ -193,12 +227,13 @@ export class RecipePostView implements OnInit {
     }
 
 
-    public add(event: MatChipInputEvent): void {
+    add(event: MatChipInputEvent): void {
         const input = event.input;
         const value = event.value;
+
         // Add our fruit
         if ((value || '').trim()) {
-            this.tagsItem.push(value.trim());
+            this.tag.push(value.trim());
         }
 
         // Reset the input value
@@ -206,14 +241,30 @@ export class RecipePostView implements OnInit {
             input.value = '';
         }
 
-        this.tagCtrl.setValue(null);
+        this.tagsCtrl.setValue(null);
     }
 
     remove(fruit: string): void {
-        const index = this.tagsItem.indexOf(fruit);
+        const index = this.tag.indexOf(fruit);
 
         if (index >= 0) {
-            this.tagsItem.splice(index, 1);
+            this.tag.splice(index, 1);
         }
     }
+
+
+    selected(event: MatAutocompleteSelectedEvent): void {
+        this.tag.push(event.option.viewValue);
+        this.fruitInput.nativeElement.value = '';
+        this.tagsCtrl.setValue(null);
+    }
+
+    private _filter(value: string): string[] {
+        const filterValue = value.toLowerCase();
+        return this.tagsItem.filter(fruit => fruit.toLowerCase().indexOf(filterValue) === 0);
+    }
+
+
+
+
 }

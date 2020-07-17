@@ -209,28 +209,35 @@
                 <div class="d-flex justify-content-end">
                     <div class="tags w-100 d-flex">
                         <mat-form-field class="example-chip-list">
-                            <mat-chip-list #chipList aria-label="Tags selection">
-                                <mat-chip *ngFor="let tag of tagsItem" [selectable]="selectable" [removable]="removable"
-                                    (removed)="remove(tag)">
-                                    {{tag}}
-                                    <span class="material-icons" matChipRemove *ngIf="removable">
-                                        close
-                                    </span>
+                            <mat-chip-list #chipList aria-label="Fruit selection">
+                                <mat-chip *ngFor="let item of tag" [selectable]="selectable" [removable]="removable"
+                                    (removed)="remove(item)">
+                                    {{item}}
+                                    <span class="material-icons" matChipRemove *ngIf="removable">clear</span>
                                 </mat-chip>
-                                <input placeholder="Add Tags..." #fruitInput [formControl]="tagCtrl"
-                                    [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                <input placeholder="New Tags..." #fruitInput [formControl]="tagsCtrl"
+                                    [matAutocomplete]="auto" [matChipInputFor]="chipList"
+                                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                                     (matChipInputTokenEnd)="add($event)">
                             </mat-chip-list>
+                            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                                <mat-option *ngFor="let item of filteredTags | async" [value]="item">
+                                    {{item}}
+                                </mat-option>
+                            </mat-autocomplete>
                         </mat-form-field>
                     </div>
                 </div>
-           
+
             </div>
 
         </div>
     </form>
     <div class="d-flex btn-content">
-        <button class="btn follow-btn" (click)="postRecipe()">Post</button>
+        <button class="btn follow-btn d-flex" (click)="postRecipe()"><span>Post</span>
+            <app-loading *ngIf="loading">
+                </app-loading>
+        </button>
     </div>
 
 </div>

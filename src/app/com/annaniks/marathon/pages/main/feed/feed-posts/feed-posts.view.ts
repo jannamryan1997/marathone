@@ -24,6 +24,7 @@ export class FeedPostsView implements OnInit, OnDestroy {
     public scrollDistance = 1;
     public scrollUpDistance = 2;
     public infiniteScrollDisabled = false;
+    public loading: boolean = false;
     constructor(public _feedService: FeedService, public userService: UserService) { }
 
     ngOnInit() {
@@ -32,6 +33,7 @@ export class FeedPostsView implements OnInit, OnDestroy {
 
 
     private async _getFeed(page: number) {
+        this.loading = true;
         this.infiniteScrollDisabled = true
         const data = await this._feedService.feed(this._pageIndex).toPromise()
 
@@ -55,7 +57,8 @@ export class FeedPostsView implements OnInit, OnDestroy {
 
         }
 
-        this.infiniteScrollDisabled = false
+        this.infiniteScrollDisabled = false;
+        this.loading=false;
         console.log(this.feedItem);
 
     }
@@ -86,7 +89,7 @@ export class FeedPostsView implements OnInit, OnDestroy {
                 this._pagesCount = 0;
                 this.feedItem = [];
                 this._getFeed(this._pageIndex)
-    })
+            })
         }
 
     }

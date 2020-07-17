@@ -8,11 +8,15 @@ export class CountryService {
 
     constructor(@Inject("BASE_URL") private _baseUrl: string, private _httpClient: HttpClient) { }
 
-    getCountries(): Observable<any> {
+    getLanguages(): Observable<any> {
         return this._httpClient.get<any>(this._baseUrl + '/utils/language/');
     }
     getSpeciality(): Observable<any> {
         return this._httpClient.get<any>(this._baseUrl + '/career/speciality/');
+    }
+
+    getCountry():Observable<any>{
+        return this._httpClient.get('assets/data/country.json');
     }
 
 }

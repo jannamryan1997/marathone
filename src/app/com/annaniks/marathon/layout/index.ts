@@ -20,3 +20,4 @@ export * from "../layout/components/add-recipe-image/add-recipe-image.component"
 export * from "../layout/components/preparation-step/preparation-step.component";
 export * from "../layout/components/spinner-loading/spinner-loading.component";
 export * from "../layout/components/full-screen-loader/full-screen-loader.component";
+export * from "../layout/components/delete-deed-item/delete-feed-item.component";

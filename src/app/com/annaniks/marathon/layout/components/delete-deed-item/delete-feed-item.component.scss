@@ -1,0 +1,28 @@
+.deleted-content{
+    width: 200px;
+    height: 105px;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 2px 30px 43px #5C687B36;
+    border: 0.5px solid #E3ECFD;
+    opacity: 1;
+    position: absolute;
+    z-index: 9;
+    right: 0px;
+    bottom: 0;
+    top: 0;
+    border-radius: 10px;
+    .item{
+        cursor: pointer;
+        padding: 15px 0;
+        &:hover{
+            background: #F7F7FC 0% 0% no-repeat padding-box !important;
+            opacity: 1;
+        }
+        .title{
+            color: #45535C;
+            font-size: 16px;
+            line-height: 19px;
+            font-family: EncodeSans-Medium;
+        }
+    }
+}
