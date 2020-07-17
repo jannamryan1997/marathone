@@ -44,7 +44,7 @@ export class ArticleView implements OnInit {
     }
     private _initConfig() {
         this.config = {
-            toolbar: [['Bold', 'Italic', 'Underline', 'Subscript', 'Superscript'], ['Blockquote'], ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+            toolbar: [['Bold', 'Italic', 'Underline', 'Subscript', 'Superscript'],['RemoveFormat'], ['Blockquote'], ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
             ['NumberedList', 'BulletedList'], ['Link']]
         };
     }

@@ -1,14 +1,14 @@
 <div class="settings">
-    <button class="setting-item-btn" [ngClass]="{'class-type':type}">
-        <img src="assets/icons/Comment.svg" class="settings-icon">
+    <button (click)="onClickOpenComments()" class="setting-item-btn" [ngClass]="{'class-type':type}">
+        <img src="assets/icons/Comment.svg" alt="" class="settings-icon">
         <span class="title">Comments 30</span>
     </button>
-    <button class="setting-item-btn" [ngClass]="{'class-type':type}">
-        <img src="assets/icons/Energy.svg" class="settings-icon">
+    <button (click)="clickOnButton('like')" class="setting-item-btn" [ngClass]="{'class-type':type}">
+        <img src="assets/icons/Energy.svg" alt="" class="settings-icon">
         <span class="title"> Energy 30</span>
     </button>
-    <button class="setting-item-btn" [ngClass]="{'class-type':type}">
-        <img src="assets/icons/Repost.svg" class="settings-icon">
+    <button (click)="clickOnButton('reposts')" class="setting-item-btn" [ngClass]="{'class-type':type}">
+        <img src="assets/icons/Repost.svg" alt="" class="settings-icon">
         <span class="title">Reposts 10</span>
     </button>
 </div>

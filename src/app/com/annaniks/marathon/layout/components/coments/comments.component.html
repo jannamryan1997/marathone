@@ -11,7 +11,7 @@
                     <div class="d-flex">
                         <p class="title  replay-title">Reply</p>
                         <div class="like d-flex ml-2">
-                            <div class="like-radius d-flex">
+                            <div (click)="vote('1')" class="like-radius d-flex">
                                 <span class="material-icons icon m-auto">
                                     arrow_upward
                                 </span>
@@ -19,7 +19,7 @@
                             <p class="like-count ml-2">{{comments?.like}}</p>
                         </div>
                         <div class="like d-flex ml-2">
-                            <div class="like-radius d-flex">
+                            <div (click)="vote('0')" class="like-radius d-flex">
                                 <span class="material-icons icon m-auto">
                                     arrow_downward
                                 </span>
@@ -86,7 +86,7 @@
                 <div class="d-flex">
                     <div class="like d-flex ml-2">
                         <p class="mr-2 replay-title">Replay</p>
-                        <div class="like-radius d-flex">
+                        <div (click)="vote('1')" class="like-radius d-flex">
                             <span class="material-icons icon m-auto">
                                 arrow_upward
                             </span>
@@ -94,7 +94,7 @@
                         <p class="like-count ml-2">{{comments?.like}}</p>
                     </div>
                     <div class="like d-flex ml-2">
-                        <div class="like-radius d-flex">
+                        <div (click)="vote('0')" class="like-radius d-flex">
                             <span class="material-icons icon m-auto">
                                 arrow_downward
                             </span>
