@@ -116,9 +116,9 @@
             </div>
         </div>
     </div>
-    <app-settings (openChanges)='onClickOpen($event)'></app-settings>
+    <app-settings [role]="role" (getButtonsType)="getButtonsType($event)" (openChanges)='onClickOpen($event)'></app-settings>
     <div class="posts-comments" *ngIf="isOpen">
-        <app-comments *ngFor="let item of comments" [comments]="item"></app-comments>
-        <app-posts-comments [comments]="comments"></app-posts-comments>
+        <app-comments (likeOrDislike)="likeOrDislike($event,item)" *ngFor="let item of comments" [comments]="item"></app-comments>
+        <app-posts-comments (sendMessage)="sendMessage($event)" *ngIf="role" [comments]="comments"></app-posts-comments>
     </div>
 </div>
