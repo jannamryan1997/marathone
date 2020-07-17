@@ -1,5 +1,5 @@
-import { Component, OnInit, Input } from "@angular/core";
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
     selector: "app-posts-comments",
@@ -10,17 +10,23 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export class PostsComments implements OnInit {
     public emojiForm: FormGroup;
     public showemoji: boolean = false;
-    @Input() comments;
+    public comments = []
+    @Input('comments')
+    set setComments($event) {
+        this.comments = $event
+    }
+    @Output('sendMessage') private _sendMessage: EventEmitter<string> = new EventEmitter<string>();
+
     constructor(private _fb: FormBuilder) { }
 
     ngOnInit() {
-        
+
         this._formBuilder();
     }
 
     private _formBuilder(): void {
         this.emojiForm = this._fb.group({
-            inputField: [""],
+            inputField: [null, Validators.required],
         })
     }
 
@@ -35,24 +41,10 @@ export class PostsComments implements OnInit {
 
 
     public addInput(event) {
-        this.comments.map((element, index) => {
-            this.comments.push(
-                {
-                    image: "assets/images/img.4.png",
-                    chiled: [],
-                    dislike: "0",
-                    like: "0",
-                    message: this.emojiForm.value.inputField,
-                    name: "gevorg gevorgyan",
-                    time: "1 minute ago",
-                    view: "1"
-                })
-
-        })
-
-        this.emojiForm.patchValue({
-            inputField: "",
-        })
+        if (this.emojiForm.valid) {
+            this._sendMessage.emit(this.emojiForm.value.inputField);
+            this.emojiForm.reset();
+        }
     }
 
     public onClickedOutside(event): void {

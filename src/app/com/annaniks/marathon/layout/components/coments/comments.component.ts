@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 
 @Component({
     selector: "app-comments",
@@ -7,16 +7,24 @@ import { Component, OnInit, Input } from "@angular/core";
 })
 
 export class CommentsComponent implements OnInit {
-    @Input() comments;
+    public comments;
+    @Input('comments')
+    set setComment($event) {
+        this.comments = $event
+    }
+    @Output('likeOrDislike') private _isLikeOrDislike: EventEmitter<string> = new EventEmitter()
     @Input() type: string;
     public showReplay: boolean = false;
 
     constructor() { }
 
-    ngOnInit() {}
+    ngOnInit() { }
 
     public isOpenReplay(): void {
         this.showReplay = !this.showReplay;
+    }
+    public vote(type: string) {        
+        this._isLikeOrDislike.emit(type)
     }
 }
 
