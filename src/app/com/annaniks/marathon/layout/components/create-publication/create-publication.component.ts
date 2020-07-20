@@ -4,6 +4,7 @@ import { UserService } from '../../../core/services/user.service';
 import { UploadFileResponse, FeedData } from '../../../core/models';
 import { FeedService } from '../../../pages/main/feed/feed.service';
 import { CookieService } from 'ngx-cookie';
+import { finalize } from 'rxjs/operators';
 
 @Component({
     selector: "app-create-publication",
@@ -141,17 +142,21 @@ export class CreatePublicationComponent implements OnInit {
             ),
             role: role,
 
-        }).subscribe((data) => {
-            this.loading = false;
-            this.postType.patchValue('');
-            this.uploadType = null;
-            this.controImageItem = '';
-            this.controVideoItem = '';
-            this.isModalMode = false;
-            this.showYoutube = false;
-            this._postCreateEvent.emit();
-
         })
+            .pipe(
+                finalize(() => {
+                    this.loading = false;
+                    this.postType.patchValue('');
+                    this.uploadType = null;
+                    this.controImageItem = '';
+                    this.controVideoItem = '';
+                    this.isModalMode = false;
+                    this.showYoutube = false;
+                    this._postCreateEvent.emit();
+                })
+            )
+            .subscribe((data) => {
+            })
     }
 
 

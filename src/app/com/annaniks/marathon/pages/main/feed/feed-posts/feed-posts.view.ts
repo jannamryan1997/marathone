@@ -1,10 +1,9 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { FeedService } from '../feed.service';
-import { FeedData, FeedResponseData } from '../../../../core/models';
+import {  FeedResponseData } from '../../../../core/models';
 import { UserService } from '../../../../core/services/user.service';
-import { finalize, takeUntil } from 'rxjs/operators';
+import { finalize } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { async } from 'q';
 
 @Component({
     selector: "feed-posts-view",
@@ -33,10 +32,18 @@ export class FeedPostsView implements OnInit, OnDestroy {
 
 
     private async _getFeed(page: number) {
-        this.loading = true;
-        this.infiniteScrollDisabled = true
-        const data = await this._feedService.feed(this._pageIndex).toPromise()
-
+        this.loading=true;
+        this.infiniteScrollDisabled = true;
+        const data = await this._feedService.feed(this._pageIndex)
+        .pipe(
+            finalize(()=>{
+                this.loading=false;
+            })
+        )
+        .toPromise()
+        if(this.feedItem.length === 0){
+            this.loading=false;
+        }
         if (!this._isCountCalculated) {
             this._pagesCount = Math.ceil(data.count / 10);
             this._isCountCalculated = true;
@@ -47,19 +54,15 @@ export class FeedPostsView implements OnInit, OnDestroy {
 
         this.feedItem.push(...data.results);
         this._pageIndex++;
-
         for (let item of this.feedItem) {
             for (let media of item.feed_media) {
                 if (typeof media.content == 'string') {
                     media.content = JSON.parse(media.content)
                 }
             }
-
         }
-
         this.infiniteScrollDisabled = false;
-        this.loading=false;
-        console.log(this.feedItem);
+      
 
     }
 
@@ -81,7 +84,6 @@ export class FeedPostsView implements OnInit, OnDestroy {
 
 
     public deletedFeedItem(event): void {
-        console.log(event);
         if (event) {
             this._feedService.deleteFeed(event).subscribe((data) => {
                 this._pageIndex = 1;
