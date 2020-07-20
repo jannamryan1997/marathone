@@ -28,14 +28,14 @@ interface CertificatesData{
     file: string,
 }
 
-interface ExperienceData{
+export interface ExperienceData{
     name: string,
     specialization: string,
     start_date: string,
     end_date: string
 }
 
-interface EducationData{
+export interface EducationData{
     name: string,
     specialization: string,
     start_date: string,

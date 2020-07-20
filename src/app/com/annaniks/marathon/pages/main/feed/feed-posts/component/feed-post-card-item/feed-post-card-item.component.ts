@@ -22,6 +22,7 @@ import { CommentService } from 'src/app/com/annaniks/marathon/core/services/comm
 export class FeedPostCardItemComponent implements OnInit {
     private unsubscribe$ = new Subject<void>()
     @Input() feedItem: FeedResponseData;
+    @Input() routerLink: string;
     @Output() deletedItem = new EventEmitter<any>();
     public showTitle: boolean = false;
     public isOpen: boolean = false;
@@ -56,7 +57,6 @@ export class FeedPostCardItemComponent implements OnInit {
             autoplay: true,
             autoplaySpeed: 2000
         }
-
     }
 
     ngOnInit() {
@@ -125,7 +125,6 @@ export class FeedPostCardItemComponent implements OnInit {
             }
 
         }
-
     }
 
     private _showseeMore(): void {
@@ -252,6 +251,9 @@ export class FeedPostCardItemComponent implements OnInit {
     ngOnDestroy() {
         this.unsubscribe$.next();
         this.unsubscribe$.complete();
+    }
+    public onClickedOutside(event): void {
+        this.showDeleteModal = false;
     }
 
 }

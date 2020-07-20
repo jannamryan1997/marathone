@@ -10,14 +10,17 @@
                 {{feedItem?.creator_client_info?.user?.first_name}}</p>
             <p class="time mb-0">{{time}}</p>
         </div>
-
-        <span class="material-icons icon" (click)="showDeletedModal()">
-            more_vert
-        </span>
-    </div>
-    <div class="position-relative" *ngIf="role && showDeleteModal">
+<div (clickOutside)="onClickedOutside($event)">
+    <span class="material-icons icon" (click)="showDeletedModal()" >
+        more_vert
+    </span>
+    <div class="position-relative" *ngIf="role && showDeleteModal" >
         <app-delete-feed-item (deleted)="deleteFeedItem($event)"></app-delete-feed-item>
     </div>
+</div>
+      
+    </div>
+    
     <div class="post-content">
         <div class="post-container">
             <div class="title-content">

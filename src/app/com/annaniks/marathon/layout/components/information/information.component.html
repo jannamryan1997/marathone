@@ -1,26 +1,32 @@
 <div class="information-content" *ngIf="!profileCertificates">
     <p class="title">About</p>
-    <p class="text">{{user?.about}}.</p>
+    <p class="text">{{user?.data.about}}.</p>
     <p class="title">Certificates</p>
     <div class="information-item-content d-flex">
-        <div class="information-item">
-            <img src="assets/images/certificate.png" class="information-image" alt="Cinque Terre">
+        <div class="information-item " *ngFor="let item of user?.data?.certificates"
+            [ngClass]="{'display':item?.file != ''}">
+            <img [src]="fileUrl+item?.file" class="information-image" alt="Cinque Terre">
         </div>
-        <div class="information-item">
-            <img src="assets/images/certificate.png" class="information-image" alt="Cinque Terre">
-        </div>
-        <div class="information-item">
-            <img src="assets/images/certificate.png" class="information-image" alt="Cinque Terre">
-        </div>
+
     </div>
-    <app-education [profileEducation]="false"></app-education>
-    <app-experience [profileExperience]="false"></app-experience>
+    <div>
+        <p class="title">Education</p>
+        <app-education [profileEducation]="false" *ngFor="let item of user?.data?.education" [educationItem]="item">
+        </app-education>
+    </div>
+
+    <div>
+            <p class="title">Experience</p>
+        <app-experience [profileExperience]="false" *ngFor="let item of user?.data?.experience" [experienceItem]="item">
+        </app-experience>
+    </div>
+
 </div>
 
 
 <div class="certificates-content" *ngIf="profileCertificates">
     <div class="certificates-item d-flex">
-            <img [src]="fileUrl+certificates?.file" class="certificates-image" alt="">
+        <img [src]="fileUrl+certificates?.file" class="certificates-image" alt="">
         <p class="text">{{certificates?.description}}</p>
         <span class="material-icons" (click)="deleteCertificatesItem()">
             close

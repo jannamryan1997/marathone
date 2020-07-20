@@ -26,7 +26,7 @@
                     <span class="m-auto">Sign up</span></div>
             </div>
 
-            <div class="profile-content" *ngIf="showUserData">
+            <div class="profile-content" *ngIf="showUserData" (clickOutside)="onClickedOutside($event)">
                 <div class="profile-container display-flex">
                     <img [src]="localImage" class="proflle-image" alt="">
                     <span class="material-icons" (click)="showProfile()">
