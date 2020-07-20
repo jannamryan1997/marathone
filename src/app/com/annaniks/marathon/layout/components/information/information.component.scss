@@ -7,6 +7,14 @@
 }
 
 .information-content {
+    .title {
+        @include text(20px, 24px, #589CFE, EncodeSans-SemiBold);
+        margin: 20px 0;
+    }
+    .text {
+        @include text(16px, 22px, #45535C,MicrosoftYaHeiUI);
+    }
+
     .information-item-content {
         flex-wrap: wrap;
 
@@ -25,6 +33,7 @@
 
 .certificates-content {
     margin: 20px 0;
+
     &::after {
         width: 100%;
         display: inline-block;
