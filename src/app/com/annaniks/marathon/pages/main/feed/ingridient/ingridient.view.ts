@@ -7,6 +7,8 @@ import { FeedResponseData } from '../../../../core/models';
 import * as moment from 'moment';
 import { ReceiptResponseData } from '../../../../core/models/receipt';
 
+import { Location } from '@angular/common';
+
 @Component({
     selector: "ingridient-view",
     templateUrl: "ingridient.view.html",
@@ -32,7 +34,12 @@ export class IngridientViewComponent implements OnInit {
             ]
         },
     ]
-    constructor(private _activatedRoute: ActivatedRoute, private _feedService: FeedService, private _cookieService: CookieService) {
+    constructor(
+        private _activatedRoute: ActivatedRoute,
+        private _feedService: FeedService,
+        private _cookieService: CookieService,
+        private _location: Location,
+    ) {
         this._activatedRoute.params.subscribe((params) => {
             this.feedId = Number(params.id);
             this.role = this._cookieService.get('role');
@@ -74,9 +81,9 @@ export class IngridientViewComponent implements OnInit {
                     }
                 }
             },
-            err=>{
-                this.loading=false;
-            }
+                err => {
+                    this.loading = false;
+                }
             )
     }
 
@@ -85,4 +92,7 @@ export class IngridientViewComponent implements OnInit {
         this.isOpen = $event;
     }
 
+    public onClickGotoBack() {
+        this._location.back();
+    }
 }

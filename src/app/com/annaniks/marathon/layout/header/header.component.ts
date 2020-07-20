@@ -60,8 +60,9 @@ export class HeaderComponent implements OnInit {
         }
     }
     
-    onClick(): void {
-    }
+    onClickedOutside(e: Event) {
+    this.showPfofileMenu=false;
+      }
 
     public logOut(): void {
         this._cookieService.removeAll();

@@ -6,13 +6,11 @@ import { FeedView } from './feed.view';
 import { FeedRoutingModule } from './feed.routing.module';
 
 import { SharedModule } from '../../../shared/shared.module';
-import { FeedService } from './feed.service';
 
 
 @NgModule({
     declarations: [FeedView],
     imports: [FeedRoutingModule,CommonModule,RouterModule,SharedModule],
-    providers:[FeedService]
 })
 
 export class FeedModule { }

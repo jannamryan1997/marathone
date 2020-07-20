@@ -22,6 +22,7 @@ import { FeedPostCardItemComponent } from '../pages/main/feed/feed-posts/compone
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 import { SlickCarouselModule } from 'ngx-slick-carousel';
+
 import {
     HeaderComponent,
     LeftMenuCompomemtn,
@@ -43,6 +44,7 @@ import {
     FullScreenLoaderComponent,
     DeleteFeedItemComponent
 } from '../layout';
+import { FeedService } from '../pages/main/feed/feed.service';
 
 
 @NgModule({
@@ -87,7 +89,7 @@ import {
         SlickCarouselModule
  
     ],
-    providers: [AuthGuard],
+    providers: [AuthGuard,FeedService],
     entryComponents: [],
     exports: [
         ReactiveFormsModule,
@@ -128,7 +130,7 @@ import {
         FullScreenLoaderComponent,
         DeleteFeedItemComponent
    
-    ]
+    ],
 })
 
 export class SharedModule { }

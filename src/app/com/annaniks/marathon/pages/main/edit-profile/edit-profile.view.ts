@@ -6,9 +6,7 @@ import { CountryService } from '../../../core/services/country.service';
 import { UserService } from '../../../core/services/user.service';
 import { Country, UploadFileResponse } from '../../../core/models';
 import { CertificateData } from '../../../core/models/certificates';
-
-import { MatChipInputEvent } from '@angular/material/chips';
-import { map, startWith } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
     selector: "app-edit-profile",
@@ -39,6 +37,7 @@ export class EditProfileView implements OnInit {
         private _countryService: CountryService,
         private _cookieService: CookieService,
         private _userService: UserService,
+        private _router: Router,
         @Inject("FILE_URL") private _fileUrl: string,
     ) {
         this.role = this._cookieService.get('role');
@@ -47,7 +46,6 @@ export class EditProfileView implements OnInit {
         if (this._userService.user.data.avatar) {
             this.localImage = this._fileUrl + this._userService.user.data.avatar;
         }
-        console.log(this._userService.user);
 
     }
 
@@ -189,6 +187,7 @@ export class EditProfileView implements OnInit {
 
     ////////--------------- UPDATE USERRR AND COATCH
     private _updateCoatch(): void {
+        const role = this._cookieService.get('role') || '';
         this.user.data.user.last_name = this.profileFormGroup.value.userName,
             this.user.data.user.first_name = this.profileFormGroup.value.firstName,
             this.user.data.status = this.profileFormGroup.value.status,
@@ -205,13 +204,14 @@ export class EditProfileView implements OnInit {
         this._userService.putCoatch(this._userService.user.data.id, this.user.data)
             .subscribe((data) => {
                 this._userService.getCoatch().subscribe((data) => {
-                    console.log(data, "getCoartch");
+                    this._router.navigate([`/profile/${role}`]);
                 })
             })
 
     }
 
     private _updateClient(): void {
+        const role = this._cookieService.get('role') || '';
         this.user.data.user.last_name = this.profileFormGroup.value.userName,
             this.user.data.user.first_name = this.profileFormGroup.value.firstName,
             this.user.data.status = this.profileFormGroup.value.status,
@@ -223,7 +223,7 @@ export class EditProfileView implements OnInit {
             this._userService.putClient(this._userService.user.data.id, this.user.data)
                 .subscribe((data) => {
                     this._userService.getClient().subscribe((data) => {
-                        console.log(data, "client");
+                        this._router.navigate([`/profile/${role}`])
                     })
                 })
     }
@@ -288,20 +288,15 @@ export class EditProfileView implements OnInit {
     public filterCountryMultiple(event) {
         console.log(this.profileFormGroup.value.languages);
         let query = event.query;
-        this._countryService.getLanguages().subscribe((countries: Country[]) => { 
+        this._countryService.getLanguages().subscribe((countries: Country[]) => {
             let contry = [];
             let name: string;
             contry.push(countries)
             for (let item of contry) {
                 for (let i of item.results) {
                     if (i.name === this.profileFormGroup.value.languages) {
-                        console.log("fdfd");
 
                     }
-                    console.log(i);
-
-
-
                 }
             }
 
@@ -358,7 +353,7 @@ export class EditProfileView implements OnInit {
 
 
 
-   
+
 
 
 

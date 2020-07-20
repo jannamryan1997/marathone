@@ -1,9 +1,6 @@
 import { Component, OnInit, AfterViewInit } from "@angular/core";
 import { MenuItem, FollowItem } from '../../core/models';
 import { CookieService } from 'ngx-cookie';
-import { Router } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
-import { AuthModal } from '../../core/modals';
 import { UserService } from '../../core/services/user.service';
 
 @Component({

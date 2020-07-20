@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, forwardRef } from "@angular/core";
 import { FormGroup, FormBuilder, Validators, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { EducationData } from '../../../core/models/user';
 
 @Component({
     selector: "app-education",
@@ -17,6 +18,7 @@ import { FormGroup, FormBuilder, Validators, NG_VALUE_ACCESSOR } from '@angular/
 export class EducationComponent implements OnInit {
     public educationFormGroup: FormGroup;
     @Input() education;
+    @Input() educationItem:EducationData;
     @Input() profileEducation: boolean;
     @Output() deleted = new EventEmitter<any>();
 
@@ -27,6 +29,7 @@ export class EducationComponent implements OnInit {
     ngOnInit() {
         this._formBuilder();
         this._handleControlChanges();
+        
     }
 
     private _formBuilder(): void {

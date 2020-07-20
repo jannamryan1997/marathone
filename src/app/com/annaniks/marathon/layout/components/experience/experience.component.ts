@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, forwardRef } from "@angular/core";
 import { FormGroup, FormBuilder, Validators, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ExperienceData } from '../../../core/models/user';
 
 
 @Component({
@@ -18,6 +19,7 @@ export class ExperienceComponent implements OnInit {
     public experianceFormGroup: FormGroup;
     @Input() profileExperience: boolean;
     @Input() experience;
+     @Input() experienceItem: ExperienceData;
     @Output() deleted = new EventEmitter<any>()
 
     constructor(private _fb: FormBuilder) { }
@@ -58,8 +60,8 @@ export class ExperienceComponent implements OnInit {
         this.experianceFormGroup.patchValue(val);
     }
 
-  registerOnChange(fn: any) {
-    this.onChange = fn
+    registerOnChange(fn: any) {
+        this.onChange = fn
     }
 
     registerOnTouched(fn: any) {

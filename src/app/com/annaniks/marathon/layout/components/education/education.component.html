@@ -1,12 +1,7 @@
 <div class="education-header" *ngIf="!profileEducation">
-<p class="education-title">Education</p>
-<div>
-    <p class="date">2018-2020</p>
-    <p class="name">Marathone fit Academy Maralik Brench</p>
-    <p class="text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Reprehenderit recusandae temporibus
-        molestiae. Nemo, magni unde expedita veritatis quia possimus odio odit vitae, animi dicta nostrum? Tempora
-        fugiat fuga sequi reiciendis.</p>
-</div>
+    <p class="date">{{educationItem?.start_date}}-{{educationItem?.end_date}}</p>
+    <p class="name">{{educationItem?.name}}</p>
+    <p class="text">{{educationItem?.specialization}}.</p>
 </div>
 
 

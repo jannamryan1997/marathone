@@ -9,7 +9,7 @@
         <div *ngIf="receipt?.videoLink !=''">
                 <plyr style="display:block" plyrTitle="Video 1" [plyrSources]="receptvideoSources"></plyr>
                 </div>
-        <button class="radius d-flex" routerLink="/feed">
+        <button class="radius d-flex"  (click)="onClickGotoBack()">
             <span class="material-icons m-auto icon">
                 keyboard_arrow_left
             </span>

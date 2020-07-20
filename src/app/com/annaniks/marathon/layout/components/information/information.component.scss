@@ -22,10 +22,16 @@
             width: 25%;
             margin-right: 30px;
             margin-top: 20px;
-            border-radius: 10px;
+            display: none;
 
             .information-image {
                 width: 100%;
+                height: 72px;
+                background: #FFFFFF 0% 0% no-repeat padding-box;
+                box-shadow: 2px 30px 43px #5C687B17;
+                border: 0.5px solid #E3ECFD;
+                opacity: 1;
+                border-radius: 5px;
             }
         }
     }
@@ -74,4 +80,8 @@
             font-size: 20px;
         }
     }
+}
+
+.display{
+    display:  block !important;
 }

@@ -6,19 +6,10 @@
 }
 
 .experience-header {
-    .title {
-        @include text(20px, 24px, #589cfe, EncodeSans-SemiBold);
-    }
-
     .text {
         @include text(16px, 22px, #45535c, MicrosoftYaHeiUI);
         margin: 15px 0;
     }
-    .education-title {
-        margin: 38px 0 17px 0;
-        @include text(20px, 24px, #589cfe, EncodeSans-SemiBold);
-    }
-
     .date {
         @include text(17px, 20px, #bacbdb, EncodeSans-SemiBold);
     }
@@ -26,6 +17,7 @@
     .name {
         @include text(20px, 22px, #45535c, EncodeSans-SemiBold);
         margin-top: 15px;
+        font-weight: 600;
     }
 }
 

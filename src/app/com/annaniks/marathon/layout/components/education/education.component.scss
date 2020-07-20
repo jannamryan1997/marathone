@@ -6,11 +6,6 @@
     
 }
 .education-header{
-.education-title {
-    margin: 38px 0 17px 0;
-    @include text(20px, 24px, #589CFE, EncodeSans-SemiBold);
-}
-
 .date {
     @include text(17px, 20px, #BACBDB, EncodeSans-SemiBold);
 }
@@ -18,6 +13,7 @@
 .name {
     @include text(20px, 22px, #45535C, EncodeSans-SemiBold);
     margin-top: 15px;
+    font-weight: 600;
 }
 .text {
     @include text(16px, 22px, #45535C, MicrosoftYaHeiUI);

@@ -16,7 +16,6 @@ export class FeedPostsView implements OnInit, OnDestroy {
     private _isCountCalculated = false;
     private _pagesCount: number;
     private _unsubscribe = new Subject<void>();
-    public fullScreenLoader: boolean = false;
     public feedItem: FeedResponseData[] = [];
     public content: any;
     public throttle = 300;
@@ -62,6 +61,7 @@ export class FeedPostsView implements OnInit, OnDestroy {
             }
         }
         this.infiniteScrollDisabled = false;
+      console.log(this.feedItem);
       
 
     }

@@ -18,6 +18,7 @@ import { FormBuilder } from '@angular/forms';
 
 export class FeedPostCardItemComponent implements OnInit {
     @Input() feedItem: FeedResponseData;
+    @Input() routerLink: string;
     @Output() deletedItem = new EventEmitter<any>();
     public showTitle: boolean = false;
     public isOpen: boolean = false;
@@ -58,7 +59,6 @@ export class FeedPostCardItemComponent implements OnInit {
             autoplay: true,
             autoplaySpeed: 2000
         }
-
     }
 
     ngOnInit() {
@@ -102,10 +102,10 @@ export class FeedPostCardItemComponent implements OnInit {
         }
         this._showseeMore();
     }
-    public likeOrDislike(event,item){      
-        
+    public likeOrDislike(event, item) {
+
     }
-    
+
     private _showseeMore(): void {
         let titleLength: number;
         if (this.feedItem.title) {
@@ -183,11 +183,14 @@ export class FeedPostCardItemComponent implements OnInit {
     public showDeletedModal(): void {
         this.showDeleteModal = !this.showDeleteModal;
     }
-    
+
     public deleteFeedItem(event) {
         if (event) {
             this.deletedItem.emit(this.feedItem.id);
         }
+    }
+    public onClickedOutside(event): void {
+        this.showDeleteModal = false;
     }
 
 }
