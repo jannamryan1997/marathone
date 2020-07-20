@@ -48,6 +48,7 @@ export class FeedPostsView implements OnInit, OnDestroy {
             this._isCountCalculated = true;
         }
         if (this._pageIndex > this._pagesCount) {
+            this.loading=false;
             return;
         }
 

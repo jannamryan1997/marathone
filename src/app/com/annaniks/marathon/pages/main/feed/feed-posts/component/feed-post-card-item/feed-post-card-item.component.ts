@@ -1,22 +1,26 @@
 import { Component, OnInit, Input, Inject, Output, EventEmitter } from "@angular/core";
 import { MatDialog } from '@angular/material/dialog';
-import { PropertyModal } from 'src/app/com/annaniks/marathon/core/modals';
-import { FeedResponseData } from 'src/app/com/annaniks/marathon/core/models';
+import { PropertyModal, AuthModal } from 'src/app/com/annaniks/marathon/core/modals';
+import { FeedResponseData, ServerResponse } from 'src/app/com/annaniks/marathon/core/models';
 import * as moment from 'moment'
 import { CookieService } from 'ngx-cookie';
 import { UserService } from 'src/app/com/annaniks/marathon/core/services/user.service';
 import { FeedService } from '../../../feed.service';
 import { ReceiptResponseData } from 'src/app/com/annaniks/marathon/core/models/receipt';
 import { FormBuilder } from '@angular/forms';
+import { FeedLikeService } from 'src/app/com/annaniks/marathon/core/services/feed-like.service';
+import { Subject, forkJoin, Observable } from 'rxjs';
+import { takeUntil, switchMap, map } from 'rxjs/operators';
+import { CommentService } from 'src/app/com/annaniks/marathon/core/services/comment.service';
 
 @Component({
     selector: "app-feed-post-card-item",
     templateUrl: "feed-post-card-item.component.html",
-    styleUrls: ["feed-post-card-item.component.scss"],
-
+    styleUrls: ["feed-post-card-item.component.scss"]
 })
 
 export class FeedPostCardItemComponent implements OnInit {
+    private unsubscribe$ = new Subject<void>()
     @Input() feedItem: FeedResponseData;
     @Input() routerLink: string;
     @Output() deletedItem = new EventEmitter<any>();
@@ -33,23 +37,17 @@ export class FeedPostCardItemComponent implements OnInit {
     public localImage: string = "/assets/images/user-icon-image.png";
     public showDeleteModal: boolean = false;
     public slideConfig = {};
-    public comments = [
-        {
-            image: "assets/images/chicken.png", name: "hanna mryan", time: "1 hour ago", message: "barevvvvvvvvv bari voxjuyn hiiiii", view: "2", like: "25", dislike: "6",
-            chiled: [
-                { image: "assets/images/chicken.png", name: "maya davidov", time: "50 minutes ago", comments: "first comments", like: "5", dislike: "0" },
-                { image: "assets/images/chicken.png", name: "liana hego", time: "2 minute ago", comments: "secends comments", like: "12", dislike: "3" },
-            ]
-        },
-    ]
-
+    public comments: Comment[] = []
+    public isShowSubMessages: boolean = false;
     constructor(
         @Inject("FILE_URL") public fileUrl,
         private _matDialog: MatDialog,
         private _fb: FormBuilder,
         private _cookieService: CookieService,
         private _userService: UserService,
-        private _feedService: FeedService) {
+        private _feedLikeService: FeedLikeService,
+        private _feedService: FeedService,
+        private _commentService: CommentService) {
         this.role = this._cookieService.get('role');
         this.slideConfig = {
             infinite: true,
@@ -102,8 +100,31 @@ export class FeedPostCardItemComponent implements OnInit {
         }
         this._showseeMore();
     }
-    public likeOrDislike(event, item) {
+    public likeOrDislike(event) {
+        if (event) {
+            if (this.role) {
+                let isChild: boolean;
+                if (event.isChild) {
+                    isChild = true
+                }
+                if (event.type == '0') {
+                    this._commentService.dislikeComment(event.url).pipe(takeUntil(this.unsubscribe$),
+                        switchMap(() => {
+                            return this._getComments(isChild)
+                        })).subscribe()
+                } else {
+                    if (event.type == '1') {
+                        this._commentService.likeComment(event.url).pipe(takeUntil(this.unsubscribe$),
+                            switchMap(() => {
+                                return this._getComments(isChild)
+                            })).subscribe()
+                    }
+                }
+            } else {
+                this.onClickOpenAuth()
+            }
 
+        }
     }
 
     private _showseeMore(): void {
@@ -138,6 +159,11 @@ export class FeedPostCardItemComponent implements OnInit {
                 localImage: this.localImage
             }
         })
+        dialogRef.afterClosed().pipe(takeUntil(this.unsubscribe$),
+            switchMap(() => {
+                return this._getFeedById()
+            })
+        ).subscribe()
     }
 
     public openPropertyModalByVideo(): void {
@@ -153,33 +179,66 @@ export class FeedPostCardItemComponent implements OnInit {
     }
     public getButtonsType(event: string) {
         if (event) {
-            if (event == 'like') {
-                console.log(event);
+            if (this.role) {
+                if (event == 'like') {
+                    this._feedLikeService.likeFeed(this.feedItem.id).pipe(takeUntil(this.unsubscribe$),
+                        switchMap((data) => {
+                            return this._getFeedById()
+                        })
+                    ).subscribe()
 
+                }
+            } else {
+                this.onClickOpenAuth()
             }
         }
-
     }
-    public sendMessage($event) {
-        this.comments.push({
-            image: "assets/images/img.4.png",
-            chiled: [],
-            dislike: "0",
-            like: "0",
-            message: $event,
-            name: "gevorg gevorgyan",
-            time: "1 minute ago",
-            view: "1"
+    public onClickOpenAuth(): void {
+        this._matDialog.open(AuthModal, {
+            width: "100%",
+            maxWidth: "100vw",
         })
-
+    }
+    private _getFeedById() {
+        return this._feedService.getFeedById(this.feedItem.id).pipe(map((result) => {
+            this.feedItem = result;
+            return result
+        }))
+    }
+    public sendMessage($event, parent?: string) {
+        if ($event) {
+            this._commentService.createFeedComment(this.feedItem.id, $event, parent).pipe(
+                takeUntil(this.unsubscribe$),
+                switchMap(() => {
+                    return this._combineObservable(parent)
+                },
+                )).subscribe()
+        }
+    }
+    public sendMessageForParent($event, item) {
+        this.sendMessage($event, item.url)
+    }
+    private _combineObservable(parent?) {
+        const combine = forkJoin(
+            this._getComments(parent),
+            this._getFeedById()
+        )
+        return combine
     }
     public setImage() {
         return this.content.cover ? this.fileUrl + this.content.cover : 'assets/images/chicken.png'
     }
     public onClickOpen($event): void {
         this.isOpen = $event;
+        this._getComments().pipe(takeUntil(this.unsubscribe$)).subscribe()
     }
-
+    private _getComments(parent?): Observable<ServerResponse<Comment[]>> {
+        return this._commentService.getFeedCommentById(this.feedItem.id).pipe(map((data: ServerResponse<Comment[]>) => {
+            this.comments = data.results;
+            this.isShowSubMessages = parent ? true : false;
+            return data
+        }))
+    }
     public showDeletedModal(): void {
         this.showDeleteModal = !this.showDeleteModal;
     }
@@ -188,6 +247,10 @@ export class FeedPostCardItemComponent implements OnInit {
         if (event) {
             this.deletedItem.emit(this.feedItem.id);
         }
+    }
+    ngOnDestroy() {
+        this.unsubscribe$.next();
+        this.unsubscribe$.complete();
     }
     public onClickedOutside(event): void {
         this.showDeleteModal = false;

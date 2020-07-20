@@ -19,11 +19,14 @@
             <div class="item-header">
                 <div class="item-head-description">
                     <img [src]="localImage" class="image" alt="Cinque Terre">
-                    <p class="name-title mb-0"  *ngIf="role==='client'">{{feedItem?.creator_client_info?.user?.first_name}}</p>
+                    <p class="name-title mb-0" *ngIf="role==='client'">
+                        {{feedItem?.creator_client_info?.user?.first_name}}</p>
                     <p class="name-title mb-0" *ngIf="role==='coach'">{{feedItem?.creator_info?.user?.first_name}}</p>
-                    <p class="name-title mb-0" *ngIf="!role && feedItem.creator_info">{{feedItem?.creator_info?.user?.first_name}}</p>
-                    <p class="name-title mb-0" *ngIf="!role && feedItem.creator_client_info">{{feedItem?.creator_client_info?.user?.first_name}}</p>
-                    
+                    <p class="name-title mb-0" *ngIf="!role && feedItem.creator_info">
+                        {{feedItem?.creator_info?.user?.first_name}}</p>
+                    <p class="name-title mb-0" *ngIf="!role && feedItem.creator_client_info">
+                        {{feedItem?.creator_client_info?.user?.first_name}}</p>
+
                     <p class="time mb-0">{{timeStamp}}</p>
                 </div>
 
@@ -33,19 +36,23 @@
             </div>
             <div class="post-content">
                 <div class="post-container">
-                        <p class="title show-content" >{{feedTitle}} <span *ngIf="seeMore"
-                                class="title more" (click)="onClickSeeMore()">... See More</span></p>
-                    </div>
-                   
+                    <p class="title show-content">{{feedTitle}} <span *ngIf="seeMore" class="title more"
+                            (click)="onClickSeeMore()">... See More</span></p>
+                </div>
+
 
             </div>
-            <div *ngIf="isOpen">
-                <app-comments *ngFor="let item of comments" [comments]="item" [type]="content?.type"></app-comments>
+            <div class="comments-content" *ngIf="isOpen">
+                <app-comments (sendMessage)="sendMessageForParent($event,item)"
+                    (likeOrDislike)="likeOrDislike($event)" *ngFor="let item of comments" [comments]="item" [role]="role"  [isShowSubMessages]="isShowSubMessages"
+                    [type]="content?.type"></app-comments>
             </div>
-            <app-settings (openChanges)='onClickOpen($event)' [type]="content?.type"></app-settings>
+            <app-settings [feed]="feedItem" [role]="role" (getButtonsType)="getButtonsType($event)"
+                (openChanges)='onClickOpen($event)' [type]="content?.type"></app-settings>
 
             <div *ngIf="isOpen">
-                <app-posts-comments [comments]="comments"></app-posts-comments>
+                <app-posts-comments (sendMessage)="sendMessage($event)" *ngIf="role" [comments]="comments">
+                </app-posts-comments>
             </div>
 
         </div>

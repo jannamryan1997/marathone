@@ -8,3 +8,5 @@ export * from "./contry";
 export * from "./slider";
 export * from "./upload-file";
 export * from "./feed";
+export * from './comment';
+export * from './server-response'

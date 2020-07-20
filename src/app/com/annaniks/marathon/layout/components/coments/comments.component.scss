@@ -51,13 +51,22 @@
         .view-title {
             @include text(14px, 25px, #bbcddf,BarlowCondensed-Light);
             text-align: end;
-            cursor: pointer;
+            span{
+                cursor: pointer;
+            }
         }
 
     }
     .replay-message {
         padding: 10px 0 20px 20px;
     }
+}
+.disabled{
+    opacity: 0.5;
+    pointer-events: none;
+}
+.sm_name{
+    font-size: 15px !important;
 }
 ::ng-deep .emoji-mart-search input {
     padding: 5px 0px 6px 0px !important;
@@ -75,5 +84,9 @@
     margin: 0 !important;
 }
 .replay-title {
+    cursor: pointer;
     @include text(17px, 21px, #589CFE,BarlowCondensed-Regular);
+}
+.justify-content-end{
+    justify-content: flex-end !important;
 }
