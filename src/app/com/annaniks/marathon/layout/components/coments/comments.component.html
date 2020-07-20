@@ -70,7 +70,7 @@
                 <div class="comments-container">
                     <div class="container-description display-flex">
                         <div class="d-flex">
-                            <p class="name">{{item?.user_coach?.user?.first_name}}
+                            <p class="name" [class.sm_name]="type">{{item?.user_coach?.user?.first_name}}
                                 {{item?.user_coach?.user?.last_name}}</p>
                             <p class="time ml-2">{{convertDate(item)}}</p>
                         </div>
