@@ -1,82 +1,137 @@
-<div class="comments-item" *ngIf="!type">
+<div class="comments-item">
     <div class="comments">
         <div class="message d-flex">
-            <img [src]="comments?.image" class="user-image" alt="Cinque Terre">
+            <img [src]="getUserImage(comments)" class="user-image" alt="Cinque Terre">
             <div class="comments-container">
                 <div class="container-description display-flex">
                     <div class="d-flex">
-                        <p class="name">{{comments?.name}}</p>
-                        <p class="time ml-2">{{comments?.time}}</p>
+                        <p class="name">{{comments?.user_coach?.user?.first_name}}
+                            {{comments?.user_coach?.user?.last_name}}</p>
+                        <p class="time ml-2">{{convertDate(comments)}}</p>
                     </div>
-                    <div class="d-flex">
-                        <p class="title  replay-title">Reply</p>
-                        <div class="like d-flex ml-2">
-                            <div (click)="vote('1')" class="like-radius d-flex">
+                    <div *ngIf="!type" class="d-flex">
+                        <p *ngIf="role" (click)="openCommentComponent()" class="title  replay-title">Reply</p>
+                        <div [class.disabled]="comments?.is_liked" class="like d-flex ml-2">
+                            <div (click)="vote('1',comments)" class="like-radius d-flex">
                                 <span class="material-icons icon m-auto">
                                     arrow_upward
                                 </span>
                             </div>
-                            <p class="like-count ml-2">{{comments?.like}}</p>
+                            <p class="like-count ml-2">{{comments?.likes_count}}</p>
                         </div>
-                        <div class="like d-flex ml-2">
-                            <div (click)="vote('0')" class="like-radius d-flex">
+                        <div [class.disabled]="comments?.is_liked" class="like d-flex ml-2">
+                            <div (click)="vote('0',comments)" class="like-radius d-flex">
                                 <span class="material-icons icon m-auto">
                                     arrow_downward
                                 </span>
                             </div>
-                            <p class="like-count ml-2">{{comments?.dislike}}</p>
+                            <p class="like-count ml-2">{{comments?.dislikes_count}}</p>
                         </div>
                     </div>
                 </div>
                 <p class="commet-message">{{comments?.message}}</p>
-                <p class="view-title" (click)="isOpenReplay()">View Replies {{comments?.view}}</p>
-            </div>
-        </div>
-        <!--replace-->
-        <div *ngIf="showReplay">
-            <div class="replay-message message d-flex" *ngFor="let item of comments?.chiled">
-                <img src="{{item?.image}}" class="user-image" alt="Cinque Terre">
-                <div class="comments-container">
-                    <div class="container-description display-flex">
-                        <div class="d-flex">
-                            <p class="name">{{item?.name}}</p>
-                            <p class="time ml-2">{{item?.time}}</p>
-                        </div>
-                        <div class="d-flex">
-                            <p class="title replay-title">Reply</p>
-                            <div class="like d-flex ml-2">
-                                <div class="like-radius d-flex">
+                <p *ngIf="!type && comments?.comment_sub && comments?.comment_sub?.length" class="view-title"><span
+                        (click)="isOpenReplay()">View Replies {{comments.comment_sub.length}}</span></p>
+                <div *ngIf="type" class="mb-2 display-flex">
+                    <p class="view-title">
+                        <span (click)="isOpenReplay()">
+                            Replays
+                            {{comments?.comment_sub && comments?.comment_sub.length?comments.comment_sub.length:0}}</span>
+                    </p>
+                    <div class="d-flex">
+                        <div class="like d-flex ml-2">
+                            <p class="mr-2 replay-title" (click)="openCommentComponent()">Replay</p>
+                            <div [class.disabled]="comments?.is_liked" class="like d-flex ml-2">
+                                <div (click)="vote('1',comments)" class="like-radius d-flex">
                                     <span class="material-icons icon m-auto">
                                         arrow_upward
                                     </span>
                                 </div>
-                                <p class="like-count ml-2">{{item?.like}}</p>
+
+                                <p class="like-count ml-2">{{comments?.likes_count}}</p>
                             </div>
-                            <div class="like d-flex ml-2">
-                                <div class="like-radius d-flex">
+                        </div>
+                        <div [class.disabled]="comments?.is_liked" class="like d-flex ml-2">
+                            <div (click)="vote('0',comments)" class="like-radius d-flex">
+                                <span class="material-icons icon m-auto">
+                                    arrow_downward
+                                </span>
+                            </div>
+                            <p class="like-count ml-2">{{comments?.dislikes_count}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--replace-->
+        <div *ngIf="showReplay">
+            <div class="replay-message message d-flex" *ngFor="let item of comments?.comment_sub">
+                <img [src]="getUserImage(item)" class="user-image" alt="Cinque Terre">
+                <div class="comments-container">
+                    <div class="container-description display-flex">
+                        <div class="d-flex">
+                            <p class="name">{{item?.user_coach?.user?.first_name}}
+                                {{item?.user_coach?.user?.last_name}}</p>
+                            <p class="time ml-2">{{convertDate(item)}}</p>
+                        </div>
+                        <div *ngIf="!type" class="d-flex">
+                            <div [class.disabled]="item?.is_liked" class="like d-flex ml-2">
+                                <div (click)="vote('1',item,true)" class="like-radius d-flex">
+                                    <span class="material-icons icon m-auto">
+                                        arrow_upward
+                                    </span>
+                                </div>
+                                <p class="like-count ml-2">{{item?.likes_count}}</p>
+                            </div>
+                            <div [class.disabled]="item?.is_liked" class="like d-flex ml-2">
+                                <div (click)="vote('0',item,true)" class="like-radius d-flex">
                                     <span class="material-icons icon m-auto">
                                         arrow_downward
                                     </span>
                                 </div>
-                                <p class="like-count ml-2">{{item?.dislike}}</p>
+                                <p class="like-count ml-2">{{item?.dislikes_count}}</p>
                             </div>
                         </div>
                     </div>
-                    <p class="commet-message">{{item?.comments}}</p>
+                    <p class="commet-message">{{item?.message}}</p>
+                    <div *ngIf="type" class="mb-2 display-flex justify-content-end">
+                        <div class="d-flex ">
+                            <div [class.disabled]="item?.is_liked" class="like d-flex ml-2">
+                                <div (click)="vote('1',item,true)" class="like-radius d-flex">
+                                    <span class="material-icons icon m-auto">
+                                        arrow_upward
+                                    </span>
+                                </div>
+                                <p class="like-count ml-2">{{item?.likes_count}}</p>
+                            </div>
+                            <div [class.disabled]="item?.is_liked" class="like d-flex ml-2">
+                                <div (click)="vote('0',item,true)" class="like-radius d-flex">
+                                    <span class="material-icons icon m-auto">
+                                        arrow_downward
+                                    </span>
+                                </div>
+                                <p class="like-count ml-2">{{item?.dislikes_count}}</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+        <app-posts-comments *ngIf="isOpenComments" (sendMessage)="sendMessage($event)"></app-posts-comments>
     </div>
 </div>
 
-<div class="comments-item" *ngIf="type">
+<!-- <div class="comments-item" *ngIf="type">
     <div class="comments">
         <div class="message">
+
             <div class="d-flex align-items-center">
-                <img [src]="comments?.image" class="user-image" alt="Cinque Terre">
+                <img [src]="getUserImage()" class="user-image" alt="Cinque Terre">
+
                 <div class="comments-container d-flex">
-                    <p class="name">{{comments?.name}}</p>
-                    <p class="time ml-2">{{comments?.time}}</p>
+                    <p class="name">{{comments?.user_coach?.user?.first_name}}
+                        {{comments?.user_coach?.user?.last_name}}</p>
+                    <p class="time ml-2">{{convertDate()}}</p>
                 </div>
             </div>
             <p class="commet-message">{{comments?.message}}</p>
@@ -141,4 +196,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->

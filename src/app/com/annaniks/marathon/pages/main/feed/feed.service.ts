@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CookieService } from 'ngx-cookie';
 import { FeedData } from '../../../core/models';
@@ -13,20 +13,19 @@ export class FeedService {
     constructor(private _httpClient: HttpClient, @Inject('BASE_URL') private _baseUrl, private _cookieService: CookieService) {
         this.role = this._cookieService.get('role');
         this.userId = this._cookieService.get('userId');
-
     }
 
     public feed(page: number): Observable<FeedData> {
-        let params = new HttpParams();
-        params = params.set('authorization', 'false');
+        let headers = new HttpHeaders();
+        headers = headers.append('Authorization', 'Bearer ' + this._cookieService.get('access'));
         if (this.role === 'client') {
-            return this._httpClient.get<FeedData>(this._baseUrl + '/feed/feeds/' + `?creator_client=${this.userId}&page=${page}`, { params })
+            return this._httpClient.get<FeedData>(this._baseUrl + '/feed/feeds/' + `?creator_client=${this.userId}&page=${page}`, { headers: headers })
         }
         else if (this.role === 'coach') {
-            return this._httpClient.get<FeedData>(this._baseUrl + '/feed/feeds/' + `?creator=${this.userId}&page=${page}`, { params })
+            return this._httpClient.get<FeedData>(this._baseUrl + '/feed/feeds/' + `?creator=${this.userId}&page=${page}`, { headers: headers })
         }
         else {
-            return this._httpClient.get<FeedData>(this._baseUrl + '/feed/feeds/' + `?page=${page}`, { params })
+            return this._httpClient.get<FeedData>(this._baseUrl + '/feed/feeds/' + `?page=${page}`)
         }
 
     }
@@ -35,17 +34,20 @@ export class FeedService {
         if (this.role === 'client') {
             return this._httpClient.delete<any>(this._baseUrl + `/feed/feeds/${feedId}/`);
         }
-        else if (this.role === 'coach') {
+        if (this.role === 'coach') {
             return this._httpClient.delete<any>(this._baseUrl + `/feed/feeds/${feedId}/`);
         }
     }
 
     public getFeedById(feedId: number): Observable<any> {
+        let headers = new HttpHeaders();
+        headers = headers.append('Authorization', 'Bearer ' + this._cookieService.get('access'));
+
         if (this.role === 'client') {
-            return this._httpClient.get<any>(this._baseUrl + `/feed/feeds/${feedId}/`);
+            return this._httpClient.get<any>(this._baseUrl + `/feed/feeds/${feedId}/`, { headers: headers });
         }
-        else if (this.role === 'coach') {
-            return this._httpClient.get<any>(this._baseUrl + `/feed/feeds/${feedId}/`);
+        if (this.role === 'coach') {
+            return this._httpClient.get<any>(this._baseUrl + `/feed/feeds/${feedId}/`, { headers: headers });
         }
     }
 

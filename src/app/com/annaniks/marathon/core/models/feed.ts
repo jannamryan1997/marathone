@@ -7,9 +7,6 @@ export interface FeedData {
     results: FeedResponseData[],
 }
 
-
-
-
 export interface FeedResponseData {
     category: any;
     creator: any;

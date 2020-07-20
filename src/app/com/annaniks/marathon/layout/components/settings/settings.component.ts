@@ -9,8 +9,13 @@ import { Component, OnInit, Output, EventEmitter, Input } from "@angular/core";
 export class SettingsComponent implements OnInit {
     public isOpen: boolean = false;
     public role: string;
+    public feed;
     @Input() type: string;
     @Output() openChanges = new EventEmitter();
+    @Input('feed')
+    set setFeed($event) {
+        this.feed = $event
+    }
     @Input('role')
     set setRole($event: string) {
         this.role = $event;
@@ -25,7 +30,6 @@ export class SettingsComponent implements OnInit {
         this.openChanges.emit(this.isOpen);
     }
     public clickOnButton(type: string): void {
-        if (this.role)
-            this._buttonsType.emit(type)
+        this._buttonsType.emit(type)
     }
 }

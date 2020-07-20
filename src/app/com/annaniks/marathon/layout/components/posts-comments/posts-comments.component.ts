@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -17,7 +17,7 @@ export class PostsComments implements OnInit {
     }
     @Output('sendMessage') private _sendMessage: EventEmitter<string> = new EventEmitter<string>();
 
-    constructor(private _fb: FormBuilder) { }
+    constructor(private _fb: FormBuilder,private cd: ChangeDetectorRef) { }
 
     ngOnInit() {
 
@@ -26,7 +26,7 @@ export class PostsComments implements OnInit {
 
     private _formBuilder(): void {
         this.emojiForm = this._fb.group({
-            inputField: [null, Validators.required],
+            inputField: ['', Validators.required],
         })
     }
 

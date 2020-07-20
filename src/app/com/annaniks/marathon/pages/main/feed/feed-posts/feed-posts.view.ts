@@ -1,10 +1,8 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { FeedService } from '../feed.service';
-import { FeedData, FeedResponseData } from '../../../../core/models';
+import {  FeedResponseData } from '../../../../core/models';
 import { UserService } from '../../../../core/services/user.service';
-import { finalize, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { async } from 'q';
 
 @Component({
     selector: "feed-posts-view",
@@ -42,6 +40,7 @@ export class FeedPostsView implements OnInit, OnDestroy {
             this._isCountCalculated = true;
         }
         if (this._pageIndex > this._pagesCount) {
+            this.loading=false;
             return;
         }
 

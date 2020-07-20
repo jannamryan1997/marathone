@@ -27,7 +27,9 @@
         }
     }
 }
-
+button:disabled{
+    opacity: 0.5;
+}
 .class-type {
     border: none !important;
     font-size: 9px !important;
