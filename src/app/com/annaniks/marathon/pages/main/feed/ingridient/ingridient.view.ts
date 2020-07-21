@@ -14,7 +14,6 @@ import { switchMap, takeUntil, map, finalize } from 'rxjs/operators';
 import { CommentService } from '../../../../core/services/comment.service';
 import { MatDialog } from '@angular/material/dialog';
 import { FeedLikeService } from '../../../../core/services/feed-like.service';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
     selector: "ingridient-view",
