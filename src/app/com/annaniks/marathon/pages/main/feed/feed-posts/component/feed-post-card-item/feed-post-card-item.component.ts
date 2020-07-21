@@ -99,7 +99,10 @@ export class FeedPostCardItemComponent implements OnInit {
             this.localImage = "/assets/images/user-icon-image.png";
         }
         this._showseeMore();
+        
     }
+
+
     public likeOrDislike(event) {
         if (event) {
             if (this.role) {
@@ -245,7 +248,8 @@ export class FeedPostCardItemComponent implements OnInit {
 
     public deleteFeedItem(event) {
         if (event) {
-            this.deletedItem.emit(this.feedItem.id);
+            this.showDeleteModal=false;
+         this.deletedItem.emit(this.feedItem.id);
         }
     }
     ngOnDestroy() {
@@ -254,7 +258,6 @@ export class FeedPostCardItemComponent implements OnInit {
     }
     public onClickedOutside(event): void {
         this.showDeleteModal = false;
-        console.log(event);
         
     }
 

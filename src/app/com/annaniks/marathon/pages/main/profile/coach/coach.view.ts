@@ -4,6 +4,8 @@ import { UserResponseData } from '../../../../core/models/user';
 import { FeedService } from '../../feed/feed.service';
 import { FeedResponseData } from '../../../../core/models';
 import { finalize } from 'rxjs/operators';
+import { RemoveModal } from '../../../../core/modals';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
     selector: "app-coach",
@@ -29,7 +31,7 @@ export class CoachView implements OnInit {
     public throttle = 300;
 
 
-    constructor(private _userService: UserService,private _feedService:FeedService) {
+    constructor(private _userService: UserService,private _feedService:FeedService,private _dialog:MatDialog) {
         this.user = this._userService.user;
     }
 
@@ -68,8 +70,6 @@ export class CoachView implements OnInit {
             }
         }
         this.infiniteScrollDisabled = false;
-      console.log(this.feedItem);   
-
     }
 
     public onClickSeeMore(): void {
@@ -94,12 +94,20 @@ export class CoachView implements OnInit {
 
     public deletedFeedItem(event): void {
         if (event) {
-            this._feedService.deleteFeed(event).subscribe((data) => {
-                this._pageIndex = 1;
-                this._isCountCalculated = false;
-                this._pagesCount = 0;
-                this.feedItem = [];
-                this._getFeed(this._pageIndex)
+            const dialogRef = this._dialog.open(RemoveModal, {
+                width: "400px"
+            })
+            dialogRef.afterClosed().subscribe((data) => {
+                if (data === "deleted") {
+                    this._feedService.deleteFeed(event).subscribe((data) => {
+                        this._pageIndex = 1;
+                        this._isCountCalculated = false;
+                        this._pagesCount = 0;
+                        this.feedItem = [];
+                        this._getFeed(this._pageIndex)
+                    })
+                }
+
             })
         }
 

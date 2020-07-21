@@ -13,7 +13,6 @@ const feedRoutes: Routes = [
             {
                 path: "ingridient/:id",
                 loadChildren: () => import('./ingridient/ingridient.module').then(m => m.IngridientModule),
-                canActivate: [RoleGuard]
 
             },
             {

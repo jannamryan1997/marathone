@@ -14,8 +14,8 @@
     <span class="material-icons icon" (click)="showDeletedModal()" >
         more_vert
     </span>
-    <div class="position-relative" *ngIf="role && showDeleteModal" >
-        <app-delete-feed-item (deleted)="deleteFeedItem($event)"></app-delete-feed-item>
+    <div class="position-relative" *ngIf="showDeleteModal">
+        <app-delete-feed-item (deleted)="deleteFeedItem($event)" [content]="content?.type" [feedId]="feedItem.id"></app-delete-feed-item>
     </div>
 </div>
       
@@ -100,7 +100,6 @@
             <!-----ARTIVLE POST-->
             <div class="d-none" [ngClass]="{'d-block':content?.type ==='article'}">
                 <div class="post-container p-0">
-                    <!-- assets/images/chicken.png -->
                     <img [src]="setImage()" class="food-image" alt="Cinque Terre" routerLink="/combination/{{feedItem.id}}">
                     <div class="combinations-description">
                         <p class="title">{{feedItem?.title}}</p>

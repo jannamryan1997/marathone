@@ -4,6 +4,8 @@ import { UserService } from '../../../../core/services/user.service';
 import { FeedService } from '../../feed/feed.service';
 import { finalize } from 'rxjs/operators';
 import { FeedResponseData } from '../../../../core/models';
+import { RemoveModal } from '../../../../core/modals';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
     selector: "app-client",
@@ -28,7 +30,11 @@ export class ClientView implements OnInit {
     private _isCountCalculated = false;
     private _pagesCount: number;
 
-    constructor(private _profileUserService: UserService,private _feedService:FeedService) {
+    constructor(
+        private _profileUserService: UserService,
+        private _feedService:FeedService,
+        private _dialog:MatDialog,
+        ) {
         this.user = this._profileUserService.user;
     }
 
@@ -66,7 +72,6 @@ export class ClientView implements OnInit {
             }
         }
         this.infiniteScrollDisabled = false;
-      console.log(this.feedItem);
       
 
     }
@@ -97,16 +102,25 @@ export class ClientView implements OnInit {
         this._getFeed(this._pageIndex);
     }
 
-    public deletedFeedItem(event): void {
-        if (event) {
-            this._feedService.deleteFeed(event).subscribe((data) => {
-                this._pageIndex = 1;
-                this._isCountCalculated = false;
-                this._pagesCount = 0;
-                this.feedItem = [];
-                this._getFeed(this._pageIndex)
-            })
-        }
 
-    }
+        public deletedFeedItem(event): void {
+            if (event) {
+                const dialogRef = this._dialog.open(RemoveModal, {
+                    width: "400px"
+                })
+                dialogRef.afterClosed().subscribe((data) => {
+                    if (data === "deleted") {
+                        this._feedService.deleteFeed(event).subscribe((data) => {
+                            this._pageIndex = 1;
+                            this._isCountCalculated = false;
+                            this._pagesCount = 0;
+                            this.feedItem = [];
+                            this._getFeed(this._pageIndex)
+                        })
+                    }
+    
+                })
+            }
+    
+        }
 }

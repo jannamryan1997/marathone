@@ -60,8 +60,8 @@
     </div>
     <form [formGroup]="recipeFormGroup">
         <div class="forms-group">
-            <div class="form-group">
-                <label>Recipe Title</label>
+            <div class="form-group" [ngClass]="{'border':checkIsValid('title')}">
+                <label [ngClass]="{'form-lable':checkIsValid('title')}">Recipe Title</label>
                 <input type="text" class="form-input w-100" placeholder="Type Title" formControlName="title">
             </div>
             <div class="form-group pt-15 pl-0 pr-0 pb-0">
@@ -115,10 +115,12 @@
                         <span class="material-icons">
                             whatshot
                         </span>
-                        <input type="text" class="form-input w-100" placeholder="Calories" formControlName="calories">
+                        <input type="text" class="form-input w-100" placeholder="Calories" formControlName="calories"
+                            [ngClass]="{'form-title':checkIsValid('calories')}">
                     </div>
                     <div class="kcal-content">
-                        <input type="text" class="form-input w-100" placeholder="Kcal" formControlName="kcal">
+                        <input type="text" class="form-input w-100" placeholder="Kcal" formControlName="kcal"
+                        [ngClass]="{'form-title':checkIsValid('kcal')}">
                     </div>
                     <div class="macronutrients-content w-100">
                         <p class="title w-100">Macronutrients</p>
@@ -136,13 +138,16 @@
 
                     <div class="form-group display-flex p-0 mt-20">
                         <div class="caloris-content d-flex">
-                            <input type="text" class="form-input w-100" placeholder="0" formControlName="carbs">
+                            <input type="text" class="form-input w-100" placeholder="Carbs" formControlName="carbs"
+                            [ngClass]="{'form-title':checkIsValid('carbs')}" >
                         </div>
                         <div class="kcal-content">
-                            <input type="text" class="form-input w-100" placeholder="0" formControlName="protein">
+                            <input type="text" class="form-input w-100" placeholder="Protein" formControlName="protein"
+                            [ngClass]="{'form-title':checkIsValid('protein')}"  >
                         </div>
                         <div class="macronutrients-content">
-                            <input type="text" class="form-input w-100" placeholder="0" formControlName="fat">
+                            <input type="text" class="form-input w-100" placeholder="Fat" formControlName="fat"
+                            [ngClass]="{'form-title':checkIsValid('fat')}" >
 
                         </div>
 
@@ -154,7 +159,7 @@
 
                     <div>
                         <mat-radio-group aria-label="Select an option" formControlName="mass">
-                            <mat-radio-button value="gram" class="radio">Gram</mat-radio-button>
+                            <mat-radio-button value="gram" class="radio"><label>Gram</label></mat-radio-button>
                             <mat-radio-button value="kcal" class="radio">Percentage</mat-radio-button>
                         </mat-radio-group>
                     </div>
@@ -170,7 +175,8 @@
                     <p class="title ml-2">Set serving size</p>
                 </div>
                 <div class="macronutrients-content">
-                    <input type="text" class="form-input w-100" placeholder="1" formControlName="serving_size">
+                    <input type="text" class="form-input w-100" placeholder="Serving Size" formControlName="serving_size"  
+                     [ngClass]="{'form-title':checkIsValid('serving_size')}">
                 </div>
 
             </div>
@@ -184,7 +190,7 @@
                     <p class="title ml-2">Set time</p>
                 </div>
                 <div class="macronutrients-content display-flex align-items-center">
-                    <input type="text" class="form-input w-100" placeholder="1" formControlName="time">
+                    <input type="text" class="form-input w-100" placeholder="Time" formControlName="time"  [ngClass]="{'form-title':checkIsValid('time')}">
                 </div>
 
             </div>
@@ -198,9 +204,9 @@
                         Step</span></button>
             </div>
             <div class="form-group">
-                <label>Information</label>
+                <label  [ngClass]="{'form-lable':checkIsValid('information')}">Information</label>
                 <textarea type="text" class="form-input w-100 information-input" placeholder="Type Recipe info here"
-                    formControlName="information"></textarea>
+                    formControlName="information"  [ngClass]="{'form-title':checkIsValid('information')}"></textarea>
 
             </div>
 
@@ -234,9 +240,9 @@
         </div>
     </form>
     <div class="d-flex btn-content">
-        <button class="btn follow-btn d-flex" (click)="postRecipe()"><span>Post</span>
+        <button class="follow-btn d-flex" (click)="postRecipe()" [ngClass]="{'opacity':recipeFormGroup.invalid}"><span>Post</span>
             <app-loading *ngIf="loading">
-                </app-loading>
+            </app-loading>
         </button>
     </div>
 

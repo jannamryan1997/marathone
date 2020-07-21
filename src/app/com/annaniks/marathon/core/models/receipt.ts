@@ -14,7 +14,7 @@ export interface ReceiptResponseData {
     fat: string,
     gram: boolean,
     persentage: boolean,
-    seriving: string,
+    serving_size: string,
     time: string,
     videoLink: string,
     preparationSteps: PreparationStep[],
