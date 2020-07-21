@@ -14,6 +14,7 @@ import { switchMap, takeUntil, map, finalize } from 'rxjs/operators';
 import { CommentService } from '../../../../core/services/comment.service';
 import { MatDialog } from '@angular/material/dialog';
 import { FeedLikeService } from '../../../../core/services/feed-like.service';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
     selector: "ingridient-view",
@@ -165,9 +166,11 @@ export class IngridientViewComponent implements OnInit {
 
     public onClickOpen($event): void {
         this.isOpen = $event;
-        this.loading = true;
-        this._getComments().pipe(takeUntil(this.unsubscribe$),
-            finalize(() => { this.loading = false })).subscribe()
+        if (this.isOpen) {
+            this.loading = true;
+            this._getComments().pipe(takeUntil(this.unsubscribe$),
+                finalize(() => { this.loading = false })).subscribe()
+        }
     }
     private _getComments(parent?): Observable<ServerResponse<Comment[]>> {
         return this._commentService.getFeedCommentById(this.feedItem.id).pipe(map((data: ServerResponse<Comment[]>) => {

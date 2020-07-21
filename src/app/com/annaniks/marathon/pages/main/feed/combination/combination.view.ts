@@ -29,6 +29,7 @@ export class CombinationView implements OnInit {
     public content;
     public role: string;
     public time;
+    public slideConfig1;
     constructor(private _feedService: FeedService, private _activatedRoute: ActivatedRoute,
         private _cookieService: CookieService,
         private _commentService: CommentService,
@@ -44,10 +45,20 @@ export class CombinationView implements OnInit {
     }
 
     ngOnInit() {
-
+        this._initConfig()
         this._getArticleById();
     }
-
+    private _initConfig(){
+        this.slideConfig1 = {
+            infinite: true,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            dots: false,
+            autoplay: true,
+            autoplaySpeed: 2000
+        }
+    
+    }
     private _getArticleById() {
         this.loading = true
         this._feedService.getFeedById(this._articleId).pipe(takeUntil(this.unsubscribe$),
@@ -139,9 +150,11 @@ export class CombinationView implements OnInit {
 
     public onClickOpen($event): void {
         this.isOpen = $event;
-        this.loading = true;
-        this._getComments().pipe(takeUntil(this.unsubscribe$),
-            finalize(() => { this.loading = false })).subscribe()
+        if (this.isOpen) {
+            this.loading = true;
+            this._getComments().pipe(takeUntil(this.unsubscribe$),
+                finalize(() => { this.loading = false })).subscribe()
+        }
     }
     private _getComments(parent?): Observable<ServerResponse<Comment[]>> {
         return this._commentService.getFeedCommentById(this.article.id).pipe(map((data: ServerResponse<Comment[]>) => {
