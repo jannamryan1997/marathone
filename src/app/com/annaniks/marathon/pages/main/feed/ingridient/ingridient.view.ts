@@ -14,6 +14,7 @@ import { switchMap, takeUntil, map, finalize } from 'rxjs/operators';
 import { CommentService } from '../../../../core/services/comment.service';
 import { MatDialog } from '@angular/material/dialog';
 import { FeedLikeService } from '../../../../core/services/feed-like.service';
+import { FollowCommentService } from '../../../../core/services/follow-comment.service';
 
 @Component({
     selector: "ingridient-view",
@@ -37,6 +38,7 @@ export class IngridientViewComponent implements OnInit {
     public isShowSubMessages: boolean = false
     public comments = [];
     constructor(
+        private _followCommentService: FollowCommentService,
         private _activatedRoute: ActivatedRoute,
         private _feedService: FeedService,
         private _cookieService: CookieService,
@@ -61,9 +63,27 @@ export class IngridientViewComponent implements OnInit {
 
     ngOnInit() {
         this._getFeedById().pipe(takeUntil(this.unsubscribe$)).subscribe();
+        this._checkIsGetComment()
     }
 
-
+    private _checkIsGetComment() {
+        this._followCommentService.getState().pipe(
+            takeUntil(this.unsubscribe$),
+            switchMap((data: any) => {
+                if (data.isSend) {
+                    if (!data.isAuthorizated) {
+                        if (data.isCombine) {
+                            return this._combineObservable(data.isParent)
+                        } else {
+                            return this._getComments(data.isParent)
+                        }
+                    } else {
+                        this.onClickOpenAuth()
+                    }
+                }
+            })
+        ).subscribe()
+    }
     private _getFeedById() {
         this.loading = true;
         return this._feedService.getFeedById(this.feedId).pipe(
@@ -109,52 +129,6 @@ export class IngridientViewComponent implements OnInit {
         }
     }
 
-
-    public likeOrDislike(event) {
-        if (event) {
-            if (this.role) {
-                let isChild: boolean;
-                if (event.isChild) {
-                    isChild = true
-                }
-                if (event.type == '0') {
-                    this.loading = true;
-                    this._commentService.dislikeComment(event.url).pipe(takeUntil(this.unsubscribe$),
-                        finalize(() => { this.loading = false }),
-                        switchMap(() => {
-                            return this._getComments(isChild)
-                        })).subscribe()
-                } else {
-                    if (event.type == '1') {
-                        this.loading = true;
-                        this._commentService.likeComment(event.url).pipe(takeUntil(this.unsubscribe$),
-                            finalize(() => { this.loading = false }),
-                            switchMap(() => {
-                                return this._getComments(isChild)
-                            })).subscribe()
-                    }
-                }
-            } else {
-                this.onClickOpenAuth()
-            }
-
-        }
-    }
-    public sendMessage($event, parent?: string) {
-        if ($event) {
-            this.loading = true;
-            this._commentService.createFeedComment(this.feedItem.id, $event, parent).pipe(
-                finalize(() => { this.loading = false }),
-                takeUntil(this.unsubscribe$),
-                switchMap(() => {
-                    return this._combineObservable(parent)
-                },
-                )).subscribe()
-        }
-    }
-    public sendMessageForParent($event, item) {
-        this.sendMessage($event, item.url)
-    }
     private _combineObservable(parent?) {
         const combine = forkJoin(
             this._getComments(parent),

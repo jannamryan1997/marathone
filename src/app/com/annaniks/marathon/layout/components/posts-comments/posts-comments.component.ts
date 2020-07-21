@@ -1,5 +1,11 @@
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CommentService } from '../../../core/services/comment.service';
+import { takeUntil, map } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { FollowCommentService } from '../../../core/services/follow-comment.service';
+import { ActivatedRoute } from '@angular/router';
+import { Comment } from '../../../core/models';
 
 @Component({
     selector: "app-posts-comments",
@@ -10,14 +16,33 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class PostsComments implements OnInit {
     public emojiForm: FormGroup;
     public showemoji: boolean = false;
-    public comments = []
+    public comments = [];
+    private unsubscribe$ = new Subject<void>();
+    private _feedItemId: number;
+    @Input('feedItemId')
+    set setfeedItemId($event) {
+        // this._feedItemId = $event
+    }
+    private _comment: Comment;
+    @Input('comment')
+    set setComment($event) {
+        this._comment = $event;
+    }
     @Input('comments')
     set setComments($event) {
         this.comments = $event
     }
     @Output('sendMessage') private _sendMessage: EventEmitter<string> = new EventEmitter<string>();
 
-    constructor(private _fb: FormBuilder,private cd: ChangeDetectorRef) { }
+    constructor(private _fb: FormBuilder, private cd: ChangeDetectorRef,
+        private _commentService: CommentService,
+        private _commentSubjectService: FollowCommentService,
+        private _activatedRoute: ActivatedRoute) {
+        this._activatedRoute.params.pipe(takeUntil(this.unsubscribe$)).subscribe(params => {
+            if (params && params.id)
+                this._feedItemId = params.id;
+        })
+    }
 
     ngOnInit() {
 
@@ -42,12 +67,22 @@ export class PostsComments implements OnInit {
 
     public addInput(event) {
         if (this.emojiForm.valid) {
-            this._sendMessage.emit(this.emojiForm.value.inputField);
-            this.emojiForm.reset();
+            const parent = this._comment ? this._comment.url : null
+            this._commentService.createFeedComment(this._feedItemId, this.emojiForm.value.inputField, parent).pipe(
+                takeUntil(this.unsubscribe$),
+                map(() => {
+                    this.emojiForm.reset();
+                    this._commentSubjectService.onComment(parent, true)
+                })
+            ).subscribe(() => { })
         }
     }
 
     public onClickedOutside(event): void {
         this.showemoji = false;
+    }
+    ngOnDestroy() {
+        this.unsubscribe$.next();
+        this.unsubscribe$.complete();
     }
 }

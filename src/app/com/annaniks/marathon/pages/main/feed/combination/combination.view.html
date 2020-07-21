@@ -30,8 +30,8 @@
         <div *ngFor="let text of content?.text" class="combination-item">
             <p class="text" [innerHtml]="text?.attribute"> </p>
         </div>
-        <ngx-slick-carousel [config]="slideConfig1" *ngIf="content && content?.image" class="carousel w-100 chicken-image"
-            #slickModal="slick-carousel">
+        <ngx-slick-carousel [config]="slideConfig1" *ngIf="content && content?.image"
+            class="carousel w-100 chicken-image" #slickModal="slick-carousel">
             <div ngxSlickItem *ngFor="let slide of content?.image" class="slide">
                 <img [src]="fileUrl+slide.url" alt="" width="100%" class="chicken-image">
             </div>
@@ -50,9 +50,9 @@
     <app-settings [feed]="article" [role]="role" (getButtonsType)="getButtonsType($event)"
         (openChanges)='onClickOpen($event)'></app-settings>
     <div class="posts-comments" *ngIf="isOpen">
-        <app-comments (sendMessage)="sendMessageForParent($event,item)" (likeOrDislike)="likeOrDislike($event)"
-            *ngFor="let item of comments" [comments]="item" [role]="role" [isShowSubMessages]="isShowSubMessages">
+        <app-comments *ngFor="let item of comments" [comments]="item" [role]="role"
+            [isShowSubMessages]="isShowSubMessages">
         </app-comments>
-        <app-posts-comments (sendMessage)="sendMessage($event)" *ngIf="role" [comments]="comments"></app-posts-comments>
+        <app-posts-comments *ngIf="role" [comments]="comments"></app-posts-comments>
     </div>
 </div>

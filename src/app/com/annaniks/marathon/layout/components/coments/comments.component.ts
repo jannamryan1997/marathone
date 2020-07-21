@@ -1,6 +1,13 @@
 import { Component, OnInit, Input, Output, EventEmitter, Inject } from "@angular/core";
 import { Comment } from '../../../core/models';
 import * as moment from 'moment';
+import { CommentService } from '../../../core/services/comment.service';
+import { takeUntil, switchMap, map } from 'rxjs/operators';
+import { AuthModal } from '../../../core/modals';
+import { Subject } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { FollowCommentService } from '../../../core/services/follow-comment.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: "app-comments",
@@ -9,8 +16,9 @@ import * as moment from 'moment';
 })
 
 export class CommentsComponent implements OnInit {
-    public comments:Comment;
+    public comments: Comment;
     public role: string
+    private unsubscribe$ = new Subject<void>()
 
     @Output('likeOrDislike') private _isLikeOrDislike: EventEmitter<object> = new EventEmitter();
     @Output('sendMessage') private _sendMessage: EventEmitter<string> = new EventEmitter();
@@ -18,7 +26,7 @@ export class CommentsComponent implements OnInit {
     public showReplay: boolean = false;
     public isOpenComments: boolean = false
     @Input('comments')
-    set setComment($event:Comment) {
+    set setComment($event: Comment) {
         this.comments = $event
     }
     @Input('role')
@@ -29,7 +37,23 @@ export class CommentsComponent implements OnInit {
     set setShowRepey($event) {
         this.showReplay = $event
     }
-    constructor(@Inject("FILE_URL") public fileUrl: string) { }
+    private _feedItemId: number;
+    @Input('feedItemId')
+    set setfeedItemId($event) {
+        // console.log($event);
+        
+        // this.feedItemId = $event
+    }
+
+    constructor(@Inject("FILE_URL") public fileUrl: string,
+        private _commentService: CommentService,
+        private _commentSubjectService: FollowCommentService,
+        private _matDialog: MatDialog,private _activatedRoute:ActivatedRoute) {
+            this._activatedRoute.params.pipe(takeUntil(this.unsubscribe$)).subscribe(params => {
+                if (params && params.id)
+                    this._feedItemId = params.id;
+            })
+         } 
 
     ngOnInit() { }
 
@@ -37,8 +61,53 @@ export class CommentsComponent implements OnInit {
         this.showReplay = !this.showReplay;
     }
     public vote(type: string, item, isChild: boolean = false) {
-        this._isLikeOrDislike.emit({ type: type, url: item.url, isChild: isChild })
+
+        // this._isLikeOrDislike.emit({ type: type, url: item.url, isChild: isChild })
+
+
+        if (this.role) {
+            if (event.type == '0') {
+                this._commentService.dislikeComment(item.url).pipe(takeUntil(this.unsubscribe$),
+
+                    map(() => {
+                        this._commentSubjectService.onComment(isChild, false)
+                    })
+
+                ).subscribe()
+            } else {
+                if (event.type == '1') {
+                    this._commentService.likeComment(item.url).pipe(takeUntil(this.unsubscribe$),
+                        map(() => {
+                            this._commentSubjectService.onComment(isChild, false)
+                        })
+
+                    ).subscribe()
+                }
+            }
+        } else {
+            this._commentSubjectService.onComment(false, false, true)
+        }
+
+
     }
+
+    public sendMessage($event) {
+        const parent = this.comments.url;
+        console.log(this._feedItemId);
+        console.log(parent);
+        
+        if ($event) {
+            // this._commentService.createFeedComment(this._feedItemId, $event, parent).pipe(
+            //     takeUntil(this.unsubscribe$),
+            //     map(() => {
+            //         this._commentSubjectService.onComment(parent, true)
+            //     })
+            // ).subscribe(() => { })
+        }
+    }
+
+
+
     public getUserImage(item) {
         if (item) {
             let defaultImage = '/assets/images/user-icon-image.png'
@@ -58,10 +127,8 @@ export class CommentsComponent implements OnInit {
     public openCommentComponent() {
         this.isOpenComments = !this.isOpenComments
     }
-    public sendMessage($event) {
-        this._sendMessage.emit($event)
-    }
-    public getCreatorName(item):string {
+
+    public getCreatorName(item): string {
         if (item) {
             if (this.role == 'client' || (!this.role && item.user_coach)) {
                 return `${item.user_coach.user.first_name} ${item.user_coach.user.last_name}`
@@ -70,6 +137,10 @@ export class CommentsComponent implements OnInit {
                 return `${item.comment_coach.user.first_name} ${item.comment_coach.user.last_name}`
             }
         }
+    }
+    ngOndestroy() {
+        this.unsubscribe$.next();
+        this.unsubscribe$.complete();
     }
 }
 

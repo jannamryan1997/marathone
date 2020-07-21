@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from "@angular/core";
 import { FeedService } from '../feed.service';
 import { ActivatedRoute } from '@angular/router';
 import { takeUntil, switchMap, map, finalize } from 'rxjs/operators';
-import { Subject, forkJoin, Observable } from 'rxjs';
+import { Subject, forkJoin, Observable, Subscription } from 'rxjs';
 import { FeedResponseData, ServerResponse } from '../../../../core/models';
 import { CookieService } from 'ngx-cookie';
 import * as moment from 'moment';
@@ -10,6 +10,7 @@ import { CommentService } from '../../../../core/services/comment.service';
 import { AuthModal } from '../../../../core/modals';
 import { MatDialog } from '@angular/material/dialog';
 import { FeedLikeService } from '../../../../core/services/feed-like.service';
+import { FollowCommentService } from '../../../../core/services/follow-comment.service';
 
 @Component({
     selector: "combination-view",
@@ -22,7 +23,7 @@ export class CombinationView implements OnInit {
     public showDeleteModal: boolean = false;
     public isShowSubMessages: boolean = false;
     public isOpen: boolean = false;
-    private _articleId: number;
+    public articleId: number;
     private unsubscribe$ = new Subject<void>()
     public comments = [];
     public article: FeedResponseData;
@@ -30,25 +31,46 @@ export class CombinationView implements OnInit {
     public role: string;
     public time;
     public slideConfig1;
+    private _subscription: Subscription;
     constructor(private _feedService: FeedService, private _activatedRoute: ActivatedRoute,
         private _cookieService: CookieService,
         private _commentService: CommentService,
         private _feedLikeService: FeedLikeService,
         private _matDialog: MatDialog,
+        private _followCommentService: FollowCommentService,
         @Inject("FILE_URL") public fileUrl: string) {
         this.role = this._cookieService.get('role');
 
         this._activatedRoute.params.pipe(takeUntil(this.unsubscribe$)).subscribe(params => {
             if (params && params.id)
-                this._articleId = params.id;
+                this.articleId = params.id;
         })
     }
 
     ngOnInit() {
         this._initConfig()
         this._getArticleById();
+        this._checkIsGetComment()
     }
-    private _initConfig(){
+    private _checkIsGetComment() {
+        this._followCommentService.getState().pipe(
+            takeUntil(this.unsubscribe$),
+            switchMap((data: any) => {
+                if (data.isSend) {
+                    if (!data.isAuthorizated) {
+                        if (data.isCombine) {
+                            return this._combineObservable(data.isParent)
+                        } else {
+                            return this._getComments(data.isParent)
+                        }
+                    } else {
+                        this.onClickOpenAuth()
+                    }
+                }
+            })
+        ).subscribe()
+    }
+    private _initConfig() {
         this.slideConfig1 = {
             infinite: true,
             slidesToShow: 1,
@@ -57,11 +79,11 @@ export class CombinationView implements OnInit {
             autoplay: true,
             autoplaySpeed: 2000
         }
-    
+
     }
     private _getArticleById() {
         this.loading = true
-        this._feedService.getFeedById(this._articleId).pipe(takeUntil(this.unsubscribe$),
+        this._feedService.getFeedById(this.articleId).pipe(takeUntil(this.unsubscribe$),
             finalize(() => { this.loading = false })).subscribe((data: FeedResponseData) => {
                 this.article = data;
                 this.time = moment(this.article.timeStamp).format('MMMM Do YYYY');
@@ -71,36 +93,7 @@ export class CombinationView implements OnInit {
             })
     }
 
-    public likeOrDislike(event) {
-        if (event) {
-            if (this.role) {
-                let isChild: boolean;
-                if (event.isChild) {
-                    isChild = true
-                }
-                if (event.type == '0') {
-                    this.loading = true;
-                    this._commentService.dislikeComment(event.url).pipe(takeUntil(this.unsubscribe$),
-                        finalize(() => { this.loading = false }),
-                        switchMap(() => {
-                            return this._getComments(isChild)
-                        })).subscribe()
-                } else {
-                    if (event.type == '1') {
-                        this.loading = true;
-                        this._commentService.likeComment(event.url).pipe(takeUntil(this.unsubscribe$),
-                            finalize(() => { this.loading = false }),
-                            switchMap(() => {
-                                return this._getComments(isChild)
-                            })).subscribe()
-                    }
-                }
-            } else {
-                this.onClickOpenAuth()
-            }
 
-        }
-    }
     public getButtonsType(event: string) {
         if (event) {
             if (this.role) {
@@ -124,22 +117,8 @@ export class CombinationView implements OnInit {
             this.article = result;
             return result
         }))
-    }
-    public sendMessage($event, parent?: string) {
-        if ($event) {
-            this.loading = true;
-            this._commentService.createFeedComment(this.article.id, $event, parent).pipe(
-                takeUntil(this.unsubscribe$),
-                finalize(() => { this.loading = false }),
-                switchMap(() => {
-                    return this._combineObservable(parent)
-                },
-                )).subscribe()
-        }
-    }
-    public sendMessageForParent($event, item) {
-        this.sendMessage($event, item.url)
-    }
+    } 
+ 
     private _combineObservable(parent?) {
         const combine = forkJoin(
             this._getComments(parent),
@@ -176,6 +155,7 @@ export class CombinationView implements OnInit {
         return this.content.cover ? this.fileUrl + this.content.cover : 'assets/images/chicken.png'
     }
     ngOnDestroy() {
+
         this.unsubscribe$.next();
         this.unsubscribe$.complete();
     }

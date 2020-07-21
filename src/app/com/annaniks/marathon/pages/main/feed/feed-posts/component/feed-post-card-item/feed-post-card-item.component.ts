@@ -12,6 +12,7 @@ import { FeedLikeService } from 'src/app/com/annaniks/marathon/core/services/fee
 import { Subject, forkJoin, Observable } from 'rxjs';
 import { takeUntil, switchMap, map } from 'rxjs/operators';
 import { CommentService } from 'src/app/com/annaniks/marathon/core/services/comment.service';
+import { FollowCommentService } from 'src/app/com/annaniks/marathon/core/services/follow-comment.service';
 
 @Component({
     selector: "app-feed-post-card-item",
@@ -41,6 +42,7 @@ export class FeedPostCardItemComponent implements OnInit {
     public isShowSubMessages: boolean = false;
     constructor(
         @Inject("FILE_URL") public fileUrl,
+        private _followCommentService: FollowCommentService,
         private _matDialog: MatDialog,
         private _fb: FormBuilder,
         private _cookieService: CookieService,
@@ -99,32 +101,25 @@ export class FeedPostCardItemComponent implements OnInit {
             this.localImage = "/assets/images/user-icon-image.png";
         }
         this._showseeMore();
+        this._checkIsGetComment()
     }
-    public likeOrDislike(event) {
-        if (event) {
-            if (this.role) {
-                let isChild: boolean;
-                if (event.isChild) {
-                    isChild = true
-                }
-                if (event.type == '0') {
-                    this._commentService.dislikeComment(event.url).pipe(takeUntil(this.unsubscribe$),
-                        switchMap(() => {
-                            return this._getComments(isChild)
-                        })).subscribe()
-                } else {
-                    if (event.type == '1') {
-                        this._commentService.likeComment(event.url).pipe(takeUntil(this.unsubscribe$),
-                            switchMap(() => {
-                                return this._getComments(isChild)
-                            })).subscribe()
+    private _checkIsGetComment() {
+        this._followCommentService.getState().pipe(
+            takeUntil(this.unsubscribe$),
+            switchMap((data: any) => {
+                if (data.isSend) {
+                    if (!data.isAuthorizated) {
+                        if (data.isCombine) {
+                            return this._combineObservable(data.isParent)
+                        } else {
+                            return this._getComments(data.isParent)
+                        }
+                    } else {
+                        this.onClickOpenAuth()
                     }
                 }
-            } else {
-                this.onClickOpenAuth()
-            }
-
-        }
+            })
+        ).subscribe()
     }
 
     private _showseeMore(): void {
@@ -205,19 +200,7 @@ export class FeedPostCardItemComponent implements OnInit {
             return result
         }))
     }
-    public sendMessage($event, parent?: string) {
-        if ($event) {
-            this._commentService.createFeedComment(this.feedItem.id, $event, parent).pipe(
-                takeUntil(this.unsubscribe$),
-                switchMap(() => {
-                    return this._combineObservable(parent)
-                },
-                )).subscribe()
-        }
-    }
-    public sendMessageForParent($event, item) {
-        this.sendMessage($event, item.url)
-    }
+
     private _combineObservable(parent?) {
         const combine = forkJoin(
             this._getComments(parent),
@@ -253,7 +236,7 @@ export class FeedPostCardItemComponent implements OnInit {
         this.unsubscribe$.complete();
     }
     public onClickedOutside(event): void {
-        this.showDeleteModal = false;        
+        this.showDeleteModal = false;
     }
 
 }
