@@ -1,4 +1,5 @@
 <div class="combination-content">
+    <spinner-loading *ngIf="loading"></spinner-loading>
     <div class="combination-header">
         <img *ngIf="content && content?.cover" [src]="fileUrl+content?.cover" class="combination-image"
             alt="Cinque Terre">
@@ -45,9 +46,13 @@
         </ngx-slick-carousel>
 
     </div>
-    <app-settings (openChanges)='onClickOpen($event)'></app-settings>
+
+    <app-settings [feed]="article" [role]="role" (getButtonsType)="getButtonsType($event)"
+        (openChanges)='onClickOpen($event)'></app-settings>
     <div class="posts-comments" *ngIf="isOpen">
-        <app-comments *ngFor="let item of comments" [comments]="item"></app-comments>
-        <app-posts-comments [comments]="comments"></app-posts-comments>
+        <app-comments (sendMessage)="sendMessageForParent($event,item)" (likeOrDislike)="likeOrDislike($event)"
+            *ngFor="let item of comments" [comments]="item" [role]="role" [isShowSubMessages]="isShowSubMessages">
+        </app-comments>
+        <app-posts-comments (sendMessage)="sendMessage($event)" *ngIf="role" [comments]="comments"></app-posts-comments>
     </div>
 </div>

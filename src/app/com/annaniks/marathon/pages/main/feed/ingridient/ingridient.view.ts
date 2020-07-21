@@ -2,12 +2,18 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from '@angular/router';
 import { FeedService } from '../feed.service';
 import { CookieService } from 'ngx-cookie';
-import { FeedResponseData } from '../../../../core/models';
+import { FeedResponseData, ServerResponse } from '../../../../core/models';
 
 import * as moment from 'moment';
 import { ReceiptResponseData } from '../../../../core/models/receipt';
 
 import { Location } from '@angular/common';
+import { AuthModal } from '../../../../core/modals';
+import { Subject, Observable, forkJoin } from 'rxjs';
+import { switchMap, takeUntil, map, finalize } from 'rxjs/operators';
+import { CommentService } from '../../../../core/services/comment.service';
+import { MatDialog } from '@angular/material/dialog';
+import { FeedLikeService } from '../../../../core/services/feed-like.service';
 
 @Component({
     selector: "ingridient-view",
@@ -19,26 +25,25 @@ export class IngridientViewComponent implements OnInit {
     public feedItem: FeedResponseData;
     public feedId: number;
     public role: string;
+    private unsubscribe$ = new Subject<void>()
+
     public isOpen: boolean = false;
     public receptvideoSources = [];
     public time: string;
     public receipt: ReceiptResponseData;
     public loading: boolean = false;
     public slideConfig = {};
-    public comments = [
-        {
-            image: "assets/images/img8.png", name: "hanna mryan", time: "1 hour ago", message: "barevvvvvvvvv bari voxjuyn hiiiii", view: "2", like: "25", dislike: "6",
-            chiled: [
-                { image: "assets/images/img6.png", name: "maya davidov", time: "50 minutes ago", comments: "first comments", like: "5", dislike: "0" },
-                { image: "assets/images/img1.png", name: "liana hego", time: "2 minute ago", comments: "secends comments", like: "12", dislike: "3" },
-            ]
-        },
-    ]
+    public showDeleteModal: boolean = false;
+    public isShowSubMessages: boolean = false
+    public comments = [];
     constructor(
         private _activatedRoute: ActivatedRoute,
         private _feedService: FeedService,
         private _cookieService: CookieService,
         private _location: Location,
+        private _commentService: CommentService,
+        private _matDialog: MatDialog,
+        private _feedLikeService: FeedLikeService
     ) {
         this._activatedRoute.params.subscribe((params) => {
             this.feedId = Number(params.id);
@@ -55,16 +60,16 @@ export class IngridientViewComponent implements OnInit {
     }
 
     ngOnInit() {
-        this._getFeedById();
+        this._getFeedById().pipe(takeUntil(this.unsubscribe$)).subscribe();
     }
 
 
-    private _getFeedById(): void {
+    private _getFeedById() {
         this.loading = true;
-        this._feedService.getFeedById(this.feedId)
-            .subscribe((data: FeedResponseData) => {
+        return this._feedService.getFeedById(this.feedId).pipe(
+            finalize(() => { this.loading = false; }),
+            map((data: FeedResponseData) => {
                 this.feedItem = data;
-                this.loading = false;
 
                 this.time = moment(this.feedItem.timeStamp).format('MMMM Do YYYY');
                 for (let item of data.feed_media) {
@@ -80,19 +85,114 @@ export class IngridientViewComponent implements OnInit {
                         }
                     }
                 }
-            },
-                err => {
-                    this.loading = false;
-                }
-            )
+                return data
+            })
+        )
     }
 
+    public getButtonsType(event: string) {
+        if (event) {
+            if (this.role) {
+                if (event == 'like') {
+                    this.loading = true
+                    this._feedLikeService.likeFeed(this.feedItem.id).pipe(takeUntil(this.unsubscribe$),
+                        finalize(() => { this.loading = false }),
+                        switchMap((data) => {
+                            return this._getFeedById()
+                        })
+                    ).subscribe()
+
+                }
+            } else {
+                this.onClickOpenAuth()
+            }
+        }
+    }
+
+
+    public likeOrDislike(event) {
+        if (event) {
+            if (this.role) {
+                let isChild: boolean;
+                if (event.isChild) {
+                    isChild = true
+                }
+                if (event.type == '0') {
+                    this.loading = true;
+                    this._commentService.dislikeComment(event.url).pipe(takeUntil(this.unsubscribe$),
+                        finalize(() => { this.loading = false }),
+                        switchMap(() => {
+                            return this._getComments(isChild)
+                        })).subscribe()
+                } else {
+                    if (event.type == '1') {
+                        this.loading = true;
+                        this._commentService.likeComment(event.url).pipe(takeUntil(this.unsubscribe$),
+                            finalize(() => { this.loading = false }),
+                            switchMap(() => {
+                                return this._getComments(isChild)
+                            })).subscribe()
+                    }
+                }
+            } else {
+                this.onClickOpenAuth()
+            }
+
+        }
+    }
+    public sendMessage($event, parent?: string) {
+        if ($event) {
+            this.loading = true;
+            this._commentService.createFeedComment(this.feedItem.id, $event, parent).pipe(
+                finalize(() => { this.loading = false }),
+                takeUntil(this.unsubscribe$),
+                switchMap(() => {
+                    return this._combineObservable(parent)
+                },
+                )).subscribe()
+        }
+    }
+    public sendMessageForParent($event, item) {
+        this.sendMessage($event, item.url)
+    }
+    private _combineObservable(parent?) {
+        const combine = forkJoin(
+            this._getComments(parent),
+            this._getFeedById()
+        )
+        return combine
+    }
 
     public onClickOpen($event): void {
         this.isOpen = $event;
+        this.loading = true;
+        this._getComments().pipe(takeUntil(this.unsubscribe$),
+            finalize(() => { this.loading = false })).subscribe()
     }
+    private _getComments(parent?): Observable<ServerResponse<Comment[]>> {
+        return this._commentService.getFeedCommentById(this.feedItem.id).pipe(map((data: ServerResponse<Comment[]>) => {
+            this.comments = data.results;
+            this.isShowSubMessages = parent ? true : false;
+            return data
+        }))
+    }
+    public showDeletedModal(): void {
+        this.showDeleteModal = !this.showDeleteModal;
+    }
+    public onClickOpenAuth(): void {
+        this._matDialog.open(AuthModal, {
+            width: "100%",
+            maxWidth: "100vw",
+        })
+    }
+
+
 
     public onClickGotoBack() {
         this._location.back();
+    }
+    ngOndestroy() {
+        this.unsubscribe$.next();
+        this.unsubscribe$.complete();
     }
 }
