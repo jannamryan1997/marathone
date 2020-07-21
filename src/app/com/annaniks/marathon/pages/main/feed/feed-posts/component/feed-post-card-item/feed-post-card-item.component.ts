@@ -254,6 +254,8 @@ export class FeedPostCardItemComponent implements OnInit {
     }
     public onClickedOutside(event): void {
         this.showDeleteModal = false;
+        console.log(event);
+        
     }
 
 }
