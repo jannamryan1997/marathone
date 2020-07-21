@@ -253,9 +253,7 @@ export class FeedPostCardItemComponent implements OnInit {
         this.unsubscribe$.complete();
     }
     public onClickedOutside(event): void {
-        this.showDeleteModal = false;
-        console.log(event);
-        
+        this.showDeleteModal = false;        
     }
 
 }

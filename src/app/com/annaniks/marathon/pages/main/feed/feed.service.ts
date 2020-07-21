@@ -46,8 +46,10 @@ export class FeedService {
         if (this.role === 'client') {
             return this._httpClient.get<any>(this._baseUrl + `/feed/feeds/${feedId}/`, { headers: headers });
         }
-        if (this.role === 'coach') {
+        else if (this.role === 'coach') {
             return this._httpClient.get<any>(this._baseUrl + `/feed/feeds/${feedId}/`, { headers: headers });
+        } else {
+            return this._httpClient.get<any>(this._baseUrl + `/feed/feeds/${feedId}/`)
         }
     }
 
