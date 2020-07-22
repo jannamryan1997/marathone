@@ -37,23 +37,23 @@ export class CommentsComponent implements OnInit {
     set setShowRepey($event) {
         this.showReplay = $event
     }
-    private _feedItemId: number;
+    public feedItemId: number;
     @Input('feedItemId')
     set setfeedItemId($event) {
         // console.log($event);
-        
-        // this.feedItemId = $event
+
+        this.feedItemId = $event
     }
 
     constructor(@Inject("FILE_URL") public fileUrl: string,
         private _commentService: CommentService,
         private _commentSubjectService: FollowCommentService,
-        private _matDialog: MatDialog,private _activatedRoute:ActivatedRoute) {
-            this._activatedRoute.params.pipe(takeUntil(this.unsubscribe$)).subscribe(params => {
-                if (params && params.id)
-                    this._feedItemId = params.id;
-            })
-         } 
+        private _matDialog: MatDialog, private _activatedRoute: ActivatedRoute) {
+        this._activatedRoute.params.pipe(takeUntil(this.unsubscribe$)).subscribe(params => {
+            if (params && params.id)
+                this.feedItemId = params.id;
+        })
+    }
 
     ngOnInit() { }
 
@@ -61,12 +61,8 @@ export class CommentsComponent implements OnInit {
         this.showReplay = !this.showReplay;
     }
     public vote(type: string, item, isChild: boolean = false) {
-
-        // this._isLikeOrDislike.emit({ type: type, url: item.url, isChild: isChild })
-
-
         if (this.role) {
-            if (event.type == '0') {
+            if (type == '0') {
                 this._commentService.dislikeComment(item.url).pipe(takeUntil(this.unsubscribe$),
 
                     map(() => {
@@ -75,7 +71,7 @@ export class CommentsComponent implements OnInit {
 
                 ).subscribe()
             } else {
-                if (event.type == '1') {
+                if (type == '1') {
                     this._commentService.likeComment(item.url).pipe(takeUntil(this.unsubscribe$),
                         map(() => {
                             this._commentSubjectService.onComment(isChild, false)
@@ -93,11 +89,11 @@ export class CommentsComponent implements OnInit {
 
     public sendMessage($event) {
         const parent = this.comments.url;
-        console.log(this._feedItemId);
+        console.log(this.feedItemId);
         console.log(parent);
-        
+
         if ($event) {
-            // this._commentService.createFeedComment(this._feedItemId, $event, parent).pipe(
+            // this._commentService.createFeedComment(this.feedItemId, $event, parent).pipe(
             //     takeUntil(this.unsubscribe$),
             //     map(() => {
             //         this._commentSubjectService.onComment(parent, true)

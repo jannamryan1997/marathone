@@ -63,7 +63,8 @@ export class IngridientViewComponent implements OnInit {
 
     ngOnInit() {
         this._getFeedById().pipe(takeUntil(this.unsubscribe$)).subscribe();
-        this._checkIsGetComment()
+        this._checkIsGetComment();
+        this._checkIsLike()
     }
 
     private _checkIsGetComment() {
@@ -110,23 +111,20 @@ export class IngridientViewComponent implements OnInit {
         )
     }
 
-    public getButtonsType(event: string) {
-        if (event) {
-            if (this.role) {
-                if (event == 'like') {
-                    this.loading = true
-                    this._feedLikeService.likeFeed(this.feedItem.id).pipe(takeUntil(this.unsubscribe$),
-                        finalize(() => { this.loading = false }),
-                        switchMap((data) => {
-                            return this._getFeedById()
-                        })
-                    ).subscribe()
+    private _checkIsLike() {
+        this._followCommentService.getLikeState().pipe(
+            takeUntil(this.unsubscribe$),
+            switchMap((data: any) => {
+                if (data.isSend) {
+                    if (data.isAuthorizated) {
+                        return this._getFeedById()
 
+                    } else {
+                        this.onClickOpenAuth()
+                    }
                 }
-            } else {
-                this.onClickOpenAuth()
-            }
-        }
+            })
+        ).subscribe()
     }
 
     private _combineObservable(parent?) {

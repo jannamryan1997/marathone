@@ -115,7 +115,7 @@
                 </div>
             </div>
         </div>
-        <app-posts-comments *ngIf="isOpenComments" [comment]="comments" (sendMessage)="sendMessage($event)"></app-posts-comments>
+        <app-posts-comments *ngIf="isOpenComments" [feedItemId]="feedItemId" [comment]="comments" (sendMessage)="sendMessage($event)"></app-posts-comments>
     </div>
 </div>
 

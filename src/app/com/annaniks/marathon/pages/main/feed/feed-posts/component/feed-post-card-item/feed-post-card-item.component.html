@@ -120,12 +120,12 @@
         </div>
     </div>
 
-    <app-settings [feed]="feedItem" [role]="role" (getButtonsType)="getButtonsType($event)"
+    <app-settings [feed]="feedItem" [role]="role" 
         (openChanges)='onClickOpen($event)'></app-settings>
     <div class="posts-comments" *ngIf="isOpen">
-        <app-comments *ngFor="let item of comments" [comments]="item" [role]="role"
+        <app-comments *ngFor="let item of comments" [feedItemId]="feedItem.id" [comments]="item" [role]="role"
             [isShowSubMessages]="isShowSubMessages">
         </app-comments>
-        <app-posts-comments *ngIf="role" [comments]="comments"></app-posts-comments>
+        <app-posts-comments [feedItemId]="feedItem.id" *ngIf="role" [comments]="comments"></app-posts-comments>
     </div>
 </div>

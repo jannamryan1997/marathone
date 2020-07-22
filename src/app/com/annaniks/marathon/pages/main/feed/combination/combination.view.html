@@ -47,7 +47,7 @@
 
     </div>
 
-    <app-settings [feed]="article" [role]="role" (getButtonsType)="getButtonsType($event)"
+    <app-settings [feed]="article" [role]="role"
         (openChanges)='onClickOpen($event)'></app-settings>
     <div class="posts-comments" *ngIf="isOpen">
         <app-comments *ngFor="let item of comments" [comments]="item" [role]="role"

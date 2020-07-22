@@ -21,7 +21,7 @@ export class PostsComments implements OnInit {
     private _feedItemId: number;
     @Input('feedItemId')
     set setfeedItemId($event) {
-        // this._feedItemId = $event
+        this._feedItemId = $event
     }
     private _comment: Comment;
     @Input('comment')

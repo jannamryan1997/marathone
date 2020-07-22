@@ -43,15 +43,14 @@
 
             </div>
             <div class="comments-content" *ngIf="isOpen">
-                <app-comments (sendMessage)="sendMessageForParent($event,item)"
-                    (likeOrDislike)="likeOrDislike($event)" *ngFor="let item of comments" [comments]="item" [role]="role"  [isShowSubMessages]="isShowSubMessages"
-                    [type]="content?.type"></app-comments>
+                <app-comments [feedItemId]="feedItem.id" *ngFor="let item of comments" [comments]="item" [role]="role"
+                    [isShowSubMessages]="isShowSubMessages" [type]="content?.type"></app-comments>
             </div>
-            <app-settings [feed]="feedItem" [role]="role" (getButtonsType)="getButtonsType($event)"
-                (openChanges)='onClickOpen($event)' [type]="content?.type"></app-settings>
+            <app-settings [feed]="feedItem" [role]="role" (openChanges)='onClickOpen($event)' [type]="content?.type">
+            </app-settings>
 
             <div *ngIf="isOpen">
-                <app-posts-comments (sendMessage)="sendMessage($event)" *ngIf="role" [comments]="comments">
+                <app-posts-comments [feedItemId]="feedItem.id" *ngIf="role" [comments]="comments">
                 </app-posts-comments>
             </div>
 

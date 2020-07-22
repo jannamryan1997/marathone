@@ -50,7 +50,8 @@ export class CombinationView implements OnInit {
     ngOnInit() {
         this._initConfig()
         this._getArticleById();
-        this._checkIsGetComment()
+        this._checkIsGetComment();
+        this._checkIsLike()
     }
     private _checkIsGetComment() {
         this._followCommentService.getState().pipe(
@@ -94,23 +95,20 @@ export class CombinationView implements OnInit {
     }
 
 
-    public getButtonsType(event: string) {
-        if (event) {
-            if (this.role) {
-                if (event == 'like') {
-                    this.loading = true;
-                    this._feedLikeService.likeFeed(this.article.id).pipe(takeUntil(this.unsubscribe$),
-                        finalize(() => { this.loading = false }),
-                        switchMap((data) => {
-                            return this._getFeedById()
-                        })
-                    ).subscribe()
+    private _checkIsLike() {
+        this._followCommentService.getLikeState().pipe(
+            takeUntil(this.unsubscribe$),
+            switchMap((data: any) => {
+                if (data.isSend) {
+                    if (data.isAuthorizated) {
+                        return this._getFeedById()
 
+                    } else {
+                        this.onClickOpenAuth()
+                    }
                 }
-            } else {
-                this.onClickOpenAuth()
-            }
-        }
+            })
+        ).subscribe()
     }
     private _getFeedById() {
         return this._feedService.getFeedById(this.article.id).pipe(map((result) => {

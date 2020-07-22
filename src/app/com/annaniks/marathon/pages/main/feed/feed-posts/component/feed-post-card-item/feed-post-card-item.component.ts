@@ -9,7 +9,7 @@ import { FeedService } from '../../../feed.service';
 import { ReceiptResponseData } from 'src/app/com/annaniks/marathon/core/models/receipt';
 import { FormBuilder } from '@angular/forms';
 import { FeedLikeService } from 'src/app/com/annaniks/marathon/core/services/feed-like.service';
-import { Subject, forkJoin, Observable } from 'rxjs';
+import { Subject, forkJoin, Observable, Subscription } from 'rxjs';
 import { takeUntil, switchMap, map } from 'rxjs/operators';
 import { CommentService } from 'src/app/com/annaniks/marathon/core/services/comment.service';
 import { FollowCommentService } from 'src/app/com/annaniks/marathon/core/services/follow-comment.service';
@@ -40,6 +40,8 @@ export class FeedPostCardItemComponent implements OnInit {
     public slideConfig = {};
     public comments: Comment[] = []
     public isShowSubMessages: boolean = false;
+    private _subscription1: Subscription;
+    private _subscription2: Subscription;
     constructor(
         @Inject("FILE_URL") public fileUrl,
         private _followCommentService: FollowCommentService,
@@ -62,6 +64,8 @@ export class FeedPostCardItemComponent implements OnInit {
     }
 
     ngOnInit() {
+        this._checkIsGetComment()
+        this._checkIsLike();
         this.time = moment(this.feedItem.timeStamp).fromNow();
         if (this.feedItem.feed_media && this.feedItem.feed_media.length) {
             this.content = this.feedItem.feed_media[0].content;
@@ -101,11 +105,9 @@ export class FeedPostCardItemComponent implements OnInit {
             this.localImage = "/assets/images/user-icon-image.png";
         }
         this._showseeMore();
-        this._checkIsGetComment()
     }
     private _checkIsGetComment() {
-        this._followCommentService.getState().pipe(
-            takeUntil(this.unsubscribe$),
+        this._subscription1 = this._followCommentService.getState().pipe(
             switchMap((data: any) => {
                 if (data.isSend) {
                     if (!data.isAuthorizated) {
@@ -145,6 +147,8 @@ export class FeedPostCardItemComponent implements OnInit {
     }
 
     public openPropertyModalByImage(): void {
+        this._subscription1.unsubscribe();
+        this._subscription2.unsubscribe()
         const dialogRef = this._matDialog.open(PropertyModal, {
             width: "100%",
             maxWidth: "100vw",
@@ -154,11 +158,16 @@ export class FeedPostCardItemComponent implements OnInit {
                 localImage: this.localImage
             }
         })
-        dialogRef.afterClosed().pipe(takeUntil(this.unsubscribe$),
-            switchMap(() => {
-                return this._getFeedById()
-            })
-        ).subscribe()
+        dialogRef.afterClosed().subscribe(() => {
+            this._getFeedById().subscribe()
+            this._checkIsLike();
+            this._checkIsGetComment()
+        })
+            // switchMap(() => {
+            //     return this._getFeedById()
+            // }
+            
+        
     }
 
     public openPropertyModalByVideo(): void {
@@ -172,21 +181,18 @@ export class FeedPostCardItemComponent implements OnInit {
             }
         })
     }
-    public getButtonsType(event: string) {
-        if (event) {
-            if (this.role) {
-                if (event == 'like') {
-                    this._feedLikeService.likeFeed(this.feedItem.id).pipe(takeUntil(this.unsubscribe$),
-                        switchMap((data) => {
-                            return this._getFeedById()
-                        })
-                    ).subscribe()
-
+    private _checkIsLike() {
+        this._subscription2 = this._followCommentService.getLikeState().pipe(
+            switchMap((data: any) => {
+                if (data.isSend) {
+                    if (data.isAuthorizated) {
+                        return this._getFeedById();
+                    } else {
+                        this.onClickOpenAuth()
+                    }
                 }
-            } else {
-                this.onClickOpenAuth()
-            }
-        }
+            })
+        ).subscribe()
     }
     public onClickOpenAuth(): void {
         this._matDialog.open(AuthModal, {
@@ -232,6 +238,8 @@ export class FeedPostCardItemComponent implements OnInit {
         }
     }
     ngOnDestroy() {
+        this._subscription1.unsubscribe();
+        this._subscription2.unsubscribe()
         this.unsubscribe$.next();
         this.unsubscribe$.complete();
     }

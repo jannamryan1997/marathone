@@ -10,6 +10,7 @@ import { Subject, forkJoin, Observable } from 'rxjs';
 import { AuthModal } from '../auth/auth.modal';
 import { FeedLikeService } from '../../services/feed-like.service';
 import { FeedService } from '../../../pages/main/feed/feed.service';
+import { FollowCommentService } from '../../services/follow-comment.service';
 @Component({
     selector: "app-property",
     templateUrl: "property.component.html",
@@ -36,7 +37,8 @@ export class PropertyModal implements OnInit {
         @Inject("FILE_URL") public fileUrl: string,
         private _matDialog: MatDialog,
         private _feedService: FeedService,
-        private _feedLikeService: FeedLikeService
+        private _feedLikeService: FeedLikeService,
+        private _followCommentService: FollowCommentService
     ) {
         this.feedItem = _data.data;
         this.localImage = this._data.localImage;
@@ -51,8 +53,42 @@ export class PropertyModal implements OnInit {
             this.content = this.feedItem.feed_media[0].content;
         }
         this._showseeMore();
+        this._checkIsGetComment();
+        this._checkIsLike()
     }
+    private _checkIsGetComment() {
+        this._followCommentService.getState().pipe(
+            takeUntil(this.unsubscribe$),
+            switchMap((data: any) => {
+                if (data.isSend) {
+                    if (!data.isAuthorizated) {
+                        if (data.isCombine) {
+                            return this._combineObservable(data.isParent)
+                        } else {
+                            return this._getComments(data.isParent)
+                        }
+                    } else {
+                        this.onClickOpenAuth()
+                    }
+                }
+            })
+        ).subscribe()
+    }
+    private _checkIsLike() {
+        this._followCommentService.getLikeState().pipe(
+            takeUntil(this.unsubscribe$),
+            switchMap((data: any) => {
+                if (data.isSend) {
+                    if (data.isAuthorizated) {
+                        return this._getFeedById()
 
+                    } else {
+                        this.onClickOpenAuth()
+                    }
+                }
+            })
+        ).subscribe()
+    }
     private _showseeMore(): void {
         let titleLength: number;
         if (this.feedItem.title) {
@@ -67,19 +103,7 @@ export class PropertyModal implements OnInit {
             }
         }
     }
-    public sendMessage($event, parent?: string) {
-        if ($event) {
-            this._commentService.createFeedComment(this.feedItem.id, $event, parent).pipe(
-                takeUntil(this.unsubscribe$),
-                switchMap(() => {
-                    return this._combineObservable(parent)
-                },
-                )).subscribe()
-        }
-    }
-    public sendMessageForParent($event, item) {
-        this.sendMessage($event, item.url)
-    }
+
     private _combineObservable(parent?) {
         const combine = forkJoin(
             this._getComments(parent),
@@ -87,50 +111,8 @@ export class PropertyModal implements OnInit {
         )
         return combine
     }
-    public likeOrDislike(event) {
-        if (event) {
-            if (this.role) {
-                let isChild: boolean;
-                if (event.isChild) {
-                    isChild = true
-                }
-                if (event.type == '0') {
-                    this._commentService.dislikeComment(event.url).pipe(takeUntil(this.unsubscribe$),
-                        switchMap(() => {
-                            return this._getComments(isChild)
-                        })).subscribe()
-                } else {
-                    if (event.type == '1') {
-                        this._commentService.likeComment(event.url).pipe(takeUntil(this.unsubscribe$),
-                            switchMap(() => {
-                                return this._getComments(isChild)
-                            })).subscribe()
-                    }
-                }
-            } else {
-                this.onClickOpenAuth()
-            }
 
-        }
 
-    }
-
-    public getButtonsType(event: string) {
-        if (event) {
-            if (this.role) {
-                if (event == 'like') {
-                    this._feedLikeService.likeFeed(this.feedItem.id).pipe(takeUntil(this.unsubscribe$),
-                        switchMap((data) => {
-                            return this._getFeedById()
-                        })
-                    ).subscribe()
-
-                }
-            } else {
-                this.onClickOpenAuth()
-            }
-        }
-    }
     public onClickOpenAuth(): void {
         this._matDialog.open(AuthModal, {
             width: "100%",
