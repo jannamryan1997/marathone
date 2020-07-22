@@ -10,9 +10,11 @@ import { Router } from '@angular/router';
 
 export class DeleteFeedItemComponent implements OnInit {
     public role: string;
+    public showPostModel: boolean = false;
     @Output() deleted = new EventEmitter<any>();
     @Input() content;
     @Input() feedId: number;
+    @Input() mediaUrl: string;
     constructor(private _cookieService: CookieService, private _router: Router) {
         this.role = this._cookieService.get('role');
 
@@ -31,10 +33,16 @@ export class DeleteFeedItemComponent implements OnInit {
         let router: string;
         if (this.content === 'recipeType') {
             router = `/recipe/recipe-post/${this.feedId}`;
-
+            this._router.navigate([router], { queryParams: { feedId: this.feedId, url: this.mediaUrl } })
         }
-        this._router.navigate([router], { queryParams: { feedId: this.feedId } })
+        if (this.content === 'image' || this.content === 'video') {
+            this.showPostModel = true;
+            console.log(this.content);
+            
+        }
+
 
     }
+
 
 }

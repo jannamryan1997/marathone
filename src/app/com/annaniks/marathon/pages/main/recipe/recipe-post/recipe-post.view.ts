@@ -13,7 +13,7 @@ import { startWith, map, finalize } from 'rxjs/operators';
 import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { Observable } from 'rxjs';
 import { FeedService } from '../../feed/feed.service';
-import { ReceiptData, Slider } from '../../../../core/models/receipt';
+import { ReceiptData, Slider} from '../../../../core/models/receipt';
 
 @Component({
     selector: "recipe-post",
@@ -49,9 +49,8 @@ export class RecipePostView implements OnInit {
     public loading: boolean = false;
     public paramsId: number;
     public mediaContent: ReceiptData;
-
     public showmaCronutrients: boolean;
-
+    public mediaUrl: string;
 
     @ViewChild('fruitInput') fruitInput: ElementRef<HTMLInputElement>;
     @ViewChild('auto') matAutocomplete: MatAutocomplete;
@@ -79,6 +78,7 @@ export class RecipePostView implements OnInit {
         },
             this._activatedRouter.queryParams.subscribe((params) => {
                 this.paramsId = params.feedId;
+                this.mediaUrl = params.url;
             })
     }
 
@@ -100,6 +100,7 @@ export class RecipePostView implements OnInit {
             this._getFeedById();
 
         }
+        
     }
 
 
@@ -130,28 +131,30 @@ export class RecipePostView implements OnInit {
             serving_size: this.mediaContent.receipt.serving_size,
             information: this.mediaContent.receipt.information,
             mass: this.mediaContent.receipt.mass,
-            macronutrients:this.mediaContent.receipt.macronutrients,
+            macronutrients: this.mediaContent.receipt.macronutrients,
+            fat: this.mediaContent.receipt.fat,
         })
         for (let item of this.mediaContent.receipt.ingridient) {
             this.ingridientItem.push(new FormControl(item));
         }
         for (let item of this.mediaContent.receipt.preparationSteps) {
-            this.preparationStepItem.push(new FormControl(item.title));
+            this.preparationStepItem.push(new FormControl(item));
         }
         for (let item of this.mediaContent.receipt.tag) {
             this.tag.push(item);
 
         }
         for (let item of this.mediaContent.receipt.imageSlider) {
-            if (this.slides.length) {
+            console.log(this.mediaContent.receipt.imageSlider);
+            if (this.slides.length>0) {
                 this.showCarousel = true;
                 this.showImage = false;
-                console.log(this.showImage);
-
             }
             this.slides.push({ img: item.img });
         }
-
+        if (this.mediaContent.receipt.macronutrients === true) {
+            this.showmaCronutrients = true;
+        }
     }
 
 
@@ -202,7 +205,6 @@ export class RecipePostView implements OnInit {
                 if (typeof data.feed_media[0].content === 'string') {
                     this.mediaContent = JSON.parse(data.feed_media[0].content)
                 }
-                console.log(this.mediaContent);
 
                 this._setPatchValue();
 
@@ -249,7 +251,7 @@ export class RecipePostView implements OnInit {
             carbs: this.recipeFormGroup.value.carbs,
             protein: this.recipeFormGroup.value.protein,
             fat: this.recipeFormGroup.value.fat,
-            macronutrients:this.recipeFormGroup.value.macronutrients,
+            macronutrients: this.recipeFormGroup.value.macronutrients,
             serving_size: this.recipeFormGroup.value.serving_size,
             time: this.recipeFormGroup.value.time,
             information: this.recipeFormGroup.value.information,
@@ -259,7 +261,7 @@ export class RecipePostView implements OnInit {
             mass: this.recipeFormGroup.value.mass,
             imageSlider: this.slides,
             videoLink: this.youtubeLink.value,
-         
+
         }
         const ReceiptResponseData = {
             role: this.role,
@@ -271,32 +273,34 @@ export class RecipePostView implements OnInit {
                 }
             ),
         }
-        if(!this.paramsId){
-        this._userService.postFeed(ReceiptResponseData).pipe(
-            finalize(() => {
-                this.loading = false;
-                this.recipeFormGroup.enable();
-            })
-        )
-            .subscribe((data) => {
-                this._router.navigate(['/feed']);
+        if (!this.paramsId) {
+            this._userService.postFeed(ReceiptResponseData).pipe(
+                finalize(() => {
+                    this.loading = false;
+                    this.recipeFormGroup.enable();
+                })
+            )
+                .subscribe((data) => {
+                    this._router.navigate(['/feed']);
 
-            })
+                })
+        }
+        else if (this.paramsId) {
+            console.log(this.mediaUrl);
+
+            this._feedService.updateFeedById(this.mediaUrl, ReceiptResponseData).pipe(
+                finalize(() => {
+                    this.loading = false;
+                    this.recipeFormGroup.enable();
+                })
+            )
+                .subscribe((data) => {
+                    console.log(data, ReceiptResponseData);
+                    this._router.navigate(['/feed']);
+
+                })
+        }
     }
-    else if(this.paramsId){
-        this._feedService.updateFeedById(this.paramsId,ReceiptResponseData).pipe(
-            finalize(()=>{
-                this.loading=false;
-                this.recipeFormGroup.enable();
-            })
-        )
-        .subscribe((data)=>{
-            console.log(data,ReceiptResponseData);
-            this._router.navigate(['/feed']);
-            
-        })
-    }
-}
 
 
     public removeRecipeImageItem(event, ind): void {

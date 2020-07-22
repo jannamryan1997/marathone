@@ -31,7 +31,7 @@ export interface Ingridient {
 }
 
 export interface PreparationStep {
-    title: string,
+    text: string,
 }
 export interface Tags {
     file: string,

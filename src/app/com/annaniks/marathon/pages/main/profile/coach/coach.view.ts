@@ -16,11 +16,10 @@ import { MatDialog } from '@angular/material/dialog';
 export class CoachView implements OnInit {
     public feedItem: FeedResponseData[] = [];
     public user: UserResponseData;
-    public showTitle: boolean;
     public tab: number = 1;
     public postTab: number = 1;
     public galerryTab: number = 1;
-    public loading:boolean=false;
+    public loading: boolean = false;
     public reviewItem = [{}, {}, {}, {}, {}];
     public scrollDistance = 1;
     public scrollUpDistance = 2;
@@ -29,28 +28,31 @@ export class CoachView implements OnInit {
     private _isCountCalculated = false;
     private _pagesCount: number;
     public throttle = 300;
-
-
-    constructor(private _userService: UserService,private _feedService:FeedService,private _dialog:MatDialog) {
+    public seeMore: boolean = false;
+    public userStatus: string;
+    constructor(private _userService: UserService, 
+        private _feedService: 
+        FeedService, private _dialog: MatDialog) {
         this.user = this._userService.user;
     }
 
-    ngOnInit() { 
+    ngOnInit() {
         this._getFeed(this._pageIndex);
+        this._showseeMore();
     }
 
     private async _getFeed(page: number) {
-        this.loading=true;
+        this.loading = true;
         this.infiniteScrollDisabled = true;
         const data = await this._feedService.feed(this._pageIndex)
-        .pipe(
-            finalize(()=>{
-                this.loading=false;
-            })
-        )
-        .toPromise()
-        if(this.feedItem.length === 0){
-            this.loading=false;
+            .pipe(
+                finalize(() => {
+                    this.loading = false;
+                })
+            )
+            .toPromise()
+        if (this.feedItem.length === 0) {
+            this.loading = false;
         }
         if (!this._isCountCalculated) {
             this._pagesCount = Math.ceil(data.count / 10);
@@ -72,9 +74,28 @@ export class CoachView implements OnInit {
         this.infiniteScrollDisabled = false;
     }
 
-    public onClickSeeMore(): void {
-        this.showTitle = !this.showTitle;
+    private _showseeMore(): void {
+        let titleLength: number;
+        if (this.user.data.status) {
+            titleLength = this.user.data.status.length;
+            this.userStatus = this.user.data.status;
+            if (titleLength > 280) {
+                this.seeMore = true;
+                this.userStatus = this.user.data.status.slice(0, 280);
+            }
+            else {
+                this.seeMore = false;
+            }
+        }
     }
+
+
+    public onClickSeeMore(): void {
+        this.userStatus = this.user.data.status.slice(0, this.user.data.status.length);
+        this.seeMore = false;
+    }
+
+
     public onClickTab(tab): void {
         this.tab = tab;
 
@@ -113,4 +134,12 @@ export class CoachView implements OnInit {
 
     }
 
+  public onPostCreated(event): void {
+        this._pageIndex = 1;
+        this._isCountCalculated = false;
+        this._pagesCount = 0;
+        this.feedItem = [];
+        this._getFeed(this._pageIndex);
+
+    }
 }

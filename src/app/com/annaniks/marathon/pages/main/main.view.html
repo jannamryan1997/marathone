@@ -6,7 +6,7 @@
     <div class="left-content">
         <app-left-menu></app-left-menu>
     </div>
-    <div class="router-outlet">
+    <div class="router-outlet" [ngClass]="{'router':router.url==='/profile/coach' || router.url==='/profile/client' || router.url==='/edit-profile' }">
         <router-outlet></router-outlet>
     </div>
     <div class="right-content">

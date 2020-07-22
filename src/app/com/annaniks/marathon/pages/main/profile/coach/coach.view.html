@@ -62,20 +62,11 @@
 
         <div class="post-content">
             <div class="post-container">
-                <p class="title show-content" [ngClass]="{'show':showTitle}">Contrary to popular belasief, Lorem
-                    Ipsum is not simply random text. It has roots in a piece of clasassical Latin literature
-                    from 45 BC, making over 2000 years . Richard McCsasalintock, a Latin fessor at.
-                    Contrary to popular belasief, Lorem
-                    Ipsum is not simply random text. It has roots in a piece of clasassical Latin literature
-                    from 45 BC, making over 2000 years . Richard McCsasalintock, a Latin fessor at.
-                    Contrary to popular belasief, Lorem
-                    Ipsum is not simply random text. It has roots in a piece of clasassical Latin literature
-                    from 45 BC, making over 2000 years . Richard McCsasalintock, a Latin fessor at.
-                    <span class="title more" (click)="onClickSeeMore()"> ... See More</span>
-                </p>
-
+                <p class="title show-content">{{userStatus}}<span *ngIf="seeMore" class="title more"
+                        (click)="onClickSeeMore()">... See More</span></p>
             </div>
         </div>
+
         <div class="d-flex mt-4">
             <div class="btn-content display-flex m-auto">
                 <button class="btn mr-3">Body Building</button>
@@ -110,7 +101,10 @@
                     <p class="post-item">Music</p>
                 </div>
             </div>
-            <div *ngIf="postTab===1">
+            <div *ngIf="postTab===1" class="post-container">
+                    <div *ngIf="user">
+                            <app-create-publication [feedItem]="feedItem" (postCreateEvent)="onPostCreated($event)"></app-create-publication>
+                        </div>
                 <div *ngIf="feedItem?.length > 0" class="feed-item" infinite-scroll
                     [infiniteScrollDistance]="scrollDistance" [infiniteScrollUpDistance]="scrollUpDistance"
                     [infiniteScrollThrottle]="throttle" [infiniteScrollDisabled]="infiniteScrollDisabled"

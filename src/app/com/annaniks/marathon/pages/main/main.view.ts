@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { UserService } from '../../core/services/user.service';
 import { CookieService } from 'ngx-cookie';
+import { Router } from '@angular/router';
 
 @Component({
     selector: "main-view",
@@ -10,7 +11,13 @@ import { CookieService } from 'ngx-cookie';
 
 export class MainView implements OnInit {
     public getmeiD: string;
-    constructor(private _profileUserService: UserService, private _cookieService: CookieService) {
+    constructor(
+        private _profileUserService: UserService, 
+        private _cookieService: CookieService,
+        public router:Router,
+        ) {
+            console.log(this.router.url);
+            
     }
 
     ngOnInit() {

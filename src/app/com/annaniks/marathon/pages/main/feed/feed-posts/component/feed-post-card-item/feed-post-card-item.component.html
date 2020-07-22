@@ -10,17 +10,18 @@
                 {{feedItem?.creator_client_info?.user?.first_name}}</p>
             <p class="time mb-0">{{time}}</p>
         </div>
-<div (clickOutside)="onClickedOutside($event)">
-    <span class="material-icons icon" (click)="showDeletedModal()" >
-        more_vert
-    </span>
-    <div class="position-relative" *ngIf="showDeleteModal">
-        <app-delete-feed-item (deleted)="deleteFeedItem($event)" [content]="content?.type" [feedId]="feedItem.id"></app-delete-feed-item>
+        <div (clickOutside)="onClickedOutside($event)">
+            <span class="material-icons icon" (click)="showDeletedModal()">
+                more_vert
+            </span>
+            <div class="position-relative" *ngIf="showDeleteModal">
+                <app-delete-feed-item (deleted)="deleteFeedItem($event)" [content]="content?.type"
+                    [feedId]="feedItem.id" [mediaUrl]="feedItem.feed_media[0].url"></app-delete-feed-item>
+            </div>
+        </div>
+
     </div>
-</div>
-      
-    </div>
-    
+
     <div class="post-content">
         <div class="post-container">
             <div class="title-content">
@@ -53,6 +54,9 @@
                             <img [src]="slide.img" alt="" width="100%" class="chicken-image">
                         </div>
                     </ngx-slick-carousel>
+                    <img *ngIf="receipt?.imageSlider.length===0 && receipt?.videoLink ==='' " src="/assets/images/food.png" alt=""
+                        width="100%" class="chicken-image">
+
                     <div class="comments  d-flex position-absolute w-100 justify-content-between">
                         <div class="comments-description">
                             <p class="text">Coloris</p>
@@ -100,7 +104,8 @@
             <!-----ARTIVLE POST-->
             <div class="d-none" [ngClass]="{'d-block':content?.type ==='article'}">
                 <div class="post-container p-0">
-                    <img [src]="setImage()" class="food-image" alt="Cinque Terre" routerLink="/combination/{{feedItem.id}}">
+                    <img [src]="setImage()" class="food-image" alt="Cinque Terre"
+                        routerLink="/combination/{{feedItem.id}}">
                     <div class="combinations-description">
                         <p class="title">{{feedItem?.title}}</p>
                         <div class="d-flex text-align-centre">
@@ -118,10 +123,12 @@
             </div>
         </div>
     </div>
-    <app-settings [feed]="feedItem" [role]="role" (getButtonsType)="getButtonsType($event)" (openChanges)='onClickOpen($event)'></app-settings>
+    <app-settings [feed]="feedItem" [role]="role" (getButtonsType)="getButtonsType($event)"
+        (openChanges)='onClickOpen($event)'></app-settings>
     <div class="posts-comments" *ngIf="isOpen">
-        <app-comments  (sendMessage)="sendMessageForParent($event,item)" (likeOrDislike)="likeOrDislike($event)" 
-        *ngFor="let item of comments" [comments]="item" [role]="role" [isShowSubMessages]="isShowSubMessages"></app-comments>
+        <app-comments (sendMessage)="sendMessageForParent($event,item)" (likeOrDislike)="likeOrDislike($event)"
+            *ngFor="let item of comments" [comments]="item" [role]="role" [isShowSubMessages]="isShowSubMessages">
+        </app-comments>
         <app-posts-comments (sendMessage)="sendMessage($event)" *ngIf="role" [comments]="comments"></app-posts-comments>
     </div>
 </div>

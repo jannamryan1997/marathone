@@ -67,7 +67,7 @@
                                 <div class="profile-content">
                                     <div class="main-layout">
                                         <div class="profile-container">
-                                            <form [formGroup]="profileFormGroup">
+                                            <form [formGroup]="profileFormGroup" (change)="changeProfile($event)">
                                                 <div class="display-flex">
                                                     <div class="form-group">
                                                         <label>First Name</label>
@@ -85,7 +85,7 @@
                                                     <input type="text" class="form-input w-100"
                                                         formControlName="location" placeholder="">
                                                 </div>
-                                                <div class="autocomplete">
+                                                <div class="autocomplete form-grup-redius">
                                                     <label>Languages</label>
                                                     <p-autoComplete class="w-100"
                                                         [suggestions]="filteredCountriesMultiple"
@@ -97,20 +97,20 @@
 
 
 
-                                                <div class="form-group">
+                                                <div class="form-group  form-grup-redius">
                                                     <label>Status</label>
                                                     <textarea type="text" class="form-input w-100 text-area"
                                                         formControlName="status"></textarea>
                                                 </div>
                                                 <div class="autocomplete">
                                                     <label>Speciality</label>
-                                                    <p-autoComplete class="w-100" formControlName="speciality"
+                                                    <p-autoComplete class="w-100 form-grup-redius" formControlName="speciality"
                                                         [suggestions]="filteredSpecialitesMultiple"
                                                         (completeMethod)="filterSpecialitypMultiple($event)"
                                                         [minLength]="1" placeholder="" field="name" [multiple]="true">
                                                     </p-autoComplete>
                                                 </div>
-                                                <div class="form-group d-flex  flex-column">
+                                                <div class="form-group d-flex  flex-column form-grup-redius">
                                                     <label>Social Accounts</label>
                                                     <div class="display-flex">
                                                         <div class="link-form">
@@ -139,12 +139,12 @@
 
                                                 </div>
 
-                                                <div class="form-group about-form" *ngIf="role=='coach'">
+                                                <div class="form-group about-form form-grup-redius" *ngIf="role=='coach'">
                                                     <label>About</label>
                                                     <textarea type="text" class="form-input w-100 text-area"
                                                         formControlName="about" placeholder=""></textarea>
                                                 </div>
-                                                <div class="form-group about-form" *ngIf="role=='coach'">
+                                                <div class="form-group about-form form-grup-redius" *ngIf="role=='coach'">
                                                     <label>Certificates</label>
                                                     <app-information [profileCertificates]="true"
                                                         *ngFor="let item of certificates;let ind=index"
@@ -182,7 +182,7 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="form-group about-form" *ngIf="role=='coach'">
+                                                <div class="form-group about-form form-grup-redius" *ngIf="role=='coach'">
                                                     <label>Education</label>
                                                     <app-education [profileEducation]="true"
                                                         *ngFor="let item of education.controls,let ind=index"
@@ -192,7 +192,7 @@
                                                             (click)="addEducatin()">Add more</span></button>
                                                 </div>
 
-                                                <div class="form-group about-form" *ngIf="role=='coach'">
+                                                <div class="form-group about-form form-grup-redius" *ngIf="role=='coach'">
                                                     <label>Experience</label>
                                                     <app-experience [profileExperience]="true"
                                                         *ngFor="let item of experience.controls,let ind=index"

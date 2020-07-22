@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="335" height="399" viewBox="0 0 335 399">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #589cfe;
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <path id="Packages_icon" data-name="Packages icon" class="cls-1" d="M231.188,203.642L214.1,213.989V400l153.894-92.964V121.027Zm27.851-166.8L199.855,0.993,41.7,96.524l59.26,35.843Zm98.9,59.686-68.2-40.646-158.078,95.53,9.021,4.884,59.177,35.762,58.867-35.513ZM119.712,219.784L91.386,204.552V157.2L32.993,122.02V306.705l152.778,92.3V214.32L119.712,174.5v45.281Z" transform="translate(-33 -1)"/>
+</svg>

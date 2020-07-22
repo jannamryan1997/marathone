@@ -89,7 +89,7 @@
                     <input formControlName="title" type="text" class="form-input w-100" placeholder="Type Title">
                 </div>
                 <div *ngFor="let contentText of getControls('contentTexts');let i=index"
-                    class="form-group d-flex align-items-start" [formGroup]="contentText">
+                    class="form-group d-flex align-items-start form-grup-redius" [formGroup]="contentText">
                     <label>Content / Text</label>
                     <ckeditor [config]="config" formControlName="attribute" class="form-input w-100"></ckeditor>
                     <span (click)="removeTextContent(i)" class="material-icons close">
@@ -104,7 +104,7 @@
                         *ngFor="let image of getControls('images');let i=index"
                         [contentImageItem]="image.value"></app-content-image>
                 </div>
-                <div *ngIf="isShowImageRedacor" class="form-group broves-file-form d-flex align-items-start">
+                <div *ngIf="isShowImageRedacor" class="form-group broves-file-form d-flex align-items-start form-grup-redius">
                     <label>Content / Image</label>
                     <div class="m-auto">
 
@@ -124,7 +124,7 @@
                         *ngFor="let video of getControls('videos');let i=index" class="w-100">
                     </app-content-video>
                 </div>
-                <div *ngIf="isShowVideoRedactor" class="form-group broves-file-form d-flex align-items-start">
+                <div *ngIf="isShowVideoRedactor" class="form-group broves-file-form d-flex align-items-start form-grup-redius">
                     <label>Content / Youtube Image</label>
                     <div class="m-auto">
                         <button class="update-video-btn">

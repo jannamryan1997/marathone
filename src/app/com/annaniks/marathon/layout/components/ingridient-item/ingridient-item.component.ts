@@ -39,8 +39,6 @@ export class IngridientItemComponent implements OnInit {
 
     private _handleControlChanges(): void {
         this.ingridientFormGroup.valueChanges.subscribe((value) => {
-            console.log(value);
-            
           this.onChange( { name:value.name,value:value.value })
         })
       }

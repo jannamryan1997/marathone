@@ -14,9 +14,10 @@ import { UserResponseData } from '../../core/models/user';
 })
 
 export class HeaderComponent implements OnInit {
-    public profileUser:UserResponseData;
+    public profileUser: UserResponseData;
     public showPfofileMenu: boolean = false;
-    public localImage:string="/assets/images/user-icon-image.png";
+    public leftMenuItem: MenuItem[] = [];
+    public localImage: string = "/assets/images/user-icon-image.png";
 
     public menuItem: MenuItem[] = [
         { routerLink: "/feed", title: "Feed" },
@@ -24,15 +25,26 @@ export class HeaderComponent implements OnInit {
         { routerLink: "#", title: "Recipes" },
         { routerLink: "#", title: "Articles" },
         { routerLink: "#", title: "Q & A" },
-        { routerLink: "#", title: "Packages"},
+        { routerLink: "#", title: "Packages" },
     ]
+
+
+
     constructor(private _profileUserService: UserService,
         private _mathDialog: MatDialog,
         private _cookieService: CookieService,
         private _router: Router,
         @Inject("FILE_URL") private _fileUrl,
-    ) { 
-      
+    ) {
+        const role = this._cookieService.get('role') || '';
+        this.menuItem = [
+            { routerLink: `/feed`, title: "Home", activeIcon: "assets/icons/Profile_blue.svg" },
+            { routerLink: `/profile/${role}`, title: "Profile", activeIcon: "assets/icons/Profile_blue.svg" },
+            { routerLink: "#", title: "Dashboard", activeIcon: "assets/icons/Profile_blue.svg" },
+            // { routerLink: "#", title: "Marathon", activeIcon: "assets/icons/Profile_blue.svg" },
+            // { routerLink: "#", title: "My Recips", activeIcon: "assets/icons/Profile_blue.svg" },
+            // { routerLink: "#", title: "My Training", activeIcon: "assets/icons/Profile_blue.svg" },
+        ]
     }
 
     ngOnInit() { }
@@ -49,27 +61,27 @@ export class HeaderComponent implements OnInit {
     }
 
     get showUserData(): boolean {
-        if(this._profileUserService.user){
+        if (this._profileUserService.user) {
 
-        this.profileUser = this._profileUserService.user;
-        if( this.profileUser.data.avatar){
-            this.localImage = this._fileUrl + this.profileUser.data.avatar;
-        }
-   
-        return this._profileUserService.isAuthorized;
+            this.profileUser = this._profileUserService.user;
+            if (this.profileUser.data.avatar) {
+                this.localImage = this._fileUrl + this.profileUser.data.avatar;
+            }
+
+            return this._profileUserService.isAuthorized;
         }
     }
-    
+
     onClickedOutside(e: Event) {
-    this.showPfofileMenu=false;
-      }
+        this.showPfofileMenu = false;
+    }
 
     public logOut(): void {
         this._cookieService.removeAll();
         this._profileUserService.isAuthorized = false;
         this._profileUserService.user = null;
         this._router.navigate(['/feed']);
-         location.reload();
+        location.reload();
     }
 
 }

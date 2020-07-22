@@ -21,7 +21,6 @@ export class CreatePublicationComponent implements OnInit {
     @ViewChild('inputImageReference') private _inputImageReference: ElementRef;
     @ViewChild('inputVideoReference') private _inputVideoReference: ElementRef;
 
-    private _videoId: string;
     public uploadType: string;
     public showemoji: boolean = false;
     public controImageItem: string = "";

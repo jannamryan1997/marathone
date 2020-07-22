@@ -47,8 +47,8 @@ export class FeedService {
         // }
     }
 
-    public updateFeedById(feedId: number, body:any): Observable<any> {
-        return this._httpClient.put(this._baseUrl + `/feed/feeds/${feedId}/`, body);
+    public updateFeedById(feedMediaUrl:string, body:any): Observable<any> {
+        return this._httpClient.put(feedMediaUrl, body);
     }
 
 

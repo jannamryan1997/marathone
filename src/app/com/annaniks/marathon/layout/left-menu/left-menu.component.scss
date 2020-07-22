@@ -40,6 +40,9 @@
         a {
             margin-top: 30px;
             display: flex;
+            &:first-child{
+                margin-top:  0 !important;
+            }
         }
     }
     .follow{
@@ -54,7 +57,7 @@
         border-radius: 6px;
         opacity: 1;
         margin: 10px 0;
-        padding: 15px 7px;
+        padding: 11px 7px;
         &:first-child{
             margin-top: 0 !important;
         }
