@@ -9,7 +9,11 @@ const RecipeRoutes: Routes = [
             { path: "", pathMatch: 'full', redirectTo: 'recipe-post' },
             {
                 path: "recipe-post",
-                loadChildren: () => import('./recipe-post/recipe-post.module').then(m => m.RecipePostModule)
+                loadChildren: () => import('./recipe-post/recipe-post.module').then(m => m.RecipePostModule),
+            },
+            {
+                path: "recipe-post/:id",
+                loadChildren: () => import('./recipe-post/recipe-post.module').then(m => m.RecipePostModule),
             },
             {
                 path: "information",

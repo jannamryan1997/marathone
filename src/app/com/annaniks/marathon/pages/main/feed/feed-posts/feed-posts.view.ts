@@ -1,9 +1,11 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { FeedService } from '../feed.service';
-import {  FeedResponseData } from '../../../../core/models';
+import { FeedResponseData } from '../../../../core/models';
 import { UserService } from '../../../../core/services/user.service';
 import { finalize } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { RemoveModal } from '../../../../core/modals';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
     selector: "feed-posts-view",
@@ -23,7 +25,11 @@ export class FeedPostsView implements OnInit, OnDestroy {
     public scrollUpDistance = 2;
     public infiniteScrollDisabled = false;
     public loading: boolean = false;
-    constructor(public _feedService: FeedService, public userService: UserService) { }
+    constructor(
+        public _feedService: FeedService,
+        public userService: UserService,
+        private _dialog: MatDialog,
+    ) { }
 
     ngOnInit() {
         this._getFeed(this._pageIndex);
@@ -31,24 +37,16 @@ export class FeedPostsView implements OnInit, OnDestroy {
 
 
     private async _getFeed(page: number) {
-        this.loading=true;
         this.infiniteScrollDisabled = true;
         const data = await this._feedService.feed(this._pageIndex)
-        .pipe(
-            finalize(()=>{
-                this.loading=false;
-            })
-        )
-        .toPromise()
-        if(this.feedItem.length === 0){
-            this.loading=false;
+            .toPromise()
+        if (this.feedItem.length === 0) {
         }
         if (!this._isCountCalculated) {
             this._pagesCount = Math.ceil(data.count / 10);
             this._isCountCalculated = true;
         }
         if (this._pageIndex > this._pagesCount) {
-            this.loading=false;
             return;
         }
 
@@ -62,9 +60,6 @@ export class FeedPostsView implements OnInit, OnDestroy {
             }
         }
         this.infiniteScrollDisabled = false;
-      console.log(this.feedItem);
-      
-
     }
 
     public onPostCreated(event): void {
@@ -86,16 +81,25 @@ export class FeedPostsView implements OnInit, OnDestroy {
 
     public deletedFeedItem(event): void {
         if (event) {
-            this._feedService.deleteFeed(event).subscribe((data) => {
-                this._pageIndex = 1;
-                this._isCountCalculated = false;
-                this._pagesCount = 0;
-                this.feedItem = [];
-                this._getFeed(this._pageIndex)
+            const dialogRef = this._dialog.open(RemoveModal, {
+                width: "400px"
+            })
+            dialogRef.afterClosed().subscribe((data) => {
+                if (data === "deleted") {
+                    this._feedService.deleteFeed(event).subscribe((data) => {
+                        this._pageIndex = 1;
+                        this._isCountCalculated = false;
+                        this._pagesCount = 0;
+                        this.feedItem = [];
+                        this._getFeed(this._pageIndex)
+                    })
+                }
+
             })
         }
 
     }
+
 
 
     ngOnDestroy() {

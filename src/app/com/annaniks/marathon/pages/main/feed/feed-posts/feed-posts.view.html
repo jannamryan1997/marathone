@@ -1,5 +1,4 @@
 <div class="feed-container">
-        <spinner-loading *ngIf="loading"></spinner-loading>
     <div *ngIf="userService.user">
         <app-create-publication [feedItem]="feedItem" (postCreateEvent)="onPostCreated($event)"></app-create-publication>
     </div>

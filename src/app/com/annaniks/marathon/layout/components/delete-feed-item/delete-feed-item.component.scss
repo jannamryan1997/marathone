@@ -1,15 +1,17 @@
+.delete-container{
+    position: absolute;
+    z-index: 9;
+    right: -43px;
+    top: 12px;
+    bottom: 0;
+}
 .deleted-content{
     width: 200px;
-    height: 105px;
+    height: auto;
     background: #FFFFFF 0% 0% no-repeat padding-box;
     box-shadow: 2px 30px 43px #5C687B36;
     border: 0.5px solid #E3ECFD;
     opacity: 1;
-    position: absolute;
-    z-index: 9;
-    right: -42px;
-    bottom: 0;
-    top: 0;
     border-radius: 10px;
     .item{
         cursor: pointer;
@@ -17,6 +19,7 @@
         &:hover{
             background: #F7F7FC 0% 0% no-repeat padding-box !important;
             opacity: 1;
+            border-radius: 10px;
         }
         .title{
             color: #45535C;

@@ -1,0 +1,29 @@
+.remove-modal {
+    align-items: center;
+    text-align: center;
+
+    .icon {
+        cursor: pointer;
+        color: #BBCDDF;
+        font-weight: bold;
+        align-items: flex-end;
+    }
+
+    .title {
+        color: #45535C;
+        font-size: 20px;
+        line-height: 50px;
+    }
+
+    .delete-btn {
+        background: #589CFE 0% 0% no-repeat padding-box;
+        box-shadow: -5.29px 7px 10px #589BFD36;
+        border-radius: 23px;
+        opacity: 1;
+        padding: 5px 36px;
+        color: #ffffff;
+        font-size: 16px;
+        line-height: 33px;
+
+    }
+}
