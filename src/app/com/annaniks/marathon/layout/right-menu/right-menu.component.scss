@@ -7,12 +7,14 @@
 
 .right-menu {
     .title {
-        @include text(20px, 20px, #65a4fe, EncodeSans-Bold);
-        margin: 33px 0 31px 0;
+        @include text(16px, 19px, #65a4fe, EncodeSans-Bold);
+        margin-bottom: 20px;
+        margin-left: 10px;
     }
     .text{
         @include text(14px,16px, #bbcddf, EncodeSans-Bold);
         cursor: pointer;
+        margin-right: 20px;
     }
 
     .contact {
@@ -77,9 +79,15 @@
 .follow-item {
     background: #F7F7FC 0% 0% no-repeat padding-box;
     opacity: 1;
-    margin: 10px 0;
+    margin: 4px 0;
     padding: 0 !important;
     height: 70px;
+    .follow-item-content{
+        padding: 0 8px;
+        .follow-btn{
+            margin-left: 15px !important;
+        }
+    }
 }
 
 .position {

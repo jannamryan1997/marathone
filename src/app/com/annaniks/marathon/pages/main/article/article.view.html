@@ -91,7 +91,7 @@
                 <!--  -->
                 <div *ngFor="let control of getControls(); let i=index" [formGroup]="control">
                     <div [ngSwitch]="control.get('type').value">
-                        <div *ngSwitchCase="'text'" class="form-group d-flex align-items-start">
+                        <div *ngSwitchCase="'text'" class="form-group d-flex align-items-start form-grup-redius">
                             <label>Content / Text</label>
                             <ckeditor [config]="config" formControlName="value" class="form-input w-100"></ckeditor>
                             <span (click)="removeControl(true,i)" class="material-icons close">
@@ -112,7 +112,7 @@
                     </div>
 
                 </div>
-                <div *ngIf="isShowImageRedacor" class="form-group broves-file-form d-flex align-items-start">
+                <div *ngIf="isShowImageRedacor" class="form-group broves-file-form d-flex align-items-start form-grup-redius">
                     <label>Content / Image</label>
                     <div class="m-auto">
 
@@ -127,7 +127,7 @@
                     </span>
                 </div>
 
-                <div *ngIf="isShowVideoRedactor" class="form-group broves-file-form d-flex align-items-start">
+                <div *ngIf="isShowVideoRedactor" class="form-group broves-file-form d-flex align-items-start form-grup-redius">
                     <label>Content / Youtube Image</label>
                     <div class="m-auto">
                         <button class="update-video-btn">

@@ -54,15 +54,15 @@ header {
             .serch-content {
                 display: flex;
                 justify-content: space-between;
-                padding: 9px 25px;
-                background: #F3F3FA 0% 0% no-repeat padding-box;
-                border: 0.5px solid #bbcddf;
-                border-radius: 24px;
+                padding: 7px 25px;
+                background: #F3F3FA44 0% 0% no-repeat padding-box;
+                border: 0.5px solid #E3ECFD;
+                border-radius: 20px;
                 opacity: 1;
-                width: 230px;
+                width: 310px;
 
                 .search-input {
-                    width: calc(100% - 40px);
+                    width: calc(100% - 40px) !important;
                     border: none;
                     background: none;
                     @include text(16px, 20px, #bbcddf, YuGothicUI-Regular);
@@ -75,6 +75,13 @@ header {
                 .search-icon {
                     font-size: 22px;
                     color: #bbcddf;
+                }
+            }
+            .icon-item{
+                .icon{
+                    width: 22px;
+                    margin: 0 20px;
+                    cursor: pointer;
                 }
             }
 

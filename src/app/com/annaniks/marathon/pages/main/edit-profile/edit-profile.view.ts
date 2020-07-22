@@ -204,7 +204,7 @@ export class EditProfileView implements OnInit {
         this._userService.putCoatch(this._userService.user.data.id, this.user.data)
             .subscribe((data) => {
                 this._userService.getCoatch().subscribe((data) => {
-                    this._router.navigate([`/profile/${role}`]);
+                    // this._router.navigate([`/profile/${role}`]);
                 })
             })
 
@@ -223,7 +223,7 @@ export class EditProfileView implements OnInit {
             this._userService.putClient(this._userService.user.data.id, this.user.data)
                 .subscribe((data) => {
                     this._userService.getClient().subscribe((data) => {
-                        this._router.navigate([`/profile/${role}`])
+                        // this._router.navigate([`/profile/${role}`])
                     })
                 })
     }
@@ -352,7 +352,15 @@ export class EditProfileView implements OnInit {
 
 
 
+    public changeProfile(event): void {
+        if (event && this.role === 'coach') {
+            this._updateCoatch();
+        }
+        else if( event && this.role==='client'){
+            this._updateClient();
+        }
 
+    }
 
 
 

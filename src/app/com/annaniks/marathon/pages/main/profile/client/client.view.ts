@@ -18,7 +18,6 @@ import { Subject } from 'rxjs';
 export class ClientView implements OnInit {
     public feedItem: FeedResponseData[] = [];
     public user: UserResponseData;
-    public showTitle: boolean;
     public tab: number = 1;
     public galerryTab: number = 1;
     public postTab: number = 1;
@@ -33,6 +32,8 @@ export class ClientView implements OnInit {
     private _pagesCount: number;
     public userId: number;
     private unsubscribe$ = new Subject<void>()
+    public userStatus: string;
+    public seeMore: boolean = false;
 
     constructor(
         private _profileUserService: UserService,
@@ -48,6 +49,7 @@ export class ClientView implements OnInit {
 
     ngOnInit() {
         this._getFeed(this._pageIndex);
+        this._showseeMore();
     }
     private async _getFeed(page: number) {
         this.loading = true;
@@ -83,10 +85,27 @@ export class ClientView implements OnInit {
 
 
     }
+    private _showseeMore(): void {
+        let titleLength: number;
+        if (this.user.data.status) {
+            titleLength = this.user.data.status.length;
+            this.userStatus = this.user.data.status;
+            if (titleLength > 280) {
+                this.seeMore = true;
+                this.userStatus = this.user.data.status.slice(0, 280);
+            }
+            else {
+                this.seeMore = false;
+            }
+        }
+    }
 
     public onClickSeeMore(): void {
-        this.showTitle = !this.showTitle;
+        this.userStatus = this.user.data.status.slice(0, this.user.data.status.length);
+        this.seeMore = false;
     }
+
+
     public onClickTab(tab): void {
         this.tab = tab;
 
@@ -129,6 +148,15 @@ export class ClientView implements OnInit {
 
             })
         }
+
+    }
+
+    public onPostCreated(event): void {
+        this._pageIndex = 1;
+        this._isCountCalculated = false;
+        this._pagesCount = 0;
+        this.feedItem = [];
+        this._getFeed(this._pageIndex);
 
     }
     ngOnDestroy() {

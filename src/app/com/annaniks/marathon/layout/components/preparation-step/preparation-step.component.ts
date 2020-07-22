@@ -25,7 +25,7 @@ export class PreparationStepComponent implements OnInit, ControlValueAccessor {
 
   private _handleControlChanges(): void {
     this.stepControl.valueChanges.subscribe((value) => {
-      this.onChange({ title: value })
+      this.onChange({text:value})
     })
   }
 

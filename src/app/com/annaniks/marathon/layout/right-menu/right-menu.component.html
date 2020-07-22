@@ -1,30 +1,35 @@
 <div class="right-menu" [ngClass]="{'position':showUserData}">
-    <div class="follow">
-        <div class="display-flex mt-0">
+    <div class="right-container">
+        <div class="follow">
+            <div class="d-flex mt-0 justify-content-between">
                 <p class="title">Suggestions</p>
                 <p class="text">See All</p>
-        </div>
-       
-        <div *ngFor="let item of followItem" class="user-item follow-item d-flex">
-            <img [src]="item?.image" class="user-image" alt="Cinque Terre">
-            <div>
-                <p class="name">{{item?.name}}</p>
-                <p class="email-title">{{item?.email}}</p>
             </div>
-            <button type="button" class="round follow-btn">Follow</button>
+
+            <div *ngFor="let item of followItem" class="user-item follow-item d-flex">
+                <div class="follow-item-content d-flex">
+                    <img [src]="item?.image" class="user-image" alt="Cinque Terre">
+                    <div>
+                        <p class="name">{{item?.name}}</p>
+                        <p class="email-title">{{item?.email}}</p>
+                    </div>
+                    <button type="button" class="round follow-btn">Follow</button>
+                </div>
+
+            </div>
         </div>
-    </div>
-    <div class="contact" *ngIf="showUserData">
-        <div class="serch-content">
-            <input type="tex" class="search-input" placeholder="Contacts">
-            <span class="material-icons search-icon">
-                search
-            </span>
-        </div>
-        <div class="contact-item">
-            <div *ngFor="let item of contactItem" class="user-item d-flex">
-                <img [src]="item?.image" class="user-image" alt="Cinque Terre">
-                <p class="name">{{item?.name}}</p>
+        <div class="contact" *ngIf="showUserData">
+            <div class="serch-content">
+                <input type="tex" class="search-input" placeholder="Contacts">
+                <span class="material-icons search-icon">
+                    search
+                </span>
+            </div>
+            <div class="contact-item">
+                <div *ngFor="let item of contactItem" class="user-item d-flex">
+                    <img [src]="item?.image" class="user-image" alt="Cinque Terre">
+                    <p class="name">{{item?.name}}</p>
+                </div>
             </div>
         </div>
     </div>

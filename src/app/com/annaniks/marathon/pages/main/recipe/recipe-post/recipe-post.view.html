@@ -64,7 +64,7 @@
                 <label [ngClass]="{'form-lable':checkIsValid('title')}">Recipe Title</label>
                 <input type="text" class="form-input w-100" placeholder="Type Title" formControlName="title">
             </div>
-            <div class="form-group pt-15 pl-0 pr-0 pb-0">
+            <div class="form-group pt-15 pl-0 pr-0 pb-0 form-grup-redius">
                 <label>Ingridient</label>
                 <!-- <div class="form-group  d-flex">
                 <input type="text" class="form-input w-100" placeholder="Search Ingridient">
@@ -101,7 +101,7 @@
         </div> -->
 
 
-            <div class="form-group">
+            <div class="form-group form-grup-redius">
                 <label>Caloris</label>
                 <div class="checked  m-auto">
                     <input type="radio" class="radio" id="Auto Calcualted" name="form" value="Auto Calcualted" disabled>
@@ -194,7 +194,7 @@
                 </div>
 
             </div>
-            <div class="form-group pt-15 pl-0 pr-0 pb-0">
+            <div class="form-group pt-15 pl-0 pr-0 pb-0 form-grup-redius">
                 <label>Preparation Steps</label>
                 <div class="preparation" *ngFor="let control of preparationStepItem.controls; let ind=index">
                     <app-preparation-step [formControl]="preparationStepItem.controls[ind]" [index]="ind+1">
@@ -203,14 +203,14 @@
                 <button class="add-btn d-flex w-100"><span class="m-auto btn-text" (click)="addPreparationStep()">Add
                         Step</span></button>
             </div>
-            <div class="form-group">
+            <div class="form-group form-grup-redius">
                 <label  [ngClass]="{'form-lable':checkIsValid('information')}">Information</label>
                 <textarea type="text" class="form-input w-100 information-input" placeholder="Type Recipe info here"
                     formControlName="information"  [ngClass]="{'form-title':checkIsValid('information')}"></textarea>
 
             </div>
 
-            <div class="form-group">
+            <div class="form-group form-grup-redius">
                 <label>Tags</label>
                 <div class="d-flex justify-content-end">
                     <div class="tags w-100 d-flex">

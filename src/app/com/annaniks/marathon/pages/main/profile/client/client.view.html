@@ -1,5 +1,5 @@
 <div class="main-container">
-        <div class="user-main">
+    <div class="user-main">
         <div class="review-content display-flex">
             <p class="name">{{user?.data.user?. email}}</p>
             <div class=" display-flex">
@@ -55,26 +55,14 @@
                         <p class="count">600</p>
                         <p class="statistic-title">Energy</p>
                     </div>
-    
+
                 </div>
             </div>
         </div>
-    
         <div class="post-content">
             <div class="post-container">
-                <p class="title show-content" [ngClass]="{'show':showTitle}">Contrary to popular belasief, Lorem
-                    Ipsum is not simply random text. It has roots in a piece of clasassical Latin literature
-                    from 45 BC, making over 2000 years . Richard McCsasalintock, a Latin fessor at.
-                    Contrary to popular belasief, Lorem
-                    Ipsum is not simply random text. It has roots in a piece of clasassical Latin literature
-                    from 45 BC, making over 2000 years . Richard McCsasalintock, a Latin fessor at.
-                    Contrary to popular belasief, Lorem
-                    Ipsum is not simply random text. It has roots in a piece of clasassical Latin literature
-                    from 45 BC, making over 2000 years . Richard McCsasalintock, a Latin fessor at.
-                    <span class="title more" (click)="onClickSeeMore()"> ... See More</span>
-                </p>
-            
-    
+                <p class="title show-content">{{userStatus}}<span *ngIf="seeMore" class="title more"
+                        (click)="onClickSeeMore()">... See More</span></p>
             </div>
         </div>
         <div class="d-flex mt-4">
@@ -85,40 +73,43 @@
             </div>
         </div>
         <div class="events-tab d-flex" [ngSwitch]="tab">
-          
+
             <div class="tab-item" (click)="onClickTab(1)" [ngClass]="{'activeTab':tab===1}">
                 <p class="tab-text">Posts</p>
             </div>
             <div class="tab-item" (click)="onClickTab(2)" [ngClass]="{'activeTab':tab===2}">
                 <p class="tab-text">Gallery</p>
             </div>
-        
+
         </div>
         <div class="events-header" *ngIf="tab===1">
             <div class="posts-tab">
                 <div class="btn-content display-flex">
-                    <p class="post-item" (click)="onClickPostEventsTab(1)" [ngClass]="{'activePostButton':postTab===1}">All</p>
-                    <p class="post-item"   (click)="onClickPostEventsTab(2)" [ngClass]="{'activePostButton':postTab===2}">Articles</p>
+                    <p class="post-item" (click)="onClickPostEventsTab(1)" [ngClass]="{'activePostButton':postTab===1}">
+                        All</p>
+                    <p class="post-item" (click)="onClickPostEventsTab(2)" [ngClass]="{'activePostButton':postTab===2}">
+                        Articles</p>
                     <p class="post-item">Q & A</p>
                     <p class="post-item">Recipes</p>
                     <p class="post-item">Workouts</p>
                     <p class="post-item">Music</p>
                 </div>
-                 <p *ngIf="postTab===2">article</p>
-                 <div *ngIf="postTab===1">
-                 <div *ngIf="feedItem?.length > 0" class="feed-item" infinite-scroll
-                    [infiniteScrollDistance]="scrollDistance"
-                    [infiniteScrollUpDistance]="scrollUpDistance"
-                    [infiniteScrollThrottle]="throttle"
-                    [infiniteScrollDisabled]="infiniteScrollDisabled"
-                (scrolled)="onScroll()">
-                <spinner-loading *ngIf="loading"></spinner-loading>
-                    <app-feed-post-card-item *ngFor="let item of feedItem" [feedItem]="item" (deletedItem)="deletedFeedItem($event)"></app-feed-post-card-item>
-                 </div>
-                  </div>
+                <div *ngIf="postTab===1" class="post-container">
+                        <div *ngIf="user">
+                                <app-create-publication [feedItem]="feedItem" (postCreateEvent)="onPostCreated($event)"></app-create-publication>
+                            </div>
+                    <div *ngIf="feedItem?.length > 0" class="feed-item" infinite-scroll
+                        [infiniteScrollDistance]="scrollDistance" [infiniteScrollUpDistance]="scrollUpDistance"
+                        [infiniteScrollThrottle]="throttle" [infiniteScrollDisabled]="infiniteScrollDisabled"
+                        (scrolled)="onScroll()">
+                        <spinner-loading *ngIf="loading"></spinner-loading>
+                        <app-feed-post-card-item *ngFor="let item of feedItem" [feedItem]="item"
+                            (deletedItem)="deletedFeedItem($event)"></app-feed-post-card-item>
+                    </div>
+                </div>
             </div>
-               
-                 
+
+
         </div>
         <div class="events-header d-flex flex-column" *ngIf="tab===2">
             <div class="gallery-tab m-auto">
@@ -136,8 +127,8 @@
                 <p *ngIf="galerryTab===2">photo</p>
                 <p *ngIf="galerryTab===3">video</p>
             </div>
-    
+
         </div>
     </div>
 
-    </div>
+</div>

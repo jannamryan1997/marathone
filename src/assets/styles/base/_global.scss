@@ -233,7 +233,7 @@
     margin: 15px 0;
     background: #ffffff 0% 0% no-repeat padding-box;
     border: 0.5px solid #cfcfe9;
-    border-radius: 26px;
+    border-radius: 100px;
     opacity: 1;
     height: none !important;
     padding: 15px 15px;
@@ -362,8 +362,8 @@ textarea {
      top: -11px;
      left: 25px;
      background-color:white;
-      
      @include text(16px, 19px, #589CFE,MicrosoftYaHeiUI);
+     padding: 0 5px;
    }
 
    .update-video-btn{
@@ -394,4 +394,8 @@ textarea {
         padding: 15px 0;
         @include text(18px, 21px, #bbcddf, EncodeSans-SemiBold);
     }
+}
+
+.form-grup-redius{
+    border-radius: 20px !important;
 }

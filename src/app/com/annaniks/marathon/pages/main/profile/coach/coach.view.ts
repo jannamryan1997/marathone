@@ -19,7 +19,6 @@ import { ActivatedRoute } from '@angular/router';
 export class CoachView implements OnInit {
     public feedItem: FeedResponseData[] = [];
     public user: UserResponseData;
-    public showTitle: boolean;
     public tab: number = 1;
     public postTab: number = 1;
     public galerryTab: number = 1;
@@ -32,19 +31,25 @@ export class CoachView implements OnInit {
     private _isCountCalculated = false;
     private _pagesCount: number;
     public throttle = 300;
+    public seeMore: boolean = false;
+    public userStatus: string;
     private unsubscribe$ = new Subject<void>()
     public userId: NumberValueAccessor;
 
-    constructor(private _userService: UserService, private _feedService: FeedService, private _dialog: MatDialog, private _activatedRoute: ActivatedRoute) {
+    constructor(private _userService: UserService,
+        private _feedService:
+            FeedService, private _dialog: MatDialog, private _activatedRoute: ActivatedRoute) {
         this._activatedRoute.params.pipe(takeUntil(this.unsubscribe$)).subscribe(params => {
             if (params && params.id)
                 this.userId = params.id;
-        })
+        })  
         this.user = this.userId ? null : this._userService.user;
+        
     }
 
     ngOnInit() {
         this._getFeed(this._pageIndex);
+        this._showseeMore();
     }
 
     private async _getFeed(page: number) {
@@ -80,9 +85,28 @@ export class CoachView implements OnInit {
         this.infiniteScrollDisabled = false;
     }
 
-    public onClickSeeMore(): void {
-        this.showTitle = !this.showTitle;
+    private _showseeMore(): void {
+        let titleLength: number;
+        if (this.user.data.status) {
+            titleLength = this.user.data.status.length;
+            this.userStatus = this.user.data.status;
+            if (titleLength > 280) {
+                this.seeMore = true;
+                this.userStatus = this.user.data.status.slice(0, 280);
+            }
+            else {
+                this.seeMore = false;
+            }
+        }
     }
+
+
+    public onClickSeeMore(): void {
+        this.userStatus = this.user.data.status.slice(0, this.user.data.status.length);
+        this.seeMore = false;
+    }
+
+
     public onClickTab(tab): void {
         this.tab = tab;
 
@@ -118,6 +142,15 @@ export class CoachView implements OnInit {
 
             })
         }
+
+    }
+
+    public onPostCreated(event): void {
+        this._pageIndex = 1;
+        this._isCountCalculated = false;
+        this._pagesCount = 0;
+        this.feedItem = [];
+        this._getFeed(this._pageIndex);
 
     }
     ngOnDestroy() {

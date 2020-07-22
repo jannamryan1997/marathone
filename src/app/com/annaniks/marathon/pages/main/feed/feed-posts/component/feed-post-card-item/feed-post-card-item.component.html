@@ -18,7 +18,7 @@
             </span>
             <div class="position-relative" *ngIf="showDeleteModal">
                 <app-delete-feed-item (deleted)="deleteFeedItem($event)" [content]="content?.type"
-                    [feedId]="feedItem.id"></app-delete-feed-item>
+                    [feedId]="feedItem.id" [mediaUrl]="feedItem.feed_media[0].url"></app-delete-feed-item>
             </div>
         </div>
 
@@ -56,6 +56,9 @@
                             <img [src]="slide.img" alt="" width="100%" class="chicken-image">
                         </div>
                     </ngx-slick-carousel>
+                    <img *ngIf="receipt?.imageSlider.length===0 && receipt?.videoLink ==='' " src="/assets/images/food.png" alt=""
+                        width="100%" class="chicken-image">
+
                     <div class="comments  d-flex position-absolute w-100 justify-content-between">
                         <div class="comments-description">
                             <p class="text">Coloris</p>

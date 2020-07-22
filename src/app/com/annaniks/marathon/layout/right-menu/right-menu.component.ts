@@ -18,9 +18,16 @@ export class RightMenuComponent implements OnInit {
         { image: "assets/images/img6.png", name: "Olivie Gipson" },
         { image: "assets/images/img7.png", name: "Olivie Gipson" },
         { image: "assets/images/img8.png", name: "Olivie Gipson" },
+        { image: "assets/images/img1.png", name: "Olivie Gipson" },
+        { image: "assets/images/img2.png", name: "Olivie Gipson" },
+        { image: "assets/images/img1.png", name: "Olivie Gipson" },
+        { image: "assets/images/img.4.png", name: "Olivie Gipson" },
+        { image: "assets/images/img5.png", name: "Olivie Gipson" },
+        { image: "assets/images/img6.png", name: "Olivie Gipson" },
+        { image: "assets/images/img7.png", name: "Olivie Gipson" },
+        { image: "assets/images/img8.png", name: "Olivie Gipson" },
     ]
     public followItem: FollowItem[] = [
-        { image: "assets/images/img1.png", name: "Olivie Gipson", email: "@oliviegipson" },
         { image: "assets/images/img1.png", name: "Olivie Gipson", email: "@oliviegipson" },
         { image: "assets/images/img1.png", name: "Olivie Gipson", email: "@oliviegipson" },
         { image: "assets/images/img1.png", name: "Olivie Gipson", email: "@oliviegipson" },
