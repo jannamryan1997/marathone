@@ -9,7 +9,7 @@ import * as moment from 'moment';
 })
 
 export class CommentsComponent implements OnInit {
-    public comments;
+    public comments:Comment;
     public role: string
 
     @Output('likeOrDislike') private _isLikeOrDislike: EventEmitter<object> = new EventEmitter();
@@ -18,7 +18,7 @@ export class CommentsComponent implements OnInit {
     public showReplay: boolean = false;
     public isOpenComments: boolean = false
     @Input('comments')
-    set setComment($event) {
+    set setComment($event:Comment) {
         this.comments = $event
     }
     @Input('role')
@@ -39,12 +39,17 @@ export class CommentsComponent implements OnInit {
     public vote(type: string, item, isChild: boolean = false) {
         this._isLikeOrDislike.emit({ type: type, url: item.url, isChild: isChild })
     }
-    public getUserImage(comment) {
-        if (comment && comment.user_coach && comment.user_coach.avatar) {
-            return this.fileUrl + comment.user_coach.avatar;
-        } else {
-            return '/assets/images/user-icon-image.png'
+    public getUserImage(item) {
+        if (item) {
+            let defaultImage = '/assets/images/user-icon-image.png'
+            if (this.role == 'client' || (!this.role && item.user_coach)) {
+                return item.user_coach && item.user_coach.user && item.user_coach.user.avatar ? this.fileUrl + item.user_coach.user.avatar : defaultImage
+            }
+            if (this.role === 'coach' || (!this.role && item.comment_coach)) {
+                return item.user_coach && item.comment_coach.user && item.comment_coach.user.avatar ? this.fileUrl + item.comment_coach.user.avatar : defaultImage
+            }
         }
+
     }
     public convertDate(comment) {
         if (comment && comment.crated_at)
@@ -55,6 +60,21 @@ export class CommentsComponent implements OnInit {
     }
     public sendMessage($event) {
         this._sendMessage.emit($event)
+    }
+    public getCreatorName(item):string {
+        if (item) {
+            if (this.role == 'client' || (!this.role && item.user_coach)) {
+                return `${item.user_coach.user.first_name} ${item.user_coach.user.last_name}`
+            }
+            if (this.role === 'coach' || (!this.role && item.comment_coach)) {
+                return `${item.comment_coach.user.first_name} ${item.comment_coach.user.last_name}`
+            }
+        }
+    }
+    public getProfleUrl() {
+        let role = this.comments.user_coach ? 'client' : 'coach';
+        let userId = this.comments.user_coach ? this.comments.user_coach.id : this.comments.comment_coach.id;
+        return `/profile/${userId}/${role}`
     }
 }
 

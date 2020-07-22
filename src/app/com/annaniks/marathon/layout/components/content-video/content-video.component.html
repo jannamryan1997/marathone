@@ -1,10 +1,10 @@
 <div class="content-image-item">
     <div class="image-content">
-        <label>Content /Youtube Video</label>
+        <label *ngIf="!isShowDeleButton">Content /Youtube Video</label>
         <plyr style="display: block; width: 100%" plyrTitle="Video 1" [plyrPlaysInline]="true"
             [plyrSources]="videoSources" ></plyr>
 
-        <div (click)="delete()" class="close-img d-flex">
+        <div *ngIf="!isShowDeleButton" (click)="delete()" class="close-img d-flex">
             <span  class="material-icons m-auto">
                 close
             </span>

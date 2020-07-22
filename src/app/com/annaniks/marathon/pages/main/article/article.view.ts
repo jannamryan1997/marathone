@@ -26,6 +26,7 @@ export class ArticleView implements OnInit {
     private _articleId: number;
     private _article: FeedResponseData;
     public fileUrl: string = environment.fileUrl;
+
     constructor(public router: Router,
         private _cookieServie: CookieService,
         private _router: Router,
@@ -44,7 +45,7 @@ export class ArticleView implements OnInit {
     }
     private _initConfig() {
         this.config = {
-            toolbar: [['Bold', 'Italic', 'Underline', 'Subscript', 'Superscript'],['RemoveFormat'], ['Blockquote'], ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+            toolbar: [['Bold', 'Italic', 'Underline', 'Subscript', 'Superscript'], ['RemoveFormat'], ['Blockquote'], ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
             ['NumberedList', 'BulletedList'], ['Link']]
         };
     }
@@ -52,14 +53,20 @@ export class ArticleView implements OnInit {
         this.articleGroup = this._fb.group({
             cover: [null],
             title: [null],
+            arrays: this._fb.array([]),
             currentYoutubeLink: [null],
-            contentTexts: this._fb.array([]),
-            images: this._fb.array([]),
-            videos: this._fb.array([])
+            // contentTexts: this._fb.array([]),
+            // images: this._fb.array([]),
+            // videos: this._fb.array([])
         })
         if (this._articleId) {
             this._getArticleById()
+        } else {
+            this._createControls('text');
         }
+    }
+    private _createControls(controlName: string, defaultImage = null) {
+        (this.articleGroup.get('arrays') as FormArray).push(this._fb.group({ type: controlName, value: defaultImage }));
     }
     private _getArticleById() {
         this._articleService.getArticleById(this._articleId).pipe(takeUntil(this.unsubscribe$)).subscribe((data: FeedResponseData) => {
@@ -72,27 +79,21 @@ export class ArticleView implements OnInit {
         if (this._article && this._article.feed_media && this._article.feed_media[0] && this._article.feed_media[0].content) {
             let data = JSON.parse(this._article.feed_media[0].content)
             if (data.cover)
-                this.articleGroup.get('cover').setValue(data.cover)
-            for (const img of data.image) {
-                (this.articleGroup.get('images') as FormArray).push(this._fb.group(img))
-            }
-            for (const video of data.video) {
-                (this.articleGroup.get('videos') as FormArray).push(this._fb.group(video))
-            }
-            for (const text of data.text) {
-                (this.articleGroup.get('contentTexts') as FormArray).push(this._fb.group(text))
+                this.articleGroup.get('cover').setValue(data.cover);
+            for (let array of data.arrays) {
+                (this.articleGroup.get('arrays') as FormArray).push(this._fb.group(array))
             }
         }
-
     }
-    public deleteImageOrVideo(event: boolean, index: number, controlName: string): void {
+    public removeControl(event, index: number): void {
         if (event) {
-            (this.articleGroup.get(controlName) as FormArray).removeAt(index);
+            (this.articleGroup.get('arrays') as FormArray).removeAt(index);
         }
     }
     public sendVideo(): void {
         if (this.articleGroup.get('currentYoutubeLink').value) {
-            (this.articleGroup.get('videos') as FormArray).push(this._fb.group({ link: this.articleGroup.get('currentYoutubeLink').value }));
+            this._createControls('video', this.articleGroup.get('currentYoutubeLink').value)
+            // (this.articleGroup.get('videos') as FormArray).push(this._fb.group({ link: this.articleGroup.get('currentYoutubeLink').value }));
             this.articleGroup.get('currentYoutubeLink').reset();
             this.closeContentVideo();
         }
@@ -140,7 +141,8 @@ export class ArticleView implements OnInit {
                 this._userService.uploadVideoFile(formData).pipe(takeUntil(this.unsubscribe$)).subscribe((data) => {
                     if (data && data.file_name) {
                         if (type == 'image') {
-                            (this.articleGroup.get('images') as FormArray).push(this._fb.group({ url: data.file_name }))
+                            this._createControls('image', data.file_name)
+                            // (this.articleGroup.get('images') as FormArray).push(this._fb.group({ url: data.file_name }))
                         } else {
                             (this.articleGroup.get('cover').setValue(data.file_name));
                         }
@@ -162,14 +164,19 @@ export class ArticleView implements OnInit {
         this.isShowVideoRedactor = false;
 
     }
-    public addContent(controlName: string) {
-        (this.articleGroup.get(controlName) as FormArray).push(this._fb.group({ attribute: null }))
+    public addContent() {
+        if (!this.isShowImageRedacor && !this.isShowVideoRedactor) {
+            this._createControls('text')
+        }
+        // (this.articleGroup.get(controlName) as FormArray).push(this._fb.group({ attribute: null }))
     }
     public addImage() {
-        this.isShowImageRedacor = true;
+        if (!this.isShowVideoRedactor)
+            this.isShowImageRedacor = true;
     }
     public addVideo() {
-        this.isShowVideoRedactor = true;
+        if (!this.isShowImageRedacor)
+            this.isShowVideoRedactor = true;
     }
     public onClickShowCreatedMenu(): void {
         this.showCreatedMenu = !this.showCreatedMenu;
@@ -185,9 +192,10 @@ export class ArticleView implements OnInit {
             const articleValue = this.articleGroup.value;
             let content = {
                 cover: articleValue.cover,
-                text: articleValue.contentTexts,
-                image: articleValue.images,
-                video: articleValue.videos,
+                arrays: articleValue.arrays,
+                // text: articleValue.contentTexts,
+                // image: articleValue.images,
+                // video: articleValue.videos,
                 type: 'article',
             };
             let articleData = {
@@ -209,8 +217,9 @@ export class ArticleView implements OnInit {
             }
         }
     }
-    public getControls(controlName: string) {
-        return (this.articleGroup.get(controlName) as FormArray).controls
+    public getControls() {
+
+        return (this.articleGroup.get('arrays') as FormArray).controls
     }
     ngOnDestroy() {
         this.unsubscribe$.next();

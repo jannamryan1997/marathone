@@ -3,9 +3,12 @@ import { UserService } from '../../../../core/services/user.service';
 import { UserResponseData } from '../../../../core/models/user';
 import { FeedService } from '../../feed/feed.service';
 import { FeedResponseData } from '../../../../core/models';
-import { finalize } from 'rxjs/operators';
+import { finalize, takeUntil } from 'rxjs/operators';
 import { RemoveModal } from '../../../../core/modals';
 import { MatDialog } from '@angular/material/dialog';
+import { Subject } from 'rxjs';
+import { NumberValueAccessor } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: "app-coach",
@@ -30,10 +33,18 @@ export class CoachView implements OnInit {
     public throttle = 300;
     public seeMore: boolean = false;
     public userStatus: string;
-    constructor(private _userService: UserService, 
-        private _feedService: 
-        FeedService, private _dialog: MatDialog) {
-        this.user = this._userService.user;
+    private unsubscribe$ = new Subject<void>()
+    public userId: NumberValueAccessor;
+
+    constructor(private _userService: UserService,
+        private _feedService:
+            FeedService, private _dialog: MatDialog, private _activatedRoute: ActivatedRoute) {
+        this._activatedRoute.params.pipe(takeUntil(this.unsubscribe$)).subscribe(params => {
+            if (params && params.id)
+                this.userId = params.id;
+        })  
+        this.user = this.userId ? null : this._userService.user;
+        
     }
 
     ngOnInit() {
@@ -134,12 +145,16 @@ export class CoachView implements OnInit {
 
     }
 
-  public onPostCreated(event): void {
+    public onPostCreated(event): void {
         this._pageIndex = 1;
         this._isCountCalculated = false;
         this._pagesCount = 0;
         this.feedItem = [];
         this._getFeed(this._pageIndex);
 
+    }
+    ngOnDestroy() {
+        this.unsubscribe$.next();
+        this.unsubscribe$.complete();
     }
 }

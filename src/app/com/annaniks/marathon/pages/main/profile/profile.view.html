@@ -23,7 +23,7 @@
 
                     <div class="btn-content d-flex align-items-center">
                         <button class="btn follow-btn">Follow</button>
-                        <button class="btn follow-btn d-flex"  routerLink="/edit-profile"
+                        <button *ngIf="checkIsMe()" class="btn follow-btn d-flex"  routerLink="/edit-profile"
                             routerLinkActive="profileActiveTab">Edit Profile
                             <span class="ml-2 material-icons">
                                 create

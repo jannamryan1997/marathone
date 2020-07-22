@@ -116,6 +116,10 @@
 .item-head-description {
     .image {
         background: #FEA6CC;
+        cursor: pointer;
+    }
+    .name-title{
+        cursor: pointer;
     }
 }
 ::ng-deep .slick-prev{

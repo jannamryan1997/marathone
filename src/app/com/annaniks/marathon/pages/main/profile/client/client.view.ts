@@ -2,10 +2,12 @@ import { Component, OnInit } from "@angular/core";
 import { UserResponseData } from '../../../../core/models/user';
 import { UserService } from '../../../../core/services/user.service';
 import { FeedService } from '../../feed/feed.service';
-import { finalize } from 'rxjs/operators';
+import { finalize, takeUntil } from 'rxjs/operators';
 import { FeedResponseData } from '../../../../core/models';
 import { RemoveModal } from '../../../../core/modals';
 import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute } from '@angular/router';
+import { Subject } from 'rxjs';
 
 @Component({
     selector: "app-client",
@@ -28,6 +30,8 @@ export class ClientView implements OnInit {
     private _pageIndex = 1
     private _isCountCalculated = false;
     private _pagesCount: number;
+    public userId: number;
+    private unsubscribe$ = new Subject<void>()
     public userStatus: string;
     public seeMore: boolean = false;
 
@@ -35,8 +39,12 @@ export class ClientView implements OnInit {
         private _profileUserService: UserService,
         private _feedService: FeedService,
         private _dialog: MatDialog,
-    ) {
-        this.user = this._profileUserService.user;
+        private _activatedRoute: ActivatedRoute) {
+        this._activatedRoute.params.pipe(takeUntil(this.unsubscribe$)).subscribe(params => {
+            if (params && params.id)
+                this.userId = params.id;
+        })
+        this.user = this.userId ? null : this._profileUserService.user;
     }
 
     ngOnInit() {
@@ -142,6 +150,7 @@ export class ClientView implements OnInit {
         }
 
     }
+
     public onPostCreated(event): void {
         this._pageIndex = 1;
         this._isCountCalculated = false;
@@ -149,5 +158,9 @@ export class ClientView implements OnInit {
         this.feedItem = [];
         this._getFeed(this._pageIndex);
 
+    }
+    ngOnDestroy() {
+        this.unsubscribe$.next();
+        this.unsubscribe$.complete();
     }
 }

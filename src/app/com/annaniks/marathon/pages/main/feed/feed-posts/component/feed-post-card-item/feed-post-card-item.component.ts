@@ -101,7 +101,7 @@ export class FeedPostCardItemComponent implements OnInit {
             this.localImage = "/assets/images/user-icon-image.png";
         }
         this._showseeMore();
-        
+
     }
 
 
@@ -250,19 +250,24 @@ export class FeedPostCardItemComponent implements OnInit {
 
     public deleteFeedItem(event) {
         if (event) {
-            this.showDeleteModal=false;
-         this.deletedItem.emit(this.feedItem.id);
+            this.showDeleteModal = false;
+            this.deletedItem.emit(this.feedItem.id);
         }
+    }
+
+    public onClickedOutside(event): void {
+        this.showDeleteModal = false;
+    }
+    public getProfleUrl() {
+        let role = this.feedItem.creator_client_info ? 'client' : 'coach';
+        let userId = this.feedItem.creator_info ? this.feedItem.creator_info.id : this.feedItem.creator_client_info.id;       
+        return `/profile/${userId}/${role}`
     }
     ngOnDestroy() {
         this.unsubscribe$.next();
         this.unsubscribe$.complete();
     }
-    public onClickedOutside(event): void {
-        this.showDeleteModal = false;
-        
-    }
-
+   
 }
 
 
