@@ -12,7 +12,7 @@ export interface ReceiptResponseData {
     carbs: string,
     protein: string,
     fat: string,
-    gram: boolean,
+    mass: boolean,
     persentage: boolean,
     serving_size: string,
     time: string,
@@ -38,5 +38,5 @@ export interface Tags {
     name: string,
 }
 export interface Slider {
-    file: string,
+    img: string,
 }

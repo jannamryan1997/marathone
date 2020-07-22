@@ -124,12 +124,12 @@
                     </div>
                     <div class="macronutrients-content w-100">
                         <p class="title w-100">Macronutrients</p>
-                        <mat-slide-toggle></mat-slide-toggle>
+                        <mat-slide-toggle formControlName="macronutrients" (change)="changeMacronutrients($event)"></mat-slide-toggle>
                     </div>
 
                 </div>
 
-                <div>
+                <div *ngIf="showmaCronutrients">
                     <div class="lable-content">
                         <label class="lable">Carbs</label>
                         <label class="lable">Protein</label>
@@ -240,7 +240,8 @@
         </div>
     </form>
     <div class="d-flex btn-content">
-        <button class="follow-btn d-flex" (click)="postRecipe()" [ngClass]="{'opacity':recipeFormGroup.invalid}"><span>Post</span>
+        <button class="follow-btn d-flex" (click)="postRecipe()" [ngClass]="{'opacity':recipeFormGroup.invalid}"><span *ngIf="!paramsId">Post</span>
+            <span *ngIf="paramsId">Edit</span>
             <app-loading *ngIf="loading">
             </app-loading>
         </button>

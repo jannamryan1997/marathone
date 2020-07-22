@@ -1,7 +1,7 @@
-import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
+import { Component, OnInit, ViewChild, ElementRef, AfterViewChecked } from "@angular/core";
 import { AddIngridientImageModal } from '../../../../core/modals';
 import { MatDialog } from '@angular/material/dialog';
-import { Slider, FeedResponseData } from '../../../../core/models';
+import { FeedResponseData } from '../../../../core/models';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { CookieService } from 'ngx-cookie';
 import { UserService } from '../../../../core/services/user.service';
@@ -13,7 +13,7 @@ import { startWith, map, finalize } from 'rxjs/operators';
 import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { Observable } from 'rxjs';
 import { FeedService } from '../../feed/feed.service';
-import { ReceiptResponseData, ReceiptData } from '../../../../core/models/receipt';
+import { ReceiptData, Slider } from '../../../../core/models/receipt';
 
 @Component({
     selector: "recipe-post",
@@ -43,12 +43,15 @@ export class RecipePostView implements OnInit {
     public allTags = [];
     public tagsItem: string[] = [];
     public filteredTags: Observable<string[]>;
-    public tag: string[] = [];
+    public tag: any[] = [];
     public tagsCtrl = new FormControl('');
     public separatorKeysCodes: number[] = [ENTER, COMMA];
     public loading: boolean = false;
     public paramsId: number;
-    public mediaContent:ReceiptData;
+    public mediaContent: ReceiptData;
+
+    public showmaCronutrients: boolean;
+
 
     @ViewChild('fruitInput') fruitInput: ElementRef<HTMLInputElement>;
     @ViewChild('auto') matAutocomplete: MatAutocomplete;
@@ -81,6 +84,11 @@ export class RecipePostView implements OnInit {
 
 
     ngOnInit() {
+        if (!this.paramsId) {
+            this.preparationStepItem.push(new FormControl(''));
+            this.ingridientItem.push(new FormControl(''));
+        }
+
         if (this.slides.length) {
             this.showCarousel = true;
             this.showImage = false;
@@ -90,37 +98,63 @@ export class RecipePostView implements OnInit {
 
         if (this.paramsId) {
             this._getFeedById();
-      
+
         }
     }
+
 
     private _formBuilder(): void {
         this.recipeFormGroup = this._fb.group({
             title: [null, Validators.required],
-            calories: [null, Validators.required],
-            kcal: [null, Validators.required],
-            carbs: [null, Validators.required],
-            protein: [null, Validators.required],
-            fat: [null, Validators.required],
-            serving_size: [null, Validators.required],
-            time: [null, Validators.required],
-            information: [null, Validators.required],
+            calories: [null],
+            kcal: [null],
+            carbs: [null],
+            protein: [null],
+            fat: [null],
+            serving_size: [null],
+            time: [null],
+            information: [null],
             mass: [null],
+            macronutrients: [],
         })
     }
 
-    private _setPatchValue():void{
-    this.recipeFormGroup.patchValue({
-        title:this.mediaContent.receipt.title,
-        calories:this.mediaContent.receipt.calories,
-        kcal:this.mediaContent.receipt.kcal,
-        carbs:this.mediaContent.receipt.carbs,
-        protein:this.mediaContent.receipt.protein,
-        time:this.mediaContent.receipt.time,
-        serving_size:this.mediaContent.receipt.serving_size,
-        information:this.mediaContent.receipt.information,
-    })
+    private _setPatchValue(): void {
+        this.recipeFormGroup.patchValue({
+            title: this.mediaContent.receipt.title,
+            calories: this.mediaContent.receipt.calories,
+            kcal: this.mediaContent.receipt.kcal,
+            carbs: this.mediaContent.receipt.carbs,
+            protein: this.mediaContent.receipt.protein,
+            time: this.mediaContent.receipt.time,
+            serving_size: this.mediaContent.receipt.serving_size,
+            information: this.mediaContent.receipt.information,
+            mass: this.mediaContent.receipt.mass,
+            macronutrients:this.mediaContent.receipt.macronutrients,
+        })
+        for (let item of this.mediaContent.receipt.ingridient) {
+            this.ingridientItem.push(new FormControl(item));
+        }
+        for (let item of this.mediaContent.receipt.preparationSteps) {
+            this.preparationStepItem.push(new FormControl(item.title));
+        }
+        for (let item of this.mediaContent.receipt.tag) {
+            this.tag.push(item);
+
+        }
+        for (let item of this.mediaContent.receipt.imageSlider) {
+            if (this.slides.length) {
+                this.showCarousel = true;
+                this.showImage = false;
+                console.log(this.showImage);
+
+            }
+            this.slides.push({ img: item.img });
+        }
+
     }
+
+
     private _openAddIngridientImageModal(): void {
         const dialogRef = this._matDialog.open(AddIngridientImageModal, {
             width: "100%",
@@ -164,14 +198,14 @@ export class RecipePostView implements OnInit {
 
     private _getFeedById(): void {
         this._feedService.getFeedById(this.paramsId)
-            .subscribe((data:FeedResponseData) => {
-               console.log(data);
-               if(typeof data.feed_media[0].content==='string'){
-                   this.mediaContent=JSON.parse(data.feed_media[0].content)
-               }
-               console.log(this.mediaContent);
-               this._setPatchValue();
-               
+            .subscribe((data: FeedResponseData) => {
+                if (typeof data.feed_media[0].content === 'string') {
+                    this.mediaContent = JSON.parse(data.feed_media[0].content)
+                }
+                console.log(this.mediaContent);
+
+                this._setPatchValue();
+
             })
     }
 
@@ -208,11 +242,6 @@ export class RecipePostView implements OnInit {
 
     public postRecipe(): void {
         this.loading = true;
-        // this.recipeFormGroup.disable();
-        console.log(this.recipeFormGroup);
-        console.log(this.recipeFormGroup.valid);
-
-
         let receipt = {
             title: this.recipeFormGroup.value.title,
             calories: this.recipeFormGroup.value.calories,
@@ -220,6 +249,7 @@ export class RecipePostView implements OnInit {
             carbs: this.recipeFormGroup.value.carbs,
             protein: this.recipeFormGroup.value.protein,
             fat: this.recipeFormGroup.value.fat,
+            macronutrients:this.recipeFormGroup.value.macronutrients,
             serving_size: this.recipeFormGroup.value.serving_size,
             time: this.recipeFormGroup.value.time,
             information: this.recipeFormGroup.value.information,
@@ -229,6 +259,7 @@ export class RecipePostView implements OnInit {
             mass: this.recipeFormGroup.value.mass,
             imageSlider: this.slides,
             videoLink: this.youtubeLink.value,
+         
         }
         const ReceiptResponseData = {
             role: this.role,
@@ -240,27 +271,34 @@ export class RecipePostView implements OnInit {
                 }
             ),
         }
-        if ((this.slides.length > 0 || this.youtubeLink.value) && this.recipeFormGroup.valid) {
-            this._userService.postFeed(ReceiptResponseData).pipe(
-                finalize(() => {
-                    this.loading = false;
-                    this.recipeFormGroup.enable();
-                })
-            )
-                .subscribe((data) => {
-                    this._router.navigate(['/feed']);
+        if(!this.paramsId){
+        this._userService.postFeed(ReceiptResponseData).pipe(
+            finalize(() => {
+                this.loading = false;
+                this.recipeFormGroup.enable();
+            })
+        )
+            .subscribe((data) => {
+                this._router.navigate(['/feed']);
 
-                })
-        }
-        else {
-
-            this.loading = false;
-            this.recipeFormGroup.enable();
-            this.errorMesage = "Please post a picture or video";
-            this._markFormGroupTouched(this.recipeFormGroup);
-        }
-
+            })
     }
+    else if(this.paramsId){
+        this._feedService.updateFeedById(this.paramsId,ReceiptResponseData).pipe(
+            finalize(()=>{
+                this.loading=false;
+                this.recipeFormGroup.enable();
+            })
+        )
+        .subscribe((data)=>{
+            console.log(data,ReceiptResponseData);
+            this._router.navigate(['/feed']);
+            
+        })
+    }
+}
+
+
     public removeRecipeImageItem(event, ind): void {
         if (event) {
             this.slides.splice(ind, 1);
@@ -323,6 +361,17 @@ export class RecipePostView implements OnInit {
         return this.tagsItem.filter(fruit => fruit.toLowerCase().indexOf(filterValue) === 0);
     }
 
+
+    public changeMacronutrients(event): void {
+        console.log(event.checked);
+        if (event.checked === false) {
+            this.showmaCronutrients = false;
+        }
+        else {
+            this.showmaCronutrients = true;
+        }
+
+    }
 
     public checkIsValid(controlName): boolean {
         return this.recipeFormGroup.get(controlName).hasError('required') && this.recipeFormGroup.get(controlName).touched;
