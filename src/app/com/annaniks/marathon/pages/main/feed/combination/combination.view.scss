@@ -74,3 +74,10 @@
     }
 
 }
+:host::ng-deep{
+    app-content-video{
+        .image-content{
+            margin-top: 0 !important;
+        }
+    }
+}

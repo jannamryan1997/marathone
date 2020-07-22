@@ -165,14 +165,18 @@ export class ArticleView implements OnInit {
 
     }
     public addContent() {
-        this._createControls('text')
+        if (!this.isShowImageRedacor && !this.isShowVideoRedactor) {
+            this._createControls('text')
+        }
         // (this.articleGroup.get(controlName) as FormArray).push(this._fb.group({ attribute: null }))
     }
     public addImage() {
-        this.isShowImageRedacor = true;
+        if (!this.isShowVideoRedactor)
+            this.isShowImageRedacor = true;
     }
     public addVideo() {
-        this.isShowVideoRedactor = true;
+        if (!this.isShowImageRedacor)
+            this.isShowVideoRedactor = true;
     }
     public onClickShowCreatedMenu(): void {
         this.showCreatedMenu = !this.showCreatedMenu;
