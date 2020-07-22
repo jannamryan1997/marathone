@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from "@angular/core";
 import { FeedService } from '../feed.service';
 import { ActivatedRoute } from '@angular/router';
 import { takeUntil, switchMap, map, finalize } from 'rxjs/operators';
-import { Subject, forkJoin, Observable, Subscription } from 'rxjs';
+import { Subject, forkJoin, Observable, Subscription, of } from 'rxjs';
 import { FeedResponseData, ServerResponse } from '../../../../core/models';
 import { CookieService } from 'ngx-cookie';
 import * as moment from 'moment';
@@ -53,24 +53,7 @@ export class CombinationView implements OnInit {
         this._checkIsGetComment();
         this._checkIsLike()
     }
-    private _checkIsGetComment() {
-        this._followCommentService.getState().pipe(
-            takeUntil(this.unsubscribe$),
-            switchMap((data: any) => {
-                if (data.isSend) {
-                    if (!data.isAuthorizated) {
-                        if (data.isCombine) {
-                            return this._combineObservable(data.isParent)
-                        } else {
-                            return this._getComments(data.isParent)
-                        }
-                    } else {
-                        this.onClickOpenAuth()
-                    }
-                }
-            })
-        ).subscribe()
-    }
+
     private _initConfig() {
         this.slideConfig1 = {
             infinite: true,
@@ -95,6 +78,27 @@ export class CombinationView implements OnInit {
     }
 
 
+    private _checkIsGetComment() {
+        this._followCommentService.getState().pipe(
+            takeUntil(this.unsubscribe$),
+            switchMap((data: any) => {
+                if (data.isSend) {
+                    if (!data.isAuthorizated) {
+                        if (data.isCombine) {
+                            return this._combineObservable(data.isParent)
+                        } else {
+                            return this._getComments(data.isParent);
+                        }
+                    } else {
+                        this.onClickOpenAuth();
+                        return of()
+                    }
+                } else {
+                    return of()
+                }
+            })
+        ).subscribe()
+    }
     private _checkIsLike() {
         this._followCommentService.getLikeState().pipe(
             takeUntil(this.unsubscribe$),
@@ -104,8 +108,11 @@ export class CombinationView implements OnInit {
                         return this._getFeedById()
 
                     } else {
-                        this.onClickOpenAuth()
+                        this.onClickOpenAuth();
+                        return of()
                     }
+                } else {
+                    return of()
                 }
             })
         ).subscribe()

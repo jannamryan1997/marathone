@@ -7,9 +7,11 @@
 
 .recipe-layout {
     margin: 35px 25px;
-.messages{
-    @include text(16px, 19px, #589CFE, EncodeSans-Bold);
-}
+
+    .messages {
+        @include text(16px, 35px, #589CFE, EncodeSans-Bold);
+    }
+
     .broves-file {
         background: #ffffff 0% 0% no-repeat padding-box;
         box-shadow: -1.63px 5px 18px #5c687b0d;
@@ -19,6 +21,10 @@
         display: flex;
         flex-direction: column;
         padding: 32px 0;
+
+        .image-content {
+            border: 1px solid green;
+        }
 
         .title {
             @include text(22px, 24px, #bbcddf, EncodeSans-Bold);
@@ -54,6 +60,7 @@
     .localimage-content {
         display: flex;
         flex-direction: column;
+        padding: 15px 0;
 
         .image {
             width: 100%;
@@ -195,17 +202,20 @@ textarea {
     border-radius: 0 0 26px 26px;
     margin-top: 30px;
 }
+
 .add-input {
     border-top: 1px solid #b9b9d5 !important;
     border: none;
-       margin-top: 30px;
-       display: flex;
-       @include text(18px, 30px, #bbcddf, EncodeSans-SemiBold);
-       &::placeholder{
-           text-align: center;
-           @include text(18px, 21px, #bbcddf, EncodeSans-SemiBold);
-       }
-   }
+    margin-top: 30px;
+    display: flex;
+    @include text(18px, 30px, #bbcddf, EncodeSans-SemiBold);
+
+    &::placeholder {
+        text-align: center;
+        @include text(18px, 21px, #bbcddf, EncodeSans-SemiBold);
+    }
+}
+
 .tags-icon {
     color: #f5f5fa;
     font-size: 40px;
@@ -272,6 +282,7 @@ input[type="file"] {
 .btn-content {
     justify-content: flex-end;
     display: flex;
+
     .follow-btn {
         border: 1px solid #589cfe;
         border-radius: 18px;
@@ -283,51 +294,80 @@ input[type="file"] {
 
     }
 }
-.youtube-input{
+
+.youtube-input {
     width: 80%;
     border: none;
     @include text(15px, 15px, #bbcddf, EncodeSans-Bold);
-    &::placeholder{
+
+    &::placeholder {
         @include text(15px, 15px, #bbcddf, EncodeSans-Bold);
     }
 }
-::ng-deep .mat-radio-label-content{
+
+::ng-deep .mat-radio-label-content {
     font-size: 16px;
     line-height: 16px;
     color: #c2d2e2;
     font-family: EncodeSans-Bold;
     margin: 0 23px 0 14px;
 }
-::ng-deep .mat-radio-outer-circle{
+
+::ng-deep .mat-radio-outer-circle {
     width: 22px;
     height: 22px;
     border: 0.5px solid #bbcddf;
 }
-::ng-deep .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle{
+
+::ng-deep .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
     border-color: #589CFE !important;
 }
-::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle{
-background-color: #589CFE !important;
+
+::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle {
+    background-color: #589CFE !important;
 }
-::ng-deep .slick-prev{
+
+::ng-deep .slick-prev {
     left: 7px !important;
     z-index: 999 !important;
     height: 40px !important;
     width: 40px !important;
-    &::before{
-        font-size: 40px !important;
-    }
-}
-::ng-deep .slick-next{
-    right: 7px !important;
-    z-index: 999 !important;
-    height: 40px !important;
-    width: 40px !important;
-    &::before{
+
+    &::before {
         font-size: 40px !important;
     }
 }
 
-::ng-deep .mat-form-field{
+::ng-deep .slick-next {
+    right: 7px !important;
+    z-index: 999 !important;
+    height: 40px !important;
+    width: 40px !important;
+
+    &::before {
+        font-size: 40px !important;
+    }
+}
+
+::ng-deep .mat-form-field {
     width: 100% !important;
+}
+
+.opacity {
+    opacity: .5 !important;
+}
+
+.border {
+    border: 1px solid red !important;
+}
+
+
+.form-title {
+    &::placeholder {
+        color: red !important;
+    }
+}
+
+.form-lable {
+    color: red !important;
 }

@@ -9,7 +9,7 @@ import { FeedService } from '../../../feed.service';
 import { ReceiptResponseData } from 'src/app/com/annaniks/marathon/core/models/receipt';
 import { FormBuilder } from '@angular/forms';
 import { FeedLikeService } from 'src/app/com/annaniks/marathon/core/services/feed-like.service';
-import { Subject, forkJoin, Observable, Subscription } from 'rxjs';
+import { Subject, forkJoin, Observable, Subscription, of } from 'rxjs';
 import { takeUntil, switchMap, map } from 'rxjs/operators';
 import { CommentService } from 'src/app/com/annaniks/marathon/core/services/comment.service';
 import { FollowCommentService } from 'src/app/com/annaniks/marathon/core/services/follow-comment.service';
@@ -105,24 +105,9 @@ export class FeedPostCardItemComponent implements OnInit {
             this.localImage = "/assets/images/user-icon-image.png";
         }
         this._showseeMore();
+
     }
-    private _checkIsGetComment() {
-        this._subscription1 = this._followCommentService.getState().pipe(
-            switchMap((data: any) => {
-                if (data.isSend) {
-                    if (!data.isAuthorizated) {
-                        if (data.isCombine) {
-                            return this._combineObservable(data.isParent)
-                        } else {
-                            return this._getComments(data.isParent)
-                        }
-                    } else {
-                        this.onClickOpenAuth()
-                    }
-                }
-            })
-        ).subscribe()
-    }
+
 
     private _showseeMore(): void {
         let titleLength: number;
@@ -163,11 +148,6 @@ export class FeedPostCardItemComponent implements OnInit {
             this._checkIsLike();
             this._checkIsGetComment()
         })
-            // switchMap(() => {
-            //     return this._getFeedById()
-            // }
-            
-        
     }
 
     public openPropertyModalByVideo(): void {
@@ -188,8 +168,31 @@ export class FeedPostCardItemComponent implements OnInit {
                     if (data.isAuthorizated) {
                         return this._getFeedById();
                     } else {
-                        this.onClickOpenAuth()
+                        this.onClickOpenAuth();
+                        return of()
                     }
+                } else {
+                    return of()
+                }
+            })
+        ).subscribe()
+    }
+    private _checkIsGetComment() {
+        this._subscription1 = this._followCommentService.getState().pipe(
+            switchMap((data: any) => {
+                if (data.isSend) {
+                    if (!data.isAuthorizated) {
+                        if (data.isCombine) {
+                            return this._combineObservable(data.isParent)
+                        } else {
+                            return this._getComments(data.isParent)
+                        }
+                    } else {
+                        this.onClickOpenAuth();
+                        return of()
+                    }
+                } else {
+                    return of()
                 }
             })
         ).subscribe()
@@ -234,6 +237,7 @@ export class FeedPostCardItemComponent implements OnInit {
 
     public deleteFeedItem(event) {
         if (event) {
+            this.showDeleteModal = false;
             this.deletedItem.emit(this.feedItem.id);
         }
     }

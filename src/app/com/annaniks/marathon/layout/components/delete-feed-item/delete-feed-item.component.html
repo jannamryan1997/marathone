@@ -1,0 +1,26 @@
+<div class="delete-container">
+<div class="deleted-content" *ngIf="role">
+    <div class="item">
+        <div class="m-auto w-50"  (click)="onClickGoEditPage()">
+            <p class="title">Edit</p>
+        </div>
+
+    </div>
+    <div class="item" (click)="deletedFeedItem()">
+        <div class="m-auto w-50" >
+            <p class="title">Delete</p>
+        </div>
+    </div>
+</div>
+</div>
+
+<div class="delete-container">
+<div class="deleted-content" *ngIf="!role">
+    <div class="item">
+        <div class="m-auto w-50">
+            <p class="title">Report</p>
+        </div>
+
+    </div>
+</div>
+</div>

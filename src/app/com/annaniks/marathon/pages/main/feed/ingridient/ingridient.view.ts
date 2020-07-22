@@ -9,7 +9,7 @@ import { ReceiptResponseData } from '../../../../core/models/receipt';
 
 import { Location } from '@angular/common';
 import { AuthModal } from '../../../../core/modals';
-import { Subject, Observable, forkJoin } from 'rxjs';
+import { Subject, Observable, forkJoin, of } from 'rxjs';
 import { switchMap, takeUntil, map, finalize } from 'rxjs/operators';
 import { CommentService } from '../../../../core/services/comment.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -67,24 +67,7 @@ export class IngridientViewComponent implements OnInit {
         this._checkIsLike()
     }
 
-    private _checkIsGetComment() {
-        this._followCommentService.getState().pipe(
-            takeUntil(this.unsubscribe$),
-            switchMap((data: any) => {
-                if (data.isSend) {
-                    if (!data.isAuthorizated) {
-                        if (data.isCombine) {
-                            return this._combineObservable(data.isParent)
-                        } else {
-                            return this._getComments(data.isParent)
-                        }
-                    } else {
-                        this.onClickOpenAuth()
-                    }
-                }
-            })
-        ).subscribe()
-    }
+
     private _getFeedById() {
         this.loading = true;
         return this._feedService.getFeedById(this.feedId).pipe(
@@ -111,6 +94,27 @@ export class IngridientViewComponent implements OnInit {
         )
     }
 
+    private _checkIsGetComment() {
+        this._followCommentService.getState().pipe(
+            takeUntil(this.unsubscribe$),
+            switchMap((data: any) => {
+                if (data.isSend) {
+                    if (!data.isAuthorizated) {
+                        if (data.isCombine) {
+                            return this._combineObservable(data.isParent)
+                        } else {
+                            return this._getComments(data.isParent);
+                        }
+                    } else {
+                        this.onClickOpenAuth();
+                        return of()
+                    }
+                } else {
+                    return of()
+                }
+            })
+        ).subscribe()
+    }
     private _checkIsLike() {
         this._followCommentService.getLikeState().pipe(
             takeUntil(this.unsubscribe$),
@@ -120,13 +124,15 @@ export class IngridientViewComponent implements OnInit {
                         return this._getFeedById()
 
                     } else {
-                        this.onClickOpenAuth()
+                        this.onClickOpenAuth();
+                        return of()
                     }
+                } else {
+                    return of()
                 }
             })
         ).subscribe()
     }
-
     private _combineObservable(parent?) {
         const combine = forkJoin(
             this._getComments(parent),

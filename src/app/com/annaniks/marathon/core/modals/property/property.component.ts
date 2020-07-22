@@ -6,7 +6,7 @@ import * as moment from 'moment';
 import { CookieService } from 'ngx-cookie';
 import { CommentService } from '../../services/comment.service';
 import { takeUntil, switchMap, map } from 'rxjs/operators';
-import { Subject, forkJoin, Observable } from 'rxjs';
+import { Subject, forkJoin, Observable, of } from 'rxjs';
 import { AuthModal } from '../auth/auth.modal';
 import { FeedLikeService } from '../../services/feed-like.service';
 import { FeedService } from '../../../pages/main/feed/feed.service';
@@ -65,11 +65,14 @@ export class PropertyModal implements OnInit {
                         if (data.isCombine) {
                             return this._combineObservable(data.isParent)
                         } else {
-                            return this._getComments(data.isParent)
+                            return this._getComments(data.isParent);
                         }
                     } else {
-                        this.onClickOpenAuth()
+                        this.onClickOpenAuth();
+                        return of()
                     }
+                } else {
+                    return of()
                 }
             })
         ).subscribe()
@@ -83,8 +86,12 @@ export class PropertyModal implements OnInit {
                         return this._getFeedById()
 
                     } else {
-                        this.onClickOpenAuth()
+                        this.onClickOpenAuth();
+                        return of()
                     }
+                } else {
+
+                    return of()
                 }
             })
         ).subscribe()
