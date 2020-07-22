@@ -15,11 +15,13 @@
             width: 43px;
             height: 43px;
             border-radius: 50%;
+            cursor: pointer;
         }
         .comments-container {
             width: 100%;
             margin-left: 20px;
             .name {
+                cursor: pointer;
                 @include text(20px, 27px, #45535C, BarlowCondensed-Regular);
             }
             .time {
@@ -67,6 +69,9 @@
 }
 .sm_name{
     font-size: 15px !important;
+}
+.cursor-pointer{
+    cursor:pointer
 }
 ::ng-deep .emoji-mart-search input {
     padding: 5px 0px 6px 0px !important;

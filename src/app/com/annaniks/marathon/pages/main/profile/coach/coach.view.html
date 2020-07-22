@@ -1,7 +1,7 @@
 <div class="main-container">
     <div class="coach-main">
         <div class="review-content display-flex">
-            <p class="name">{{user.data.user?. email}}</p>
+            <p class="name">{{user?.data.user?. email}}</p>
             <div class=" display-flex">
                 <div class="review display-flex">
                     <div class="review-item" *ngFor="let item of reviewItem">
@@ -15,11 +15,11 @@
         </div>
         <div class="profile-data display-flex">
             <div class="data-item">
-                <p class="item-title">{{user.data.user?.first_name}}</p>
+                <p class="item-title">{{user?.data.user?.first_name}}</p>
 
             </div>
             <div class="data-item">
-                <p class="item-title">{{user.data?.location}}</p>
+                <p class="item-title">{{user?.data?.location}}</p>
             </div>
             <div class="data-item">
                 <div class="display-flex ml-3">

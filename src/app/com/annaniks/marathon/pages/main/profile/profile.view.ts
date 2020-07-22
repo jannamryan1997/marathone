@@ -1,6 +1,9 @@
-import { Component, OnInit, Inject} from "@angular/core";
+import { Component, OnInit, Inject } from "@angular/core";
 import { UserService } from '../../../core/services/user.service';
 import { CookieService } from 'ngx-cookie';
+import { ActivatedRoute } from '@angular/router';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 
 
@@ -11,8 +14,7 @@ import { CookieService } from 'ngx-cookie';
 })
 
 export class ProfileView implements OnInit {
- 
-
+    private unsubscribe$ = new Subject<void>()
     public role: string;
     public showSocialMedium: boolean = false;
     public showMore: boolean = false;
@@ -31,17 +33,23 @@ export class ProfileView implements OnInit {
             image: "assets/images/img3.png",
         }
     ]
-
+    public userId: number;
     constructor(
         @Inject("FILE_URL") private _fileUrl,
         private _userService: UserService,
-        private _cookieService: CookieService) {
-        this.role = this._cookieService.get('role');
-        if (this._userService.user.data.avatar) {
-            this.localImage = this._fileUrl + this._userService.user.data.avatar;
+        private _cookieService: CookieService, private _activatedRoute: ActivatedRoute) {
+        this._activatedRoute.params.pipe(takeUntil(this.unsubscribe$)).subscribe(params => {
+            if (params && params.id)
+                this.userId = params.id;
+        })
+
+        if (this.checkIsMe()) {
+            this.role = this._cookieService.get('role');
+            if (this._userService.user && this._userService.user.data.avatar) {
+                this.localImage = this._fileUrl + this._userService.user.data.avatar;
+            }
+
         }
-    
-            
     }
 
     ngOnInit() { }
@@ -52,6 +60,13 @@ export class ProfileView implements OnInit {
     public onClickShowMore(): void {
         this.showMore = !this.showMore;
     }
-
+    public checkIsMe() {
+        if (this._userService.user)
+            return (!this.userId || +this.userId == +this._userService.user.data.id)
+    }
+    ngOnDestroy() {
+        this.unsubscribe$.next();
+        this.unsubscribe$.complete();
+    }
 }
 

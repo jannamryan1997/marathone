@@ -71,5 +71,10 @@ export class CommentsComponent implements OnInit {
             }
         }
     }
+    public getProfleUrl() {
+        let role = this.comments.user_coach ? 'client' : 'coach';
+        let userId = this.comments.user_coach ? this.comments.user_coach.id : this.comments.comment_coach.id;
+        return `/profile/${userId}/${role}`
+    }
 }
 

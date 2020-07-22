@@ -20,11 +20,15 @@ const mainRoutes: Routes = [
                 canActivate: [RoleGuard]
             },
             {
+                path: "profile/:id",
+                loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule)
+            },
+            {
                 path: "edit-profile",
                 loadChildren: () => import('./edit-profile/edit-profile.module').then(m => m.EditProfileModule),
                 canActivate: [RoleGuard]
             },
-           
+
             {
                 path: "article",
                 loadChildren: () => import('./article/article.module').then(m => m.ArticleModule),
@@ -34,14 +38,14 @@ const mainRoutes: Routes = [
                 loadChildren: () => import('./article/article.module').then(m => m.ArticleModule),
             },
             {
-                path:"combination/:id",
-                loadChildren:()=>import('./feed/combination/combination.module').then(m =>m.CombinationModule),
+                path: "combination/:id",
+                loadChildren: () => import('./feed/combination/combination.module').then(m => m.CombinationModule),
             },
             {
                 path: "recipe",
                 loadChildren: () => import('./recipe/recipe.module').then(m => m.RecipeModule)
             },
-          
+
 
         ]
     }

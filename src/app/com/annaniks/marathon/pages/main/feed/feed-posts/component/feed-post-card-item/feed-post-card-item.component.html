@@ -1,26 +1,29 @@
 <div class="card-item">
     <div class="item-header">
         <div class="item-head-description">
-            <img [src]="localImage" class="image" alt="Cinque Terre">
-            <p class="name-title mb-0" *ngIf="role==='client'">{{feedItem?.creator_client_info?.user?.first_name}}</p>
-            <p class="name-title mb-0" *ngIf="role==='coach'">{{feedItem?.creator_info?.user?.first_name}}</p>
-            <p class="name-title mb-0" *ngIf="!role && feedItem.creator_info">
-                {{feedItem?.creator_info?.user?.first_name}}</p>
-            <p class="name-title mb-0" *ngIf="!role && feedItem.creator_client_info">
+            <img [routerLink]="getProfleUrl()" [src]="localImage" class="image"
+                alt="Cinque Terre">
+            <p [routerLink]="getProfleUrl()" class="name-title mb-0"
+                *ngIf="role==='client' || (!role && feedItem.creator_client_info)">
                 {{feedItem?.creator_client_info?.user?.first_name}}</p>
+            <p [routerLink]="getProfleUrl()" class="name-title mb-0"
+                *ngIf="role==='coach' || (!role && feedItem.creator_info)">{{feedItem?.creator_info?.user?.first_name}}
+            </p>
+
             <p class="time mb-0">{{time}}</p>
         </div>
-<div (clickOutside)="onClickedOutside($event)">
-    <span class="material-icons icon" (click)="showDeletedModal()" >
-        more_vert
-    </span>
-    <div class="position-relative" *ngIf="showDeleteModal">
-        <app-delete-feed-item (deleted)="deleteFeedItem($event)" [content]="content?.type" [feedId]="feedItem.id"></app-delete-feed-item>
+        <div (clickOutside)="onClickedOutside($event)">
+            <span class="material-icons icon" (click)="showDeletedModal()">
+                more_vert
+            </span>
+            <div class="position-relative" *ngIf="showDeleteModal">
+                <app-delete-feed-item (deleted)="deleteFeedItem($event)" [content]="content?.type"
+                    [feedId]="feedItem.id"></app-delete-feed-item>
+            </div>
+        </div>
+
     </div>
-</div>
-      
-    </div>
-    
+
     <div class="post-content">
         <div class="post-container">
             <div class="title-content">
@@ -100,7 +103,8 @@
             <!-----ARTIVLE POST-->
             <div class="d-none" [ngClass]="{'d-block':content?.type ==='article'}">
                 <div class="post-container p-0">
-                    <img [src]="setImage()" class="food-image" alt="Cinque Terre" routerLink="/combination/{{feedItem.id}}">
+                    <img [src]="setImage()" class="food-image" alt="Cinque Terre"
+                        routerLink="/combination/{{feedItem.id}}">
                     <div class="combinations-description">
                         <p class="title">{{feedItem?.title}}</p>
                         <div class="d-flex text-align-centre">
@@ -118,10 +122,12 @@
             </div>
         </div>
     </div>
-    <app-settings [feed]="feedItem" [role]="role" (getButtonsType)="getButtonsType($event)" (openChanges)='onClickOpen($event)'></app-settings>
+    <app-settings [feed]="feedItem" [role]="role" (getButtonsType)="getButtonsType($event)"
+        (openChanges)='onClickOpen($event)'></app-settings>
     <div class="posts-comments" *ngIf="isOpen">
-        <app-comments  (sendMessage)="sendMessageForParent($event,item)" (likeOrDislike)="likeOrDislike($event)" 
-        *ngFor="let item of comments" [comments]="item" [role]="role" [isShowSubMessages]="isShowSubMessages"></app-comments>
+        <app-comments (sendMessage)="sendMessageForParent($event,item)" (likeOrDislike)="likeOrDislike($event)"
+            *ngFor="let item of comments" [comments]="item" [role]="role" [isShowSubMessages]="isShowSubMessages">
+        </app-comments>
         <app-posts-comments (sendMessage)="sendMessage($event)" *ngIf="role" [comments]="comments"></app-posts-comments>
     </div>
 </div>

@@ -1,11 +1,11 @@
 <div class="comments-item">
     <div class="comments">
         <div class="message d-flex">
-            <img [src]="getUserImage(comments)" class="user-image" alt="Cinque Terre">
+            <img [routerLink]="getProfleUrl()" [src]="getUserImage(comments)" class="user-image" alt="Cinque Terre">
             <div class="comments-container">
                 <div class="container-description display-flex">
-                    <div class="d-flex">
-                        <p class="name">{{getCreatorName(comments)}}</p>
+                    <div  class="d-flex ">
+                        <p [routerLink]="getProfleUrl()" class="name">{{getCreatorName(comments)}}</p>
                         <p class="time ml-2">{{convertDate(comments)}}</p>
                     </div>
                     <div *ngIf="!type" class="d-flex">
@@ -65,11 +65,11 @@
         <!--replace-->
         <div *ngIf="showReplay">
             <div class="replay-message message d-flex" *ngFor="let item of comments?.comment_sub">
-                <img [src]="getUserImage(item)" class="user-image" alt="Cinque Terre">
+                <img [routerLink]="getProfleUrl()" [src]="getUserImage(item)" class="user-image" alt="Cinque Terre">
                 <div class="comments-container">
                     <div class="container-description display-flex">
                         <div class="d-flex">
-                            <p class="name" [class.sm_name]="type">{{getCreatorName(item)}}</p>
+                            <p class="name" [routerLink]="getProfleUrl()" [class.sm_name]="type">{{getCreatorName(item)}}</p>
                             <p class="time ml-2">{{convertDate(item)}}</p>
                         </div>
                         <div *ngIf="!type" class="d-flex">

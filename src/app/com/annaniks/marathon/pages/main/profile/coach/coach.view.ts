@@ -3,9 +3,12 @@ import { UserService } from '../../../../core/services/user.service';
 import { UserResponseData } from '../../../../core/models/user';
 import { FeedService } from '../../feed/feed.service';
 import { FeedResponseData } from '../../../../core/models';
-import { finalize } from 'rxjs/operators';
+import { finalize, takeUntil } from 'rxjs/operators';
 import { RemoveModal } from '../../../../core/modals';
 import { MatDialog } from '@angular/material/dialog';
+import { Subject } from 'rxjs';
+import { NumberValueAccessor } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: "app-coach",
@@ -20,7 +23,7 @@ export class CoachView implements OnInit {
     public tab: number = 1;
     public postTab: number = 1;
     public galerryTab: number = 1;
-    public loading:boolean=false;
+    public loading: boolean = false;
     public reviewItem = [{}, {}, {}, {}, {}];
     public scrollDistance = 1;
     public scrollUpDistance = 2;
@@ -29,28 +32,33 @@ export class CoachView implements OnInit {
     private _isCountCalculated = false;
     private _pagesCount: number;
     public throttle = 300;
+    private unsubscribe$ = new Subject<void>()
+    public userId: NumberValueAccessor;
 
-
-    constructor(private _userService: UserService,private _feedService:FeedService,private _dialog:MatDialog) {
-        this.user = this._userService.user;
+    constructor(private _userService: UserService, private _feedService: FeedService, private _dialog: MatDialog, private _activatedRoute: ActivatedRoute) {
+        this._activatedRoute.params.pipe(takeUntil(this.unsubscribe$)).subscribe(params => {
+            if (params && params.id)
+                this.userId = params.id;
+        })
+        this.user = this.userId ? null : this._userService.user;
     }
 
-    ngOnInit() { 
+    ngOnInit() {
         this._getFeed(this._pageIndex);
     }
 
     private async _getFeed(page: number) {
-        this.loading=true;
+        this.loading = true;
         this.infiniteScrollDisabled = true;
         const data = await this._feedService.feed(this._pageIndex)
-        .pipe(
-            finalize(()=>{
-                this.loading=false;
-            })
-        )
-        .toPromise()
-        if(this.feedItem.length === 0){
-            this.loading=false;
+            .pipe(
+                finalize(() => {
+                    this.loading = false;
+                })
+            )
+            .toPromise()
+        if (this.feedItem.length === 0) {
+            this.loading = false;
         }
         if (!this._isCountCalculated) {
             this._pagesCount = Math.ceil(data.count / 10);
@@ -112,5 +120,8 @@ export class CoachView implements OnInit {
         }
 
     }
-
+    ngOnDestroy() {
+        this.unsubscribe$.next();
+        this.unsubscribe$.complete();
+    }
 }
