@@ -16,6 +16,7 @@ import { Subject } from 'rxjs';
 })
 
 export class ClientView implements OnInit {
+    public a:string;
     public feedItem: FeedResponseData[] = [];
     public user: UserResponseData;
     public tab: number = 1;
