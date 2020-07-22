@@ -90,7 +90,7 @@ import { FeedService } from '../pages/main/feed/feed.service';
  
     ],
     providers: [AuthGuard,FeedService],
-    entryComponents: [],
+    entryComponents: [AuthModal],
     exports: [
         ReactiveFormsModule,
         FormsModule,

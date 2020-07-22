@@ -86,6 +86,8 @@ export class PropertyModal implements OnInit {
                         return this._getFeedById()
 
                     } else {
+                        console.log('111111');
+                        
                         this.onClickOpenAuth();
                         return of()
                     }

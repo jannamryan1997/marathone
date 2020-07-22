@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Inject, Output, EventEmitter } from "@angular/core";
 import { MatDialog } from '@angular/material/dialog';
-import { PropertyModal, AuthModal } from 'src/app/com/annaniks/marathon/core/modals';
+import { PropertyModal, AuthModal, RemoveModal } from 'src/app/com/annaniks/marathon/core/modals';
 import { FeedResponseData, ServerResponse } from 'src/app/com/annaniks/marathon/core/models';
 import * as moment from 'moment'
 import { CookieService } from 'ngx-cookie';
@@ -9,7 +9,7 @@ import { FeedService } from '../../../feed.service';
 import { ReceiptResponseData } from 'src/app/com/annaniks/marathon/core/models/receipt';
 import { FormBuilder } from '@angular/forms';
 import { FeedLikeService } from 'src/app/com/annaniks/marathon/core/services/feed-like.service';
-import { Subject, forkJoin, Observable, Subscription, of } from 'rxjs';
+import { Subject, forkJoin, Observable, Subscription, of, throwError } from 'rxjs';
 import { takeUntil, switchMap, map } from 'rxjs/operators';
 import { CommentService } from 'src/app/com/annaniks/marathon/core/services/comment.service';
 import { FollowCommentService } from 'src/app/com/annaniks/marathon/core/services/follow-comment.service';
@@ -168,8 +168,7 @@ export class FeedPostCardItemComponent implements OnInit {
                     if (data.isAuthorizated) {
                         return this._getFeedById();
                     } else {
-                        this.onClickOpenAuth();
-                        return of()
+                        this.onClickOpenAuth()
                     }
                 } else {
                     return of()
@@ -189,7 +188,6 @@ export class FeedPostCardItemComponent implements OnInit {
                         }
                     } else {
                         this.onClickOpenAuth();
-                        return of()
                     }
                 } else {
                     return of()
@@ -197,11 +195,12 @@ export class FeedPostCardItemComponent implements OnInit {
             })
         ).subscribe()
     }
-    public onClickOpenAuth(): void {
-        this._matDialog.open(AuthModal, {
+    public onClickOpenAuth() {
+        let dialog = this._matDialog.open(AuthModal, {
             width: "100%",
             maxWidth: "100vw",
         })
+        return dialog
     }
     private _getFeedById() {
         return this._feedService.getFeedById(this.feedItem.id).pipe(map((result) => {
