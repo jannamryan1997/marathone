@@ -30,6 +30,7 @@ export class CombinationView implements OnInit {
     public role: string;
     public time;
     public slideConfig1;
+    public arrays = []
     constructor(private _feedService: FeedService, private _activatedRoute: ActivatedRoute,
         private _cookieService: CookieService,
         private _commentService: CommentService,
@@ -48,7 +49,7 @@ export class CombinationView implements OnInit {
         this._initConfig()
         this._getArticleById();
     }
-    private _initConfig(){
+    private _initConfig() {
         this.slideConfig1 = {
             infinite: true,
             slidesToShow: 1,
@@ -57,8 +58,8 @@ export class CombinationView implements OnInit {
             autoplay: true,
             autoplaySpeed: 2000
         }
-    
     }
+
     private _getArticleById() {
         this.loading = true
         this._feedService.getFeedById(this._articleId).pipe(takeUntil(this.unsubscribe$),
@@ -67,6 +68,10 @@ export class CombinationView implements OnInit {
                 this.time = moment(this.article.timeStamp).format('MMMM Do YYYY');
                 if (this.article && this.article.feed_media && this.article.feed_media[0] && this.article.feed_media[0].content) {
                     this.content = JSON.parse(this.article.feed_media[0].content);
+                    if (this.content.arrays)
+                        this.arrays = this.content.arrays
+                    // console.log(this.content);
+
                 }
             })
     }

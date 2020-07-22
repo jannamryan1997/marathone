@@ -16,9 +16,9 @@ export class ContentVideoComponent implements OnInit {
     }
     @Input('source')
     set setSource(event) {
-        if (event && event.link) {
+        if (event) {          
             this.videoSources = [{
-                src: event.link,
+                src: event,
                 provider: 'youtube',
             }]
         }
