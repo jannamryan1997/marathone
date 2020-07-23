@@ -1,10 +1,11 @@
 import { Component, OnInit, Inject } from "@angular/core";
 import { UserService } from '../../../core/services/user.service';
 import { CookieService } from 'ngx-cookie';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { UploadFileResponse } from '../../../core/models';
+import { ProfileService } from '../../../core/services/profile.service';
 
 
 
@@ -23,6 +24,8 @@ export class ProfileView implements OnInit {
     public router: boolean = false;
     public loading: boolean = false;
     public localImage: string = '/assets/images/user-icon-image.png';
+    public userRole: string;
+    public user;
     public postItem = [
         {
             postType: "image",
@@ -35,27 +38,45 @@ export class ProfileView implements OnInit {
         }
     ]
     public userId: number;
+    public isFollowed: boolean = false;
     constructor(
         @Inject("FILE_URL") private _fileUrl,
         private _userService: UserService,
-        private _cookieService: CookieService, private _activatedRoute: ActivatedRoute) {
+        private _profileService: ProfileService,
+        private _cookieService: CookieService, private _activatedRoute: ActivatedRoute, private _router: Router) {
+        let urls = this._router.url.split('/');
+        if (urls && urls.length) {
+            this.userRole = urls[urls.length - 1];
+        }
+
         this._activatedRoute.params.pipe(takeUntil(this.unsubscribe$)).subscribe(params => {
             if (params && params.id)
                 this.userId = params.id;
         })
 
+
+    }
+
+    ngOnInit() {
+        this._getProfile()
+    }
+    private _getProfile() {
+        this.role = this._cookieService.get('role');
         if (this.checkIsMe()) {
-            this.role = this._cookieService.get('role');
             if (this._userService.user && this._userService.user.data.avatar) {
                 this.localImage = this._fileUrl + this._userService.user.data.avatar;
             }
 
+        } else {
+            this._profileService.getProfile(this.userRole, this.userId).pipe(takeUntil(this.unsubscribe$)).subscribe((data) => {
+                this.user = data;
+                this.isFollowed = data.is_follower;                
+                if (data.avatar)
+                    this.localImage = this._fileUrl + data.avatar;
+            })
         }
         
     }
-
-    ngOnInit() { }
-
     private _putClient(file_name): void {
         this._userService.user.data.avatar = file_name;
         if (this.role === 'client') {
@@ -110,8 +131,28 @@ export class ProfileView implements OnInit {
         this.showMore = !this.showMore;
     }
     public checkIsMe() {
-        if (this._userService.user)
+        if (this._userService.user) {
             return (!this.userId || +this.userId == +this._userService.user.data.id)
+        } else {
+            return false
+        }
+    }
+    public follow() {
+        if (!this.isFollowed) {
+            let sendBody = {}
+            if (this.role == 'client') {
+                sendBody['who_user'] = this._userService.user.data.url
+            } else {
+                sendBody['who_coach'] = this._userService.user.data.url
+            }
+            if (this.userRole == 'client') {
+                sendBody['whom_user'] = this.user.url
+            } else {
+                sendBody['whom_coach'] = this.user.url
+
+            }
+            this._profileService.follow(sendBody).pipe(takeUntil(this.unsubscribe$)).subscribe();
+        }
     }
     ngOnDestroy() {
         this.unsubscribe$.next();

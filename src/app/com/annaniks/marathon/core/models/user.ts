@@ -1,27 +1,27 @@
 export interface UserResponseData {
-    data: {
-        user: User,
-        status: string,
-        locationLocality: any,
-        locationCountry: any,
-        location: string;
-        google_id: string,
-        about: string,
-        rate: any,
-        ui_language: any,
-        avatar: string,
-        facebook: string,
-        youtube: string,
-        instagram: string,
-        linkedin: string,
-        language:Country[];
-        certificates:CertificatesData[],
-        education:EducationData [],
-        experience: ExperienceData[],
-        speciality:any;
-    }
+    data: UserData
 }
-
+export interface UserData{
+    user: User,
+    status: string,
+    locationLocality: any,
+    locationCountry: any,
+    location: string;
+    google_id: string,
+    about: string,
+    rate: any,
+    ui_language: any,
+    avatar: string,
+    facebook: string,
+    youtube: string,
+    instagram: string,
+    linkedin: string,
+    language:Country[];
+    certificates:CertificatesData[],
+    education:EducationData [],
+    experience: ExperienceData[],
+    speciality:any;
+}
 
 interface CertificatesData{
     description: string,

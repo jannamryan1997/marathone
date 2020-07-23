@@ -88,31 +88,38 @@
                     <label>Article Title</label>
                     <input formControlName="title" type="text" class="form-input w-100" placeholder="Type Title">
                 </div>
-                <!--  -->
-                <div *ngFor="let control of getControls(); let i=index" [formGroup]="control">
-                    <div [ngSwitch]="control.get('type').value">
-                        <div *ngSwitchCase="'text'" class="form-group d-flex align-items-start form-grup-redius">
-                            <label>Content / Text</label>
-                            <ckeditor [config]="config" formControlName="value" class="form-input w-100"></ckeditor>
-                            <span (click)="removeControl(true,i)" class="material-icons close">
-                                close
-                            </span>
+                <!-- cdkDropList (cdkDropListDropped)="drop($event)" cdkDrag -->
+                <div>
+                    <div *ngFor="let control of getControls(); let i=index" style="position: relative;"
+                        [formGroup]="control">
+
+                        <div [ngSwitch]="control.get('type').value">
+                            <div *ngSwitchCase="'text'" class="form-group d-flex align-items-start form-grup-redius">
+
+                                <label>Content / Text</label>
+                                <ckeditor (drop)="onDrop($event)" [config]="config" formControlName="value"
+                                    class="form-input w-100"></ckeditor>
+                                <span (click)="removeControl(true,i)" class="material-icons close">
+                                    close
+                                </span>
+                            </div>
+
+                            <div *ngSwitchCase="'image'" class="content-image display-flex w-100">
+                                <app-content-image [contentImageItem]="control.get('value').value"
+                                    (delete)="removeControl($event,i)" class="w-100">
+                                </app-content-image>
+                            </div>
+                            <div *ngSwitchCase="'video'" class="content-image display-flex">
+                                <app-content-video [source]="control.get('value').value"
+                                    (delete)="removeControl($event,i)" class="w-100">
+                                </app-content-video>
+                            </div>
                         </div>
 
-                        <div *ngSwitchCase="'image'" class="content-image display-flex w-100">
-                            <app-content-image [contentImageItem]="control.get('value').value"
-                                (delete)="removeControl($event,i)" class="w-100">
-                            </app-content-image>
-                        </div>
-                        <div *ngSwitchCase="'video'" class="content-image display-flex">
-                            <app-content-video [source]="control.get('value').value" (delete)="removeControl($event,i)"
-                                class="w-100">
-                            </app-content-video>
-                        </div>
                     </div>
-
                 </div>
-                <div *ngIf="isShowImageRedacor" class="form-group broves-file-form d-flex align-items-start form-grup-redius">
+                <div *ngIf="isShowImageRedacor"
+                    class="form-group broves-file-form d-flex align-items-start form-grup-redius">
                     <label>Content / Image</label>
                     <div class="m-auto">
 
@@ -127,7 +134,8 @@
                     </span>
                 </div>
 
-                <div *ngIf="isShowVideoRedactor" class="form-group broves-file-form d-flex align-items-start form-grup-redius">
+                <div *ngIf="isShowVideoRedactor"
+                    class="form-group broves-file-form d-flex align-items-start form-grup-redius">
                     <label>Content / Youtube Image</label>
                     <div class="m-auto">
                         <button class="update-video-btn">
@@ -145,9 +153,9 @@
                         close
                     </span>
                 </div>
-
-
             </div>
+
+
         </div>
     </div>
     <div class="add-item-content d-flex w-100">

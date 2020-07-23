@@ -78,25 +78,13 @@ export class FeedPostCardItemComponent implements OnInit {
                 provider: 'youtube',
             }]
         }
-
-        if (!this.role) {
-            if (this.feedItem.creator_info && this.feedItem.creator_info.avatar) {
+        let role = this.userRole;
+        if (role == 'client' && this.feedItem.creator_client_info && this.feedItem.creator_client_info.avatar) {
+            this.localImage = this.fileUrl + this.feedItem.creator_client_info.avatar;
+        } else {
+            if (role == 'coach' && this.feedItem.creator_info && this.feedItem.creator_info.avatar) {
                 this.localImage = this.fileUrl + this.feedItem.creator_info.avatar;
             }
-
-            else if (this.feedItem.creator_client_info && this.feedItem.creator_client_info.avatar) {
-                this.localImage = this.fileUrl + this.feedItem.creator_client_info.avatar;
-            }
-            else {
-                this.localImage = '/assets/images/user-icon-image.png';
-            }
-        }
-
-        else if (this.role && this._userService.user && this._userService.user.data && this._userService.user.data.avatar) {
-            this.localImage = this.fileUrl + this._userService.user.data.avatar;
-        }
-        else if (this.role && (!this._userService.user || (this._userService.user && !this._userService.user.data) || this._userService.user.data.avatar === null)) {
-            this.localImage = "/assets/images/user-icon-image.png";
         }
         this._showseeMore();
 
@@ -261,11 +249,15 @@ export class FeedPostCardItemComponent implements OnInit {
         let userId = this.feedItem.creator_info ? this.feedItem.creator_info.id : this.feedItem.creator_client_info.id;       
         return `/profile/${userId}/${role}`;
     }
+
     ngOnDestroy() {
         this.unsubscribe$.next();
         this.unsubscribe$.complete();
     }
-   
+    get userRole() {
+        let role = this.feedItem.creator_client_info ? 'client' : 'coach';
+        return role
+    }
 }
 
 
