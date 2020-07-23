@@ -7,7 +7,7 @@
 .article {
     background: #ffffff 0% 0% no-repeat padding-box;
     box-shadow: 2px 30px 43px #5c687b17;
-    border: 0.5px solid #bbcddf;
+  //  border: 0.5px solid #bbcddf;
     .article-header {
         background: #ffffff 0% 0% no-repeat padding-box;
         box-shadow: 11px 13px 18px #3e598b0f;
@@ -28,20 +28,6 @@
 
                 .icon {
                     font-size: 16px;
-                }
-            }
-
-            .follow-btn,
-            .btn-loader {
-                background: #ffffff 0% 0% no-repeat padding-box;
-                border: 1px solid #589cfe;
-                border-radius: 18px;
-                opacity: 1;
-                color: #589cfe;
-                margin-left: 10px !important;
-                padding: 9px 30px 9px 28px;
-                .material-icons {
-                    font-size: 17px;
                 }
             }
         }
@@ -99,9 +85,9 @@
         }
     }
     .add-item-content {
-        margin: 60px 0;
         .add-container {
             flex-wrap: wrap;
+            margin: 10px auto;
             .add-item {
                 background: #ffffff 0% 0% no-repeat padding-box;
                 box-shadow: -1.63px 5px 18px #5c687b0d;
@@ -139,18 +125,6 @@
     .forms-group {
         padding: 0 24px;
         margin-top: 30px;
-        .follow-btn {
-            background: #ffffff 0% 0% no-repeat padding-box;
-            border: 1px solid #589cfe;
-            border-radius: 18px;
-            opacity: 1;
-            color: #589cfe;
-            padding: 7px 10px;
-            margin: 25px 0 0 0 !important;
-            .material-icons {
-                font-size: 17px;
-            }
-        }
     }
     .content-image {
         flex-wrap: wrap;

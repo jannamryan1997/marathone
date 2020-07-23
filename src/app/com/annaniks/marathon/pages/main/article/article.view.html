@@ -9,10 +9,10 @@
             <div class="display-flex">
                 <p class="text">Save Draft</p>
                 <div class="btn-content d-flex align-items-center">
-                    <button class="btn follow-btn">Preview</button>
+                    <button class="btn-item info-btn ml-2 mr-3">Preview</button>
                     <button (click)="publish()"
-                        class="btn follow-btn activeButton">{{articleId?'Update':'Publish'}}</button>
-                    <button class="btn btn-loader" (click)="onClickShowSetting()">
+                        class="btn-item info-btn mr-3 active-btn">{{articleId?'Update':'Publish'}}</button>
+                    <button class="btn-item info-btn btn-radius d-flex justify-content-center" (click)="onClickShowSetting()" [ngClass]="{'active-btn':showSetting}">
                         <span class="material-icons icon">
                             more_horiz
                         </span>
@@ -68,7 +68,7 @@
                 <div class="m-auto">
                     <p class="title">Set Article Cover</p>
                     <input class="" type="file" id="file1" name="cover" (change)="setArticleCover($event)">
-                    <label class="btn follow-btn label-btn d-flex" for="file1"> Broves Files <span
+                    <label class="btn-item info-btn  d-flex mt-3" for="file1"><p class="m-auto">Broves Files</p>  <span
                             class="material-icons ml-2">
                             save_alt
                         </span></label>
@@ -117,7 +117,7 @@
                     <div class="m-auto">
 
                         <input class="" type="file" id="file" name="avatar" (change)="setServicePhoto($event)">
-                        <label class="btn follow-btn label-btn d-flex" for="file"> Broves Files <span
+                        <label class="btn-item info-btn d-flex" for="file"> Broves Files <span
                                 class="material-icons ml-2">
                                 save_alt
                             </span></label>
@@ -151,7 +151,7 @@
         </div>
     </div>
     <div class="add-item-content d-flex w-100">
-        <div class="add-container w-80 m-auto display-flex">
+        <div class="add-container w-80  display-flex">
             <div (click)="addContent()" class="add-item active-item">
                 <span class="material-icons m-auto">
                     title

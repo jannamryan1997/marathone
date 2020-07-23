@@ -2,7 +2,6 @@ import { Component, OnInit, OnDestroy } from "@angular/core";
 import { FeedService } from '../feed.service';
 import { FeedResponseData } from '../../../../core/models';
 import { UserService } from '../../../../core/services/user.service';
-import { finalize } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { RemoveModal } from '../../../../core/modals';
 import { MatDialog } from '@angular/material/dialog';

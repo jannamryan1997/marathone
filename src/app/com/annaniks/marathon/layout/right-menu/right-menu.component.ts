@@ -36,10 +36,13 @@ export class RightMenuComponent implements OnInit {
     constructor(private _profileUserService: UserService) {
     }
 
-    ngOnInit() { }
+    ngOnInit() {}
 
     get showUserData(): boolean {
         return this._profileUserService.isAuthorized;
     }
+
+    onScroll(event) {}
+    
 
 }

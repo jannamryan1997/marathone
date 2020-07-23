@@ -18,23 +18,23 @@
                     </div>
 
                     <div class="btn-content d-flex align-items-center">
-                        <button class="btn follow-btn d-flex" routerLink="/edit-profile"
-                            routerLinkActive="profileActiveTab" (click)="update()">Save Profile
+                        <button class=" info-btn btn-item ml-2 mr-2" routerLink="/edit-profile"
+                            routerLinkActive="active-btn" (click)="update()">Save Profile
                             <span class="ml-2 material-icons">
                                 create
                             </span>
                         </button>
-                        <button class="btn btn-loader">
+                        <button class="info-btn btn-item btn-radius mr-2">
                             <span class="material-icons icon">
                                 insert_comment
                             </span>
                         </button>
-                        <button class="btn btn-loader" (click)="onClickShowSocialMedium()">
+                        <button class="info-btn btn-item btn-radius ml-2 mr-2" (click)="onClickShowSocialMedium()" [ngClass]="{'active-btn':showSocialMedium}">
                             <span class="material-icons icon">
                                 alternate_email
                             </span>
                         </button>
-                        <button class="btn btn-loader" (click)="onClickShowMore()">
+                        <button class="info-btn btn-item btn-radius" (click)="onClickShowMore()"  [ngClass]="{'active-btn':showMore}">
                             <span class="material-icons icon">
                                 more_horiz
                             </span>

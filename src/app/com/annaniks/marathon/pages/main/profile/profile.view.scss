@@ -9,14 +9,11 @@
     .home-main {
         background: #FFFFFF 0% 0% no-repeat padding-box;
         box-shadow: 2px 30px 43px #5C687B17;
-        border: 0.5px solid #E3ECFD;
         border-radius: 0px 0px 15px 15px;
         opacity: 1;
 
         .profile-description {
             position: relative;
-
-          
 
             .cover-image {
                 height: 185px;
@@ -25,10 +22,8 @@
             }
 
             .profile-content {
-                // padding: 0 20px;
-
                 .profile-header-content {
-                    padding: 0 20px;
+                    padding: 0 10px;
 
                     .profile-image {
                         margin-top: -40px;
@@ -76,31 +71,6 @@
                         }
                     }
 
-                    .btn-loader {
-                        padding: 8px !important;
-                        border-radius: 50% !important;
-
-                        .icon {
-                            font-size: 16px;
-                        }
-                    }
-
-                    .follow-btn,
-                    .btn-loader {
-                        background: #FFFFFF 0% 0% no-repeat padding-box;
-                        border: 1px solid #589CFE;
-                        border-radius: 18px;
-                        opacity: 1;
-                        color: #589CFE;
-                        margin-left: 5px !important;
-                        // padding: 9px 17px 9px 20px;
-                        padding: 9px 10px 9px 12px;
-
-                        .material-icons{
-                            font-size: 17px;
-                        }
-                    }
-                   
                 }
 
                 .social-media {
@@ -147,7 +117,7 @@
                         .more-item {
                             @include text(16px, 19px, #45535C, EncodeSans-Medium);
                             padding: 15px 0;
-                             
+
 
                             &:hover {
                                 background: #F7F7FC 0% 0% no-repeat padding-box !important;
@@ -161,12 +131,21 @@
     }
 }
 
-.profileActiveTab{
-    color: #ffff !important;
-    background: #589CFE !important;
-    border: 1px solid #589CFE !important;
-}
-
 input[type="file"] {
     display: none;
-   }
+}
+
+.btn-item {
+    margin: 0 5px !important;
+    padding: 5px !important;
+
+    .icon {
+        font-size: 16px;
+        margin: auto;
+    }
+}
+
+.feed-shadow-class{
+    border-radius:0 !important; 
+    box-shadow: 0px 0px 3px #5C687B17 !important;
+}

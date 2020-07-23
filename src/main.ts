@@ -7,7 +7,7 @@ import { environment } from './environments/environment';
 if (environment.production) {
   enableProdMode();
   // if(window){
-  //   window.console.log= function() {};
+  //   window.''= function() {};
   //   window.console.warn= function() {};
   //   window.console.error= function() {}
   // }

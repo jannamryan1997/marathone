@@ -16,7 +16,6 @@ export class MainView implements OnInit {
         private _cookieService: CookieService,
         public router:Router,
         ) {
-            console.log(this.router.url);
             
     }
 

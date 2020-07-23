@@ -226,7 +226,7 @@ export class FeedPostCardItemComponent implements OnInit {
             this._getComments(parent),
             this._getFeedById()
         )
-        return combine
+        return combine;
     }
     public setImage() {
         return this.content.cover ? this.fileUrl + this.content.cover : 'assets/images/chicken.png'
@@ -239,7 +239,7 @@ export class FeedPostCardItemComponent implements OnInit {
         return this._commentService.getFeedCommentById(this.feedItem.id).pipe(map((data: ServerResponse<Comment[]>) => {
             this.comments = data.results;
             this.isShowSubMessages = parent ? true : false;
-            return data
+            return data;
         }))
     }
     public showDeletedModal(): void {
@@ -259,7 +259,7 @@ export class FeedPostCardItemComponent implements OnInit {
     public getProfleUrl() {
         let role = this.feedItem.creator_client_info ? 'client' : 'coach';
         let userId = this.feedItem.creator_info ? this.feedItem.creator_info.id : this.feedItem.creator_client_info.id;       
-        return `/profile/${userId}/${role}`
+        return `/profile/${userId}/${role}`;
     }
     ngOnDestroy() {
         this.unsubscribe$.next();

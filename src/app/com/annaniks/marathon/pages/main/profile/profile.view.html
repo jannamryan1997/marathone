@@ -22,26 +22,27 @@
                     </div>
 
                     <div class="btn-content d-flex align-items-center">
-                        <button class="btn follow-btn">Follow</button>
-                        <button *ngIf="checkIsMe()" class="btn follow-btn d-flex"  routerLink="/edit-profile"
-                            routerLinkActive="profileActiveTab">Edit Profile
+                        <button class="btn-item info-btn">Follow</button>
+                        <button *ngIf="checkIsMe()" class="btn-item info-btn" routerLink="/edit-profile"
+                            routerLinkActive="active-btn">Edit Profile
                             <span class="ml-2 material-icons">
                                 create
                             </span>
                         </button>
-                        <button class="btn follow-btn" *ngIf="role==='coach'">Packages</button>
-                        <button class="btn btn-loader">
+                        <button class="btn-item info-btn" *ngIf="role==='coach'">Packages</button>
+                        <button class="btn-item info-btn btn-radius">
                             <span class="material-icons icon">
                                 insert_comment
                             </span>
                         </button>
-                        <button class="btn btn-loader" (click)="onClickShowSocialMedium()">
+                        <button class="btn-item info-btn  btn-radius" (click)="onClickShowSocialMedium()"
+                            [ngClass]="{'active-btn':showSocialMedium}">
                             <span class="material-icons icon">
                                 alternate_email
                             </span>
                         </button>
-                        <button class="btn btn-loader" (click)="onClickShowMore()">
-                            <span class="material-icons icon">
+                        <button class="btn-item info-btn btn-radius" (click)="onClickShowMore()"   [ngClass]="{'active-btn':showMore}">
+                            <span class="material-icons icon ">
                                 more_horiz
                             </span>
                         </button>
@@ -76,4 +77,3 @@
 
     </div>
 </div>
-

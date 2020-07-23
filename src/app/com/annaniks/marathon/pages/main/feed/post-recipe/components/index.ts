@@ -1,1 +1,0 @@
-export * from "../components/post-recipe-item/post-recipe-item.component";

@@ -1,7 +1,7 @@
-import { Component, OnInit, Input, AfterViewChecked, ViewChild, ElementRef, AfterViewInit, Output, EventEmitter, Inject } from "@angular/core";
-import { FormControl, Validators } from '@angular/forms';
+import { Component, OnInit, Input,  ViewChild, ElementRef, Output, EventEmitter, Inject } from "@angular/core";
+import { FormControl, } from '@angular/forms';
 import { UserService } from '../../../core/services/user.service';
-import { UploadFileResponse, FeedData, FeedResponseData } from '../../../core/models';
+import { UploadFileResponse, FeedResponseData } from '../../../core/models';
 import { FeedService } from '../../../pages/main/feed/feed.service';
 import { CookieService } from 'ngx-cookie';
 import { finalize } from 'rxjs/operators';
@@ -46,7 +46,6 @@ export class CreatePublicationComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        console.log(this.feedItem);
         if (this.editProfile) {
             this._getFeedById();
         }
@@ -54,8 +53,6 @@ export class CreatePublicationComponent implements OnInit {
     }
 
     private _getFeedById(): void {
-        console.log(this.feedId);
-
         this._feedService.getFeedById(this.feedId)
             .subscribe((data: FeedResponseData) => {
                 this.postType.setValue(data.title);
@@ -234,7 +231,6 @@ export class CreatePublicationComponent implements OnInit {
         this.controVideoItem = '';
         this.isModalMode = false;
         this.showYoutube = false;
-
         this.player = null;
     }
 
@@ -253,10 +249,9 @@ export class CreatePublicationComponent implements OnInit {
         if (title === 'www.youtube.com/watch?' || title === 'https://www.youtube.com/watch?') {
             this.showYoutube = true;
             this.contentFileName = this.postType.value,
-                this.uploadType = 'videoLink',
-                console.log(this.contentFileName, this.uploadType);
+                this.uploadType = 'videoLink'
 
-        }
+    }
         else {
             this.showYoutube = false;
         }
