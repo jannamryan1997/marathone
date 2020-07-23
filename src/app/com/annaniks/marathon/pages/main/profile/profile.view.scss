@@ -166,7 +166,11 @@
     background: #589CFE !important;
     border: 1px solid #589CFE !important;
 }
-
+.followed{
+    background: #589CFE !important;
+    color: white !important;
+    border-color:white !important
+}
 input[type="file"] {
     display: none;
    }
