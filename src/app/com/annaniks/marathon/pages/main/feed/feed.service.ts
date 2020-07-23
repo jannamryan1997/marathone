@@ -58,6 +58,5 @@ export class FeedService {
         return this._httpClient.put(feedMediaUrl, body);
     }
 
-
 }
 

@@ -60,8 +60,6 @@ export class FeedPostCardItemComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log(this.feedItem);
-        
         this.time = moment(this.feedItem.timeStamp).fromNow();
         if (this.feedItem.feed_media && this.feedItem.feed_media.length) {
             this.content = this.feedItem.feed_media[0].content;

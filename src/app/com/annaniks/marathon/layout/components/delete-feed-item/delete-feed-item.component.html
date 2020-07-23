@@ -15,7 +15,10 @@
     </div>
 </div>
 </div>
+<app-create-publication *ngIf="showPostModel" [editProfile]="true" [feedId]="feedId" [mediaUrl]="mediaUrl"></app-create-publication>
 </div>
+
+
 <div class="delete-container">
 <div class="deleted-content" *ngIf="!role">
     <div class="item">

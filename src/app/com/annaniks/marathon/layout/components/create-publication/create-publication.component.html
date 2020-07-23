@@ -1,4 +1,4 @@
-<div class="feed-header-content" [class.modal-mode]="isModalMode">
+<div class="feed-header-content" [class.modal-mode]="isModalMode" [ngClass]="{'content-width':editProfile}">
     <div class="recipe-header">
         <div class="display-flex">
             <p class="title">Create Pablication</p>
@@ -90,7 +90,7 @@
 
     </div>
     <div   *ngIf="isModalMode">
-        <button class="post-btn w-100" (click)="createdPost()"><span>Post</span></button>
+        <button class="post-btn w-100" (click)="createdPost()"><span *ngIf="!editProfile">Post</span> <span *ngIf="editProfile">Edit</span></button>
     </div>
     <spinner-loading *ngIf="loading"></spinner-loading>
 </div>
