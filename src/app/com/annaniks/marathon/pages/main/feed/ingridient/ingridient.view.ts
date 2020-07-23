@@ -36,6 +36,7 @@ export class IngridientViewComponent implements OnInit {
     public showDeleteModal: boolean = false;
     public isShowSubMessages: boolean = false
     public comments = [];
+    public loaclImage:string='/assets/images/food.png';
     constructor(
         private _activatedRoute: ActivatedRoute,
         private _feedService: FeedService,
@@ -82,6 +83,9 @@ export class IngridientViewComponent implements OnInit {
                                 src: this.receipt.videoLink,
                                 provider: 'youtube',
                             }]
+                        }
+                        if( this.receipt && this.receipt.imageSlider.length<1){
+                            this.receipt.imageSlider.push({ img:this.loaclImage});
                         }
                     }
                 }

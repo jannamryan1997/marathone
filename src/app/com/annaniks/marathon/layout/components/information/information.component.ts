@@ -18,8 +18,6 @@ export class InformationComponent implements OnInit {
 
     constructor(@Inject("FILE_URL") public fileUrl,private _userService:UserService) { 
     this.user=this._userService.user;
-    console.log(this.user);
-    
     }
 
     ngOnInit() { }

@@ -27,25 +27,13 @@
     }
 }
 
-.btn {
-    display: inline-block;
-    font-size: 14px;
-    text-align: center;
-    cursor: pointer;
-    border-radius: 30px;
-    padding: 3px 15px;
-    background: #ffffff;
-    display: flex;
-    align-items: center;
-    text-align: center;
-}
 
 .card-item {
     border: 0.5px solid #E3ECFD;
     border-radius: 15px;
     opacity: 1;
     margin-top: 32px;
-    padding:0;
+    padding: 0;
     background: #ffffff;
     box-shadow: 2.09px 30px 43px #5C687B17;
 }
@@ -59,7 +47,7 @@
         .more {
             color: #65a4fe;
             cursor: pointer;
-            
+
             line-height: 20px !important;
         }
     }
@@ -83,7 +71,7 @@
         }
 
         .name-title {
-            @include text(19px, 33px, #45535c,EncodeSans-Bold);
+            @include text(19px, 33px, #45535c, EncodeSans-Bold);
             margin-left: 20px;
         }
 
@@ -99,62 +87,11 @@
     }
 }
 
-.follow-btn {
-    border: 1px solid #bbcddf;
-    border-radius: 20px;
-    opacity: 1;
-    margin-left: 35px;
-    cursor: pointer;
-    @include text(14px, 16px, #bbcddf,  EncodeSans-SemiBold);
-    padding: 9px 17px 9px 20px;
-    background: #f7f7fc 0% 0% no-repeat padding-box;
 
-
-}
-
-//radius
-.radius {
-    background: #ffffff 0% 0% no-repeat padding-box;
-    border-radius: 26px;
-    opacity: 1;
-    width: 52px;
-    height: 52px;
-    cursor: pointer;
-    align-items: center;
-    position: absolute;
-    top: 0;
-    left: 0;
-    margin: 7px 7px;
-    border: none;
-
-    .icon {
-        color: #acb9d1 !important;
-        font-size: 35px;
-        
-    }
-}
 
 //button
 .buttons-content {
     margin-top: 20px;
-
-    .button-item {
-        width: 25%;
-        color: #afc1d1;
-        border: 1px solid #d0dae4;
-        border-radius: 21px;
-        opacity: 0.65;
-        margin-right: 15px;
-        padding: 5px;
-        cursor: pointer;
-        outline: none;
-        // background: #ffffff;
-        transition: 0.5s all ease-out;
-
-        &:first-child {
-            margin-left: 15px;
-        }
-    }
 }
 
 .show-content {
@@ -163,7 +100,7 @@
     // height: 45px;
     overflow: hidden;
     transition: 0.5s all ease-out;
-    
+
 }
 
 //review
@@ -195,7 +132,7 @@
         padding: 15px 30px;
         text-decoration: none;
         text-shadow: 0px 1px 0px #57a1f2;
-         
+
         display: flex;
         align-items: center;
     }
@@ -203,7 +140,7 @@
 
 .clear-icon {
     padding: 10px 20px;
-    
+
     cursor: pointer;
     font-size: 30px;
 }
@@ -261,14 +198,15 @@
 
 .auth-description {
     margin-top: 30px;
+
     .text {
         @include text(14px, 30px, #45535c, EncodeSans-SemiBold);
-         
+
     }
 
     .title {
         @include text(14px, 30px, #5897f6, EncodeSans-SemiBold);
-        
+
     }
 
     .checkbox {
@@ -288,10 +226,6 @@
 }
 
 .button-item {
-    box-shadow: 1px 20px 79px #f8f9fb44;
-    opacity: 1;
-    background: #f8f9fb44 !important;
-
     .sign-btn {
         border: 1px solid#589CFE;
         width: 50%;
@@ -303,6 +237,7 @@
         @include text(16px, 19px, #589cfe, EncodeSans-SemiBold);
         margin: 0 15px 0 0;
     }
+
     .signUp-btn {
         border: 1px solid#589CFE;
         width: 50%;
@@ -310,7 +245,7 @@
         transition: 0.5 all ease-out;
         padding: 15px;
         border-radius: 26px;
-        
+
         background: #589cfe 0% 0% no-repeat padding-box !important;
         box-shadow: -5.29px 7px 10px #589bfd36;
         @include text(16px, 19px, #ffffff, EncodeSans-SemiBold);
@@ -334,6 +269,7 @@ textarea {
     vertical-align: top;
     resize: vertical;
 }
+
 ////close-img
 .close-img {
     background: #C0C9DE 0% 0% no-repeat padding-box;
@@ -352,21 +288,23 @@ textarea {
 
 }
 
-.form-group,.autocomplete{
+.form-group,
+.autocomplete {
     // margin: 40px 0 0 0;
     margin: 30px 10px;
     position: relative;
-   }
-   .form-group>label{
-     position: absolute;
-     top: -11px;
-     left: 25px;
-     background-color:white;
-     @include text(16px, 19px, #589CFE,MicrosoftYaHeiUI);
-     padding: 0 5px;
-   }
+}
 
-   .update-video-btn{
+.form-group>label {
+    position: absolute;
+    top: -11px;
+    left: 25px;
+    background-color: white;
+    @include text(16px, 19px, #589CFE, MicrosoftYaHeiUI);
+    padding: 0 5px;
+}
+
+.update-video-btn {
     background: #FFFFFF 0% 0% no-repeat padding-box;
     border: 1px solid #bbcddf;
     border-radius: 18px;
@@ -378,11 +316,13 @@ textarea {
     display: flex;
     align-items: center;
 }
+
 .add-btn {
     flex-direction: column;
     cursor: pointer;
     background: #ffffff;
     border: none;
+
     &::before {
         display: block;
         content: "";
@@ -396,6 +336,64 @@ textarea {
     }
 }
 
-.form-grup-redius{
+.form-grup-redius {
     border-radius: 20px !important;
+}
+
+
+
+///////button style
+.btn-item {
+    border-radius: 20px;
+    height: 40px;
+    font-size: 14px;
+    line-height: 17px;
+    outline: none;
+    padding: 10px 20px;
+    font-family: EncodeSans-SemiBold;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+}
+
+.info-btn {
+    background: #ffffff;
+    border: 1px solid #589CFE;
+    color: #589CFE;
+    align-items: center;
+}
+
+.active-btn {
+    background: #589CFE;
+    border: 1px solid #589CFE;
+    color: #ffffff;
+    align-items: center;
+}
+
+.basic-btn {
+    background: #F7F7FC;
+    border: 1px solid #B9B9D5;
+    color: #B9B9D5;
+    align-items: center;
+}
+
+.blue-btn {
+    background: #589CFE;
+    border: 1px solid #589CFE;
+    color: #ffffff;
+    box-shadow: -5.29px 7px 10px #589bfd36;
+    align-items: center;
+}
+
+.btn-radius {
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 50% !important;
+    display: flex;
+    justify-content: center;
+
+    .icon {
+        font-size: 16px;
+    }
 }

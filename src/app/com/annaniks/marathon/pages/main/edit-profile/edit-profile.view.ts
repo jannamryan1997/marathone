@@ -286,7 +286,6 @@ export class EditProfileView implements OnInit {
 
 
     public filterCountryMultiple(event) {
-        console.log(this.profileFormGroup.value.languages);
         let query = event.query;
         this._countryService.getLanguages().subscribe((countries: Country[]) => {
             let contry = [];

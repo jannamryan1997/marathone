@@ -41,7 +41,7 @@
                         {{feedItem?.creator_client_info?.user?.first_name}}</p>
                 </div>
                 <p class="date ml-2">{{time}}</p>
-                <button type="button" class="btn  follow-btn ml-2">Follow</button>
+                <button type="button" class="btn-item info-btn ml-2">Follow</button>
             </div>
             <div>
                 <div class="loader-container">
@@ -90,7 +90,7 @@
             <div class="ingridient-content">
                 <p class="title">Ingredients</p>
                 <div class="ingridient m-auto" *ngFor="let item of receipt?.ingridient">
-                    <div class="ingridient-item d-flex justify-content-between">
+                    <div class="ingridient-item d-flex justify-content-between" *ngIf="item">
                         <p class="ingridient-title">{{item?.name}}</p>
                         <p class="ingridient-value">{{item?.value}} gm</p>
                     </div>
@@ -100,10 +100,10 @@
 
                 <p class="title">Instructions</p>
                 <div *ngFor="let item of receipt?.preparationSteps;let ind=index">
-                    <div class="instruction-item d-flex">
+                    <div class="instruction-item d-flex" *ngIf="item">
                         <p class="number">{{ind+1}}</p>
 
-                        <p class="instruction-item-text w-100">{{item?.title}}</p>
+                        <p class="instruction-item-text w-100">{{item}}</p>
                     </div>
                 </div>
             </div>

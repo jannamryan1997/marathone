@@ -74,6 +74,26 @@
     }
 
 }
+.radius {
+    background: #ffffff 0% 0% no-repeat padding-box;
+    border-radius: 26px;
+    opacity: 1;
+    width: 52px;
+    height: 52px;
+    cursor: pointer;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 7px 7px;
+    border: none;
+
+    .icon {
+        color: #acb9d1 !important;
+        font-size: 35px;
+        
+    }
+}
 :host::ng-deep{
     app-content-video{
         .image-content{

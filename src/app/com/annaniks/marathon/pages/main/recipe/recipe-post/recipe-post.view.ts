@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewChecked } from "@angular/core";
+import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
 import { AddIngridientImageModal } from '../../../../core/modals';
 import { MatDialog } from '@angular/material/dialog';
 import { FeedResponseData } from '../../../../core/models';
@@ -51,6 +51,7 @@ export class RecipePostView implements OnInit {
     public mediaContent: ReceiptData;
     public showmaCronutrients: boolean;
     public mediaUrl: string;
+    public loaclImage:string='/assets/images/food.png';
 
     @ViewChild('fruitInput') fruitInput: ElementRef<HTMLInputElement>;
     @ViewChild('auto') matAutocomplete: MatAutocomplete;
@@ -98,9 +99,8 @@ export class RecipePostView implements OnInit {
 
         if (this.paramsId) {
             this._getFeedById();
-
         }
-        
+     
     }
 
 
@@ -139,22 +139,25 @@ export class RecipePostView implements OnInit {
         }
         for (let item of this.mediaContent.receipt.preparationSteps) {
             this.preparationStepItem.push(new FormControl(item));
+            
         }
         for (let item of this.mediaContent.receipt.tag) {
             this.tag.push(item);
 
         }
         for (let item of this.mediaContent.receipt.imageSlider) {
-            console.log(this.mediaContent.receipt.imageSlider);
-            if (this.slides.length>0) {
+            if (this.slides.length>=0) {
                 this.showCarousel = true;
                 this.showImage = false;
+                this.slides.push({ img: item.img });  
             }
-            this.slides.push({ img: item.img });
+        
+          
         }
         if (this.mediaContent.receipt.macronutrients === true) {
             this.showmaCronutrients = true;
         }
+        
     }
 
 
@@ -192,7 +195,6 @@ export class RecipePostView implements OnInit {
     private _markFormGroupTouched(formGroup: FormGroup) {
         (<any>Object).values(formGroup.controls).forEach(control => {
             control.markAsTouched();
-
             if (control.controls) {
                 this._markFormGroupTouched(control);
             }
@@ -203,10 +205,14 @@ export class RecipePostView implements OnInit {
         this._feedService.getFeedById(this.paramsId)
             .subscribe((data: FeedResponseData) => {
                 if (typeof data.feed_media[0].content === 'string') {
-                    this.mediaContent = JSON.parse(data.feed_media[0].content)
+                    this.mediaContent = JSON.parse(data.feed_media[0].content);
+                    console.log(this.mediaContent);
+                    console.log( this.preparationStepItem.value);
+                    
+                    
                 }
 
-                this._setPatchValue();
+                 this._setPatchValue();
 
             })
     }
@@ -281,13 +287,13 @@ export class RecipePostView implements OnInit {
                 })
             )
                 .subscribe((data) => {
+                 
+                   
                     this._router.navigate(['/feed']);
 
                 })
         }
         else if (this.paramsId) {
-            console.log(this.mediaUrl);
-
             this._feedService.updateFeedById(this.mediaUrl, ReceiptResponseData).pipe(
                 finalize(() => {
                     this.loading = false;
@@ -295,7 +301,8 @@ export class RecipePostView implements OnInit {
                 })
             )
                 .subscribe((data) => {
-                    console.log(data, ReceiptResponseData);
+                    console.log( this.preparationStepItem.value);
+                    
                     this._router.navigate(['/feed']);
 
                 })
@@ -367,7 +374,6 @@ export class RecipePostView implements OnInit {
 
 
     public changeMacronutrients(event): void {
-        console.log(event.checked);
         if (event.checked === false) {
             this.showmaCronutrients = false;
         }
@@ -377,6 +383,11 @@ export class RecipePostView implements OnInit {
 
     }
 
+    public deleteCover():void{
+        this.showVideo=false;
+        this.showImage=true;
+        this.youtubeLink.setValue('');
+    }
     public checkIsValid(controlName): boolean {
         return this.recipeFormGroup.get(controlName).hasError('required') && this.recipeFormGroup.get(controlName).touched;
     }

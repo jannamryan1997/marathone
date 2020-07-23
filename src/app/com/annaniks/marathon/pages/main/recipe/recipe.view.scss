@@ -8,7 +8,7 @@
 .recipe {
     background: #FFFFFF 0% 0% no-repeat padding-box;
     box-shadow: 2px 30px 43px #5C687B17;
-    border: 0.5px solid #E3ECFD;
+  //  border: 0.5px solid #E3ECFD;
 
     .recipe-header {
         background: #FFFFFF 0% 0% no-repeat padding-box;
@@ -27,30 +27,6 @@
 
             .text {
                 @include text(14px, 16px, #589CFE, EncodeSans-SemiBold);
-            }
-
-            .btn-loader {
-                padding: 8px !important;
-                border-radius: 50% !important;
-
-                .icon {
-                    font-size: 16px;
-                }
-            }
-
-            .follow-btn,
-            .btn-loader {
-                background: #FFFFFF 0% 0% no-repeat padding-box;
-                border: 1px solid #589CFE;
-                border-radius: 18px;
-                opacity: 1;
-                color: #589CFE;
-                margin-left: 10px !important;
-                padding: 9px 30px 9px 28px;
-
-                .material-icons {
-                    font-size: 17px;
-                }
             }
         }
     }
@@ -267,10 +243,6 @@ input[type="file"] {
     background-color: #C2D2E2 !important;
 }
 
-.activeIngridientTab {
-    color: #FFFFFF !important;
-    background: #589CFE !important;
-}
 
 .tags {
     flex-wrap: wrap;

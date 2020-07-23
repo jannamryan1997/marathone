@@ -31,20 +31,6 @@
             text-align: center;
         }
 
-        .follow-btn {
-            background: #ffffff 0% 0% no-repeat padding-box;
-            border: 1px solid #589cfe;
-            border-radius: 18px;
-            opacity: 1;
-            color: #589cfe;
-            padding: 7px 10px;
-            margin: 25px auto !important;
-
-            .material-icons {
-                font-size: 17px;
-            }
-        }
-
         .img-version {
             @include text(15px, 14px, #bbcddf, EncodeSans-Regular);
             text-align: center;
@@ -60,7 +46,7 @@
     .localimage-content {
         display: flex;
         flex-direction: column;
-        padding: 15px 0;
+   position: relative;
 
         .image {
             width: 100%;
@@ -71,7 +57,6 @@
             margin: 0 auto;
             flex-wrap: wrap;
             margin-top: -60px;
-
             .add-image {
                 background: #ffffff 0% 0% no-repeat padding-box;
                 box-shadow: -1.63px 5px 18px #5c687b0d;
@@ -193,7 +178,6 @@ textarea {
 
 .search-icon {
     color: #b9b9d5;
-
     font-size: 26px;
     cursor: pointer;
 }
@@ -279,21 +263,6 @@ input[type="file"] {
     }
 }
 
-.btn-content {
-    justify-content: flex-end;
-    display: flex;
-
-    .follow-btn {
-        border: 1px solid #589cfe;
-        border-radius: 18px;
-        opacity: 1;
-        color: #FFFFFF !important;
-        background: #589CFE !important;
-        margin-left: 10px !important;
-        padding: 9px 30px 9px 28px;
-
-    }
-}
 
 .youtube-input {
     width: 80%;
@@ -370,4 +339,8 @@ input[type="file"] {
 
 .form-lable {
     color: red !important;
+}
+
+.info-btn{
+    margin: 20px auto;
 }

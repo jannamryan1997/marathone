@@ -13,7 +13,7 @@
                         <p class="name">{{item?.name}}</p>
                         <p class="email-title">{{item?.email}}</p>
                     </div>
-                    <button type="button" class="round follow-btn">Follow</button>
+                    <button type="button" class="round btn-item basic-btn ml-3">Follow</button>
                 </div>
 
             </div>
@@ -25,7 +25,7 @@
                     search
                 </span>
             </div>
-            <div class="contact-item">
+            <div class="contact-item" (scroll)="onScroll($event)">
                 <div *ngFor="let item of contactItem" class="user-item d-flex">
                     <img [src]="item?.image" class="user-image" alt="Cinque Terre">
                     <p class="name">{{item?.name}}</p>
@@ -33,4 +33,3 @@
             </div>
         </div>
     </div>
-</div>

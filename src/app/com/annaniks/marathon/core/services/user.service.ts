@@ -14,6 +14,7 @@ export class UserService {
 
     constructor(private _httpClient: HttpClient, private _cookieService: CookieService) {
 
+
     }
 
     public getClient(): Observable<any> {

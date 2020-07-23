@@ -33,11 +33,11 @@ export class DeleteFeedItemComponent implements OnInit {
         let router: string;
         if (this.content === 'recipeType') {
             router = `/recipe/recipe-post/${this.feedId}`;
-            this._router.navigate([router], { queryParams: { feedId: this.feedId, url: this.mediaUrl } })
+            
+            this._router.navigate([router], { queryParams: { feedId:this.feedId, url:this.mediaUrl} })
         }
         else if (this.content === 'image' || this.content === 'video' || this.content === undefined) {
             this.showPostModel = true;
-            console.log(this.content);
             
         }
 

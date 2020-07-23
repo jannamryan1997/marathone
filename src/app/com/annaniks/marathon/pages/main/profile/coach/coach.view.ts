@@ -71,17 +71,14 @@ export class CoachView implements OnInit {
         }
     }
     private async _getFeed(page: number) {
-        this.loading = true;
         this.infiniteScrollDisabled = true;
         const data = await this._feedService.feed(this._pageIndex)
             .pipe(
                 finalize(() => {
-                    this.loading = false;
                 })
             )
             .toPromise()
         if (this.feedItem.length === 0) {
-            this.loading = false;
         }
         if (!this._isCountCalculated) {
             this._pagesCount = Math.ceil(data.count / 10);

@@ -69,9 +69,9 @@
 
         <div class="d-flex mt-4">
             <div class="btn-content display-flex m-auto">
-                <button class="btn mr-3">Body Building</button>
-                <button class="btn  mr-3">Fat Loss</button>
-                <button class="btn">Power Lifting</button>
+                <button class="btn-item basic-btn mr-3">Body Building</button>
+                <button class="btn-item basic-btn  mr-3">Fat Loss</button>
+                <button class="btn-item basic-btn">Power Lifting</button>
             </div>
         </div>
         <div class="events-tab display-flex" [ngSwitch]="tab">
@@ -88,7 +88,7 @@
                 <p class="tab-text">Reviews</p>
             </div>
         </div>
-        <div class="events-header" *ngIf="tab===1">
+        <div class="events-header" *ngIf="tab===1" [ngClass]="{'feed-padding-class':feedItem.length>0}">
             <div class="posts-tab">
                 <div class="btn-content display-flex">
                     <p class="post-item" (click)="onClickPostEventsTab(1)" [ngClass]="{'activePostButton':postTab===1}">
