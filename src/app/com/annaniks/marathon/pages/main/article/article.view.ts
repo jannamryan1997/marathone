@@ -8,6 +8,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ArticleService } from './article.service';
 import { FeedResponseData } from '../../../core/models';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
     selector: "artivle-view",
@@ -48,6 +49,10 @@ export class ArticleView implements OnInit {
             toolbar: [['Bold', 'Italic', 'Underline', 'Subscript', 'Superscript'], ['RemoveFormat'], ['Blockquote'], ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
             ['NumberedList', 'BulletedList'], ['Link']]
         };
+    }
+    onDrop(evt) {
+        console.log(evt);
+
     }
     private _initGroup() {
         this.articleGroup = this._fb.group({
@@ -169,6 +174,11 @@ export class ArticleView implements OnInit {
             this._createControls('text')
         }
         // (this.articleGroup.get(controlName) as FormArray).push(this._fb.group({ attribute: null }))
+    }
+    public drop(event: CdkDragDrop<string[]>) {
+        moveItemInArray(this.getControls(), event.previousIndex, event.currentIndex);
+        console.log(this.getControls());
+
     }
     public addImage() {
         if (!this.isShowVideoRedactor)

@@ -7,7 +7,7 @@
                     <div class="profile-image">
                         <!-- <img [src]="localImage" class="user-image" alt="Cinque Terre"> -->
                         <div class="profile-image">
-                            <div class=" d-flex">
+                            <div  *ngIf="checkIsMe()" class=" d-flex">
                                 <input class="" type="file" id="file" name="avatar" accept="image/png,image/jpeg"
                                     (change)="setServicePhoto($event)">
                                 <label class="icon-btn d-flex m-auto" for="file">
@@ -15,14 +15,14 @@
                                 </label>
                             </div>
                             <img [src]="localImage" class="user-image" alt="Cinque Terre">
-                            <button class="btn coach-btn" *ngIf="role==='coach'">Coach</button>
-                            <spinner-loading [profileLoading]="true" *ngIf="loading"></spinner-loading>
+                            <button class="btn coach-btn" *ngIf="userRole==='coach'">Coach</button>
+                            <spinner-loading  [profileLoading]="true" *ngIf="loading"></spinner-loading>
                         </div>
                         <!-- <button class="btn coach-btn" *ngIf="role==='coach'">Coach</button> -->
                     </div>
 
                     <div class="btn-content d-flex align-items-center">
-                        <button class="btn follow-btn">Follow</button>
+                        <button *ngIf="!checkIsMe() && role" (click)="follow()" [class.followed]="isFollowed" class="btn follow-btn">Follow</button>
                         <button *ngIf="checkIsMe()" class="btn follow-btn d-flex"  routerLink="/edit-profile"
                             routerLinkActive="profileActiveTab">Edit Profile
                             <span class="ml-2 material-icons">

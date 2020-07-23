@@ -6,8 +6,9 @@ import { finalize, takeUntil } from 'rxjs/operators';
 import { FeedResponseData } from '../../../../core/models';
 import { RemoveModal } from '../../../../core/modals';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
+import { ProfileService } from '../../../../core/services/profile.service';
 
 @Component({
     selector: "app-client",
@@ -16,9 +17,9 @@ import { Subject } from 'rxjs';
 })
 
 export class ClientView implements OnInit {
-    public a:string;
+    public a: string;
     public feedItem: FeedResponseData[] = [];
-    public user: UserResponseData;
+    public user: any;
     public tab: number = 1;
     public galerryTab: number = 1;
     public postTab: number = 1;
@@ -40,17 +41,38 @@ export class ClientView implements OnInit {
         private _profileUserService: UserService,
         private _feedService: FeedService,
         private _dialog: MatDialog,
+        private _router: Router,
+        private _userService: UserService,
+        private _profileService: ProfileService,
         private _activatedRoute: ActivatedRoute) {
-        this._activatedRoute.params.pipe(takeUntil(this.unsubscribe$)).subscribe(params => {
-            if (params && params.id)
-                this.userId = params.id;
-        })
+        let urls = this._router.url.split('/');
+        if (urls && urls.length && urls.length == 4) {
+            this.userId = +urls[urls.length - 2];
+        }
         this.user = this.userId ? null : this._profileUserService.user;
     }
 
     ngOnInit() {
         this._getFeed(this._pageIndex);
-        this._showseeMore();
+        this._getProfile()
+    }
+    private _getProfile() {
+        if (this.checkIsMe()) {
+            this.user = this._userService.user.data;
+            this._showseeMore();
+        } else {
+            this._profileService.getProfile('client', this.userId).pipe(takeUntil(this.unsubscribe$)).subscribe((data) => {
+                this.user = data;
+                this._showseeMore();
+            })
+        }
+    }
+    public checkIsMe() {
+        if (this._userService.user) {
+            return (!this.userId || +this.userId == +this._userService.user.data.id)
+        } else {
+            return false
+        }
     }
     private async _getFeed(page: number) {
         this.loading = true;
@@ -88,12 +110,12 @@ export class ClientView implements OnInit {
     }
     private _showseeMore(): void {
         let titleLength: number;
-        if (this.user.data.status) {
-            titleLength = this.user.data.status.length;
-            this.userStatus = this.user.data.status;
+        if (this.user.status) {
+            titleLength = this.user.status.length;
+            this.userStatus = this.user.status;
             if (titleLength > 280) {
                 this.seeMore = true;
-                this.userStatus = this.user.data.status.slice(0, 280);
+                this.userStatus = this.user.status.slice(0, 280);
             }
             else {
                 this.seeMore = false;
@@ -119,9 +141,6 @@ export class ClientView implements OnInit {
     public onClickPostEventsTab(postTab): void {
         this.postTab = postTab;
     }
-
-
-
 
     public async onScroll() {
         if (this._pageIndex > this._pagesCount) {
@@ -163,5 +182,13 @@ export class ClientView implements OnInit {
     ngOnDestroy() {
         this.unsubscribe$.next();
         this.unsubscribe$.complete();
+    }
+    get email(): string {
+        if (this.user)
+            return this.userId ? this.user.user.email : this.user.user.email
+    }
+    get firstName(): string {
+        if (this.user)
+            return this.userId ? this.user.user.first_name : this.user.user.first_name
     }
 }

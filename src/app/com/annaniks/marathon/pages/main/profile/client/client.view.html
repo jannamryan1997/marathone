@@ -1,7 +1,7 @@
 <div class="main-container">
     <div class="user-main">
         <div class="review-content display-flex">
-            <p class="name">{{user?.data.user?. email}}</p>
+            <p class="name">{{email}}</p>
             <div class=" display-flex">
                 <div class="review display-flex">
                     <div class="review-item" *ngFor="let item of reviewItem">
@@ -15,11 +15,11 @@
         </div>
         <div class="profile-data display-flex">
             <div class="data-item">
-                <p class="item-title">  {{user?.data.user?.first_name}} </p>
-    
+                <p class="item-title"> {{firstName}} </p>
+
             </div>
             <div class="data-item">
-                <p class="item-title">{{user?.data?.location}}</p>
+                <p class="item-title">{{user?.location}}</p>
             </div>
             <div class="data-item">
                 <div class="display-flex ml-3">
@@ -95,9 +95,10 @@
                     <p class="post-item">Music</p>
                 </div>
                 <div *ngIf="postTab===1" class="post-container">
-                        <div *ngIf="user">
-                                <app-create-publication [feedItem]="feedItem" (postCreateEvent)="onPostCreated($event)"></app-create-publication>
-                            </div>
+                    <div *ngIf="this.checkIsMe()">
+                        <app-create-publication [feedItem]="feedItem" (postCreateEvent)="onPostCreated($event)">
+                        </app-create-publication>
+                    </div>
                     <div *ngIf="feedItem?.length > 0" class="feed-item" infinite-scroll
                         [infiniteScrollDistance]="scrollDistance" [infiniteScrollUpDistance]="scrollUpDistance"
                         [infiniteScrollThrottle]="throttle" [infiniteScrollDisabled]="infiniteScrollDisabled"
