@@ -22,15 +22,9 @@
                     </div>
 
                     <div class="btn-content d-flex align-items-center">
-<<<<<<< HEAD
-                        <button class="btn-item info-btn">Follow</button>
-                        <button *ngIf="checkIsMe()" class="btn-item info-btn" routerLink="/edit-profile"
-                            routerLinkActive="active-btn">Edit Profile
-=======
                         <button *ngIf="!checkIsMe() && role" (click)="follow()" [class.followed]="isFollowed" class="btn follow-btn">Follow</button>
                         <button *ngIf="checkIsMe()" class="btn follow-btn d-flex"  routerLink="/edit-profile"
                             routerLinkActive="profileActiveTab">Edit Profile
->>>>>>> 7f55ae635a4f37196460b93ba743f2b473399fa9
                             <span class="ml-2 material-icons">
                                 create
                             </span>
