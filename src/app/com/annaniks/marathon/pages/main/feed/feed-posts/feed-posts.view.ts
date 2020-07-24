@@ -99,7 +99,14 @@ export class FeedPostsView implements OnInit, OnDestroy {
 
     }
 
-
+    public onClickEditFeed(event):void{
+      if(event){
+        this._getFeed(this._pageIndex);
+        console.log(event);
+        
+      } 
+       
+    }
 
     ngOnDestroy() {
         this._unsubscribe.next();

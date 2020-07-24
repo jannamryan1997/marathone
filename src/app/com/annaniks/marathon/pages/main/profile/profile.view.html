@@ -22,8 +22,8 @@
                     </div>
 
                     <div class="btn-content d-flex align-items-center">
-                        <button *ngIf="!checkIsMe() && role" (click)="follow()" [class.followed]="isFollowed" class="btn follow-btn">Follow</button>
-                        <button *ngIf="checkIsMe()" class="btn follow-btn d-flex"  routerLink="/edit-profile"
+                        <button *ngIf="!checkIsMe() && role" (click)="follow()" [class.followed]="isFollowed" class="btn-item info-btn">Follow</button>
+                        <button *ngIf="checkIsMe()" class="btn-item info-btn"  routerLink="/edit-profile"
                             routerLinkActive="profileActiveTab">Edit Profile
                             <span class="ml-2 material-icons">
                                 create

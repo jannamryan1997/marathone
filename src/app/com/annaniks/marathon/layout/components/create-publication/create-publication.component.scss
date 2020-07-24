@@ -14,6 +14,7 @@
     text-align: center;
     position: relative;
     height: auto;
+    width: 600px;
 
     .recipe-header {
         padding: 10px 24px;
@@ -45,10 +46,12 @@
             display: flex;
             flex-direction: column;
             align-items: flex-end;
+            padding: 10px 0;
             .smile-image {
                 width: 30px;
                 height: 30px;
                 cursor: pointer;
+                margin: 10px 0;
             }
         }
     }
@@ -138,7 +141,3 @@ input[type="file"] {
     to {    background-color:#bbcddf;opacity: .8}
   }
 
-
-  .content-width{
-      width: 500px !important;
-  }

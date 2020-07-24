@@ -20,10 +20,17 @@ import { CommentService } from 'src/app/com/annaniks/marathon/core/services/comm
 })
 
 export class FeedPostCardItemComponent implements OnInit {
-    private unsubscribe$ = new Subject<void>()
-    @Input() feedItem: FeedResponseData;
+    private unsubscribe$ = new Subject<void>();
+    public feedItem: FeedResponseData;
+    @Input('feedItem')
+    set setFeedItem($event){
+        console.log($event);
+        
+        this.feedItem=$event
+    }
     @Input() routerLink: string;
     @Output() deletedItem = new EventEmitter<any>();
+    @Output() editFeed = new EventEmitter<any>();
     public showTitle: boolean = false;
     public isOpen: boolean = false;
     public content;
@@ -190,9 +197,15 @@ export class FeedPostCardItemComponent implements OnInit {
             maxWidth: "100vw",
         })
     }
+    
     private _getFeedById() {
         return this._feedService.getFeedById(this.feedItem.id).pipe(map((result) => {
+            if(result.feed_media && result.feed_media[0] && result.feed_media[0].content){
+            this.content=JSON.parse(result.feed_media[0].content)
+            }
             this.feedItem = result;
+            console.log(this.feedItem);
+            
             return result
         }))
     }
@@ -246,10 +259,20 @@ export class FeedPostCardItemComponent implements OnInit {
     }
     public getProfleUrl() {
         let role = this.feedItem.creator_client_info ? 'client' : 'coach';
-        let userId = this.feedItem.creator_info ? this.feedItem.creator_info.id : this.feedItem.creator_client_info.id;       
+        let userId = this.feedItem.creator_info ? this.feedItem.creator_info.id : this.feedItem.creator_client_info.id;
         return `/profile/${userId}/${role}`;
     }
 
+
+
+    public onClickeditFeedItem(event): void {
+        if (event) {
+            console.log(event);
+            
+            this._getFeedById().subscribe()
+            // this.editFeed.emit(true);
+        }
+    }
     ngOnDestroy() {
         this.unsubscribe$.next();
         this.unsubscribe$.complete();
@@ -258,6 +281,8 @@ export class FeedPostCardItemComponent implements OnInit {
         let role = this.feedItem.creator_client_info ? 'client' : 'coach';
         return role
     }
+
+  
 }
 
 
