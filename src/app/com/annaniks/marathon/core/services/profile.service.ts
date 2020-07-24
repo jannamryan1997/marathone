@@ -15,8 +15,11 @@ export class ProfileService {
         return this._httpClient.get<any>(this._baseUrl + `${roles}/${id}/`)
     }
     public follow(body) {
-       
 
         return this._httpClient.post<any>(this._baseUrl + `/feed/follower/`, body)
+    }
+    public getFeedByProfileId(queryParamsName: string, id: number,isAll:string) {
+        
+        return this._httpClient.get(this._baseUrl + `/feed/feeds/?${queryParamsName}=${id}&all=${isAll}`)
     }
 }

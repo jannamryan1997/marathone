@@ -3,7 +3,7 @@ import { UserResponseData } from '../../../../core/models/user';
 import { UserService } from '../../../../core/services/user.service';
 import { FeedService } from '../../feed/feed.service';
 import { finalize, takeUntil } from 'rxjs/operators';
-import { FeedResponseData } from '../../../../core/models';
+import { FeedResponseData, FeedData } from '../../../../core/models';
 import { RemoveModal } from '../../../../core/modals';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -49,6 +49,9 @@ export class ClientView implements OnInit {
         if (urls && urls.length && urls.length == 4) {
             this.userId = +urls[urls.length - 2];
         }
+        if (!this.userId) {
+            this.userId = this._userService.user.data.id;            
+        }
         this.user = this.userId ? null : this._profileUserService.user;
     }
 
@@ -74,39 +77,20 @@ export class ClientView implements OnInit {
             return false
         }
     }
-    private async _getFeed(page: number) {
+    private _getFeed(page: number) {
         this.loading = true;
-        this.infiniteScrollDisabled = true;
-        const data = await this._feedService.feed(this._pageIndex)
-            .pipe(
-                finalize(() => {
-                    this.loading = false;
-                })
-            )
-            .toPromise()
-        if (this.feedItem.length === 0) {
-            this.loading = false;
-        }
-        if (!this._isCountCalculated) {
-            this._pagesCount = Math.ceil(data.count / 10);
-            this._isCountCalculated = true;
-        }
-        if (this._pageIndex > this._pagesCount) {
-            return;
-        }
-
-        this.feedItem.push(...data.results);
-        this._pageIndex++;
-        for (let item of this.feedItem) {
-            for (let media of item.feed_media) {
-                if (typeof media.content == 'string') {
-                    media.content = JSON.parse(media.content)
+        let isAll=this.checkIsMe()?'':'true'
+        this._profileService.getFeedByProfileId('creator_client', this.userId,isAll).pipe(finalize(() => { this.loading = false }))
+        .subscribe((data:FeedData) => {
+            this.feedItem = data.results;
+            for (let item of this.feedItem) {
+                for (let media of item.feed_media) {
+                    if (typeof media.content == 'string') {
+                        media.content = JSON.parse(media.content)
+                    }
                 }
             }
-        }
-        this.infiniteScrollDisabled = false;
-
-
+        })
     }
     private _showseeMore(): void {
         let titleLength: number;
@@ -142,12 +126,12 @@ export class ClientView implements OnInit {
         this.postTab = postTab;
     }
 
-    public async onScroll() {
-        if (this._pageIndex > this._pagesCount) {
-            return;
-        }
-        this._getFeed(this._pageIndex);
-    }
+    // public async onScroll() {
+    //     if (this._pageIndex > this._pagesCount) {
+    //         return;
+    //     }
+    //     this._getFeed(this._pageIndex);
+    // }
 
 
     public deletedFeedItem(event): void {
@@ -185,10 +169,10 @@ export class ClientView implements OnInit {
     }
     get email(): string {
         if (this.user)
-            return this.userId ? this.user.user.email : this.user.user.email
+            return !this.checkIsMe() ? this.user.user.email : this.user.user.email
     }
     get firstName(): string {
         if (this.user)
-            return this.userId ? this.user.user.first_name : this.user.user.first_name
+            return !this.checkIsMe() ? this.user.user.first_name : this.user.user.first_name
     }
 }

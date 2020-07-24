@@ -3,7 +3,7 @@ import { UserService } from '../../../core/services/user.service';
 import { CookieService } from 'ngx-cookie';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, switchMap, map } from 'rxjs/operators';
 import { UploadFileResponse } from '../../../core/models';
 import { ProfileService } from '../../../core/services/profile.service';
 
@@ -68,14 +68,20 @@ export class ProfileView implements OnInit {
             }
 
         } else {
-            this._profileService.getProfile(this.userRole, this.userId).pipe(takeUntil(this.unsubscribe$)).subscribe((data) => {
-                this.user = data;
-                this.isFollowed = data.is_follower;                
-                if (data.avatar)
-                    this.localImage = this._fileUrl + data.avatar;
-            })
+           this._getProfileById().subscribe()
         }
         
+    }
+    private _getProfileById(){
+      return  this._profileService.getProfile(this.userRole, this.userId).pipe(takeUntil(this.unsubscribe$),
+      map((data)=>{
+        this.user = data;
+        this.isFollowed = data.is_follower;                        
+        if (data.avatar)
+            this.localImage = this._fileUrl + data.avatar;
+            return data
+      }))
+     
     }
     private _putClient(file_name): void {
         this._userService.user.data.avatar = file_name;
@@ -151,7 +157,12 @@ export class ProfileView implements OnInit {
                 sendBody['whom_coach'] = this.user.url
 
             }
-            this._profileService.follow(sendBody).pipe(takeUntil(this.unsubscribe$)).subscribe();
+            this._profileService.follow(sendBody).pipe(takeUntil(this.unsubscribe$)).pipe(
+                switchMap(()=>{
+                    return this._getProfileById()
+                })
+            )
+            .subscribe();
         }
     }
     ngOnDestroy() {

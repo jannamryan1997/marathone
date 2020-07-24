@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { UserService } from '../../../../core/services/user.service';
 import { UserResponseData, UserData } from '../../../../core/models/user';
 import { FeedService } from '../../feed/feed.service';
-import { FeedResponseData } from '../../../../core/models';
+import { FeedResponseData, FeedData } from '../../../../core/models';
 import { finalize, takeUntil } from 'rxjs/operators';
 import { RemoveModal } from '../../../../core/modals';
 import { MatDialog } from '@angular/material/dialog';
@@ -45,59 +45,51 @@ export class CoachView implements OnInit {
         if (urls && urls.length && urls.length == 4) {
             this.userId = +urls[urls.length - 2];
         }
+        if (!this.userId) {
+            this.userId = this._userService.user.data.id;
+        }
     }
 
     ngOnInit() {
-        this._getFeed(this._pageIndex);
+        this._getFeed();
         this._getProfile()
     }
 
     private _getProfile() {
+
         if (this.checkIsMe()) {
             this.user = this._userService.user.data;
             this._showseeMore();
         } else {
             this._profileService.getProfile('coach', this.userId).pipe(takeUntil(this.unsubscribe$)).subscribe((data) => {
-                this.user = data;             
+                this.user = data;
                 this._showseeMore();
             })
         }
     }
     public checkIsMe() {
-        if (this._userService.user) {
-            return (!this.userId || +this.userId == +this._userService.user.data.id)
+        if (this._userService.user && this._userService.user.data) {
+            return (!this.userId || (this.userId && +this.userId == +this._userService.user.data.id))
         } else {
             return false
         }
     }
-    private async _getFeed(page: number) {
-        this.infiniteScrollDisabled = true;
-        const data = await this._feedService.feed(this._pageIndex)
-            .pipe(
-                finalize(() => {
-                })
-            )
-            .toPromise()
-        if (this.feedItem.length === 0) {
-        }
-        if (!this._isCountCalculated) {
-            this._pagesCount = Math.ceil(data.count / 10);
-            this._isCountCalculated = true;
-        }
-        if (this._pageIndex > this._pagesCount) {
-            return;
-        }
+    private _getFeed() {
+        this.loading = true;
+        let isAll = this.checkIsMe() ? '' : 'true'
+        this._profileService.getFeedByProfileId('creator', this.userId, isAll).pipe(finalize(() => { this.loading = false }))
+            .subscribe((data: FeedData) => {
+                this.feedItem = data.results;
+                console.log(this.feedItem);
 
-        this.feedItem.push(...data.results);
-        this._pageIndex++;
-        for (let item of this.feedItem) {
-            for (let media of item.feed_media) {
-                if (typeof media.content == 'string') {
-                    media.content = JSON.parse(media.content)
+                for (let item of this.feedItem) {
+                    for (let media of item.feed_media) {
+                        if (typeof media.content == 'string') {
+                            media.content = JSON.parse(media.content)
+                        }
+                    }
                 }
-            }
-        }
-        this.infiniteScrollDisabled = false;
+            })
     }
 
     private _showseeMore(): void {
@@ -132,12 +124,12 @@ export class CoachView implements OnInit {
     public onClickPostEventsTab(tab): void {
         this.postTab = tab;
     }
-    public async onScroll() {
-        if (this._pageIndex > this._pagesCount) {
-            return;
-        }
-        this._getFeed(this._pageIndex);
-    }
+    // public async onScroll() {
+    //     if (this._pageIndex > this._pagesCount) {
+    //         return;
+    //     }
+    //     this._getFeed(this._pageIndex);
+    // }
 
     public deletedFeedItem(event): void {
         if (event) {
@@ -151,7 +143,7 @@ export class CoachView implements OnInit {
                         this._isCountCalculated = false;
                         this._pagesCount = 0;
                         this.feedItem = [];
-                        this._getFeed(this._pageIndex)
+                        this._getFeed()
                     })
                 }
 
@@ -165,7 +157,7 @@ export class CoachView implements OnInit {
         this._isCountCalculated = false;
         this._pagesCount = 0;
         this.feedItem = [];
-        this._getFeed(this._pageIndex);
+        this._getFeed();
 
     }
     ngOnDestroy() {
@@ -173,11 +165,13 @@ export class CoachView implements OnInit {
         this.unsubscribe$.complete();
     }
     get email(): string {
+
         if (this.user)
-            return this.userId ? this.user.coach_user.email : this.user.user.email
+            return !this.checkIsMe() ? this.user.coach_user.email : this.user.user.email
     }
     get firstName(): string {
+
         if (this.user)
-            return this.userId ? this.user.coach_user.first_name : this.user.user.first_name
+            return !this.checkIsMe() ? this.user.coach_user.first_name : this.user.user.first_name
     }
 }

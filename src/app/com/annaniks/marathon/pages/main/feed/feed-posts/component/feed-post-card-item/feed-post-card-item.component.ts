@@ -23,10 +23,10 @@ export class FeedPostCardItemComponent implements OnInit {
     private unsubscribe$ = new Subject<void>();
     public feedItem: FeedResponseData;
     @Input('feedItem')
-    set setFeedItem($event){
+    set setFeedItem($event) {
         console.log($event);
-        
-        this.feedItem=$event
+
+        this.feedItem = $event
     }
     @Input() routerLink: string;
     @Output() deletedItem = new EventEmitter<any>();
@@ -46,6 +46,7 @@ export class FeedPostCardItemComponent implements OnInit {
     public slideConfig = {};
     public comments: Comment[] = []
     public isShowSubMessages: boolean = false;
+    public user;
     constructor(
         @Inject("FILE_URL") public fileUrl,
         private _matDialog: MatDialog,
@@ -64,6 +65,9 @@ export class FeedPostCardItemComponent implements OnInit {
             autoplay: true,
             autoplaySpeed: 2000
         }
+        this.user = this._userService.user;
+        console.log(this.user);
+
     }
 
     ngOnInit() {
@@ -197,16 +201,15 @@ export class FeedPostCardItemComponent implements OnInit {
             maxWidth: "100vw",
         })
     }
-    
+
     private _getFeedById() {
         return this._feedService.getFeedById(this.feedItem.id).pipe(map((result) => {
-            if(result.feed_media && result.feed_media[0] && result.feed_media[0].content){
-            this.content=JSON.parse(result.feed_media[0].content)
+            if (result.feed_media && result.feed_media[0] && result.feed_media[0].content) {
+                this.content = JSON.parse(result.feed_media[0].content)
             }
             this.feedItem = result;
-            console.log(this.feedItem);
-            
-            return result
+            this.showDeleteModal = false;
+            return result;
         }))
     }
     public sendMessage($event, parent?: string) {
@@ -268,7 +271,7 @@ export class FeedPostCardItemComponent implements OnInit {
     public onClickeditFeedItem(event): void {
         if (event) {
             console.log(event);
-            
+
             this._getFeedById().subscribe()
             // this.editFeed.emit(true);
         }
@@ -281,8 +284,22 @@ export class FeedPostCardItemComponent implements OnInit {
         let role = this.feedItem.creator_client_info ? 'client' : 'coach';
         return role
     }
+    get checkIsMe() {
+        let keyName: string;
+        if (this.role) {
+            if (this.role == 'coach') {
+                keyName = 'creator_info'
+            } else {
+                keyName = 'creator_client_info'
+            }
+            if (this.feedItem[keyName] && +this.feedItem[keyName].id == +this.user.data.id) {
+                return true
+            }
+        } else {
+            return false
+        }
+    }
 
-  
 }
 
 

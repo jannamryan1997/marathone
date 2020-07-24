@@ -14,7 +14,7 @@
             <span class="material-icons icon" (click)="showDeletedModal()">
                 more_vert
             </span>
-            <div class="position-relative" *ngIf="showDeleteModal">
+            <div class="position-relative" *ngIf="showDeleteModal && checkIsMe">
                 <app-delete-feed-item (deleted)="deleteFeedItem($event)" [content]="content?.type"
                     [feedId]="feedItem.id" [mediaUrl]="feedItem.feed_media[0].url" (editFeedItem)="onClickeditFeedItem($event)"></app-delete-feed-item>
             </div>

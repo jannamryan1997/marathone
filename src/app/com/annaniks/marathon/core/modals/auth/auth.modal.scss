@@ -1,33 +1,33 @@
 .auth-container {
     height: 100vh;
     flex-direction: column;
-    min-width: 900px;
 
     .auth-main {
         background: #FFFFFF 0% 0% no-repeat padding-box;
-        box-shadow: 1px 20px 79px #5C687B69;
-        border-radius: 15px;
         opacity: 1;
         width: 100%;
-        max-width: 1000px;
-        margin:auto;
+        max-width: 800px;
+        max-height: 530px;
+        margin: auto;
+        box-shadow: 1px 20px 29px #5C687B4A;
+        border-radius: 25px;
 
         .main-container {
             flex-wrap: wrap;
+
             .auth-left-content {
                 width: 50%;
-                min-height: 650px;
                 height: auto;
-                border-right: 1px solid #bbcddf;
 
                 .auth-image {
                     width: 100%;
                     max-width: 440px;
-                    max-height: 330px;
+                    max-height: 250px;
                     height: 100%;
                 }
-                .text{
-                    color:#589CFE;
+
+                .text {
+                    color: #589CFE;
                     font-size: 20px;
                     line-height: 20px;
                     font-family: EncodeSans-SemiBold;
@@ -38,6 +38,8 @@
 
             .auth-right-content {
                 width: 50%;
+                border-left: 1px solid #bbcddf;
+                padding: 20px 0;
 
                 .right-content-main {
                     width: 100%;
