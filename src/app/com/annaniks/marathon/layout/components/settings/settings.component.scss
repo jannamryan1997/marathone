@@ -4,33 +4,93 @@
     color: $color;
     font-family: $fontFamily;
 }
+
 .settings {
     height: 60px;
     display: flex;
     flex-wrap: wrap;
+
     .setting-item-btn {
         width: 33.33333%;
         border: none;
         background: none;
-        border-right: 1px solid #d1e3fc;
         cursor: pointer;
+        margin: 4px 0;
         @include text(16px, 20px, #45535c, EncodeSans-SemiBold);
+
         &:last-child {
             border-right: none !important;
         }
-        .settings-icon {
+
+        .cooment-icon {
             width: 20px;
-            height: 20px;
         }
+
+        .energy-icon {
+            width: 16px;
+        }
+
+        .repost-icon {
+            width: 22px;
+        }
+
         .title {
             margin-left: 16px;
         }
+
+        .count {
+            color: #9DB3C9;
+        }
+
+        &:hover {
+            background: #F4F6FB 0% 0% no-repeat padding-box;
+            border-radius: 25px;
+            opacity: 1;
+        }
     }
 }
-button:disabled{
+
+button:disabled {
     opacity: 0.5;
 }
+
 .class-type {
     border: none !important;
     font-size: 9px !important;
+
+}
+
+.activeShare {
+    color: #45535C !important;
+}
+
+
+.share-item {
+    z-index: 999999;
+    position: absolute;
+    right: -10px;
+    width: 250px;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: -9.56px -2.92px 54px #5C687B38;
+    border: 0.5px solid #E3ECFD;
+    opacity: 1;
+    border-radius: 10px;
+
+    .share-content {
+        padding: 10px 0;
+        height: 200px;
+        overflow: auto;
+    }
+
+    .btn-view {
+        cursor: pointer;
+        padding: 15px;
+        align-items: center;
+        text-align: center;
+        @include text(14px, 16px, #9DB3C9, EncodeSans-Medium);
+        background: #FFFFFF 0% 0% no-repeat padding-box;
+        border: 0.5px solid #E3ECFD;
+        opacity: 1;
+        border-radius: 0 0 10px 10px;
+    }
 }

@@ -61,10 +61,10 @@
         }
     }
     .button-content {
-        border-top: 0.5px solid #E3ECFD;
         @include text(16px, 21px, #bbcddf, EncodeSans-SemiBold);
         flex-wrap: wrap;
         height: 60px;
+        padding: 0 16px 11px 16px;
         .button-item {
             border-right: 0.5px solid #E3ECFD;
             align-items: center;

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Inject, Output, EventEmitter } from "@angular/core";
 import { MatDialog } from '@angular/material/dialog';
-import { PropertyModal, AuthModal } from 'src/app/com/annaniks/marathon/core/modals';
+import { PropertyModal, AuthModal, LikeModal } from 'src/app/com/annaniks/marathon/core/modals';
 import { FeedResponseData, ServerResponse } from 'src/app/com/annaniks/marathon/core/models';
 import * as moment from 'moment'
 import { CookieService } from 'ngx-cookie';
@@ -22,12 +22,10 @@ import { CommentService } from 'src/app/com/annaniks/marathon/core/services/comm
 export class FeedPostCardItemComponent implements OnInit {
     private unsubscribe$ = new Subject<void>();
     public feedItem: FeedResponseData;
-    @Input('feedItem')
-    set setFeedItem($event) {
-        console.log($event);
-
+    @Input('feedItem') set setFeedItem($event) {
         this.feedItem = $event
     }
+
     @Input() routerLink: string;
     @Output() deletedItem = new EventEmitter<any>();
     @Output() editFeed = new EventEmitter<any>();
@@ -55,7 +53,9 @@ export class FeedPostCardItemComponent implements OnInit {
         private _userService: UserService,
         private _feedLikeService: FeedLikeService,
         private _feedService: FeedService,
-        private _commentService: CommentService) {
+        private _commentService: CommentService,
+        private _dialog: MatDialog,
+    ) {
         this.role = this._cookieService.get('role');
         this.slideConfig = {
             infinite: true,
@@ -66,7 +66,6 @@ export class FeedPostCardItemComponent implements OnInit {
             autoplaySpeed: 2000
         }
         this.user = this._userService.user;
-        console.log(this.user);
 
     }
 
@@ -297,6 +296,17 @@ export class FeedPostCardItemComponent implements OnInit {
             }
         } else {
             return false
+        }
+    }
+
+    public showFollowModal(event): void {
+
+        if (event) {
+            const dialogRef = this._dialog.open(LikeModal, {
+                width: "450px"
+            })
+
+
         }
     }
 

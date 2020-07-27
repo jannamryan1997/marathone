@@ -21,6 +21,9 @@ export class SignUpComponent implements OnInit {
     public user: SocialUser;
     public loggedIn: boolean;
     public profileUser;
+    public show: boolean = false;
+    public hidePassword: boolean = true;
+
     @Output() changeSigntab = new EventEmitter;
     @Output() closeModal = new EventEmitter();
     constructor(
@@ -43,7 +46,6 @@ export class SignUpComponent implements OnInit {
     private _formBuilder(): void {
         this.signUpGroup = this._fb.group({
             firstName: [null, Validators.required],
-            lastName: [null, Validators.required],
             userName: [null, Validators.required],
             email: [null, Validators.required],
             password: [null, Validators.required],
@@ -69,7 +71,6 @@ export class SignUpComponent implements OnInit {
                 email: this.signUpGroup.value.email,
                 password: this.signUpGroup.value.password,
                 first_name: this.signUpGroup.value.firstName,
-                last_name: this.signUpGroup.value.lastName,
             },
             google_id: null,
             ui_language: "http://192.168.1.115:8000/api/utils/language/3/",
@@ -101,7 +102,6 @@ export class SignUpComponent implements OnInit {
                 email: this.signUpGroup.value.email,
                 password: this.signUpGroup.value.password,
                 first_name: this.signUpGroup.value.firstName,
-                last_name: this.signUpGroup.value.lastName,
             },
             google_id: null,
             // ui_language:null,
@@ -165,5 +165,19 @@ export class SignUpComponent implements OnInit {
             this._signUpClient();
 
         }
+    }
+
+    public showPasswordValue(): void {
+        this.show = true;
+        this.hidePassword = false;
+    }
+
+    public hide(): void {
+        this.show = false;
+        this.hidePassword = true;
+    }
+
+    public checkIsValid(controlName): boolean {
+        return this.signUpGroup.get(controlName).hasError('required') && this.signUpGroup.get(controlName).touched;
     }
 }

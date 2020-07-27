@@ -27,6 +27,8 @@ export class SignInComponent implements OnInit {
     public user: SocialUser;
     public profileUser;
     public loggedIn: boolean;
+    public show: boolean = false;
+    public hidePassword: boolean = true;
     @Output() tabChanges = new EventEmitter();
     @Output() closeModal = new EventEmitter();
 
@@ -87,9 +89,6 @@ export class SignInComponent implements OnInit {
     }
 
 
-    public chackIsValid(controlName: string): boolean {
-        return this.signInGroup.get(controlName).hasError('required') && this.signInGroup.get(controlName).touched;
-    }
     public onClickTab(tab): void {
         this.tab = tab;
         this.tabChanges.emit(this.tab);
@@ -97,17 +96,17 @@ export class SignInComponent implements OnInit {
             this._signIn();
         }
     }
-    
+
     signInWithFB(): void {
         this._dialogRef.close();
         this._socialAuthService.authState.subscribe((user) => {
-         
-              
-        this._socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
 
 
-    })
-}
+            this._socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
+
+
+        })
+    }
 
 
 
@@ -125,7 +124,18 @@ export class SignInComponent implements OnInit {
 
     }
 
-
+    public showPasswordValue(): void {
+        this.show = true;
+        this.hidePassword = false;
+    }
+    
+    public hide(): void {
+        this.show = false;
+        this.hidePassword = true;
+    }
+    public chackIsValid(controlName: string): boolean {
+        return this.signInGroup.get(controlName).hasError('required') && this.signInGroup.get(controlName).touched;
+    }
 
     // signOut(): void {
     //     this._socialAuthService.signOut();

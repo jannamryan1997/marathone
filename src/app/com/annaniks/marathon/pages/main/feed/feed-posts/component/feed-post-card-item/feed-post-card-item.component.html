@@ -124,7 +124,7 @@
         </div>
     </div>
     <app-settings [feed]="feedItem" [role]="role" (getButtonsType)="getButtonsType($event)"
-        (openChanges)='onClickOpen($event)'></app-settings>
+        (openChanges)='onClickOpen($event)' (showFollowModel)="showFollowModal($event)"></app-settings>
     <div class="posts-comments" *ngIf="isOpen">
         <app-comments (sendMessage)="sendMessageForParent($event,item)" (likeOrDislike)="likeOrDislike($event)"
             *ngFor="let item of comments" [comments]="item" [role]="role" [isShowSubMessages]="isShowSubMessages">
@@ -132,3 +132,4 @@
         <app-posts-comments (sendMessage)="sendMessage($event)" *ngIf="role" [comments]="comments"></app-posts-comments>
     </div>
 </div>
+

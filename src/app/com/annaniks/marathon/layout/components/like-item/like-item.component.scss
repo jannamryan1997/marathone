@@ -1,0 +1,26 @@
+.share-item {
+    padding: 5px 0;
+    .share-item {
+        .user-image {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+        }
+
+        .name {
+            color: #45535C;
+            line-height: 21px;
+            font-size: 18px;
+            font-family: EncodeSans-Medium;
+            margin-left: 20px;
+        }
+       
+    }
+    .btn-item{
+        margin-right: 8px !important;
+        &:hover{
+            background: #EAEAFA;
+            color:#65a4fe;
+        }
+    }
+}

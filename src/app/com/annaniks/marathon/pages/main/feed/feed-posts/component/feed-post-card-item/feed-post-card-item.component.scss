@@ -18,7 +18,7 @@
 .title-content {
     padding: 0 50px 0px 21px;
     align-items: flex-end;
-    margin: 20px 0;
+    margin: 6px 0 12px 0;
 }
 .icon{
     color: #45535c;
@@ -34,10 +34,11 @@
 .chicken-image {
     height: 260px;
     cursor: pointer;
+    margin: 6px 0;
 }
 
 .combinations-description {
-    padding: 0 50px 0px 21px;
+    padding: 0 50px 10px 21px;
 
     .title {
         @include text(20px, 32px, #45535C, MicrosoftYaHeiUI);
@@ -47,6 +48,7 @@
 
     .name {
         @include text(18px, 21px, #BEC9DF, MicrosoftYaHeiUI);
+        margin-top: 6px;
     }
 
 }

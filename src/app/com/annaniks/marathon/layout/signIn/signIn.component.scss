@@ -7,6 +7,7 @@
 
 .signIn-main {
     text-align: center;
+    padding: 40px 0;
 
     .logo-text {
         @include text(18px, 21px, #45535C, EncodeSans-Bold);
@@ -23,13 +24,14 @@
         border: 1px solid #E3ECFD;
         border-radius: 26px;
         opacity: 1;
-        margin: 16px;
-        color: #9DB3C9;
+        margin: 16px 0 !important;
+      
   
         .form-input{
             font-family: 'Nunito Sans', sans-serif;
             line-height: 19px;
             font-size: 16px;
+            color: #45535C !important;
         }
     
     }
@@ -67,7 +69,32 @@
     color: 1px solid red !important;
 }
 
+.validTab{
+    color: red !important;
+}
 
 .button-content {
     padding: 0 !important;
+}
+
+.active-btn{
+    width: 50%;
+    cursor: pointer;
+    transition: 0.5 all ease-out;
+    padding: 15px;
+    border-radius: 26px;
+    background: #589CFE;
+    @include text(16px, 19px, #ffffff, EncodeSans-SemiBold);
+    margin: 0 15px 0 0;
+
+}
+
+.active-btn,.signUp-btn{
+    &:hover{
+        box-shadow: -5.29px 7px 10px #589bfd36;
+    }
+}
+
+.password-icon{
+    cursor: pointer;
 }
