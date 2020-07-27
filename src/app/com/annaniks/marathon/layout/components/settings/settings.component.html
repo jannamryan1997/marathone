@@ -10,7 +10,7 @@
     <button (click)="clickOnButton('reposts')" class="setting-item-btn" [ngClass]="{'class-type':type}">
         <img src="assets/icons/Repost.svg" alt="" class="repost-icon">
         <span class="title">Share </span>
-        <span class="count" [ngClass]="{'activeShare':share}">220</span>
+        <span class="count" [ngClass]="{'activeShare':share}" (click)="onClickShowShare()">220</span>
     </button>
 </div>
 

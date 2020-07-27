@@ -38,9 +38,10 @@ export class SettingsComponent implements OnInit {
         if (type === 'like') {
             this.showFollowModel.emit(true);
         }
-        if(type==='reposts'){
-            this.share = !this.share;
-        }
 
+    }
+
+    public onClickShowShare():void{
+        this.share = !this.share;
     }
 }
