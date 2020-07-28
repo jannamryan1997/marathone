@@ -6,6 +6,27 @@
 }
 
 .home-container {
+    .header{
+        position: relative;
+    
+                .header-icon-btn {
+                    width: 33px;
+                    height: 33px;
+                    background: #F5F5FA 0% 0% no-repeat padding-box;
+                    border: 2px solid #FFFFFF;
+                    opacity: 1;
+                    position: absolute;
+                    border-radius: 50%;
+                    right: 2px;
+                    bottom: -7px;
+                    cursor: pointer;
+                    i {
+                        color: #B6C1D7;
+                        font-size: 15px;
+                    }
+                }
+            }
+              
     .home-main {
         background: #FFFFFF 0% 0% no-repeat padding-box;
         box-shadow: 2px 30px 43px #5C687B17;
@@ -113,7 +134,7 @@
                     opacity: 1;
                     position: absolute;
                     border-radius: 10px;
-                    right: 50px;
+                    right: 60px;
                     z-index: 99;
 
                     .social-media-description {

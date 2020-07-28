@@ -24,6 +24,7 @@ export class ProfileView implements OnInit {
     public router: boolean = false;
     public loading: boolean = false;
     public localImage: string = '/assets/images/user-icon-image.png';
+    public headerLocalImage: string = '/assets/images/user-icon-image.png';
     public userRole: string;
     public user;
     public postItem = [
@@ -65,31 +66,40 @@ export class ProfileView implements OnInit {
         if (this.checkIsMe()) {
             if (this._userService.user && this._userService.user.data.avatar) {
                 this.localImage = this._fileUrl + this._userService.user.data.avatar;
+                this.headerLocalImage = this._fileUrl + this._userService.user.data.cover;
             }
 
         } else {
-           this._getProfileById().subscribe()
+            this._getProfileById().subscribe()
         }
-        
+
     }
-    private _getProfileById(){
-      return  this._profileService.getProfile(this.userRole, this.userId).pipe(takeUntil(this.unsubscribe$),
-      map((data)=>{
-        this.user = data;
-        this.isFollowed = data.is_follower;                        
-        if (data.avatar)
-            this.localImage = this._fileUrl + data.avatar;
-            return data
-      }))
-     
+    private _getProfileById() {
+        return this._profileService.getProfile(this.userRole, this.userId).pipe(takeUntil(this.unsubscribe$),
+            map((data) => {
+                this.user = data;
+                this.isFollowed = data.is_follower;
+                if (data.avatar)
+                    this.localImage = this._fileUrl + data.avatar;
+                if (data.cover)
+                    this.headerLocalImage = this._fileUrl + data.cover;
+                return data;
+
+            }))
+
     }
-    private _putClient(file_name): void {
-        this._userService.user.data.avatar = file_name;
+    private _putClient(file_name, type): void {
+        if (type == 'avatar') {
+            this._userService.user.data.avatar = file_name;
+        } else {
+            this._userService.user.data.cover = file_name;
+        }
         if (this.role === 'client') {
             this._userService.putClient(this._userService.user.data.id, this._userService.user.data)
                 .subscribe((data) => {
                     this._userService.getClient().subscribe((data) => {
                         this.localImage = this._fileUrl + data.data.avatar;
+                        this.headerLocalImage = this._fileUrl + data.data.cover;
 
                     });
                 }),
@@ -102,6 +112,7 @@ export class ProfileView implements OnInit {
                 .subscribe((data) => {
                     this._userService.getCoatch().subscribe((data) => {
                         this.localImage = this._fileUrl + data.data.avatar;
+                        this.headerLocalImage = this._fileUrl + data.data.cover;
 
                     });
 
@@ -111,7 +122,7 @@ export class ProfileView implements OnInit {
     }
 
 
-    private _setFormDataForImage(image): void {
+    private _setFormDataForImage(image, type: string): void {
         if (image && image.target) {
             const formData = new FormData();
             let fileList: FileList = image.target.files;
@@ -121,7 +132,7 @@ export class ProfileView implements OnInit {
 
                 this._userService.uploadVideoFile(formData)
                     .subscribe((data: UploadFileResponse) => {
-                        this._putClient(data.file_name);
+                        this._putClient(data.file_name, type);
                         this.loading = false;
                     })
             }
@@ -158,11 +169,11 @@ export class ProfileView implements OnInit {
 
             }
             this._profileService.follow(sendBody).pipe(takeUntil(this.unsubscribe$)).pipe(
-                switchMap(()=>{
+                switchMap(() => {
                     return this._getProfileById()
                 })
             )
-            .subscribe();
+                .subscribe();
         }
     }
     ngOnDestroy() {
@@ -173,10 +184,17 @@ export class ProfileView implements OnInit {
     public setServicePhoto(event) {
         this.loading = true;
         if (event) {
-            this._setFormDataForImage(event);
+            this._setFormDataForImage(event, 'avatar');
 
         }
 
+    }
+
+    public setServiceHeaderPhoto(event) {
+        if (event) {
+            this._setFormDataForImage(event, 'headerImage');
+
+        }
     }
 
 }

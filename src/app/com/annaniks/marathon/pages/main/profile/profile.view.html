@@ -1,16 +1,26 @@
 <div class="home-container">
     <div class="home-main">
         <div class="profile-description">
-            <img src="assets/images/profile-img.png" class="cover-image" alt="Cinque Terre">
+            <div class="header">
+                    <img [src]="headerLocalImage" class="cover-image" alt="Cinque Terre">
+                    <div  *ngIf="checkIsMe()" class=" d-flex">
+                            <input class="" type="file" id="headerprofile" name="headerprofile" accept="image/png,image/jpeg"
+                                (change)="setServiceHeaderPhoto($event)">
+                            <label class="header-icon-btn d-flex m-auto" for="headerprofile">
+                                <i class="fa fa-refresh m-auto" aria-hidden="true"></i>
+                            </label>
+                        </div>
+            </div>
+         
             <div class="profile-content">
                 <div class="profile-header-content display-flex">
                     <div class="profile-image">
                         <!-- <img [src]="localImage" class="user-image" alt="Cinque Terre"> -->
                         <div class="profile-image">
                             <div  *ngIf="checkIsMe()" class=" d-flex">
-                                <input class="" type="file" id="file" name="avatar" accept="image/png,image/jpeg"
+                                <input class="" type="file" id="profile" name="profile" accept="image/png,image/jpeg"
                                     (change)="setServicePhoto($event)">
-                                <label class="icon-btn d-flex m-auto" for="file">
+                                <label class="icon-btn d-flex m-auto" for="profile">
                                     <i class="fa fa-refresh m-auto" aria-hidden="true"></i>
                                 </label>
                             </div>

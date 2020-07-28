@@ -37,6 +37,7 @@ export class ClientView implements OnInit {
     public userStatus: string;
     public seeMore: boolean = false;
 
+
     constructor(
         private _profileUserService: UserService,
         private _feedService: FeedService,
@@ -108,8 +109,9 @@ export class ClientView implements OnInit {
     }
 
     public onClickSeeMore(): void {
-        this.userStatus = this.user.data.status.slice(0, this.user.data.status.length);
+        this.userStatus = this.user.status.slice(0, this.user.status.length);
         this.seeMore = false;
+        
     }
 
 
@@ -156,6 +158,8 @@ export class ClientView implements OnInit {
     }
 
     public onPostCreated(event): void {
+        console.log('kkkkk');
+        
         this._pageIndex = 1;
         this._isCountCalculated = false;
         this._pagesCount = 0;

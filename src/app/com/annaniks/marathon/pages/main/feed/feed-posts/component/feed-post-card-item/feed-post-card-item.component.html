@@ -16,7 +16,8 @@
             </span>
             <div class="position-relative" *ngIf="showDeleteModal && checkIsMe">
                 <app-delete-feed-item (deleted)="deleteFeedItem($event)" [content]="content?.type"
-                    [feedId]="feedItem.id" [mediaUrl]="feedItem.feed_media[0].url" (editFeedItem)="onClickeditFeedItem($event)"></app-delete-feed-item>
+                    [feedId]="feedItem.id" [mediaUrl]="feedItem.feed_media[0].url"
+                    (editFeedItem)="onClickeditFeedItem($event)"></app-delete-feed-item>
             </div>
         </div>
 
@@ -46,7 +47,7 @@
 
 
             <div class="d-none" [ngClass]="{'d-block':content?.type ==='recipeType'}"
-                routerLink='ingridient/{{feedItem.id}}'>
+                routerLink='/feed/ingridient/{{feedItem.id}}'>
                 <div class="post-container chicken-content p-0">
                     <ngx-slick-carousel *ngIf="receipt?.imageSlider.length>0" class="carousel w-100 chicken-image"
                         #slickModal="slick-carousel" [config]="slideConfig">
@@ -57,28 +58,45 @@
                     <img *ngIf="receipt?.imageSlider.length===0 && receipt?.videoLink ==='' "
                         src="/assets/images/food.png" alt="" width="100%" class="chicken-image">
 
-                    <div class="comments  d-flex position-absolute w-100 justify-content-between">
+                    <div class="comments  w-100 position-absolute">
+                        <div class="comments-content w-80 m-auto  d-flex">
                         <div class="comments-description">
-                            <p class="text">Coloris</p>
-                            <p class="title">{{receipt?.calories}} kcal</p>
+                            <div>
+                                <p class="text">Coloris</p>
+                                <p class="title">{{receipt?.calories}} kcal</p>
+                            </div>
+
                         </div>
                         <div class="comments-description">
-                            <p class="text">Protein</p>
-                            <p class="title">{{receipt?.protein}} gm</p>
+                            <div>
+                                <p class="text">Protein</p>
+                                <p class="title">{{receipt?.protein}} gm</p>
+                            </div>
+
                         </div>
                         <div class="comments-description">
-                            <p class="text">Fat</p>
-                            <p class="title">{{receipt?.fat}} gm</p>
+                            <div>
+                                <p class="text">Fat</p>
+                                <p class="title">{{receipt?.fat}} gm</p>
+                            </div>
+
                         </div>
                         <div class="comments-description">
-                            <p class="text">Carbs</p>
-                            <p class="title">{{receipt?.carbs}} gm</p>
+                            <div>
+                                <p class="text">Carbs</p>
+                                <p class="title">{{receipt?.carbs}} gm</p>
+                            </div>
+
                         </div>
                         <div class="comments-description">
-                            <p class="text">Prep Time</p>
-                            <p class="title">{{receipt?.time}} min</p>
+                            <div>
+                                <p class="text">Prep Time</p>
+                                <p class="title">{{receipt?.time}} min</p>
+                            </div>
+
                         </div>
                     </div>
+                </div>
                     <div *ngIf="receipt?.videoLink !=''">
                         <plyr style="display:block" plyrTitle="Video 1" [plyrSources]="receptvideoSources"></plyr>
                     </div>
@@ -101,7 +119,7 @@
             </div>
 
 
-            <!-----ARTIVLE POST-->
+            <!-----ARTIcLE POST-->
             <div class="d-none" [ngClass]="{'d-block':content?.type ==='article'}">
                 <div class="post-container p-0">
                     <img [src]="setImage()" class="food-image" alt="Cinque Terre"
@@ -132,4 +150,3 @@
         <app-posts-comments (sendMessage)="sendMessage($event)" *ngIf="role" [comments]="comments"></app-posts-comments>
     </div>
 </div>
-

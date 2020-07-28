@@ -1,12 +1,14 @@
 import { Component, OnInit, Inject } from "@angular/core";
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { CookieService } from 'ngx-cookie';
-import { UserResponseData } from '../../../core/models/user';
+import { UserResponseData, Results } from '../../../core/models/user';
 import { CountryService } from '../../../core/services/country.service';
 import { UserService } from '../../../core/services/user.service';
 import { Country, UploadFileResponse } from '../../../core/models';
 import { CertificateData } from '../../../core/models/certificates';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
+import { QueryValueType } from '@angular/compiler/src/core';
 
 @Component({
     selector: "app-edit-profile",
@@ -23,6 +25,7 @@ export class EditProfileView implements OnInit {
     public showSocialMedium: boolean = false;
     public showMore: boolean = false;
     public localImage: string = "/assets/images/user-icon-image.png";
+    public headerLocalImage: string = '/assets/images/user-icon-image.png'
     public loading: boolean = false;
     public router: boolean = false;
     public education = new FormArray([]);
@@ -31,6 +34,11 @@ export class EditProfileView implements OnInit {
     public certificatesImage: string;
     public languages = [];
     public speciality = [];
+    public url = [];
+    public spacialityUrl = [];
+    public countries = [];
+
+    public leng = [];
 
     constructor(
         private _fb: FormBuilder,
@@ -38,6 +46,7 @@ export class EditProfileView implements OnInit {
         private _cookieService: CookieService,
         private _userService: UserService,
         private _router: Router,
+        private _location: Location,
         @Inject("FILE_URL") private _fileUrl: string,
     ) {
         this.role = this._cookieService.get('role');
@@ -46,12 +55,16 @@ export class EditProfileView implements OnInit {
         if (this._userService.user.data.avatar) {
             this.localImage = this._fileUrl + this._userService.user.data.avatar;
         }
-
+        if (this._userService.user.data.cover) {
+            this.headerLocalImage = this._fileUrl + this._userService.user.data.cover;
+        }
     }
 
     ngOnInit() {
         this._formBuilder();
         this._setPatchValue();
+        this._getCountries();
+        this._getSpeciality();
         if (this.user.data.certificates) {
             const certificates = this.user.data.certificates;
             certificates.forEach(element => {
@@ -113,7 +126,7 @@ export class EditProfileView implements OnInit {
     }
 
     /////--------------------PCTURE ULPOAD
-    private _setFormDataForImage(image): void {
+    private _setFormDataForImage(image, type: string): void {
         if (image && image.target) {
             const formData = new FormData();
             let fileList: FileList = image.target.files;
@@ -123,7 +136,9 @@ export class EditProfileView implements OnInit {
 
                 this._userService.uploadVideoFile(formData)
                     .subscribe((data: UploadFileResponse) => {
-                        this._putClient(data.file_name);
+                        console.log(data);
+
+                        this._putClient(data.file_name, type);
                         this.loading = false;
                     })
             }
@@ -146,13 +161,44 @@ export class EditProfileView implements OnInit {
         }
     }
 
-    private _putClient(file_name): void {
-        this._userService.user.data.avatar = file_name;
+    // private _putClient(file_name): void {
+    //     this._userService.user.data.avatar = file_name;
+    //     if (this.role === 'client') {
+    //         this._userService.putClient(this._userService.user.data.id, this._userService.user.data)
+    //             .subscribe((data) => {
+    //                 this._userService.getClient().subscribe((data) => {
+    //                     this.localImage = this._fileUrl + data.data.avatar;
+
+    //                 });
+    //             }),
+    //             err => {
+    //                 this.loading = false;
+    //             }
+    //     }
+    //     else {
+    //         this._userService.putCoatch(this._userService.user.data.id, this._userService.user.data)
+    //             .subscribe((data) => {
+    //                 this._userService.getCoatch().subscribe((data) => {
+    //                     this.localImage = this._fileUrl + data.data.avatar;
+
+    //                 });
+
+
+    //             })
+    //     }
+    // }
+    private _putClient(file_name, type): void {
+        if (type == 'avatar') {
+            this._userService.user.data.avatar = file_name;
+        } else {
+            this._userService.user.data.cover = file_name;
+        }
         if (this.role === 'client') {
             this._userService.putClient(this._userService.user.data.id, this._userService.user.data)
                 .subscribe((data) => {
                     this._userService.getClient().subscribe((data) => {
                         this.localImage = this._fileUrl + data.data.avatar;
+                        this.headerLocalImage = this._fileUrl + data.data.cover;
 
                     });
                 }),
@@ -165,6 +211,7 @@ export class EditProfileView implements OnInit {
                 .subscribe((data) => {
                     this._userService.getCoatch().subscribe((data) => {
                         this.localImage = this._fileUrl + data.data.avatar;
+                        this.headerLocalImage = this._fileUrl + data.data.cover;
 
                     });
 
@@ -176,10 +223,17 @@ export class EditProfileView implements OnInit {
     public setServicePhoto(event) {
         this.loading = true;
         if (event) {
-            this._setFormDataForImage(event);
+            this._setFormDataForImage(event, 'avatar');
 
         }
 
+    }
+
+    public setServiceHeaderPhoto(event) {
+        if (event) {
+            this._setFormDataForImage(event, 'headerImage');
+
+        }
     }
 
     ///--------------PICTURE UPLOAD
@@ -188,6 +242,14 @@ export class EditProfileView implements OnInit {
     ////////--------------- UPDATE USERRR AND COATCH
     private _updateCoatch(): void {
         const role = this._cookieService.get('role') || '';
+        const languages = this.profileFormGroup.get('languages').value || [];
+        const speciality = this.profileFormGroup.get('speciality').value || [];
+        for (let item of languages) {
+            this.url.push(item.url);
+        }
+        for (let item of speciality) {
+            this.spacialityUrl.push(item.url);
+        }
         this.user.data.user.last_name = this.profileFormGroup.value.userName,
             this.user.data.user.first_name = this.profileFormGroup.value.firstName,
             this.user.data.status = this.profileFormGroup.value.status,
@@ -200,7 +262,8 @@ export class EditProfileView implements OnInit {
             this.user.data.education = this.education.value,
             this.user.data.experience = this.experience.value,
             this.user.data.certificates = this.certificates,
-            this.user.data.language = this.languages;
+            this.user.data.language = this.url,
+            this.user.data.speciality = this.spacialityUrl;
         this._userService.putCoatch(this._userService.user.data.id, this.user.data)
             .subscribe((data) => {
                 this._userService.getCoatch().subscribe((data) => {
@@ -212,6 +275,14 @@ export class EditProfileView implements OnInit {
 
     private _updateClient(): void {
         const role = this._cookieService.get('role') || '';
+        const languages = this.profileFormGroup.get('languages').value || [];
+        const speciality = this.profileFormGroup.get('speciality').value || [];
+        for (let item of languages) {
+            this.url.push(item.url);
+        }
+        for (let item of speciality) {
+            this.spacialityUrl.push(item.url);
+        }
         this.user.data.user.last_name = this.profileFormGroup.value.userName,
             this.user.data.user.first_name = this.profileFormGroup.value.firstName,
             this.user.data.status = this.profileFormGroup.value.status,
@@ -220,12 +291,14 @@ export class EditProfileView implements OnInit {
             this.user.data.youtube = this.profileFormGroup.value.youtube,
             this.user.data.linkedin = this.profileFormGroup.value.linkedin,
             this.user.data.location = this.profileFormGroup.value.location,
-            this._userService.putClient(this._userService.user.data.id, this.user.data)
-                .subscribe((data) => {
-                    this._userService.getClient().subscribe((data) => {
-                        // this._router.navigate([`/profile/${role}`])
-                    })
+            this.user.data.language = this.url,
+            this.user.data.speciality = this.spacialityUrl;
+        this._userService.putClient(this._userService.user.data.id, this.user.data)
+            .subscribe((data) => {
+                this._userService.getClient().subscribe((data) => {
+                    // this._router.navigate([`/profile/${role}`])
                 })
+            })
     }
 
     /////----------------------UPDATE USER AND COATC
@@ -234,9 +307,11 @@ export class EditProfileView implements OnInit {
     public update(): void {
         if (this.role === 'coach') {
             this._updateCoatch();
+            this._location.back();
         }
         else if (this.role === 'client') {
             this._updateClient();
+            this._location.back();
         }
     }
 
@@ -285,81 +360,82 @@ export class EditProfileView implements OnInit {
     }
 
 
-    public filterCountryMultiple(event) {
-        let query = event.query;
-        this._countryService.getLanguages().subscribe((countries: Country[]) => {
-            let contry = [];
-            let name: string;
-            contry.push(countries)
-            for (let item of contry) {
-                for (let i of item.results) {
-                    if (i.name === this.profileFormGroup.value.languages) {
 
-                    }
+
+    private _getCountries(): void {
+        this._countryService.getLanguages().subscribe((countries) => {
+            this.countries = countries.results;
+            const selectedlanguages: any[] = this.user.data.language || [];
+            const selectedcountries = [];
+            selectedlanguages.map((e) => {
+                const findedCountry = this.countries.find((f) => f.url === e);
+                if (findedCountry) {
+                    selectedcountries.push(findedCountry);
                 }
-            }
+            })
+            this.profileFormGroup.patchValue({
+                languages: selectedcountries
+            })
 
-            this.filteredCountriesMultiple = this.filterCountry(query, contry);
+
         });
-
-
-
     }
 
-    public filterCountry(query, countries: Country[]): Country[] {
+    public filterCountry(query: string, countries: Results[]): Results[] {
         let filtered: any[] = [];
-
         for (let item of countries) {
-            for (let language of item.results) {
-                this.languages.push(language.url)
-                if (language.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-                    filtered.push(language)
-                }
+            if (item.name.toLowerCase().includes(query.toLowerCase())) {
+                filtered.push(item);
             }
         }
         return filtered;
     }
 
+    public filterCountryMultiple(event): void {
+        let query = event.query;
+        this.filteredCountriesMultiple = this.filterCountry(query, this.countries);
+    }
+
+
+
+    private _getSpeciality(): void {
+        this._countryService.getSpeciality().subscribe((speciality) => {
+            this.speciality = speciality.results;
+            const selectedspaciality: any[] = this.user.data.speciality || [];
+            const selectspaciality = [];
+            selectedspaciality.map((e) => {
+                const findedCountry = this.speciality.find((f) => f.url === e);
+                if (findedCountry) {
+                    selectspaciality.push(findedCountry);
+                }
+            })
+            this.profileFormGroup.patchValue({
+                speciality: selectspaciality
+            })
+
+
+        });
+    }
+
+
 
     public filterSpecialitypMultiple(event) {
         let query = event.query;
-        this._countryService.getSpeciality().subscribe((speciality) => {
-            let special = [];
-            special.push(speciality)
-
-
-            this.filteredSpecialitesMultiple = this.filterSpeciality(query, special);
-
-        });
+        this.filteredSpecialitesMultiple = this.filterCountry(query, this.speciality);
     }
 
 
     public filterSpeciality(query, special) {
         let filtered: any[] = [];
         for (let item of special) {
-            for (let name of item.results) {
-                this.speciality.push(name.url)
-                if (name.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-                    filtered.push(name);
-
-
-                }
+            if (item.name.toLowerCase().includes(query.toLowerCase())) {
+                filtered.push(item);
             }
         }
         return filtered;
     }
 
 
-
-    public changeProfile(event): void {
-        if (event && this.role === 'coach') {
-            this._updateCoatch();
-        }
-        else if( event && this.role==='client'){
-            this._updateClient();
-        }
-
-    }
 
 
 

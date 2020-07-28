@@ -95,7 +95,7 @@
                     <p class="post-item">Music</p>
                 </div>
                 <div *ngIf="postTab===1" class="post-container">
-                    <div *ngIf="this.checkIsMe()">
+                    <div *ngIf="checkIsMe()">
                         <app-create-publication [feedItem]="feedItem" (postCreateEvent)="onPostCreated($event)">
                         </app-create-publication>
                     </div>

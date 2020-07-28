@@ -102,13 +102,12 @@
                 </div>
             </div>
             <div *ngIf="postTab===1" class="post-container">
-                    <div *ngIf="this.checkIsMe()">
+                    <div *ngIf="checkIsMe()">
                             <app-create-publication [feedItem]="feedItem" (postCreateEvent)="onPostCreated($event)"></app-create-publication>
                         </div>
                 <div *ngIf="feedItem?.length > 0" class="feed-item" infinite-scroll
                     [infiniteScrollDistance]="scrollDistance" [infiniteScrollUpDistance]="scrollUpDistance"
-                    [infiniteScrollThrottle]="throttle" [infiniteScrollDisabled]="infiniteScrollDisabled"
-                   >
+                    [infiniteScrollThrottle]="throttle" [infiniteScrollDisabled]="infiniteScrollDisabled">
                    <!--  (scrolled)="onScroll()" -->
                     <spinner-loading *ngIf="loading"></spinner-loading>
                     <app-feed-post-card-item *ngFor="let item of feedItem" [feedItem]="item"

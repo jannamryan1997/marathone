@@ -73,7 +73,7 @@ export class CreatePublicationComponent implements OnInit {
 
             })
     }
-    private _setFormDataForImage(image) {
+    private _setFormDataForImage(image) {        
         this.loading = true;
         let fileName: string;
         if (image && image.target) {
@@ -89,13 +89,17 @@ export class CreatePublicationComponent implements OnInit {
                 }
 
                 this._userService.uploadVideoFile(formData)
-                    .subscribe((data: UploadFileResponse) => {
+                    .subscribe((data: UploadFileResponse) => {                        
                         fileName = this._fileUrl + data.file_name;
+                        console.log(fileName);
+                        
                         this.contentFileName = data.file_name;
                         this.videoTumble = this._fileUrl + 'vido_tumbl/' + data.file_name_tumbl;
                         if (this.uploadType === 'image') {
                             this.resetImageUplaodInput()
                             this.controImageItem = fileName;
+                            console.log(this.controImageItem);
+                            
                         }
                         else if (this.uploadType === 'video') {
                             this.resetVideoUplaodInput()
@@ -131,6 +135,8 @@ export class CreatePublicationComponent implements OnInit {
 
 
     public setServicePhoto(event, type) {
+        console.log('11111111');
+        
         if (type === 'image') {
             this.uploadType = 'image';
         }
