@@ -49,14 +49,14 @@
             <div class="d-none" [ngClass]="{'d-block':content?.type ==='recipeType'}"
                 routerLink='/feed/ingridient/{{feedItem.id}}'>
                 <div class="post-container chicken-content p-0">
-                    <ngx-slick-carousel *ngIf="receipt?.imageSlider.length>0" class="carousel w-100 chicken-image"
+                    <ngx-slick-carousel *ngIf="receipt?.imageSlider.length>0" class="carousel w-100 recipt-style"
                         #slickModal="slick-carousel" [config]="slideConfig">
                         <div ngxSlickItem *ngFor="let slide of receipt?.imageSlider" class="slide">
-                            <img [src]="slide.img" alt="" width="100%" class="chicken-image">
+                            <img [src]="slide.img" alt="" width="100%" class="recipt-style">
                         </div>
                     </ngx-slick-carousel>
                     <img *ngIf="receipt?.imageSlider.length===0 && receipt?.videoLink ==='' "
-                        src="/assets/images/food.png" alt="" width="100%" class="chicken-image">
+                        src="/assets/images/food.png" alt="" width="100%" class="recipt-style">
 
                     <div class="comments  w-100 position-absolute">
                         <div class="comments-content w-80 m-auto  d-flex">
@@ -122,7 +122,7 @@
             <!-----ARTIcLE POST-->
             <div class="d-none" [ngClass]="{'d-block':content?.type ==='article'}">
                 <div class="post-container p-0">
-                    <img [src]="setImage()" class="food-image" alt="Cinque Terre"
+                    <img [src]="setImage()" class="article-style" alt="Cinque Terre"
                         routerLink="/combination/{{feedItem.id}}">
                     <div class="combinations-description">
                         <p class="title">{{feedItem?.title}}</p>

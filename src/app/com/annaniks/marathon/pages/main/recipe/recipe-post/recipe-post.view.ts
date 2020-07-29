@@ -152,8 +152,18 @@ export class RecipePostView implements OnInit {
                 this.slides.push({ img: item.img });  
             }
         
-          
         }
+        if(this.mediaContent.receipt.videoLink){
+            console.log(this.mediaContent.receipt.videoLink,"dddddddddddd");
+            this.showVideo=true;
+            this.showImage =false;
+            this.videoSources = [{
+                src: this.mediaContent.receipt.videoLink,
+                provider: 'youtube',
+            }]
+            
+        }
+
         if (this.mediaContent.receipt.macronutrients === true) {
             this.showmaCronutrients = true;
         }

@@ -47,6 +47,7 @@ import {
     ShareComponent
 } from '../layout';
 import { FeedService } from '../pages/main/feed/feed.service';
+import { CountryService } from '../core/services/country.service';
 
 
 @NgModule({
@@ -94,7 +95,7 @@ import { FeedService } from '../pages/main/feed/feed.service';
         SlickCarouselModule
  
     ],
-    providers: [AuthGuard,FeedService],
+    providers: [AuthGuard,FeedService,CountryService],
     entryComponents: [LikeModal],
     exports: [
         ReactiveFormsModule,

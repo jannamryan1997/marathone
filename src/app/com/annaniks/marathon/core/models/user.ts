@@ -12,6 +12,7 @@ export interface UserData{
     rate: any,
     ui_language: any,
     avatar: string,
+    cover:string;
     facebook: string,
     youtube: string,
     instagram: string,

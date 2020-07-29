@@ -1,7 +1,10 @@
 .auth-container {
     height: 100vh;
     flex-direction: column;
-
+    .header{
+        position: absolute;
+        right: 0;
+    }
     .auth-main {
         background: #FFFFFF 0% 0% no-repeat padding-box;
         opacity: 1;
@@ -29,7 +32,6 @@
 
                     .accout-image {
                         width: 135px;
-                        height: 53px;
                         cursor: pointer;
                     }
                 }
@@ -55,6 +57,7 @@
 ::ng-deep .mat-dialog-container {
     background: #D6D8E144 0% 0% no-repeat padding-box !important;
     border: 1px solid #D1DCF1;
+    padding: 0 !important;
 }
 
 ::ng-deep.mat-form-field {

@@ -1,5 +1,4 @@
 import { Component, OnInit } from "@angular/core";
-import { UserResponseData } from '../../../../core/models/user';
 import { UserService } from '../../../../core/services/user.service';
 import { FeedService } from '../../feed/feed.service';
 import { finalize, takeUntil } from 'rxjs/operators';
@@ -9,6 +8,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { ProfileService } from '../../../../core/services/profile.service';
+import { CountryService } from '../../../../core/services/country.service';
+
 
 @Component({
     selector: "app-client",
@@ -36,7 +37,7 @@ export class ClientView implements OnInit {
     private unsubscribe$ = new Subject<void>()
     public userStatus: string;
     public seeMore: boolean = false;
-
+    public languageName = [];
 
     constructor(
         private _profileUserService: UserService,
@@ -45,18 +46,20 @@ export class ClientView implements OnInit {
         private _router: Router,
         private _userService: UserService,
         private _profileService: ProfileService,
-        private _activatedRoute: ActivatedRoute) {
+        private _countryService: CountryService,
+    ) {
         let urls = this._router.url.split('/');
         if (urls && urls.length && urls.length == 4) {
             this.userId = +urls[urls.length - 2];
         }
         if (!this.userId) {
-            this.userId = this._userService.user.data.id;            
+            this.userId = this._userService.user.data.id;
         }
         this.user = this.userId ? null : this._profileUserService.user;
     }
 
     ngOnInit() {
+        this._getLanguages();
         this._getFeed(this._pageIndex);
         this._getProfile()
     }
@@ -80,18 +83,18 @@ export class ClientView implements OnInit {
     }
     private _getFeed(page: number) {
         this.loading = true;
-        let isAll=this.checkIsMe()?'':'true'
-        this._profileService.getFeedByProfileId('creator_client', this.userId,isAll).pipe(finalize(() => { this.loading = false }))
-        .subscribe((data:FeedData) => {
-            this.feedItem = data.results;
-            for (let item of this.feedItem) {
-                for (let media of item.feed_media) {
-                    if (typeof media.content == 'string') {
-                        media.content = JSON.parse(media.content)
+        let isAll = this.checkIsMe() ? '' : 'true'
+        this._profileService.getFeedByProfileId('creator_client', this.userId, isAll).pipe(finalize(() => { this.loading = false }))
+            .subscribe((data: FeedData) => {
+                this.feedItem = data.results;
+                for (let item of this.feedItem) {
+                    for (let media of item.feed_media) {
+                        if (typeof media.content == 'string') {
+                            media.content = JSON.parse(media.content)
+                        }
                     }
                 }
-            }
-        })
+            })
     }
     private _showseeMore(): void {
         let titleLength: number;
@@ -108,10 +111,31 @@ export class ClientView implements OnInit {
         }
     }
 
+    private _getLanguages(): void {
+        let url: string;
+        this._countryService.getLanguages().subscribe((data) => {
+            data.results.map((name, index) => {
+                url = name.url;
+              this._userService.user.data.language.forEach(element=>{
+                if (url === element) {
+                    this.languageName.push({ name: name.name });
+                    console.log(this.languageName);
+                }
+              })
+           
+
+            })
+        })
+    }
+
+
+
+
+
     public onClickSeeMore(): void {
         this.userStatus = this.user.status.slice(0, this.user.status.length);
         this.seeMore = false;
-        
+
     }
 
 
@@ -159,7 +183,7 @@ export class ClientView implements OnInit {
 
     public onPostCreated(event): void {
         console.log('kkkkk');
-        
+
         this._pageIndex = 1;
         this._isCountCalculated = false;
         this._pagesCount = 0;

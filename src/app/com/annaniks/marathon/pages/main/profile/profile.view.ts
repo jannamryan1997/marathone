@@ -4,7 +4,7 @@ import { CookieService } from 'ngx-cookie';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil, switchMap, map } from 'rxjs/operators';
-import { UploadFileResponse } from '../../../core/models';
+import { UploadFileResponse} from '../../../core/models';
 import { ProfileService } from '../../../core/services/profile.service';
 
 
@@ -18,6 +18,7 @@ import { ProfileService } from '../../../core/services/profile.service';
 export class ProfileView implements OnInit {
     private unsubscribe$ = new Subject<void>()
     public role: string;
+    public languageName: string;
     public showSocialMedium: boolean = false;
     public showMore: boolean = false;
     public showProfile: boolean = false;
@@ -27,6 +28,7 @@ export class ProfileView implements OnInit {
     public headerLocalImage: string = '/assets/images/user-icon-image.png';
     public userRole: string;
     public user;
+    public useLanguageUrl: string;
     public postItem = [
         {
             postType: "image",
@@ -44,7 +46,9 @@ export class ProfileView implements OnInit {
         @Inject("FILE_URL") private _fileUrl,
         private _userService: UserService,
         private _profileService: ProfileService,
-        private _cookieService: CookieService, private _activatedRoute: ActivatedRoute, private _router: Router) {
+        private _cookieService: CookieService,
+        private _activatedRoute: ActivatedRoute,
+        private _router: Router) {
         let urls = this._router.url.split('/');
         if (urls && urls.length) {
             this.userRole = urls[urls.length - 1];
@@ -55,17 +59,19 @@ export class ProfileView implements OnInit {
                 this.userId = params.id;
         })
 
-
     }
 
     ngOnInit() {
-        this._getProfile()
+        this._getProfile();
     }
     private _getProfile() {
         this.role = this._cookieService.get('role');
         if (this.checkIsMe()) {
             if (this._userService.user && this._userService.user.data.avatar) {
                 this.localImage = this._fileUrl + this._userService.user.data.avatar;
+
+            }
+            if (this._userService.user && this._userService.user.data.cover) {
                 this.headerLocalImage = this._fileUrl + this._userService.user.data.cover;
             }
 
@@ -79,18 +85,21 @@ export class ProfileView implements OnInit {
             map((data) => {
                 this.user = data;
                 this.isFollowed = data.is_follower;
-                if (data.avatar)
+                if (data.avatar) {
                     this.localImage = this._fileUrl + data.avatar;
-                if (data.cover)
+                }
+
+                if (data.cover) {
                     this.headerLocalImage = this._fileUrl + data.cover;
-                return data;
+                }
 
             }))
 
     }
     private _putClient(file_name, type): void {
-        if (type == 'avatar') {
+        if (type === 'avatar') {
             this._userService.user.data.avatar = file_name;
+
         } else {
             this._userService.user.data.cover = file_name;
         }
@@ -98,8 +107,13 @@ export class ProfileView implements OnInit {
             this._userService.putClient(this._userService.user.data.id, this._userService.user.data)
                 .subscribe((data) => {
                     this._userService.getClient().subscribe((data) => {
-                        this.localImage = this._fileUrl + data.data.avatar;
-                        this.headerLocalImage = this._fileUrl + data.data.cover;
+                        if (type === 'avatar') {
+                            this.localImage = this._fileUrl + data.data.avatar;
+                        }
+                        else {
+                            this.headerLocalImage = this._fileUrl + data.data.cover;
+                        }
+
 
                     });
                 }),
@@ -111,8 +125,12 @@ export class ProfileView implements OnInit {
             this._userService.putCoatch(this._userService.user.data.id, this._userService.user.data)
                 .subscribe((data) => {
                     this._userService.getCoatch().subscribe((data) => {
-                        this.localImage = this._fileUrl + data.data.avatar;
-                        this.headerLocalImage = this._fileUrl + data.data.cover;
+                        if (type === 'avatar') {
+                            this.localImage = this._fileUrl + data.data.avatar;
+                        }
+                        else {
+                            this.headerLocalImage = this._fileUrl + data.data.cover;
+                        }
 
                     });
 

@@ -4,11 +4,10 @@ import { CookieService } from 'ngx-cookie';
 import { UserResponseData, Results } from '../../../core/models/user';
 import { CountryService } from '../../../core/services/country.service';
 import { UserService } from '../../../core/services/user.service';
-import { Country, UploadFileResponse } from '../../../core/models';
+import { UploadFileResponse } from '../../../core/models';
 import { CertificateData } from '../../../core/models/certificates';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
-import { QueryValueType } from '@angular/compiler/src/core';
 
 @Component({
     selector: "app-edit-profile",
@@ -58,6 +57,8 @@ export class EditProfileView implements OnInit {
         if (this._userService.user.data.cover) {
             this.headerLocalImage = this._fileUrl + this._userService.user.data.cover;
         }
+        console.log(this.user);
+
     }
 
     ngOnInit() {
@@ -94,7 +95,7 @@ export class EditProfileView implements OnInit {
     private _setPatchValue(): void {
         this.profileFormGroup.patchValue({
             firstName: this.user.data.user.first_name,
-            userName: this.user.data.user.last_name,
+            userName: this.user.data.user.email,
             status: this.user.data.status,
             about: this.user.data.about,
             facebook: this.user.data.facebook,
@@ -136,8 +137,6 @@ export class EditProfileView implements OnInit {
 
                 this._userService.uploadVideoFile(formData)
                     .subscribe((data: UploadFileResponse) => {
-                        console.log(data);
-
                         this._putClient(data.file_name, type);
                         this.loading = false;
                     })
@@ -188,7 +187,7 @@ export class EditProfileView implements OnInit {
     //     }
     // }
     private _putClient(file_name, type): void {
-        if (type == 'avatar') {
+        if (type === 'avatar') {
             this._userService.user.data.avatar = file_name;
         } else {
             this._userService.user.data.cover = file_name;
@@ -197,8 +196,13 @@ export class EditProfileView implements OnInit {
             this._userService.putClient(this._userService.user.data.id, this._userService.user.data)
                 .subscribe((data) => {
                     this._userService.getClient().subscribe((data) => {
-                        this.localImage = this._fileUrl + data.data.avatar;
-                        this.headerLocalImage = this._fileUrl + data.data.cover;
+                        if (type === 'avatar') {
+                            this.localImage = this._fileUrl + data.data.avatar;
+                        }
+                        else {
+                            this.headerLocalImage = this._fileUrl + data.data.cover;
+                        }
+
 
                     });
                 }),
@@ -210,8 +214,12 @@ export class EditProfileView implements OnInit {
             this._userService.putCoatch(this._userService.user.data.id, this._userService.user.data)
                 .subscribe((data) => {
                     this._userService.getCoatch().subscribe((data) => {
-                        this.localImage = this._fileUrl + data.data.avatar;
-                        this.headerLocalImage = this._fileUrl + data.data.cover;
+                        if (type === 'avatar') {
+                            this.localImage = this._fileUrl + data.data.avatar;
+                        }
+                        else {
+                            this.headerLocalImage = this._fileUrl + data.data.cover;
+                        }
 
                     });
 

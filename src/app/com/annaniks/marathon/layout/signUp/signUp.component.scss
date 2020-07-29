@@ -28,6 +28,7 @@
 
     .signUp-form {
         margin-top: 30px;
+
         .checkbox {
             background: #FFFFFF 0% 0% no-repeat padding-box;
             border: 1px solid #bbcddf;
@@ -62,12 +63,13 @@
             margin-top: 25px;
 
             .signUp-btn {
-                padding: 10px 20px;
+                padding: 0px 15px;
                 @include text(16px, 20px, #5897F6, EncodeSans-Bold);
                 cursor: pointer;
                 border: 1px solid #6CA7FE;
                 border-radius: 23px;
                 opacity: 1;
+                height: 45px;
             }
         }
 
@@ -164,7 +166,7 @@
 }
 
 .activeTab {
-    color:  #E3ECFD !important;
+    color: #E3ECFD !important;
 }
 
 .form-group>label {
@@ -176,11 +178,14 @@
     @include text(16px, 19px, #6CA7FE, EncodeSans-Medium);
 }
 
-.active-btn{
-    &:hover{
+.active-btn {
+    padding: 10px !important;
+
+    &:hover {
         box-shadow: -5.29px 7px 10px #589bfd36;
     }
 }
-.password-icon{
+
+.password-icon {
     cursor: pointer;
 }

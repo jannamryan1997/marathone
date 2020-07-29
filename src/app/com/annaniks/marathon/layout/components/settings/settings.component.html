@@ -1,33 +1,38 @@
 <div class="settings">
-    <button (click)="onClickOpenComments()" class="setting-item-btn" [ngClass]="{'class-type':type}">
-        <img src="assets/icons/Comment.svg" alt="" class="cooment-icon">
+    <button (click)="onClickOpenComments()" class="setting-item-btn" [ngClass]="{'class-type':type,'type-color':isOpen}">
+        <img src="assets/icons/Comment.svg" alt="" class="cooment-icon" *ngIf="!isOpen">
+        <img src="assets/icons/Comment_blue.svg" alt="" class="cooment-icon" *ngIf="isOpen">
         <span class="title">Comments {{feed?.feed_comments_count}}</span>
     </button>
-    <button [disabled]="feed?.is_liked" (click)="clickOnButton('like')" class="setting-item-btn" [ngClass]="{'class-type':type}">
-        <img src="assets/icons/Energy.svg" alt="" class="energy-icon">
-        <span class="title"> Energy {{feed?.feed_likes_count}}</span>
+    <button [disabled]="feed?.is_liked" (click)="clickOnButton('like')" class="setting-item-btn"
+        [ngClass]="{'class-type':type}">
+        <img *ngIf="!feed?.is_liked" src="assets/icons/Energy.svg" alt="" class="energy-icon">
+
+        <img *ngIf="feed?.is_liked" src="assets/icons/Energy_blue.svg" alt="" class="energy-icon">
+        <span class="title" [ngClass]="{'type-color':type}"> Energy {{feed?.feed_likes_count}}</span>
     </button>
     <button (click)="clickOnButton('reposts')" class="setting-item-btn" [ngClass]="{'class-type':type}">
         <img src="assets/icons/Repost.svg" alt="" class="repost-icon">
         <span class="title">Share </span>
-        <span class="count" [ngClass]="{'activeShare':share}" (click)="onClickShowShare()">220</span>
+        <span class="count">220
+            <div class="share-item">
+                <div class="share-content">
+                    <app-share-item></app-share-item>
+                    <app-share-item></app-share-item>
+                    <app-share-item></app-share-item>
+                    <app-share-item></app-share-item>
+                    <app-share-item></app-share-item>
+                    <app-share-item></app-share-item>
+                    <app-share-item></app-share-item>
+                    <app-share-item></app-share-item>
+                    <app-share-item></app-share-item>
+                    <app-share-item></app-share-item>
+                    <app-share-item></app-share-item>
+                    <app-share-item></app-share-item>
+                </div>
+                <button class="btn-view w-100"><span>View all</span></button>
+            </div>
+        </span>
     </button>
 </div>
 
-<div class="share-item" *ngIf="share">
-    <div class="share-content">
-            <app-share-item></app-share-item>
-            <app-share-item></app-share-item>
-            <app-share-item></app-share-item>
-            <app-share-item></app-share-item>
-            <app-share-item></app-share-item>
-            <app-share-item></app-share-item>
-            <app-share-item></app-share-item>
-            <app-share-item></app-share-item>
-            <app-share-item></app-share-item>
-            <app-share-item></app-share-item>
-            <app-share-item></app-share-item>
-            <app-share-item></app-share-item>
-    </div>
-    <button class="btn-view w-100"><span>View all</span></button>
-</div>

@@ -81,7 +81,7 @@
     width: 50%;
     cursor: pointer;
     transition: 0.5 all ease-out;
-    padding: 15px;
+    padding: 10px !important;
     border-radius: 26px;
     background: #589CFE;
     @include text(16px, 19px, #ffffff, EncodeSans-SemiBold);

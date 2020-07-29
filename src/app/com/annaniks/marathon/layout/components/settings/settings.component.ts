@@ -11,7 +11,7 @@ export class SettingsComponent implements OnInit {
     public isOpen: boolean = false;
     public role: string;
     public feed;
-    public share: boolean = false;
+    public message: string;
     @Input() type: string;
     @Output() openChanges = new EventEmitter();
     @Output() showFollowModel = new EventEmitter();
@@ -33,15 +33,14 @@ export class SettingsComponent implements OnInit {
         this.openChanges.emit(this.isOpen);
     }
     public clickOnButton(type: string): void {
+
         this._buttonsType.emit(type);
-        console.log(type);
-        if (type === 'like') {
-            this.showFollowModel.emit(true);
+        this.showFollowModel.emit(true);
+        if (type === 'reposts') {
+            this.message = "repost";
+            console.log(this.message);
+            
         }
 
-    }
-
-    public onClickShowShare():void{
-        this.share = !this.share;
     }
 }

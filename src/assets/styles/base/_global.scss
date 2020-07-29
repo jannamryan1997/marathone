@@ -36,7 +36,7 @@
     padding: 0;
     background: #ffffff;
     box-shadow: 2.09px 30px 43px #5C687B17;
-    position:relative;
+    position: relative;
 }
 
 .post-content {
@@ -235,11 +235,13 @@
         width: 50%;
         cursor: pointer;
         transition: 0.5 all ease-out;
-        padding: 15px;
+        height: 45px;
         border-radius: 26px;
         background: #ffffff;
         @include text(16px, 19px, #589cfe, EncodeSans-SemiBold);
         margin: 0 15px 0 0;
+        align-items: center;
+        text-align: center;
     }
 
     .signUp-btn {
@@ -247,10 +249,12 @@
         width: 50%;
         cursor: pointer;
         transition: 0.5 all ease-out;
-        padding: 15px;
+        height: 45px;
         border-radius: 26px;
         background: #589cfe 0% 0% no-repeat padding-box !important;
         @include text(16px, 19px, #ffffff, EncodeSans-SemiBold);
+        align-items: center;
+        text-align: center;
     }
 }
 

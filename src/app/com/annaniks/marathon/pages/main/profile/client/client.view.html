@@ -21,15 +21,17 @@
             <div class="data-item">
                 <p class="item-title">{{user?.location}}</p>
             </div>
-            <div class="data-item">
-                <div class="display-flex ml-3">
-                    <img src="assets/images/eng.png" class="country-img" alt="Cinque Terre">
-                    <p class="country-name">Eng</p>
-                    <img src="assets/images/flags/germ.png" class="country-img ml-2" alt="Cinque Terre">
-                    <p class="country-name">Ger</p>
+            <div class="d-flex">
+            <div class="data-item" *ngFor="let item of languageName">
+                <div class="display-flex" >
+                    <img src="assets/images/eng.png" class="country-img  ml-2 mr-2" alt="Cinque Terre" *ngIf="item.name==='English'">
+                    <img src="assets/images/flags/arm.svg" class="country-img  ml-2 mr-2" alt="Cinque Terre" *ngIf="item.name==='Armenian'">
+                    <img src="assets/images/flags/rus.png" class="country-img  ml-2 mr-2" alt="Cinque Terre" *ngIf="item.name==='Russian'">
+                    <p class="country-name ml-2">{{item?.name}}</p>
                 </div>
             </div>
         </div>
+    </div>
         <div class="statistic display-flex">
             <div class="m-auto  display-flex">
                 <div class="statistic-item">

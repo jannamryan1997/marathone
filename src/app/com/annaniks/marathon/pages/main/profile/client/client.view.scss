@@ -27,15 +27,16 @@
 
     .profile-data {
         .data-item {
-            width: 33.333333%;
+            // width: 33.333333%;
 
             .item-title {
                 @include text(16px, 20px, #45535c, EncodeSans-Medium);
                 display: inline-block;
-                width: 160px;
+                width: 140px;
                 white-space: nowrap;
                 overflow: hidden !important;
                 text-overflow: ellipsis;
+                text-align: center;
             }
 
             .country-img {
@@ -45,7 +46,7 @@
             }
 
             .country-name {
-                @include text(16px, 19px, #45535c, EncodeSans-Medium);
+                @include text(12px, 19px, #45535c, EncodeSans-Medium);
             }
         }
     }

@@ -10,6 +10,7 @@ import { Subject } from 'rxjs';
 import { NumberValueAccessor } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProfileService } from '../../../../core/services/profile.service';
+import { CountryService } from '../../../../core/services/country.service';
 
 @Component({
     selector: "app-coach",
@@ -36,11 +37,15 @@ export class CoachView implements OnInit {
     public userStatus: string;
     private unsubscribe$ = new Subject<void>()
     public userId: number;
-    constructor(private _userService: UserService,
-        private _feedService:
-            FeedService, private _dialog: MatDialog,
+    public languageName=[];
+    constructor(
+        private _userService: UserService,
+        private _feedService:FeedService, 
+        private _dialog: MatDialog,
         private _profileService: ProfileService,
-        private _activatedRoute: ActivatedRoute, private _router: Router) {
+        private _activatedRoute: ActivatedRoute, 
+        private _countryService:CountryService,
+        private _router: Router) {
         let urls = this._router.url.split('/');
         if (urls && urls.length && urls.length == 4) {
             this.userId = +urls[urls.length - 2];
@@ -52,7 +57,8 @@ export class CoachView implements OnInit {
 
     ngOnInit() {
         this._getFeed();
-        this._getProfile()
+        this._getProfile();
+        this._getLanguages();
     }
 
     private _getProfile() {
@@ -67,13 +73,7 @@ export class CoachView implements OnInit {
             })
         }
     }
-    public checkIsMe() {
-        if (this._userService.user && this._userService.user.data) {
-            return (!this.userId || (this.userId && +this.userId == +this._userService.user.data.id))
-        } else {
-            return false
-        }
-    }
+
     private _getFeed() {
         this.loading = true;
         let isAll = this.checkIsMe() ? '' : 'true'
@@ -107,6 +107,30 @@ export class CoachView implements OnInit {
         }
     }
 
+    private _getLanguages(): void {
+        let url: string;
+        this._countryService.getLanguages().subscribe((data) => {
+            data.results.map((name, index) => {
+                url = name.url;
+              this._userService.user.data.language.forEach(element=>{
+                if (url === element) {
+                    this.languageName.push({ name: name.name });
+                    console.log(this.languageName);
+                }
+              })
+           
+
+            })
+        })
+    }
+
+    public checkIsMe() {
+        if (this._userService.user && this._userService.user.data) {
+            return (!this.userId || (this.userId && +this.userId == +this._userService.user.data.id))
+        } else {
+            return false
+        }
+    }
 
     public onClickSeeMore(): void {
         this.userStatus = this.user.status.slice(0, this.user.status.length);
