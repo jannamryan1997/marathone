@@ -15,12 +15,12 @@ import { ReceiptData } from '../../../core/models/receipt';
 
 export class CreatePublicationComponent implements OnInit {
     public isModalMode: boolean = false;
+    public postType = new FormControl('');
+    public videoSources = []
     @Input() feedItem: FeedResponseData;
     @Input() feedId: number;
     @Input() editProfile: boolean;
     @Input() mediaUrl: string;
-    public postType = new FormControl('');
-    public videoSources = [];
     @Output('postCreateEvent') private _postCreateEvent: EventEmitter<void> = new EventEmitter<void>();
     @Output() closeEditModal = new EventEmitter<any>();
     @ViewChild('inputImageReference') private _inputImageReference: ElementRef;
@@ -73,7 +73,7 @@ export class CreatePublicationComponent implements OnInit {
 
             })
     }
-    private _setFormDataForImage(image) {        
+    private _setFormDataForImage(image) {
         this.loading = true;
         let fileName: string;
         if (image && image.target) {
@@ -89,17 +89,14 @@ export class CreatePublicationComponent implements OnInit {
                 }
 
                 this._userService.uploadVideoFile(formData)
-                    .subscribe((data: UploadFileResponse) => {                        
+                    .subscribe((data: UploadFileResponse) => {
                         fileName = this._fileUrl + data.file_name;
-                        console.log(fileName);
-                        
+
                         this.contentFileName = data.file_name;
                         this.videoTumble = this._fileUrl + 'vido_tumbl/' + data.file_name_tumbl;
                         if (this.uploadType === 'image') {
                             this.resetImageUplaodInput()
                             this.controImageItem = fileName;
-                            console.log(this.controImageItem);
-                            
                         }
                         else if (this.uploadType === 'video') {
                             this.resetVideoUplaodInput()
@@ -122,7 +119,6 @@ export class CreatePublicationComponent implements OnInit {
     }
 
     public addEmoji(event): void {
-
         let data = this.postType.value + event.emoji.native;
         this.postType.patchValue(data)
 
@@ -135,8 +131,6 @@ export class CreatePublicationComponent implements OnInit {
 
 
     public setServicePhoto(event, type) {
-        console.log('11111111');
-        
         if (type === 'image') {
             this.uploadType = 'image';
         }
@@ -158,8 +152,6 @@ export class CreatePublicationComponent implements OnInit {
     public closeControlItem(): void {
         this.uploadType = null;
 
-        // if (this.postType.value === '' || this.postType.value === null) {
-        // }
     }
 
 
@@ -222,15 +214,11 @@ export class CreatePublicationComponent implements OnInit {
                     })
                 )
                 .subscribe((data) => {
-                    console.log(data);
-
                 })
         }
     }
 
-
     public showPost(): void {
-
         this.isModalMode = true;
     }
 
@@ -245,7 +233,7 @@ export class CreatePublicationComponent implements OnInit {
         this.player = null;
     }
 
-    play(): void {
+ public   play(): void {
         let title;
         this.videoSources = [{
             src: this.postType.value,
@@ -261,13 +249,10 @@ export class CreatePublicationComponent implements OnInit {
             this.showYoutube = true;
             this.contentFileName = this.postType.value,
                 this.uploadType = 'videoLink'
-
         }
         else {
             this.showYoutube = false;
         }
-
-
     }
 
 }

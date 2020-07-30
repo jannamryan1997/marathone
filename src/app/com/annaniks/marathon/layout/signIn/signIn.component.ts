@@ -1,14 +1,11 @@
-import { Component, OnInit, Output, EventEmitter, Inject } from "@angular/core";
+import { Component, OnInit, Output, EventEmitter} from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { SignInResponse, SignInData } from '../../core/models';
 import { finalize } from 'rxjs/operators';
 import { AuthUserService } from '../../core/services/auth.services';
 import { CookieService } from 'ngx-cookie';
 import { UserService } from '../../core/services/user.service';
 import { SocialUser } from 'angularx-social-login';
-import { FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
-import { AuthService } from "angularx-social-login";
 import { MatDialogRef } from '@angular/material/dialog';
 import { AuthModal } from '../../core/modals';
 
@@ -38,9 +35,7 @@ export class SignInComponent implements OnInit {
         private _authUserService: AuthUserService,
         private _cookieService: CookieService,
         private _profileUserService: UserService,
-        private _socialAuthService: AuthService,
         private _dialogRef: MatDialogRef<AuthModal>,
-        private _router: Router
 
     ) {
         this.profileUser = this._profileUserService.user;
@@ -97,32 +92,6 @@ export class SignInComponent implements OnInit {
         }
     }
 
-    signInWithFB(): void {
-        this._dialogRef.close();
-        this._socialAuthService.authState.subscribe((user) => {
-
-
-            this._socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
-
-
-        })
-    }
-
-
-
-    signInWithGoogle(): void {
-        this._dialogRef.close();
-        this._socialAuthService.authState.subscribe((user) => {
-            if (this.loggedIn = (user != null)) {
-                this._profileUserService.user = user;
-                this._profileUserService.isAuthorized = true;
-                this.closeModal.emit('true');
-                this._cookieService.put("googleUser", "true");
-            }
-        });
-        this._socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
-
-    }
 
     public showPasswordValue(): void {
         this.show = true;
@@ -136,9 +105,5 @@ export class SignInComponent implements OnInit {
     public chackIsValid(controlName: string): boolean {
         return this.signInGroup.get(controlName).hasError('required') && this.signInGroup.get(controlName).touched;
     }
-
-    // signOut(): void {
-    //     this._socialAuthService.signOut();
-    // }
 
 }

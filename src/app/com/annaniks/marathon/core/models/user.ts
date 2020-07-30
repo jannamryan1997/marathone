@@ -27,13 +27,15 @@ export interface UserData{
 interface CertificatesData{
     description: string,
     file: string,
+    url?:string;
 }
 
 export interface ExperienceData{
     name: string,
     specialization: string,
     start_date: string,
-    end_date: string
+    end_date: string,
+    url?:string;
 }
 
 export interface EducationData{
@@ -41,6 +43,7 @@ export interface EducationData{
     specialization: string,
     start_date: string,
     end_date: string,
+    url?:string,
 }
 
 interface User{

@@ -8,7 +8,7 @@
     <div class="property-main d-flex justify-content-between pg-container">
         <div class="image-content">
             <img src="{{fileUrl+content?.url}}" class="image d-none" alt="Cinque Terre"
-                [ngClass]="{'d-block':content.type==='image'}">
+                [ngClass]="{'d-block':content?.type==='image'}">
 
             <video controls class="video d-none w-100" poster="" [ngClass]="{'d-block':content.type==='video'}"
                 src="{{fileUrl+content?.url}}">

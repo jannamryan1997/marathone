@@ -6,35 +6,36 @@
 }
 
 .home-container {
-    .header{
+    .header {
         position: relative;
-    
-                .header-icon-btn {
-                    width: 33px;
-                    height: 33px;
-                    background: #F5F5FA 0% 0% no-repeat padding-box;
-                    border: 2px solid #FFFFFF;
-                    opacity: 1;
-                    position: absolute;
-                    border-radius: 50%;
-                    right: 2px;
-                    bottom: -7px;
-                    cursor: pointer;
-                    i {
-                        color: #B6C1D7;
-                        font-size: 15px;
-                    }
-                }
+
+        .header-icon-btn {
+            width: 33px;
+            height: 33px;
+            background: #F5F5FA 0% 0% no-repeat padding-box;
+            border: 2px solid #FFFFFF;
+            opacity: 1;
+            position: absolute;
+            border-radius: 50%;
+            right: 2px;
+            bottom: -7px;
+            cursor: pointer;
+
+            i {
+                color: #B6C1D7;
+                font-size: 15px;
             }
-              
+        }
+    }
+
     .home-main {
         background: #FFFFFF 0% 0% no-repeat padding-box;
         box-shadow: 2px 30px 43px #5C687B17;
         border-radius: 0px 0px 15px 15px;
         opacity: 1;
-     
-        .main-layout{
-            .home-main  {
+
+        .main-layout {
+            .home-main {
                 padding: 10px 0;
             }
         }
@@ -51,9 +52,10 @@
             }
 
             .profile-content {
+
                 // padding: 0 20px;
-                .main-layout{
-                }
+                .main-layout {}
+
                 .profile-header-content {
                     padding: 0 20px;
 
@@ -170,7 +172,7 @@
                         .more-item {
                             @include text(16px, 19px, #45535C, EncodeSans-Medium);
                             padding: 15px 0;
-                             
+
 
                             &:hover {
                                 background: #F7F7FC 0% 0% no-repeat padding-box !important;
@@ -183,24 +185,24 @@
         }
     }
 
-    .main-layout{
+    .main-layout {
         .profile-container {
             margin: 10px 20px;
         }
-        
+
         .text-area {
             min-height: 60px;
             max-height: 110px;
             outline: none !important;
         }
-        
+
         .link-form {
             padding: 0 1.2em;
-        
+
             .lable {
                 @include text(17px, 18px, #bbcddf, EncodeSans-SemiBold);
             }
-        
+
             .form-group-link {
                 margin: 15px 0;
                 background: #FFFFFF 0% 0% no-repeat padding-box;
@@ -210,17 +212,17 @@
                 height: none !important;
                 padding: 15px 15px !important;
                 @include text(17px, 18px, #45535C, MicrosoftYaHeiUI !important);
-        
+
                 &::placeholder {
                     @include text(17px, 18px, #bbcddf, MicrosoftYaHeiUI !important);
                 }
             }
         }
-        
+
         .form-input {
             @include text(17px, 15px, #45535C, MicrosoftYaHeiUI !important);
         }
-        
+
         .add-certificates {
             .add-file {
                 background: #FFFFFF 0% 0% no-repeat padding-box;
@@ -230,30 +232,33 @@
                 border-radius: 50%;
                 width: 53px;
                 height: 53px;
-        
+
                 .material-icons {
-        
+
                     color: #589CFE;
                     font-size: 25px;
                     cursor: pointer;
                 }
             }
-        
+
             .type-form-group {
                 width: 100%;
                 max-width: 400px;
                 border-radius: 16px !important;
-        
+
                 .add-icon {
                     color: #C2D2E2;
-        
+                    border: none;
+                    border-radius: 50%;
                     font-size: 25px;
+                    background: #ffff;
                     cursor: pointer;
                 }
             }
         }
     }
 }
+
 .profileActiveTab {
     color: #ffff !important;
     background: #589CFE !important;
@@ -322,8 +327,8 @@
     top: -11px;
     left: 25px;
     background-color: white;
-     
-    @include text(16px, 19px, #589CFE,EncodeSans-Medium);
+
+    @include text(16px, 19px, #589CFE, EncodeSans-Medium);
 }
 
 .form-group>input {
@@ -335,7 +340,7 @@
     top: 5px;
     left: 25px;
     background-color: white;
-     
+
     z-index: 1;
     @include text(16px, 19px, #589CFE, EncodeSans-Medium);
 }
@@ -346,4 +351,11 @@ textarea {
 
 input[type="file"] {
     display: none;
-   }
+}
+
+.choose-image {
+    border-radius: 509%;
+    height: 45px;
+    width: 45px;
+    cursor: pointer;
+}

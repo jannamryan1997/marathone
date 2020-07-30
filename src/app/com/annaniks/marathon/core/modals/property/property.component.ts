@@ -39,7 +39,7 @@ export class PropertyModal implements OnInit {
         private _feedLikeService: FeedLikeService
     ) {
         this.feedItem = _data.data;
-        this.localImage = this._data.localImage;
+        this.localImage =this._data.localImage;
         this.timeStamp = moment(this.feedItem.timeStamp).fromNow();
         this.role = this._cookieService.get('role')
 
@@ -47,9 +47,13 @@ export class PropertyModal implements OnInit {
     }
 
     ngOnInit() {
-        if (this.feedItem.feed_media && this.feedItem.feed_media.length) {
-            this.content = this.feedItem.feed_media[0].content;
-        }
+        for (let item of this.feedItem.feed_media) {
+            this.content =  item.content;
+                if (typeof item.content == 'string') {
+                    this.content = JSON.parse(item.content)
+                }
+            }
+        
         this._showseeMore();
     }
 

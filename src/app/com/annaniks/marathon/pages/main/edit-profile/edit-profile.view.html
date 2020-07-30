@@ -2,14 +2,14 @@
     <div class="home-main">
         <div class="profile-description">
             <div class="header">
-                    <img [src]="headerLocalImage" class="cover-image" alt="Cinque Terre">
-                    <div  class=" d-flex">
-                            <input class="" type="file" id="headerprofile" name="headerprofile" accept="image/png,image/jpeg"
-                                (change)="setServiceHeaderPhoto($event)">
-                            <label class="header-icon-btn d-flex m-auto" for="headerprofile">
-                                <i class="fa fa-refresh m-auto" aria-hidden="true"></i>
-                            </label>
-                        </div>
+                <img [src]="headerLocalImage" class="cover-image" alt="Cinque Terre">
+                <div class=" d-flex">
+                    <input class="" type="file" id="headerprofile" name="headerprofile" accept="image/png,image/jpeg"
+                        (change)="setServiceHeaderPhoto($event)">
+                    <label class="header-icon-btn d-flex m-auto" for="headerprofile">
+                        <i class="fa fa-refresh m-auto" aria-hidden="true"></i>
+                    </label>
+                </div>
             </div>
             <div class="profile-content">
                 <div class="profile-header-content display-flex">
@@ -162,7 +162,7 @@
                                                     <app-information [profileCertificates]="true"
                                                         *ngFor="let item of certificates;let ind=index"
                                                         [certificates]="item"
-                                                        (deleted)="removeCerticatesItem($event,ind)">
+                                                        (deleted)="removeCerticatesItem($event,ind,item)">
                                                     </app-information>
 
                                                     <div class="add-certificates display-flex">
@@ -173,9 +173,13 @@
                                                                 (change)="setCeriticatesPhoto($event)">
                                                             <div class="d-flex m-auto">
                                                                 <label class="icon-btn d-flex m-auto" for="file1">
-                                                                    <span class="material-icons m-auto">
+                                                                    <span class="material-icons m-auto"
+                                                                        *ngIf="!certificatesImage">
                                                                         insert_drive_file
                                                                     </span>
+                                                                    <img *ngIf="certificatesImage"
+                                                                        [src]="_fileUrl+certificatesImage"
+                                                                        class="choose-image">
                                                                 </label>
                                                             </div>
                                                         </div>
@@ -184,10 +188,13 @@
                                                             <input type="text" class="form-input w-100"
                                                                 formControlName="certificatesLocation"
                                                                 placeholder="Type Cerificate Information">
-                                                            <span class="material-icons add-icon"
-                                                                (click)="addCertificates()">
-                                                                add
-                                                            </span>
+                                                            <button (click)="addCertificates()" class="add-icon"
+                                                                [disabled]="profileFormGroup.get('certificatesLocation').invalid">
+                                                                <span class="material-icons">
+                                                                    add
+                                                                </span>
+                                                            </button>
+
                                                         </div>
 
 
@@ -199,7 +206,8 @@
                                                     <label>Education</label>
                                                     <app-education [profileEducation]="true"
                                                         *ngFor="let item of education.controls,let ind=index"
-                                                        [education]="item" (deleted)="removeEducationItem($event,ind)"
+                                                        [education]="item"
+                                                        (deleted)="removeEducationItem($event,ind,item)"
                                                         [formControl]="education.controls[ind]"></app-education>
                                                     <button class="add-btn d-flex w-100"><span class="m-auto btn-text"
                                                             (click)="addEducatin()">Add more</span></button>
@@ -210,7 +218,8 @@
                                                     <label>Experience</label>
                                                     <app-experience [profileExperience]="true"
                                                         *ngFor="let item of experience.controls,let ind=index"
-                                                        [experience]="item" (deleted)="removeExperianceItem($event,ind)"
+                                                        [experience]="item"
+                                                        (deleted)="removeExperianceItem($event,ind,item)"
                                                         [formControl]="experience.controls[ind]">
                                                     </app-experience>
                                                     <button class="add-btn d-flex w-100"><span class="m-auto btn-text"

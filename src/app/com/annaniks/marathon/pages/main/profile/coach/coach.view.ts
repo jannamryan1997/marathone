@@ -1,14 +1,12 @@
 import { Component, OnInit } from "@angular/core";
 import { UserService } from '../../../../core/services/user.service';
-import { UserResponseData, UserData } from '../../../../core/models/user';
 import { FeedService } from '../../feed/feed.service';
 import { FeedResponseData, FeedData } from '../../../../core/models';
 import { finalize, takeUntil } from 'rxjs/operators';
 import { RemoveModal } from '../../../../core/modals';
 import { MatDialog } from '@angular/material/dialog';
 import { Subject } from 'rxjs';
-import { NumberValueAccessor } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { ProfileService } from '../../../../core/services/profile.service';
 import { CountryService } from '../../../../core/services/country.service';
 
@@ -43,7 +41,6 @@ export class CoachView implements OnInit {
         private _feedService:FeedService, 
         private _dialog: MatDialog,
         private _profileService: ProfileService,
-        private _activatedRoute: ActivatedRoute, 
         private _countryService:CountryService,
         private _router: Router) {
         let urls = this._router.url.split('/');
@@ -80,8 +77,6 @@ export class CoachView implements OnInit {
         this._profileService.getFeedByProfileId('creator', this.userId, isAll).pipe(finalize(() => { this.loading = false }))
             .subscribe((data: FeedData) => {
                 this.feedItem = data.results;
-                console.log(this.feedItem);
-
                 for (let item of this.feedItem) {
                     for (let media of item.feed_media) {
                         if (typeof media.content == 'string') {
@@ -115,7 +110,6 @@ export class CoachView implements OnInit {
               this._userService.user.data.language.forEach(element=>{
                 if (url === element) {
                     this.languageName.push({ name: name.name });
-                    console.log(this.languageName);
                 }
               })
            
@@ -148,12 +142,6 @@ export class CoachView implements OnInit {
     public onClickPostEventsTab(tab): void {
         this.postTab = tab;
     }
-    // public async onScroll() {
-    //     if (this._pageIndex > this._pagesCount) {
-    //         return;
-    //     }
-    //     this._getFeed(this._pageIndex);
-    // }
 
     public deletedFeedItem(event): void {
         if (event) {
@@ -184,10 +172,7 @@ export class CoachView implements OnInit {
         this._getFeed();
 
     }
-    ngOnDestroy() {
-        this.unsubscribe$.next();
-        this.unsubscribe$.complete();
-    }
+ 
     get email(): string {
 
         if (this.user)
@@ -197,5 +182,10 @@ export class CoachView implements OnInit {
 
         if (this.user)
             return !this.checkIsMe() ? this.user.coach_user.first_name : this.user.user.first_name
+    }
+    
+    ngOnDestroy() {
+        this.unsubscribe$.next();
+        this.unsubscribe$.complete();
     }
 }

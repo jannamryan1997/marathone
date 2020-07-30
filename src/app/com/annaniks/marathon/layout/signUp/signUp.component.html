@@ -9,7 +9,12 @@
                 <label [ngClass]="{'activeTab':chackIsValid('email')}">Email</label>
                 <input type="text" required='' placeholder="Email" class="form-input w-100" formControlName="email">
             </div>
-
+            <div class="d-flex">
+                <span class="d-none message"
+                [ngClass]="{'d-block':signUpGroup.get('email').hasError('pattern') && signUpGroup.get('email').touched}">Please
+                provide a valid email</span>
+            </div>
+          
             <div class="form-group">
                 <label [ngClass]="{'activeTab':chackIsValid('firstName')}">Full Name</label>
                 <input type="text" required='' placeholder="Full Name" class="form-input w-100"
@@ -21,14 +26,6 @@
                 <input type="text" required='' placeholder="User Name" class="form-input w-100"
                     formControlName="userName">
             </div>
-
-
-            <!-- <div class="form-group">
-                <label>Last Name</label>
-                <input type="text" required='' class="form-input w-100" formControlName="lastName">
- 
-            </div> -->
-
             <div class="form-group">
                 <label [ngClass]="{'activeTab':chackIsValid('password')}">Password</label>
                 <div class="d-flex align-items-center">
@@ -52,8 +49,8 @@
                         <label for="scales" class="text ml-2">Coach</label>
                     </div>
                     <p class="sign-in-text text">Sign up with</p>
-                    <img src="/assets/icons/Gogole.svg" class="social-media-icon" (click)="signInWithGoogle()">
-                    <img src="/assets/icons/Facebook.svg" class="social-media-icon" (click)="signInWithFB()">
+                    <img src="/assets/icons/Gogole.svg" class="social-media-icon">
+                    <img src="/assets/icons/Facebook.svg" class="social-media-icon">
                     <img src="/assets/icons/Twitter.svg" class="social-media-icon">
                 </div>
             </div>

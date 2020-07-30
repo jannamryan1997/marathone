@@ -22,11 +22,10 @@ import { FeedLikeService } from '../../../../core/services/feed-like.service';
 })
 
 export class IngridientViewComponent implements OnInit {
+    private unsubscribe$ = new Subject<void>();
     public feedItem: FeedResponseData;
     public feedId: number;
     public role: string;
-    private unsubscribe$ = new Subject<void>()
-
     public isOpen: boolean = false;
     public receptvideoSources = [];
     public time: string;
@@ -36,7 +35,7 @@ export class IngridientViewComponent implements OnInit {
     public showDeleteModal: boolean = false;
     public isShowSubMessages: boolean = false
     public comments = [];
-    // public loaclImage:string='/assets/images/food.png';
+   
     constructor(
         private _activatedRoute: ActivatedRoute,
         private _feedService: FeedService,
@@ -84,9 +83,6 @@ export class IngridientViewComponent implements OnInit {
                                 provider: 'youtube',
                             }]
                         }
-                        if( this.receipt && this.receipt.imageSlider.length<1){
-                            // this.receipt.imageSlider.push({ img:this.loaclImage});
-                        }
                     }
                 }
                 return data
@@ -98,7 +94,7 @@ export class IngridientViewComponent implements OnInit {
         if (event) {
             if (this.role) {
                 if (event == 'like') {
-                    this.loading = true
+                    this.loading = true;
                     this._feedLikeService.likeFeed(this.feedItem.id).pipe(takeUntil(this.unsubscribe$),
                         finalize(() => { this.loading = false }),
                         switchMap((data) => {

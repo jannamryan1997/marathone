@@ -2,22 +2,20 @@
     <div class="home-main">
         <div class="profile-description">
             <div class="header">
-                    <img [src]="headerLocalImage" class="cover-image" alt="Cinque Terre">
-                    <div  *ngIf="checkIsMe()" class=" d-flex">
-                            <input class="" type="file" id="headerprofile" name="headerprofile" accept="image/png,image/jpeg"
-                                (change)="setServiceHeaderPhoto($event)">
-                            <label class="header-icon-btn d-flex m-auto" for="headerprofile">
-                                <i class="fa fa-refresh m-auto" aria-hidden="true"></i>
-                            </label>
-                        </div>
+                <img [src]="headerLocalImage" class="cover-image" alt="Cinque Terre">
+                <div *ngIf="checkIsMe()" class=" d-flex">
+                    <input class="" type="file" id="headerprofile" name="headerprofile" accept="image/png,image/jpeg"
+                        (change)="setServiceHeaderPhoto($event)">
+                    <label class="header-icon-btn d-flex m-auto" for="headerprofile">
+                        <i class="fa fa-refresh m-auto" aria-hidden="true"></i>
+                    </label>
+                </div>
             </div>
-         
             <div class="profile-content">
                 <div class="profile-header-content display-flex">
                     <div class="profile-image">
-                        <!-- <img [src]="localImage" class="user-image" alt="Cinque Terre"> -->
                         <div class="profile-image">
-                            <div  *ngIf="checkIsMe()" class=" d-flex">
+                            <div *ngIf="checkIsMe()" class=" d-flex">
                                 <input class="" type="file" id="profile" name="profile" accept="image/png,image/jpeg"
                                     (change)="setServicePhoto($event)">
                                 <label class="icon-btn d-flex m-auto" for="profile">
@@ -26,14 +24,14 @@
                             </div>
                             <img [src]="localImage" class="user-image" alt="Cinque Terre">
                             <button class="btn coach-btn" *ngIf="userRole==='coach'">Coach</button>
-                            <spinner-loading  [profileLoading]="true" *ngIf="loading"></spinner-loading>
+                            <spinner-loading [profileLoading]="true" *ngIf="loading"></spinner-loading>
                         </div>
-                        <!-- <button class="btn coach-btn" *ngIf="role==='coach'">Coach</button> -->
                     </div>
 
                     <div class="btn-content d-flex align-items-center">
-                        <button *ngIf="!checkIsMe() && role" (click)="follow()" [class.active-btn]="isFollowed" class="btn-item info-btn">{{isFollowed?'Unfollow':'Follow'}}</button>
-                        <button *ngIf="checkIsMe()" class="btn-item info-btn"  routerLink="/edit-profile"
+                        <button *ngIf="!checkIsMe() && role" (click)="follow()" [class.active-btn]="isFollowed"
+                            class="btn-item info-btn">{{isFollowed?'Unfollow':'Follow'}}</button>
+                        <button *ngIf="checkIsMe()" class="btn-item info-btn" routerLink="/edit-profile"
                             routerLinkActive="profileActiveTab">Edit Profile
                             <span class="ml-2 material-icons">
                                 create
@@ -51,7 +49,8 @@
                                 alternate_email
                             </span>
                         </button>
-                        <button class="btn-item info-btn btn-radius" (click)="onClickShowMore()"   [ngClass]="{'active-btn':showMore}">
+                        <button class="btn-item info-btn btn-radius" (click)="onClickShowMore()"
+                            [ngClass]="{'active-btn':showMore}">
                             <span class="material-icons icon ">
                                 more_horiz
                             </span>

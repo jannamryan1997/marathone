@@ -42,7 +42,7 @@
     display: flex;
     .publication-content{
         margin: auto;
-        width: 550px;
+        width: 600px;
     }
 }
 
@@ -81,8 +81,4 @@
 
 ::ng-deep .mat-dialog-container {
     background: #ffffff 0% 0% no-repeat padding-box !important;
-    box-shadow: 2.09px 30px 43px #5C687B17 !important;
-    border: 0.5px solid #E3ECFD !important;
-    border-radius: 15px !important;
-    opacity: 1 !important;
 }

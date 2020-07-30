@@ -1,38 +1,36 @@
 <div class="signIn-main" [ngSwitch]="tab">
-        <p class="logo-text"> Welcome to</p>
+    <p class="logo-text"> Welcome to</p>
     <div class="logo d-flex m-auto">
-            <img class="logo" src="assets/images/logo/marathon-logo.png">
+        <img class="logo" src="assets/images/logo/marathon-logo.png">
     </div>
-    <form [formGroup]="signInGroup" >
-        <div class="form-group d-flex" >
-         <img src="/assets/icons/Profile.svg" class="form-group-icon"> 
+    <form [formGroup]="signInGroup">
+        <div class="form-group d-flex">
+            <img src="/assets/icons/Profile.svg" class="form-group-icon">
             <input type="email" class="form-input w-100" formControlName="email" placeholder="email">
         </div>
         <div class="form-group d-flex">
-            <span class="material-icons  form-icon"  [ngClass]="{'validTab':chackIsValid('password')}">
+            <span class="material-icons  form-icon" [ngClass]="{'validTab':chackIsValid('password')}">
                 lock
             </span>
-            <input [type]="show ? 'text' : 'password'"  class="form-input w-100" formControlName="password" placeholder="password"  (keyup.enter)="onClickTab(1)">
+            <input [type]="show ? 'text' : 'password'" class="form-input w-100" formControlName="password"
+                placeholder="password" (keyup.enter)="onClickTab(1)">
             <span class="material-icons form-icon password-icon" *ngIf="hidePassword" (click)="showPasswordValue()">
                 visibility
-                </span>
+            </span>
             <span class="material-icons form-icon password-icon" *ngIf="show" (click)="hide()">
                 visibility_off
-                </span>
+            </span>
         </div>
+        <div class=" w-100  button-item display-flex">
+            <button class="sign-btn d-flex w-50" (click)="onClickTab(1)" [ngClass]="{'active-btn':signInGroup.valid}">
+                <span class="m-auto">Log In</span>
+                <app-loading *ngIf="loading"></app-loading>
+            </button>
+            <button class="form-input  signUp-btn d-flex w-50" (click)="onClickTab(2)">
+                <span class="m-auto">Sign up</span>
 
-
-            <div class=" w-100  button-item display-flex">
-                <button class="sign-btn d-flex w-50" (click)="onClickTab(1)" [ngClass]="{'active-btn':signInGroup.valid}">
-                    <span class="m-auto">Log In</span>
-                    <app-loading *ngIf="loading"></app-loading>
-                </button>
-                <button class="form-input  signUp-btn d-flex w-50"
-                    (click)="onClickTab(2)">
-                    <span class="m-auto">Sign up</span> 
-                    
-                </button>
-            </div>
+            </button>
+        </div>
 
         <div class="auth-description display-flex">
             <input type="radio" class="checkbox">
@@ -42,19 +40,10 @@
         <div class="auth-description social-media">
             <div class="display-flex m-auto" [ngStyle]="{'width':'80%'}">
                 <p class="text text-sign-in">Sign in with</p>
-                <img src="/assets/icons/Gogole.svg" class="social-media-icon"  (click)="signInWithGoogle()"> 
-                <img src="/assets/icons/Facebook.svg" class="social-media-icon"  (click)="signInWithFB()"> 
-                <img src="/assets/icons/Twitter.svg" class="social-media-icon"> 
+                <img src="/assets/icons/Gogole.svg" class="social-media-icon">
+                <img src="/assets/icons/Facebook.svg" class="social-media-icon">
+                <img src="/assets/icons/Twitter.svg" class="social-media-icon">
             </div>
         </div>
     </form>
 </div>
-
-
-<!-- 
-<img src="{{ user?.photoUrl }}">
-<div>
-  <h4>{{ user?.name }}</h4>
-  <p>{{ user?.email }}</p>
-</div> -->
-

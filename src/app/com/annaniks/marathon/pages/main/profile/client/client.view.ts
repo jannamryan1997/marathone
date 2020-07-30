@@ -5,7 +5,7 @@ import { finalize, takeUntil } from 'rxjs/operators';
 import { FeedResponseData, FeedData } from '../../../../core/models';
 import { RemoveModal } from '../../../../core/modals';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute, Router } from '@angular/router';
+import {  Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { ProfileService } from '../../../../core/services/profile.service';
 import { CountryService } from '../../../../core/services/country.service';
@@ -18,7 +18,6 @@ import { CountryService } from '../../../../core/services/country.service';
 })
 
 export class ClientView implements OnInit {
-    public a: string;
     public feedItem: FeedResponseData[] = [];
     public user: any;
     public tab: number = 1;
@@ -119,7 +118,6 @@ export class ClientView implements OnInit {
               this._userService.user.data.language.forEach(element=>{
                 if (url === element) {
                     this.languageName.push({ name: name.name });
-                    console.log(this.languageName);
                 }
               })
            
@@ -127,10 +125,6 @@ export class ClientView implements OnInit {
             })
         })
     }
-
-
-
-
 
     public onClickSeeMore(): void {
         this.userStatus = this.user.status.slice(0, this.user.status.length);
@@ -151,13 +145,6 @@ export class ClientView implements OnInit {
     public onClickPostEventsTab(postTab): void {
         this.postTab = postTab;
     }
-
-    // public async onScroll() {
-    //     if (this._pageIndex > this._pagesCount) {
-    //         return;
-    //     }
-    //     this._getFeed(this._pageIndex);
-    // }
 
 
     public deletedFeedItem(event): void {
@@ -182,8 +169,6 @@ export class ClientView implements OnInit {
     }
 
     public onPostCreated(event): void {
-        console.log('kkkkk');
-
         this._pageIndex = 1;
         this._isCountCalculated = false;
         this._pagesCount = 0;
@@ -191,10 +176,7 @@ export class ClientView implements OnInit {
         this._getFeed(this._pageIndex);
 
     }
-    ngOnDestroy() {
-        this.unsubscribe$.next();
-        this.unsubscribe$.complete();
-    }
+
     get email(): string {
         if (this.user)
             return !this.checkIsMe() ? this.user.user.email : this.user.user.email
@@ -202,5 +184,10 @@ export class ClientView implements OnInit {
     get firstName(): string {
         if (this.user)
             return !this.checkIsMe() ? this.user.user.first_name : this.user.user.first_name
+    }
+
+    ngOnDestroy() {
+        this.unsubscribe$.next();
+        this.unsubscribe$.complete();
     }
 }

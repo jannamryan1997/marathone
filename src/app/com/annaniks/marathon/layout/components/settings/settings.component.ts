@@ -1,5 +1,4 @@
 import { Component, OnInit, Output, EventEmitter, Input } from "@angular/core";
-import { registerLocaleData } from '@angular/common';
 
 @Component({
     selector: "app-settings",
@@ -24,6 +23,7 @@ export class SettingsComponent implements OnInit {
         this.role = $event;
     }
     @Output('getButtonsType') _buttonsType = new EventEmitter();
+
     constructor() { }
 
     ngOnInit() { }
@@ -38,8 +38,6 @@ export class SettingsComponent implements OnInit {
         this.showFollowModel.emit(true);
         if (type === 'reposts') {
             this.message = "repost";
-            console.log(this.message);
-            
         }
 
     }

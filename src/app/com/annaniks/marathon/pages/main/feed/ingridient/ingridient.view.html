@@ -8,8 +8,8 @@
                 <img [src]="slide.img" alt="" width="100%" class="chicken-image">
             </div>
         </ngx-slick-carousel>
-        <div *ngIf="receipt?.videoLink !=''">
-            <plyr style="display:block" plyrTitle="Video 1" [plyrSources]="receptvideoSources"></plyr>
+        <div *ngIf="receipt?.videoLink !=''" >
+            <plyr  plyrTitle="Video 1" [plyrSources]="receptvideoSources"></plyr>
         </div>
         <button class="radius d-flex" (click)="onClickGotoBack()">
             <span class="material-icons m-auto icon">

@@ -47,7 +47,6 @@ export class FeedPostCardItemComponent implements OnInit {
     public user;
     constructor(
         @Inject("FILE_URL") public fileUrl,
-        private _matDialog: MatDialog,
         private _fb: FormBuilder,
         private _cookieService: CookieService,
         private _userService: UserService,
@@ -100,6 +99,39 @@ export class FeedPostCardItemComponent implements OnInit {
 
     }
 
+    private _getComments(parent?): Observable<ServerResponse<Comment[]>> {
+        return this._commentService.getFeedCommentById(this.feedItem.id).pipe(map((data: ServerResponse<Comment[]>) => {
+            this.comments = data.results;
+            this.isShowSubMessages = parent ? true : false;
+            return data;
+        }))
+    }
+
+    private _showseeMore(): void {
+        let titleLength: number;
+        if (this.feedItem.title) {
+            titleLength = this.feedItem.title.length;
+            this.feedTitle = this.feedItem.title;
+            if (titleLength > 100) {
+                this.seeMore = true;
+                this.feedTitle = this.feedItem.title.slice(0, 100);
+            }
+            else {
+                this.seeMore = false;
+            }
+        }
+    }
+
+    private _getFeedById() {
+        return this._feedService.getFeedById(this.feedItem.id).pipe(map((result) => {
+            if (result.feed_media && result.feed_media[0] && result.feed_media[0].content) {
+                this.content = JSON.parse(result.feed_media[0].content)
+            }
+            this.feedItem = result;
+            this.showDeleteModal = false;
+            return result;
+        }))
+    }
 
     public likeOrDislike(event) {
         if (event) {
@@ -128,22 +160,7 @@ export class FeedPostCardItemComponent implements OnInit {
         }
     }
 
-    private _showseeMore(): void {
-        let titleLength: number;
-        if (this.feedItem.title) {
-            titleLength = this.feedItem.title.length;
-            this.feedTitle = this.feedItem.title;
-            if (titleLength > 100) {
-                this.seeMore = true;
-                this.feedTitle = this.feedItem.title.slice(0, 100);
-            }
-            else {
-                this.seeMore = false;
-            }
-        }
 
-
-    }
 
     public onClickSeeMore(): void {
         this.feedTitle = this.feedItem.title.slice(0, this.feedItem.title.length);
@@ -151,7 +168,7 @@ export class FeedPostCardItemComponent implements OnInit {
     }
 
     public openPropertyModalByImage(): void {
-        const dialogRef = this._matDialog.open(PropertyModal, {
+        const dialogRef = this._dialog.open(PropertyModal, {
             width: "100%",
             maxWidth: "100vw",
             height: "100vh",
@@ -159,7 +176,9 @@ export class FeedPostCardItemComponent implements OnInit {
                 data: this.feedItem,
                 localImage: this.localImage
             }
-        })
+            
+        });
+        
         dialogRef.afterClosed().pipe(takeUntil(this.unsubscribe$),
             switchMap(() => {
                 return this._getFeedById()
@@ -168,7 +187,7 @@ export class FeedPostCardItemComponent implements OnInit {
     }
 
     public openPropertyModalByVideo(): void {
-        const dialogRef = this._matDialog.open(PropertyModal, {
+        const dialogRef = this._dialog.open(PropertyModal, {
             width: "100%",
             maxWidth: "100vw",
             height: "100vh",
@@ -195,22 +214,13 @@ export class FeedPostCardItemComponent implements OnInit {
         }
     }
     public onClickOpenAuth(): void {
-        this._matDialog.open(AuthModal, {
+        this._dialog.open(AuthModal, {
             width: "100%",
             maxWidth: "100vw",
         })
     }
 
-    private _getFeedById() {
-        return this._feedService.getFeedById(this.feedItem.id).pipe(map((result) => {
-            if (result.feed_media && result.feed_media[0] && result.feed_media[0].content) {
-                this.content = JSON.parse(result.feed_media[0].content)
-            }
-            this.feedItem = result;
-            this.showDeleteModal = false;
-            return result;
-        }))
-    }
+
     public sendMessage($event, parent?: string) {
         if ($event) {
             this._commentService.createFeedComment(this.feedItem.id, $event, parent).pipe(
@@ -238,13 +248,6 @@ export class FeedPostCardItemComponent implements OnInit {
         this.isOpen = $event;
         this._getComments().pipe(takeUntil(this.unsubscribe$)).subscribe()
     }
-    private _getComments(parent?): Observable<ServerResponse<Comment[]>> {
-        return this._commentService.getFeedCommentById(this.feedItem.id).pipe(map((data: ServerResponse<Comment[]>) => {
-            this.comments = data.results;
-            this.isShowSubMessages = parent ? true : false;
-            return data;
-        }))
-    }
     public showDeletedModal(): void {
         this.showDeleteModal = !this.showDeleteModal;
     }
@@ -269,16 +272,20 @@ export class FeedPostCardItemComponent implements OnInit {
 
     public onClickeditFeedItem(event): void {
         if (event) {
-            console.log(event);
-
             this._getFeedById().subscribe()
-            // this.editFeed.emit(true);
         }
     }
-    ngOnDestroy() {
-        this.unsubscribe$.next();
-        this.unsubscribe$.complete();
+    public showFollowModal(event): void {
+
+        if (event) {
+            const dialogRef = this._dialog.open(LikeModal, {
+                width: "450px"
+            })
+
+
+        }
     }
+
     get userRole() {
         let role = this.feedItem.creator_client_info ? 'client' : 'coach';
         return role
@@ -299,17 +306,11 @@ export class FeedPostCardItemComponent implements OnInit {
         }
     }
 
-    public showFollowModal(event): void {
 
-        if (event) {
-            const dialogRef = this._dialog.open(LikeModal, {
-                width: "450px"
-            })
-
-
-        }
+    ngOnDestroy() {
+        this.unsubscribe$.next();
+        this.unsubscribe$.complete();
     }
-
 }
 
 

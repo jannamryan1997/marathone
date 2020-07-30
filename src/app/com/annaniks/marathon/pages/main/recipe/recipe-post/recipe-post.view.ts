@@ -154,7 +154,6 @@ export class RecipePostView implements OnInit {
         
         }
         if(this.mediaContent.receipt.videoLink){
-            console.log(this.mediaContent.receipt.videoLink,"dddddddddddd");
             this.showVideo=true;
             this.showImage =false;
             this.videoSources = [{
@@ -215,16 +214,16 @@ export class RecipePostView implements OnInit {
         this._feedService.getFeedById(this.paramsId)
             .subscribe((data: FeedResponseData) => {
                 if (typeof data.feed_media[0].content === 'string') {
-                    this.mediaContent = JSON.parse(data.feed_media[0].content);
-                    console.log(this.mediaContent);
-                    console.log( this.preparationStepItem.value);
-                    
-                    
+                    this.mediaContent = JSON.parse(data.feed_media[0].content);   
                 }
 
                  this._setPatchValue();
 
             })
+    }
+    private _filter(value: string): string[] {
+        const filterValue = value.toLowerCase();
+        return this.tagsItem.filter(fruit => fruit.toLowerCase().indexOf(filterValue) === 0);
     }
 
     public setServicePhoto(event): void {
@@ -311,8 +310,6 @@ export class RecipePostView implements OnInit {
                 })
             )
                 .subscribe((data) => {
-                    console.log( this.preparationStepItem.value);
-                    
                     this._router.navigate(['/feed']);
 
                 })
@@ -376,12 +373,6 @@ export class RecipePostView implements OnInit {
         this.fruitInput.nativeElement.value = '';
         this.tagsCtrl.setValue(null);
     }
-
-    private _filter(value: string): string[] {
-        const filterValue = value.toLowerCase();
-        return this.tagsItem.filter(fruit => fruit.toLowerCase().indexOf(filterValue) === 0);
-    }
-
 
     public changeMacronutrients(event): void {
         if (event.checked === false) {

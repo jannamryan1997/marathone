@@ -76,14 +76,12 @@ button:disabled {
 .share-item {
     z-index: 999;
     position: absolute;
-    right: -20px;
     width: 250px;
     background: #FFFFFF 0% 0% no-repeat padding-box;
     box-shadow: -9.56px -2.92px 54px #5C687B38;
     border: 0.5px solid #E3ECFD;
     border-radius: 10px;
     display: none;
-    bottom: -230px;
     &:hover{
         display: block !important;
     }

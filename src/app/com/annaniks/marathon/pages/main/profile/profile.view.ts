@@ -4,7 +4,7 @@ import { CookieService } from 'ngx-cookie';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil, switchMap, map } from 'rxjs/operators';
-import { UploadFileResponse} from '../../../core/models';
+import { UploadFileResponse } from '../../../core/models';
 import { ProfileService } from '../../../core/services/profile.service';
 
 
@@ -29,20 +29,10 @@ export class ProfileView implements OnInit {
     public userRole: string;
     public user;
     public useLanguageUrl: string;
-    public postItem = [
-        {
-            postType: "image",
-            image: "assets/images/foodimg.png"
-        },
-
-        {
-            postType: "combinations",
-            image: "assets/images/img3.png",
-        }
-    ]
     public userId: number;
     public isFollowed: boolean = false;
     constructor(
+
         @Inject("FILE_URL") private _fileUrl,
         private _userService: UserService,
         private _profileService: ProfileService,
@@ -53,7 +43,6 @@ export class ProfileView implements OnInit {
         if (urls && urls.length) {
             this.userRole = urls[urls.length - 1];
         }
-
         this._activatedRoute.params.pipe(takeUntil(this.unsubscribe$)).subscribe(params => {
             if (params && params.id)
                 this.userId = params.id;
@@ -113,8 +102,6 @@ export class ProfileView implements OnInit {
                         else {
                             this.headerLocalImage = this._fileUrl + data.data.cover;
                         }
-
-
                     });
                 }),
                 err => {
@@ -194,11 +181,6 @@ export class ProfileView implements OnInit {
                 .subscribe();
         }
     }
-    ngOnDestroy() {
-        this.unsubscribe$.next();
-        this.unsubscribe$.complete();
-    }
-
     public setServicePhoto(event) {
         this.loading = true;
         if (event) {
@@ -207,7 +189,6 @@ export class ProfileView implements OnInit {
         }
 
     }
-
     public setServiceHeaderPhoto(event) {
         if (event) {
             this._setFormDataForImage(event, 'headerImage');
@@ -215,5 +196,9 @@ export class ProfileView implements OnInit {
         }
     }
 
+    ngOnDestroy() {
+        this.unsubscribe$.next();
+        this.unsubscribe$.complete();
+    }
 }
 

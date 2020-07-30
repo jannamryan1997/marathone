@@ -50,19 +50,13 @@ export class ArticleView implements OnInit {
             ['NumberedList', 'BulletedList'], ['Link'],['FontSize']]
         };
     }
-    onDrop(evt) {
-        console.log(evt);
-
-    }
+    onDrop(evt) { }
     private _initGroup() {
         this.articleGroup = this._fb.group({
             cover: [null],
             title: [null],
             arrays: this._fb.array([]),
             currentYoutubeLink: [null],
-            // contentTexts: this._fb.array([]),
-            // images: this._fb.array([]),
-            // videos: this._fb.array([])
         })
         if (this._articleId) {
             this._getArticleById()
@@ -90,6 +84,26 @@ export class ArticleView implements OnInit {
             }
         }
     }
+    private _uploadFile(image, type: string) {
+        if (image && image.target) {
+            const formData = new FormData();
+            let fileList: FileList = image.target.files;
+            if (fileList.length > 0) {
+                let file: File = fileList[0];
+                formData.append('file', file, file.name);
+                this._userService.uploadVideoFile(formData).pipe(takeUntil(this.unsubscribe$)).subscribe((data) => {
+                    if (data && data.file_name) {
+                        if (type == 'image') {
+                            this._createControls('image', data.file_name)
+                        } else {
+                            (this.articleGroup.get('cover').setValue(data.file_name));
+                        }
+                    }
+                })
+            }
+        }
+    }
+
     public removeControl(event, index: number): void {
         if (event) {
             (this.articleGroup.get('arrays') as FormArray).removeAt(index);
@@ -98,7 +112,6 @@ export class ArticleView implements OnInit {
     public sendVideo(): void {
         if (this.articleGroup.get('currentYoutubeLink').value) {
             this._createControls('video', this.articleGroup.get('currentYoutubeLink').value)
-            // (this.articleGroup.get('videos') as FormArray).push(this._fb.group({ link: this.articleGroup.get('currentYoutubeLink').value }));
             this.articleGroup.get('currentYoutubeLink').reset();
             this.closeContentVideo();
         }
@@ -135,28 +148,8 @@ export class ArticleView implements OnInit {
 
         }
     }
-    private _uploadFile(image, type: string) {
 
-        if (image && image.target) {
-            const formData = new FormData();
-            let fileList: FileList = image.target.files;
-            if (fileList.length > 0) {
-                let file: File = fileList[0];
-                formData.append('file', file, file.name);
-                this._userService.uploadVideoFile(formData).pipe(takeUntil(this.unsubscribe$)).subscribe((data) => {
-                    if (data && data.file_name) {
-                        if (type == 'image') {
-                            this._createControls('image', data.file_name)
-                            // (this.articleGroup.get('images') as FormArray).push(this._fb.group({ url: data.file_name }))
-                        } else {
-                            (this.articleGroup.get('cover').setValue(data.file_name));
-                        }
-                    }
-                })
-            }
-        }
 
-    }
     public removeTextContent(index: number) {
         let formArray = this.articleGroup.get('contentTexts') as FormArray;
         formArray.removeAt(index)
@@ -173,13 +166,12 @@ export class ArticleView implements OnInit {
         if (!this.isShowImageRedacor && !this.isShowVideoRedactor) {
             this._createControls('text')
         }
-        // (this.articleGroup.get(controlName) as FormArray).push(this._fb.group({ attribute: null }))
     }
+
     public drop(event: CdkDragDrop<string[]>) {
         moveItemInArray(this.getControls(), event.previousIndex, event.currentIndex);
-        console.log(this.getControls());
-
     }
+
     public addImage() {
         if (!this.isShowVideoRedactor)
             this.isShowImageRedacor = true;
@@ -197,15 +189,11 @@ export class ArticleView implements OnInit {
     }
 
     public publish() {
-
         if (this.articleGroup.value) {
             const articleValue = this.articleGroup.value;
             let content = {
                 cover: articleValue.cover,
                 arrays: articleValue.arrays,
-                // text: articleValue.contentTexts,
-                // image: articleValue.images,
-                // video: articleValue.videos,
                 type: 'article',
             };
             let articleData = {
@@ -228,9 +216,9 @@ export class ArticleView implements OnInit {
         }
     }
     public getControls() {
-
         return (this.articleGroup.get('arrays') as FormArray).controls
     }
+    
     ngOnDestroy() {
         this.unsubscribe$.next();
         this.unsubscribe$.complete();

@@ -26,7 +26,6 @@ export class PreparationStepComponent implements OnInit, ControlValueAccessor {
   private _handleControlChanges(): void {
     this.stepControl.valueChanges.subscribe((value) => {
       this.onChange(value)
-      console.log(value);
       
     })
   }
@@ -37,10 +36,7 @@ export class PreparationStepComponent implements OnInit, ControlValueAccessor {
 
 
   writeValue(val: any) {
-    console.log(val);
-    
     this.stepControl.patchValue(val);
-    console.log(this.stepControl);
     
   }
 

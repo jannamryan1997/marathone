@@ -189,3 +189,8 @@
 .password-icon {
     cursor: pointer;
 }
+
+.message {
+    @include text(16px, 19px, #E3ECFD, EncodeSans-SemiBold);
+    margin: auto;
+}

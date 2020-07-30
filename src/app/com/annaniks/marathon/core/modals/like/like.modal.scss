@@ -1,5 +1,5 @@
 .share-modal {
-    padding: 0 20px;
+    padding: 0 15px;
 
     .share-modal-header {
         padding: 10px 0;
@@ -46,8 +46,9 @@
 
 ::ng-deep .mat-dialog-container {
     background: #FFFFFF 0% 0% no-repeat padding-box;
-    box-shadow: 1px 20px 29px #5C687B4A;
-    border-radius: 25px;
-    opacity: 1;
-    padding: 0;
+    padding: 0 !important;
+    // box-shadow: 1px 20px 29px #5C687B4A;
+    // border-radius: 25px;
+    // opacity: 1;
+
 }
