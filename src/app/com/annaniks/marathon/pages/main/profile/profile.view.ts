@@ -147,9 +147,18 @@ export class ProfileView implements OnInit {
 
 
     public onClickShowSocialMedium(): void {
+        if(this.showMore===true){
+            this.showMore=false;
+         
+        }
         this.showSocialMedium = !this.showSocialMedium;
+        
     }
     public onClickShowMore(): void {
+        if(this.showSocialMedium===true){
+            this.showSocialMedium=false;
+        
+        }
         this.showMore = !this.showMore;
     }
     public checkIsMe() {
@@ -196,6 +205,10 @@ export class ProfileView implements OnInit {
         }
     }
 
+    public onClickedOutside(event):void{
+        this.showMore=false;
+        this.showSocialMedium=false;
+    }
     ngOnDestroy() {
         this.unsubscribe$.next();
         this.unsubscribe$.complete();

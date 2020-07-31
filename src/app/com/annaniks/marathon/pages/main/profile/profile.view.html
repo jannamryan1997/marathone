@@ -11,8 +11,8 @@
                     </label>
                 </div>
             </div>
-            <div class="profile-content">
-                <div class="profile-header-content display-flex">
+            <div class="profile-content" >
+                <div class="profile-header-content display-flex" (clickOutside)="onClickedOutside($event)">
                     <div class="profile-image">
                         <div class="profile-image">
                             <div *ngIf="checkIsMe()" class=" d-flex">

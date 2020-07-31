@@ -277,7 +277,7 @@ export class FeedPostCardItemComponent implements OnInit {
     }
     public showFollowModal(event): void {
 
-        if (event) {
+        if (event  && this.role) {
             const dialogRef = this._dialog.open(LikeModal, {
                 width: "450px"
             })

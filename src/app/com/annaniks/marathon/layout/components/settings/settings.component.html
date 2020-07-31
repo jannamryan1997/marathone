@@ -9,13 +9,13 @@
         <img *ngIf="!feed?.is_liked" src="assets/icons/Energy.svg" alt="" class="energy-icon">
 
         <img *ngIf="feed?.is_liked" src="assets/icons/Energy_blue.svg" alt="" class="energy-icon">
-        <span class="title" [ngClass]="{'type-color':type}"> Energy {{feed?.feed_likes_count}}</span>
+        <span class="title" [ngClass]="{'type-color':type}" (click)="onClichShowFollowModal()"> Energy {{feed?.feed_likes_count}}</span>
     </button>
     <button (click)="clickOnButton('reposts')" class="setting-item-btn" [ngClass]="{'class-type':type}">
         <img src="assets/icons/Repost.svg" alt="" class="repost-icon">
-        <span class="title">Share </span>
-        <span class="count">220
-            <div class="share-item">
+        <span class="title" >Share </span>
+        <span class="count" (click)="onClichShowFollowModal()">220
+            <div class="share-item" *ngIf="role">
                 <div class="share-content">
                     <app-share-item></app-share-item>
                     <app-share-item></app-share-item>

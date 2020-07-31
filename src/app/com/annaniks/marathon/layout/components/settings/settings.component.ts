@@ -35,10 +35,13 @@ export class SettingsComponent implements OnInit {
     public clickOnButton(type: string): void {
 
         this._buttonsType.emit(type);
-        this.showFollowModel.emit(true);
+     
         if (type === 'reposts') {
             this.message = "repost";
         }
 
+    }
+    public onClichShowFollowModal():void{
+        this.showFollowModel.emit(true);
     }
 }

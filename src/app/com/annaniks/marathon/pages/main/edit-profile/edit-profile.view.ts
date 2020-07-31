@@ -420,11 +420,19 @@ export class EditProfileView implements OnInit {
             this.certificates.splice(ind, 1)
         }
     }
-
     public onClickShowSocialMedium(): void {
+        if(this.showMore===true){
+            this.showMore=false;
+         
+        }
         this.showSocialMedium = !this.showSocialMedium;
+        
     }
     public onClickShowMore(): void {
+        if(this.showSocialMedium===true){
+            this.showSocialMedium=false;
+        
+        }
         this.showMore = !this.showMore;
     }
 
@@ -474,7 +482,10 @@ export class EditProfileView implements OnInit {
         return filtered;
     }
 
-
+    public onClickedOutside(event):void{
+        this.showMore=false;
+        this.showSocialMedium=false;
+    }
 
 
 
