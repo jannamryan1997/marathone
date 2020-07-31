@@ -9,7 +9,7 @@
         <img *ngIf="!feed?.is_liked" src="assets/icons/Energy.svg" alt="" class="energy-icon">
 
         <img *ngIf="feed?.is_liked" src="assets/icons/Energy_blue.svg" alt="" class="energy-icon">
-        <span class="title" [ngClass]="{'type-color':type}" (click)="onClichShowFollowModal()"> Energy {{feed?.feed_likes_count}}</span>
+        <span class="title" [ngClass]="{'type-color':type}" > Energy <span (click)="onClichShowFollowModal()">{{feed?.feed_likes_count}}</span></span>
     </button>
     <button (click)="clickOnButton('reposts')" class="setting-item-btn" [ngClass]="{'class-type':type}">
         <img src="assets/icons/Repost.svg" alt="" class="repost-icon">
