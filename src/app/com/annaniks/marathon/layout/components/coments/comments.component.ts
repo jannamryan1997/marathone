@@ -35,7 +35,7 @@ export class CommentsComponent implements OnInit {
     @Input('role')
     set setRole($event: string) {
         this.role = $event
-    }  
+    }
 
     constructor(@Inject("FILE_URL") public fileUrl: string,
         private _commentService: CommentService) { }
@@ -45,18 +45,24 @@ export class CommentsComponent implements OnInit {
     public isOpenReplay(): void {
         this.showReplay = !this.showReplay;
     }
-    public vote(type: string, item, isChild: boolean = false) {
+    public vote(type: string, item, isChild) {
         if (this.role) {
+            let childUrl:string;
+            if (isChild) {
+                childUrl = this.comments.url
+            }
+            
             if (type == '0') {
+
                 this._commentService.dislikeComment(item.url).pipe(takeUntil(this.unsubscribe$),
                     map(() => {
-                        this._isLikeOrDislike.emit({ isChild: isChild })
+                        this._isLikeOrDislike.emit({ isChild: childUrl })
                     })).subscribe()
             } else {
                 if (type == '1') {
                     this._commentService.likeComment(item.url).pipe(takeUntil(this.unsubscribe$),
                         map(() => {
-                            this._isLikeOrDislike.emit({ isChild: isChild })
+                            this._isLikeOrDislike.emit({ isChild: childUrl })
                         })).subscribe()
                 }
             }
