@@ -1,20 +1,9 @@
-.gallery-content {
-    .gallery-container {
-        flex-wrap: wrap;
-
-        .gallery-item {
-            width: 33.3333333%;
-            padding: 2px;
-
-
-            cursor: pointer;
 
             .image-content {
                 position: relative;
-
+                .image-item{
                 .gallery-image {
                     height: 190px;
-
                 }
                 .gallery-hovher {
                     background: transparent linear-gradient(0deg, #000000B3 0%, #00000026 100%) 0% 0% no-repeat padding-box;
@@ -39,11 +28,26 @@
                 }
             }
         }
-    }
-}
 
-.image-content:hover {
+.image-item:hover {
     .gallery-hovher {
         opacity: 0.74 !important;
+    }
+}
+.video-item{
+    height: 190px;
+    background: black;
+}
+
+::ng-deep .plyr--video .plyr__controls{
+   display: none !important;
+}
+
+:host::ng-deep{
+    .youtube-video{
+        .plyr{
+            min-width: 100% !important;
+            height: 190px;
+        }
     }
 }

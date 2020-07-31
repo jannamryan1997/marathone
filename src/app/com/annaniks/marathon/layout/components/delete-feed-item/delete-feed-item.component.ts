@@ -38,7 +38,7 @@ export class DeleteFeedItemComponent implements OnInit {
 
             this._router.navigate([router], { queryParams: { feedId: this.feedId, url: this.mediaUrl } })
         }
-        else if (this.content === 'image' || this.content === 'video' || this.content === undefined) {
+        else if (this.content === 'image' || this.content === 'video' || this.content === undefined || this.content==='videoLink') {
             this.isModalMode = true;
         }
 

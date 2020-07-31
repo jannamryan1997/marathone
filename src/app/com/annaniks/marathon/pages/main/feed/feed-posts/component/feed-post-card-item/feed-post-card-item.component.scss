@@ -12,7 +12,6 @@
     .vido {
         height: 380px;
         cursor: pointer;
-        border: 1px solid #e3ecfd;
         margin: 6px 0;
     }
 }
@@ -182,3 +181,16 @@
     height: 330px !important;
     margin: 6px 0 12px 0 !important;
 }
+
+.video-youtube{
+    margin: 6px 0 12px 0 !important;
+}
+:host::ng-deep{
+    .video-youtube{
+        .plyr{
+            min-width: 100% !important;
+             height: 380px;
+        }
+    }
+}
+

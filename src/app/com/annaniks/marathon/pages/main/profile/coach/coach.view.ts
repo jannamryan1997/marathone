@@ -3,7 +3,7 @@ import { UserService } from '../../../../core/services/user.service';
 import { FeedService } from '../../feed/feed.service';
 import { FeedResponseData, FeedData } from '../../../../core/models';
 import { finalize, takeUntil } from 'rxjs/operators';
-import { RemoveModal } from '../../../../core/modals';
+import { RemoveModal, GalleryModal } from '../../../../core/modals';
 import { MatDialog } from '@angular/material/dialog';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
@@ -36,6 +36,7 @@ export class CoachView implements OnInit {
     private unsubscribe$ = new Subject<void>()
     public userId: number;
     public languageName=[];
+    public mediaItem=[];
     constructor(
         private _userService: UserService,
         private _feedService:FeedService, 
@@ -73,18 +74,21 @@ export class CoachView implements OnInit {
 
     private _getFeed() {
         this.loading = true;
-        let isAll = this.checkIsMe() ? '' : 'true'
+        let isAll = this.checkIsMe() ? 'me' : 'true'
         this._profileService.getFeedByProfileId('creator', this.userId, isAll).pipe(finalize(() => { this.loading = false }))
             .subscribe((data: FeedData) => {
                 this.feedItem = data.results;
                 for (let item of this.feedItem) {
                     for (let media of item.feed_media) {
                         if (typeof media.content == 'string') {
-                            media.content = JSON.parse(media.content)
+                            media.content = JSON.parse(media.content);
+                            this.mediaItem.push(media.content);
                         }
                     }
                 }
             })
+       
+            
     }
 
     private _showseeMore(): void {
@@ -184,6 +188,18 @@ export class CoachView implements OnInit {
             return !this.checkIsMe() ? this.user.coach_user.first_name : this.user.user.first_name
     }
     
+
+    public openGalleryModal(event,message):void{
+        if(event){
+            const dialogRef = this._dialog.open(GalleryModal, {
+                width: "800px",
+                data:{
+                    data:this.mediaItem,
+                    type:message,
+                }
+            })
+        }
+    }
     ngOnDestroy() {
         this.unsubscribe$.next();
         this.unsubscribe$.complete();

@@ -40,7 +40,7 @@
                     (click)="openPropertyModalByVideo()">
                 </video>
             </div>
-            <div class="d-none" [ngClass]="{'d-block':content?.type === 'videoLink'}">
+            <div class="video-youtube d-none" [ngClass]="{'d-block':content?.type === 'videoLink'}">
                 <plyr style="display:block" plyrTitle="Video 1" [plyrSources]="videoSources"></plyr>
 
             </div>
@@ -97,7 +97,7 @@
                         </div>
                     </div>
                 </div>
-                    <div *ngIf="receipt?.videoLink !=''">
+                    <div *ngIf="receipt?.videoLink !=''" class="video-youtube">
                         <plyr style="display:block" plyrTitle="Video 1" [plyrSources]="receptvideoSources"></plyr>
                     </div>
                     <div class="combinations-description">

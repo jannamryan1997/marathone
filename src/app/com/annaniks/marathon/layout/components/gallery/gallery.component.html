@@ -1,20 +1,23 @@
-<div class="gallery-content">
-    <div class="gallery-container display-flex">
-        <div class="gallery-item" *ngFor="let item of galleryItem">
-            <div class="image-content">
-
-      
-            <img [src]="item?.image" class="gallery-image">
-            <div class="gallery-hovher d-flex">
-                    <div class="gallery-hovher-item d-flex m-auto">
-                     <img src="assets/icons/Comment.svg" class="icon">
-                        <p>30</p>
-                        <img src="assets/icons/Energy.svg" class="icon">
-                        <p>60</p>
-                    </div>
-                </div>
-        </div>
-        
+<div class="image-content" (click)="openGalleryModal()">
+    <div class="image-item" >
+        <img [src]="imageUrl" class="gallery-image d-none" [ngClass]="{'d-block':mediaItem.type==='image'}">
+        <div class="gallery-hovher d-flex">
+            <div class="gallery-hovher-item d-flex m-auto">
+                <img src="assets/icons/Comment.svg" class="icon">
+                <p>30</p>
+                <img src="assets/icons/Energy.svg" class="icon">
+                <p>60</p>
+            </div>
         </div>
     </div>
+
+    <video controls class="video-item d-none w-100" poster="" [ngClass]="{'d-block':mediaItem.type==='video'}"
+        [src]="videoUrl">
+    </video>
+    <div class="youtube-video d-none w-100" [ngClass]="{'d-block':mediaItem.type==='videoLink'}">
+        <plyr style="display:block" plyrTitle="Video 1" [plyrSources]="videoSources"></plyr>
+    </div>
 </div>
+
+
+    

@@ -12,20 +12,19 @@ export class CommentService {
     constructor(private _httpClient: HttpClient, @Inject('BASE_URL') private _baseUrl, private _cookieService: CookieService) {
         this._role = this._cookieService.get('role');
         this.userId = this._cookieService.get('userId');
-
     }
 
     public createFeedComment(feedId: number, message: string, parent?: string) {
         let body = {
-            "feed": `http://annaniks.com:6262/api/feed/feeds/${feedId}/`,
+            "feed": this._baseUrl+`/feed/feeds/${feedId}/`,
             "message": message
         }
         if (this._role === 'client') {
-            body['user'] = `http://annaniks.com:6262/api/client/user/${this.userId}/`
+            body['user'] = this._baseUrl+`/client/user/${this.userId}/`
         }
 
         else if (this._role === 'coach') {
-            body['coach'] = `http://annaniks.com:6262/api/coach/coach/${this.userId}/`
+            body['coach'] = this._baseUrl+`/coach/coach/${this.userId}/`
         }
 
         if (parent) {
@@ -44,11 +43,11 @@ export class CommentService {
             "comment": commentUrl
         }
         if (this._role === 'client') {
-            body['user'] = `http://annaniks.com:6262/api/client/user/${this.userId}/`
+            body['user'] = this._baseUrl+`/client/user/${this.userId}/`
         }
 
         else if (this._role === 'coach') {
-            body['coach'] = `http://annaniks.com:6262/api/coach/coach/${this.userId}/`
+            body['coach'] = this._baseUrl+`/coach/coach/${this.userId}/`
         }
         return body
     }

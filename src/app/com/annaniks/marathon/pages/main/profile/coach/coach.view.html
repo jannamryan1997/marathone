@@ -129,9 +129,27 @@
                 </div>
             </div>
             <div class="events-content" [ngSwitch]="galerryTab">
-                <app-galery *ngIf="galerryTab===1"></app-galery>
-                <p *ngIf="galerryTab===2">photo</p>
-                <p *ngIf="galerryTab===3">video</p>
+                <div  *ngIf="galerryTab===1" class="gallery-content">
+                    <div class="gallery-item" *ngFor="let item of mediaItem"  [ngClass]="{'d-block':item.url}">
+                           <app-galery   [mediaItem]="item"  (showGalleryModal)="openGalleryModal($event,'all')"></app-galery>
+                    </div>
+                     
+                </div>
+        
+
+                <div  *ngIf="galerryTab===2" class="gallery-content">
+                        <div class="gallery-item" *ngFor="let item of mediaItem"  [ngClass]="{'d-block':item.url && item.type==='image'}">
+                               <app-galery   [mediaItem]="item"  (showGalleryModal)="openGalleryModal($event,'image')"></app-galery>
+                        </div>
+                         
+                    </div>
+
+                <div  *ngIf="galerryTab===3" class="gallery-content">
+                        <div class="gallery-item" *ngFor="let item of mediaItem"  [ngClass]="{'d-block':item.url && item.type==='video'|| item.type==='videoLink'}">
+                               <app-galery   [mediaItem]="item"  (showGalleryModal)="openGalleryModal($event,'video')"></app-galery>
+                        </div>
+                         
+                    </div>
             </div>
 
         </div>
@@ -162,3 +180,4 @@
         </div>
     </div>
 </div>
+

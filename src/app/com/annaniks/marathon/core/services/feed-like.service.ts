@@ -19,15 +19,15 @@ export class FeedLikeService {
         let url = '/feed/like/';
         if (this.role === 'client') {
             return this._httpClient.post<any>(this._baseUrl + url, {
-                "feed": `http://annaniks.com:6262/api/feed/feeds/${feedId}/`,
-                "user": `http://annaniks.com:6262/api/client/user/${this.userId}/`
+                "feed": this._baseUrl+`/feed/feeds/${feedId}/`,
+                "user": this._baseUrl+`/client/user/${this.userId}/`
             })
         }
         else if (this.role === 'coach') {
             return this._httpClient.post<any>(this._baseUrl + url,
                 {
-                    "feed": `http://annaniks.com:6262/api/feed/feeds/${feedId}/`,
-                    "coach": `http://annaniks.com:6262/api/coach/coach/${this.userId}/`
+                    "feed": this._baseUrl+`/feed/feeds/${feedId}/`,
+                    "coach": this._baseUrl+`/coach/coach/${this.userId}/`
                 }
             )
         }

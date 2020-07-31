@@ -3,9 +3,9 @@ import { UserService } from '../../../../core/services/user.service';
 import { FeedService } from '../../feed/feed.service';
 import { finalize, takeUntil } from 'rxjs/operators';
 import { FeedResponseData, FeedData } from '../../../../core/models';
-import { RemoveModal } from '../../../../core/modals';
+import { RemoveModal, GalleryModal } from '../../../../core/modals';
 import { MatDialog } from '@angular/material/dialog';
-import {  Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { ProfileService } from '../../../../core/services/profile.service';
 import { CountryService } from '../../../../core/services/country.service';
@@ -37,6 +37,7 @@ export class ClientView implements OnInit {
     public userStatus: string;
     public seeMore: boolean = false;
     public languageName = [];
+    public mediaItem = [];
 
     constructor(
         private _profileUserService: UserService,
@@ -82,14 +83,15 @@ export class ClientView implements OnInit {
     }
     private _getFeed(page: number) {
         this.loading = true;
-        let isAll = this.checkIsMe() ? '' : 'true'
+        let isAll = this.checkIsMe() ? 'me' : 'true'
         this._profileService.getFeedByProfileId('creator_client', this.userId, isAll).pipe(finalize(() => { this.loading = false }))
             .subscribe((data: FeedData) => {
                 this.feedItem = data.results;
                 for (let item of this.feedItem) {
                     for (let media of item.feed_media) {
                         if (typeof media.content == 'string') {
-                            media.content = JSON.parse(media.content)
+                            media.content = JSON.parse(media.content);
+                            this.mediaItem.push(media.content);
                         }
                     }
                 }
@@ -115,12 +117,12 @@ export class ClientView implements OnInit {
         this._countryService.getLanguages().subscribe((data) => {
             data.results.map((name, index) => {
                 url = name.url;
-              this._userService.user.data.language.forEach(element=>{
-                if (url === element) {
-                    this.languageName.push({ name: name.name });
-                }
-              })
-           
+                this._userService.user.data.language.forEach(element => {
+                    if (url === element) {
+                        this.languageName.push({ name: name.name });
+                    }
+                })
+
 
             })
         })
@@ -175,6 +177,17 @@ export class ClientView implements OnInit {
         this.feedItem = [];
         this._getFeed(this._pageIndex);
 
+    }
+    public openGalleryModal(event,message):void{
+        if(event){
+            const dialogRef = this._dialog.open(GalleryModal, {
+                width: "800px",
+                data:{
+                    data:this.mediaItem,
+                    type:message,
+                }
+            })
+        }
     }
 
     get email(): string {

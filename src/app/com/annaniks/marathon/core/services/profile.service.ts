@@ -19,7 +19,7 @@ export class ProfileService {
         return this._httpClient.post<any>(this._baseUrl + `/feed/follower/`, body)
     }
     public getFeedByProfileId(queryParamsName: string, id: number, isAll: string): Observable<any> {
-        return this._httpClient.get(this._baseUrl + `/feed/feeds/?${queryParamsName}=${id}&all=${isAll}`);
+        return this._httpClient.get(this._baseUrl + `/feed/feeds/?${queryParamsName}=${id}&me=${isAll}`);
     }
 
     public deleteProfileInformation(profileInformationUrl: string, body): Observable<any> {
