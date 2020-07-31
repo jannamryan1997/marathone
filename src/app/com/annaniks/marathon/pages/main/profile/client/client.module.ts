@@ -7,7 +7,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 @NgModule({
     declarations: [ClientView],
-    imports: [ClientRoutingModule,SharedModule,CommonModule,ReactiveFormsModule,FormsModule]
+    imports: [ClientRoutingModule,SharedModule,CommonModule,ReactiveFormsModule,FormsModule],
+    providers:[]
 })
 
 export class ClientModule { }

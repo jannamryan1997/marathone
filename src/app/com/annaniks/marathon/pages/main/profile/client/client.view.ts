@@ -1,14 +1,15 @@
 import { Component, OnInit } from "@angular/core";
-import { UserResponseData } from '../../../../core/models/user';
 import { UserService } from '../../../../core/services/user.service';
 import { FeedService } from '../../feed/feed.service';
 import { finalize, takeUntil } from 'rxjs/operators';
-import { FeedResponseData } from '../../../../core/models';
+import { FeedResponseData, FeedData } from '../../../../core/models';
 import { RemoveModal } from '../../../../core/modals';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute, Router } from '@angular/router';
+import {  Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { ProfileService } from '../../../../core/services/profile.service';
+import { CountryService } from '../../../../core/services/country.service';
+
 
 @Component({
     selector: "app-client",
@@ -17,7 +18,6 @@ import { ProfileService } from '../../../../core/services/profile.service';
 })
 
 export class ClientView implements OnInit {
-    public a: string;
     public feedItem: FeedResponseData[] = [];
     public user: any;
     public tab: number = 1;
@@ -36,6 +36,7 @@ export class ClientView implements OnInit {
     private unsubscribe$ = new Subject<void>()
     public userStatus: string;
     public seeMore: boolean = false;
+    public languageName = [];
 
     constructor(
         private _profileUserService: UserService,
@@ -44,15 +45,20 @@ export class ClientView implements OnInit {
         private _router: Router,
         private _userService: UserService,
         private _profileService: ProfileService,
-        private _activatedRoute: ActivatedRoute) {
+        private _countryService: CountryService,
+    ) {
         let urls = this._router.url.split('/');
         if (urls && urls.length && urls.length == 4) {
             this.userId = +urls[urls.length - 2];
+        }
+        if (!this.userId) {
+            this.userId = this._userService.user.data.id;
         }
         this.user = this.userId ? null : this._profileUserService.user;
     }
 
     ngOnInit() {
+        this._getLanguages();
         this._getFeed(this._pageIndex);
         this._getProfile()
     }
@@ -74,39 +80,20 @@ export class ClientView implements OnInit {
             return false
         }
     }
-    private async _getFeed(page: number) {
+    private _getFeed(page: number) {
         this.loading = true;
-        this.infiniteScrollDisabled = true;
-        const data = await this._feedService.feed(this._pageIndex)
-            .pipe(
-                finalize(() => {
-                    this.loading = false;
-                })
-            )
-            .toPromise()
-        if (this.feedItem.length === 0) {
-            this.loading = false;
-        }
-        if (!this._isCountCalculated) {
-            this._pagesCount = Math.ceil(data.count / 10);
-            this._isCountCalculated = true;
-        }
-        if (this._pageIndex > this._pagesCount) {
-            return;
-        }
-
-        this.feedItem.push(...data.results);
-        this._pageIndex++;
-        for (let item of this.feedItem) {
-            for (let media of item.feed_media) {
-                if (typeof media.content == 'string') {
-                    media.content = JSON.parse(media.content)
+        let isAll = this.checkIsMe() ? '' : 'true'
+        this._profileService.getFeedByProfileId('creator_client', this.userId, isAll).pipe(finalize(() => { this.loading = false }))
+            .subscribe((data: FeedData) => {
+                this.feedItem = data.results;
+                for (let item of this.feedItem) {
+                    for (let media of item.feed_media) {
+                        if (typeof media.content == 'string') {
+                            media.content = JSON.parse(media.content)
+                        }
+                    }
                 }
-            }
-        }
-        this.infiniteScrollDisabled = false;
-
-
+            })
     }
     private _showseeMore(): void {
         let titleLength: number;
@@ -123,9 +110,26 @@ export class ClientView implements OnInit {
         }
     }
 
+    private _getLanguages(): void {
+        let url: string;
+        this._countryService.getLanguages().subscribe((data) => {
+            data.results.map((name, index) => {
+                url = name.url;
+              this._userService.user.data.language.forEach(element=>{
+                if (url === element) {
+                    this.languageName.push({ name: name.name });
+                }
+              })
+           
+
+            })
+        })
+    }
+
     public onClickSeeMore(): void {
-        this.userStatus = this.user.data.status.slice(0, this.user.data.status.length);
+        this.userStatus = this.user.status.slice(0, this.user.status.length);
         this.seeMore = false;
+
     }
 
 
@@ -140,13 +144,6 @@ export class ClientView implements OnInit {
 
     public onClickPostEventsTab(postTab): void {
         this.postTab = postTab;
-    }
-
-    public async onScroll() {
-        if (this._pageIndex > this._pagesCount) {
-            return;
-        }
-        this._getFeed(this._pageIndex);
     }
 
 
@@ -179,16 +176,18 @@ export class ClientView implements OnInit {
         this._getFeed(this._pageIndex);
 
     }
-    ngOnDestroy() {
-        this.unsubscribe$.next();
-        this.unsubscribe$.complete();
-    }
+
     get email(): string {
         if (this.user)
-            return this.userId ? this.user.user.email : this.user.user.email
+            return !this.checkIsMe() ? this.user.user.email : this.user.user.email
     }
     get firstName(): string {
         if (this.user)
-            return this.userId ? this.user.user.first_name : this.user.user.first_name
+            return !this.checkIsMe() ? this.user.user.first_name : this.user.user.first_name
+    }
+
+    ngOnDestroy() {
+        this.unsubscribe$.next();
+        this.unsubscribe$.complete();
     }
 }

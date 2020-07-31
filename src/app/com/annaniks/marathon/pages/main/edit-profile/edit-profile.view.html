@@ -1,9 +1,18 @@
 <div class="home-container">
     <div class="home-main">
         <div class="profile-description">
-            <img src="assets/images/profile-img.png" class="cover-image" alt="Cinque Terre">
+            <div class="header">
+                <img [src]="headerLocalImage" class="cover-image" alt="Cinque Terre">
+                <div class=" d-flex">
+                    <input class="" type="file" id="headerprofile" name="headerprofile" accept="image/png,image/jpeg"
+                        (change)="setServiceHeaderPhoto($event)">
+                    <label class="header-icon-btn d-flex m-auto" for="headerprofile">
+                        <i class="fa fa-refresh m-auto" aria-hidden="true"></i>
+                    </label>
+                </div>
+            </div>
             <div class="profile-content">
-                <div class="profile-header-content display-flex">
+                <div class="profile-header-content display-flex"  (clickOutside)="onClickedOutside($event)">
                     <div class="profile-image">
                         <div class=" d-flex">
                             <input class="" type="file" id="file" name="avatar" accept="image/png,image/jpeg"
@@ -29,12 +38,14 @@
                                 insert_comment
                             </span>
                         </button>
-                        <button class="info-btn btn-item btn-radius ml-2 mr-2" (click)="onClickShowSocialMedium()" [ngClass]="{'active-btn':showSocialMedium}">
+                        <button class="info-btn btn-item btn-radius ml-2 mr-2" (click)="onClickShowSocialMedium()"
+                            [ngClass]="{'active-btn':showSocialMedium}">
                             <span class="material-icons icon">
                                 alternate_email
                             </span>
                         </button>
-                        <button class="info-btn btn-item btn-radius" (click)="onClickShowMore()"  [ngClass]="{'active-btn':showMore}">
+                        <button class="info-btn btn-item btn-radius" (click)="onClickShowMore()"
+                            [ngClass]="{'active-btn':showMore}">
                             <span class="material-icons icon">
                                 more_horiz
                             </span>
@@ -59,7 +70,6 @@
                     </div>
                 </div>
 
-
                 <div class="main-layout">
                     <div class="home-container">
                         <div class="home-main">
@@ -67,7 +77,7 @@
                                 <div class="profile-content">
                                     <div class="main-layout">
                                         <div class="profile-container">
-                                            <form [formGroup]="profileFormGroup" (change)="changeProfile($event)">
+                                            <form [formGroup]="profileFormGroup">
                                                 <div class="display-flex">
                                                     <div class="form-group">
                                                         <label>First Name</label>
@@ -87,7 +97,7 @@
                                                 </div>
                                                 <div class="autocomplete form-grup-redius">
                                                     <label>Languages</label>
-                                                    <p-autoComplete class="w-100"
+                                                    <p-autoComplete class="w-100" formControlName="languages"
                                                         [suggestions]="filteredCountriesMultiple"
                                                         (completeMethod)="filterCountryMultiple($event)" [minLength]="1"
                                                         placeholder="" field="name" [multiple]="true">
@@ -104,7 +114,8 @@
                                                 </div>
                                                 <div class="autocomplete">
                                                     <label>Speciality</label>
-                                                    <p-autoComplete class="w-100 form-grup-redius" formControlName="speciality"
+                                                    <p-autoComplete class="w-100 form-grup-redius"
+                                                        formControlName="speciality"
                                                         [suggestions]="filteredSpecialitesMultiple"
                                                         (completeMethod)="filterSpecialitypMultiple($event)"
                                                         [minLength]="1" placeholder="" field="name" [multiple]="true">
@@ -139,19 +150,20 @@
 
                                                 </div>
 
-                                                <div class="form-group about-form form-grup-redius" *ngIf="role=='coach'">
+                                                <div class="form-group about-form form-grup-redius"
+                                                    *ngIf="role=='coach'">
                                                     <label>About</label>
                                                     <textarea type="text" class="form-input w-100 text-area"
                                                         formControlName="about" placeholder=""></textarea>
                                                 </div>
-                                                <div class="form-group about-form form-grup-redius" *ngIf="role=='coach'">
+                                                <div class="form-group about-form form-grup-redius"
+                                                    *ngIf="role=='coach'">
                                                     <label>Certificates</label>
                                                     <app-information [profileCertificates]="true"
                                                         *ngFor="let item of certificates;let ind=index"
                                                         [certificates]="item"
-                                                        (deleted)="removeCerticatesItem($event,ind)">
+                                                        (deleted)="removeCerticatesItem($event,ind,item)">
                                                     </app-information>
-
 
                                                     <div class="add-certificates display-flex">
 
@@ -161,9 +173,13 @@
                                                                 (change)="setCeriticatesPhoto($event)">
                                                             <div class="d-flex m-auto">
                                                                 <label class="icon-btn d-flex m-auto" for="file1">
-                                                                    <span class="material-icons m-auto">
+                                                                    <span class="material-icons m-auto"
+                                                                        *ngIf="!certificatesImage">
                                                                         insert_drive_file
                                                                     </span>
+                                                                    <img *ngIf="certificatesImage"
+                                                                        [src]="_fileUrl+certificatesImage"
+                                                                        class="choose-image">
                                                                 </label>
                                                             </div>
                                                         </div>
@@ -172,31 +188,38 @@
                                                             <input type="text" class="form-input w-100"
                                                                 formControlName="certificatesLocation"
                                                                 placeholder="Type Cerificate Information">
-                                                            <span class="material-icons add-icon"
-                                                                (click)="addCertificates()">
-                                                                add
-                                                            </span>
+                                                            <button (click)="addCertificates()" class="add-icon"
+                                                                [disabled]="profileFormGroup.get('certificatesLocation').invalid">
+                                                                <span class="material-icons">
+                                                                    add
+                                                                </span>
+                                                            </button>
+
                                                         </div>
 
 
                                                     </div>
                                                 </div>
 
-                                                <div class="form-group about-form form-grup-redius" *ngIf="role=='coach'">
+                                                <div class="form-group about-form form-grup-redius"
+                                                    *ngIf="role=='coach'">
                                                     <label>Education</label>
                                                     <app-education [profileEducation]="true"
                                                         *ngFor="let item of education.controls,let ind=index"
-                                                        [education]="item" (deleted)="removeEducationItem($event,ind)"
+                                                        [education]="item"
+                                                        (deleted)="removeEducationItem($event,ind,item)"
                                                         [formControl]="education.controls[ind]"></app-education>
                                                     <button class="add-btn d-flex w-100"><span class="m-auto btn-text"
                                                             (click)="addEducatin()">Add more</span></button>
                                                 </div>
 
-                                                <div class="form-group about-form form-grup-redius" *ngIf="role=='coach'">
+                                                <div class="form-group about-form form-grup-redius"
+                                                    *ngIf="role=='coach'">
                                                     <label>Experience</label>
                                                     <app-experience [profileExperience]="true"
                                                         *ngFor="let item of experience.controls,let ind=index"
-                                                        [experience]="item" (deleted)="removeExperianceItem($event,ind)"
+                                                        [experience]="item"
+                                                        (deleted)="removeExperianceItem($event,ind,item)"
                                                         [formControl]="experience.controls[ind]">
                                                     </app-experience>
                                                     <button class="add-btn d-flex w-100"><span class="m-auto btn-text"

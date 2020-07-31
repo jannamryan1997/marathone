@@ -1,6 +1,6 @@
 <div class="left-menu" [ngClass]="{'position':showUserData}">
     <div class="left-menu-item">
-        <a *ngFor="let item of leftMenuItem" class="d-block w-100" [routerLink]="item?.routerLink" routerLinkActive="activeRoute">
+        <a *ngFor="let item of leftMenuItem" class="d-block w-100 item" [routerLink]="item?.routerLink" routerLinkActive="activeRoute">
             <img [src]="item?.icon" class="menu-icon"  routerLinkActive="d-none">
             <img [src]="item?.activeIcon" class="menu-icon d-none" routerLinkActive="d-inline-block">
             <span class="link"> {{item?.title}}</span>

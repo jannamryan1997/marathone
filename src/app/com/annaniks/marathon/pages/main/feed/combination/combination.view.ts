@@ -78,50 +78,17 @@ export class CombinationView implements OnInit {
 
     public likeOrDislike(event) {
         if (event) {
-            if (this.role) {
-                let isChild: boolean;
-                if (event.isChild) {
-                    isChild = true
-                }
-                if (event.type == '0') {
-                    this.loading = true;
-                    this._commentService.dislikeComment(event.url).pipe(takeUntil(this.unsubscribe$),
-                        finalize(() => { this.loading = false }),
-                        switchMap(() => {
-                            return this._getComments(isChild)
-                        })).subscribe()
-                } else {
-                    if (event.type == '1') {
-                        this.loading = true;
-                        this._commentService.likeComment(event.url).pipe(takeUntil(this.unsubscribe$),
-                            finalize(() => { this.loading = false }),
-                            switchMap(() => {
-                                return this._getComments(isChild)
-                            })).subscribe()
-                    }
-                }
-            } else {
-                this.onClickOpenAuth()
-            }
+            this._getComments(event.isChild).pipe(takeUntil(this.unsubscribe$)).subscribe()          
 
+        }else{
+            this.onClickOpenAuth()
         }
     }
     public getButtonsType(event: string) {
         if (event) {
-            if (this.role) {
-                if (event == 'like') {
-                    this.loading = true;
-                    this._feedLikeService.likeFeed(this.article.id).pipe(takeUntil(this.unsubscribe$),
-                        finalize(() => { this.loading = false }),
-                        switchMap((data) => {
-                            return this._getFeedById()
-                        })
-                    ).subscribe()
-
-                }
-            } else {
-                this.onClickOpenAuth()
-            }
+            this._getFeedById().pipe(takeUntil(this.unsubscribe$)).subscribe();           
+        }else{
+            this.onClickOpenAuth()  
         }
     }
     private _getFeedById() {
@@ -130,21 +97,13 @@ export class CombinationView implements OnInit {
             return result
         }))
     }
-    public sendMessage($event, parent?: string) {
-        if ($event) {
-            this.loading = true;
-            this._commentService.createFeedComment(this.article.id, $event, parent).pipe(
-                takeUntil(this.unsubscribe$),
-                finalize(() => { this.loading = false }),
-                switchMap(() => {
-                    return this._combineObservable(parent)
-                },
-                )).subscribe()
+    public sendMessage(event) {
+        if (event) {
+            let parentUrl = event.parentUrl ? event.parentUrl : null;            
+            this._combineObservable(parentUrl).pipe(takeUntil(this.unsubscribe$)).subscribe()        
         }
     }
-    public sendMessageForParent($event, item) {
-        this.sendMessage($event, item.url)
-    }
+   
     private _combineObservable(parent?) {
         const combine = forkJoin(
             this._getComments(parent),
@@ -164,8 +123,15 @@ export class CombinationView implements OnInit {
     private _getComments(parent?): Observable<ServerResponse<Comment[]>> {
         return this._commentService.getFeedCommentById(this.article.id).pipe(map((data: ServerResponse<Comment[]>) => {
             this.comments = data.results;
-            this.isShowSubMessages = parent ? true : false;
-            return data
+            if (parent) {
+                this.comments = this.comments.map((val) => {
+                    if (val.url == parent) {
+                        val.isShowSubMessages = true
+                    }
+                    return val
+                })                
+            }
+            return data;
         }))
     }
     public showDeletedModal(): void {

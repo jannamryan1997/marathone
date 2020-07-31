@@ -10,7 +10,8 @@
     display: flex;
     flex-direction: column;
     .ingridient-modal-header {
-        justify-content: flex-end;
+        position: absolute;
+        right: 0;
 
         .clear-icon {
             cursor: pointer;

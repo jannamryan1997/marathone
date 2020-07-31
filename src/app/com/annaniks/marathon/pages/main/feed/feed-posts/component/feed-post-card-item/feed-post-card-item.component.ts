@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Inject, Output, EventEmitter } from "@angular/core";
 import { MatDialog } from '@angular/material/dialog';
-import { PropertyModal, AuthModal } from 'src/app/com/annaniks/marathon/core/modals';
-import { FeedResponseData, ServerResponse } from 'src/app/com/annaniks/marathon/core/models';
+import { PropertyModal, AuthModal, LikeModal } from 'src/app/com/annaniks/marathon/core/modals';
+import { FeedResponseData, ServerResponse, Comment } from 'src/app/com/annaniks/marathon/core/models';
 import * as moment from 'moment'
 import { CookieService } from 'ngx-cookie';
 import { UserService } from 'src/app/com/annaniks/marathon/core/services/user.service';
@@ -20,10 +20,15 @@ import { CommentService } from 'src/app/com/annaniks/marathon/core/services/comm
 })
 
 export class FeedPostCardItemComponent implements OnInit {
-    private unsubscribe$ = new Subject<void>()
-    @Input() feedItem: FeedResponseData;
+    private unsubscribe$ = new Subject<void>();
+    public feedItem: FeedResponseData;
+    @Input('feedItem') set setFeedItem($event) {
+        this.feedItem = $event
+    }
+
     @Input() routerLink: string;
     @Output() deletedItem = new EventEmitter<any>();
+    @Output() editFeed = new EventEmitter<any>();
     public showTitle: boolean = false;
     public isOpen: boolean = false;
     public content;
@@ -39,15 +44,17 @@ export class FeedPostCardItemComponent implements OnInit {
     public slideConfig = {};
     public comments: Comment[] = []
     public isShowSubMessages: boolean = false;
+    public user;
     constructor(
         @Inject("FILE_URL") public fileUrl,
-        private _matDialog: MatDialog,
         private _fb: FormBuilder,
         private _cookieService: CookieService,
         private _userService: UserService,
         private _feedLikeService: FeedLikeService,
         private _feedService: FeedService,
-        private _commentService: CommentService) {
+        private _commentService: CommentService,
+        private _dialog: MatDialog,
+    ) {
         this.role = this._cookieService.get('role');
         this.slideConfig = {
             infinite: true,
@@ -57,6 +64,8 @@ export class FeedPostCardItemComponent implements OnInit {
             autoplay: true,
             autoplaySpeed: 2000
         }
+        this.user = this._userService.user;
+
     }
 
     ngOnInit() {
@@ -90,32 +99,19 @@ export class FeedPostCardItemComponent implements OnInit {
 
     }
 
-
-    public likeOrDislike(event) {
-        if (event) {
-            if (this.role) {
-                let isChild: boolean;
-                if (event.isChild) {
-                    isChild = true
-                }
-                if (event.type == '0') {
-                    this._commentService.dislikeComment(event.url).pipe(takeUntil(this.unsubscribe$),
-                        switchMap(() => {
-                            return this._getComments(isChild)
-                        })).subscribe()
-                } else {
-                    if (event.type == '1') {
-                        this._commentService.likeComment(event.url).pipe(takeUntil(this.unsubscribe$),
-                            switchMap(() => {
-                                return this._getComments(isChild)
-                            })).subscribe()
+    private _getComments(parent?:string): Observable<ServerResponse<Comment[]>> {
+        return this._commentService.getFeedCommentById(this.feedItem.id).pipe(map((data: ServerResponse<Comment[]>) => {
+            this.comments = data.results;
+            if (parent) {
+                this.comments = this.comments.map((val) => {
+                    if (val.url == parent) {
+                        val.isShowSubMessages = true
                     }
-                }
-            } else {
-                this.onClickOpenAuth()
+                    return val
+                })                
             }
-
-        }
+            return data;
+        }))
     }
 
     private _showseeMore(): void {
@@ -131,9 +127,29 @@ export class FeedPostCardItemComponent implements OnInit {
                 this.seeMore = false;
             }
         }
-
-
     }
+
+    private _getFeedById() {
+        return this._feedService.getFeedById(this.feedItem.id).pipe(map((result) => {
+            if (result.feed_media && result.feed_media[0] && result.feed_media[0].content) {
+                this.content = JSON.parse(result.feed_media[0].content)
+            }
+            this.feedItem = result;
+            this.showDeleteModal = false;
+            return result;
+        }))
+    }
+
+    public likeOrDislike(event) {
+        if (event) {
+            this._getComments(event.isChild).pipe(takeUntil(this.unsubscribe$)).subscribe()
+
+        } else {
+            this.onClickOpenAuth()
+        }
+    }
+
+
 
     public onClickSeeMore(): void {
         this.feedTitle = this.feedItem.title.slice(0, this.feedItem.title.length);
@@ -141,7 +157,7 @@ export class FeedPostCardItemComponent implements OnInit {
     }
 
     public openPropertyModalByImage(): void {
-        const dialogRef = this._matDialog.open(PropertyModal, {
+        const dialogRef = this._dialog.open(PropertyModal, {
             width: "100%",
             maxWidth: "100vw",
             height: "100vh",
@@ -149,7 +165,9 @@ export class FeedPostCardItemComponent implements OnInit {
                 data: this.feedItem,
                 localImage: this.localImage
             }
-        })
+
+        });
+
         dialogRef.afterClosed().pipe(takeUntil(this.unsubscribe$),
             switchMap(() => {
                 return this._getFeedById()
@@ -158,7 +176,7 @@ export class FeedPostCardItemComponent implements OnInit {
     }
 
     public openPropertyModalByVideo(): void {
-        const dialogRef = this._matDialog.open(PropertyModal, {
+        const dialogRef = this._dialog.open(PropertyModal, {
             width: "100%",
             maxWidth: "100vw",
             height: "100vh",
@@ -170,45 +188,26 @@ export class FeedPostCardItemComponent implements OnInit {
     }
     public getButtonsType(event: string) {
         if (event) {
-            if (this.role) {
-                if (event == 'like') {
-                    this._feedLikeService.likeFeed(this.feedItem.id).pipe(takeUntil(this.unsubscribe$),
-                        switchMap((data) => {
-                            return this._getFeedById()
-                        })
-                    ).subscribe()
-
-                }
-            } else {
-                this.onClickOpenAuth()
-            }
+            this._getFeedById().pipe(takeUntil(this.unsubscribe$)).subscribe();
+        } else {
+            this.onClickOpenAuth()
         }
     }
     public onClickOpenAuth(): void {
-        this._matDialog.open(AuthModal, {
+        this._dialog.open(AuthModal, {
             width: "100%",
             maxWidth: "100vw",
         })
     }
-    private _getFeedById() {
-        return this._feedService.getFeedById(this.feedItem.id).pipe(map((result) => {
-            this.feedItem = result;
-            return result
-        }))
-    }
-    public sendMessage($event, parent?: string) {
-        if ($event) {
-            this._commentService.createFeedComment(this.feedItem.id, $event, parent).pipe(
-                takeUntil(this.unsubscribe$),
-                switchMap(() => {
-                    return this._combineObservable(parent)
-                },
-                )).subscribe()
+
+
+    public sendMessage(event) {
+        if (event) {
+            let parentUrl = event.parentUrl ? event.parentUrl : null;
+            this._combineObservable(parentUrl).pipe(takeUntil(this.unsubscribe$)).subscribe()
         }
     }
-    public sendMessageForParent($event, item) {
-        this.sendMessage($event, item.url)
-    }
+
     private _combineObservable(parent?) {
         const combine = forkJoin(
             this._getComments(parent),
@@ -222,13 +221,6 @@ export class FeedPostCardItemComponent implements OnInit {
     public onClickOpen($event): void {
         this.isOpen = $event;
         this._getComments().pipe(takeUntil(this.unsubscribe$)).subscribe()
-    }
-    private _getComments(parent?): Observable<ServerResponse<Comment[]>> {
-        return this._commentService.getFeedCommentById(this.feedItem.id).pipe(map((data: ServerResponse<Comment[]>) => {
-            this.comments = data.results;
-            this.isShowSubMessages = parent ? true : false;
-            return data;
-        }))
     }
     public showDeletedModal(): void {
         this.showDeleteModal = !this.showDeleteModal;
@@ -246,17 +238,52 @@ export class FeedPostCardItemComponent implements OnInit {
     }
     public getProfleUrl() {
         let role = this.feedItem.creator_client_info ? 'client' : 'coach';
-        let userId = this.feedItem.creator_info ? this.feedItem.creator_info.id : this.feedItem.creator_client_info.id;       
+        let userId = this.feedItem.creator_info ? this.feedItem.creator_info.id : this.feedItem.creator_client_info.id;
         return `/profile/${userId}/${role}`;
     }
+
+
+
+    public onClickeditFeedItem(event): void {
+        if (event) {
+            this._getFeedById().subscribe()
+        }
+    }
+    public showFollowModal(event): void {
+
+        if (event && this.role) {
+            const dialogRef = this._dialog.open(LikeModal, {
+                width: "450px"
+            })
+
+
+        }
+    }
+
+    get userRole() {
+        let role = this.feedItem.creator_client_info ? 'client' : 'coach';
+        return role
+    }
+    get checkIsMe() {
+        let keyName: string;
+        if (this.role) {
+            if (this.role == 'coach') {
+                keyName = 'creator_info'
+            } else {
+                keyName = 'creator_client_info'
+            }
+            if (this.feedItem[keyName] && +this.feedItem[keyName].id == +this.user.data.id) {
+                return true
+            }
+        } else {
+            return false
+        }
+    }
+
 
     ngOnDestroy() {
         this.unsubscribe$.next();
         this.unsubscribe$.complete();
-    }
-    get userRole() {
-        let role = this.feedItem.creator_client_info ? 'client' : 'coach';
-        return role
     }
 }
 

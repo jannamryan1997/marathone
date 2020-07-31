@@ -13,7 +13,7 @@ import { ClickOutsideModule } from 'ng-click-outside';
 import { PlyrModule } from 'ngx-plyr';
 
 
-import { AuthModal } from '../core/modals';
+import { AuthModal, LikeModal } from '../core/modals';
 import { AuthGuard } from '../core/guards/auth.guard';
 import { NgxLoadingModule } from 'ngx-loading';
 
@@ -42,9 +42,12 @@ import {
     ContentVideoComponent,
     SpinnerLoadingComponent,
     FullScreenLoaderComponent,
-    DeleteFeedItemComponent
+    DeleteFeedItemComponent,
+    LiketemComponent,
+    ShareComponent
 } from '../layout';
 import { FeedService } from '../pages/main/feed/feed.service';
+import { CountryService } from '../core/services/country.service';
 
 
 @NgModule({
@@ -69,7 +72,10 @@ import { FeedService } from '../pages/main/feed/feed.service';
         ContentVideoComponent,
         SpinnerLoadingComponent,
         FullScreenLoaderComponent,
-        DeleteFeedItemComponent
+        DeleteFeedItemComponent,
+        LiketemComponent,
+        LikeModal,
+        ShareComponent
     ],
     imports: [
         ReactiveFormsModule,
@@ -89,8 +95,8 @@ import { FeedService } from '../pages/main/feed/feed.service';
         SlickCarouselModule
  
     ],
-    providers: [AuthGuard,FeedService],
-    entryComponents: [],
+    providers: [AuthGuard,FeedService,CountryService],
+    entryComponents: [LikeModal],
     exports: [
         ReactiveFormsModule,
         FormsModule,
@@ -128,7 +134,10 @@ import { FeedService } from '../pages/main/feed/feed.service';
         ContentImageComponent,
         ContentVideoComponent,
         FullScreenLoaderComponent,
-        DeleteFeedItemComponent
+        DeleteFeedItemComponent,
+        LikeModal,
+        LiketemComponent,
+        ShareComponent
    
     ],
 })

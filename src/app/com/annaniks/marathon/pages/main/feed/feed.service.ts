@@ -40,8 +40,6 @@ export class FeedService {
     }
 
     public getFeedById(feedId: number): Observable<FeedResponseData> {
-        // return this._httpClient.get<FeedResponseData>(this._baseUrl + `/feed/feeds/${feedId}/`);
-
         if (this.role) {
             let headers = new HttpHeaders();
             headers = headers.append('Authorization', 'Bearer ' + this._cookieService.get('access'));
@@ -49,9 +47,6 @@ export class FeedService {
         } else {
             return this._httpClient.get<any>(this._baseUrl + `/feed/feeds/${feedId}/`)
         }
-        // if (this.role === 'coach') {
-        //     return this._httpClient.get<any>(this._baseUrl + `/feed/feeds/${feedId}/`, { headers: headers });
-        // }
     }
 
     public updateFeedById(feedMediaUrl:string, body:any): Observable<any> {

@@ -45,10 +45,12 @@
             display: flex;
             flex-direction: column;
             align-items: flex-end;
+            padding: 10px 0;
             .smile-image {
                 width: 30px;
                 height: 30px;
                 cursor: pointer;
+                margin: 10px 0;
             }
         }
     }
@@ -59,10 +61,10 @@
         }
     }
     .button-content {
-        border-top: 0.5px solid #E3ECFD;
         @include text(16px, 21px, #bbcddf, EncodeSans-SemiBold);
         flex-wrap: wrap;
         height: 60px;
+        padding: 0 16px 11px 16px;
         .button-item {
             border-right: 0.5px solid #E3ECFD;
             align-items: center;
@@ -138,7 +140,3 @@ input[type="file"] {
     to {    background-color:#bbcddf;opacity: .8}
   }
 
-
-  .content-width{
-      width: 500px !important;
-  }

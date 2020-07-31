@@ -1,7 +1,6 @@
-import { Component, OnInit, Output, EventEmitter, Input } from "@angular/core";
+import { Component, OnInit, Output, EventEmitter } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { finalize } from 'rxjs/operators';
-import { Router } from '@angular/router';
 import { AuthUserService } from '../../core/services/auth.services';
 import { SocialUser, FacebookLoginProvider, GoogleLoginProvider, AuthService } from 'angularx-social-login';
 import { CookieService } from 'ngx-cookie';
@@ -21,15 +20,15 @@ export class SignUpComponent implements OnInit {
     public user: SocialUser;
     public loggedIn: boolean;
     public profileUser;
+    public show: boolean = false;
+    public hidePassword: boolean = true;
+
     @Output() changeSigntab = new EventEmitter;
     @Output() closeModal = new EventEmitter();
     constructor(
         private _fb: FormBuilder,
-        private _router: Router,
         private _authUserService: AuthUserService,
-        private _cookieService: CookieService,
         private _profileUserService: UserService,
-        private _socialAuthService: AuthService,
 
     ) {
         this.profileUser = this._profileUserService.user;
@@ -43,9 +42,8 @@ export class SignUpComponent implements OnInit {
     private _formBuilder(): void {
         this.signUpGroup = this._fb.group({
             firstName: [null, Validators.required],
-            lastName: [null, Validators.required],
             userName: [null, Validators.required],
-            email: [null, Validators.required],
+            email: [null, [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]],
             password: [null, Validators.required],
             coach: [null],
         })
@@ -69,7 +67,8 @@ export class SignUpComponent implements OnInit {
                 email: this.signUpGroup.value.email,
                 password: this.signUpGroup.value.password,
                 first_name: this.signUpGroup.value.firstName,
-                last_name: this.signUpGroup.value.lastName,
+                last_name: '',
+                user_name: this.signUpGroup.value.userName,
             },
             google_id: null,
             ui_language: "http://192.168.1.115:8000/api/utils/language/3/",
@@ -101,7 +100,8 @@ export class SignUpComponent implements OnInit {
                 email: this.signUpGroup.value.email,
                 password: this.signUpGroup.value.password,
                 first_name: this.signUpGroup.value.firstName,
-                last_name: this.signUpGroup.value.lastName,
+                user_name: this.signUpGroup.value.userName,
+                last_name: '',
             },
             google_id: null,
             // ui_language:null,
@@ -124,38 +124,6 @@ export class SignUpComponent implements OnInit {
             )
 
     }
-
-    signInWithFB(): void {
-        this._socialAuthService.authState.subscribe((user) => {
-            // if (this.loggedIn = (user != null)) {
-            //     this._profileUserService.user = user;
-            //     this._profileUserService.isAuthorized = true;
-            //     this.closeModal.emit('true');
-            //     this._cookieService.put("fbUser", "true");
-            // }
-
-        });
-        this._socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
-
-    }
-
-    signInWithGoogle(): void {
-        this._socialAuthService.authState.subscribe((user) => {
-            if (this.loggedIn = (user != null)) {
-                this._profileUserService.user = user;
-                this._profileUserService.isAuthorized = true;
-                this.closeModal.emit('true');
-                this._cookieService.put("googleUser", "true");
-            }
-        });
-        this._socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
-
-    }
-
-
-
-
-
     public onClickSignUp(): void {
         if (this.signUpGroup.value.coach === true) {
             this._signUpCoatch();
@@ -165,5 +133,19 @@ export class SignUpComponent implements OnInit {
             this._signUpClient();
 
         }
+    }
+
+    public showPasswordValue(): void {
+        this.show = true;
+        this.hidePassword = false;
+    }
+
+    public hide(): void {
+        this.show = false;
+        this.hidePassword = true;
+    }
+
+    public checkIsValid(controlName): boolean {
+        return this.signUpGroup.get(controlName).hasError('required') && this.signUpGroup.get(controlName).touched;
     }
 }

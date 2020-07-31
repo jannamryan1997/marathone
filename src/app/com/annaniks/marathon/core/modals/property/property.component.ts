@@ -39,7 +39,7 @@ export class PropertyModal implements OnInit {
         private _feedLikeService: FeedLikeService
     ) {
         this.feedItem = _data.data;
-        this.localImage = this._data.localImage;
+        this.localImage =this._data.localImage;
         this.timeStamp = moment(this.feedItem.timeStamp).fromNow();
         this.role = this._cookieService.get('role')
 
@@ -47,9 +47,13 @@ export class PropertyModal implements OnInit {
     }
 
     ngOnInit() {
-        if (this.feedItem.feed_media && this.feedItem.feed_media.length) {
-            this.content = this.feedItem.feed_media[0].content;
-        }
+        for (let item of this.feedItem.feed_media) {
+            this.content =  item.content;
+                if (typeof item.content == 'string') {
+                    this.content = JSON.parse(item.content)
+                }
+            }
+        
         this._showseeMore();
     }
 
@@ -67,19 +71,13 @@ export class PropertyModal implements OnInit {
             }
         }
     }
-    public sendMessage($event, parent?: string) {
-        if ($event) {
-            this._commentService.createFeedComment(this.feedItem.id, $event, parent).pipe(
-                takeUntil(this.unsubscribe$),
-                switchMap(() => {
-                    return this._combineObservable(parent)
-                },
-                )).subscribe()
+    public sendMessage(event) {
+        if (event) {
+            let parentUrl = event.parentUrl ? event.parentUrl : null;            
+            this._combineObservable(parentUrl).pipe(takeUntil(this.unsubscribe$)).subscribe()        
         }
     }
-    public sendMessageForParent($event, item) {
-        this.sendMessage($event, item.url)
-    }
+   
     private _combineObservable(parent?) {
         const combine = forkJoin(
             this._getComments(parent),
@@ -89,46 +87,18 @@ export class PropertyModal implements OnInit {
     }
     public likeOrDislike(event) {
         if (event) {
-            if (this.role) {
-                let isChild: boolean;
-                if (event.isChild) {
-                    isChild = true
-                }
-                if (event.type == '0') {
-                    this._commentService.dislikeComment(event.url).pipe(takeUntil(this.unsubscribe$),
-                        switchMap(() => {
-                            return this._getComments(isChild)
-                        })).subscribe()
-                } else {
-                    if (event.type == '1') {
-                        this._commentService.likeComment(event.url).pipe(takeUntil(this.unsubscribe$),
-                            switchMap(() => {
-                                return this._getComments(isChild)
-                            })).subscribe()
-                    }
-                }
-            } else {
-                this.onClickOpenAuth()
-            }
+            this._getComments(event.isChild).pipe(takeUntil(this.unsubscribe$)).subscribe()          
 
+        }else{
+            this.onClickOpenAuth()
         }
-
     }
 
     public getButtonsType(event: string) {
         if (event) {
-            if (this.role) {
-                if (event == 'like') {
-                    this._feedLikeService.likeFeed(this.feedItem.id).pipe(takeUntil(this.unsubscribe$),
-                        switchMap((data) => {
-                            return this._getFeedById()
-                        })
-                    ).subscribe()
-
-                }
-            } else {
-                this.onClickOpenAuth()
-            }
+            this._getFeedById().pipe(takeUntil(this.unsubscribe$)).subscribe();           
+        }else{
+            this.onClickOpenAuth()  
         }
     }
     public onClickOpenAuth(): void {
@@ -151,14 +121,21 @@ export class PropertyModal implements OnInit {
         this.isOpen = $event;
         this._getComments().pipe(takeUntil(this.unsubscribe$)).subscribe()
     }
+   
     private _getComments(parent?): Observable<ServerResponse<Comment[]>> {
         return this._commentService.getFeedCommentById(this.feedItem.id).pipe(map((data: ServerResponse<Comment[]>) => {
             this.comments = data.results;
-            this.isShowSubMessages = parent ? true : false;
-            return data
+            if (parent) {
+                this.comments = this.comments.map((val) => {
+                    if (val.url == parent) {
+                        val.isShowSubMessages = true
+                    }
+                    return val
+                })                
+            }
+            return data;
         }))
     }
-
 
     public closeModal(): void {
         this._dialogRef.close();

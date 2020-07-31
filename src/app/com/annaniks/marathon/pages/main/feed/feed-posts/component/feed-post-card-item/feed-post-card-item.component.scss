@@ -6,27 +6,29 @@
 }
 
 .post-container {
-   
+
     // padding: 0 50px 0px 21px;
     .image,
     .vido {
         height: 380px;
         cursor: pointer;
+        border: 1px solid #e3ecfd;
+        margin: 6px 0;
     }
 }
 
 .title-content {
     padding: 0 50px 0px 21px;
     align-items: flex-end;
-    margin: 20px 0;
+    // margin: 6px  0;
 }
-.icon{
+
+.icon {
     color: #45535c;
 }
 
 .show {
     overflow: visible;
-    // height: auto;
     transition: .5s all ease-out;
 }
 
@@ -34,10 +36,12 @@
 .chicken-image {
     height: 260px;
     cursor: pointer;
+    margin: 6px 0;
 }
 
 .combinations-description {
     padding: 0 50px 0px 21px;
+    margin-bottom: 6px;
 
     .title {
         @include text(20px, 32px, #45535C, MicrosoftYaHeiUI);
@@ -77,26 +81,48 @@
     }
 
     .comments {
-        background: transparent linear-gradient(0deg, #43474E 0%, #43474E 28%, #43474E00 100%) 0% 0% no-repeat padding-box;
+        // background: transparent linear-gradient(0deg, #43474E 0%, #43474E 28%, #43474E00 100%) 0% 0% no-repeat padding-box;
         opacity: 0;
-        top: 190px;
+        bottom: 70px;
+
+        .comments-content {
+            width: 90%;
+            flex-wrap: wrap;
+        }
 
         .comments-description {
-            border-right: 1px solid #ffffff;
-            padding: 15px 15px;
+            display: flex;
+            width: 20%;
+            padding: 1.2em;
+
+
 
             .text {
-                @include text(15px, 20px, #ffffff, MicrosoftYaHeiUI);
+                @include text(13px, 15px, #ffffff, EncodeSans-Bold);
             }
 
             .title {
-                @include text(20px, 20px, #ffffff, MicrosoftYaHeiUI);
+                @include text(17px, 20px, #ffffff, EncodeSans-Bold);
+                margin-top: 5px;
+            }
+
+            &:after {
+                content: "";
+                display: block;
+                border: 1px solid #ffffff;
+                height: 33px;
+                width: 2px;
+                margin: auto;
+
             }
         }
 
         .comments-description:last-child {
-            border-right: none !important;
+            &::after {
+                display: none !important;
+            }
         }
+
     }
 }
 
@@ -118,25 +144,41 @@
         background: #FEA6CC;
         cursor: pointer;
     }
-    .name-title{
+
+    .name-title {
         cursor: pointer;
     }
 }
-::ng-deep .slick-prev{
+
+::ng-deep .slick-prev {
     left: 7px !important;
     z-index: 999 !important;
     height: 40px !important;
     width: 40px !important;
-    &::before{
+
+    &::before {
         font-size: 40px !important;
     }
 }
-::ng-deep .slick-next{
+
+::ng-deep .slick-next {
     right: 7px !important;
     z-index: 999 !important;
     height: 40px !important;
     width: 40px !important;
-    &::before{
+
+    &::before {
         font-size: 40px !important;
     }
+}
+
+
+.article-style {
+    height: 275px !important;
+    margin: 6px 0 12px 0 !important;
+}
+
+.recipt-style {
+    height: 330px !important;
+    margin: 6px 0 12px 0 !important;
 }

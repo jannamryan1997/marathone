@@ -1,6 +1,8 @@
 <div class="chicken-content">
     <spinner-loading *ngIf="loading"></spinner-loading>
     <div class="chicken-header">
+        <img src="assets/images/food.png" class="chicken-image"
+            *ngIf="!receipt?.imageSlider.length && receipt?.videoLink ===''">
         <ngx-slick-carousel *ngIf="receipt?.imageSlider" class="carousel w-100 chicken-image"
             #slickModal="slick-carousel" [config]="slideConfig">
             <div ngxSlickItem *ngFor="let slide of receipt?.imageSlider" class="slide">
@@ -8,7 +10,7 @@
             </div>
         </ngx-slick-carousel>
         <div *ngIf="receipt?.videoLink !=''">
-            <plyr style="display:block" plyrTitle="Video 1" [plyrSources]="receptvideoSources"></plyr>
+            <plyr plyrTitle="Video 1" [plyrSources]="receptvideoSources"></plyr>
         </div>
         <button class="radius d-flex" (click)="onClickGotoBack()">
             <span class="material-icons m-auto icon">
@@ -89,11 +91,13 @@
             </div>
             <div class="ingridient-content">
                 <p class="title">Ingredients</p>
-                <div class="ingridient m-auto" *ngFor="let item of receipt?.ingridient">
-                    <div class="ingridient-item d-flex justify-content-between" *ngIf="item">
+                <div class="ingridient" *ngFor="let item of receipt?.ingridient">
+                    <div class="ingridient-item d-flex" *ngIf="item">
                         <p class="ingridient-title">{{item?.name}}</p>
-                        <p class="ingridient-value">{{item?.value}} gm</p>
+
+
                     </div>
+                    <p class="ingridient-value">{{item?.value}} gm</p>
                 </div>
             </div>
             <div class="instruction-content">
@@ -111,11 +115,11 @@
             <app-settings [feed]="feedItem" [role]="role" (getButtonsType)="getButtonsType($event)"
                 (openChanges)='onClickOpen($event)'></app-settings>
             <div class="posts-comments" *ngIf="isOpen">
-                <app-comments (sendMessage)="sendMessageForParent($event,item)" (likeOrDislike)="likeOrDislike($event)"
-                    *ngFor="let item of comments" [comments]="item" [role]="role"
-                    [isShowSubMessages]="isShowSubMessages">
+                <app-comments (sendMessage)="sendMessage($event)" (likeOrDislike)="likeOrDislike($event)"
+                    *ngFor="let item of comments" [feed]="feedItem" [comments]="item" [role]="role">
                 </app-comments>
-                <app-posts-comments (sendMessage)="sendMessage($event)" *ngIf="role" [comments]="comments">
+                <app-posts-comments [feed]="feedItem" (sendMessage)="sendMessage($event)" *ngIf="role"
+                    [comments]="comments">
                 </app-posts-comments>
             </div>
 

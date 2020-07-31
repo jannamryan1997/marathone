@@ -13,6 +13,7 @@ export interface Comment {
     user: string
     user_coach: Creator
     comment_coach: Creator
+    isShowSubMessages?:boolean
 }
 export interface Creator {
     avatar: null

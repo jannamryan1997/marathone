@@ -1,0 +1,8 @@
+<div class="share-item d-flex align-items-center justify-content-between">
+        <div class="share-item d-flex align-items-center">
+                <img src="assets/images/img1.png" class="user-image" alt="Cinque Terre">
+                    <p class="name">Olivie Gipson</p>
+            </div>
+            <button *ngIf="!unfollow" class="info-btn btn-item" (click)="onClickUnfollow()" ><span>Follow</span></button>
+            <button *ngIf="unfollow" class="active-btn  btn-item" (click)="onClickUnfollow()" ><span>UnFollow</span></button>
+</div>

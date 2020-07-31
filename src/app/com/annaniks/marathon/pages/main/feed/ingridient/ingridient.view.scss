@@ -81,6 +81,7 @@
                 .btn-content {
                     display: flex;
                     flex-wrap: wrap;
+
                     .button-item {
                         width: 30.333333%;
                         color: #AFC1D1;
@@ -107,30 +108,38 @@
                 }
 
                 .ingridient {
-                    width: 80%;
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
 
                     .ingridient-item {
                         padding: 10px 0;
+
+                        &::before {
+                            border: 2px solid #BDC0D5;
+                            border-radius: 50%;
+                            width: 9px;
+                            height: 9px;
+                            display: block;
+                            content: "";
+                            margin: auto 20px
+                        }
 
                         .ingridient-title {
                             @include text(18px, 21px, #45535C, EncodeSans-SemiBold);
                             display: flex;
                             align-items: center;
-
-                            &::before {
-                                border: 2px solid #BDC0D5;
-                                border-radius: 50%;
-                                width: 9px;
-                                height: 9px;
-                                display: block;
-                                content: "";
-                                margin-right: 20px;
-                            }
+                            display: inline-block;
+                            width: 220px;
+                            white-space: nowrap;
+                            overflow: hidden !important;
+                            text-overflow: ellipsis;
                         }
+                    }
 
-                        .ingridient-value {
-                            @include text(17px, 20px, #45535C, EncodeSans-Medium);
-                        }
+                    .ingridient-value {
+                        @include text(17px, 20px, #45535C, EncodeSans-Medium);
                     }
                 }
             }
@@ -232,6 +241,6 @@
     .icon {
         color: #acb9d1 !important;
         font-size: 35px;
-        
+
     }
 }

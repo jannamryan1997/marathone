@@ -14,7 +14,26 @@
 
         .profile-description {
             position: relative;
+.header{
+    position: relative;
 
+            .header-icon-btn {
+                width: 33px;
+                height: 33px;
+                background: #F5F5FA 0% 0% no-repeat padding-box;
+                border: 2px solid #FFFFFF;
+                opacity: 1;
+                position: absolute;
+                border-radius: 50%;
+                right: 2px;
+                bottom: -7px;
+                cursor: pointer;
+                i {
+                    color: #B6C1D7;
+                    font-size: 15px;
+                }
+            }
+        }
             .cover-image {
                 height: 185px;
                 width: 100%;
@@ -54,7 +73,6 @@
                             width: 147px;
                             height: 147px;
                             border-radius: 50%;
-                            background: #FEA6CC;
                             border: 2px solid #ffff;
                         }
 
@@ -80,7 +98,7 @@
                     opacity: 1;
                     position: absolute;
                     border-radius: 10px;
-                    right: 50px;
+                    right: 60px;
                     z-index: 99;
 
                     .social-media-description {
@@ -137,7 +155,7 @@ input[type="file"] {
 
 .btn-item {
     margin: 0 5px !important;
-    padding: 5px !important;
+    padding: 10px !important;
 
     .icon {
         font-size: 16px;
@@ -145,7 +163,7 @@ input[type="file"] {
     }
 }
 
-.feed-shadow-class{
-    border-radius:0 !important; 
+.feed-shadow-class {
+    border-radius: 0 !important;
     box-shadow: 0px 0px 3px #5C687B17 !important;
 }

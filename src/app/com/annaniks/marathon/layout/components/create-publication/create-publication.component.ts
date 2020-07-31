@@ -1,4 +1,4 @@
-import { Component, OnInit, Input,  ViewChild, ElementRef, Output, EventEmitter, Inject } from "@angular/core";
+import { Component, OnInit, Input, ViewChild, ElementRef, Output, EventEmitter, Inject } from "@angular/core";
 import { FormControl, } from '@angular/forms';
 import { UserService } from '../../../core/services/user.service';
 import { UploadFileResponse, FeedResponseData } from '../../../core/models';
@@ -15,13 +15,14 @@ import { ReceiptData } from '../../../core/models/receipt';
 
 export class CreatePublicationComponent implements OnInit {
     public isModalMode: boolean = false;
+    public postType = new FormControl('');
+    public videoSources = []
     @Input() feedItem: FeedResponseData;
     @Input() feedId: number;
     @Input() editProfile: boolean;
-    @Input() mediaUrl:string;
-    public postType = new FormControl('');
-    public videoSources = [];
+    @Input() mediaUrl: string;
     @Output('postCreateEvent') private _postCreateEvent: EventEmitter<void> = new EventEmitter<void>();
+    @Output() closeEditModal = new EventEmitter<any>();
     @ViewChild('inputImageReference') private _inputImageReference: ElementRef;
     @ViewChild('inputVideoReference') private _inputVideoReference: ElementRef;
 
@@ -37,7 +38,7 @@ export class CreatePublicationComponent implements OnInit {
     public loading = false;
     public showYoutube: boolean = false;
     public mediaContent: ReceiptData;
-   
+
     constructor(
         public _userService: UserService,
         private _feedService: FeedService,
@@ -90,6 +91,7 @@ export class CreatePublicationComponent implements OnInit {
                 this._userService.uploadVideoFile(formData)
                     .subscribe((data: UploadFileResponse) => {
                         fileName = this._fileUrl + data.file_name;
+
                         this.contentFileName = data.file_name;
                         this.videoTumble = this._fileUrl + 'vido_tumbl/' + data.file_name_tumbl;
                         if (this.uploadType === 'image') {
@@ -117,7 +119,6 @@ export class CreatePublicationComponent implements OnInit {
     }
 
     public addEmoji(event): void {
-
         let data = this.postType.value + event.emoji.native;
         this.postType.patchValue(data)
 
@@ -150,73 +151,72 @@ export class CreatePublicationComponent implements OnInit {
 
     public closeControlItem(): void {
         this.uploadType = null;
-        if (this.postType.value === '' || this.postType.value === null) {
-        }
+
     }
 
 
 
     public createdPost(): void {
-        if(!this.editProfile){
         this.loading = true;
         let role: string = this._cookieServie.get('role');
-        this._userService.postFeed({
-            title: this.postType.value,
-            content: JSON.stringify(
-                {
-                    url: this.contentFileName,
-                    type: this.uploadType,
-                }
-            ),
-            role: role,
+        if (!this.editProfile) {
+            this._userService.postFeed({
+                title: this.postType.value,
+                content: JSON.stringify(
+                    {
+                        url: this.contentFileName,
+                        type: this.uploadType,
+                    }
+                ),
+                role: role,
 
-        })
-            .pipe(
-                finalize(() => {
-                    this.loading = false;
-                    this.postType.patchValue('');
-                    this.uploadType = null;
-                    this.controImageItem = '';
-                    this.controVideoItem = '';
-                    this.isModalMode = false;
-                    this.showYoutube = false;
-                    this._postCreateEvent.emit();
-                })
-            )
-            .subscribe((data) => {
             })
-    }
-    else if(this.editProfile){
-        this.loading = true;
-        let role: string = this._cookieServie.get('role');
-        this._feedService.updateFeedById(this.mediaUrl,{
-            title: this.postType.value,
-            content: JSON.stringify(
-                {
-                    url: this.contentFileName,
-                    type: this.uploadType,
-                }
-            ),
-            role: role,
-
-        })
-            .pipe(
-                finalize(() => {
-                    this.loading = false;
-                    this.postType.patchValue('');
-                    this.uploadType = null;
-                    this.controImageItem = '';
-                    this.controVideoItem = '';
-                    this.isModalMode = false;
-                    this.showYoutube = false;
-                    this._postCreateEvent.emit();
+                .pipe(
+                    finalize(() => {
+                        this.loading = false;
+                        this.postType.patchValue('');
+                        this.uploadType = null;
+                        this.controImageItem = '';
+                        this.controVideoItem = '';
+                        this.isModalMode = false;
+                        this.showYoutube = false;
+                        this._postCreateEvent.emit();
+                    })
+                )
+                .subscribe((data) => {
                 })
-            )
-            .subscribe((data) => {
-            })
-    }
-}
+        }
+        else if (this.editProfile) {
 
+            this._feedService.updateFeedById(this.mediaUrl,
+                {
+                    title: this.postType.value,
+                    content: JSON.stringify(
+                        {
+                            url: this.contentFileName,
+                            type: this.uploadType,
+                        }
+                    ),
+                    role: role,
+
+                })
+                .pipe(
+                    finalize(() => {
+                        this.closeEditModal.emit(true);
+                        this.loading = false;
+                        this.postType.patchValue('');
+                        this.uploadType = null;
+                        this.controImageItem = '';
+                        this.controVideoItem = '';
+                        this.isModalMode = false;
+                        this.showYoutube = false;
+                        this._postCreateEvent.emit();
+                    })
+                )
+                .subscribe((data) => {
+                })
+        }
+    }
 
     public showPost(): void {
         this.isModalMode = true;
@@ -229,12 +229,11 @@ export class CreatePublicationComponent implements OnInit {
         this.uploadType = null;
         this.controImageItem = '';
         this.controVideoItem = '';
-        this.isModalMode = false;
         this.showYoutube = false;
         this.player = null;
     }
 
-    play(): void {
+ public   play(): void {
         let title;
         this.videoSources = [{
             src: this.postType.value,
@@ -250,13 +249,10 @@ export class CreatePublicationComponent implements OnInit {
             this.showYoutube = true;
             this.contentFileName = this.postType.value,
                 this.uploadType = 'videoLink'
-
-    }
+        }
         else {
             this.showYoutube = false;
         }
-
-
     }
 
 }

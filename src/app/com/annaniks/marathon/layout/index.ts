@@ -21,3 +21,5 @@ export * from "../layout/components/preparation-step/preparation-step.component"
 export * from "../layout/components/spinner-loading/spinner-loading.component";
 export * from "../layout/components/full-screen-loader/full-screen-loader.component";
 export * from "../layout/components/delete-feed-item/delete-feed-item.component";
+export * from "../layout/components/like-item/like-item.component";
+export * from "../layout/components/share/share.component";

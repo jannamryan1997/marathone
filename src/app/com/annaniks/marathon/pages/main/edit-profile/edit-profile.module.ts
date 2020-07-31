@@ -4,7 +4,6 @@ import { EditProfileRoutingModule } from './edit-profile.routing.module';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {AutoCompleteModule} from 'primeng/autocomplete';
-import { CountryService } from '../../../core/services/country.service';
 import { SharedModule } from '../../../shared/shared.module';
 
 
@@ -21,7 +20,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete'
         MatChipsModule,
         MatAutocompleteModule,
         SharedModule],
-    providers:[CountryService]
+    providers:[]
 })
 
 export class EditProfileModule {

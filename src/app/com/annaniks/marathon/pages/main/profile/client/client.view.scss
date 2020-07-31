@@ -27,15 +27,16 @@
 
     .profile-data {
         .data-item {
-            width: 33.333333%;
+            // width: 33.333333%;
 
             .item-title {
                 @include text(16px, 20px, #45535c, EncodeSans-Medium);
                 display: inline-block;
-                width: 160px;
+                width: 140px;
                 white-space: nowrap;
                 overflow: hidden !important;
                 text-overflow: ellipsis;
+                text-align: center;
             }
 
             .country-img {
@@ -45,7 +46,7 @@
             }
 
             .country-name {
-                @include text(16px, 19px, #45535c, EncodeSans-Medium);
+                @include text(12px, 19px, #45535c, EncodeSans-Medium);
             }
         }
     }
@@ -87,7 +88,7 @@
         justify-content: center;
 
         .tab-item {
-            padding: 1.2em 0;
+           padding: 18px 0;
             width: 25%;
             @include text(18px, 21px, #bbcddf, EncodeSans-SemiBold);
             cursor: pointer;
@@ -110,6 +111,8 @@
 }
 
 .btn-content {
+    width: 100%;
+    margin: auto;
     .post-item {
         color: #bbcddf;
         margin-left: 9px;

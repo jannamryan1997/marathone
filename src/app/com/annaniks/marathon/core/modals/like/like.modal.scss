@@ -1,0 +1,55 @@
+.share-modal {
+    padding: 0 15px;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+
+    .share-modal-header {
+        padding: 10px 0;
+
+        .image {
+            width: 22px;
+        }
+
+        .title {
+            color: #589CFE;
+            font-size: 16px;
+            font-family: EncodeSans-SemiBold;
+            line-height: 45px;
+        }
+
+        .count {
+            color: #45535C;
+            font-size: 16px;
+            font-family: EncodeSans-SemiBold;
+            line-height: 45px;
+        }
+
+        &::after {
+            content: "";
+            display: inline-block;
+            width: 100%;
+            border: 1px solid #E3ECFD;
+        }
+
+        .close {
+            cursor: pointer;
+            width: 17px;
+            color: #BFC9DE;
+            font-weight: bold;
+        }
+    }
+
+    .share-layout {
+        height: 100%;
+        max-height: 500px;
+        overflow: auto;
+    }
+}
+
+::ng-deep .mat-dialog-container {
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    padding: 0 !important;
+    // box-shadow: 1px 20px 29px #5C687B4A;
+    // border-radius: 25px;
+    // opacity: 1;
+
+}

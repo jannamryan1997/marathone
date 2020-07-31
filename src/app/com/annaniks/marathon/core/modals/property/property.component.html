@@ -8,7 +8,7 @@
     <div class="property-main d-flex justify-content-between pg-container">
         <div class="image-content">
             <img src="{{fileUrl+content?.url}}" class="image d-none" alt="Cinque Terre"
-                [ngClass]="{'d-block':content.type==='image'}">
+                [ngClass]="{'d-block':content?.type==='image'}">
 
             <video controls class="video d-none w-100" poster="" [ngClass]="{'d-block':content.type==='video'}"
                 src="{{fileUrl+content?.url}}">
@@ -43,15 +43,16 @@
 
             </div>
             <div class="comments-content" *ngIf="isOpen">
-                <app-comments (sendMessage)="sendMessageForParent($event,item)"
-                    (likeOrDislike)="likeOrDislike($event)" *ngFor="let item of comments" [comments]="item" [role]="role"  [isShowSubMessages]="isShowSubMessages"
+                <app-comments (sendMessage)="sendMessage($event)" (likeOrDislike)="likeOrDislike($event)"
+                    *ngFor="let item of comments" [feed]="feedItem" [comments]="item" [role]="role"
                     [type]="content?.type"></app-comments>
             </div>
             <app-settings [feed]="feedItem" [role]="role" (getButtonsType)="getButtonsType($event)"
                 (openChanges)='onClickOpen($event)' [type]="content?.type"></app-settings>
 
             <div *ngIf="isOpen">
-                <app-posts-comments (sendMessage)="sendMessage($event)" *ngIf="role" [comments]="comments">
+                <app-posts-comments [feed]="feedItem" (sendMessage)="sendMessage($event)" *ngIf="role"
+                    [comments]="comments">
                 </app-posts-comments>
             </div>
 

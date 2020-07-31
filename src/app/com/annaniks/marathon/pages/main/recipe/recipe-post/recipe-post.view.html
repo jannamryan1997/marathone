@@ -25,7 +25,7 @@
 
         <div class="localimage-content" *ngIf="showVideo">
             <div>
-                <plyr style="display:block" plyrTitle="Video 1" [plyrSources]="videoSources"></plyr>
+                <plyr style="display:block" plyrTitle="Video 1"  [plyrPlaysInline]="true" [plyrSources]="videoSources"></plyr>
                 <div (click)="deleteCover()" class="close-img d-flex">
                     <span class="material-icons m-auto">
                         close
@@ -250,7 +250,7 @@
         <button class="btn-item blue-btn" (click)="postRecipe()" [ngClass]="{'opacity':recipeFormGroup.invalid}"><span
                 *ngIf="!paramsId">Post</span>
             <span *ngIf="paramsId">Edit</span>
-            <app-loading *ngIf="loading">
+            <app-loading *ngIf="loading" class="ml-2">
             </app-loading>
         </button>
     </div>

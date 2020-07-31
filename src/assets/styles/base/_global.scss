@@ -36,6 +36,7 @@
     padding: 0;
     background: #ffffff;
     box-shadow: 2.09px 30px 43px #5C687B17;
+    position: relative;
 }
 
 .post-content {
@@ -65,8 +66,8 @@
         align-items: center;
 
         .image {
-            width: 54px;
-            height: 54px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
         }
 
@@ -200,8 +201,11 @@
     margin-top: 30px;
 
     .text {
-        @include text(14px, 30px, #45535c, EncodeSans-SemiBold);
+        @include text(14px, 30px, #45535c, EncodeSans-Medium);
+    }
 
+    .text-sign-in {
+        font-family: EncodeSans-SemiBold;
     }
 
     .title {
@@ -231,11 +235,13 @@
         width: 50%;
         cursor: pointer;
         transition: 0.5 all ease-out;
-        padding: 15px;
+        height: 45px;
         border-radius: 26px;
         background: #ffffff;
         @include text(16px, 19px, #589cfe, EncodeSans-SemiBold);
         margin: 0 15px 0 0;
+        align-items: center;
+        text-align: center;
     }
 
     .signUp-btn {
@@ -243,12 +249,12 @@
         width: 50%;
         cursor: pointer;
         transition: 0.5 all ease-out;
-        padding: 15px;
+        height: 45px;
         border-radius: 26px;
-
         background: #589cfe 0% 0% no-repeat padding-box !important;
-        box-shadow: -5.29px 7px 10px #589bfd36;
         @include text(16px, 19px, #ffffff, EncodeSans-SemiBold);
+        align-items: center;
+        text-align: center;
     }
 }
 
@@ -367,7 +373,7 @@ textarea {
 .active-btn {
     background: #589CFE;
     border: 1px solid #589CFE;
-    color: #ffffff;
+    color: #ffffff !important;
     align-items: center;
 }
 
@@ -396,4 +402,14 @@ textarea {
     .icon {
         font-size: 16px;
     }
+}
+
+.hovher-btn {
+    background: #F4F6FB 0% 0% no-repeat padding-box;
+    border-radius: 25px;
+    opacity: 1;
+    padding: 13px 30px;
+    @include text(16px, 19px, #A5B1CB, EncodeSans-Medium);
+    align-items: center;
+    cursor: pointer;
 }
