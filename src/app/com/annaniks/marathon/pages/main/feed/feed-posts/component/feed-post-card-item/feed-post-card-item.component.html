@@ -144,9 +144,9 @@
     <app-settings [feed]="feedItem" [role]="role" (getButtonsType)="getButtonsType($event)"
         (openChanges)='onClickOpen($event)' (showFollowModel)="showFollowModal($event)"></app-settings>
     <div class="posts-comments" *ngIf="isOpen">
-        <app-comments (sendMessage)="sendMessageForParent($event,item)" (likeOrDislike)="likeOrDislike($event)"
-            *ngFor="let item of comments" [comments]="item" [role]="role" [isShowSubMessages]="isShowSubMessages">
+        <app-comments (sendMessage)="sendMessage($event)" (likeOrDislike)="likeOrDislike($event)"
+            *ngFor="let item of comments" [feed]="feedItem" [comments]="item" [role]="role" >
         </app-comments>
-        <app-posts-comments (sendMessage)="sendMessage($event)" *ngIf="role" [comments]="comments"></app-posts-comments>
+        <app-posts-comments [feed]="feedItem"  (sendMessage)="sendMessage($event)" *ngIf="role" [comments]="comments"></app-posts-comments>
     </div>
 </div>

@@ -25,7 +25,8 @@
                 {{article?.creator_info?.user?.first_name}}
                 {{article?.creator_info?.user?.last_name}}</p>
             <p class="date ml-2">{{time}}</p>
-            <button type="button" class="btn  follow-btn ml-2">Follow</button>
+            <button (click)="follow()" type="button" [class.active-btn]="user?.is_follower"
+                class="btn-item info-btn ml-2">{{user?.is_follower?'Unfollow':'Follow'}}</button>
         </div>
 
 
@@ -47,9 +48,10 @@
     <app-settings [feed]="article" [role]="role" (getButtonsType)="getButtonsType($event)"
         (openChanges)='onClickOpen($event)'></app-settings>
     <div class="posts-comments" *ngIf="isOpen">
-        <app-comments (sendMessage)="sendMessageForParent($event,item)" (likeOrDislike)="likeOrDislike($event)"
-            *ngFor="let item of comments" [comments]="item" [role]="role" [isShowSubMessages]="isShowSubMessages">
+        <app-comments (sendMessage)="sendMessage($event)" (likeOrDislike)="likeOrDislike($event)"
+            *ngFor="let item of comments" [feed]="article" [comments]="item" [role]="role">
         </app-comments>
-        <app-posts-comments (sendMessage)="sendMessage($event)" *ngIf="role" [comments]="comments"></app-posts-comments>
+        <app-posts-comments [feed]="article" (sendMessage)="sendMessage($event)" *ngIf="role" [comments]="comments">
+        </app-posts-comments>
     </div>
 </div>

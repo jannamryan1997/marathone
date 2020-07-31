@@ -4,7 +4,7 @@
             <img [routerLink]="getProfleUrl()" [src]="getUserImage(comments)" class="user-image" alt="Cinque Terre">
             <div class="comments-container">
                 <div class="container-description display-flex">
-                    <div  class="d-flex ">
+                    <div class="d-flex ">
                         <p [routerLink]="getProfleUrl()" class="name">{{getCreatorName(comments)}}</p>
                         <p class="time ml-2">{{convertDate(comments)}}</p>
                     </div>
@@ -30,7 +30,8 @@
                 </div>
                 <p class="commet-message">{{comments?.message}}</p>
                 <p *ngIf="!type && comments?.comment_sub && comments?.comment_sub?.length" class="view-title"><span
-                        (click)="isOpenReplay()">View Replies {{comments.comment_sub.length}}</span></p>
+                        (click)="isOpenReplay()">{{showReplay?'Hide':'View'}} Replies
+                        {{comments.comment_sub.length}}</span></p>
                 <div *ngIf="type" class="mb-2 display-flex">
                     <p class="view-title">
                         <span (click)="isOpenReplay()">
@@ -69,7 +70,8 @@
                 <div class="comments-container">
                     <div class="container-description display-flex">
                         <div class="d-flex">
-                            <p class="name" [routerLink]="getProfleUrl()" [class.sm_name]="type">{{getCreatorName(item)}}</p>
+                            <p class="name" [routerLink]="getProfleUrl()" [class.sm_name]="type">
+                                {{getCreatorName(item)}}</p>
                             <p class="time ml-2">{{convertDate(item)}}</p>
                         </div>
                         <div *ngIf="!type" class="d-flex">
@@ -115,7 +117,8 @@
                 </div>
             </div>
         </div>
-        <app-posts-comments *ngIf="isOpenComments" (sendMessage)="sendMessage($event)"></app-posts-comments>
+        <app-posts-comments [feed]="feed" [parent]="comments?.url" *ngIf="isOpenComments"
+            (sendMessage)="sendMessage($event)"></app-posts-comments>
     </div>
 </div>
 

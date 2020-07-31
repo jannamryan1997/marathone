@@ -1,6 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter, Inject } from "@angular/core";
-import { Comment } from '../../../core/models';
+import { Comment, FeedResponseData } from '../../../core/models';
 import * as moment from 'moment';
+import { CommentService } from '../../../core/services/comment.service';
+import { map, takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
     selector: "app-comments",
@@ -9,47 +12,72 @@ import * as moment from 'moment';
 })
 
 export class CommentsComponent implements OnInit {
-    public comments:Comment;
-    public role: string
-
-    @Output('likeOrDislike') private _isLikeOrDislike: EventEmitter<object> = new EventEmitter();
+    public comments: Comment;
+    public role: string;
+    @Output('likeOrDislike') private _isLikeOrDislike: EventEmitter<any> = new EventEmitter();
     @Output('sendMessage') private _sendMessage: EventEmitter<string> = new EventEmitter();
     @Input() type: string;
     public showReplay: boolean = false;
-    public isOpenComments: boolean = false
+    public isOpenComments: boolean = false;
+    private unsubscribe$ = new Subject<void>();
+    public feed: FeedResponseData;
     @Input('comments')
-    set setComment($event:Comment) {
-        this.comments = $event
+    set setComment($event: Comment) {
+        this.comments = $event;
+        if (this.comments) {
+            this.showReplay = this.comments.isShowSubMessages
+        }
+    }
+    @Input('feed')
+    set setFeed($event: FeedResponseData) {
+        this.feed = $event
     }
     @Input('role')
-    set setRole($event) {
+    set setRole($event: string) {
         this.role = $event
     }
-    @Input('isShowSubMessages')
-    set setShowRepey($event) {
-        this.showReplay = $event
-    }
-    constructor(@Inject("FILE_URL") public fileUrl: string) { }
+
+    constructor(@Inject("FILE_URL") public fileUrl: string,
+        private _commentService: CommentService) { }
 
     ngOnInit() { }
 
     public isOpenReplay(): void {
         this.showReplay = !this.showReplay;
     }
-    public vote(type: string, item, isChild: boolean = false) {
-        this._isLikeOrDislike.emit({ type: type, url: item.url, isChild: isChild })
+    public vote(type: string, item, isChild: boolean = false): void {
+        if (this.role) {
+            let childUrl: string;
+            if (isChild) {
+                childUrl = this.comments.url
+            }
+            if (type == '0') {
+                this._commentService.dislikeComment(item.url).pipe(takeUntil(this.unsubscribe$),
+                    map(() => {
+                        this._isLikeOrDislike.emit({ isChild: childUrl })
+                    })).subscribe()
+            } else {
+                if (type == '1') {
+                    this._commentService.likeComment(item.url).pipe(takeUntil(this.unsubscribe$),
+                        map(() => {
+                            this._isLikeOrDislike.emit({ isChild: childUrl })
+                        })).subscribe()
+                }
+            }
+        } else {
+            this._isLikeOrDislike.emit(false)
+        }
     }
     public getUserImage(item) {
         if (item) {
-            let defaultImage = '/assets/images/user-icon-image.png'
-            if (this.role == 'client' || (!this.role && item.user_coach)) {
-                return item.user_coach && item.user_coach.user && item.user_coach.user.avatar ? this.fileUrl + item.user_coach.user.avatar : defaultImage
+            let defaultImage = '/assets/images/user-icon-image.png';
+            if (item.user_coach) {
+                return item.user_coach && item.user_coach.avatar ? this.fileUrl + item.user_coach.avatar : defaultImage
             }
-            if (this.role === 'coach' || (!this.role && item.comment_coach)) {
-                return item.user_coach && item.comment_coach.user && item.comment_coach.user.avatar ? this.fileUrl + item.comment_coach.user.avatar : defaultImage
+            if (item.comment_coach) {
+                return item.user_coach && item.comment_coach.avatar ? this.fileUrl + item.comment_coach.avatar : defaultImage
             }
         }
-
     }
     public convertDate(comment) {
         if (comment && comment.crated_at)
@@ -59,14 +87,15 @@ export class CommentsComponent implements OnInit {
         this.isOpenComments = !this.isOpenComments
     }
     public sendMessage($event) {
-        this._sendMessage.emit($event)
+        this._sendMessage.emit($event);
+        this.showReplay = true
     }
-    public getCreatorName(item):string {
+    public getCreatorName(item): string {
         if (item) {
-            if (this.role == 'client' || (!this.role && item.user_coach)) {
+            if (item.user_coach) {
                 return `${item.user_coach.user.first_name} ${item.user_coach.user.last_name}`
             }
-            if (this.role === 'coach' || (!this.role && item.comment_coach)) {
+            if (item.comment_coach) {
                 return `${item.comment_coach.user.first_name} ${item.comment_coach.user.last_name}`
             }
         }
@@ -75,6 +104,10 @@ export class CommentsComponent implements OnInit {
         let role = this.comments.user_coach ? 'client' : 'coach';
         let userId = this.comments.user_coach ? this.comments.user_coach.id : this.comments.comment_coach.id;
         return `/profile/${userId}/${role}`
+    }
+    ngOnDestroy() {
+        this.unsubscribe$.next();
+        this.unsubscribe$.complete();
     }
 }
 

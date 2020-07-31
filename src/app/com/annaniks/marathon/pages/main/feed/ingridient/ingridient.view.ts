@@ -14,6 +14,8 @@ import { switchMap, takeUntil, map, finalize } from 'rxjs/operators';
 import { CommentService } from '../../../../core/services/comment.service';
 import { MatDialog } from '@angular/material/dialog';
 import { FeedLikeService } from '../../../../core/services/feed-like.service';
+import { ProfileService } from '../../../../core/services/profile.service';
+import { UserService } from '../../../../core/services/user.service';
 
 @Component({
     selector: "ingridient-view",
@@ -22,6 +24,8 @@ import { FeedLikeService } from '../../../../core/services/feed-like.service';
 })
 
 export class IngridientViewComponent implements OnInit {
+    private _userRole: string;
+    private _user;
     private unsubscribe$ = new Subject<void>();
     public feedItem: FeedResponseData;
     public feedId: number;
@@ -35,7 +39,7 @@ export class IngridientViewComponent implements OnInit {
     public showDeleteModal: boolean = false;
     public isShowSubMessages: boolean = false
     public comments = [];
-   
+
     constructor(
         private _activatedRoute: ActivatedRoute,
         private _feedService: FeedService,
@@ -43,7 +47,9 @@ export class IngridientViewComponent implements OnInit {
         private _location: Location,
         private _commentService: CommentService,
         private _matDialog: MatDialog,
-        private _feedLikeService: FeedLikeService
+        private _feedLikeService: FeedLikeService,
+        private _profileService: ProfileService,
+        private _userService: UserService
     ) {
         this._activatedRoute.params.subscribe((params) => {
             this.feedId = Number(params.id);
@@ -70,7 +76,10 @@ export class IngridientViewComponent implements OnInit {
             finalize(() => { this.loading = false; }),
             map((data: FeedResponseData) => {
                 this.feedItem = data;
-
+                if (this.feedItem) {
+                    this._userRole = this.feedItem.creator_client_info ? 'client' : 'coach';
+                    this._user = this._userRole == 'client' ? this.feedItem.creator_client_info : this.feedItem.creator_info
+                }
                 this.time = moment(this.feedItem.timeStamp).format('MMMM Do YYYY');
                 for (let item of data.feed_media) {
                     if (typeof item.content === 'string') {
@@ -92,69 +101,27 @@ export class IngridientViewComponent implements OnInit {
 
     public getButtonsType(event: string) {
         if (event) {
-            if (this.role) {
-                if (event == 'like') {
-                    this.loading = true;
-                    this._feedLikeService.likeFeed(this.feedItem.id).pipe(takeUntil(this.unsubscribe$),
-                        finalize(() => { this.loading = false }),
-                        switchMap((data) => {
-                            return this._getFeedById()
-                        })
-                    ).subscribe()
-
-                }
-            } else {
-                this.onClickOpenAuth()
-            }
+            this._getFeedById().pipe(takeUntil(this.unsubscribe$)).subscribe();
+        } else {
+            this.onClickOpenAuth()
         }
     }
 
 
     public likeOrDislike(event) {
         if (event) {
-            if (this.role) {
-                let isChild: boolean;
-                if (event.isChild) {
-                    isChild = true
-                }
-                if (event.type == '0') {
-                    this.loading = true;
-                    this._commentService.dislikeComment(event.url).pipe(takeUntil(this.unsubscribe$),
-                        finalize(() => { this.loading = false }),
-                        switchMap(() => {
-                            return this._getComments(isChild)
-                        })).subscribe()
-                } else {
-                    if (event.type == '1') {
-                        this.loading = true;
-                        this._commentService.likeComment(event.url).pipe(takeUntil(this.unsubscribe$),
-                            finalize(() => { this.loading = false }),
-                            switchMap(() => {
-                                return this._getComments(isChild)
-                            })).subscribe()
-                    }
-                }
-            } else {
-                this.onClickOpenAuth()
-            }
+            this._getComments(event.isChild).pipe(takeUntil(this.unsubscribe$)).subscribe()
+        } else {
+            this.onClickOpenAuth()
+        }
+    }
+    public sendMessage(event) {
+        if (event) {
+            let parentUrl = event.parentUrl ? event.parentUrl : null;
+            this._combineObservable(parentUrl).pipe(takeUntil(this.unsubscribe$)).subscribe()
+        }
+    }
 
-        }
-    }
-    public sendMessage($event, parent?: string) {
-        if ($event) {
-            this.loading = true;
-            this._commentService.createFeedComment(this.feedItem.id, $event, parent).pipe(
-                finalize(() => { this.loading = false }),
-                takeUntil(this.unsubscribe$),
-                switchMap(() => {
-                    return this._combineObservable(parent)
-                },
-                )).subscribe()
-        }
-    }
-    public sendMessageForParent($event, item) {
-        this.sendMessage($event, item.url)
-    }
     private _combineObservable(parent?) {
         const combine = forkJoin(
             this._getComments(parent),
@@ -174,8 +141,15 @@ export class IngridientViewComponent implements OnInit {
     private _getComments(parent?): Observable<ServerResponse<Comment[]>> {
         return this._commentService.getFeedCommentById(this.feedItem.id).pipe(map((data: ServerResponse<Comment[]>) => {
             this.comments = data.results;
-            this.isShowSubMessages = parent ? true : false;
-            return data
+            if (parent) {
+                this.comments = this.comments.map((val) => {
+                    if (val.url == parent) {
+                        val.isShowSubMessages = true
+                    }
+                    return val
+                })
+            }
+            return data;
         }))
     }
     public showDeletedModal(): void {
@@ -187,7 +161,25 @@ export class IngridientViewComponent implements OnInit {
             maxWidth: "100vw",
         })
     }
-
+    public follow() {
+        if (this.role) {
+            if (!this._user.is_follower) {
+                this._profileService.follow(this.role, this._userService.user.data.url, this._userRole, this._user.url).pipe(takeUntil(this.unsubscribe$)).pipe(
+                    switchMap(() => {
+                        return this._getFeedById()
+                    })).subscribe();
+            } else {
+                if (this._user.is_follower_id) {
+                    this._profileService.unfollow(this._user.is_follower_id).pipe(takeUntil(this.unsubscribe$)).pipe(
+                        switchMap(() => {
+                            return this._getFeedById()
+                        })).subscribe();
+                }
+            }
+        } else {
+            this.onClickOpenAuth()
+        }
+    }
 
 
     public onClickGotoBack() {
@@ -196,5 +188,8 @@ export class IngridientViewComponent implements OnInit {
     ngOndestroy() {
         this.unsubscribe$.next();
         this.unsubscribe$.complete();
+    }
+    get user() {
+        return this._user
     }
 }

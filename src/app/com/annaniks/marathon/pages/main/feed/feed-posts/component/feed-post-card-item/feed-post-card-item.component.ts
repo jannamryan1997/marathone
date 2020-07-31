@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Inject, Output, EventEmitter } from "@angular/core";
 import { MatDialog } from '@angular/material/dialog';
 import { PropertyModal, AuthModal, LikeModal } from 'src/app/com/annaniks/marathon/core/modals';
-import { FeedResponseData, ServerResponse } from 'src/app/com/annaniks/marathon/core/models';
+import { FeedResponseData, ServerResponse, Comment } from 'src/app/com/annaniks/marathon/core/models';
 import * as moment from 'moment'
 import { CookieService } from 'ngx-cookie';
 import { UserService } from 'src/app/com/annaniks/marathon/core/services/user.service';
@@ -99,10 +99,17 @@ export class FeedPostCardItemComponent implements OnInit {
 
     }
 
-    private _getComments(parent?): Observable<ServerResponse<Comment[]>> {
+    private _getComments(parent?:string): Observable<ServerResponse<Comment[]>> {
         return this._commentService.getFeedCommentById(this.feedItem.id).pipe(map((data: ServerResponse<Comment[]>) => {
             this.comments = data.results;
-            this.isShowSubMessages = parent ? true : false;
+            if (parent) {
+                this.comments = this.comments.map((val) => {
+                    if (val.url == parent) {
+                        val.isShowSubMessages = true
+                    }
+                    return val
+                })                
+            }
             return data;
         }))
     }
@@ -139,28 +146,10 @@ export class FeedPostCardItemComponent implements OnInit {
 
     public likeOrDislike(event) {
         if (event) {
-            if (this.role) {
-                let isChild: boolean;
-                if (event.isChild) {
-                    isChild = true
-                }
-                if (event.type == '0') {
-                    this._commentService.dislikeComment(event.url).pipe(takeUntil(this.unsubscribe$),
-                        switchMap(() => {
-                            return this._getComments(isChild)
-                        })).subscribe()
-                } else {
-                    if (event.type == '1') {
-                        this._commentService.likeComment(event.url).pipe(takeUntil(this.unsubscribe$),
-                            switchMap(() => {
-                                return this._getComments(isChild)
-                            })).subscribe()
-                    }
-                }
-            } else {
-                this.onClickOpenAuth()
-            }
+            this._getComments(event.isChild).pipe(takeUntil(this.unsubscribe$)).subscribe()
 
+        } else {
+            this.onClickOpenAuth()
         }
     }
 
@@ -180,9 +169,9 @@ export class FeedPostCardItemComponent implements OnInit {
                 data: this.feedItem,
                 localImage: this.localImage
             }
-            
+
         });
-        
+
         dialogRef.afterClosed().pipe(takeUntil(this.unsubscribe$),
             switchMap(() => {
                 return this._getFeedById()
@@ -203,18 +192,9 @@ export class FeedPostCardItemComponent implements OnInit {
     }
     public getButtonsType(event: string) {
         if (event) {
-            if (this.role) {
-                if (event == 'like') {
-                    this._feedLikeService.likeFeed(this.feedItem.id).pipe(takeUntil(this.unsubscribe$),
-                        switchMap((data) => {
-                            return this._getFeedById()
-                        })
-                    ).subscribe()
-
-                }
-            } else {
-                this.onClickOpenAuth()
-            }
+            this._getFeedById().pipe(takeUntil(this.unsubscribe$)).subscribe();
+        } else {
+            this.onClickOpenAuth()
         }
     }
     public onClickOpenAuth(): void {
@@ -225,19 +205,13 @@ export class FeedPostCardItemComponent implements OnInit {
     }
 
 
-    public sendMessage($event, parent?: string) {
-        if ($event) {
-            this._commentService.createFeedComment(this.feedItem.id, $event, parent).pipe(
-                takeUntil(this.unsubscribe$),
-                switchMap(() => {
-                    return this._combineObservable(parent)
-                },
-                )).subscribe()
+    public sendMessage(event) {
+        if (event) {
+            let parentUrl = event.parentUrl ? event.parentUrl : null;
+            this._combineObservable(parentUrl).pipe(takeUntil(this.unsubscribe$)).subscribe()
         }
     }
-    public sendMessageForParent($event, item) {
-        this.sendMessage($event, item.url)
-    }
+
     private _combineObservable(parent?) {
         const combine = forkJoin(
             this._getComments(parent),
@@ -281,7 +255,7 @@ export class FeedPostCardItemComponent implements OnInit {
     }
     public showFollowModal(event): void {
 
-        if (event  && this.role) {
+        if (event && this.role) {
             const dialogRef = this._dialog.open(LikeModal, {
                 width: "450px"
             })
