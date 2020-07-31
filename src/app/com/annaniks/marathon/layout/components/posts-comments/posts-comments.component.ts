@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommentService } from '../../../core/services/comment.service';
 import { takeUntil, map } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { Comment, FeedResponseData } from '../../../core/models';
 
 @Component({
     selector: "app-posts-comments",
@@ -13,21 +14,21 @@ import { Subject } from 'rxjs';
 export class PostsComments implements OnInit {
     public emojiForm: FormGroup;
     public showemoji: boolean = false;
-    public comments = [];
-    public feed;
+    public comments:Comment[] = [];
+    public feed:FeedResponseData;
     private unsubscribe$ = new Subject<void>()
 
     @Input('comments')
-    set setComments($event) {
+    set setComments($event:Comment[]) {
         this.comments = $event
     }
     @Input('feed')
-    set setFeed($event) {
+    set setFeed($event:FeedResponseData) {
         this.feed = $event
     }
     private _parent: string;
     @Input('parent')
-    set setParent($event) {
+    set setParent($event:string) {
         this._parent = $event
     }
     @Output('sendMessage') private _sendMessage: EventEmitter<any> = new EventEmitter<any>();

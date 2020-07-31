@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, Inject } from "@angular/core";
-import { Comment } from '../../../core/models';
+import { Comment, FeedResponseData } from '../../../core/models';
 import * as moment from 'moment';
 import { CommentService } from '../../../core/services/comment.service';
 import { map, takeUntil } from 'rxjs/operators';
@@ -20,7 +20,7 @@ export class CommentsComponent implements OnInit {
     public showReplay: boolean = false;
     public isOpenComments: boolean = false;
     private unsubscribe$ = new Subject<void>();
-    public feed;
+    public feed: FeedResponseData;
     @Input('comments')
     set setComment($event: Comment) {
         this.comments = $event;
@@ -29,7 +29,7 @@ export class CommentsComponent implements OnInit {
         }
     }
     @Input('feed')
-    set setFeed($event) {
+    set setFeed($event: FeedResponseData) {
         this.feed = $event
     }
     @Input('role')
@@ -45,15 +45,13 @@ export class CommentsComponent implements OnInit {
     public isOpenReplay(): void {
         this.showReplay = !this.showReplay;
     }
-    public vote(type: string, item, isChild) {
+    public vote(type: string, item, isChild: boolean = false): void {
         if (this.role) {
-            let childUrl:string;
+            let childUrl: string;
             if (isChild) {
                 childUrl = this.comments.url
             }
-            
             if (type == '0') {
-
                 this._commentService.dislikeComment(item.url).pipe(takeUntil(this.unsubscribe$),
                     map(() => {
                         this._isLikeOrDislike.emit({ isChild: childUrl })
