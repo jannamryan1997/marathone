@@ -37,13 +37,13 @@
                     <p class="name mb-0" *ngIf="role==='client'">
                         {{feedItem?.creator_client_info?.user?.first_name}}</p>
                     <p class="name mb-0" *ngIf="role==='coach'">{{feedItem?.creator_info?.user?.first_name}}</p>
-                    <p class="name mb-0" *ngIf="!role && feedItem.creator_info">
+                    <p class="name mb-0" *ngIf="!role && feedItem?.creator_info">
                         {{feedItem?.creator_info?.user?.first_name}}</p>
-                    <p class="name mb-0" *ngIf="!role && feedItem.creator_client_info">
+                    <p class="name mb-0" *ngIf="!role && feedItem?.creator_client_info">
                         {{feedItem?.creator_client_info?.user?.first_name}}</p>
                 </div>
                 <p class="date ml-2">{{time}}</p>
-                <button type="button" class="btn-item info-btn ml-2">Follow</button>
+                <button (click)="follow()" [class.active-btn]="user?.is_follower" type="button" class="btn-item info-btn ml-2">{{user?.is_follower?'Unfollow':'Follow'}}</button>
             </div>
             <div>
                 <div class="loader-container">

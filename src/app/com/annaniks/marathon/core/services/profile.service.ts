@@ -15,8 +15,23 @@ export class ProfileService {
 
         return this._httpClient.get<any>(this._baseUrl + `${roles}/${id}/`)
     }
-    public follow(body): Observable<any> {
-        return this._httpClient.post<any>(this._baseUrl + `/feed/follower/`, body)
+    public follow(role:string,myUrl:string,userRole:string,userUrl:string): Observable<any> {
+        let sendBody = {}
+        if (role == 'client') {
+            sendBody['who_user'] = myUrl
+        } else {
+            sendBody['who_coach'] = myUrl
+        }
+        if (userRole == 'client') {
+            sendBody['whom_user'] = userUrl
+        } else {
+            sendBody['whom_coach'] = userUrl
+
+        }
+        return this._httpClient.post<any>(this._baseUrl + `/feed/follower/`, sendBody)
+    }
+    public unfollow(id:number): Observable<any> {
+        return this._httpClient.delete<any>(this._baseUrl + `/feed/follower/${id}/`)
     }
     public getFeedByProfileId(queryParamsName: string, id: number, isAll: string): Observable<any> {
         return this._httpClient.get(this._baseUrl + `/feed/feeds/?${queryParamsName}=${id}&all=${isAll}`);

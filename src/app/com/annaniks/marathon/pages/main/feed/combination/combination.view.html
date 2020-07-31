@@ -25,7 +25,8 @@
                 {{article?.creator_info?.user?.first_name}}
                 {{article?.creator_info?.user?.last_name}}</p>
             <p class="date ml-2">{{time}}</p>
-            <button type="button" class="btn  follow-btn ml-2">Follow</button>
+            <button (click)="follow()" type="button" [class.active-btn]="user?.is_follower"
+                class="btn-item info-btn ml-2">{{user?.is_follower?'Unfollow':'Follow'}}</button>
         </div>
 
 

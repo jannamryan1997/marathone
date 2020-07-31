@@ -146,17 +146,17 @@ export class ProfileView implements OnInit {
 
 
     public onClickShowSocialMedium(): void {
-        if(this.showMore===true){
-            this.showMore=false;
-         
+        if (this.showMore === true) {
+            this.showMore = false;
+
         }
         this.showSocialMedium = !this.showSocialMedium;
-        
+
     }
     public onClickShowMore(): void {
-        if(this.showSocialMedium===true){
-            this.showSocialMedium=false;
-        
+        if (this.showSocialMedium === true) {
+            this.showSocialMedium = false;
+
         }
         this.showMore = !this.showMore;
     }
@@ -169,24 +169,17 @@ export class ProfileView implements OnInit {
     }
     public follow() {
         if (!this.isFollowed) {
-            let sendBody = {}
-            if (this.role == 'client') {
-                sendBody['who_user'] = this._userService.user.data.url
-            } else {
-                sendBody['who_coach'] = this._userService.user.data.url
-            }
-            if (this.userRole == 'client') {
-                sendBody['whom_user'] = this.user.url
-            } else {
-                sendBody['whom_coach'] = this.user.url
-
-            }
-            this._profileService.follow(sendBody).pipe(takeUntil(this.unsubscribe$)).pipe(
+            this._profileService.follow(this.role, this._userService.user.data.url, this.userRole, this.user.url).pipe(takeUntil(this.unsubscribe$)).pipe(
                 switchMap(() => {
                     return this._getProfileById()
-                })
-            )
-                .subscribe();
+                })).subscribe();
+        } else {
+            if (this.user.is_follower_id) {
+                this._profileService.unfollow(this.user.is_follower_id).pipe(takeUntil(this.unsubscribe$)).pipe(
+                    switchMap(() => {
+                        return this._getProfileById()
+                    })).subscribe();
+            }
         }
     }
     public setServicePhoto(event) {
@@ -204,9 +197,9 @@ export class ProfileView implements OnInit {
         }
     }
 
-    public onClickedOutside(event):void{
-        this.showMore=false;
-        this.showSocialMedium=false;
+    public onClickedOutside(event): void {
+        this.showMore = false;
+        this.showSocialMedium = false;
     }
     ngOnDestroy() {
         this.unsubscribe$.next();
