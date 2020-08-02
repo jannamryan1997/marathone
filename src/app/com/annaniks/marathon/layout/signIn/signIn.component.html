@@ -1,4 +1,5 @@
 <div class="signIn-main" [ngSwitch]="tab">
+    <div>
     <p class="logo-text"> Welcome to</p>
     <div class="logo d-flex m-auto">
         <img class="logo" src="assets/images/logo/marathon-logo.png">
@@ -35,7 +36,7 @@
         <div class="auth-description display-flex">
             <input type="radio" class="checkbox">
             <p class="text">Stay signed in</p>
-            <p class="title">Forgot Password?</p>
+            <p class="title forgot-title" (click)="onClickTab(3)">Forgot Password?</p>
         </div>
         <div class="auth-description social-media">
             <div class="display-flex m-auto" [ngStyle]="{'width':'80%'}">
@@ -46,4 +47,5 @@
             </div>
         </div>
     </form>
+</div>
 </div>

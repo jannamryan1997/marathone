@@ -33,10 +33,12 @@
             font-size: 16px;
             color: #45535C !important;
         }
-    
+  
     }
 
-
+    .forgot-title{
+        cursor: pointer;
+    }
     .social-media {
         &::before {
             border-bottom: 1px solid #bbcddf;

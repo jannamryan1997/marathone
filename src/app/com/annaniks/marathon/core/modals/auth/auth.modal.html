@@ -1,4 +1,4 @@
-<div class="auth-container d-flex">
+<div class="auth-container d-flex"  (click)="closeModal()">
         <div class="header">
                 <span class="material-icons clear-icon" (click)="closeModal()">
                     clear
@@ -23,6 +23,7 @@
                         <app-signIn *ngIf="tab===1" (tabChanges)="onChangeTab($event)"
                             (closeModal)="closeAuthModal($event)"></app-signIn>
                         <app-signUp *ngIf="tab===2" (changeSigntab)="onClickOpenSignIn($event)"></app-signUp>
+                        <app-forgot-password *ngIf="tab===3" (changeSigntab)="onClickOpenSignIn($event)"></app-forgot-password>
                     </div>
                 </div>
 

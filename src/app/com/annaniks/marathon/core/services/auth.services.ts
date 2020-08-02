@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpParams, HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { SignInResponse, SignUpData, SignUpResponse, SignInData } from '../models';
+import {  ForgotPasswordData } from '../models/forgot-password';
 
 @Injectable()
 
@@ -25,6 +26,13 @@ export class AuthUserService {
         let params = new HttpParams();
         params = params.set('authorization', 'false');
         return this._httpCliet.post<SignUpResponse>('/coach/coach/', body, { params });
+    }
+
+    public forgotPassword(body:ForgotPasswordData): Observable<any> {
+        let params = new HttpParams();
+        params = params.set('authorization', 'false');
+        return this._httpCliet.post<any>('/password_change/', body, { params });
+
     }
 
 }

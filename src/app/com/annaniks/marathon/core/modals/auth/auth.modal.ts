@@ -28,4 +28,9 @@ export class AuthModal implements OnInit {
             this._matDialogRef.close(true);
         }
     }
+
+    public onClickedOutside(event):void{
+ 
+            this._matDialogRef.close(true);
+    }
 }
