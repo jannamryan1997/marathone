@@ -23,6 +23,7 @@
                         <app-signIn *ngIf="tab===1" (tabChanges)="onChangeTab($event)"
                             (closeModal)="closeAuthModal($event)"></app-signIn>
                         <app-signUp *ngIf="tab===2" (changeSigntab)="onClickOpenSignIn($event)"></app-signUp>
+                        <app-forgot-password *ngIf="tab===3" (changeSigntab)="onClickOpenSignIn($event)"></app-forgot-password>
                     </div>
                 </div>
 

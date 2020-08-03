@@ -28,4 +28,5 @@ export class AuthModal implements OnInit {
             this._matDialogRef.close(true);
         }
     }
+
 }

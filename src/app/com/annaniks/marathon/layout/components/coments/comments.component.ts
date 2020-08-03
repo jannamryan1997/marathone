@@ -93,10 +93,10 @@ export class CommentsComponent implements OnInit {
     public getCreatorName(item): string {
         if (item) {
             if (item.user_coach) {
-                return `${item.user_coach.user.first_name} ${item.user_coach.user.last_name}`
+                return `${item.user_coach.user.first_name} `
             }
             if (item.comment_coach) {
-                return `${item.comment_coach.user.first_name} ${item.comment_coach.user.last_name}`
+                return `${item.comment_coach.user.first_name} `
             }
         }
     }

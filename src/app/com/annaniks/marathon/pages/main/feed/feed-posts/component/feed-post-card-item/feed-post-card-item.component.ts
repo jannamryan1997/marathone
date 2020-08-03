@@ -227,7 +227,16 @@ export class FeedPostCardItemComponent implements OnInit {
         this._getComments().pipe(takeUntil(this.unsubscribe$)).subscribe()
     }
     public showDeletedModal(): void {
-        this.showDeleteModal = !this.showDeleteModal;
+        if(this.role){
+            this.showDeleteModal = !this.showDeleteModal;
+        }
+        else{
+            const dialofRef=this._dialog.open(AuthModal,{
+                width: "100%",
+                maxWidth: "100vw",
+            })
+        }
+     
     }
 
     public deleteFeedItem(event) {

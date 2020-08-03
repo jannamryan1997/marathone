@@ -57,6 +57,8 @@ export class CreatePublicationComponent implements OnInit {
         this._feedService.getFeedById(this.feedId)
             .subscribe((data: FeedResponseData) => {
                 this.postType.setValue(data.title);
+                console.log(data);
+                
                 if (typeof data.feed_media[0].content === 'string') {
                     this.mediaContent = JSON.parse(data.feed_media[0].content);
                     this.isModalMode = true;
@@ -158,16 +160,17 @@ export class CreatePublicationComponent implements OnInit {
 
     public createdPost(): void {
         this.loading = true;
+        let     content= JSON.stringify(
+            {
+                url: this.contentFileName,
+                type: this.uploadType,
+            }
+        )
         let role: string = this._cookieServie.get('role');
         if (!this.editProfile) {
             this._userService.postFeed({
                 title: this.postType.value,
-                content: JSON.stringify(
-                    {
-                        url: this.contentFileName,
-                        type: this.uploadType,
-                    }
-                ),
+                content:content,
                 role: role,
 
             })
@@ -184,19 +187,21 @@ export class CreatePublicationComponent implements OnInit {
                     })
                 )
                 .subscribe((data) => {
+                
+                    
                 })
         }
         else if (this.editProfile) {
-
+            let     content= JSON.stringify(
+                {
+                    url: this.contentFileName,
+                    type: this.uploadType,
+                }
+            )
             this._feedService.updateFeedById(this.mediaUrl,
                 {
                     title: this.postType.value,
-                    content: JSON.stringify(
-                        {
-                            url: this.contentFileName,
-                            type: this.uploadType,
-                        }
-                    ),
+                    content: content,
                     role: role,
 
                 })
