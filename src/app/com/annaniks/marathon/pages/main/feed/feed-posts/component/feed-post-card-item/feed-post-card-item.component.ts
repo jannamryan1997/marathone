@@ -262,14 +262,11 @@ export class FeedPostCardItemComponent implements OnInit {
             this._getFeedById().subscribe()
         }
     }
-    public showFollowModal(event): void {
-
+    public showFollowModal(event): void {        
         if (event && this.role) {
             const dialogRef = this._dialog.open(LikeModal, {
                 width: "450px"
             })
-
-
         }
     }
 
