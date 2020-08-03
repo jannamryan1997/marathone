@@ -173,7 +173,7 @@ export class RecipePostView implements OnInit {
     private _openAddIngridientImageModal(): void {
         const dialogRef = this._matDialog.open(AddIngridientImageModal, {
             width: "100%",
-            maxWidth: "100vw",
+            // maxWidth: "100vw",
             data: {
                 data: this.slides
             }

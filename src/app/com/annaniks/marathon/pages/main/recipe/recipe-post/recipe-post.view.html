@@ -247,7 +247,7 @@
         </div>
     </form>
     <div class="btn-content d-flex justify-content-end p-2">
-        <button class="btn-item blue-btn" (click)="postRecipe()" [ngClass]="{'opacity':recipeFormGroup.invalid}"><span
+        <button class="btn-item blue-btn" (click)="postRecipe()" [ngClass]="{'opacity':recipeFormGroup.invalid}" [disabled]="recipeFormGroup.invalid"><span
                 *ngIf="!paramsId">Post</span>
             <span *ngIf="paramsId">Edit</span>
             <app-loading *ngIf="loading" class="ml-2">

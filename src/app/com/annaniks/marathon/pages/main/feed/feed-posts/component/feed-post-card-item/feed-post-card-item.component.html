@@ -1,4 +1,4 @@
-<div class="card-item">
+<div class="card-item" >
     <div class="item-header">
         <div class="item-head-description">
             <img [routerLink]="getProfleUrl()" [src]="localImage" class="image" alt="Cinque Terre">
@@ -47,8 +47,13 @@
 
 
             <div class="d-none" [ngClass]="{'d-block':content?.type ==='recipeType'}"
-                routerLink='/feed/ingridient/{{feedItem.id}}'>
-                <div class="post-container chicken-content p-0">
+               (click)="routerIngridientPage()">
+               
+                <div class="post-container recept-content chicken-content p-0">
+                    <div class="recept-main">
+                        <div class="recipt-right">
+                                <img src="assets/icons/Recipes_light.svg" class="icon" alt="Cinque Terre">
+                        </div>
                     <ngx-slick-carousel *ngIf="receipt?.imageSlider.length>0" class="carousel w-100 recipt-style"
                         #slickModal="slick-carousel" [config]="slideConfig">
                         <div ngxSlickItem *ngFor="let slide of receipt?.imageSlider" class="slide">
@@ -97,12 +102,13 @@
                         </div>
                     </div>
                 </div>
+                </div>
                     <div *ngIf="receipt?.videoLink !=''" class="video-youtube">
                         <plyr style="display:block" plyrTitle="Video 1" [plyrSources]="receptvideoSources"></plyr>
                     </div>
                     <div class="combinations-description">
                         <p class="title">{{receipt?.title}}</p>
-                        <div class="d-flex text-align-centre">
+                        <div class="text-content d-flex text-align-centre">
                             <p class="name mr-2">by </p>
                             <p class="name mb-0" *ngIf="role==='client'">
                                 {{feedItem?.creator_client_info?.user?.first_name}}</p>

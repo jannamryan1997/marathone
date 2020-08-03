@@ -189,12 +189,12 @@ export class CoachView implements OnInit {
     }
     
 
-    public openGalleryModal(event,message):void{
+    public openGalleryModal(event,message,item):void{
         if(event){
             const dialogRef = this._dialog.open(GalleryModal, {
-                width: "800px",
+                width: "700px",
                 data:{
-                    data:this.mediaItem,
+                    data:item,
                     type:message,
                 }
             })

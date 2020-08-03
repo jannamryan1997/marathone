@@ -103,8 +103,8 @@ export class PropertyModal implements OnInit {
     }
     public onClickOpenAuth(): void {
         this._matDialog.open(AuthModal, {
-            width: "100%",
-            maxWidth: "100vw",
+            // width: "100%",
+            // maxWidth: "100vw",
         })
     }
     private _getFeedById() {

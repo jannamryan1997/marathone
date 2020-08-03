@@ -157,8 +157,8 @@ export class IngridientViewComponent implements OnInit {
     }
     public onClickOpenAuth(): void {
         this._matDialog.open(AuthModal, {
-            width: "100%",
-            maxWidth: "100vw",
+            // width: "100%",
+            // maxWidth: "100vw",
         })
     }
     public follow() {

@@ -29,7 +29,7 @@
 
 
 .card-item {
-    border: 0.5px solid #E3ECFD;
+    border: 0.5px solid #F4F7FC;
     border-radius: 15px;
     opacity: 1;
     margin-top: 32px;
@@ -42,7 +42,8 @@
 .post-content {
     .post-container {
         .title {
-            @include text(16px, 22px, #45535c, MicrosoftYaHeiUI);
+            @include text(17px, 22px, #45535c, NunitoSans-Regular);
+            margin: 6px 0;
         }
 
         .more {
@@ -170,7 +171,7 @@
 .form-group {
     margin: 15px 0;
     background: #ffffff 0% 0% no-repeat padding-box;
-    border: 0.5px solid #cfcfe9;
+    border: 0.5px solid #E3ECFD;
     border-radius: 100px;
     opacity: 1;
     height: none !important;
@@ -217,8 +218,8 @@
         background: #ffffff 0% 0% no-repeat padding-box;
         border: 1px solid #bbcddf;
         opacity: 1;
-        width: 23px;
-        height: 23px;
+        width: 17px;
+        height: 17px;
         border-radius: 50% !important;
     }
 
@@ -296,8 +297,6 @@ textarea {
 
 .form-group,
 .autocomplete {
-    // margin: 40px 0 0 0;
-    margin: 30px 10px;
     position: relative;
 }
 
@@ -306,8 +305,9 @@ textarea {
     top: -11px;
     left: 25px;
     background-color: white;
-    @include text(16px, 19px, #589CFE, MicrosoftYaHeiUI);
-    padding: 0 5px;
+    @include text(16px, 19px, #589CFE, NunitoSans-Regular);
+    padding: 0 10px;
+    letter-spacing: 2px;
 }
 
 .update-video-btn {
@@ -408,8 +408,10 @@ textarea {
     background: #F4F6FB 0% 0% no-repeat padding-box;
     border-radius: 25px;
     opacity: 1;
-    padding: 13px 30px;
+    padding: 11px 29px;
     @include text(16px, 19px, #A5B1CB, EncodeSans-Medium);
     align-items: center;
     cursor: pointer;
+    border: none;
+    height: 45px;
 }

@@ -8,7 +8,7 @@
 .feed-header-content {
     background: #ffffff 0% 0% no-repeat padding-box;
     box-shadow: 2.09px 30px 43px #5C687B17;
-    border: 0.5px solid #E3ECFD;
+    border: 0.5px solid #F4F7FC;
     border-radius: 15px;
     opacity: 1 !important;
     text-align: center;
@@ -16,36 +16,43 @@
     height: auto;
 
     .recipe-header {
-        padding: 10px 24px;
-        .title {
-            @include text(16px, 19px, #bbcddf, SemiBold);
+        padding: 18px 25px;
+        .title-name{
+            @include text(16px, 19px, #45535C, EncodeSans-Bold);
             cursor: pointer;
         }
+        .title {
+            @include text(15px, 18px, #9DB3C9, EncodeSans-Medium);
+            cursor: pointer;
+        }
+
         .material-icons {
             font-size: 22px;
             line-height: 19px;
             color: #bbcddf;
             cursor: pointer;
         }
+
         .message-input {
             width: 100%;
             min-height: 60px;
             max-height: 260px;
             border: none;
             background: none;
-            @include text(16px, 22px, #45535c, MicrosoftYaHeiUI);
+            margin-top: 17px;
+            @include text(16px, 22px, #45535c, NunitoSans-Regular);
             resize: none;
-            margin-top: 12px;
 
             &::placeholder {
-                color: #bbcddf;
+                @include text(17px, 20px,#BEC8DD, NunitoSans-Regular);
             }
         }
+
         .emoji-content {
             display: flex;
             flex-direction: column;
             align-items: flex-end;
-            padding: 10px 0;
+
             .smile-image {
                 width: 30px;
                 height: 30px;
@@ -54,32 +61,34 @@
             }
         }
     }
+
     .image-content {
         position: relative;
+
         .recipe-image {
             height: 330px;
         }
     }
+
     .button-content {
         @include text(16px, 21px, #bbcddf, EncodeSans-SemiBold);
         flex-wrap: wrap;
         height: 60px;
-        padding: 0 16px 11px 16px;
-        .button-item {
-            border-right: 0.5px solid #E3ECFD;
-            align-items: center;
-            cursor: pointer;
-            padding: 16px 33px;
-            font-size: 16px;
-            &:last-child {
-                border-right: none !important;
-            }
-        }
-        .publication-icon{
+        padding: 0 16px 8px 16px;
+.hovher-btn{
+    &:hover{
+        background: #589CFE;
+        border: 1px solid #589CFE;
+        color: #ffffff !important;
+    }
+}
+
+        .publication-icon {
             width: 20px;
         }
     }
 }
+
 .post-btn {
     background: #589cfe 0% 0% no-repeat padding-box;
     box-shadow: 0.84px 12px 35px #589cfe1a;
@@ -111,9 +120,11 @@ input[type="file"] {
 ::ng-deep .bounce1 {
     background-color: #589cfe !important;
 }
+
 ::ng-deep .bounce2 {
     background-color: #589cfe !important;
 }
+
 ::ng-deep .bounce3 {
     background-color: #589cfe !important;
 }
@@ -126,17 +137,22 @@ input[type="file"] {
     right: 0;
     z-index: 1000;
     animation: animateBackground 0.2s ease-in;
-    animation-fill-mode: forwards; 
+    animation-fill-mode: forwards;
 
 }
 
-.modal-mode{
+.modal-mode {
     position: relative;
     z-index: 1001;
 }
 
 @keyframes animateBackground {
-    from {background-color: transparent}
-    to {    background-color:#bbcddf;opacity: .8}
-  }
+    from {
+        background-color: transparent
+    }
 
+    to {
+        background-color: #bbcddf;
+        opacity: .8
+    }
+}

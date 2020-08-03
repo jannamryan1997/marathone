@@ -12,6 +12,7 @@ import { FeedLikeService } from 'src/app/com/annaniks/marathon/core/services/fee
 import { Subject, forkJoin, Observable } from 'rxjs';
 import { takeUntil, switchMap, map } from 'rxjs/operators';
 import { CommentService } from 'src/app/com/annaniks/marathon/core/services/comment.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: "app-feed-post-card-item",
@@ -20,6 +21,7 @@ import { CommentService } from 'src/app/com/annaniks/marathon/core/services/comm
 })
 
 export class FeedPostCardItemComponent implements OnInit {
+
     private unsubscribe$ = new Subject<void>();
     public feedItem: FeedResponseData;
     @Input('feedItem') set setFeedItem($event) {
@@ -54,6 +56,7 @@ export class FeedPostCardItemComponent implements OnInit {
         private _feedService: FeedService,
         private _commentService: CommentService,
         private _dialog: MatDialog,
+        private _router: Router,
     ) {
         this.role = this._cookieService.get('role');
         this.slideConfig = {
@@ -99,7 +102,10 @@ export class FeedPostCardItemComponent implements OnInit {
 
     }
 
-    private _getComments(parent?:string): Observable<ServerResponse<Comment[]>> {
+
+
+
+    private _getComments(parent?: string): Observable<ServerResponse<Comment[]>> {
         return this._commentService.getFeedCommentById(this.feedItem.id).pipe(map((data: ServerResponse<Comment[]>) => {
             this.comments = data.results;
             if (parent) {
@@ -108,7 +114,7 @@ export class FeedPostCardItemComponent implements OnInit {
                         val.isShowSubMessages = true
                     }
                     return val
-                })                
+                })
             }
             return data;
         }))
@@ -163,8 +169,6 @@ export class FeedPostCardItemComponent implements OnInit {
     public openPropertyModalByImage(): void {
         const dialogRef = this._dialog.open(PropertyModal, {
             width: "100%",
-            maxWidth: "100vw",
-            height: "100vh",
             data: {
                 data: this.feedItem,
                 localImage: this.localImage
@@ -182,8 +186,8 @@ export class FeedPostCardItemComponent implements OnInit {
     public openPropertyModalByVideo(): void {
         const dialogRef = this._dialog.open(PropertyModal, {
             width: "100%",
-            maxWidth: "100vw",
-            height: "100vh",
+            // maxWidth: "100vw",
+            // height: "100vh",
             data: {
                 data: this.feedItem,
                 localImage: this.localImage
@@ -199,8 +203,8 @@ export class FeedPostCardItemComponent implements OnInit {
     }
     public onClickOpenAuth(): void {
         this._dialog.open(AuthModal, {
-            width: "100%",
-            maxWidth: "100vw",
+            // width: "100%",
+            // maxWidth: "100vw",
         })
     }
 
@@ -227,16 +231,16 @@ export class FeedPostCardItemComponent implements OnInit {
         this._getComments().pipe(takeUntil(this.unsubscribe$)).subscribe()
     }
     public showDeletedModal(): void {
-        if(this.role){
+        if (this.role) {
             this.showDeleteModal = !this.showDeleteModal;
         }
-        else{
-            const dialofRef=this._dialog.open(AuthModal,{
-                width: "100%",
-                maxWidth: "100vw",
+        else {
+            const dialofRef = this._dialog.open(AuthModal, {
+                // width: "100%",
+                // maxWidth: "100vw",
             })
         }
-     
+
     }
 
     public deleteFeedItem(event) {
@@ -271,6 +275,12 @@ export class FeedPostCardItemComponent implements OnInit {
 
 
         }
+    }
+   
+
+    public routerIngridientPage(): void {
+        this._router.navigate([`/feed/ingridient/${this.feedItem.id}`]);
+
     }
 
     get userRole() {

@@ -4,7 +4,7 @@
                     clear
                 </span>
             </div>
-    <div class="auth-main">
+    <div class="auth-main" >
         <div class="main-container display-flex">
             <div class="auth-left-content m-auto">
                 <div class="left-content-main m-auto">
@@ -19,7 +19,7 @@
             <div class="auth-right-content d-flex m-auto">
                 <div class="right-content-main m-auto">
 
-                    <div class="auth-form w-100">
+                    <div class="auth-form w-100" >
                         <app-signIn *ngIf="tab===1" (tabChanges)="onChangeTab($event)"
                             (closeModal)="closeAuthModal($event)"></app-signIn>
                         <app-signUp *ngIf="tab===2" (changeSigntab)="onClickOpenSignIn($event)"></app-signUp>

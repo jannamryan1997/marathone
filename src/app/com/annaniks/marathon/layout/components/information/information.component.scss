@@ -12,7 +12,7 @@
         margin: 20px 0;
     }
     .text {
-        @include text(16px, 22px, #45535C,MicrosoftYaHeiUI);
+        @include text(17px, 22px, #45535C,NunitoSans-Regular);
     }
 
     .information-item-content {
@@ -68,7 +68,7 @@
         }
 
         .text {
-            @include text(16px, 22px, #45535C, MicrosoftYaHeiUI);
+            @include text(17px, 22px, #45535C, NunitoSans-Regular);
             margin-left: 20px;
             text-align: start;
             width: calc(100% - 106px);

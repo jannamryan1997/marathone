@@ -9,7 +9,8 @@ import { MatDialogRef } from '@angular/material/dialog';
 
 export class AuthModal implements OnInit {
     public tab: number = 1;
-    constructor(private _matDialogRef: MatDialogRef<AuthModal>) { }
+    constructor(private _matDialogRef: MatDialogRef<AuthModal>) { 
+    }
 
     ngOnInit() { }
 

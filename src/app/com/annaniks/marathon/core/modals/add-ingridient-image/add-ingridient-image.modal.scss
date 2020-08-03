@@ -6,12 +6,10 @@
 }
 
 .ingridient-modal {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
     .ingridient-modal-header {
         position: absolute;
         right: 0;
+        top: 0;
 
         .clear-icon {
             cursor: pointer;
@@ -99,8 +97,9 @@
 }
 
 ::ng-deep .mat-dialog-container {
-    background: #EDEDED44 0% 0% no-repeat padding-box !important;
-    padding: 0 !important;
+    background:none;
+    padding: 0 ;
+    box-shadow:none !important;
 
 }
 

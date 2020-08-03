@@ -55,8 +55,8 @@ export class HeaderComponent implements OnInit {
 
     public onClickOpenAuth(): void {
         this._mathDialog.open(AuthModal, {
-            width: "100%",
-            maxWidth: "100vw",
+            // width: "100%",
+            // maxWidth: "100vw",
         })
     }
 

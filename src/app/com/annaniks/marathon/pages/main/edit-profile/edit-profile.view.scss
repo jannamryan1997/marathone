@@ -189,13 +189,6 @@
         .profile-container {
             margin: 10px 20px;
         }
-
-        .text-area {
-            min-height: 60px;
-            max-height: 110px;
-            outline: none !important;
-        }
-
         .link-form {
             padding: 0 1.2em;
 
@@ -211,16 +204,16 @@
                 opacity: 1;
                 height: none !important;
                 padding: 15px 15px !important;
-                @include text(17px, 18px, #45535C, MicrosoftYaHeiUI !important);
+                @include text(17px, 18px, #45535C, NunitoSans-Regular !important);
 
                 &::placeholder {
-                    @include text(17px, 18px, #bbcddf, MicrosoftYaHeiUI !important);
+                    @include text(17px, 18px, #bbcddf, NunitoSans-Regular !important);
                 }
             }
         }
 
         .form-input {
-            @include text(17px, 15px, #45535C, MicrosoftYaHeiUI !important);
+            @include text(17px, 15px, #45535C, NunitoSans-Regular !important);
         }
 
         .add-certificates {
@@ -273,15 +266,15 @@
 ::ng-deep .ui-autocomplete-multiple-container {
     margin: 15px 0 !important;
     background: #FFFFFF 0% 0% no-repeat padding-box !important;
-    border: 0.5px solid #CFCFE9 !important;
+    border: 0.5px solid #E3ECFD !important;
     border-radius: 26px !important;
     opacity: 1 !important;
     height: none !important;
     padding: 15px 15px !important;
-    @include text(17px, 18px, #bbcddf, MicrosoftYaHeiUI !important);
+    @include text(17px, 18px, #bbcddf, NunitoSans-Regular !important);
 
     &::placeholder {
-        @include text(17px, 18px, #bbcddf, MicrosoftYaHeiUI !important);
+        @include text(17px, 18px, #bbcddf, NunitoSans-Regular !important);
     }
 }
 
@@ -299,7 +292,7 @@
     font-size: 16px !important;
     line-height: 19px !important;
     margin-bottom: 10px !important;
-    font-family: EncodeSans-Medium !important;
+    font-family: NunitoSans-Regular  !important;
 }
 
 ::ng-deep .ui-autocomplete-token-icon {
@@ -312,7 +305,7 @@
 
 ::ng-deep .ng-tns-c114-0 {
     &::placeholder {
-        @include text(17px, 18px, #bbcddf, MicrosoftYaHeiUI !important);
+        @include text(17px, 18px, #bbcddf, MicrosoftYaHeiNunitoSans-Regular UI !important);
     }
 }
 
@@ -327,8 +320,7 @@
     top: -11px;
     left: 25px;
     background-color: white;
-
-    @include text(16px, 19px, #589CFE, EncodeSans-Medium);
+    @include text(16px, 19px, #589CFE, EncodeSans-Regular);
 }
 
 .form-group>input {
@@ -342,11 +334,14 @@
     background-color: white;
 
     z-index: 1;
-    @include text(16px, 19px, #589CFE, EncodeSans-Medium);
+    @include text(16px, 19px, #589CFE, EncodeSans-Regular);
 }
 
-textarea {
-    resize: none;
+.text-area {
+  overflow: hidden;
+  height: auto;
+  line-height: 22px !important;
+  min-height: 70px;
 }
 
 input[type="file"] {

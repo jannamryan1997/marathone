@@ -40,11 +40,11 @@
             }
 
             .name {
-                @include text(16px, 22px, #c6d5e4, MicrosoftYaHeiUI);
+                @include text(16px, 22px, #45535C,  MicrosoftYaHeiUI-Bold);
             }
 
             .example {
-                @include text(18px, 22px, #c2d2e2, MicrosoftYaHeiUI-Bold);
+                @include text(18px, 22px, #45535C, MicrosoftYaHeiUI);
                 border: none !important;
             }
         }
@@ -68,7 +68,7 @@
         .form-group-link {
             margin: 15px 0;
             background: #ffffff 0% 0% no-repeat padding-box;
-            border: 0.5px solid #cfcfe9;
+            border: 0.5px solid #E3ECFD;
             border-radius: 26px;
             opacity: 1;
             height: none !important;

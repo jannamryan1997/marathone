@@ -1,5 +1,5 @@
 <!--All-->
-<ngx-slick-carousel class="carousel w-100 chicken-image" #slickModal="slick-carousel" [config]="slideConfig" *ngIf="type==='all'">
+<!-- <ngx-slick-carousel class="carousel w-100 chicken-image" #slickModal="slick-carousel" [config]="slideConfig" *ngIf="type==='all'">
   <div ngxSlickItem *ngFor="let item of mediItem" class="slide d-none"
     [ngClass]="{'d-block':item?.type ==='image' || item?.type==='video'|| item.type==='videoLink'}">
 
@@ -15,20 +15,22 @@
     </div>
 
   </div>
-</ngx-slick-carousel>
+</ngx-slick-carousel> -->
+<!-- <img class="d-none" [ngClass]="{'d-block':item?.type ==='image'}" src="{{fileURL+item.url}}" alt="" width="100%"
+class="chicken-image"> -->
 
 <!--ONLY IMAGE-->
-<ngx-slick-carousel class="carousel w-100 chicken-image" #slickModal="slick-carousel" [config]="slideConfig" *ngIf="type==='image'">
+<!-- <ngx-slick-carousel class="carousel w-100 chicken-image" #slickModal="slick-carousel" [config]="slideConfig" *ngIf="type==='image'">
     <div ngxSlickItem *ngFor="let item of mediItem" class="slide d-none"
       [ngClass]="{'d-block':item?.type ==='image'}">
   
       <img class="d-none" [ngClass]="{'d-block':item?.type ==='image'}" src="{{fileURL+item.url}}" alt="" width="100%"
         class="chicken-image">
     </div>
-  </ngx-slick-carousel>
+  </ngx-slick-carousel> -->
 
 <!----ONLY VIDEO-->
-  <ngx-slick-carousel class="carousel w-100 chicken-image" #slickModal="slick-carousel" [config]="slideConfig" *ngIf="type==='video'">
+  <!-- <ngx-slick-carousel class="carousel w-100 chicken-image" #slickModal="slick-carousel" [config]="slideConfig" *ngIf="type==='video'">
       <div ngxSlickItem *ngFor="let item of mediItem" class="slide d-none"
         [ngClass]="{'d-block':item?.type==='video'|| item.type==='videoLink'}">
         <video controls class="video-item d-none w-100" poster="" [ngClass]="{'d-block':item?.type==='video'}"
@@ -37,4 +39,17 @@
     
             <plyr [ngClass]="{'d-block':item.type==='videoLink'}" style="display:block" plyrTitle="Video 1" [plyrSources]="videoSources"></plyr>
       </div>
-    </ngx-slick-carousel>
+    </ngx-slick-carousel> -->
+
+
+
+
+    <!---All-->
+<div *ngIf="type==='image'">
+    <div class="gallery-item">
+        <div class="item-head-description">
+            <img src="{{fileURL+mediaItem.url}}" class="image" alt="Cinque Terre">
+            <!-- <p class="time mb-0">{{time}}</p> -->
+        </div>
+    </div>
+    </div>

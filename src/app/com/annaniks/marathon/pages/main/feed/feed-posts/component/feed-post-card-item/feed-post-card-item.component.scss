@@ -6,6 +6,29 @@
 }
 
 .post-container {
+    .recept-content {
+        position: relative;
+        .recipt-right {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #C0C9DE 0% 0% no-repeat padding-box;
+            box-shadow: -3.76px 7px 7px #C0C9DC4F;
+            border: 1px solid #FFFFFF;
+            border-radius: 50%;
+            opacity: 0.85;
+            width: 52px;
+            height: 52px;
+            cursor: pointer;
+            z-index: 99;
+            display: flex;
+            opacity: 0;
+            .icon{
+                margin: auto;
+                width: 25px;
+            }
+        }
+    }
 
     // padding: 0 50px 0px 21px;
     .image,
@@ -13,9 +36,12 @@
         height: 380px;
         cursor: pointer;
         margin: 6px 0;
+     
     }
 }
-
+.vido{
+    background: black;
+}
 .title-content {
     padding: 0 50px 0px 21px;
     align-items: flex-end;
@@ -75,6 +101,9 @@
 
     &:hover {
         .comments {
+            opacity: .8 !important;
+        }
+        .recipt-right{
             opacity: .8 !important;
         }
     }
@@ -179,18 +208,26 @@
 
 .recipt-style {
     height: 330px !important;
-    margin: 6px 0 12px 0 !important;
-}
-
-.video-youtube{
-    margin: 6px 0 12px 0 !important;
-}
-:host::ng-deep{
-    .video-youtube{
-        .plyr{
-            min-width: 100% !important;
-             height: 380px;
-        }
+    
+   
+    .text-content{
+        margin: 10px 0;
     }
 }
 
+.video-youtube {
+    margin: 6px 0 12px 0 !important;
+}
+
+:host::ng-deep {
+    .video-youtube {
+        .plyr {
+            min-width: 100% !important;
+            height: 380px;
+        }
+    }
+}
+.recept-main{
+    border: 1px solid #e3ecfd;
+    margin: 6px 0 12px 0;
+}
