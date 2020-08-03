@@ -180,7 +180,13 @@ export class IngridientViewComponent implements OnInit {
             this.onClickOpenAuth()
         }
     }
-
+    public checkIsMe() {
+        if (this._userService.user) {            
+            return (!this._user || +this._user.id == +this._userService.user.data.id)
+        } else {
+            return false
+        }
+    }
 
     public onClickGotoBack() {
         this._location.back();
