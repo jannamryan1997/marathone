@@ -191,7 +191,7 @@ export class IngridientViewComponent implements OnInit {
     public onClickGotoBack() {
         this._location.back();
     }
-    ngOndestroy() {
+    ngOnDestroy() {
         this.unsubscribe$.next();
         this.unsubscribe$.complete();
     }

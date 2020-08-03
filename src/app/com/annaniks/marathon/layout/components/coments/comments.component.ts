@@ -75,7 +75,7 @@ export class CommentsComponent implements OnInit {
                 return item.user_coach && item.user_coach.avatar ? this.fileUrl + item.user_coach.avatar : defaultImage
             }
             if (item.comment_coach) {
-                return item.user_coach && item.comment_coach.avatar ? this.fileUrl + item.comment_coach.avatar : defaultImage
+                return item.comment_coach && item.comment_coach.avatar ? this.fileUrl + item.comment_coach.avatar : defaultImage
             }
         }
     }
