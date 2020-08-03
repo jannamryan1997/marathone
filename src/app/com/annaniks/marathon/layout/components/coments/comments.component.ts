@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, Inject } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter, Inject, OnDestroy } from "@angular/core";
 import { Comment, FeedResponseData } from '../../../core/models';
 import * as moment from 'moment';
 import { CommentService } from '../../../core/services/comment.service';
@@ -11,7 +11,7 @@ import { Subject } from 'rxjs';
     styleUrls: ["comments.component.scss"]
 })
 
-export class CommentsComponent implements OnInit {
+export class CommentsComponent implements OnInit, OnDestroy {
     public comments: Comment;
     public role: string;
     @Output('likeOrDislike') private _isLikeOrDislike: EventEmitter<any> = new EventEmitter();
@@ -51,18 +51,23 @@ export class CommentsComponent implements OnInit {
             if (isChild) {
                 childUrl = this.comments.url
             }
-            if (type == '0') {
-                this._commentService.dislikeComment(item.url).pipe(takeUntil(this.unsubscribe$),
-                    map(() => {
-                        this._isLikeOrDislike.emit({ isChild: childUrl })
-                    })).subscribe()
-            } else {
-                if (type == '1') {
-                    this._commentService.likeComment(item.url).pipe(takeUntil(this.unsubscribe$),
+            if (!this.comments.is_liked) {
+                if (type == '0') {
+
+                    this._commentService.dislikeComment(item.url).pipe(takeUntil(this.unsubscribe$),
                         map(() => {
                             this._isLikeOrDislike.emit({ isChild: childUrl })
                         })).subscribe()
+                } else {
+                    if (type == '1') {
+                        this._commentService.likeComment(item.url).pipe(takeUntil(this.unsubscribe$),
+                            map(() => {
+                                this._isLikeOrDislike.emit({ isChild: childUrl })
+                            })).subscribe()
+                    }
                 }
+            }else{
+
             }
         } else {
             this._isLikeOrDislike.emit(false)

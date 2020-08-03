@@ -10,7 +10,7 @@
                 <p class="text">Save Draft</p>
                 <div class="btn-content d-flex align-items-center">
                     <button class="btn-item info-btn ml-2 mr-3">Preview</button>
-                    <button (click)="publish()"
+                    <button (click)="publish()" [disabled]="articleGroup.invalid"
                         class="btn-item info-btn mr-3 active-btn">{{articleId?'Update':'Publish'}}</button>
                     <button class="btn-item info-btn btn-radius d-flex justify-content-center" (click)="onClickShowSetting()" [ngClass]="{'active-btn':showSetting}">
                         <span class="material-icons icon">
