@@ -408,10 +408,11 @@ textarea {
     background: #F4F6FB 0% 0% no-repeat padding-box;
     border-radius: 25px;
     opacity: 1;
-    padding: 11px 29px;
     @include text(16px, 19px, #A5B1CB, EncodeSans-Medium);
     align-items: center;
     cursor: pointer;
     border: none;
     height: 45px;
+    padding: 13px 22px;
+    margin: 0 7px;
 }

@@ -132,7 +132,7 @@
             <div class="events-content" [ngSwitch]="galerryTab">
                 <div *ngIf="galerryTab===1" class="gallery-content">
                     <div class="gallery-item" *ngFor="let item of mediaItem" [ngClass]="{'d-block':item.url}">
-                        <app-galery [mediaItem]="item" (showGalleryModal)="openGalleryModal($event,'all')"></app-galery>
+                        <app-galery [mediaItem]="item" (showGalleryModal)="openGalleryModal($event,'all',item)"></app-galery>
                     </div>
 
                 </div>
@@ -141,7 +141,7 @@
                 <div *ngIf="galerryTab===2" class="gallery-content">
                     <div class="gallery-item" *ngFor="let item of mediaItem"
                         [ngClass]="{'d-block':item.url && item.type==='image'}">
-                        <app-galery [mediaItem]="item" (showGalleryModal)="openGalleryModal($event,'image')"></app-galery>
+                        <app-galery [mediaItem]="item" (showGalleryModal)="openGalleryModal($event,'image',item)"></app-galery>
                     </div>
 
                 </div>
@@ -149,7 +149,7 @@
                 <div *ngIf="galerryTab===3" class="gallery-content">
                     <div class="gallery-item" *ngFor="let item of mediaItem"
                         [ngClass]="{'d-block':item.url && item.type==='video'|| item.type==='videoLink'}">
-                        <app-galery [mediaItem]="item" (showGalleryModal)="openGalleryModal($event,'video')"></app-galery>
+                        <app-galery [mediaItem]="item" (showGalleryModal)="openGalleryModal($event,'video',item)"></app-galery>
                     </div>
 
                 </div>

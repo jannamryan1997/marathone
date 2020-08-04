@@ -1,19 +1,28 @@
-<div class="settings">
-    <button (click)="onClickOpenComments()" class="setting-item-btn" [ngClass]="{'class-type':type,'type-color':isOpen}">
+<div class="settings" [ngClass]="{'galleryStyle':style}">
+    <button (click)="onClickOpenComments()" class="setting-item-btn comment-btn"
+        [ngClass]="{'class-type':type,'type-color':isOpen,'style':style,'buttonStype':type}">
         <img src="assets/icons/Comment.svg" alt="" class="cooment-icon" *ngIf="!isOpen">
         <img src="assets/icons/Comment_blue.svg" alt="" class="cooment-icon" *ngIf="isOpen">
-        <span class="title">Comments {{feed?.feed_comments_count}}</span>
+        <span class="title">Comments </span>
+        <span class="count-comment" [ngClass]="{'type-color':isOpen}"> {{feed?.feed_comments_count}}</span>
     </button>
-    <button [disabled]="feed?.is_liked" (click)="clickOnButton('like')" class="setting-item-btn"
-        [ngClass]="{'class-type':type}">
-        <img *ngIf="!feed?.is_liked" src="assets/icons/Energy.svg" alt="" class="energy-icon">
 
+    <button [disabled]="feed?.is_liked" (click)="clickOnButton('like')" class="setting-item-btn like-btn"
+        [ngClass]="{'class-type':type,'style':style,'buttonStype':type}">
+        <img *ngIf="!feed?.is_liked" src="assets/icons/Energy.svg" alt="" class="energy-icon">
         <img *ngIf="feed?.is_liked" src="assets/icons/Energy_blue.svg" alt="" class="energy-icon">
-        <span class="title" [ngClass]="{'type-color':type}" > Energy <span (click)="onClichShowFollowModal()">{{feed?.feed_likes_count}}</span></span>
+        <span class="title"> Energy </span>
+        <span class="count-like" [ngClass]="{'type-color':feed?.is_liked}"
+            (click)="onClichShowFollowModal()">{{feed?.feed_likes_count}}</span>
     </button>
-    <button (click)="clickOnButton('reposts')" class="setting-item-btn" [ngClass]="{'class-type':type}">
+
+
+
+
+
+    <button (click)="clickOnButton('reposts')" class="setting-item-btn energy-btn" [ngClass]="{'class-type':type,'style':style,'buttonStype':type}">
         <img src="assets/icons/Repost.svg" alt="" class="repost-icon">
-        <span class="title" >Share </span>
+        <span class="title">Share </span>
         <span class="count" (click)="onClichShowFollowModal()">220
             <div class="share-item" *ngIf="role">
                 <div class="share-content">
@@ -35,4 +44,3 @@
         </span>
     </button>
 </div>
-

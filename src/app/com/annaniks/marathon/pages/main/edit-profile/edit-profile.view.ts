@@ -8,6 +8,7 @@ import { UploadFileResponse } from '../../../core/models';
 import { CertificateData } from '../../../core/models/certificates';
 import { Location } from '@angular/common';
 import { ProfileService } from '../../../core/services/profile.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: "app-edit-profile",
@@ -39,6 +40,7 @@ export class EditProfileView implements OnInit {
     public leng = [];
     public educationItem: EducationData[] = [];
     public experienceItem:ExperienceData[]=[];
+    public routerUrl:string;
     constructor(
         private _fb: FormBuilder,
         private _countryService: CountryService,
@@ -51,6 +53,7 @@ export class EditProfileView implements OnInit {
     ) {
         this.role = this._cookieService.get('role');
         this.user = this._userService.user;
+        
 
         if (this._userService.user.data.avatar) {
             this.localImage = this._fileUrl + this._userService.user.data.avatar;
@@ -58,7 +61,7 @@ export class EditProfileView implements OnInit {
         if (this._userService.user.data.cover) {
             this.headerLocalImage = this._fileUrl + this._userService.user.data.cover;
         }
-
+        this.routerUrl = window.location.href;
     }
 
     ngOnInit() {
@@ -486,8 +489,19 @@ export class EditProfileView implements OnInit {
         this.showMore=false;
         this.showSocialMedium=false;
     }
-
-
+    public copyUrl():void{
+        const selBox = document.createElement('textarea');
+        selBox.style.position = 'fixed';
+        selBox.style.left = '0';
+        selBox.style.top = '0';
+        selBox.style.opacity = '0';
+        selBox.value = this.routerUrl;
+        document.body.appendChild(selBox);
+        selBox.focus();
+        selBox.select();
+        document.execCommand('copy');
+        document.body.removeChild(selBox);
+    }
 
 
 }

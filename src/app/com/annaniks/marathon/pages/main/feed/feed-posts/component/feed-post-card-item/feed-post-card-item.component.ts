@@ -125,9 +125,9 @@ export class FeedPostCardItemComponent implements OnInit {
         if (this.feedItem.title) {
             titleLength = this.feedItem.title.length;
             this.feedTitle = this.feedItem.title;
-            if (titleLength > 100) {
+            if (titleLength > 175) {
                 this.seeMore = true;
-                this.feedTitle = this.feedItem.title.slice(0, 100);
+                this.feedTitle = this.feedItem.title.slice(0, 175);
             }
             else {
                 this.seeMore = false;

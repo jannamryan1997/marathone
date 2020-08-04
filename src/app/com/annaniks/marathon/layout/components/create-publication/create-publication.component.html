@@ -1,4 +1,4 @@
-<div class="feed-header-content" [class.modal-mode]="isModalMode">
+<div class="feed-header-content" [class.modal-mode]="isModalMode" [ngClass]="{'height-auto':isModalMode}">
     <div class="recipe-header">
         <div class="display-flex">
             <p class="title-name">Create Pablication</p>
@@ -66,7 +66,7 @@
     </div>
 
 
-    <div class="button-content display-flex"  *ngIf="!isModalMode">
+    <div class="button-content d-flex"  *ngIf="!isModalMode" [ngClass]="{'style':style}">
         <button class="hovher-btn d-flex" routerLink="/article">
             <span class="material-icons mr-2">
                 description

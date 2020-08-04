@@ -178,12 +178,12 @@ export class ClientView implements OnInit {
         this._getFeed(this._pageIndex);
 
     }
-    public openGalleryModal(event,message):void{
+    public openGalleryModal(event,message,item):void{
         if(event){
             const dialogRef = this._dialog.open(GalleryModal, {
-                width: "800px",
+                width: "900px",
                 data:{
-                    data:this.mediaItem,
+                    data:item,
                     type:message,
                 }
             })

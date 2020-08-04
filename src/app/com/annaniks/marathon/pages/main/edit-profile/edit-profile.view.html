@@ -12,7 +12,7 @@
                 </div>
             </div>
             <div class="profile-content">
-                <div class="profile-header-content display-flex"  (clickOutside)="onClickedOutside($event)">
+                <div class="profile-header-content display-flex" (clickOutside)="onClickedOutside($event)">
                     <div class="profile-image">
                         <div class=" d-flex">
                             <input class="" type="file" id="file" name="avatar" accept="image/png,image/jpeg"
@@ -55,16 +55,24 @@
                 <div class="social-media" *ngIf="showSocialMedium">
                     <p> <i class="arrow up"></i></p>
                     <div class="social-media-description">
-                        <img src="assets/images/social/inst.png.png" class="social-image mt-0" alt="Cinque Terre">
+                        <a href="{{user?.data?.instagram}}" target="blank">
+                            <img src="assets/images/social/inst.png.png" class="social-image mt-0" alt="Cinque Terre">
+                        </a>
+                        <a href="{{user?.data?.facebook}}" target="blank">
                         <img src="assets/images/social/facebook.png" class="social-image" alt="Cinque Terre">
+                        </a>
+                        <a href="{{user?.data?.linkedin}}" target="blank">
                         <img src="assets/images/social/linkedin.png.png" class="social-image" alt="Cinque Terre">
-                        <img src="assets/images/social/twitter.png" class="social-image" alt="Cinque Terre">
+                        </a>
+                        <a href="{{user?.data?.youtube}}" target="blank">
+                        <img src="assets/images/social/youtube.jpg" class="social-image" alt="Cinque Terre">
+                        </a>
                     </div>
                 </div>
                 <div class="more-content" *ngIf="showMore">
                     <p> <i class="arrow up"></i></p>
                     <div class="more-description">
-                        <p class="more-item w-100">Copy Profile URL</p>
+                        <p class="more-item w-100" (click)="copyUrl()">Copy Profile URL</p>
                         <p class="more-item w-100">Block</p>
                         <p class="more-item w-100">Report</p>
                     </div>

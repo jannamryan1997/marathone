@@ -13,10 +13,10 @@
     opacity: 1 !important;
     text-align: center;
     position: relative;
-    height: auto;
+    height: 160px;
 
     .recipe-header {
-        padding: 18px 25px;
+        padding: 10px 25px;
         .title-name{
             @include text(16px, 19px, #45535C, EncodeSans-Bold);
             cursor: pointer;
@@ -39,7 +39,7 @@
             max-height: 260px;
             border: none;
             background: none;
-            margin-top: 17px;
+            margin-top: 8px;
             @include text(16px, 22px, #45535c, NunitoSans-Regular);
             resize: none;
 
@@ -74,7 +74,8 @@
         @include text(16px, 21px, #bbcddf, EncodeSans-SemiBold);
         flex-wrap: wrap;
         height: 60px;
-        padding: 0 16px 8px 16px;
+        justify-content: space-between;
+        margin: 0 16px;
 .hovher-btn{
     &:hover{
         background: #589CFE;
@@ -155,4 +156,12 @@ input[type="file"] {
         background-color: #bbcddf;
         opacity: .8
     }
+}
+
+.style{
+    margin: 0 !important;
+}
+
+.height-auto{
+    height: auto !important;
 }

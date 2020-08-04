@@ -172,6 +172,7 @@
                         .more-item {
                             @include text(16px, 19px, #45535C, EncodeSans-Medium);
                             padding: 15px 0;
+                            cursor: pointer;
 
 
                             &:hover {

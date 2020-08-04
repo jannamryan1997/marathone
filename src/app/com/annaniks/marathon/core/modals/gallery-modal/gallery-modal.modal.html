@@ -1,55 +1,91 @@
+
+<div class="gallery-modal d-flex">
+    <div class="left-content">
 <!--All-->
-<!-- <ngx-slick-carousel class="carousel w-100 chicken-image" #slickModal="slick-carousel" [config]="slideConfig" *ngIf="type==='all'">
-  <div ngxSlickItem *ngFor="let item of mediItem" class="slide d-none"
-    [ngClass]="{'d-block':item?.type ==='image' || item?.type==='video'|| item.type==='videoLink'}">
+  <div  class="slide d-none" *ngIf="type==='all'"
+    [ngClass]="{'d-block':mediaItem?.type ==='image' || mediaItem?.type==='video' || mediaItem.type==='videoLink'}">
 
-    <img class="d-none" [ngClass]="{'d-block':item?.type ==='image'}" src="{{fileURL+item.url}}" alt="" width="100%"
-      class="chicken-image">
-
-    <video controls class="video-item d-none w-100" poster="" [ngClass]="{'d-block':item?.type==='video'}"
-      src="{{fileURL+item.url}}">
+    <img class="d-none" [ngClass]="{'d-block':mediaItem?.type ==='image'}" src="{{fileURL+mediaItem.url}}" alt="" 
+      class="image">
+      
+      <video controls class="d-none w-100 video-item" poster="" [ngClass]="{'d-block':mediaItem?.type==='video'}"
+      src="{{fileURL+mediaItem.url}}">
     </video>
 
-    <div class="youtube-video d-none w-100" [ngClass]="{'d-block':item.type==='videoLink'}">
-        <plyr style="display:block" plyrTitle="Video 1" [plyrSources]="videoSources"></plyr>
+    <div class="youtube-video d-none w-100" [ngClass]="{'d-block':mediaItem.type==='videoLink'}">
+        <plyr plyrTitle="Video 1" [plyrSources]="videoSources"></plyr>
     </div>
 
   </div>
-</ngx-slick-carousel> -->
-<!-- <img class="d-none" [ngClass]="{'d-block':item?.type ==='image'}" src="{{fileURL+item.url}}" alt="" width="100%"
-class="chicken-image"> -->
 
-<!--ONLY IMAGE-->
-<!-- <ngx-slick-carousel class="carousel w-100 chicken-image" #slickModal="slick-carousel" [config]="slideConfig" *ngIf="type==='image'">
-    <div ngxSlickItem *ngFor="let item of mediItem" class="slide d-none"
-      [ngClass]="{'d-block':item?.type ==='image'}">
-  
-      <img class="d-none" [ngClass]="{'d-block':item?.type ==='image'}" src="{{fileURL+item.url}}" alt="" width="100%"
-        class="chicken-image">
+
+
+
+
+      <!--ONLY IMAGE-->
+      <!-- <ngx-slick-carousel class="carousel w-100 chicken-image" #slickModal="slick-carousel" [config]="slideConfig" *ngIf="type==='image'">
+        <div ngxSlickItem *ngFor="let item of mediaItem" class="slide d-none"
+          [ngClass]="{'d-block':item?.type ==='image'}">
+          <img class="d-none" [ngClass]="{'d-block':item?.type ==='image'}" src="{{fileURL+item.url}}" alt="" width="100%"
+            class="image">
+         
+        </div>
+      </ngx-slick-carousel>  -->
+
+      <div  class="slide d-none"  *ngIf="type==='image'"
+      [ngClass]="{'d-block':mediaItem?.type ==='image'}">
+      <img class="d-none" [ngClass]="{'d-block':mediaItem?.type ==='image'}" src="{{fileURL+mediaItem.url}}" alt="" width="100%"
+        class="image">
+     
     </div>
-  </ngx-slick-carousel> -->
 
-<!----ONLY VIDEO-->
-  <!-- <ngx-slick-carousel class="carousel w-100 chicken-image" #slickModal="slick-carousel" [config]="slideConfig" *ngIf="type==='video'">
-      <div ngxSlickItem *ngFor="let item of mediItem" class="slide d-none"
+<!--ONLY VIDEO-->
+<!-- <ngx-slick-carousel class="carousel w-100 chicken-image" #slickModal="slick-carousel" [config]="slideConfig" *ngIf="type==='video'">
+      <div ngxSlickItem *ngFor="let item of mediaItem" class="slide d-none"
         [ngClass]="{'d-block':item?.type==='video'|| item.type==='videoLink'}">
-        <video controls class="video-item d-none w-100" poster="" [ngClass]="{'d-block':item?.type==='video'}"
+        <video controls class="d-none w-100" poster="" [ngClass]="{'d-block':item?.type==='video'}"
           src="{{fileURL+item.url}}">
         </video>
-    
-            <plyr [ngClass]="{'d-block':item.type==='videoLink'}" style="display:block" plyrTitle="Video 1" [plyrSources]="videoSources"></plyr>
+        <div class="youtube-video d-none w-100" [ngClass]="{'d-block':item.type==='videoLink'}">
+            <plyr   plyrTitle="Video 1" [plyrSources]="videoSources"></plyr>
+            </div>
       </div>
     </ngx-slick-carousel> -->
-
-
-
-
-    <!---All-->
-<div *ngIf="type==='image'">
-    <div class="gallery-item">
-        <div class="item-head-description">
-            <img src="{{fileURL+mediaItem.url}}" class="image" alt="Cinque Terre">
-            <!-- <p class="time mb-0">{{time}}</p> -->
+    <div class="slide d-none" *ngIf="type==='video'"
+    [ngClass]="{'d-block':mediaItem?.type==='video'|| mediaItem.type==='videoLink'}">
+    <video controls class="d-none w-100 video-item" poster="" [ngClass]="{'d-block':mediaItem?.type==='video'}"
+      src="{{fileURL+mediaItem.url}}">
+    </video>
+    <div class="youtube-video d-none w-100" [ngClass]="{'d-block':mediaItem.type==='videoLink'}">
+        <plyr   plyrTitle="Video 1" [plyrSources]="videoSources"></plyr>
         </div>
+  </div>
+
+
     </div>
+    <div class="rigth-content">
+      <div class="rigth-description">
+        <div class="header-content">
+          <div class="display-flex">
+          <div class="display-flex">
+              <img [src]="localImage" class="local-image" alt="Cinque Terre">
+              <p class="name-title mb-0"> {{user?.user?.first_name}}</p>
+          </div>
+       
+          <span class="material-icons icon">
+            more_vert
+        </span>
+        </div>
+      </div>
+        <div class="settings">
+            <app-settings [style]="true"></app-settings>
+        <!-- <div class="posts-comments" *ngIf="isOpen">
+            <app-comments (sendMessage)="sendMessage($event)" (likeOrDislike)="likeOrDislike($event)"
+                *ngFor="let item of comments" [feed]="feedItem" [comments]="item" [role]="role" >
+            </app-comments>
+            <app-posts-comments [feed]="feedItem"  (sendMessage)="sendMessage($event)" *ngIf="role" [comments]="comments"></app-posts-comments>
+        </div> -->
+        </div>
+      </div>
     </div>
+  </div>

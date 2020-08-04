@@ -21,6 +21,7 @@ export class CreatePublicationComponent implements OnInit {
     @Input() feedId: number;
     @Input() editProfile: boolean;
     @Input() mediaUrl: string;
+    @Input() style:boolean;
     @Output('postCreateEvent') private _postCreateEvent: EventEmitter<void> = new EventEmitter<void>();
     @Output() closeEditModal = new EventEmitter<any>();
     @ViewChild('inputImageReference') private _inputImageReference: ElementRef;
@@ -236,6 +237,7 @@ export class CreatePublicationComponent implements OnInit {
         this.controVideoItem = '';
         this.showYoutube = false;
         this.player = null;
+        this.showemoji=false;
     }
 
  public   play(): void {

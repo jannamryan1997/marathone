@@ -53,10 +53,13 @@ export class HeaderComponent implements OnInit {
         this.showPfofileMenu = !this.showPfofileMenu;
     }
 
-    public onClickOpenAuth(): void {
-        this._mathDialog.open(AuthModal, {
+    public onClickOpenAuth(value: string): void {
+        const dialogRef = this._mathDialog.open(AuthModal, {
             // width: "100%",
             // maxWidth: "100vw",
+            data: {
+                value: value,
+            }
         })
     }
 
@@ -80,8 +83,9 @@ export class HeaderComponent implements OnInit {
         this._cookieService.removeAll();
         this._profileUserService.isAuthorized = false;
         this._profileUserService.user = null;
-        this._router.navigate(['/feed']);
         location.reload();
+        this._router.navigate(['/feed']);
+    
     }
 
 }

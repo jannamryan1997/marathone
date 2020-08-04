@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, Output, EventEmitter } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthUserService } from '../../core/services/auth.services';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: "app-forgot-password",
@@ -17,11 +17,19 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
     public hidePassword: boolean = true;
     public showRepeatPassword: boolean = false;
     public hiderepPassword: boolean = true;
+    public token:string;
+    public message:boolean=false;
     @Output() changeSigntab = new EventEmitter;
-    constructor(private _fb: FormBuilder, private _authUserService: AuthUserService, private _router: Router) { }
+    constructor(
+        private _fb: FormBuilder, 
+        private _authUserService: AuthUserService, 
+        private _router: Router,
+        private _activatedRoute: ActivatedRoute,
+        ) { }
 
     ngOnInit() {
         this._formBuilder();
+        this._checkQueryParams();
     }
 
     private _formBuilder(): void {
@@ -32,6 +40,16 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
         },
             { validator: this.checkPasswords }
         )
+
+    }
+
+    private _checkQueryParams(): void {
+        let params = this._activatedRoute.snapshot.queryParams;
+        if (params && params.token) {
+            this.token = params.token;
+
+
+        }
 
     }
 
@@ -70,13 +88,26 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
 
     public onClickSavePassword(): void {
         this._authUserService.forgotPassword({
-            name: this.changePasswordGroup.value.email,
             password: this.changePasswordGroup.value.password,
+            token:this.token,
         })
             .subscribe((data) => {
+                this.onChangeAuthMain(this.tab);
                 console.log(data);
+                this._router.navigate([], {queryParams: {page: null}});
 
             })
+    }
+
+    public sendEmail():void{
+    this._authUserService.sendEmail({
+        email:this.changePasswordGroup.value.email
+    })
+    .subscribe((data)=>{
+        this.message=true;
+        console.log(data);
+        
+    })
     }
 
     ngOnDestroy() { }
