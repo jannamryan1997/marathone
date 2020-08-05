@@ -190,7 +190,6 @@ export class CoachView implements OnInit {
 
 
     public openGalleryModal(event, message, item): void {
-        console.log(event);
 
         if (event) {
             const dialogRef = this._dialog.open(GalleryModal, {

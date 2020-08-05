@@ -1,7 +1,7 @@
 export interface UserResponseData {
     data: UserData
 }
-export interface UserData{
+export interface UserData {
     user: User,
     status: string,
     locationLocality: any,
@@ -12,41 +12,45 @@ export interface UserData{
     rate: any,
     ui_language: any,
     avatar: string,
-    cover:string;
+    cover: string;
     facebook: string,
     youtube: string,
     instagram: string,
     linkedin: string,
-    language:Country[];
-    certificates:CertificatesData[],
-    education:EducationData [],
+    language: Country[];
+    certificates: CertificatesData[],
+    education: EducationData[],
     experience: ExperienceData[],
-    speciality:any;
+    speciality: any;
+    slug: string;
+    is_faworit: null | boolean;
+    is_follower: boolean;
+    is_follower_id: boolean;
 }
 
-interface CertificatesData{
+interface CertificatesData {
     description: string,
     file: string,
-    url?:string;
+    url?: string;
 }
 
-export interface ExperienceData{
+export interface ExperienceData {
     name: string,
     specialization: string,
     start_date: string,
     end_date: string,
-    url?:string;
+    url?: string;
 }
 
-export interface EducationData{
+export interface EducationData {
     name: string,
     specialization: string,
     start_date: string,
     end_date: string,
-    url?:string,
+    url?: string,
 }
 
-interface User{
+interface User {
     email: string;
     first_name: string;
     last_name: string;
@@ -54,16 +58,16 @@ interface User{
 }
 
 
-    export interface Country {
-        count: 1
-        next: null
-        previous: null
-        results: Results[];
-    }
-    
-    export interface Results {
-        lat: number,
-        lng: number,
-        name: string,
-        url: string,
-    }
+export interface Country {
+    count: 1
+    next: null
+    previous: null
+    results: Results[];
+}
+
+export interface Results {
+    lat: number,
+    lng: number,
+    name: string,
+    url: string,
+}

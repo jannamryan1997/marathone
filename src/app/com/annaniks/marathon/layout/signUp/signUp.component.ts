@@ -2,8 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { finalize } from 'rxjs/operators';
 import { AuthUserService } from '../../core/services/auth.services';
-import { SocialUser, FacebookLoginProvider, GoogleLoginProvider, AuthService } from 'angularx-social-login';
-import { CookieService } from 'ngx-cookie';
+import { SocialUser} from 'angularx-social-login';
 import { UserService } from '../../core/services/user.service';
 
 @Component({
@@ -46,6 +45,7 @@ export class SignUpComponent implements OnInit {
             email: [null, [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]],
             password: [null, Validators.required],
             coach: [null],
+            slug:[null,Validators.required]
         })
     }
 
@@ -69,10 +69,13 @@ export class SignUpComponent implements OnInit {
                 first_name: this.signUpGroup.value.firstName,
                 last_name: '',
                 user_name: this.signUpGroup.value.userName,
+          
             },
             google_id: null,
             ui_language: "http://192.168.1.115:8000/api/utils/language/3/",
             metric: "http://192.168.1.115:8000/api/utils/metric/1/",
+            slug:this.signUpGroup.value.slug,
+           // is_faworit:true,
         }
         this._authUserService.signUpClient(signUpData)
             .pipe(
@@ -85,7 +88,7 @@ export class SignUpComponent implements OnInit {
                 this.changeSigntab.emit(this.tab);
             },
                 err => {
-                    this.errorMessage = err.error;
+                    this.errorMessage ="Fields were filled in incorrectly";
 
                 }
             )
@@ -102,10 +105,13 @@ export class SignUpComponent implements OnInit {
                 first_name: this.signUpGroup.value.firstName,
                 user_name: this.signUpGroup.value.userName,
                 last_name: '',
+              
             },
             google_id: null,
             // ui_language:null,
             //metric: null,
+            slug:this.signUpGroup.value.slug,
+           // is_faworit:true,
         }
         this._authUserService.signUpCoach(signUpData)
             .pipe(

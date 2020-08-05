@@ -9,6 +9,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 
 export class LikeModal implements OnInit, OnDestroy {
 
+    public likeItem=[]
     constructor(private _mathDialog: MatDialogRef<LikeModal>) { }
 
     ngOnInit() { }

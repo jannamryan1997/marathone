@@ -10,17 +10,17 @@
                     </div>
                     <div *ngIf="!type" class="d-flex">
                         <p *ngIf="role" (click)="openCommentComponent()" class="title  replay-title">Reply</p>
-                        <div [class.disabled]="comments?.is_liked" class="like d-flex ml-2">
+                        <div  class="like d-flex ml-2">
                             <div (click)="vote('1',comments)" class="like-radius d-flex">
-                                <span class="material-icons icon m-auto">
+                                <span class="material-icons icon m-auto" [ngClass]="{'like':comments?.is_liked}">
                                     arrow_upward
                                 </span>
                             </div>
                             <p class="like-count ml-2">{{comments?.likes_count}}</p>
                         </div>
-                        <div [class.disabled]="comments?.is_liked" class="like d-flex ml-2">
+                        <div class="like d-flex ml-2">
                             <div (click)="vote('0',comments)" class="like-radius d-flex">
-                                <span class="material-icons icon m-auto">
+                                <span class="material-icons icon m-auto" [ngClass]="{'like':comments?.is_dis_liked}">
                                     arrow_downward
                                 </span>
                             </div>
@@ -41,9 +41,9 @@
                     <div class="d-flex">
                         <div class="like d-flex ml-2">
                             <p *ngIf="role" class="mr-2 replay-title" (click)="openCommentComponent()">Replay</p>
-                            <div [class.disabled]="comments?.is_liked" class="like d-flex ml-2">
+                            <div class="like d-flex ml-2">
                                 <div (click)="vote('1',comments)" class="like-radius d-flex">
-                                    <span class="material-icons icon m-auto">
+                                    <span class="material-icons icon m-auto" [ngClass]="{'like':comments?.is_liked}">
                                         arrow_upward
                                     </span>
                                 </div>
@@ -51,9 +51,9 @@
                                 <p class="like-count ml-2">{{comments?.likes_count}}</p>
                             </div>
                         </div>
-                        <div [class.disabled]="comments?.is_liked" class="like d-flex ml-2">
+                        <div  class="like d-flex ml-2">
                             <div (click)="vote('0',comments)" class="like-radius d-flex">
-                                <span class="material-icons icon m-auto">
+                                <span class="material-icons icon m-auto" [ngClass]="{'like':comments?.is_dis_liked}">
                                     arrow_downward
                                 </span>
                             </div>
@@ -75,17 +75,17 @@
                             <p class="time ml-2">{{convertDate(item)}}</p>
                         </div>
                         <div *ngIf="!type" class="d-flex">
-                            <div [class.disabled]="item?.is_liked" class="like d-flex ml-2">
+                            <div  class="like d-flex ml-2">
                                 <div (click)="vote('1',item,true)" class="like-radius d-flex">
-                                    <span class="material-icons icon m-auto">
+                                    <span class="material-icons icon m-auto"  [ngClass]="{'like':item?.is_liked}">
                                         arrow_upward
                                     </span>
                                 </div>
                                 <p class="like-count ml-2">{{item?.likes_count}}</p>
                             </div>
-                            <div [class.disabled]="item?.is_liked" class="like d-flex ml-2">
+                            <div  class="like d-flex ml-2">
                                 <div (click)="vote('0',item,true)" class="like-radius d-flex">
-                                    <span class="material-icons icon m-auto">
+                                    <span class="material-icons icon m-auto" [ngClass]="{'like':item?.is_dis_liked}">
                                         arrow_downward
                                     </span>
                                 </div>
@@ -96,17 +96,17 @@
                     <p class="commet-message">{{item?.message}}</p>
                     <div *ngIf="type" class="mb-2 display-flex justify-content-end">
                         <div class="d-flex ">
-                            <div [class.disabled]="item?.is_liked" class="like d-flex ml-2">
+                            <div  class="like d-flex ml-2">
                                 <div (click)="vote('1',item,true)" class="like-radius d-flex">
-                                    <span class="material-icons icon m-auto">
+                                    <span class="material-icons icon m-auto"  [ngClass]="{'like':item?.is_liked}">
                                         arrow_upward
                                     </span>
                                 </div>
                                 <p class="like-count ml-2">{{item?.likes_count}}</p>
                             </div>
-                            <div [class.disabled]="item?.is_liked" class="like d-flex ml-2">
+                            <div  class="like d-flex ml-2">
                                 <div (click)="vote('0',item,true)" class="like-radius d-flex">
-                                    <span class="material-icons icon m-auto">
+                                    <span class="material-icons icon m-auto" [ngClass]="{'like':item?.is_dis_liked}">
                                         arrow_downward
                                     </span>
                                 </div>

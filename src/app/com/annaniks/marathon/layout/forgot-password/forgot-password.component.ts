@@ -93,7 +93,6 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
         })
             .subscribe((data) => {
                 this.onChangeAuthMain(this.tab);
-                console.log(data);
                 this._router.navigate([], {queryParams: {page: null}});
 
             })
@@ -105,7 +104,6 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
     })
     .subscribe((data)=>{
         this.message=true;
-        console.log(data);
         
     })
     }

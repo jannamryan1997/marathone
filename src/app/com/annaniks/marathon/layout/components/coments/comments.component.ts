@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, Inject } from "@angular
 import { Comment, FeedResponseData } from '../../../core/models';
 import * as moment from 'moment';
 import { CommentService } from '../../../core/services/comment.service';
-import { map, takeUntil } from 'rxjs/operators';
+import { map, takeUntil, switchMap } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
 @Component({
@@ -51,19 +51,57 @@ export class CommentsComponent implements OnInit {
             if (isChild) {
                 childUrl = this.comments.url
             }
+
             if (type == '0') {
-                this._commentService.dislikeComment(item.url).pipe(takeUntil(this.unsubscribe$),
-                    map(() => {
-                        this._isLikeOrDislike.emit({ isChild: childUrl })
-                    })).subscribe()
-            } else {
-                if (type == '1') {
-                    this._commentService.likeComment(item.url).pipe(takeUntil(this.unsubscribe$),
+                if (!item.is_dis_liked) {
+                    if (item.is_liked) {
+                        this._commentService.deletelikeComment(item.is_liked_id).pipe(takeUntil(this.unsubscribe$),
+                            switchMap((data) => {
+                                return this._commentService.dislikeComment(item.url)
+                            })).subscribe(()=>{
+                                this._isLikeOrDislike.emit({ isChild: childUrl })
+                            })
+                    } else {
+                        this._commentService.dislikeComment(item.url).pipe(takeUntil(this.unsubscribe$),
+                            map(() => {
+                                this._isLikeOrDislike.emit({ isChild: childUrl })
+                            })).subscribe()
+                    }
+                }
+                else {
+                    this._commentService.deleteIsDislike(item.is_dis_liked_id).pipe(takeUntil(this.unsubscribe$),
                         map(() => {
                             this._isLikeOrDislike.emit({ isChild: childUrl })
                         })).subscribe()
                 }
+            } else {
+
+                if (type == '1') {
+                    if (!item.is_liked) {
+                        if (item.is_dis_liked) {
+                            this._commentService.deleteIsDislike(item.is_dis_liked_id).pipe(takeUntil(this.unsubscribe$),
+                                switchMap((data) => {
+                                    return this._commentService.likeComment(item.url)
+                                })).subscribe(()=>{
+                                    this._isLikeOrDislike.emit({ isChild: childUrl })
+                                })
+                        } else {
+                            this._commentService.likeComment(item.url).pipe(takeUntil(this.unsubscribe$),
+                                map(() => {
+                                    this._isLikeOrDislike.emit({ isChild: childUrl })
+                                })).subscribe()
+                        }
+                    }
+                    else {
+                        this._commentService.deletelikeComment(item.is_liked_id).pipe(takeUntil(this.unsubscribe$),
+                            map(() => {
+                                this._isLikeOrDislike.emit({ isChild: childUrl })
+                            })).subscribe()
+                    }
+                }
+
             }
+
         } else {
             this._isLikeOrDislike.emit(false)
         }
@@ -93,10 +131,10 @@ export class CommentsComponent implements OnInit {
     public getCreatorName(item): string {
         if (item) {
             if (item.user_coach) {
-                return `${item.user_coach.user.first_name} `
+                return `${item.user_coach.user.email} `
             }
             if (item.comment_coach) {
-                return `${item.comment_coach.user.first_name} `
+                return `${item.comment_coach.user.email} `
             }
         }
     }

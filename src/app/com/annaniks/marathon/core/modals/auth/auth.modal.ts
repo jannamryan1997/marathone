@@ -10,19 +10,23 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class AuthModal implements OnInit {
     public tab: number = 1;
     public token: string;
+    public message:string;
     @Output() sentToken=new EventEmitter<any>();
     constructor(private _matDialogRef: MatDialogRef<AuthModal>, @Inject(MAT_DIALOG_DATA) private _data) {
-        this.token = this._data.token;
-        console.log(this.token);
-
-
+        if(this._data && this._data.value){
+            this.message=this._data.value;
+        }
+        
+        if(this._data && this._data.token){
+            this.token = this._data.token;
+        }
     }
 
     ngOnInit() {
-        if (this._data.value === 'login') {
+        if ( this.message=== 'login') {
             this.tab = 1;
         }
-        else if (this._data.value === 'registration') {
+        else if ( this.message === 'registration') {
             this.tab = 2;
         }
         if(this.token){

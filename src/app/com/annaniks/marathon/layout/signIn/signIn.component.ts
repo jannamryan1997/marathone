@@ -77,7 +77,7 @@ export class SignInComponent implements OnInit {
                 location.reload();
             },
                 err => {
-                    this.errorMessage = err.error;
+                    this.errorMessage ="Invalid username or password";
                 }
             )
 

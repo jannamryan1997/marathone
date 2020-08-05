@@ -4,6 +4,7 @@
         <p class="text" (click)="onChangeAuthMain(tab)">Sign In</p>
     </div>
     <form [formGroup]="signUpGroup">
+        <p class="text-danger mt-2">{{errorMessage}}</p>
         <div class="signUp-form">
             <div class="form-group">
                 <label [ngClass]="{'activeTab':chackIsValid('email')}">Email</label>
@@ -25,6 +26,11 @@
                 <label [ngClass]="{'activeTab':chackIsValid('userName')}">User Name</label>
                 <input type="text" required='' placeholder="User Name" class="form-input w-100"
                     formControlName="userName">
+            </div>
+            <div class="form-group">
+                <label [ngClass]="{'activeTab':chackIsValid('slug')}">Slug</label>
+                <input type="text" required='' placeholder="Slug" class="form-input w-100"
+                    formControlName="slug">
             </div>
             <div class="form-group">
                 <label [ngClass]="{'activeTab':chackIsValid('password')}">Password</label>
@@ -55,7 +61,7 @@
                 </div>
             </div>
             <div class="btn-content d-flex">
-                <button class="btn signUp-btn m-auto" [ngClass]="{'active-btn':signUpGroup.valid}"
+                <button class="btn signUp-btn m-auto" [disabled]="signUpGroup.invalid" [ngClass]="{'active-btn':signUpGroup.valid}"
                     (click)="onClickSignUp()"><span>Get
                         Started</span>
                     <app-loading *ngIf="loading" class="ml-2"></app-loading>

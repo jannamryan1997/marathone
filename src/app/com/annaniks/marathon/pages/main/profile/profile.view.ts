@@ -51,8 +51,6 @@ export class ProfileView implements OnInit {
         })
         this.routerUrl = window.location.href;
         this.userData=this._userService.user;
-        console.log(   this.userData);
-        
     }
 
     ngOnInit() {

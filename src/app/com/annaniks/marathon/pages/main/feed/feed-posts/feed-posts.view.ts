@@ -6,6 +6,7 @@ import { Subject } from 'rxjs';
 import { RemoveModal, AuthModal } from '../../../../core/modals';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
+import { CookieService } from 'ngx-cookie';
 
 @Component({
     selector: "feed-posts-view",
@@ -26,12 +27,16 @@ export class FeedPostsView implements OnInit, OnDestroy {
     public infiniteScrollDisabled = false;
     public loading: boolean = false;
     public _token: string;
+    public role:string;
     constructor(
         public _feedService: FeedService,
         public userService: UserService,
         private _dialog: MatDialog,
         private _activatedRoute: ActivatedRoute,
-    ) { }
+        private _coookieService:CookieService,
+    ) { 
+        this.role=this._coookieService.get('role');
+    }
 
     ngOnInit() {
         this._getFeed(this._pageIndex);
@@ -43,7 +48,6 @@ export class FeedPostsView implements OnInit, OnDestroy {
         let params = this._activatedRoute.snapshot.queryParams;
         if (params && params.token) {
             this._token = params.token;
-            console.log(this._token);
             this._dialog.open(AuthModal, {
                 data: {
                     token: this._token,
@@ -51,8 +55,8 @@ export class FeedPostsView implements OnInit, OnDestroy {
             })
 
         }
-
     }
+
     private async _getFeed(page: number) {
         this.infiniteScrollDisabled = true;
         const data = await this._feedService.feed(this._pageIndex)
@@ -77,6 +81,8 @@ export class FeedPostsView implements OnInit, OnDestroy {
             }
         }
         this.infiniteScrollDisabled = false;
+        console.log(this.feedItem);
+        
     }
 
     public onPostCreated(event): void {

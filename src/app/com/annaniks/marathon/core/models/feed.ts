@@ -22,6 +22,7 @@ export interface FeedResponseData {
     url: string;
     creator_client_info:any;
     mass:string,
+    is_public:boolean;
 }
 
 export interface FeedMedia {
