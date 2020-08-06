@@ -40,11 +40,17 @@
             border: none;
             background: none;
             margin-top: 8px;
-            @include text(16px, 22px, #45535c, NunitoSans-Regular);
+            font-family: 'Nunito Sans', sans-serif;
+            font-size: 16px;
+            line-height: 22px;
+            color: #45535C;
             resize: none;
 
             &::placeholder {
-                @include text(17px, 20px,#BEC8DD, NunitoSans-Regular);
+                font-family: 'Nunito Sans', sans-serif;
+                font-size: 17px;
+                line-height: 20px;
+                color: #BEC8DD;
             }
         }
 
