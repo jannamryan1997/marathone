@@ -258,6 +258,7 @@ export class RecipePostView implements OnInit {
 
 
     public postRecipe(): void {
+     
         this.loading = true;
         let receipt = {
             title: this.recipeFormGroup.value.title,
@@ -276,6 +277,7 @@ export class RecipePostView implements OnInit {
             mass: this.recipeFormGroup.value.mass,
             imageSlider: this.slides,
             videoLink: this.youtubeLink.value,
+            // is_public:true,
 
         }
         const ReceiptResponseData = {

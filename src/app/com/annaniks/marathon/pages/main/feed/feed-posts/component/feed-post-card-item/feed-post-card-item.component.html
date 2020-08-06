@@ -63,7 +63,7 @@
                     <div>
 
                     </div>
-                    <img [src]="receipt?.imageSlider[0].img" alt="" width="100%" class="recipt-style">
+                    <img  *ngIf="receipt?.imageSlider.length>0" [src]="receipt?.imageSlider[0].img" alt="" width="100%" class="recipt-style">
                     <img *ngIf="receipt?.imageSlider.length===0 && receipt?.videoLink ==='' "
                         src="/assets/images/food.png" alt="" width="100%" class="recipt-style">
 
