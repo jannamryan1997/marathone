@@ -56,6 +56,10 @@ export class PropertyModal implements OnInit {
         
         this._showseeMore();
     }
+    get userRole() {
+        let role = this.feedItem.creator_client_info ? 'client' : 'coach';
+        return role
+    }
 
     private _showseeMore(): void {
         let titleLength: number;

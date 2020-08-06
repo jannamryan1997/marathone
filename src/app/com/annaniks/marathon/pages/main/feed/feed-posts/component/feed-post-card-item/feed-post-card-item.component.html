@@ -3,9 +3,9 @@
         <div class="item-head-description">
             <img [routerLink]="getProfleUrl()" [src]="localImage" class="image" alt="Cinque Terre">
             <p [routerLink]="getProfleUrl()" class="name-title mb-0" *ngIf="userRole==='client'">
-                {{feedItem?.creator_client_info?.user?.email}}</p>
+                {{feedItem?.creator_client_info?.user?.first_name}}</p>
             <p [routerLink]="getProfleUrl()" class="name-title mb-0" *ngIf="userRole==='coach'">
-                {{feedItem?.creator_info?.user?.email}}
+                {{feedItem?.creator_info?.user?.first_name}}
             </p>
 
             <p class="time mb-0">{{time}}</p>
@@ -114,12 +114,12 @@
                         <p class="title">{{receipt?.title}}</p>
                         <div class="text-content d-flex text-align-centre">
                             <p class="name mr-2">by </p>
-                            <p class="name mb-0" *ngIf="role==='client'">
+                            <p class="name mb-0" *ngIf="userRole==='client'">
                                 {{feedItem?.creator_client_info?.user?.first_name}}</p>
-                            <p class="name mb-0" *ngIf="role==='coach'">{{feedItem?.creator_info?.user?.first_name}}</p>
-                            <p class="name mb-0" *ngIf="!role && feedItem.creator_info">
+                            <p class="name mb-0" *ngIf="userRole==='coach'">{{feedItem?.creator_info?.user?.first_name}}</p>
+                            <p class="name mb-0" *ngIf="!userRole && feedItem.creator_info">
                                 {{feedItem?.creator_info?.user?.first_name}}</p>
-                            <p class="name mb-0" *ngIf="!role && feedItem.creator_client_info">
+                            <p class="name mb-0" *ngIf="!userRole && feedItem.creator_client_info">
                                 {{feedItem?.creator_client_info?.user?.first_name}}</p>
                         </div>
 

@@ -107,11 +107,11 @@ export class CreatePublicationComponent implements OnInit {
                         }
                         this.loading = false;
                     },
-                    err=>{
-                        this.loading=false;
-                    }
+                        err => {
+                            this.loading = false;
+                        }
                     )
-                  
+
             }
         }
     }
@@ -183,8 +183,8 @@ export class CreatePublicationComponent implements OnInit {
             this._userService.postFeed({
                 title: this.postType.value,
                 content: content,
-                role:role,
-                is_public:true,
+                role: role,
+                is_public: true,
 
             })
                 .pipe(
@@ -216,7 +216,7 @@ export class CreatePublicationComponent implements OnInit {
                     title: this.postType.value,
                     content: content,
                     role: role,
-                    is_public:true,
+                    is_public: true,
 
 
                 })

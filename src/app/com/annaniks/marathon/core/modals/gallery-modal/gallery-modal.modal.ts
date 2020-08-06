@@ -11,18 +11,27 @@ import { UserService } from '../../services/user.service';
 
 export class GalleryModal implements OnInit, OnDestroy {
     public type: string;
-    public mediaItem;
+    public mediaItem = [];
     public slideConfig = {};
     public videoSources = [];
     public user: UserData;
     public localImage: string;
+    public feedItem;
     constructor(
         @Inject(MAT_DIALOG_DATA) private _data,
         @Inject('FILE_URL') public fileURL,
         private _userService: UserService,
     ) {
-        this.mediaItem = this._data.data;
         this.type = this._data.type;
+        this.feedItem = this._data.data;
+        if(  this.feedItem){
+            this.mediaItem.push(this.feedItem.feed_media[0].content);
+        }
+  
+      
+     
+     
+
         // for (let item of this.mediaItem) {
         //     if (item.type === 'videoLink') {
         //         this.videoSources = [{
@@ -31,16 +40,18 @@ export class GalleryModal implements OnInit, OnDestroy {
         //         }]
         //     }
         // }
-        this.slideConfig = {
-            infinite: true,
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            dots: false,
-            autoplay: false,
-            autoplaySpeed: 2000
-        }
+
+        // for (let item of this.feedItem) {
+        //     for (let media of item.feed_media) {
+        //         if (typeof media.content == 'string') {
+        //             media.content = JSON.parse(media.content);
+        //             this.mediaItem.push(media.content);
+        //         }
+        //     }
+        // }
+
         this.videoSources = [{
-            src: this.mediaItem.url,
+            src: this.mediaItem[0].url,
             provider: 'youtube',
         }]
         this.user = this._userService.user.data;

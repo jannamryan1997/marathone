@@ -20,10 +20,9 @@
         <div class="d-flex align-items-center mt-3">
             <p class="name mr-2">by </p>
             <p class="name mb-0" *ngIf="role==='client' || (!role && article?.creator_client_info)">
-                {{article?.creator_client_info?.user?.first_name}} {{article?.creator_client_info?.user?.last_name}}</p>
+                {{article?.creator_client_info?.user?.first_name}} {{article?.creator_client_info?.user?.first_name}}</p>
             <p class="name mb-0" *ngIf="role==='coach' || (!role && article?.creator_info)">
-                {{article?.creator_info?.user?.first_name}}
-                {{article?.creator_info?.user?.last_name}}</p>
+                {{article?.creator_info?.user?.first_name}}</p>
             <p class="date ml-2">{{time}}</p>
             <button (click)="follow()" type="button" [class.active-btn]="user?.is_follower"
                 class="btn-item info-btn ml-2">{{user?.is_follower?'Unfollow':'Follow'}}</button>

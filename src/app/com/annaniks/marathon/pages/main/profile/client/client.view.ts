@@ -38,6 +38,7 @@ export class ClientView implements OnInit {
     public seeMore: boolean = false;
     public languageName = [];
     public mediaItem = [];
+    public feedMediaItem=[];
 
     constructor(
         private _profileUserService: UserService,
@@ -88,6 +89,7 @@ export class ClientView implements OnInit {
             .subscribe((data: FeedData) => {
                 this.feedItem = data.results;
                 for (let item of this.feedItem) {
+                    this.feedMediaItem.push(item);
                     for (let media of item.feed_media) {
                         if (typeof media.content == 'string') {
                             media.content = JSON.parse(media.content);

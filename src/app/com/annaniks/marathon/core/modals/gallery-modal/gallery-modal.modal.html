@@ -3,16 +3,16 @@
     <div class="left-content">
 <!--All-->
   <div  class="slide d-none" *ngIf="type==='all'"
-    [ngClass]="{'d-block':mediaItem?.type ==='image' || mediaItem?.type==='video' || mediaItem.type==='videoLink'}">
+    [ngClass]="{'d-block':mediaItem[0]?.type ==='image' || mediaItem[0]?.type==='video' || mediaItem[0].type==='videoLink'}">
 
-    <img class="d-none" [ngClass]="{'d-block':mediaItem?.type ==='image'}" src="{{fileURL+mediaItem.url}}" alt="" 
+    <img class="d-none" [ngClass]="{'d-block':mediaItem[0]?.type ==='image'}" src="{{fileURL+mediaItem[0]?.url}}" alt="" 
       class="image">
       
-      <video controls class="d-none w-100 video-item" poster="" [ngClass]="{'d-block':mediaItem?.type==='video'}"
-      src="{{fileURL+mediaItem.url}}">
+      <video controls class="d-none w-100 video-item" poster="" [ngClass]="{'d-block':mediaItem[0]?.type==='video'}"
+      src="{{fileURL+mediaItem[0]?.url}}">
     </video>
 
-    <div class="youtube-video d-none w-100" [ngClass]="{'d-block':mediaItem.type==='videoLink'}">
+    <div class="youtube-video d-none w-100" [ngClass]="{'d-block':mediaItem[0]?.type==='videoLink'}">
         <plyr plyrTitle="Video 1" [plyrSources]="videoSources"></plyr>
     </div>
 
@@ -33,8 +33,8 @@
       </ngx-slick-carousel>  -->
 
       <div  class="slide d-none"  *ngIf="type==='image'"
-      [ngClass]="{'d-block':mediaItem?.type ==='image'}">
-      <img class="d-none" [ngClass]="{'d-block':mediaItem?.type ==='image'}" src="{{fileURL+mediaItem.url}}" alt="" width="100%"
+      [ngClass]="{'d-block':mediaItem[0]?.type ==='image'}">
+      <img class="d-none" [ngClass]="{'d-block':mediaItem[0]?.type ==='image'}" src="{{fileURL+mediaItem[0].url}}" alt="" width="100%"
         class="image">
      
     </div>
@@ -52,11 +52,11 @@
       </div>
     </ngx-slick-carousel> -->
     <div class="slide d-none" *ngIf="type==='video'"
-    [ngClass]="{'d-block':mediaItem?.type==='video'|| mediaItem.type==='videoLink'}">
-    <video controls class="d-none w-100 video-item" poster="" [ngClass]="{'d-block':mediaItem?.type==='video'}"
-      src="{{fileURL+mediaItem.url}}">
+    [ngClass]="{'d-block':mediaItem[0]?.type==='video'|| mediaItem[0].type==='videoLink'}">
+    <video controls class="d-none w-100 video-item" poster="" [ngClass]="{'d-block':mediaItem[0]?.type==='video'}"
+      src="{{fileURL+mediaItem[0].url}}">
     </video>
-    <div class="youtube-video d-none w-100" [ngClass]="{'d-block':mediaItem.type==='videoLink'}">
+    <div class="youtube-video d-none w-100" [ngClass]="{'d-block':mediaItem[0].type==='videoLink'}">
         <plyr   plyrTitle="Video 1" [plyrSources]="videoSources"></plyr>
         </div>
   </div>

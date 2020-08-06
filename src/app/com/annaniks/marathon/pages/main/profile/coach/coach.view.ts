@@ -37,6 +37,7 @@ export class CoachView implements OnInit {
     public userId: number;
     public languageName = [];
     public mediaItem = [];
+    public feedMediaItem=[];
     constructor(
         private _userService: UserService,
         private _feedService: FeedService,
@@ -79,6 +80,7 @@ export class CoachView implements OnInit {
             .subscribe((data: FeedData) => {
                 this.feedItem = data.results;
                 for (let item of this.feedItem) {
+                    this.feedMediaItem.push(item);
                     for (let media of item.feed_media) {
                         if (typeof media.content == 'string') {
                             media.content = JSON.parse(media.content);
@@ -190,7 +192,7 @@ export class CoachView implements OnInit {
 
 
     public openGalleryModal(event, message, item): void {
-
+        console.log(item);
         if (event) {
             const dialogRef = this._dialog.open(GalleryModal, {
                 width: "900px",
