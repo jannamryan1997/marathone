@@ -18,7 +18,7 @@ import { FeedService } from '../../../pages/main/feed/feed.service';
 
 export class PropertyModal implements OnInit {
     public isShowSubMessages: boolean = false;
-    private unsubscribe$ = new Subject<void>()
+    private unsubscribe$ = new Subject<void>();
     public show: boolean = false;
     public isOpen: boolean = false;
     public seeMore: boolean = false;
@@ -89,6 +89,7 @@ export class PropertyModal implements OnInit {
         )
         return combine
     }
+
     public likeOrDislike(event) {
         if (event) {
             this._getComments(event.isChild).pipe(takeUntil(this.unsubscribe$)).subscribe()          
@@ -129,6 +130,7 @@ export class PropertyModal implements OnInit {
     private _getComments(parent?): Observable<ServerResponse<Comment[]>> {
         return this._commentService.getFeedCommentById(this.feedItem.id).pipe(map((data: ServerResponse<Comment[]>) => {
             this.comments = data.results;
+            
             if (parent) {
                 this.comments = this.comments.map((val) => {
                     if (val.url == parent) {

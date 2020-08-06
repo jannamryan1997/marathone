@@ -277,11 +277,12 @@ export class RecipePostView implements OnInit {
             mass: this.recipeFormGroup.value.mass,
             imageSlider: this.slides,
             videoLink: this.youtubeLink.value,
-            // is_public:true,
+           
 
         }
         const ReceiptResponseData = {
             role: this.role,
+            is_public:true,
             content: JSON.stringify(
                 {
                     url: '',

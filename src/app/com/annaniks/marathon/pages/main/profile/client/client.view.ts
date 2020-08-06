@@ -183,7 +183,7 @@ export class ClientView implements OnInit {
     public openGalleryModal(event,message,item):void{
         if(event){
             const dialogRef = this._dialog.open(GalleryModal, {
-                width: "900px",
+                width: "1000px",
                 data:{
                     data:item,
                     type:message,

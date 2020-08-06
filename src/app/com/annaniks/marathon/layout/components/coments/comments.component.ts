@@ -143,6 +143,7 @@ export class CommentsComponent implements OnInit {
         let userId = this.comments.user_coach ? this.comments.user_coach.id : this.comments.comment_coach.id;
         return `/profile/${userId}/${role}`
     }
+    
     ngOnDestroy() {
         this.unsubscribe$.next();
         this.unsubscribe$.complete();

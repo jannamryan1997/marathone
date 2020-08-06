@@ -234,6 +234,8 @@ export class CreatePublicationComponent implements OnInit {
                     })
                 )
                 .subscribe((data) => {
+                    console.log(data);
+                    
                 })
         }
     }

@@ -1,12 +1,13 @@
 .gallery-modal {
-
+background: #ffff;
+padding: 10px ;
     .left-content {
         width: 60%;
     }
    
     .youtube-video {
         background: black;
-        height: 500px;
+        height: 600px;
     }
 
 .image{
@@ -82,4 +83,10 @@
 ::ng-deep .slick-prev:before {
     font-size: 50px !important;
     opacity: 1 !important;
+}
+
+
+.comments-content{
+    max-height: 260px;
+    overflow-y: auto;
 }

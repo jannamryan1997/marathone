@@ -78,14 +78,21 @@
         </div>
       </div>
         <div class="settings">
-            <app-settings [style]="true"></app-settings>
-        <!-- <div class="posts-comments" *ngIf="isOpen">
-            <app-comments (sendMessage)="sendMessage($event)" (likeOrDislike)="likeOrDislike($event)"
-                *ngFor="let item of comments" [feed]="feedItem" [comments]="item" [role]="role" >
-            </app-comments>
-            <app-posts-comments [feed]="feedItem"  (sendMessage)="sendMessage($event)" *ngIf="role" [comments]="comments"></app-posts-comments>
-        </div> -->
+       <div class="comments-content" *ngIf="isOpen">
+                <app-comments (sendMessage)="sendMessage($event)" (likeOrDislike)="likeOrDislike($event)"
+                    *ngFor="let item of comments" [feed]="feedItem" [comments]="item" [role]="role"
+                    [type]="mediaItem[0]?.type"></app-comments>
+            </div>
+            <app-settings [feed]="feedItem" [role]="role" (getButtonsType)="getButtonsType($event)"
+                (openChanges)='onClickOpen($event)' [type]="mediaItem[0]?.type" [style]="true"></app-settings>
+
+            <div *ngIf="isOpen">
+                <app-posts-comments [feed]="feedItem" (sendMessage)="sendMessage($event)" *ngIf="role"
+                    [comments]="comments">
+                </app-posts-comments>
+            </div>
         </div>
       </div>
     </div>
   </div>
+ 
