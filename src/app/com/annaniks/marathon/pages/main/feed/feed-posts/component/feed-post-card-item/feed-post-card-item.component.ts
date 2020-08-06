@@ -25,7 +25,7 @@ export class FeedPostCardItemComponent implements OnInit {
     private unsubscribe$ = new Subject<void>();
     public feedItem: FeedResponseData;
     @Input('feedItem') set setFeedItem($event) {
-        this.feedItem = $event
+        this.feedItem = $event;
     }
 
     @Input() routerLink: string;
@@ -77,6 +77,8 @@ export class FeedPostCardItemComponent implements OnInit {
             this.content = this.feedItem.feed_media[0].content;
             this.receipt = this.content.receipt;
         }
+        console.log(this.feedItem);
+        
 
         if (this.content.type === "videoLink") {
             this.videoSources = [{

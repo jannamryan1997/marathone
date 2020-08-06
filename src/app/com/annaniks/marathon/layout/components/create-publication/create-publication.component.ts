@@ -106,7 +106,12 @@ export class CreatePublicationComponent implements OnInit {
 
                         }
                         this.loading = false;
-                    })
+                    },
+                    err=>{
+                        this.loading=false;
+                    }
+                    )
+                  
             }
         }
     }

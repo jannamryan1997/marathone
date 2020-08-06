@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild, Inject } from "@angular/core";
+import { Component, OnInit, Inject } from "@angular/core";
 import { MenuItem } from '../../core/models';
 import { UserService } from '../../core/services/user.service';
 import { AuthModal } from '../../core/modals';
