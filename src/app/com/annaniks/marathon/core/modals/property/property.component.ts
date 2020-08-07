@@ -40,21 +40,28 @@ export class PropertyModal implements OnInit {
     ) {
         this.feedItem = _data.data;
         this.localImage =this._data.localImage;
-        this.timeStamp = moment(this.feedItem.timeStamp).fromNow();
+        if(  this.feedItem){
+            this.timeStamp = moment(this.feedItem.timeStamp).fromNow();
+        }
+       
         this.role = this._cookieService.get('role')
 
 
     }
 
     ngOnInit() {
+        if( this.feedItem ){
+
+    
         for (let item of this.feedItem.feed_media) {
             this.content =  item.content;
                 if (typeof item.content == 'string') {
                     this.content = JSON.parse(item.content)
                 }
             }
-        
-        this._showseeMore();
+            this._showseeMore();
+        }
+      
     }
     get userRole() {
         let role = this.feedItem.creator_client_info ? 'client' : 'coach';
