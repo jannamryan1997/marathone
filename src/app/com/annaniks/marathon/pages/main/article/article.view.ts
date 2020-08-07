@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormArray, FormGroup } from '@angular/forms';
+import { FormBuilder, FormArray, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../../core/services/user.service';
 import { CookieService } from 'ngx-cookie';
 import { environment } from 'src/environments/environment';
@@ -47,14 +47,14 @@ export class ArticleView implements OnInit {
     private _initConfig() {
         this.config = {
             toolbar: [['Bold', 'Italic', 'Underline'], ['RemoveFormat'], ['Blockquote'], ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
-            ['NumberedList', 'BulletedList'], ['Link'],['FontSize']]
+            ['NumberedList', 'BulletedList'], ['Link'], ['FontSize']]
         };
     }
     onDrop(evt) { }
     private _initGroup() {
         this.articleGroup = this._fb.group({
             cover: [null],
-            title: [null],
+            title: [null, Validators.required],
             arrays: this._fb.array([]),
             currentYoutubeLink: [null],
         })
@@ -63,6 +63,15 @@ export class ArticleView implements OnInit {
         } else {
             this._createControls('text');
         }
+        // for(let arr of (this.articleGroup.get('arrays') as FormArray).controls){
+        //     console.log(arr);
+            
+        //     arr.valueChanges.subscribe((data)=>{
+                
+        //         console.log(data);
+                
+        //     })
+        // }
     }
     private _createControls(controlName: string, defaultImage = null) {
         (this.articleGroup.get('arrays') as FormArray).push(this._fb.group({ type: controlName, value: defaultImage }));
@@ -187,9 +196,8 @@ export class ArticleView implements OnInit {
     public onClickShowSetting(): void {
         this.showSetting = !this.showSetting;
     }
-
     public publish() {
-        if (this.articleGroup.value) {
+        if (this.articleGroup.valid) {            
             const articleValue = this.articleGroup.value;
             let content = {
                 cover: articleValue.cover,
@@ -219,7 +227,7 @@ export class ArticleView implements OnInit {
     public getControls() {
         return (this.articleGroup.get('arrays') as FormArray).controls
     }
-    
+
     ngOnDestroy() {
         this.unsubscribe$.next();
         this.unsubscribe$.complete();

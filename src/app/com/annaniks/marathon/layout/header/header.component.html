@@ -3,11 +3,11 @@
         <div class="header-content display-flex">
             <img class="logo" src="assets/images/logo/marathon-logo.png" routerLink="/feed">
             <div class="serch-content">
-                    <input type="tex" class="search-input" placeholder="Search">
-                    <span class="material-icons search-icon">
-                        search
-                    </span>
-                </div>
+                <input type="tex" class="search-input" placeholder="Search">
+                <span class="material-icons search-icon">
+                    search
+                </span>
+            </div>
             <div class="header-category d-flex">
                 <li *ngFor="let item of menuItem" routerLinkActive="li-activeTab"><a class="link"
                         [routerLink]="item.routerLink" routerLinkActive="activeTab">{{item?.title}}</a></li>
@@ -25,13 +25,13 @@
                 <div class="form-input btn-item blue-btn w-50" (click)="onClickOpenAuth('registration')">
                     <span class="m-auto">Sign up</span></div>
             </div>
-<div class="icon-item d-block" *ngIf="showUserData">
-        <img src="assets/icons/Notification.svg" class="icon" alt="">
-        <img src="assets/icons/coments.svg" class="icon" alt="">
-  
-</div>
+            <div class="icon-item d-block" *ngIf="showUserData">
+                <img src="assets/icons/Notification.svg" class="icon" alt="">
+                <img src="assets/icons/coments.svg" class="icon" alt="">
+
+            </div>
             <div class="profile-content" *ngIf="showUserData" (clickOutside)="onClickedOutside($event)">
-                  
+
                 <div class="profile-container display-flex">
                     <img [src]="localImage" class="proflle-image" alt="">
                     <span class="material-icons" (click)="showProfile()">

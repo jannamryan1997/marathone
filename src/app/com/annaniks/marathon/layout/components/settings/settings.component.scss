@@ -66,10 +66,15 @@
     }
 }
 
-button:disabled {
-    color: #65a4fe !important;
+.liked{
+    color: #65a4fe !important
 }
-
+.energy-count{
+    opacity: 0.6;
+}
+.energy-count:hover{
+    opacity: 1 !important;
+}
 .class-type {
     border: none !important;
     font-size: 9px !important;

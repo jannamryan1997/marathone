@@ -4,13 +4,13 @@
   </div>
   <div class="main-container d-flex">
     <div class="left-content">
-        <app-left-menu></app-left-menu>
+      <app-left-menu></app-left-menu>
     </div>
-    <div class="router-outlet" [ngClass]="{'router':router.url==='/profile/coach' || router.url==='/profile/client' || router.url==='/edit-profile' }">
-        <router-outlet></router-outlet>
+    <div class="router-outlet" [ngClass]="{'router':isIncludeProfile }">
+      <router-outlet></router-outlet>
     </div>
     <div class="right-content">
-        <app-right-menu></app-right-menu>
+      <app-right-menu></app-right-menu>
     </div>
   </div>
 </div>

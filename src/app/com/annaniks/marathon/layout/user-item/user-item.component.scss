@@ -1,0 +1,52 @@
+@mixin text($fontSize, $lineHeight, $color, $fontFamily) {
+    font-size: $fontSize;
+    line-height: $lineHeight;
+    color: $color;
+    font-family: $fontFamily,
+}
+.follow-item-content{
+    padding: 0 8px;
+    align-items: center;
+    .user-image {
+        border-radius: 50%;
+        width: 42px;
+        height: 42px;
+        cursor: pointer;
+    }
+    .main-info{
+        cursor: pointer;    
+        .name {
+            margin-left: 20px;
+            
+            @include text(16px, 20px, #45535c, EncodeSans-Bold);
+        }
+        .more-point{
+            line-height: 28px;
+            color: #45535c;
+            font-family: EncodeSans-Bold;
+            width: 105px;
+            white-space: nowrap;
+            overflow: hidden !important;
+            text-overflow: ellipsis;
+            display: block;
+        }
+
+        .email-title {
+            margin-left: 18px;
+            margin-top: 5px;
+            @include text(14px, 16px, #bbcddf, EncodeSans-Regular);
+        }
+    }
+}
+.bg-item{
+    justify-content: space-around;
+    .user-image {
+        width: 55px !important;
+        height: 55px !important;
+    }
+}
+.btn-item{
+    min-width: 100px;
+    justify-content: center;
+
+}

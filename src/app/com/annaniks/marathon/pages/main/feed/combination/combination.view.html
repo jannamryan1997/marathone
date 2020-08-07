@@ -24,7 +24,7 @@
             <p class="name mb-0" *ngIf="role==='coach' || (!role && article?.creator_info)">
                 {{article?.creator_info?.user?.first_name}}</p>
             <p class="date ml-2">{{time}}</p>
-            <button (click)="follow()" type="button" [class.active-btn]="user?.is_follower"
+            <button *ngIf="!checkIsMe()" (click)="follow()" type="button" [class.active-btn]="user?.is_follower"
                 class="btn-item info-btn ml-2">{{user?.is_follower?'Unfollow':'Follow'}}</button>
         </div>
 

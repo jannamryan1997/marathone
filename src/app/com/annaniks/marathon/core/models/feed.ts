@@ -11,7 +11,7 @@ export interface FeedResponseData {
     category: any;
     creator: any;
     creator_client: string;
-    creator_info:any;
+    creator_info: any;
     duration: any;
     feed_media: FeedMedia[];
     id: number;
@@ -20,6 +20,9 @@ export interface FeedResponseData {
     timeStamp: string;
     title: string;
     url: string;
+    feed_comments_count: number
+    feed_likes_count: number
+    is_liked: boolean
     creator_client_info:any;
     mass:string,
     is_public:boolean;
@@ -39,5 +42,5 @@ export interface FeedMedia {
 export interface Content {
     type: string;
     url: string;
-    recipe?:ReceiptResponseData;
+    recipe?: ReceiptResponseData;
 }
