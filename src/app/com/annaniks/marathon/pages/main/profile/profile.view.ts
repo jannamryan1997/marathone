@@ -43,12 +43,13 @@ export class ProfileView implements OnInit {
         private _activatedRoute: ActivatedRoute,
         private _router: Router) {
 
-        let urls = this._router.url.split('/');
-        if (urls && urls.length) {
-            this.userRole = urls[urls.length - 1];
-        }
+
         this._activatedRoute.params.pipe(takeUntil(this.unsubscribe$)).subscribe(params => {
             if (params && params.id) {
+                let urls = this._router.url.split('/');
+                if (urls && urls.length) {
+                    this.userRole = urls[urls.length - 1];
+                }
                 this._userSlug = params.id;
                 this._getProfile();
             }
