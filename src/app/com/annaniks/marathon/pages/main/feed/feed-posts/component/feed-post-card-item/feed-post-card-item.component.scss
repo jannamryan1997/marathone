@@ -6,6 +6,28 @@
 }
 
 .post-container {
+    .recept-content {
+        position: relative;
+        .recipt-right {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #C0C9DEAA 0% 0% no-repeat padding-box;
+            box-shadow: -3.76px 7px 7px #C0C9DC4F;
+            border: 1px solid #FFFFFF;
+            border-radius: 50%;
+            width: 52px;
+            height: 52px;
+            cursor: pointer;
+            z-index: 1;
+            display: flex;
+            opacity:1;
+            .icon{
+                margin: auto;
+                width: 25px;
+            }
+        }
+    }
 
     // padding: 0 50px 0px 21px;
     .image,
@@ -13,9 +35,12 @@
         height: 380px;
         cursor: pointer;
         margin: 6px 0;
+     
     }
 }
-
+.vido{
+    background: black;
+}
 .title-content {
     padding: 0 50px 0px 21px;
     align-items: flex-end;
@@ -73,28 +98,29 @@
 
     }
 
-    &:hover {
-        .comments {
-            opacity: .8 !important;
-        }
-    }
+    // &:hover {
+    //     .comments {
+    //         opacity: .8 !important;
+    //     }
+    //     .recipt-right{
+    //         opacity: .8 !important;
+    //     }
+    // }
 
     .comments {
-        // background: transparent linear-gradient(0deg, #43474E 0%, #43474E 28%, #43474E00 100%) 0% 0% no-repeat padding-box;
-        opacity: 0;
+        opacity: 0.8;
         bottom: 70px;
-
+        background: transparent linear-gradient(0deg, #31364399 0%, #31364300 100%) 0% 0% no-repeat padding-box;
+        opacity: 1;
         .comments-content {
-            width: 90%;
-            flex-wrap: wrap;
+            margin: 0 40px;
+        }
+        .comment-item{
+            margin: 17px;
         }
 
         .comments-description {
             display: flex;
-            width: 20%;
-            padding: 1.2em;
-
-
 
             .text {
                 @include text(13px, 15px, #ffffff, EncodeSans-Bold);
@@ -175,22 +201,31 @@
 .article-style {
     height: 275px !important;
     margin: 6px 0 12px 0 !important;
+    cursor: pointer;
 }
 
 .recipt-style {
     height: 330px !important;
-    margin: 6px 0 12px 0 !important;
-}
-
-.video-youtube{
-    margin: 6px 0 12px 0 !important;
-}
-:host::ng-deep{
-    .video-youtube{
-        .plyr{
-            min-width: 100% !important;
-             height: 380px;
-        }
+    
+   
+    .text-content{
+        margin: 10px 0;
     }
 }
 
+.video-youtube {
+    margin: 6px 0 12px 0 !important;
+}
+
+:host::ng-deep {
+    .video-youtube {
+        .plyr {
+            min-width: 100% !important;
+            height: 380px;
+        }
+    }
+}
+.recept-main{
+    border: 1px solid #e3ecfd;
+    margin: 6px 0 12px 0;
+}

@@ -4,16 +4,19 @@
         <div class="gallery-hovher d-flex">
             <div class="gallery-hovher-item d-flex m-auto">
                 <img src="assets/icons/Comment.svg" class="icon">
-                <p>30</p>
+                <p> {{feedItem?.feed_comments_count}}</p>
                 <img src="assets/icons/Energy.svg" class="icon">
-                <p>60</p>
+                <p>{{feedItem?.feed_likes_count}}</p>
             </div>
+
         </div>
     </div>
 
     <video controls class="video-item d-none w-100" poster="" [ngClass]="{'d-block':mediaItem.type==='video'}"
-        [src]="videoUrl">
-    </video>
+    [src]="videoUrl">
+</video>
+
+
     <div class="youtube-video d-none w-100" [ngClass]="{'d-block':mediaItem.type==='videoLink'}">
         <plyr style="display:block" plyrTitle="Video 1" [plyrSources]="videoSources"></plyr>
     </div>

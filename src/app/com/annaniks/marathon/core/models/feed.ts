@@ -20,12 +20,12 @@ export interface FeedResponseData {
     timeStamp: string;
     title: string;
     url: string;
-    creator_client_info: any;
-    mass: string
     feed_comments_count: number
     feed_likes_count: number
     is_liked: boolean
-    is_public: boolean
+    creator_client_info:any;
+    mass:string,
+    is_public:boolean;
 }
 
 export interface FeedMedia {

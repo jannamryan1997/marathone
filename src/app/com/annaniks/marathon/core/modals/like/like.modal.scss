@@ -42,14 +42,22 @@
         height: 100%;
         max-height: 500px;
         overflow: auto;
+
+        .message-title {
+            font-size: 16px;
+            line-height: 19px;
+            color: #65a4fe;
+            font-family: EncodeSans-Bold;
+            margin-bottom: 20px;
+            margin-left: 10px;
+            text-align: center;
+            padding: 30px 0;
+        }
     }
 }
 
 ::ng-deep .mat-dialog-container {
     background: #FFFFFF 0% 0% no-repeat padding-box;
-    padding: 0 !important;
-    // box-shadow: 1px 20px 29px #5C687B4A;
-    // border-radius: 25px;
-    // opacity: 1;
+    padding: 0;
 
 }

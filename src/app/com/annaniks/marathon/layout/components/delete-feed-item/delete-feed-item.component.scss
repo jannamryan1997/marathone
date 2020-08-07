@@ -1,9 +1,7 @@
 .delete-container {
     position: absolute;
+    right: -42px;
     z-index: 9;
-    right: -43px;
-    top: 12px;
-    bottom: 0;
 }
 
 .deleted-content {
@@ -80,5 +78,5 @@
 }
 
 ::ng-deep .mat-dialog-container {
-    background: #ffffff 0% 0% no-repeat padding-box !important;
+    background: #ffffff 0% 0% no-repeat padding-box ;
 }

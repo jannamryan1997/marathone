@@ -105,7 +105,7 @@
             </div>
             <div *ngIf="postTab===1" class="post-container">
                     <div *ngIf="checkIsMe()">
-                            <app-create-publication [feedItem]="feedItem" (postCreateEvent)="onPostCreated($event)"></app-create-publication>
+                            <app-create-publication [style]="true" [feedItem]="feedItem" (postCreateEvent)="onPostCreated($event)"></app-create-publication>
                         </div>
                 <div *ngIf="feedItem?.length > 0" class="feed-item" infinite-scroll
                     [infiniteScrollDistance]="scrollDistance" [infiniteScrollUpDistance]="scrollUpDistance"
@@ -113,7 +113,7 @@
                    <!--  (scrolled)="onScroll()" -->
                     <spinner-loading *ngIf="loading"></spinner-loading>
                     <app-feed-post-card-item *ngFor="let item of feedItem" [feedItem]="item"
-                        (deletedItem)="deletedFeedItem($event)"></app-feed-post-card-item>
+                        (deletedItem)="deletedFeedItem($event)" ></app-feed-post-card-item>
                 </div>
             </div>
         </div>
@@ -130,23 +130,23 @@
             </div>
             <div class="events-content" [ngSwitch]="galerryTab">
                 <div  *ngIf="galerryTab===1" class="gallery-content">
-                    <div class="gallery-item" *ngFor="let item of mediaItem"  [ngClass]="{'d-block':item.url}">
-                           <app-galery   [mediaItem]="item"  (showGalleryModal)="openGalleryModal($event,'all')"></app-galery>
+                    <div class="gallery-item" *ngFor="let item of feedMediaItem"  [ngClass]="{'d-block':item.feed_media[0].content.url}">
+                           <app-galery   [mediaItem]="item"  (showGalleryModal)="openGalleryModal($event,'all',item)"></app-galery>
                     </div>
                      
                 </div>
         
 
                 <div  *ngIf="galerryTab===2" class="gallery-content">
-                        <div class="gallery-item" *ngFor="let item of mediaItem"  [ngClass]="{'d-block':item.url && item.type==='image'}">
-                               <app-galery   [mediaItem]="item"  (showGalleryModal)="openGalleryModal($event,'image')"></app-galery>
+                        <div class="gallery-item" *ngFor="let item of feedMediaItem"  [ngClass]="{'d-block':item.feed_media[0].content.url && item.feed_media[0].content.type==='image'}">
+                               <app-galery   [mediaItem]="item"  (showGalleryModal)="openGalleryModal($event,'image',item)"></app-galery>
                         </div>
                          
                     </div>
 
                 <div  *ngIf="galerryTab===3" class="gallery-content">
-                        <div class="gallery-item" *ngFor="let item of mediaItem"  [ngClass]="{'d-block':item.url && item.type==='video'|| item.type==='videoLink'}">
-                               <app-galery   [mediaItem]="item"  (showGalleryModal)="openGalleryModal($event,'video')"></app-galery>
+                        <div class="gallery-item" *ngFor="let item of feedMediaItem"  [ngClass]="{'d-block':item.feed_media[0].content.url && item.feed_media[0].content.type==='video'|| item.feed_media[0].content.type==='videoLink'}">
+                               <app-galery   [mediaItem]="item"  (showGalleryModal)="openGalleryModal($event,'video',item)"></app-galery>
                         </div>
                          
                     </div>

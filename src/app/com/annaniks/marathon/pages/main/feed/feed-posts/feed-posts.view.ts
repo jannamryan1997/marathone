@@ -3,8 +3,10 @@ import { FeedService } from '../feed.service';
 import { FeedResponseData } from '../../../../core/models';
 import { UserService } from '../../../../core/services/user.service';
 import { Subject } from 'rxjs';
-import { RemoveModal } from '../../../../core/modals';
+import { RemoveModal, AuthModal } from '../../../../core/modals';
 import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute } from '@angular/router';
+import { CookieService } from 'ngx-cookie';
 
 @Component({
     selector: "feed-posts-view",
@@ -24,16 +26,36 @@ export class FeedPostsView implements OnInit, OnDestroy {
     public scrollUpDistance = 2;
     public infiniteScrollDisabled = false;
     public loading: boolean = false;
+    public _token: string;
+    public role:string;
     constructor(
         public _feedService: FeedService,
         public userService: UserService,
         private _dialog: MatDialog,
-    ) { }
+        private _activatedRoute: ActivatedRoute,
+        private _coookieService:CookieService,
+    ) { 
+        this.role=this._coookieService.get('role');
+    }
 
     ngOnInit() {
         this._getFeed(this._pageIndex);
+        this._checkQueryParams();
     }
 
+
+    private _checkQueryParams(): void {
+        let params = this._activatedRoute.snapshot.queryParams;
+        if (params && params.token) {
+            this._token = params.token;
+            this._dialog.open(AuthModal, {
+                data: {
+                    token: this._token,
+                }
+            })
+
+        }
+    }
 
     private async _getFeed(page: number) {
         this.infiniteScrollDisabled = true;
@@ -58,7 +80,7 @@ export class FeedPostsView implements OnInit, OnDestroy {
                 }
             }
         }
-        this.infiniteScrollDisabled = false;
+        this.infiniteScrollDisabled = false;  
     }
 
     public onPostCreated(event): void {
@@ -99,11 +121,11 @@ export class FeedPostsView implements OnInit, OnDestroy {
 
     }
 
-    public onClickEditFeed(event):void{
-      if(event){
-        this._getFeed(this._pageIndex);
-      } 
-       
+    public onClickEditFeed(event): void {
+        if (event) {
+            this._getFeed(this._pageIndex);
+        }
+
     }
 
     ngOnDestroy() {

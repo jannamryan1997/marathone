@@ -1,6 +1,7 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie';
+import { Observable } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -63,5 +64,16 @@ export class CommentService {
         params = params.set('authorization', 'true');
         let body = this.getCommentLikeOrDislikeBody(commentUrl);
         return this._httpClient.post(this._baseUrl + '/feed/dislike-comment/', body, { params })
+    }
+    public deleteIsDislike(id:number):Observable<any>{
+        let params = new HttpParams();
+        params = params.set('authorization', 'true');
+        return this._httpClient.delete(this._baseUrl + `/feed/dislike-comment/${id}/`, { params })
+    }
+
+    public deletelikeComment(id:number) {
+        let params = new HttpParams();
+        params = params.set('authorization', 'true');
+        return this._httpClient.delete(this._baseUrl + `/feed/like-comment/${id}/`, { params })
     }
 }

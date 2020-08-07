@@ -201,6 +201,7 @@ export class ArticleView implements OnInit {
                     content
                 ),
                 role: this._cookieServie.get('role'),
+                is_public:true,
 
             }
             if (!this._articleId) {

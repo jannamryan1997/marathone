@@ -24,8 +24,8 @@ export class RoleGuard implements CanActivate {
 
         if (!isAuthorized) {
             const dialogRef = this._matDialog.open(AuthModal, {
-                width: "100%",
-                maxWidth: "100vw",
+                // width: "100%",
+                // maxWidth: "100vw",
             });
             dialogRef.afterClosed().subscribe((value) => {
                 if (value) {

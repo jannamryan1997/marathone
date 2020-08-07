@@ -18,7 +18,7 @@ import { FeedService } from '../../../pages/main/feed/feed.service';
 
 export class PropertyModal implements OnInit {
     public isShowSubMessages: boolean = false;
-    private unsubscribe$ = new Subject<void>()
+    private unsubscribe$ = new Subject<void>();
     public show: boolean = false;
     public isOpen: boolean = false;
     public seeMore: boolean = false;
@@ -56,6 +56,10 @@ export class PropertyModal implements OnInit {
         
         this._showseeMore();
     }
+    get userRole() {
+        let role = this.feedItem.creator_client_info ? 'client' : 'coach';
+        return role
+    }
 
     private _showseeMore(): void {
         let titleLength: number;
@@ -85,6 +89,7 @@ export class PropertyModal implements OnInit {
         )
         return combine
     }
+
     public likeOrDislike(event) {
         if (event) {
             this._getComments(event.isChild).pipe(takeUntil(this.unsubscribe$)).subscribe()          
@@ -103,8 +108,8 @@ export class PropertyModal implements OnInit {
     }
     public onClickOpenAuth(): void {
         this._matDialog.open(AuthModal, {
-            width: "100%",
-            maxWidth: "100vw",
+            // width: "100%",
+            // maxWidth: "100vw",
         })
     }
     private _getFeedById() {
@@ -125,6 +130,7 @@ export class PropertyModal implements OnInit {
     private _getComments(parent?): Observable<ServerResponse<Comment[]>> {
         return this._commentService.getFeedCommentById(this.feedItem.id).pipe(map((data: ServerResponse<Comment[]>) => {
             this.comments = data.results;
+            
             if (parent) {
                 this.comments = this.comments.map((val) => {
                     if (val.url == parent) {

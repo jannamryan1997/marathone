@@ -16,11 +16,12 @@ import { ReceiptData } from '../../../core/models/receipt';
 export class CreatePublicationComponent implements OnInit {
     public isModalMode: boolean = false;
     public postType = new FormControl('');
-    public videoSources = []
+    public videoSources = [];
     @Input() feedItem: FeedResponseData;
     @Input() feedId: number;
     @Input() editProfile: boolean;
     @Input() mediaUrl: string;
+    @Input() style: boolean;
     @Output('postCreateEvent') private _postCreateEvent: EventEmitter<void> = new EventEmitter<void>();
     @Output() closeEditModal = new EventEmitter<any>();
     @ViewChild('inputImageReference') private _inputImageReference: ElementRef;
@@ -47,6 +48,7 @@ export class CreatePublicationComponent implements OnInit {
     ) { }
 
     ngOnInit() {
+
         if (this.editProfile) {
             this._getFeedById();
         }
@@ -57,8 +59,6 @@ export class CreatePublicationComponent implements OnInit {
         this._feedService.getFeedById(this.feedId)
             .subscribe((data: FeedResponseData) => {
                 this.postType.setValue(data.title);
-                console.log(data);
-                
                 if (typeof data.feed_media[0].content === 'string') {
                     this.mediaContent = JSON.parse(data.feed_media[0].content);
                     this.isModalMode = true;
@@ -106,7 +106,12 @@ export class CreatePublicationComponent implements OnInit {
 
                         }
                         this.loading = false;
-                    })
+                    },
+                        err => {
+                            this.loading = false;
+                        }
+                    )
+
             }
         }
     }
@@ -159,8 +164,15 @@ export class CreatePublicationComponent implements OnInit {
 
 
     public createdPost(): void {
+        // let is_public: boolean;
+        // if (this._userService.user.data.is_faworit === null || false) {
+        //     is_public = false;
+        // }
+        // else{
+        //     is_public = true;   
+        // }
         this.loading = true;
-        let     content= JSON.stringify(
+        let content = JSON.stringify(
             {
                 url: this.contentFileName,
                 type: this.uploadType,
@@ -170,8 +182,9 @@ export class CreatePublicationComponent implements OnInit {
         if (!this.editProfile) {
             this._userService.postFeed({
                 title: this.postType.value,
-                content:content,
+                content: content,
                 role: role,
+                is_public: true,
 
             })
                 .pipe(
@@ -187,12 +200,12 @@ export class CreatePublicationComponent implements OnInit {
                     })
                 )
                 .subscribe((data) => {
-                
-                    
+
+
                 })
         }
         else if (this.editProfile) {
-            let     content= JSON.stringify(
+            let content = JSON.stringify(
                 {
                     url: this.contentFileName,
                     type: this.uploadType,
@@ -203,6 +216,8 @@ export class CreatePublicationComponent implements OnInit {
                     title: this.postType.value,
                     content: content,
                     role: role,
+                    is_public: true,
+
 
                 })
                 .pipe(
@@ -219,6 +234,8 @@ export class CreatePublicationComponent implements OnInit {
                     })
                 )
                 .subscribe((data) => {
+                    console.log(data);
+                    
                 })
         }
     }
@@ -236,9 +253,10 @@ export class CreatePublicationComponent implements OnInit {
         this.controVideoItem = '';
         this.showYoutube = false;
         this.player = null;
+        this.showemoji = false;
     }
 
- public   play(): void {
+    public play(): void {
         let title;
         this.videoSources = [{
             src: this.postType.value,

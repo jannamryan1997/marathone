@@ -38,6 +38,21 @@ export class RightMenuComponent implements OnInit {
 
     ngOnInit() {}
 
+    // public follow() {
+    //     if (!this.isFollowed) {
+    //         this._profileService.follow(this.role, this._userService.user.data.url, this.userRole, this.user.url).pipe(takeUntil(this.unsubscribe$)).pipe(
+    //             switchMap(() => {
+    //                 return this._getProfileById()
+    //             })).subscribe();
+    //     } else {
+    //         if (this.user.is_follower_id) {
+    //             this._profileService.unfollow(this.user.is_follower_id).pipe(takeUntil(this.unsubscribe$)).pipe(
+    //                 switchMap(() => {
+    //                     return this._getProfileById()
+    //                 })).subscribe();
+    //         }
+    //     }
+    // }
     get showUserData(): boolean {
         return this._profileUserService.isAuthorized;
     }

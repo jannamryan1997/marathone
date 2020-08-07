@@ -38,6 +38,7 @@ export class ClientView implements OnInit {
     public seeMore: boolean = false;
     public languageName = [];
     public mediaItem = [];
+    public feedMediaItem=[];
 
     constructor(
         private _profileUserService: UserService,
@@ -88,6 +89,7 @@ export class ClientView implements OnInit {
             .subscribe((data: FeedData) => {
                 this.feedItem = data.results;
                 for (let item of this.feedItem) {
+                    this.feedMediaItem.push(item);
                     for (let media of item.feed_media) {
                         if (typeof media.content == 'string') {
                             media.content = JSON.parse(media.content);
@@ -178,12 +180,12 @@ export class ClientView implements OnInit {
         this._getFeed(this._pageIndex);
 
     }
-    public openGalleryModal(event,message):void{
+    public openGalleryModal(event,message,item):void{
         if(event){
             const dialogRef = this._dialog.open(GalleryModal, {
-                width: "800px",
+                width: "1000px",
                 data:{
-                    data:this.mediaItem,
+                    data:item,
                     type:message,
                 }
             })

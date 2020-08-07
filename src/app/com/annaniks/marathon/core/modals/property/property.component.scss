@@ -1,6 +1,10 @@
 .property-content {
 padding: 0 20px;
-
+.text-right{
+    position:absolute;
+    top: 0;
+    right: 0;
+}
     .property-main {
         background: #FFFFFF;
         border-radius: 15px;
@@ -71,8 +75,9 @@ padding: 0 20px;
 }
 
 ::ng-deep .mat-dialog-container {
-    padding: 0 !important;
-    background: #FFFFFF 0% 0% no-repeat padding-box !important;
+padding:0 ;
+ background:none;
+ box-shadow: none;
 }
 
 .setting-item .title {
@@ -84,10 +89,7 @@ padding: 0 20px;
     padding: 20px 0px !important;
 }
 
-::ng-deep .mat-dialog-container {
-    background: #EDEDED44 0% 0% no-repeat padding-box !important;
 
-}
 .time{
     margin-left: 12px !important;
     font-size: 12px !important;

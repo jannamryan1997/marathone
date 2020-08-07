@@ -173,7 +173,7 @@ export class RecipePostView implements OnInit {
     private _openAddIngridientImageModal(): void {
         const dialogRef = this._matDialog.open(AddIngridientImageModal, {
             width: "100%",
-            maxWidth: "100vw",
+            // maxWidth: "100vw",
             data: {
                 data: this.slides
             }
@@ -258,6 +258,7 @@ export class RecipePostView implements OnInit {
 
 
     public postRecipe(): void {
+     
         this.loading = true;
         let receipt = {
             title: this.recipeFormGroup.value.title,
@@ -276,10 +277,12 @@ export class RecipePostView implements OnInit {
             mass: this.recipeFormGroup.value.mass,
             imageSlider: this.slides,
             videoLink: this.youtubeLink.value,
+           
 
         }
         const ReceiptResponseData = {
             role: this.role,
+            is_public:true,
             content: JSON.stringify(
                 {
                     url: '',

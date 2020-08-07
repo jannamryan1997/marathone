@@ -31,6 +31,8 @@ export class ProfileView implements OnInit {
     public useLanguageUrl: string;
     public userId: number;
     public isFollowed: boolean = false;
+    public routerUrl: string;
+    public userData;
     constructor(
 
         @Inject("FILE_URL") private _fileUrl,
@@ -47,7 +49,8 @@ export class ProfileView implements OnInit {
             if (params && params.id)
                 this.userId = params.id;
         })
-
+        this.routerUrl = window.location.href;
+        this.userData=this._userService.user;
     }
 
     ngOnInit() {
@@ -201,6 +204,21 @@ export class ProfileView implements OnInit {
         this.showMore = false;
         this.showSocialMedium = false;
     }
+
+public copyUrl():void{
+    const selBox = document.createElement('textarea');
+    selBox.style.position = 'fixed';
+    selBox.style.left = '0';
+    selBox.style.top = '0';
+    selBox.style.opacity = '0';
+    selBox.value = this.routerUrl;
+    document.body.appendChild(selBox);
+    selBox.focus();
+    selBox.select();
+    document.execCommand('copy');
+    document.body.removeChild(selBox);
+}
+
     ngOnDestroy() {
         this.unsubscribe$.next();
         this.unsubscribe$.complete();

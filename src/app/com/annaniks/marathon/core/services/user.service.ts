@@ -33,7 +33,7 @@ export class UserService {
     public uploadVideoFile(formData: FormData): Observable<UploadFileResponse> {
         let params = new HttpParams();
         params= params.set('authorization', 'false');
-         return this._httpClient.post<UploadFileResponse>('http://annaniks.com:6262' + '/upload-file/', formData,{params});
+         return this._httpClient.post<UploadFileResponse>('https://uat.marathon.me' + '/upload-file/', formData,{params});
     }
 
     public postFeed(body: any): Observable<any> {
@@ -43,3 +43,4 @@ export class UserService {
 }
 
 
+// http://192.168.1.115:8000/api

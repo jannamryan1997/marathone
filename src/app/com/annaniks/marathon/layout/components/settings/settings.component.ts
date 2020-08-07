@@ -18,6 +18,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
     private unsubscribe$ = new Subject<void>()
 
     @Input() type: string;
+    @Input() style:boolean;
     @Output() openChanges = new EventEmitter();
     @Output() showFollowModel = new EventEmitter();
     @Input('feed')

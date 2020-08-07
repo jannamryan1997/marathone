@@ -4,7 +4,7 @@
             <div class="d-flex align-items-center">
             <img src="assets/icons/Repost_blue.svg" class="image">
             <p class="title ml-3">All</p>
-            <p class="count ml-3">120</p>
+            <p class="count ml-3">0</p>
         </div>
 <div>
         <span class="material-icons close" (click)="onClickCloseModal()">
@@ -15,15 +15,7 @@
         </div>
     </div>
     <div class="share-layout">
-       <app-like-item></app-like-item>
-       <app-like-item></app-like-item>
-       <app-like-item></app-like-item>
-       <app-like-item></app-like-item>
-       <app-like-item></app-like-item>
-       <app-like-item></app-like-item>
-       <app-like-item></app-like-item>
-       <app-like-item></app-like-item>
-       <app-like-item></app-like-item>
-       <app-like-item></app-like-item>
+       <app-like-item *ngFor="let item of likeItem;let ind=index"></app-like-item>
+       <p class="message-title" *ngIf="likeItem.length===0"> There are no likes</p>
     </div>
 </div>

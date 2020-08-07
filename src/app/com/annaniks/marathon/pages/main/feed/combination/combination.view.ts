@@ -12,7 +12,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { FeedLikeService } from '../../../../core/services/feed-like.service';
 import { ProfileService } from '../../../../core/services/profile.service';
 import { UserService } from '../../../../core/services/user.service';
-
+import { Location } from '@angular/common';
 @Component({
     selector: "combination-view",
     templateUrl: "combination.view.html",
@@ -42,6 +42,8 @@ export class CombinationView implements OnInit {
         private _matDialog: MatDialog,
         private _profileService: ProfileService,
         private _userService: UserService,
+        private _location:Location,
+
         @Inject("FILE_URL") public fileUrl: string) {
         this.role = this._cookieService.get('role');
 
@@ -152,8 +154,8 @@ export class CombinationView implements OnInit {
     }
     public onClickOpenAuth(): void {
         this._matDialog.open(AuthModal, {
-            width: "100%",
-            maxWidth: "100vw",
+            // width: "100%",
+            // maxWidth: "100vw",
         })
     }
     public setImage() {
@@ -184,6 +186,9 @@ export class CombinationView implements OnInit {
         } else {
             return false
         }
+    }
+    public onClickGoBack():void{
+        this._location.back();
     }
     ngOnDestroy() {
         this.unsubscribe$.next();

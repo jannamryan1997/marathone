@@ -5,6 +5,7 @@
         <img class="logo" src="assets/images/logo/marathon-logo.png">
     </div>
     <form [formGroup]="signInGroup">
+        <p class="text-danger">{{errorMessage}}</p>
         <div class="form-group d-flex">
             <img src="/assets/icons/Profile.svg" class="form-group-icon">
             <input type="email" class="form-input w-100" formControlName="email" placeholder="email">
@@ -23,7 +24,7 @@
             </span>
         </div>
         <div class=" w-100  button-item display-flex">
-            <button class="sign-btn d-flex w-50" (click)="onClickTab(1)" [ngClass]="{'active-btn':signInGroup.valid}">
+            <button class="sign-btn d-flex w-50" (click)="onClickTab(1)" [disabled]="signInGroup.invalid" [ngClass]="{'active-btn':signInGroup.valid}">
                 <span class="m-auto">Log In</span>
                 <app-loading *ngIf="loading"></app-loading>
             </button>
@@ -34,7 +35,7 @@
         </div>
 
         <div class="auth-description display-flex">
-            <input type="radio" class="checkbox">
+            <input type="checkbox" class="checkbox">
             <p class="text">Stay signed in</p>
             <p class="title forgot-title" (click)="onClickTab(3)">Forgot Password?</p>
         </div>

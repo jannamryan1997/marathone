@@ -1,4 +1,4 @@
-<div class="card-item">
+<div class="card-item" >
     <div class="item-header">
         <div class="item-head-description">
             <img [routerLink]="getProfleUrl()" [src]="localImage" class="image" alt="Cinque Terre">
@@ -47,49 +47,58 @@
 
 
             <div class="d-none" [ngClass]="{'d-block':content?.type ==='recipeType'}"
-                routerLink='/feed/ingridient/{{feedItem.id}}'>
-                <div class="post-container chicken-content p-0">
-                    <ngx-slick-carousel *ngIf="receipt?.imageSlider.length>0" class="carousel w-100 recipt-style"
+               (click)="routerIngridientPage()">
+               
+                <div class="post-container recept-content chicken-content p-0">
+                    <div class="recept-main">
+                        <div class="recipt-right">
+                                <img src="assets/icons/Recipes_light.svg" class="icon" alt="Cinque Terre">
+                        </div>
+                    <!-- <ngx-slick-carousel *ngIf="receipt?.imageSlider.length>0" class="carousel w-100 recipt-style"
                         #slickModal="slick-carousel" [config]="slideConfig">
                         <div ngxSlickItem *ngFor="let slide of receipt?.imageSlider" class="slide">
                             <img [src]="slide.img" alt="" width="100%" class="recipt-style">
                         </div>
-                    </ngx-slick-carousel>
+                    </ngx-slick-carousel> -->
+                    <div>
+
+                    </div>
+                    <img  *ngIf="receipt?.imageSlider.length>0" [src]="receipt?.imageSlider[0].img" alt="" width="100%" class="recipt-style">
                     <img *ngIf="receipt?.imageSlider.length===0 && receipt?.videoLink ==='' "
                         src="/assets/images/food.png" alt="" width="100%" class="recipt-style">
 
                     <div class="comments  w-100 position-absolute">
-                        <div class="comments-content w-80 m-auto  d-flex">
+                        <div class="comments-content d-flex">
                         <div class="comments-description">
-                            <div>
+                            <div class="comment-item">
                                 <p class="text">Coloris</p>
                                 <p class="title">{{receipt?.calories}} kcal</p>
                             </div>
 
                         </div>
                         <div class="comments-description">
-                            <div>
+                            <div class="comment-item">
                                 <p class="text">Protein</p>
                                 <p class="title">{{receipt?.protein}} gm</p>
                             </div>
 
                         </div>
                         <div class="comments-description">
-                            <div>
+                            <div class="comment-item">
                                 <p class="text">Fat</p>
                                 <p class="title">{{receipt?.fat}} gm</p>
                             </div>
 
                         </div>
                         <div class="comments-description">
-                            <div>
+                            <div class="comment-item">
                                 <p class="text">Carbs</p>
                                 <p class="title">{{receipt?.carbs}} gm</p>
                             </div>
 
                         </div>
                         <div class="comments-description">
-                            <div>
+                            <div class="comment-item">
                                 <p class="text">Prep Time</p>
                                 <p class="title">{{receipt?.time}} min</p>
                             </div>
@@ -97,19 +106,20 @@
                         </div>
                     </div>
                 </div>
+                </div>
                     <div *ngIf="receipt?.videoLink !=''" class="video-youtube">
                         <plyr style="display:block" plyrTitle="Video 1" [plyrSources]="receptvideoSources"></plyr>
                     </div>
                     <div class="combinations-description">
                         <p class="title">{{receipt?.title}}</p>
-                        <div class="d-flex text-align-centre">
+                        <div class="text-content d-flex text-align-centre">
                             <p class="name mr-2">by </p>
-                            <p class="name mb-0" *ngIf="role==='client'">
+                            <p class="name mb-0" *ngIf="userRole==='client'">
                                 {{feedItem?.creator_client_info?.user?.first_name}}</p>
-                            <p class="name mb-0" *ngIf="role==='coach'">{{feedItem?.creator_info?.user?.first_name}}</p>
-                            <p class="name mb-0" *ngIf="!role && feedItem.creator_info">
+                            <p class="name mb-0" *ngIf="userRole==='coach'">{{feedItem?.creator_info?.user?.first_name}}</p>
+                            <p class="name mb-0" *ngIf="!userRole && feedItem.creator_info">
                                 {{feedItem?.creator_info?.user?.first_name}}</p>
-                            <p class="name mb-0" *ngIf="!role && feedItem.creator_client_info">
+                            <p class="name mb-0" *ngIf="!userRole && feedItem.creator_client_info">
                                 {{feedItem?.creator_client_info?.user?.first_name}}</p>
                         </div>
 
@@ -142,7 +152,7 @@
         </div>
     </div>
     <app-settings [feed]="feedItem" [role]="role" (getButtonsType)="getButtonsType($event)"
-        (openChanges)='onClickOpen($event)' (showFollowModel)="showFollowModal($event)"></app-settings>
+        (openChanges)='onClickOpen($event)' (showFollowModel)="showLikeModal($event)"></app-settings>
     <div class="posts-comments" *ngIf="isOpen">
         <app-comments (sendMessage)="sendMessage($event)" (likeOrDislike)="likeOrDislike($event)"
             *ngFor="let item of comments" [feed]="feedItem" [comments]="item" [role]="role" >

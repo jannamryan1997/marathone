@@ -1,7 +1,7 @@
-<div class="feed-header-content" [class.modal-mode]="isModalMode">
+<div class="feed-header-content" [class.modal-mode]="isModalMode" [ngClass]="{'height-auto':isModalMode}">
     <div class="recipe-header">
         <div class="display-flex">
-            <p class="title">Create Pablication</p>
+            <p class="title-name">Create Pablication</p>
             <div class="d-flex">
                 <div class="d-flex" *ngIf="isModalMode">
                     <input #inputImageReference class="" type="file" id="file" name="avatar"
@@ -21,7 +21,7 @@
                         accept="video/mp4,video/x-m4v,video/" (change)="setServicePhoto($event,'video')">
                     <label class=" label-btn d-flex" for="videofile">
                         <div class="display-flex">
-                            <p class="title ml-2 mr-2">Video</p>
+                            <p class="title">Video</p>
                         </div>
                     </label>
                 </div>
@@ -66,27 +66,27 @@
     </div>
 
 
-    <div class="button-content display-flex"  *ngIf="!isModalMode">
-        <div class="hovher-btn d-flex" routerLink="/article">
-            <span class="material-icons mr-1">
+    <div class="button-content d-flex"  *ngIf="!isModalMode" [ngClass]="{'style':style}">
+        <button class="hovher-btn d-flex" routerLink="/article">
+            <span class="material-icons mr-2">
                 description
             </span>
             <span>Article</span>
-        </div>
-        <div class="hovher-btn d-flex" routerLink="/recipe" routerLinkActive="activeTab">
-          <img src="assets/icons/Recipes.svg" class="publication-icon mr-1">
+        </button>
+        <button  class="hovher-btn d-flex" routerLink="/recipe" routerLinkActive="activeTab">
+          <img src="assets/icons/Recipes.svg" class="publication-icon mr-2">
             <span>Recipe</span>
-        </div>
-        <div class="hovher-btn d-flex">
-            <img src="assets/icons/Comment.svg" class="publication-icon mr-1">
+        </button >
+        <button  class="hovher-btn d-flex">
+            <img src="assets/icons/Comment.svg" class="publication-icon mr-2">
             <span>Query</span>
-        </div>
-        <div class="hovher-btn d-flex">
-            <span class="material-icons mr-1">
+        </button>
+        <button  class="hovher-btn d-flex">
+            <span class="material-icons mr-2">
                 panorama
             </span>
             <span>B / A</span>
-        </div>
+        </button >
 
     </div>
     <div   *ngIf="isModalMode">

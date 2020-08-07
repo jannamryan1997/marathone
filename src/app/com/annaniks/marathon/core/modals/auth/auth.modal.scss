@@ -1,10 +1,9 @@
 .auth-container {
-    height: 100vh;
-    flex-direction: column;
-    background: #d6d8e144 0% 0% no-repeat padding-box !important;
+    width: 800px;
     .header {
         position: absolute;
         right: 0;
+        top:0;
     }
     .auth-main {
         background: #ffffff 0% 0% no-repeat padding-box;
@@ -12,8 +11,9 @@
         width: 100%;
         max-width: 800px;
         margin: auto;
-        box-shadow: 1px 20px 29px #5c687b4a;
+        // box-shadow: 1px 20px 29px #5c687b4a;
         border-radius: 25px;
+
 
         .main-container {
             flex-wrap: wrap;
@@ -55,10 +55,10 @@
     }
 }
 
-::ng-deep {
-  .mat-dialog-container {
-        padding: 0 !important;
-        background: none !important;
+
+ ::ng-deep{
+    .mat-dialog-container{
+    padding: 0 ;
+    border-radius: 15px;
     }
 }
-

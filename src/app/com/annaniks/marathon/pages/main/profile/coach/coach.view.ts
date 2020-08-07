@@ -35,14 +35,15 @@ export class CoachView implements OnInit {
     public userStatus: string;
     private unsubscribe$ = new Subject<void>()
     public userId: number;
-    public languageName=[];
-    public mediaItem=[];
+    public languageName = [];
+    public mediaItem = [];
+    public feedMediaItem=[];
     constructor(
         private _userService: UserService,
-        private _feedService:FeedService, 
+        private _feedService: FeedService,
         private _dialog: MatDialog,
         private _profileService: ProfileService,
-        private _countryService:CountryService,
+        private _countryService: CountryService,
         private _router: Router) {
         let urls = this._router.url.split('/');
         if (urls && urls.length && urls.length == 4) {
@@ -79,6 +80,7 @@ export class CoachView implements OnInit {
             .subscribe((data: FeedData) => {
                 this.feedItem = data.results;
                 for (let item of this.feedItem) {
+                    this.feedMediaItem.push(item);
                     for (let media of item.feed_media) {
                         if (typeof media.content == 'string') {
                             media.content = JSON.parse(media.content);
@@ -87,8 +89,8 @@ export class CoachView implements OnInit {
                     }
                 }
             })
-       
-            
+
+
     }
 
     private _showseeMore(): void {
@@ -111,12 +113,12 @@ export class CoachView implements OnInit {
         this._countryService.getLanguages().subscribe((data) => {
             data.results.map((name, index) => {
                 url = name.url;
-              this._userService.user.data.language.forEach(element=>{
-                if (url === element) {
-                    this.languageName.push({ name: name.name });
-                }
-              })
-           
+                this._userService.user.data.language.forEach(element => {
+                    if (url === element) {
+                        this.languageName.push({ name: name.name });
+                    }
+                })
+
 
             })
         })
@@ -176,7 +178,7 @@ export class CoachView implements OnInit {
         this._getFeed();
 
     }
- 
+
     get email(): string {
 
         if (this.user)
@@ -187,15 +189,16 @@ export class CoachView implements OnInit {
         if (this.user)
             return !this.checkIsMe() ? this.user.coach_user.first_name : this.user.user.first_name
     }
-    
 
-    public openGalleryModal(event,message):void{
-        if(event){
+
+    public openGalleryModal(event, message, item): void {
+        if (event) {
             const dialogRef = this._dialog.open(GalleryModal, {
-                width: "800px",
-                data:{
-                    data:this.mediaItem,
-                    type:message,
+                width: "1000px",
+                data: {
+                    // data:this.mediaItem,
+                    data: item,
+                    type: message,
                 }
             })
         }

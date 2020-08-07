@@ -63,7 +63,7 @@
             margin-top: 25px;
 
             .signUp-btn {
-                padding: 0px 15px;
+                padding: 9px 30px;
                 @include text(16px, 20px, #5897F6, EncodeSans-Bold);
                 cursor: pointer;
                 border: 1px solid #6CA7FE;
@@ -179,7 +179,7 @@
 }
 
 .active-btn {
-    padding: 10px !important;
+    padding: 9px 30px !important;
 
     &:hover {
         box-shadow: -5.29px 7px 10px #589bfd36;
@@ -192,5 +192,5 @@
 
 .message {
     @include text(16px, 19px, #E3ECFD, EncodeSans-SemiBold);
-    margin: auto;
+    margin: 0 20px;
 }
