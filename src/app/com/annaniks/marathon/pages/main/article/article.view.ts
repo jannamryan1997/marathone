@@ -53,14 +53,16 @@ export class ArticleView implements OnInit {
     }
     onDrop(evt) { }
 
-//     private _autosize(){
-//         const el = document.getElementById('ckeditor')
-//             setTimeout(()=>{
-//                 el.style.cssText = 'height:auto; padding:0';
-//                 el.style.cssText = 'height:' + el.scrollHeight + 'px';
-//               },0);
-// }
-
+    private _autosize(index: number) {
+        const el = document.getElementById('text' + index);
+        setTimeout(() => {
+            // el.style.cssText = 'height:auto; padding:0';
+            // el.style.cssText = 'height:' + el.scrollHeight + 'px';
+        }, 0);
+    }
+    public changeText(index: number) {
+        // this._autosize(index)
+    }
     private _initGroup() {
         this.articleGroup = this._fb.group({
             cover: [null],
@@ -73,15 +75,6 @@ export class ArticleView implements OnInit {
         } else {
             this._createControls('text');
         }
-        // for(let arr of (this.articleGroup.get('arrays') as FormArray).controls){
-        //     console.log(arr);
-            
-        //     arr.valueChanges.subscribe((data)=>{
-                
-        //         console.log(data);
-                
-        //     })
-        // }
     }
     private _createControls(controlName: string, defaultImage = null) {
         (this.articleGroup.get('arrays') as FormArray).push(this._fb.group({ type: controlName, value: defaultImage }));
@@ -207,7 +200,7 @@ export class ArticleView implements OnInit {
         this.showSetting = !this.showSetting;
     }
     public publish() {
-        if (this.articleGroup.valid) {            
+        if (this.articleGroup.valid) {
             const articleValue = this.articleGroup.value;
             let content = {
                 cover: articleValue.cover,
@@ -220,7 +213,7 @@ export class ArticleView implements OnInit {
                     content
                 ),
                 role: this._cookieServie.get('role'),
-                is_public:true,
+                is_public: true,
 
             }
             if (!this._articleId) {

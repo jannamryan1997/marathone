@@ -3,4 +3,5 @@ export interface MenuItem {
     title: string,
     icon?:string,
     activeIcon?:string;
+    key?:string
 }
