@@ -1,7 +1,7 @@
 <header>
     <div class="header-container pg-container">
         <div class="header-content display-flex">
-            <img class="logo" src="assets/images/logo/marathon-logo.png" routerLink="/feed">
+            <img class="logo" src="assets/images/logo/marathon-logo.png" alt="" routerLink="/feed">
             <div class="serch-content">
                 <input type="tex" class="search-input" placeholder="Search">
                 <span class="material-icons search-icon">
@@ -9,8 +9,8 @@
                 </span>
             </div>
             <div class="header-category d-flex">
-                <li *ngFor="let item of menuItem" routerLinkActive="li-activeTab"><a class="link"
-                        [routerLink]="item.routerLink" routerLinkActive="activeTab">{{item?.title}}</a></li>
+                <li *ngFor="let item of menuItem" [class.li-activeTab]="isActive(item.key)"><a class="link"
+                        [class.activeTab]="isActive(item.key)" [routerLink]="item.routerLink">{{item?.title}}</a></li>
             </div>
             <!-- <div class="dashboard-search d-flex" *ngIf="!showUserData">
                 <span class="material-icons search-icon m-auto">

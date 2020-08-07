@@ -33,13 +33,13 @@ export class HeaderComponent implements OnInit {
     constructor(private _profileUserService: UserService,
         private _mathDialog: MatDialog,
         private _cookieService: CookieService,
-        private _router: Router,
+        public router: Router,
         @Inject("FILE_URL") private _fileUrl,
-    ) {        
+    ) {
         this.menuItem = [
-            { routerLink: `/feed`, title: "Home", activeIcon: "assets/icons/Profile_blue.svg" },
-            { routerLink: this._getProfileUrl(), title: "Profile", activeIcon: "assets/icons/Profile_blue.svg" },
-            { routerLink: "#", title: "Dashboard", activeIcon: "assets/icons/Profile_blue.svg" },
+            { routerLink: `/feed`, title: "Home", activeIcon: "assets/icons/Profile_blue.svg", key: 'feed' },
+            { routerLink: this._getProfileUrl(), title: "Profile", activeIcon: "assets/icons/Profile_blue.svg", key: 'profile' },
+            { routerLink: "#", title: "Dashboard", activeIcon: "assets/icons/Profile_blue.svg", key: 'dashboard' },
             // { routerLink: "#", title: "Marathon", activeIcon: "assets/icons/Profile_blue.svg" },
             // { routerLink: "#", title: "My Recips", activeIcon: "assets/icons/Profile_blue.svg" },
             // { routerLink: "#", title: "My Training", activeIcon: "assets/icons/Profile_blue.svg" },
@@ -50,7 +50,7 @@ export class HeaderComponent implements OnInit {
 
     private _getProfileUrl() {
         const role = this._cookieService.get('role') || '';
-        if (this._profileUserService.user && this._profileUserService.user.data) {
+        if (this._profileUserService.user && this._profileUserService.user.data && role) {
             return `/profile/${this._profileUserService.user.data.slug}/${role}`
         } else {
             return `/profile`
@@ -82,16 +82,18 @@ export class HeaderComponent implements OnInit {
         }
     }
 
-    onClickedOutside(e: Event) {
+    public onClickedOutside(e: Event) {
         this.showPfofileMenu = false;
     }
-
+    public isActive(url: string): boolean {
+        return this.router.url.includes(url);
+    }
     public logOut(): void {
         this._cookieService.removeAll();
         this._profileUserService.isAuthorized = false;
         this._profileUserService.user = null;
         location.reload();
-        this._router.navigate(['/feed']);
+        this.router.navigate(['/feed']);
 
     }
 
