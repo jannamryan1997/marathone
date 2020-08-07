@@ -1,8 +1,8 @@
-import { Component, OnInit, Output, EventEmitter, Input } from "@angular/core";
+import { Component, OnInit, Output, EventEmitter, Input, OnDestroy } from "@angular/core";
 import { takeUntil, map } from 'rxjs/operators';
 import { FeedLikeService } from '../../../core/services/feed-like.service';
 import { Subject } from 'rxjs';
-import { getLocaleFirstDayOfWeek } from '@angular/common';
+import { FeedResponseData } from '../../../core/models';
 
 @Component({
     selector: "app-settings",
@@ -10,10 +10,10 @@ import { getLocaleFirstDayOfWeek } from '@angular/common';
     styleUrls: ["settings.component.scss"]
 })
 
-export class SettingsComponent implements OnInit {
+export class SettingsComponent implements OnInit, OnDestroy {
     public isOpen: boolean = false;
     public role: string;
-    public feed;
+    public feed: FeedResponseData;
     public message: string;
     private unsubscribe$ = new Subject<void>()
 
@@ -22,8 +22,8 @@ export class SettingsComponent implements OnInit {
     @Output() openChanges = new EventEmitter();
     @Output() showFollowModel = new EventEmitter();
     @Input('feed')
-    set setFeed($event) {
-        this.feed = $event;        
+    set setFeed($event: FeedResponseData) {
+        this.feed = $event
     }
     @Input('role')
     set setRole($event: string) {
@@ -51,6 +51,14 @@ export class SettingsComponent implements OnInit {
                     map(() => {
                         this._buttonsType.emit(true)
                     })).subscribe()
+                if (!this.feed.is_liked) {
+                    this._feedLikeService.likeFeed(this.feed.id).pipe(takeUntil(this.unsubscribe$),
+                        map(() => {
+                            this._buttonsType.emit(true)
+                        })).subscribe()
+                } else {
+
+                }
             }
             else if (this.feed.is_liked){
                 console.log("dfdfd");

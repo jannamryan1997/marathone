@@ -35,11 +35,10 @@ export class HeaderComponent implements OnInit {
         private _cookieService: CookieService,
         private _router: Router,
         @Inject("FILE_URL") private _fileUrl,
-    ) {
-        const role = this._cookieService.get('role') || '';
+    ) {        
         this.menuItem = [
             { routerLink: `/feed`, title: "Home", activeIcon: "assets/icons/Profile_blue.svg" },
-            { routerLink: `/profile/${role}`, title: "Profile", activeIcon: "assets/icons/Profile_blue.svg" },
+            { routerLink: this._getProfileUrl(), title: "Profile", activeIcon: "assets/icons/Profile_blue.svg" },
             { routerLink: "#", title: "Dashboard", activeIcon: "assets/icons/Profile_blue.svg" },
             // { routerLink: "#", title: "Marathon", activeIcon: "assets/icons/Profile_blue.svg" },
             // { routerLink: "#", title: "My Recips", activeIcon: "assets/icons/Profile_blue.svg" },
@@ -49,6 +48,14 @@ export class HeaderComponent implements OnInit {
 
     ngOnInit() { }
 
+    private _getProfileUrl() {
+        const role = this._cookieService.get('role') || '';
+        if (this._profileUserService.user && this._profileUserService.user.data) {
+            return `/profile/${this._profileUserService.user.data.slug}/${role}`
+        } else {
+            return `/profile`
+        }
+    }
     public showProfile(): void {
         this.showPfofileMenu = !this.showPfofileMenu;
     }
@@ -85,7 +92,7 @@ export class HeaderComponent implements OnInit {
         this._profileUserService.user = null;
         location.reload();
         this._router.navigate(['/feed']);
-    
+
     }
 
 }

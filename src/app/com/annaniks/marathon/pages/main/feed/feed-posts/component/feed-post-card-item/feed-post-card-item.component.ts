@@ -77,18 +77,19 @@ export class FeedPostCardItemComponent implements OnInit {
             this.content = this.feedItem.feed_media[0].content;
             this.receipt = this.content.receipt;
         }
-
-        if (this.content.type === "videoLink") {
-            this.videoSources = [{
-                src: this.content.url,
-                provider: 'youtube',
-            }]
-        }
-        if (this.content.type === "recipeType") {
-            this.receptvideoSources = [{
-                src: this.receipt.videoLink,
-                provider: 'youtube',
-            }]
+        if (this.content) {
+            if (this.content.type === "videoLink") {
+                this.videoSources = [{
+                    src: this.content.url,
+                    provider: 'youtube',
+                }]
+            }
+            if (this.content.type === "recipeType") {
+                this.receptvideoSources = [{
+                    src: this.receipt.videoLink,
+                    provider: 'youtube',
+                }]
+            }
         }
         let role = this.userRole;
         if (role == 'client' && this.feedItem.creator_client_info && this.feedItem.creator_client_info.avatar) {
@@ -99,7 +100,7 @@ export class FeedPostCardItemComponent implements OnInit {
             }
         }
         this._showseeMore();
-        }
+    }
 
 
 
@@ -223,7 +224,7 @@ export class FeedPostCardItemComponent implements OnInit {
         return combine;
     }
     public setImage() {
-        return this.content.cover ? this.fileUrl + this.content.cover : 'assets/images/chicken.png'
+        return this.content && this.content.cover ? this.fileUrl + this.content.cover : 'assets/images/chicken.png'
     }
     public onClickOpen($event): void {
         this.isOpen = $event;
@@ -254,8 +255,8 @@ export class FeedPostCardItemComponent implements OnInit {
     }
     public getProfleUrl() {
         let role = this.feedItem.creator_client_info ? 'client' : 'coach';
-        let userId = this.feedItem.creator_info ? this.feedItem.creator_info.id : this.feedItem.creator_client_info.id;
-        return `/profile/${userId}/${role}`;
+        let userSlug = this.feedItem.creator_info ? this.feedItem.creator_info.slug : this.feedItem.creator_client_info.slug;
+        return `/profile/${userSlug}/${role}`;
     }
 
 
@@ -274,11 +275,9 @@ export class FeedPostCardItemComponent implements OnInit {
                     data:this.feedItem.id,
                 }
             })
-
-
         }
     }
-   
+
 
     public routerIngridientPage(): void {
         this._router.navigate([`/feed/ingridient/${this.feedItem.id}`]);

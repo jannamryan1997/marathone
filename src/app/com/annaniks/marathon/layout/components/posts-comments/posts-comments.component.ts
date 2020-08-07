@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef, OnDestroy } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommentService } from '../../../core/services/comment.service';
 import { takeUntil, map } from 'rxjs/operators';
@@ -11,7 +11,7 @@ import { Comment, FeedResponseData } from '../../../core/models';
     styleUrls: ["posts-comments.component.scss"]
 })
 
-export class PostsComments implements OnInit {
+export class PostsComments implements OnInit,OnDestroy {
     public emojiForm: FormGroup;
     public showemoji: boolean = false;
     public comments:Comment[] = [];

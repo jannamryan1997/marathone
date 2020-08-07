@@ -22,6 +22,7 @@ export interface Creator {
     avatar: null;
     id: number;
     url: string;
+    slug:string
     user: {
         email: string;
         first_name: string;

@@ -56,8 +56,36 @@ interface User {
     last_name: string;
     password: string;
 }
-
-
+export interface FamiliarData {
+    client: Familiar[];
+    coach: Familiar[];
+}
+export interface Familiar {
+    avatar: string;
+    certificates: [];
+    cover: null;
+    education: [];
+    experience: [];
+    facebook: null;
+    google_id: null;
+    id: number;
+    instagram: null;
+    is_faworit: boolean;
+    is_follower: boolean;
+    is_follower_id: number;
+    language: [];
+    linkedin: null;
+    location: null;
+    metric: string;
+    role?: string;
+    slug: string;
+    speciality: [];
+    status: null;
+    ui_language: string;
+    url: string;
+    youtube: null;
+    user: User;
+}
 export interface Country {
     count: 1
     next: null

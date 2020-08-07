@@ -45,6 +45,10 @@ const mainRoutes: Routes = [
                 path: "recipe",
                 loadChildren: () => import('./recipe/recipe.module').then(m => m.RecipeModule)
             },
+            {
+                path: 'suggestions',
+                loadChildren: () => import('./suggestions-user-list/suggestions-user-list.module').then(m => m.SuggestionsUserListModule)
+            }
 
 
         ]

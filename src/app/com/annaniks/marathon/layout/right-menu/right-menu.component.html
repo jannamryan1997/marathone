@@ -1,21 +1,13 @@
 <div class="right-menu" [ngClass]="{'position':showUserData}">
     <div class="right-container">
-        <div class="follow">
+        <div *ngIf="followItem && followItem.length" class="follow">
             <div class="d-flex mt-0 justify-content-between">
                 <p class="title">Suggestions</p>
-                <p class="text">See All</p>
+                <p [routerLink]="'/suggestions'" class="text">See All</p>
             </div>
 
-            <div *ngFor="let item of followItem" class="user-item follow-item d-flex">
-                <div class="follow-item-content d-flex">
-                    <img [src]="item?.image" class="user-image" alt="Cinque Terre">
-                    <div>
-                        <p class="name">{{item?.name}}</p>
-                        <p class="email-title">{{item?.email}}</p>
-                    </div>
-                    <button type="button" class="round btn-item basic-btn ml-3">Follow</button>
-                </div>
-
+            <div *ngFor="let item of followItem" class="user-item follow-item d-flex">                
+                <app-user-item (getUser)="getUser()" [item]="item"></app-user-item>
             </div>
         </div>
         <div class="contact" *ngIf="showUserData">

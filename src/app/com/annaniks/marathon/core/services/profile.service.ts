@@ -7,15 +7,14 @@ import { Observable } from 'rxjs';
 })
 export class ProfileService {
 
-    constructor(private _httpClient: HttpClient, @Inject('BASE_URL') private _baseUrl) {
+    constructor(private _httpClient: HttpClient, @Inject('BASE_URL') private _baseUrl) { }
 
+    public getProfile(role: string, slug: string): Observable<any> {
+        let roles = role == 'client' ? '/client/user/' : '/coach/coach/';
+        return this._httpClient.get<any>(this._baseUrl + `${roles}?slug=${slug}`)
     }
-    public getProfile(role: string, id: number): Observable<any> {
-        let roles = role == 'client' ? '/client/user' : '/coach/coach'
 
-        return this._httpClient.get<any>(this._baseUrl + `${roles}/${id}/`)
-    }
-    public follow(role:string,myUrl:string,userRole:string,userUrl:string): Observable<any> {
+    public follow(role: string, myUrl: string, userRole: string, userUrl: string): Observable<any> {
         let sendBody = {}
         if (role == 'client') {
             sendBody['who_user'] = myUrl
@@ -30,7 +29,7 @@ export class ProfileService {
         }
         return this._httpClient.post<any>(this._baseUrl + `/feed/follower/`, sendBody)
     }
-    public unfollow(id:number): Observable<any> {
+    public unfollow(id: number): Observable<any> {
         return this._httpClient.delete<any>(this._baseUrl + `/feed/follower/${id}/`)
     }
     public getFeedByProfileId(queryParamsName: string, id: number, isAll: string): Observable<any> {
@@ -40,5 +39,7 @@ export class ProfileService {
     public deleteProfileInformation(profileInformationUrl: string, body): Observable<any> {
         return this._httpClient.delete(profileInformationUrl, body);
     }
-
+    public getFamiliarList(userId:number){
+        return this._httpClient.get(`/user/familiar/${userId}`)
+    }
 }
