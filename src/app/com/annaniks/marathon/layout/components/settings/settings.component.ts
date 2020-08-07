@@ -23,8 +23,7 @@ export class SettingsComponent implements OnInit {
     @Output() showFollowModel = new EventEmitter();
     @Input('feed')
     set setFeed($event) {
-        this.feed = $event
-        console.log(this.feed);
+        this.feed = $event;
         
     }
     @Input('role')
@@ -61,7 +60,6 @@ export class SettingsComponent implements OnInit {
                 map(()=>{
                     
                 })).subscribe((data)=>{
-                    console.log(data);
                     
                 })
             }
