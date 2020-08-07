@@ -23,8 +23,7 @@ export class SettingsComponent implements OnInit {
     @Output() showFollowModel = new EventEmitter();
     @Input('feed')
     set setFeed($event) {
-        this.feed = $event;
-        
+        this.feed = $event;        
     }
     @Input('role')
     set setRole($event: string) {
