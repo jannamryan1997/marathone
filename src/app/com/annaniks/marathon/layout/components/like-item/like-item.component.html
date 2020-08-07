@@ -1,8 +1,14 @@
 <div class="share-item d-flex align-items-center justify-content-between">
         <div class="share-item d-flex align-items-center">
                 <img [src]="localImage" class="user-image" alt="Cinque Terre">
-                    <p class="name">{{user_first_name}}</p>
-            </div>
-            <button *ngIf="!unfollow" class="info-btn btn-item" (click)="onClickUnfollow()" ><span>Follow</span></button>
-            <button *ngIf="unfollow" class="active-btn  btn-item" (click)="onClickUnfollow()" ><span>UnFollow</span></button>
+                <p class="name">{{user_first_name}}</p>
+        </div>
+        <div *ngIf="userId != followId">
+                <button *ngIf="!isFollowed" class="info-btn btn-item"
+                        (click)="follow()"><span>Follow</span></button>
+                <button *ngIf="isFollowed" class="active-btn  btn-item"
+                        (click)="follow()"><span>UnFollow</span></button>
+        </div>
+
+        
 </div>

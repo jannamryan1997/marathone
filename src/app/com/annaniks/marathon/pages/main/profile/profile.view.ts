@@ -16,7 +16,7 @@ import { ProfileService } from '../../../core/services/profile.service';
 })
 
 export class ProfileView implements OnInit {
-    private unsubscribe$ = new Subject<void>()
+    private unsubscribe$ = new Subject<void>();
     public role: string;
     public languageName: string;
     public showSocialMedium: boolean = false;

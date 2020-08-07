@@ -13,6 +13,10 @@ export class ProfileService {
         let roles = role == 'client' ? '/client/user/' : '/coach/coach/';
         return this._httpClient.get<any>(this._baseUrl + `${roles}?slug=${slug}`)
     }
+    public getfollowProfileById(role: string, id: number): Observable<any> {
+        let roles = role == 'client' ? '/client/user/' : '/coach/coach/';
+        return this._httpClient.get<any>(this._baseUrl + `${roles}${id}/`)
+    }
 
     public follow(role: string, myUrl: string, userRole: string, userUrl: string): Observable<any> {
         let sendBody = {}

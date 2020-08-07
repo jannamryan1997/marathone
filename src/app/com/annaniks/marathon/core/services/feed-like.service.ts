@@ -35,6 +35,6 @@ export class FeedLikeService {
     }
 
     public diseLikeFeed(isLikedId: number): Observable<any> {
-        return this._httpClient.delete(this._baseUrl + `/feed/like/${isLikedId}`);
+        return this._httpClient.delete(this._baseUrl + `/feed/like/${isLikedId}/`);
     }
 }

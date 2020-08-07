@@ -51,23 +51,15 @@ export class SettingsComponent implements OnInit, OnDestroy {
                     map(() => {
                         this._buttonsType.emit(true)
                     })).subscribe()
-                if (!this.feed.is_liked) {
-                    this._feedLikeService.likeFeed(this.feed.id).pipe(takeUntil(this.unsubscribe$),
-                        map(() => {
-                            this._buttonsType.emit(true)
-                        })).subscribe()
-                } else {
-
-                }
             }
             else if (this.feed.is_liked){
                 console.log("dfdfd");
                 
                 this._feedLikeService.diseLikeFeed(this.feed.is_liked_id).pipe(takeUntil(this.unsubscribe$),
                 map(()=>{
-                    
+                    this._buttonsType.emit(true);
                 })).subscribe((data)=>{
-                    
+                  
                 })
             }
         }
@@ -82,6 +74,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
     public onClichShowFollowModal(): void {
         this.showFollowModel.emit(true);
     }
+
     ngOnDestroy() {
         this.unsubscribe$.next();
         this.unsubscribe$.complete();

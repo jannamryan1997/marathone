@@ -142,10 +142,12 @@ export class FeedPostCardItemComponent implements OnInit {
             }
             this.feedItem = result;
             this.showDeleteModal = false;
+            if(this.content){
             this.videoSources = [{
                 src: this.content.url,
                 provider: 'youtube',
             }]
+        }
             return result;
         }))
     }
