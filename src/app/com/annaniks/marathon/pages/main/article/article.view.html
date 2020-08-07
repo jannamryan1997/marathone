@@ -12,7 +12,8 @@
                     <button class="btn-item info-btn ml-2 mr-3">Preview</button>
                     <button (click)="publish()" [disabled]="articleGroup.invalid"
                         class="btn-item info-btn mr-3 active-btn">{{articleId?'Update':'Publish'}}</button>
-                    <button class="btn-item info-btn btn-radius d-flex justify-content-center" (click)="onClickShowSetting()" [ngClass]="{'active-btn':showSetting}">
+                    <button class="btn-item info-btn btn-radius d-flex justify-content-center"
+                        (click)="onClickShowSetting()" [ngClass]="{'active-btn':showSetting}">
                         <span class="material-icons icon">
                             more_horiz
                         </span>
@@ -68,10 +69,11 @@
                 <div class="m-auto">
                     <p class="title">Set Article Cover</p>
                     <input class="" type="file" id="file1" name="cover" (change)="setArticleCover($event)">
-                    <label class="btn-item info-btn  d-flex mt-3" for="file1"><p class="m-auto">Broves Files</p>  <span
-                            class="material-icons ml-2">
+                    <label class="btn-item info-btn  d-flex mt-3" for="file1">
+                        <p class="m-auto">Broves Files</p> <span class="material-icons ml-2">
                             save_alt
-                        </span></label>
+                        </span>
+                    </label>
                 </div>
             </div>
             <div *ngIf="articleGroup.get('cover').value" class="image-content">
@@ -97,8 +99,8 @@
                             <div *ngSwitchCase="'text'" class="form-group d-flex align-items-start form-grup-redius">
 
                                 <label>Content / Text</label>
-                                <ckeditor (drop)="onDrop($event)" [config]="config" formControlName="value"
-                                    class="form-input w-100" id="ckeditor"></ckeditor>
+                                <ckeditor [id]="'text'+i" (ngModelChange)="changeText(i)" (drop)="onDrop($event)" [config]="config"
+                                    formControlName="value" class="form-input w-100" id="ckeditor"></ckeditor>
                                 <span (click)="removeControl(true,i)" class="material-icons close">
                                     close
                                 </span>
