@@ -206,4 +206,11 @@ input[type="file"] {
 .cke_top{
     padding:0 !important;
 }
+.cke_editable {
+      overflow: hidden !important;
+      padding: unset !important;
+      border: 1px solid red;
+}
   }
+
+ 

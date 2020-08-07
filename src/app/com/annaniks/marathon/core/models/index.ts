@@ -9,4 +9,5 @@ export * from "./slider";
 export * from "./upload-file";
 export * from "./feed";
 export * from './comment';
-export * from './server-response'
+export * from './server-response';
+export * from './forgot-password';

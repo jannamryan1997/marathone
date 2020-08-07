@@ -35,16 +35,17 @@
 
         .message-input {
             width: 100%;
-            min-height: 60px;
-            max-height: 260px;
-            border: none;
+             border: none;
             background: none;
             margin-top: 8px;
             font-family: 'Nunito Sans', sans-serif;
-            font-size: 16px;
+            font-size: 17px;
             line-height: 22px;
             color: #45535C;
             resize: none;
+            overflow: hidden;
+            display:block;
+            padding: unset;
 
             &::placeholder {
                 font-family: 'Nunito Sans', sans-serif;

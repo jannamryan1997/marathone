@@ -13,7 +13,9 @@ import { ReceiptData } from '../../../core/models/receipt';
     styleUrls: ["create-publication.component.scss"]
 })
 
+
 export class CreatePublicationComponent implements OnInit {
+ 
     public isModalMode: boolean = false;
     public postType = new FormControl('');
     public videoSources = [];
@@ -27,6 +29,7 @@ export class CreatePublicationComponent implements OnInit {
     @ViewChild('inputImageReference') private _inputImageReference: ElementRef;
     @ViewChild('inputVideoReference') private _inputVideoReference: ElementRef;
 
+    @Output () autoSize=new EventEmitter<any>();
     public uploadType: string;
     public showemoji: boolean = false;
     public controImageItem: string = "";
@@ -44,15 +47,28 @@ export class CreatePublicationComponent implements OnInit {
         public _userService: UserService,
         private _feedService: FeedService,
         private _cookieServie: CookieService,
+
         @Inject("FILE_URL") private _fileUrl,
-    ) { }
+    ) { 
+    }
 
     ngOnInit() {
-
         if (this.editProfile) {
             this._getFeedById();
         }
+        this._autosize();
 
+    }
+    private _autosize(){
+        const el = document.getElementById('textarea');
+        this.postType.valueChanges.subscribe((data)=>{
+            this.autoSize.emit(data);
+            setTimeout(()=>{      
+                el.style.cssText = 'height:auto; padding:0';
+                el.style.cssText = 'height:' + el.scrollHeight + 'px';
+              },0);
+        })  
+           
     }
 
     private _getFeedById(): void {

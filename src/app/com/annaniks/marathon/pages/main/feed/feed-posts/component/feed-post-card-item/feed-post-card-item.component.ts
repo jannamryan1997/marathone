@@ -269,7 +269,10 @@ export class FeedPostCardItemComponent implements OnInit {
 
         if (event && this.role) {
             const dialogRef = this._dialog.open(LikeModal, {
-                width: "450px"
+                width: "450px",
+                data:{
+                    data:this.feedItem.id,
+                }
             })
 
 

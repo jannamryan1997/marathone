@@ -60,6 +60,19 @@ export class CoachView implements OnInit {
         this._getLanguages();
     }
 
+
+
+    autoSize(event){
+        console.log(event);
+        if(event){
+        const el = document.getElementById('textarea');
+            setTimeout(()=>{      
+                el.style.cssText = 'height:auto; padding:0';
+                el.style.cssText = 'height:' + el.scrollHeight + 'px';
+              },0);
+            }  
+    }
+
     private _getProfile() {
 
         if (this.checkIsMe()) {

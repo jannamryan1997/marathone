@@ -42,7 +42,8 @@ export class ArticleView implements OnInit {
 
     ngOnInit() {
         this._initConfig();
-        this._initGroup()
+        this._initGroup();
+        // this._autosize();
     }
     private _initConfig() {
         this.config = {
@@ -51,6 +52,15 @@ export class ArticleView implements OnInit {
         };
     }
     onDrop(evt) { }
+
+//     private _autosize(){
+//         const el = document.getElementById('ckeditor')
+//             setTimeout(()=>{
+//                 el.style.cssText = 'height:auto; padding:0';
+//                 el.style.cssText = 'height:' + el.scrollHeight + 'px';
+//               },0);
+// }
+
     private _initGroup() {
         this.articleGroup = this._fb.group({
             cover: [null],
