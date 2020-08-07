@@ -24,3 +24,4 @@ export * from "../layout/components/delete-feed-item/delete-feed-item.component"
 export * from "../layout/components/like-item/like-item.component";
 export * from "../layout/components/share/share.component";
 export * from "../layout/forgot-password/forgot-password.component";
+export * from './user-item/user-item.component'

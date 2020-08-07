@@ -1,12 +1,12 @@
 import { Component, OnInit } from "@angular/core";
 import { UserService } from '../../../../core/services/user.service';
 import { FeedService } from '../../feed/feed.service';
-import { finalize, takeUntil } from 'rxjs/operators';
+import { finalize, takeUntil, switchMap, map, take } from 'rxjs/operators';
 import { FeedResponseData, FeedData } from '../../../../core/models';
 import { RemoveModal, GalleryModal } from '../../../../core/modals';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Subject, of, iif } from 'rxjs';
 import { ProfileService } from '../../../../core/services/profile.service';
 import { CountryService } from '../../../../core/services/country.service';
 
@@ -32,61 +32,62 @@ export class ClientView implements OnInit {
     private _pageIndex = 1
     private _isCountCalculated = false;
     private _pagesCount: number;
-    public userId: number;
+    private _userSlug: string;
     private unsubscribe$ = new Subject<void>()
     public userStatus: string;
     public seeMore: boolean = false;
     public languageName = [];
     public mediaItem = [];
-    public feedMediaItem=[];
+    public feedMediaItem = [];
 
     constructor(
-        private _profileUserService: UserService,
         private _feedService: FeedService,
         private _dialog: MatDialog,
         private _router: Router,
         private _userService: UserService,
         private _profileService: ProfileService,
         private _countryService: CountryService,
+        private _activatedRoute: ActivatedRoute
     ) {
-        let urls = this._router.url.split('/');
-        if (urls && urls.length && urls.length == 4) {
-            this.userId = +urls[urls.length - 2];
-        }
-        if (!this.userId) {
-            this.userId = this._userService.user.data.id;
-        }
-        this.user = this.userId ? null : this._profileUserService.user;
+        this._activatedRoute.parent.parent.params.pipe(takeUntil(this.unsubscribe$)).subscribe((param) => {
+            if (param && param.id) {
+                this._userSlug = param.id;
+                if (this._router.url.search('coach'))
+                    this._router.navigate([this._router.url])
+                this.userStatus = '';
+                this._getLanguages();
+                this._getProfile()
+            }
+        })
     }
 
-    ngOnInit() {
-        this._getLanguages();
-        this._getFeed(this._pageIndex);
-        this._getProfile()
-    }
+    ngOnInit() { }
+
     private _getProfile() {
-        if (this.checkIsMe()) {
-            this.user = this._userService.user.data;
-            this._showseeMore();
-        } else {
-            this._profileService.getProfile('client', this.userId).pipe(takeUntil(this.unsubscribe$)).subscribe((data) => {
-                this.user = data;
-                this._showseeMore();
-            })
-        }
+        this._profileService.getProfile('client', this._userSlug).pipe(takeUntil(this.unsubscribe$),
+            switchMap((data) => {
+                if (data.results && data.results.length) {
+                    this.user = data.results[0];
+                    this._showseeMore();
+                    return this._getFeed()
+                } else {
+                    return of()
+                }
+            }))
+            .subscribe()
     }
     public checkIsMe() {
         if (this._userService.user) {
-            return (!this.userId || +this.userId == +this._userService.user.data.id)
+            return (!this._userSlug || +this._userSlug == +this._userService.user.data.id)
         } else {
             return false
         }
     }
-    private _getFeed(page: number) {
+    private _getFeed() {
         this.loading = true;
         let isAll = this.checkIsMe() ? 'me' : 'true'
-        this._profileService.getFeedByProfileId('creator_client', this.userId, isAll).pipe(finalize(() => { this.loading = false }))
-            .subscribe((data: FeedData) => {
+        return this._profileService.getFeedByProfileId('creator_client', this.user.id, isAll).pipe(finalize(() => { this.loading = false }),
+            map((data: FeedData) => {
                 this.feedItem = data.results;
                 for (let item of this.feedItem) {
                     this.feedMediaItem.push(item);
@@ -97,7 +98,8 @@ export class ClientView implements OnInit {
                         }
                     }
                 }
-            })
+                return data
+            }))
     }
     private _showseeMore(): void {
         let titleLength: number;
@@ -119,11 +121,12 @@ export class ClientView implements OnInit {
         this._countryService.getLanguages().subscribe((data) => {
             data.results.map((name, index) => {
                 url = name.url;
-                this._userService.user.data.language.forEach(element => {
-                    if (url === element) {
-                        this.languageName.push({ name: name.name });
-                    }
-                })
+                if (this._userService.user)
+                    this._userService.user.data.language.forEach(element => {
+                        if (url === element) {
+                            this.languageName.push({ name: name.name });
+                        }
+                    })
 
 
             })
@@ -156,18 +159,21 @@ export class ClientView implements OnInit {
             const dialogRef = this._dialog.open(RemoveModal, {
                 width: "400px"
             })
-            dialogRef.afterClosed().subscribe((data) => {
-                if (data === "deleted") {
-                    this._feedService.deleteFeed(event).subscribe((data) => {
-                        this._pageIndex = 1;
-                        this._isCountCalculated = false;
-                        this._pagesCount = 0;
-                        this.feedItem = [];
-                        this._getFeed(this._pageIndex)
-                    })
-                }
+            dialogRef.afterClosed().pipe(takeUntil(this.unsubscribe$),
+                switchMap((data) => {
+                    if (data === "deleted") {
+                        return this._feedService.deleteFeed(event).pipe(switchMap(() => {
+                            this._pageIndex = 1;
+                            this._isCountCalculated = false;
+                            this._pagesCount = 0;
+                            this.feedItem = [];
+                            return this._getFeed()
+                        }))
 
-            })
+                    } else {
+                        return of()
+                    }
+                })).subscribe()
         }
 
     }
@@ -177,16 +183,16 @@ export class ClientView implements OnInit {
         this._isCountCalculated = false;
         this._pagesCount = 0;
         this.feedItem = [];
-        this._getFeed(this._pageIndex);
+        this._getFeed().pipe(takeUntil(this.unsubscribe$)).subscribe();
 
     }
-    public openGalleryModal(event,message,item):void{
-        if(event){
+    public openGalleryModal(event, message, item): void {
+        if (event) {
             const dialogRef = this._dialog.open(GalleryModal, {
                 width: "1000px",
-                data:{
-                    data:item,
-                    type:message,
+                data: {
+                    data: item,
+                    type: message,
                 }
             })
         }
@@ -194,11 +200,11 @@ export class ClientView implements OnInit {
 
     get email(): string {
         if (this.user)
-            return !this.checkIsMe() ? this.user.user.email : this.user.user.email
+            return this.user.user.email
     }
     get firstName(): string {
         if (this.user)
-            return !this.checkIsMe() ? this.user.user.first_name : this.user.user.first_name
+            return this.user.user.first_name
     }
 
     ngOnDestroy() {

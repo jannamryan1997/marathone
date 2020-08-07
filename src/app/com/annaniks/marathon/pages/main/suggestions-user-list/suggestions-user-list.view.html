@@ -1,0 +1,3 @@
+<div *ngFor="let item of followItem" class="user-item follow-item d-flex">                
+    <app-user-item [type]="'bg'" (getUser)="getUser()" [item]="item"></app-user-item>
+</div>

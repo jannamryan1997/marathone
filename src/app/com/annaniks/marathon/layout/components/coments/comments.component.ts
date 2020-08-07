@@ -140,8 +140,8 @@ export class CommentsComponent implements OnInit, OnDestroy {
 }
     public getProfleUrl() {
     let role = this.comments.user_coach ? 'client' : 'coach';
-    let userId = this.comments.user_coach ? this.comments.user_coach.id : this.comments.comment_coach.id;
-    return `/profile/${userId}/${role}`
+    let userSlug = this.comments.user_coach ? this.comments.user_coach.slug : this.comments.comment_coach.slug;
+    return `/profile/${userSlug}/${role}`
 }
 
 ngOnDestroy() {

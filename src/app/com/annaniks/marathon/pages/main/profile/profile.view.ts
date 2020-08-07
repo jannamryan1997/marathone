@@ -24,12 +24,13 @@ export class ProfileView implements OnInit {
     public showProfile: boolean = false;
     public router: boolean = false;
     public loading: boolean = false;
-    public localImage: string = '/assets/images/user-icon-image.png';
-    public headerLocalImage: string = '/assets/images/user-icon-image.png';
+    private _defaultImage = '/assets/images/user-icon-image.png'
+    public localImage: string;
+    public headerLocalImage: string;
     public userRole: string;
     public user;
     public useLanguageUrl: string;
-    public userId: number;
+    public _userSlug: string;
     public isFollowed: boolean = false;
     public routerUrl: string;
     public userData;
@@ -41,49 +42,36 @@ export class ProfileView implements OnInit {
         private _cookieService: CookieService,
         private _activatedRoute: ActivatedRoute,
         private _router: Router) {
+
         let urls = this._router.url.split('/');
         if (urls && urls.length) {
             this.userRole = urls[urls.length - 1];
         }
         this._activatedRoute.params.pipe(takeUntil(this.unsubscribe$)).subscribe(params => {
-            if (params && params.id)
-                this.userId = params.id;
+            if (params && params.id) {
+                this._userSlug = params.id;
+                this._getProfile();
+            }
         })
         this.routerUrl = window.location.href;
-        this.userData=this._userService.user;
+        this.userData = this._userService.user;
     }
 
-    ngOnInit() {
-        this._getProfile();
-    }
+    ngOnInit() { }
+
     private _getProfile() {
         this.role = this._cookieService.get('role');
-        if (this.checkIsMe()) {
-            if (this._userService.user && this._userService.user.data.avatar) {
-                this.localImage = this._fileUrl + this._userService.user.data.avatar;
-
-            }
-            if (this._userService.user && this._userService.user.data.cover) {
-                this.headerLocalImage = this._fileUrl + this._userService.user.data.cover;
-            }
-
-        } else {
-            this._getProfileById().subscribe()
-        }
+        this._getProfileById().subscribe()
     }
     private _getProfileById() {
-        return this._profileService.getProfile(this.userRole, this.userId).pipe(takeUntil(this.unsubscribe$),
+        return this._profileService.getProfile(this.userRole, this._userSlug).pipe(takeUntil(this.unsubscribe$),
             map((data) => {
-                this.user = data;
-                this.isFollowed = data.is_follower;
-                if (data.avatar) {
-                    this.localImage = this._fileUrl + data.avatar;
+                if (data.results && data.results.length) {
+                    this.user = data.results[0];
+                    this.isFollowed = this.user.is_follower;
+                    this.localImage = this.user.avatar ? this._fileUrl + this.user.avatar : this._defaultImage;
+                    this.headerLocalImage = this.user.cover ? this._fileUrl + this.user.cover : this._defaultImage;
                 }
-
-                if (data.cover) {
-                    this.headerLocalImage = this._fileUrl + data.cover;
-                }
-
             }))
 
     }
@@ -165,7 +153,7 @@ export class ProfileView implements OnInit {
     }
     public checkIsMe() {
         if (this._userService.user) {
-            return (!this.userId || +this.userId == +this._userService.user.data.id)
+            return (!this._userSlug || +this._userSlug == +this._userService.user.data.id)
         } else {
             return false
         }
@@ -205,19 +193,19 @@ export class ProfileView implements OnInit {
         this.showSocialMedium = false;
     }
 
-public copyUrl():void{
-    const selBox = document.createElement('textarea');
-    selBox.style.position = 'fixed';
-    selBox.style.left = '0';
-    selBox.style.top = '0';
-    selBox.style.opacity = '0';
-    selBox.value = this.routerUrl;
-    document.body.appendChild(selBox);
-    selBox.focus();
-    selBox.select();
-    document.execCommand('copy');
-    document.body.removeChild(selBox);
-}
+    public copyUrl(): void {
+        const selBox = document.createElement('textarea');
+        selBox.style.position = 'fixed';
+        selBox.style.left = '0';
+        selBox.style.top = '0';
+        selBox.style.opacity = '0';
+        selBox.value = this.routerUrl;
+        document.body.appendChild(selBox);
+        selBox.focus();
+        selBox.select();
+        document.execCommand('copy');
+        document.body.removeChild(selBox);
+    }
 
     ngOnDestroy() {
         this.unsubscribe$.next();

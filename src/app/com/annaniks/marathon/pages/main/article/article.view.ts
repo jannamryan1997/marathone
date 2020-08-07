@@ -63,6 +63,15 @@ export class ArticleView implements OnInit {
         } else {
             this._createControls('text');
         }
+        // for(let arr of (this.articleGroup.get('arrays') as FormArray).controls){
+        //     console.log(arr);
+            
+        //     arr.valueChanges.subscribe((data)=>{
+                
+        //         console.log(data);
+                
+        //     })
+        // }
     }
     private _createControls(controlName: string, defaultImage = null) {
         (this.articleGroup.get('arrays') as FormArray).push(this._fb.group({ type: controlName, value: defaultImage }));

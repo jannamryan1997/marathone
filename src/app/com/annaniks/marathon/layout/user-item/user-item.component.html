@@ -1,0 +1,9 @@
+<div [class.bg-item]="type == 'bg'" class="follow-item-content d-flex">
+    <img [routerLink]="getLinkUrl()" [src]="getAvatar()" class="user-image" alt="Cinque Terre">
+    <div class="main-info" [routerLink]="getLinkUrl()">
+        <p class="name more-point">{{item?.user?.first_name}}</p>
+        <p class="email-title more-point">{{item?.user?.email}}</p>
+    </div>
+    <button type="button" class="round btn-item basic-btn ml-3" (click)="follow()"
+        >{{item?.is_follower?'Unfollow':'Follow'}}</button>
+</div>

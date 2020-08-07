@@ -54,7 +54,7 @@
     .user-item {
         align-items: center;
         padding: 10px;
-        cursor: pointer;
+        // cursor: pointer;
 
 
         .user-image {
@@ -74,18 +74,10 @@
             @include text(14px, 16px, #bbcddf, EncodeSans-Regular);
         }
     }
+
 }
 
-.follow-item {
-    background: #F7F7FC 0% 0% no-repeat padding-box;
-    opacity: 1;
-    margin: 4px 0;
-    padding: 0 !important;
-    height: 70px;
-    .follow-item-content{
-        padding: 0 8px;
-    }
-}
+
 
 .position {
     position: fixed !important;

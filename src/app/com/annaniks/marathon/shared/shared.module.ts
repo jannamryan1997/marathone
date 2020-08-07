@@ -45,7 +45,8 @@ import {
     FullScreenLoaderComponent,
     DeleteFeedItemComponent,
     LiketemComponent,
-    ShareComponent
+    ShareComponent,
+    UserItemComponent,
 } from '../layout';
 import { FeedService } from '../pages/main/feed/feed.service';
 import { CountryService } from '../core/services/country.service';
@@ -77,7 +78,8 @@ import { CountryService } from '../core/services/country.service';
         DeleteFeedItemComponent,
         LiketemComponent,
         LikeModal,
-        ShareComponent
+        ShareComponent,
+        UserItemComponent
     ],
     imports: [
         ReactiveFormsModule,
@@ -140,7 +142,8 @@ import { CountryService } from '../core/services/country.service';
         DeleteFeedItemComponent,
         LikeModal,
         LiketemComponent,
-        ShareComponent
+        ShareComponent,
+        UserItemComponent
    
     ],
 })

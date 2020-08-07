@@ -254,8 +254,8 @@ export class FeedPostCardItemComponent implements OnInit {
     }
     public getProfleUrl() {
         let role = this.feedItem.creator_client_info ? 'client' : 'coach';
-        let userId = this.feedItem.creator_info ? this.feedItem.creator_info.id : this.feedItem.creator_client_info.id;
-        return `/profile/${userId}/${role}`;
+        let userSlug = this.feedItem.creator_info ? this.feedItem.creator_info.slug : this.feedItem.creator_client_info.slug;
+        return `/profile/${userSlug}/${role}`;
     }
 
 
