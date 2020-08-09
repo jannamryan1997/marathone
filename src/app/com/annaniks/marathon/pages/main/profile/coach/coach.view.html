@@ -5,9 +5,7 @@
             <div class=" display-flex">
                 <div class="review display-flex">
                     <div class="review-item" *ngFor="let item of reviewItem">
-                        <span class="material-icons star-icon">
-                            grade
-                        </span>
+                        <img src="assets/icons/star.svg" class="star-image">
                     </div>
                 </div>
                 <p class="review-title">2 review</p>
@@ -24,9 +22,9 @@
             <div class="d-flex">
                 <div class="data-item" *ngFor="let item of languageName">
                     <div class="display-flex">
-                        <img src="assets/images/eng.png" class="country-img ml-2 mr-2" alt="Cinque Terre" *ngIf="item.name==='English'">
-                        <img src="assets/images/flags/arm.svg" class="country-img ml-2 mr-2" alt="Cinque Terre" *ngIf="item.name==='Armenian'">
-                        <img src="assets/images/flags/rus.png" class="country-img ml-2 mr-2" alt="Cinque Terre" *ngIf="item.name==='Russian'">
+                        <img src="assets/images/eng.png" class="country-img ml-2 mr-2" alt="Cinque Terre" *ngIf="item?.name==='English'">
+                        <img src="assets/images/flags/arm.svg" class="country-img ml-2 mr-2" alt="Cinque Terre" *ngIf="item?.name==='Armenian'">
+                        <img src="assets/images/flags/rus.png" class="country-img ml-2 mr-2" alt="Cinque Terre" *ngIf="item?.name==='Russian'">
                         <p class="country-name ml-2">{{item?.name}}</p>
                     </div>
                 </div>
@@ -90,7 +88,7 @@
                 <p class="tab-text">Reviews</p>
             </div>
         </div>
-        <div class="events-header" *ngIf="tab===1" [ngClass]="{'feed-padding-class':feedItem.length>0}">
+        <div class="events-header post-event" *ngIf="tab===1" [ngClass]="{'feed-padding-class':feedItem?.length>0}">
             <div class="posts-tab">
                 <div class="btn-content display-flex">
                     <p class="post-item" (click)="onClickPostEventsTab(1)" [ngClass]="{'activePostButton':postTab===1}">
@@ -103,20 +101,23 @@
                     <p class="post-item">Music</p>
                 </div>
             </div>
-            <div *ngIf="postTab===1" class="post-container">
-                    <div *ngIf="checkIsMe()">
-                            <app-create-publication   (autoSize)="autoSize($event)"  [style]="true" [feedItem]="feedItem" (postCreateEvent)="onPostCreated($event)"></app-create-publication>
-                        </div>
-                <div *ngIf="feedItem?.length > 0" class="feed-item" infinite-scroll
-                    [infiniteScrollDistance]="scrollDistance" [infiniteScrollUpDistance]="scrollUpDistance"
-                    [infiniteScrollThrottle]="throttle" [infiniteScrollDisabled]="infiniteScrollDisabled">
-                   <!--  (scrolled)="onScroll()" -->
-                    <spinner-loading *ngIf="loading"></spinner-loading>
-                    <app-feed-post-card-item *ngFor="let item of feedItem" [feedItem]="item"
-                        (deletedItem)="deletedFeedItem($event)"></app-feed-post-card-item>
-                </div>
-            </div>
+          
         </div>
+        <div *ngIf="tab===1" class="post-container">
+            <div *ngIf="postTab===1">
+            <div *ngIf="checkIsMe()">
+                    <app-create-publication   (autoSize)="autoSize($event)"  [style]="true" [feedItem]="feedItem" (postCreateEvent)="onPostCreated($event)"></app-create-publication>
+                </div>
+        <div *ngIf="feedItem?.length > 0" class="feed-item" infinite-scroll
+            [infiniteScrollDistance]="scrollDistance" [infiniteScrollUpDistance]="scrollUpDistance"
+            [infiniteScrollThrottle]="throttle" [infiniteScrollDisabled]="infiniteScrollDisabled">
+           <!--  (scrolled)="onScroll()" -->
+            <spinner-loading *ngIf="loading"></spinner-loading>
+            <app-feed-post-card-item *ngFor="let item of feedItem" [feedItem]="item"
+                (deletedItem)="deletedFeedItem($event)"></app-feed-post-card-item>
+        </div>
+    </div>
+</div>
         <div class="events-header d-flex flex-column" *ngIf="tab===2">
             <div class="gallery-tab m-auto">
                 <div class="btn-content display-flex m-auto">
@@ -130,7 +131,7 @@
             </div>
             <div class="events-content" [ngSwitch]="galerryTab">
                 <div  *ngIf="galerryTab===1" class="gallery-content">
-                    <div class="gallery-item" *ngFor="let item of feedMediaItem"  [ngClass]="{'d-block':item.feed_media[0].content.url}">
+                    <div class="gallery-item" *ngFor="let item of feedMediaItem"  [ngClass]="{'d-block':item?.feed_media[0]?.content?.url}">
                            <app-galery   [mediaItem]="item"  (showGalleryModal)="openGalleryModal($event,'all',item)"></app-galery>
                     </div>
                      
@@ -138,14 +139,14 @@
         
 
                 <div  *ngIf="galerryTab===2" class="gallery-content">
-                        <div class="gallery-item" *ngFor="let item of feedMediaItem"  [ngClass]="{'d-block':item.feed_media[0].content.url && item.feed_media[0].content.type==='image'}">
+                        <div class="gallery-item" *ngFor="let item of feedMediaItem"  [ngClass]="{'d-block':item?.feed_media[0]?.content?.url && item?.feed_media[0]?.content?.type==='image'}">
                                <app-galery   [mediaItem]="item"  (showGalleryModal)="openGalleryModal($event,'image',item)"></app-galery>
                         </div>
                          
                     </div>
 
                 <div  *ngIf="galerryTab===3" class="gallery-content">
-                        <div class="gallery-item" *ngFor="let item of feedMediaItem"  [ngClass]="{'d-block':item.feed_media[0].content.url && item.feed_media[0].content.type==='video'|| item.feed_media[0].content.type==='videoLink'}">
+                        <div class="gallery-item" *ngFor="let item of feedMediaItem"  [ngClass]="{'d-block':item?.feed_media[0]?.content?.url && item?.feed_media[0]?.content?.type==='video'|| item?.feed_media[0]?.content?.type==='videoLink'}">
                                <app-galery   [mediaItem]="item"  (showGalleryModal)="openGalleryModal($event,'video',item)"></app-galery>
                         </div>
                          
@@ -156,28 +157,29 @@
         <div class="events-header" *ngIf="tab===3">
             <app-information [profileCertificates]="false"></app-information>
         </div>
-    </div>
-    <div class="events-header" *ngIf="tab===4">
-        <div class="review-description display-flex">
-            <p class="review-text">Total reviews 20</p>
-            <div class="review-main">
-                <div class="review-main-description display-flex">
-                    <p class="title">View All</p>
-                    <span class="material-icons">
-                        arrow_drop_down
-                    </span>
+        <div class="events-header" *ngIf="tab===4">
+            <div class="review-description display-flex">
+                <p class="review-text">Total reviews 20</p>
+                <div class="review-main">
+                    <div class="review-main-description display-flex">
+                        <p class="title">View All</p>
+                        <span class="material-icons">
+                            arrow_drop_down
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="review-content">
+                <div class="review w-100 d-flex flex-wrap flex-column">
+                    <app-review></app-review>
+                    <app-review></app-review>
+                    <app-review></app-review>
+                    <app-review></app-review>
+                    <app-review></app-review>
                 </div>
             </div>
         </div>
-        <div class="review-content">
-            <div class="review w-100 d-flex flex-wrap flex-column">
-                <app-review></app-review>
-                <app-review></app-review>
-                <app-review></app-review>
-                <app-review></app-review>
-                <app-review></app-review>
-            </div>
-        </div>
     </div>
+
 </div>
 

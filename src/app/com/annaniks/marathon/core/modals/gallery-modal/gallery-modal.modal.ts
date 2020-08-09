@@ -34,11 +34,15 @@ export class GalleryModal implements OnInit, OnDestroy {
         private _userService: UserService,
         private _commentService: CommentService,
         private _cookieService: CookieService,
-        private _feedService:FeedService,
+        private _feedService: FeedService,
     ) {
-        this.type = this._data.type;
-        this.feedItem = this._data.data;
         this.role = this._cookieService.get('role');
+        if (this._data && this._data.type) {
+            this.type = this._data.type;
+        }
+        if (this._data && this._data.data) {
+            this.feedItem = this._data.data;
+        }
 
         if (this.feedItem) {
             this.mediaItem.push(this.feedItem.feed_media[0].content);
@@ -53,7 +57,6 @@ export class GalleryModal implements OnInit, OnDestroy {
             this.localImage = this.fileURL + this.user.avatar;
         }
 
-
     }
 
     ngOnInit() {
@@ -63,7 +66,6 @@ export class GalleryModal implements OnInit, OnDestroy {
     private _getFeedById() {
         return this._feedService.getFeedById(this.feedItem.id).pipe(map((result) => {
             this.feedItem = result;
-            
             return result
         }))
     }
@@ -71,16 +73,16 @@ export class GalleryModal implements OnInit, OnDestroy {
     private _getComments(parent?): Observable<ServerResponse<Comment[]>> {
         return this._commentService.getFeedCommentById(this.feedItem.id).pipe(map((data: ServerResponse<Comment[]>) => {
             this.comments = data.results;
-            
+
             if (parent) {
                 this.comments = this.comments.map((val) => {
-                    console.log( this.comments);
-                    
+                    console.log(this.comments);
+
                     if (val.url == parent) {
                         val.isShowSubMessages = true
                     }
                     return val
-                })                
+                })
             }
             return data;
         }))
@@ -96,9 +98,9 @@ export class GalleryModal implements OnInit, OnDestroy {
 
     public sendMessage(event) {
 
-        if (event) {            
-            let parentUrl = event.parentUrl ? event.parentUrl : null;   
-                     
+        if (event) {
+            let parentUrl = event.parentUrl ? event.parentUrl : null;
+
             this._combineObservable(parentUrl).pipe(takeUntil(this.unsubscribe$)).subscribe()
         }
     }
@@ -109,12 +111,12 @@ export class GalleryModal implements OnInit, OnDestroy {
 
     public getButtonsType(event: string) {
         if (event) {
-            this._getFeedById().pipe(takeUntil(this.unsubscribe$)).subscribe();           
+            this._getFeedById().pipe(takeUntil(this.unsubscribe$)).subscribe();
         }
     }
     public likeOrDislike(event) {
         if (event) {
-            this._getComments(event.isChild).pipe(takeUntil(this.unsubscribe$)).subscribe()          
+            this._getComments(event.isChild).pipe(takeUntil(this.unsubscribe$)).subscribe()
 
         }
     }

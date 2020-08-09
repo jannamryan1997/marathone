@@ -7,7 +7,11 @@
 
 .coach-main {
     padding: 0 20px;
-
+    position: absolute;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    box-shadow: 2px 30px 43px #5c687b17;
+    border-radius: 0px 0px 15px 15px;
+    opacity: 1;
     .review-content {
         padding: 28px 0 19px 0;
 
@@ -80,8 +84,9 @@
     }
 
     .events-tab {
-        border-bottom: 1px solid #bbcddf;
+        border-bottom: 1px solid #e3ecfd;
         justify-content: center;
+        padding: 0 30px;
 
         .tab-item {
             padding: 1.2em 0;
@@ -107,7 +112,7 @@
 }
 
 .review-description {
-    padding: 20px;
+    // padding: 20px;
 
     .review-text {
         @include text(17px, 20px, #589cfe, EncodeSans-Medium);
@@ -164,9 +169,9 @@
 }
 
 .basic-btn {
-    background: #F5F5FA !important;
-    border: 1px solid #F5F5FA !important;
-    color: #B6C1D7 !important;
+    background: #f5f5fa !important;
+    border: 1px solid #f5f5fa !important;
+    color: #b6c1d7 !important;
 }
 
 .feed-padding-class {
@@ -182,4 +187,15 @@
         display: none;
         cursor: pointer;
     }
+}
+
+.post-event {
+    background: #ffffff 0% 0% no-repeat padding-box;
+    box-shadow: 2px 30px 43px #5c687b17;
+    border-radius: 0px 0px 15px 15px;
+    opacity: 1;
+    padding: 30px !important;
+}
+.star-image{
+    width: 18px;
 }

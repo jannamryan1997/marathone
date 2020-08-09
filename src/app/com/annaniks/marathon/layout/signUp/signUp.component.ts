@@ -45,7 +45,6 @@ export class SignUpComponent implements OnInit {
             email: [null, [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]],
             password: [null, Validators.required],
             coach: [null],
-            slug:[null,Validators.required]
         })
     }
 
@@ -74,7 +73,7 @@ export class SignUpComponent implements OnInit {
             google_id: null,
             ui_language: "http://192.168.1.115:8000/api/utils/language/3/",
             metric: "http://192.168.1.115:8000/api/utils/metric/1/",
-            slug:this.signUpGroup.value.slug,
+            slug:this.signUpGroup.value.userName,
            // is_faworit:true,
         }
         this._authUserService.signUpClient(signUpData)
@@ -110,7 +109,7 @@ export class SignUpComponent implements OnInit {
             google_id: null,
             // ui_language:null,
             //metric: null,
-            slug:this.signUpGroup.value.slug,
+            slug:this.signUpGroup.value.userName,
            // is_faworit:true,
         }
         this._authUserService.signUpCoach(signUpData)

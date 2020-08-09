@@ -180,13 +180,6 @@ export class CreatePublicationComponent implements OnInit {
 
 
     public createdPost(): void {
-        // let is_public: boolean;
-        // if (this._userService.user.data.is_faworit === null || false) {
-        //     is_public = false;
-        // }
-        // else{
-        //     is_public = true;   
-        // }
         this.loading = true;
         let content = JSON.stringify(
             {

@@ -20,7 +20,7 @@ export class MainView implements OnInit {
     }
 
     ngOnInit() {
-        //this._getProfileData();
+   // this._getProfileData();
     }
 
     get showUserData(): boolean {

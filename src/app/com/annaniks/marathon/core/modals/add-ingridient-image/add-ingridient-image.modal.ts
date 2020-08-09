@@ -9,12 +9,16 @@ import { Slider } from '../../models';
 })
 
 export class AddIngridientImageModal implements OnInit {
-  slides:Slider[];
+  slides: Slider[];
 
   slideConfig = {};
 
-  constructor(@Inject(MAT_DIALOG_DATA) private _data,private _matDialogRf: MatDialogRef<AddIngridientImageModal>) { 
-    this.slides=this._data.data;
+  constructor(@Inject(MAT_DIALOG_DATA) private _data, private _matDialogRf: MatDialogRef<AddIngridientImageModal>) {
+    if (_data && _data.data) {
+      this.slides = this._data.data;
+    }
+
+
     this.slideConfig = {
       infinite: true,
       slidesToShow: 1,
@@ -22,7 +26,7 @@ export class AddIngridientImageModal implements OnInit {
       dots: false,
       autoplay: true,
       autoplaySpeed: 2000
-  }
+    }
   }
 
   ngOnInit() { }
@@ -34,32 +38,24 @@ export class AddIngridientImageModal implements OnInit {
 
   public setServicePhoto(event): void {
     if (event) {
-        const reader = new FileReader();
-        reader.onload = (e: any) => {
-            this.slides.push({ img: e.target.result });
-        };
-        if (event.target.files[0]) {
-            reader.readAsDataURL(event.target.files[0]);
-        }
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.slides.push({ img: e.target.result });
+      };
+      if (event.target.files[0]) {
+        reader.readAsDataURL(event.target.files[0]);
+      }
 
-    }
-}
-
-public removeRecipeImageItem(event,ind):void{
-  if(event){
-    this.slides.splice(ind,1);
-    if(this.slides.length===0){
-      this._matDialogRf.close('closeAfterrRemove');
     }
   }
-}
-  
 
-  slickInit(e) {}
+  public removeRecipeImageItem(event, ind): void {
+    if (event) {
+      this.slides.splice(ind, 1);
+      if (this.slides.length === 0) {
+        this._matDialogRf.close('closeAfterrRemove');
+      }
+    }
+  }
 
-  breakpoint(e) {}
-
-  afterChange(e) {}
-
-  beforeChange(e) { }
 }

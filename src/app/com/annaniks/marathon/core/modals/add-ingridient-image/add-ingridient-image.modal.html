@@ -6,11 +6,9 @@
     </div>
     <div class="ingridient-main d-flex m-auto">
         <div class="slider-content w-100">
-            <ngx-slick-carousel class="carousel w-100" #slickModal="slick-carousel" [config]="slideConfig"
-                (init)="slickInit($event)" (breakpoint)="breakpoint($event)" (afterChange)="afterChange($event)"
-                (beforeChange)="beforeChange($event)">
+            <ngx-slick-carousel class="carousel w-100" #slickModal="slick-carousel" [config]="slideConfig">
                 <div ngxSlickItem *ngFor="let slide of slides" class="slide">
-                    <img src="{{ slide.img }}" alt="" width="100%" height="100%">
+                    <img src="{{ slide?.img }}" alt="" width="100%" height="100%">
                 </div>
             </ngx-slick-carousel>
         </div>
@@ -27,9 +25,7 @@
             <div class="footer-description display-flex">
                 <p class="title">Chicken fajita drumsticks with Mexican salad</p>
                 <div class="d-flex align-items-center">
-                    <span class="material-icons star-icon">
-                        grade
-                    </span>
+                    <img src="assets/icons/star.svg" class="star-image">
                     <p class="title ml-2">4.9 120 rates</p>
                     <i class="fa fa-share icon" aria-hidden="true"></i>
                     <i class="fa fa-facebook icon" aria-hidden="true"></i>

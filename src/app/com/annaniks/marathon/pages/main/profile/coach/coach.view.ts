@@ -64,7 +64,6 @@ export class CoachView implements OnInit {
 
 
     autoSize(event){
-        console.log(event);
         if(event){
         const el = document.getElementById('textarea');
             setTimeout(()=>{      
@@ -94,7 +93,9 @@ export class CoachView implements OnInit {
             map((data: FeedData) => {
                 this.feedItem = data.results;
                 for (let item of this.feedItem) {
-                    this.feedMediaItem.push(item);
+                    if(item){
+                        this.feedMediaItem.push(item);
+                  
                     for (let media of item.feed_media) {
                         if (typeof media.content == 'string') {
                             media.content = JSON.parse(media.content);
@@ -102,6 +103,7 @@ export class CoachView implements OnInit {
                         }
                     }
                 }
+            }
                 return data
             }))
     }
@@ -210,7 +212,6 @@ export class CoachView implements OnInit {
             const dialogRef = this._dialog.open(GalleryModal, {
                 width: "1000px",
                 data: {
-                    // data:this.mediaItem,
                     data: item,
                     type: message,
                 }

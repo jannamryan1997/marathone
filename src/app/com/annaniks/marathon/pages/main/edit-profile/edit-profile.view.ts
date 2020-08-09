@@ -8,7 +8,6 @@ import { UploadFileResponse } from '../../../core/models';
 import { CertificateData } from '../../../core/models/certificates';
 import { Location } from '@angular/common';
 import { ProfileService } from '../../../core/services/profile.service';
-import { Router } from '@angular/router';
 
 @Component({
     selector: "app-edit-profile",

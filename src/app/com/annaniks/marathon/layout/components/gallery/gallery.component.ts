@@ -12,15 +12,16 @@ export class GelleryComponent implements OnInit {
     public videoSources = [];
     public feedItem;
     public mediaItem;
-    public comments = [];
     @Output() showGalleryModal = new EventEmitter<any>();
-    @Input('mediaItem')
+    @Input('mediaItem') 
     set setmediaItem($event) {
-        this.feedItem = $event;
-
-        if (this.feedItem) {
+        if($event){
+            this.feedItem = $event;
+        }
+           if(this.feedItem){
             this.mediaItem = this.feedItem.feed_media[0].content;
-            if (this.mediaItem.type === 'image') {
+            
+            if (this.mediaItem.type === 'image' && this._fileUrl) {
                 this.imageUrl = this._fileUrl + this.mediaItem.url;
             }
 
@@ -33,8 +34,8 @@ export class GelleryComponent implements OnInit {
                     provider: 'youtube',
                 }]
             }
-        }
-    }
+           }
+}
 
     constructor(@Inject("FILE_URL") private _fileUrl) { }
 

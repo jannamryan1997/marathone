@@ -28,11 +28,6 @@
                     formControlName="userName">
             </div>
             <div class="form-group">
-                <label [ngClass]="{'activeTab':chackIsValid('slug')}">Slug</label>
-                <input type="text" required='' placeholder="Slug" class="form-input w-100"
-                    formControlName="slug">
-            </div>
-            <div class="form-group">
                 <label [ngClass]="{'activeTab':chackIsValid('password')}">Password</label>
                 <div class="d-flex align-items-center">
                     <input [type]="show ? 'text' : 'password'" placeholder="Password" required=''
