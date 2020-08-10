@@ -1,0 +1,80 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="marathonChatApp.topic.home.title">Topics</span>
+
+        <!--<button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-topic" [routerLink]="['/topic/new']">-->
+        <!--<fa-icon icon="plus"></fa-icon>-->
+        <!--<span  jhiTranslate="marathonChatApp.topic.home.createLabel">-->
+        <!--Create a new Topic-->
+        <!--</span>-->
+        <!--</button>-->
+    </h2>
+
+    <!-- <jhi-alert-error></jhi-alert-error> -->
+
+
+    <div class="alert alert-warning" id="no-result" *ngIf="topics?.length === 0">
+        <span jhiTranslate="marathonChatApp.topic.home.notFound">No topics found</span>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-4">
+                <div class="table-responsive" id="entities" *ngIf="topics && topics.length > 0">
+                    <table class="table">
+                        <tbody>
+                            <tr *ngFor="let topic of topics ;"
+                                [ngClass]="((topicSelected?.id || 0) === topic.id) ? 'bg-success' : ''" class="hand"
+                                (click)="setSelected(topic)">
+                                <td>{{ formatTopicTitle(topic) }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-8">
+                <div style="height: 500px;overflow: auto; padding: 20px;display: flex;flex-direction: column-reverse;">
+                    <div *ngIf="topicSelected && topicSelected.id && topicMessages[topicSelected.id || 0]">
+                        <div *ngFor="let message of topicMessages[topicSelected.id || 0] ;">
+                            <!-- other message -->
+                            <div *ngIf="message.participantId !== getUserId()" style="display: block;min-height: 25px;">
+                                <span style="float: left;">{{ message.content }}</span>
+                            </div>
+                            <!-- my message -->
+                            <div *ngIf="message.participantId === getUserId()" style="display: block;min-height: 25px;">
+                                <span style="float: right; color: lightgray;">{{ message.content }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="alert alert-warning" *ngIf="!topicSelected">
+                    <span jhiTranslate="marathonChatApp.topic.home.notFound">No topics selected</span>
+                </div>
+                <div *ngIf="topicSelected">
+                    <form name="inputForm" role="form" novalidate [formGroup]="inputForm">
+
+                        <ng-container *ngFor="let participant of topicSelected.participants ;">
+                            <span *ngIf="participant.id !== getUserId()"
+                                [ngClass]="isOnline(participant, topicSelected) ? 'bg-success' : 'bg-light'"
+                                class="hand p-1 m-2">
+                                {{ participant.firstName }} {{ participant.lastName }}
+                                <fa-icon *ngIf="isWriting(participant, topicSelected)" icon="pencil-alt"></fa-icon>
+                            </span>
+                        </ng-container>
+
+                        <div class="p-2 mt-2">
+                            <textarea rows="3" style="width: 100%" class="form-control" name="text" id="field_text"
+                                formControlName="text"></textarea>
+                        </div>
+                        <div class="p-2">
+                            <button class="btn btn-primary btn-block" (click)="sendText()">
+                                <fa-icon *ngIf="!sendingMessage" icon="paper-plane"></fa-icon>
+                                <span *ngIf="!sendingMessage">Send</span>
+                                <fa-icon *ngIf="sendingMessage" icon="spinner" [spin]="true"></fa-icon>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>

@@ -27,7 +27,7 @@
             </div>
             <div class="icon-item d-block" *ngIf="showUserData">
                 <img src="assets/icons/Notification.svg" class="icon" alt="">
-                <img src="assets/icons/coments.svg" class="icon" alt="">
+                <img [routerLink]="'/chat'" src="assets/icons/coments.svg" class="icon" alt="">
 
             </div>
             <div class="profile-content" *ngIf="showUserData" (clickOutside)="onClickedOutside($event)">
