@@ -4,6 +4,11 @@
     color: $color;
     font-family: $fontFamily,
 }
+.user-item {
+    align-items: center;
+    padding: 10px;
+    // cursor: pointer;
+}
 .follow-item-content{
     padding: 0 8px;
     align-items: center;
@@ -39,7 +44,8 @@
     }
 }
 .bg-item{
-    justify-content: space-around;
+    width: 100%;
+    justify-content: space-around !important;
     .user-image {
         width: 55px !important;
         height: 55px !important;
