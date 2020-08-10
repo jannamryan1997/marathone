@@ -48,6 +48,7 @@ export class ProfileView implements OnInit {
 
         this._activatedRoute.params.pipe(takeUntil(this.unsubscribe$)).subscribe(params => {
             if (params && params.id) {
+                window.scrollTo(0, 0);
                 let urls = this._router.url.split('/');
                 if (urls && urls.length) {
                     this.userRole = urls[urls.length - 1];
