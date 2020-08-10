@@ -58,7 +58,7 @@
                     </div>
                 </div>
                 <div class="social-media" *ngIf="showSocialMedium">
-                    <p> <i class="arrow up"></i></p>
+                    <p> <em class="arrow up"></em></p>
                     <div class="social-media-description">
                         <a href="{{userData?.data?.instagram}}" target="blank">
                             <img src="assets/images/social/inst.png.png" class="social-image mt-0" alt="Cinque Terre">
@@ -75,7 +75,7 @@
                     </div>
                 </div>
                 <div class="more-content" *ngIf="showMore">
-                    <p> <i class="arrow up"></i></p>
+                    <p> <em class="arrow up"></em></p>
                     <div class="more-description">
                         <p class="more-item w-100" (click)="copyUrl()">Copy Profile URL</p>
                         <p class="more-item w-100">Block</p>
@@ -83,11 +83,11 @@
                     </div>
                 </div>
 
+            </div>
+            <div class="main-layout">
+                <router-outlet></router-outlet>
+            </div>
         </div>
-        <div class="main-layout">
-            <router-outlet></router-outlet>
-        </div>
-    </div>
 
     </div>
 

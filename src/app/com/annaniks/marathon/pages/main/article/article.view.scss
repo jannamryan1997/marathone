@@ -207,6 +207,11 @@ input[type="file"] {
     }
 }
 :host::ng-deep {
+    app-content-video{
+        .image-content{
+            margin: 10px !important;
+        }
+    }
 .cke_top{
     padding:0 !important;
 }

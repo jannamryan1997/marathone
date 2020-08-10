@@ -6,6 +6,7 @@ import { Subject } from 'rxjs';
 import { takeUntil, switchMap, map } from 'rxjs/operators';
 import { UploadFileResponse } from '../../../core/models';
 import { ProfileService } from '../../../core/services/profile.service';
+import { FollowService } from '../../../core/services/follow.service';
 
 
 
@@ -41,11 +42,13 @@ export class ProfileView implements OnInit {
         private _profileService: ProfileService,
         private _cookieService: CookieService,
         private _activatedRoute: ActivatedRoute,
+        private _followService: FollowService,
         private _router: Router) {
 
 
         this._activatedRoute.params.pipe(takeUntil(this.unsubscribe$)).subscribe(params => {
             if (params && params.id) {
+                window.scrollTo(0, 0);
                 let urls = this._router.url.split('/');
                 if (urls && urls.length) {
                     this.userRole = urls[urls.length - 1];
@@ -160,19 +163,11 @@ export class ProfileView implements OnInit {
         }
     }
     public follow() {
-        if (!this.isFollowed) {
-            this._profileService.follow(this.role, this._userService.user.data.url, this.userRole, this.user.url).pipe(takeUntil(this.unsubscribe$)).pipe(
-                switchMap(() => {
+        this._followService.follow(this.user, this.role, this._userService.user.data.url, this.userRole, this.user.url)
+            .pipe(takeUntil(this.unsubscribe$),
+                switchMap((data) => {
                     return this._getProfileById()
-                })).subscribe();
-        } else {
-            if (this.user.is_follower_id) {
-                this._profileService.unfollow(this.user.is_follower_id).pipe(takeUntil(this.unsubscribe$)).pipe(
-                    switchMap(() => {
-                        return this._getProfileById()
-                    })).subscribe();
-            }
-        }
+                })).subscribe()
     }
     public setServicePhoto(event) {
         this.loading = true;
