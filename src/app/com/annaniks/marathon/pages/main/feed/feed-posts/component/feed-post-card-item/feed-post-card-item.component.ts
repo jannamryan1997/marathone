@@ -134,17 +134,17 @@ export class FeedPostCardItemComponent implements OnInit {
 
     private _getFeedById() {
         return this._feedService.getFeedById(this.feedItem.id).pipe(map((result) => {
-            if (result.feed_media && result.feed_media[0] && result.feed_media[0].content) {
+            if (result && result.feed_media && result.feed_media[0] && result.feed_media[0].content) {
                 this.content = JSON.parse(result.feed_media[0].content)
             }
             this.feedItem = result;
             this.showDeleteModal = false;
-            if(this.content){
-            this.videoSources = [{
-                src: this.content.url,
-                provider: 'youtube',
-            }]
-        }
+            if (this.content && this.content.url) {
+                this.videoSources = [{
+                    src: this.content.url,
+                    provider: 'youtube',
+                }]
+            }
             return result;
         }))
     }
@@ -270,8 +270,8 @@ export class FeedPostCardItemComponent implements OnInit {
         if (event && this.role) {
             const dialogRef = this._dialog.open(LikeModal, {
                 width: "450px",
-                data:{
-                    data:this.feedItem.id,
+                data: {
+                    data: this.feedItem.id,
                 }
             })
         }

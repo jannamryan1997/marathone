@@ -12,7 +12,7 @@
  
     <div class="chicken-header">
         <img src="assets/images/food.png" class="chicken-image"
-            *ngIf="!receipt?.imageSlider.length && receipt?.videoLink ===''">
+            *ngIf="!receipt?.imageSlider.length && receipt?.videoLink ===''" alt="">
         <ngx-slick-carousel *ngIf="receipt?.imageSlider" class="carousel w-100 chicken-image"
             #slickModal="slick-carousel" [config]="slideConfig">
             <div ngxSlickItem *ngFor="let slide of receipt?.imageSlider" class="slide">
@@ -29,7 +29,7 @@
         </button>
         <div class="header-container d-flex justify-content-between">
             <div class="d-flex align-items-center">
-                <img src="assets/icons/star.svg" class="star-image">
+                <img src="assets/icons/star.svg" class="star-image" alt="">
                 <p class="title ml-2">4.9 120 rates</p>
             </div>
             <span class="material-icons icon">

@@ -5,10 +5,7 @@
                 <p class="title">Suggestions</p>
                 <p [routerLink]="'/suggestions'" class="text">See All</p>
             </div>
-
-            <div *ngFor="let item of followItem" class="user-item follow-item d-flex">                
-                <app-user-item (getUser)="getUser()" [item]="item"></app-user-item>
-            </div>
+            <app-user-item (getUser)="getUser()" [item]="followItem"></app-user-item>
         </div>
         <div class="contact" *ngIf="showUserData">
             <div class="serch-content">

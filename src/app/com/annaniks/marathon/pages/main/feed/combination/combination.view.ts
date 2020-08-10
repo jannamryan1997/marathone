@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from "@angular/core";
 import { FeedService } from '../feed.service';
 import { ActivatedRoute } from '@angular/router';
 import { takeUntil, switchMap, map, finalize } from 'rxjs/operators';
-import { Subject, forkJoin, Observable } from 'rxjs';
+import { Subject, forkJoin, Observable, of } from 'rxjs';
 import { FeedResponseData, ServerResponse } from '../../../../core/models';
 import { CookieService } from 'ngx-cookie';
 import * as moment from 'moment';
@@ -13,6 +13,7 @@ import { FeedLikeService } from '../../../../core/services/feed-like.service';
 import { ProfileService } from '../../../../core/services/profile.service';
 import { UserService } from '../../../../core/services/user.service';
 import { Location } from '@angular/common';
+import { FollowService } from '../../../../core/services/follow.service';
 @Component({
     selector: "combination-view",
     templateUrl: "combination.view.html",
@@ -42,8 +43,8 @@ export class CombinationView implements OnInit {
         private _matDialog: MatDialog,
         private _profileService: ProfileService,
         private _userService: UserService,
-        private _location:Location,
-
+        private _location: Location,
+        private _followService: FollowService,
         @Inject("FILE_URL") public fileUrl: string) {
         this.role = this._cookieService.get('role');
 
@@ -57,6 +58,8 @@ export class CombinationView implements OnInit {
         this._initConfig()
         this._getArticleById().pipe(takeUntil(this.unsubscribe$)).subscribe();
     }
+
+
     private _initConfig() {
         this.slideConfig1 = {
             infinite: true,
@@ -161,31 +164,23 @@ export class CombinationView implements OnInit {
     }
     public follow() {
         if (this.role) {
-            if (!this._user.is_follower) {
-                this._profileService.follow(this.role, this._userService.user.data.url, this._userRole, this._user.url).pipe(takeUntil(this.unsubscribe$)).pipe(
-                    switchMap(() => {
+            this._followService.follow(this._user, this.role, this._userService.user.data.url, this._userRole, this._user.url)
+                .pipe(takeUntil(this.unsubscribe$),
+                    switchMap((data) => {
                         return this._getArticleById()
-                    })).subscribe();
-            } else {
-                if (this._user.is_follower_id) {
-                    this._profileService.unfollow(this._user.is_follower_id).pipe(takeUntil(this.unsubscribe$)).pipe(
-                        switchMap(() => {
-                            return this._getArticleById()
-                        })).subscribe();
-                }
-            }
+                    })).subscribe()
         } else {
             this.onClickOpenAuth()
         }
     }
     public checkIsMe() {
-        if (this._userService.user) {            
+        if (this._userService.user) {
             return (!this._user || +this._user.id == +this._userService.user.data.id)
         } else {
             return false
         }
     }
-    public onClickGoBack():void{
+    public onClickGoBack(): void {
         this._location.back();
     }
     ngOnDestroy() {

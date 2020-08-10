@@ -18,7 +18,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
     private unsubscribe$ = new Subject<void>()
 
     @Input() type: string;
-    @Input() style:boolean;
+    @Input() style: boolean;
     @Output() openChanges = new EventEmitter();
     @Output() showFollowModel = new EventEmitter();
     @Input('feed')
@@ -40,29 +40,21 @@ export class SettingsComponent implements OnInit, OnDestroy {
         this.openChanges.emit(this.isOpen);
     }
     public clickOnButton(type: string): void {
-       
         if (this.role) {
-           
             if (type == 'like') {
-                if(!this.feed.is_liked){
-                    console.log(this.feed.is_liked);
-                    
-                this._feedLikeService.likeFeed(this.feed.id).pipe(takeUntil(this.unsubscribe$),
-                    map(() => {
-                        this._buttonsType.emit(true)
-                    })).subscribe()
+                if (!this.feed.is_liked) {
+                    this._feedLikeService.likeFeed(this.feed.id).pipe(takeUntil(this.unsubscribe$),
+                        map(() => {
+                            this._buttonsType.emit(true)
+                        })).subscribe()
+                }
+                else if (this.feed.is_liked) {
+                    this._feedLikeService.diseLikeFeed(this.feed.is_liked_id).pipe(takeUntil(this.unsubscribe$),
+                        map(() => {
+                            this._buttonsType.emit(true);
+                        })).subscribe()
+                }
             }
-            else if (this.feed.is_liked){
-                console.log("dfdfd");
-                
-                this._feedLikeService.diseLikeFeed(this.feed.is_liked_id).pipe(takeUntil(this.unsubscribe$),
-                map(()=>{
-                    this._buttonsType.emit(true);
-                })).subscribe((data)=>{
-                  
-                })
-            }
-        }
         } else {
             this._buttonsType.emit(false)
         }
