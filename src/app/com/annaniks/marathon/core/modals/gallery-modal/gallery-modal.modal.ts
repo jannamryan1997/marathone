@@ -42,6 +42,8 @@ export class GalleryModal implements OnInit, OnDestroy {
         }
         if (this._data && this._data.data) {
             this.feedItem = this._data.data;
+            this.user = this.feedItem ? this.feedItem.creator_client_info ? this.feedItem.creator_client_info : 
+            this.feedItem.creator_info ? this.feedItem.creator_info : null : null
         }
 
         if (this.feedItem) {
@@ -52,7 +54,8 @@ export class GalleryModal implements OnInit, OnDestroy {
             }]
         }
 
-        this.user = this._userService.user.data;
+
+        // this._userService.user.data;
         if (this.user) {
             this.localImage = this.fileURL + this.user.avatar;
         }
