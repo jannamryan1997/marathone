@@ -9,13 +9,14 @@ import { ReceiptResponseData } from '../../../../core/models/receipt';
 
 import { Location } from '@angular/common';
 import { AuthModal } from '../../../../core/modals';
-import { Subject, Observable, forkJoin } from 'rxjs';
+import { Subject, Observable, forkJoin, of } from 'rxjs';
 import { switchMap, takeUntil, map, finalize } from 'rxjs/operators';
 import { CommentService } from '../../../../core/services/comment.service';
 import { MatDialog } from '@angular/material/dialog';
 import { FeedLikeService } from '../../../../core/services/feed-like.service';
 import { ProfileService } from '../../../../core/services/profile.service';
 import { UserService } from '../../../../core/services/user.service';
+import { FollowService } from '../../../../core/services/follow.service';
 
 @Component({
     selector: "ingridient-view",
@@ -49,7 +50,8 @@ export class IngridientViewComponent implements OnInit {
         private _matDialog: MatDialog,
         private _feedLikeService: FeedLikeService,
         private _profileService: ProfileService,
-        private _userService: UserService
+        private _userService: UserService,
+        private _followService: FollowService
     ) {
         this._activatedRoute.params.subscribe((params) => {
             this.feedId = Number(params.id);
@@ -163,25 +165,17 @@ export class IngridientViewComponent implements OnInit {
     }
     public follow() {
         if (this.role) {
-            if (!this._user.is_follower) {
-                this._profileService.follow(this.role, this._userService.user.data.url, this._userRole, this._user.url).pipe(takeUntil(this.unsubscribe$)).pipe(
-                    switchMap(() => {
+            this._followService.follow(this._user, this.role, this._userService.user.data.url, this._userRole, this._user.url)
+                .pipe(takeUntil(this.unsubscribe$),
+                    switchMap((data) => {
                         return this._getFeedById()
-                    })).subscribe();
-            } else {
-                if (this._user.is_follower_id) {
-                    this._profileService.unfollow(this._user.is_follower_id).pipe(takeUntil(this.unsubscribe$)).pipe(
-                        switchMap(() => {
-                            return this._getFeedById()
-                        })).subscribe();
-                }
-            }
+                    })).subscribe()
         } else {
             this.onClickOpenAuth()
         }
     }
     public checkIsMe() {
-        if (this._userService.user) {            
+        if (this._userService.user) {
             return (!this._user || +this._user.id == +this._userService.user.data.id)
         } else {
             return false

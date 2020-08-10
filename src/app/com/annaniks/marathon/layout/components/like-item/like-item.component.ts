@@ -4,7 +4,8 @@ import { CookieService } from 'ngx-cookie';
 import { UserService } from '../../../core/services/user.service';
 import { ProfileService } from '../../../core/services/profile.service';
 import { map, takeUntil, switchMap } from 'rxjs/operators';
-import { Subject } from 'rxjs';
+import { Subject, of } from 'rxjs';
+import { FollowService } from '../../../core/services/follow.service';
 
 
 @Component({
@@ -24,13 +25,11 @@ export class LiketemComponent implements OnInit, OnDestroy {
     public userSlug: string;
     public role: string;
     public likeItem;
-    public followId:number;
+    public followId: number;
     @Input('likeItem')
     set setLikeItem($event) {
         this.likeItem = $event;
         if (this.likeItem) {
-            console.log(this.likeItem);
-            
             this.userRole = this.likeItem.coach ? 'coach' : 'client';
             this._getProfileById().subscribe()
 
@@ -41,7 +40,7 @@ export class LiketemComponent implements OnInit, OnDestroy {
         private _userService: UserService,
         private _profileService: ProfileService,
         private _cookieService: CookieService,
-
+        private _followService: FollowService
     ) {
         this.role = this._cookieService.get('role');
         this.user = this._userService.user.data;
@@ -54,54 +53,39 @@ export class LiketemComponent implements OnInit, OnDestroy {
         if (this.likeItem.liked_coach === null) {
             this.localImage = this._fileUrl + this.likeItem.liked_user.avatar;
             this.user_first_name = this.likeItem.liked_user.user.first_name;
-            this.followId= this.likeItem.liked_user.id;
-           
+            this.followId = this.likeItem.liked_user.id;
+
         }
         else {
             this.localImage = this._fileUrl + this.likeItem.liked_coach.avatar;
             this.user_first_name = this.likeItem.liked_coach.user.first_name;
-            this.followId=this.likeItem.liked_coach.id;
+            this.followId = this.likeItem.liked_coach.id;
         }
     }
 
 
-
     private _getProfileById() {
         let id;
-        if(this.likeItem.liked_coach===null){
-            id=this.likeItem.liked_user.id;
+        if (this.likeItem.liked_coach === null) {
+            id = this.likeItem.liked_user.id;
         }
-        else{
-            id=this.likeItem.liked_coach.id;
+        else {
+            id = this.likeItem.liked_coach.id;
         }
-        return this._profileService.getfollowProfileById(this.userRole,id).pipe(takeUntil(this.unsubscribe$),
+        return this._profileService.getfollowProfileById(this.userRole, id).pipe(takeUntil(this.unsubscribe$),
             map((data) => {
                 this.user = data;
                 this.isFollowed = this.user.is_follower;
             }))
     }
 
-
     public follow() {
-        console.log(this.userRole);
-        
-        if (!this.isFollowed) {
-            this._profileService.follow(this.role, this._userService.user.data.url, this.userRole, this.user.url).pipe(takeUntil(this.unsubscribe$)).pipe(
-                switchMap(() => {
+        this._followService.follow(this.user, this.role, this._userService.user.data.url, this.userRole, this.user.url)
+            .pipe(takeUntil(this.unsubscribe$),
+                switchMap((data) => {
                     return this._getProfileById()
-                })).subscribe();
-        } else {
-            if (this.user.is_follower_id) {
-                this._profileService.unfollow(this.user.is_follower_id).pipe(takeUntil(this.unsubscribe$)).pipe(
-                    switchMap(() => {
-                        return this._getProfileById()
-                    })).subscribe();
-            }
-        }
+                })).subscribe()
     }
-
-
-
 
     ngOnDestroy() { }
 }
