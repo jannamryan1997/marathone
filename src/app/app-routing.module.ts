@@ -9,6 +9,7 @@ const routes: Routes = [
     path: "",
     canActivate: [AuthGuard],
     loadChildren: () => import('./com/annaniks/marathon/pages/main/main.module').then(m => m.MainModule),
+  
   }
 
 ];

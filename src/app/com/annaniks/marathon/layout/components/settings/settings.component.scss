@@ -24,6 +24,7 @@
         align-items: center;
         text-align: center;
         height: 45px;
+        padding: 20px;
 
         &:last-child {
             border-right: none !important;
@@ -61,8 +62,6 @@
             background: #F4F6FB 0% 0% no-repeat padding-box;
             border-radius: 22px;
             opacity: 1;
-            padding: 20px;
-        
            
         }
     }

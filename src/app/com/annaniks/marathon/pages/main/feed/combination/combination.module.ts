@@ -5,10 +5,10 @@ import { CommonModule } from '@angular/common';
 import { CombinationRoutingModule } from './combination.routing.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CombinationService } from './combination.service';
-
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 @NgModule({
     declarations: [CombinationView],
-    imports: [SharedModule, CommonModule,CombinationRoutingModule,ReactiveFormsModule,FormsModule],
+    imports: [SharedModule, CommonModule,CombinationRoutingModule,ReactiveFormsModule,FormsModule,NgxSkeletonLoaderModule],
     providers:[CombinationService]
 })
 
