@@ -2,6 +2,8 @@ import { Component, OnInit, OnDestroy, Output, EventEmitter } from "@angular/cor
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthUserService } from '../../core/services/auth.services';
 import { Router, ActivatedRoute } from '@angular/router';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
     selector: "app-forgot-password",
@@ -19,6 +21,7 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
     public hiderepPassword: boolean = true;
     public token:string;
     public message:boolean=false;
+    public _unsbscribe=new Subject<void>();
     @Output() changeSigntab = new EventEmitter;
     constructor(
         private _fb: FormBuilder, 
@@ -91,6 +94,7 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
             password: this.changePasswordGroup.value.password,
             token:this.token,
         })
+        .pipe(takeUntil(this._unsbscribe))
             .subscribe((data) => {
                 this.onChangeAuthMain(this.tab);
                 this._router.navigate([], {queryParams: {page: null}});

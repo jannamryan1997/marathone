@@ -343,7 +343,8 @@
   overflow: hidden;
   height: auto;
   line-height: 22px !important;
-  min-height: 70px;
+  min-height: 115px;
+  max-height: 350px;
 }
 
 input[type="file"] {

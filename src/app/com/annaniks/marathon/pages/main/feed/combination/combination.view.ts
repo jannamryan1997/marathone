@@ -33,15 +33,13 @@ export class CombinationView implements OnInit {
     public article: FeedResponseData;
     public content;
     public role: string;
-    public time;
+    public time:string;
     public slideConfig1;
-    public arrays = []
+    public arrays = [];
     constructor(private _feedService: FeedService, private _activatedRoute: ActivatedRoute,
         private _cookieService: CookieService,
         private _commentService: CommentService,
-        private _feedLikeService: FeedLikeService,
         private _matDialog: MatDialog,
-        private _profileService: ProfileService,
         private _userService: UserService,
         private _location: Location,
         private _followService: FollowService,
@@ -155,8 +153,6 @@ export class CombinationView implements OnInit {
     }
     public onClickOpenAuth(): void {
         this._matDialog.open(AuthModal, {
-            // width: "100%",
-            // maxWidth: "100vw",
         })
     }
     public setImage() {

@@ -78,7 +78,7 @@ export class ClientView implements OnInit {
     }
     public checkIsMe() {
         if (this._userService.user) {
-            return (!this._userSlug || +this._userSlug == +this._userService.user.data.id)
+            return (!this.user || +this.user.id == +this._userService.user.data.id)
         } else {
             return false
         }

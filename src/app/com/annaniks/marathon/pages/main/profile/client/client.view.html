@@ -1,5 +1,6 @@
 <div class="main-container">
     <div class="user-main">
+            <div class="main-content">
         <div class="review-content display-flex">
             <p class="name">{{email}}</p>
             <div class=" display-flex">
@@ -75,6 +76,7 @@
                 <button class="btn-item basic-btn">Power Lifting</button>
             </div>
         </div>
+            </div>
         <div class="events-tab d-flex" [ngSwitch]="tab">
 
             <div class="tab-item" (click)="onClickTab(1)" [ngClass]="{'activeTab':tab===1}">
@@ -102,10 +104,10 @@
 
 
         </div>
-        <div *ngIf="postTab===1" class="post-container">
+        <div *ngIf="postTab===1" >
             <div *ngIf="tab===1">
-            <div *ngIf="checkIsMe()">
-                <app-create-publication [feedItem]="feedItem" (postCreateEvent)="onPostCreated($event)">
+            <div *ngIf="checkIsMe()" class="post-container">
+                <app-create-publication  [style]="true" [feedItem]="feedItem" (postCreateEvent)="onPostCreated($event)">
                 </app-create-publication>
             </div>
             <div *ngIf="feedItem?.length > 0" class="feed-item" infinite-scroll
@@ -114,7 +116,7 @@
                 <!-- (scrolled)="onScroll()" -->
                 <spinner-loading *ngIf="loading"></spinner-loading>
                 <app-feed-post-card-item *ngFor="let item of feedItem" [feedItem]="item"
-                    (deletedItem)="deletedFeedItem($event)"></app-feed-post-card-item>
+                    (deletedItem)="deletedFeedItem($event)"  [style]="true"></app-feed-post-card-item>
             </div>
         </div>
     </div>

@@ -6,13 +6,16 @@
 }
 
 .user-main {
-    padding: 0 15px;
+    // padding: 0 15px;
     position: absolute;
     background: #ffffff 0% 0% no-repeat padding-box;
     box-shadow: 2px 30px 43px #5c687b17;
     border-radius: 0px 0px 15px 15px;
     opacity: 1;
     width: 100%;
+    .main-content{
+        padding: 0 24px;
+    }
     .review-content {
         padding: 28px 0 19px 0;
 
@@ -91,6 +94,7 @@
     .events-tab {
         border-bottom: 1px solid #bbcddf;
         justify-content: center;
+        text-align: center;
 
         .tab-item {
             padding: 18px 0;
@@ -159,7 +163,7 @@
     display: flex;
     .gallery-item {
         width: 33.3333333%;
-        padding: 2px;
+        padding: 3px;
         display: none;
         cursor: pointer;
     }

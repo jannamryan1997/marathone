@@ -29,6 +29,7 @@ export class FeedPostCardItemComponent implements OnInit {
     @Input() routerLink: string;
     @Output() deletedItem = new EventEmitter<any>();
     @Output() editFeed = new EventEmitter<any>();
+    @Input() style:boolean;
     public showTitle: boolean = false;
     public isOpen: boolean = false;
     public content;

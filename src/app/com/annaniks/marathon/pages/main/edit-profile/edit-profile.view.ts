@@ -8,6 +8,8 @@ import { UploadFileResponse } from '../../../core/models';
 import { CertificateData } from '../../../core/models/certificates';
 import { Location } from '@angular/common';
 import { ProfileService } from '../../../core/services/profile.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: "app-edit-profile",
@@ -40,6 +42,7 @@ export class EditProfileView implements OnInit {
     public educationItem: EducationData[] = [];
     public experienceItem:ExperienceData[]=[];
     public routerUrl:string;
+    public _unsbscribe=new Subject<void>();
     constructor(
         private _fb: FormBuilder,
         private _countryService: CountryService,
@@ -198,6 +201,7 @@ export class EditProfileView implements OnInit {
         }
         if (this.role === 'client') {
             this._userService.putClient(this._userService.user.data.id, this._userService.user.data)
+            .pipe(takeUntil(this._unsbscribe))
                 .subscribe((data) => {
                     this._userService.getClient().subscribe((data) => {
                         if (type === 'avatar') {
@@ -216,6 +220,7 @@ export class EditProfileView implements OnInit {
         }
         else {
             this._userService.putCoatch(this._userService.user.data.id, this._userService.user.data)
+            .pipe(takeUntil(this._unsbscribe))
                 .subscribe((data) => {
                     this._userService.getCoatch().subscribe((data) => {
                         if (type === 'avatar') {
@@ -232,7 +237,9 @@ export class EditProfileView implements OnInit {
         }
     }
     private _getCountries(): void {
-        this._countryService.getLanguages().subscribe((countries) => {
+        this._countryService.getLanguages()
+        .pipe(takeUntil(this._unsbscribe))
+        .subscribe((countries) => {
             this.countries = countries.results;
             const selectedlanguages: any[] = this.user.data.language || [];
             const selectedcountries = [];
@@ -249,7 +256,9 @@ export class EditProfileView implements OnInit {
     }
 
     private _getSpeciality(): void {
-        this._countryService.getSpeciality().subscribe((speciality) => {
+        this._countryService.getSpeciality()
+        .pipe(takeUntil(this._unsbscribe))
+        .subscribe((speciality) => {
             this.speciality = speciality.results;
             const selectedspaciality: any[] = this.user.data.speciality || [];
             const selectspaciality = [];
@@ -296,6 +305,7 @@ export class EditProfileView implements OnInit {
             this.user.data.language = this.url,
             this.user.data.speciality = this.spacialityUrl;
         this._userService.putCoatch(this._userService.user.data.id, this.user.data)
+        .pipe(takeUntil(this._unsbscribe))
             .subscribe((data) => {
                 this._userService.getCoatch().subscribe((data) => {
                     this.user.data = data.data;
@@ -325,6 +335,7 @@ export class EditProfileView implements OnInit {
             this.user.data.language = this.url,
             this.user.data.speciality = this.spacialityUrl;
         this._userService.putClient(this._userService.user.data.id, this.user.data)
+        .pipe(takeUntil(this._unsbscribe))
             .subscribe((data) => {
                 this._userService.getClient().subscribe((data) => {
                 })
@@ -352,6 +363,7 @@ export class EditProfileView implements OnInit {
     public removeEducationItem(event, ind, item): void {
         if (event && item.value.url) {
             this._profileService.deleteProfileInformation(item.value.url, item.value)
+            .pipe(takeUntil(this._unsbscribe))
                 .subscribe((data) => {
                     if (this.role === 'client') {
                         this._getClient();
@@ -375,6 +387,7 @@ export class EditProfileView implements OnInit {
     public removeExperianceItem(event, ind,item): void {
         if (event && item.value.url) {
             this._profileService.deleteProfileInformation(item.value.url, item.value)
+            .pipe(takeUntil(this._unsbscribe))
                 .subscribe((data) => {
                     if (this.role === 'client') {
                         this._getClient();
@@ -408,6 +421,7 @@ export class EditProfileView implements OnInit {
     public removeCerticatesItem(event, ind, item): void {
         if (event && item.url) {
             this._profileService.deleteProfileInformation(item.url, item)
+            .pipe(takeUntil(this._unsbscribe))
                 .subscribe((data) => {
                     if (this.role === 'client') {
                         this._getClient();

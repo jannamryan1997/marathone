@@ -157,11 +157,12 @@ export class ProfileView implements OnInit {
     }
     public checkIsMe() {
         if (this._userService.user) {
-            return (!this._userSlug || +this._userSlug == +this._userService.user.data.id)
+            return (!this.user || +this.user.id == +this._userService.user.data.id)
         } else {
             return false
         }
     }
+
     public follow() {
         this._followService.follow(this.user, this.role, this._userService.user.data.url, this.userRole, this.user.url)
             .pipe(takeUntil(this.unsubscribe$),
