@@ -86,8 +86,6 @@ export class CombinationView implements OnInit {
                     this.content = JSON.parse(this.article.feed_media[0].content);
                     if (this.content.arrays)
                         this.arrays = this.content.arrays
-                    // ''(this.content);
-
                 }
                 return data
             })

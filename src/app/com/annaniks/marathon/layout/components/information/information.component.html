@@ -1,6 +1,6 @@
 <div class="information-content" *ngIf="!profileCertificates">
     <p class="title">About</p>
-    <p class="text">{{user?.data.about}}.</p>
+    <p class="text">{{user?.data?.about}}</p>
     <p class="title">Certificates</p>
     <div class="information-item-content d-flex">
         <div class="information-item " *ngFor="let item of user?.data?.certificates"

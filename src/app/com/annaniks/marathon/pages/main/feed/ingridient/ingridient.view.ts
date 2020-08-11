@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FeedService } from '../feed.service';
 import { CookieService } from 'ngx-cookie';
 import { FeedResponseData, ServerResponse } from '../../../../core/models';
@@ -7,7 +7,7 @@ import { FeedResponseData, ServerResponse } from '../../../../core/models';
 import * as moment from 'moment';
 import { ReceiptResponseData } from '../../../../core/models/receipt';
 
-import { Location } from '@angular/common';
+import { Location, ViewportScroller } from '@angular/common';
 import { AuthModal } from '../../../../core/modals';
 import { Subject, Observable, forkJoin, of } from 'rxjs';
 import { switchMap, takeUntil, map, finalize } from 'rxjs/operators';
@@ -45,16 +45,17 @@ export class IngridientViewComponent implements OnInit {
         private _activatedRoute: ActivatedRoute,
         private _feedService: FeedService,
         private _cookieService: CookieService,
-        private _location: Location,
         private _commentService: CommentService,
         private _matDialog: MatDialog,
-        private _feedLikeService: FeedLikeService,
         private _profileService: ProfileService,
         private _userService: UserService,
+        private _location:Location,
         private _followService: FollowService
     ) {
         this._activatedRoute.params.subscribe((params) => {
             this.feedId = Number(params.id);
+
+            
             this.role = this._cookieService.get('role');
         })
         this.slideConfig = {
@@ -184,6 +185,8 @@ export class IngridientViewComponent implements OnInit {
 
     public onClickGotoBack() {
         this._location.back();
+      
+
     }
     ngOnDestroy() {
         this.unsubscribe$.next();

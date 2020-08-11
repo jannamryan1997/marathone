@@ -1,5 +1,15 @@
 <div class="chicken-content">
-    <spinner-loading *ngIf="loading"></spinner-loading>
+
+    <ngx-skeleton-loader appearance="squard" class="skeleton" [theme]="{ 
+        'position': 'absolute',
+        'top': '0',
+        'bottom': '0',
+        'right': '0',
+        'left': '0' ,
+        'z-index': '1',
+        'height':'auto'
+      }" *ngIf="loading"></ngx-skeleton-loader>
+ 
     <div class="chicken-header">
         <img src="assets/images/food.png" class="chicken-image"
             *ngIf="!receipt?.imageSlider.length && receipt?.videoLink ===''" alt="">
@@ -41,7 +51,8 @@
                         {{feedItem?.creator_client_info?.user?.first_name}}</p>
                 </div>
                 <p class="date ml-2">{{time}}</p>
-                <button *ngIf="!checkIsMe()" (click)="follow()" [class.active-btn]="user?.is_follower" type="button" class="btn-item info-btn ml-2">{{user?.is_follower?'Unfollow':'Follow'}}</button>
+                <button *ngIf="!checkIsMe()" (click)="follow()" [class.active-btn]="user?.is_follower" type="button"
+                    class="btn-item info-btn ml-2">{{user?.is_follower?'Unfollow':'Follow'}}</button>
             </div>
             <div>
                 <div class="loader-container">

@@ -4,9 +4,11 @@ import { IngridientRoutingModule } from './ingridient.routing.module';
 import { IngridientViewComponent } from './ingridient.view';
 import { IngridientService } from './ingridient.service';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+
 @NgModule({
     declarations: [IngridientViewComponent],
-    imports: [IngridientRoutingModule, SharedModule,SlickCarouselModule],
+    imports: [IngridientRoutingModule, SharedModule,SlickCarouselModule,NgxSkeletonLoaderModule],
     providers:[IngridientService]
 })
 

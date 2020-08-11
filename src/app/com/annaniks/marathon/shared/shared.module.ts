@@ -23,6 +23,9 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 
+
+
+
 import {
     HeaderComponent,
     LeftMenuCompomemtn,
@@ -98,7 +101,7 @@ import { LikeService } from '../core/services/like.service';
         PlyrModule,
         NgxLoadingModule,
         InfiniteScrollModule,
-        SlickCarouselModule
+        SlickCarouselModule,
  
     ],
     providers: [AuthGuard,FeedService,CountryService,LikeService],
@@ -145,9 +148,7 @@ import { LikeService } from '../core/services/like.service';
         LikeModal,
         LiketemComponent,
         ShareComponent,
-        UserItemComponent,
-        
-   
+        UserItemComponent      
     ],
 })
 

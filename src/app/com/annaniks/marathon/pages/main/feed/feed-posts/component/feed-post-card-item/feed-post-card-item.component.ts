@@ -7,12 +7,10 @@ import { CookieService } from 'ngx-cookie';
 import { UserService } from 'src/app/com/annaniks/marathon/core/services/user.service';
 import { FeedService } from '../../../feed.service';
 import { ReceiptResponseData } from 'src/app/com/annaniks/marathon/core/models/receipt';
-import { FormBuilder } from '@angular/forms';
-import { FeedLikeService } from 'src/app/com/annaniks/marathon/core/services/feed-like.service';
 import { Subject, forkJoin, Observable } from 'rxjs';
 import { takeUntil, switchMap, map } from 'rxjs/operators';
 import { CommentService } from 'src/app/com/annaniks/marathon/core/services/comment.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: "app-feed-post-card-item",
@@ -47,16 +45,16 @@ export class FeedPostCardItemComponent implements OnInit {
     public comments: Comment[] = []
     public isShowSubMessages: boolean = false;
     public user;
+    public scrollY;
     constructor(
         @Inject("FILE_URL") public fileUrl,
-        private _fb: FormBuilder,
         private _cookieService: CookieService,
         private _userService: UserService,
-        private _feedLikeService: FeedLikeService,
         private _feedService: FeedService,
         private _commentService: CommentService,
         private _dialog: MatDialog,
         private _router: Router,
+        private _activatedRouter:ActivatedRoute,
     ) {
         this.role = this._cookieService.get('role');
         this.slideConfig = {
@@ -68,7 +66,6 @@ export class FeedPostCardItemComponent implements OnInit {
             autoplaySpeed: 2000
         }
         this.user = this._userService.user;
-
     }
 
     ngOnInit() {
@@ -282,8 +279,9 @@ export class FeedPostCardItemComponent implements OnInit {
 
 
     public routerIngridientPage(): void {
+        this.scrollY=window.scrollY;
         this._router.navigate([`/feed/ingridient/${this.feedItem.id}`]);
-
+   
     }
 
     get userRole() {

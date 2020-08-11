@@ -8,6 +8,7 @@
 .chicken-content {
     background: #ffff;
     padding: 0 10px;
+    position: relative;
 
     .chicken-header {
         position: relative;
@@ -242,4 +243,14 @@
         font-size: 35px;
 
     }
+}
+
+.theme{
+    position:absolute;
+    top:0;
+    bottom: 0;
+    right: 0;
+    left: 0 ;
+    z-index: 1;
+    height:auto;
 }

@@ -46,6 +46,7 @@
     "ngx-infinite-scroll": "^9.0.0",
     "ngx-loading": "^8.0.0",
     "ngx-plyr": "^4.0.0",
+    "ngx-skeleton-loader": "^2.4.2",
     "ngx-slick-carousel": "^0.5.1",
     "ngx-webstorage": "^6.0.0",
     "plyr": "^3.6.2",

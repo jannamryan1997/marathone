@@ -32,7 +32,7 @@ export class AppComponent implements OnInit {
         window.clearInterval(scrollToTop);
       }
     }, 1);
-  }
+   }
 
  
 }
