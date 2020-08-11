@@ -1,13 +1,6 @@
 <div>
     <h2 id="page-heading">
         <span jhiTranslate="marathonChatApp.topic.home.title">Topics</span>
-
-        <!--<button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-topic" [routerLink]="['/topic/new']">-->
-        <!--<fa-icon icon="plus"></fa-icon>-->
-        <!--<span  jhiTranslate="marathonChatApp.topic.home.createLabel">-->
-        <!--Create a new Topic-->
-        <!--</span>-->
-        <!--</button>-->
     </h2>
 
     <!-- <jhi-alert-error></jhi-alert-error> -->
@@ -38,11 +31,11 @@
                         <div *ngFor="let message of topicMessages[topicSelected.id || 0] ;">
                             <!-- other message -->
                             <div *ngIf="message.participantId !== getUserId()" style="display: block;min-height: 25px;">
-                                <span style="float: left;">{{ message.content }}</span>
+                                <span style="float: left;">{{ message?.content }}</span>
                             </div>
                             <!-- my message -->
                             <div *ngIf="message.participantId === getUserId()" style="display: block;min-height: 25px;">
-                                <span style="float: right; color: lightgray;">{{ message.content }}</span>
+                                <span style="float: right; color: lightgray;">{{ message?.content }}</span>
                             </div>
                         </div>
                     </div>
@@ -57,7 +50,7 @@
                             <span *ngIf="participant.id !== getUserId()"
                                 [ngClass]="isOnline(participant, topicSelected) ? 'bg-success' : 'bg-light'"
                                 class="hand p-1 m-2">
-                                {{ participant.firstName }} {{ participant.lastName }}
+                                {{ participant?.firstName }} {{ participant?.lastName }}
                                 <fa-icon *ngIf="isWriting(participant, topicSelected)" icon="pencil-alt"></fa-icon>
                             </span>
                         </ng-container>

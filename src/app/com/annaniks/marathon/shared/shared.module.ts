@@ -80,7 +80,8 @@ import { LikeService } from '../core/services/like.service';
         LiketemComponent,
         LikeModal,
         ShareComponent,
-        UserItemComponent
+        UserItemComponent,
+        
     ],
     imports: [
         ReactiveFormsModule,
@@ -144,7 +145,8 @@ import { LikeService } from '../core/services/like.service';
         LikeModal,
         LiketemComponent,
         ShareComponent,
-        UserItemComponent
+        UserItemComponent,
+        
    
     ],
 })

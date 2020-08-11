@@ -4,25 +4,29 @@ import { Observable, ReplaySubject, BehaviorSubject, from, of, Subject } from 'r
 import { map, timestamp } from 'rxjs/operators';
 import * as moment from 'moment';
 
-import { SERVER_API_URL } from 'app/app.constants';
-import { ITopic, Topic } from 'app/shared/model/topic.model';
-import { ITopicMessage, TopicMessage } from 'app/shared/model/topic-message.model';
-import { Action, ActionData, ActionRequest, ActionResponse } from 'app/chat/generated/chat_pb';
-import { Chat } from 'app/chat/generated/chat_pb_service';
-import { LocalStorageService, SessionStorageService } from 'ngx-webstorage';
+// import { SERVER_API_URL } from 'app/app.constants';
+// import { ITopicMessage, TopicMessage } from 'app/shared/model/topic-message.model';
+// import { Action, ActionData, ActionRequest, ActionResponse } from 'app/chat/generated/chat_pb';
+// import { LocalStorageService, SessionStorageService } from 'ngx-webstorage';
 
 type EntityResponseType = HttpResponse<ITopic>;
 type EntityArrayResponseType = HttpResponse<ITopic[]>;
 
 import { grpc } from '@improbable-eng/grpc-web';
-import { AccountService } from 'app/core/auth/account.service';
+// import { AccountService } from 'app/core/auth/account.service';
 import { UnaryOutput } from '@improbable-eng/grpc-web/dist/typings/unary';
+import { Chat } from './generated/chat_pb_service';
+import { Action, ActionData, ActionRequest, ActionResponse } from './generated/chat_pb';
+import { environment } from 'src/environments/environment';
+import { CookieService } from 'ngx-cookie';
+import { ITopic } from '../../../core/models/topic';
+import { ITopicMessage, TopicMessage } from '../../../core/models/topic-message';
 
 export class TopicActions {
   public actions = {};
   public timeStamps = {};
   public lastReads = {};
-  constructor(public id: number) {}
+  constructor(public id: number) { }
 
   acceptAction(action: ActionData): void {
     if (action.getServerat() <= (this.timeStamps[action.getServerid()] || 0)) {
@@ -72,8 +76,8 @@ export class TopicActions {
 
 @Injectable({ providedIn: 'root' })
 export class ChatService {
-  public topicsResourceUrl = SERVER_API_URL + 'api/client/topics';
-  public topicMessagesResourceUrl = SERVER_API_URL + 'api/client/topic-messages';
+  public topicsResourceUrl = environment.apiUrl + '/client/topics';
+  public topicMessagesResourceUrl = environment.apiUrl + '/client/topic-messages';
   public grpcResourceUrl = 'https://support.marathon.me';
   public topicActions = new BehaviorSubject<Array<TopicActions>>([]);
   public topicMessages = new ReplaySubject<ITopicMessage>();
@@ -84,54 +88,55 @@ export class ChatService {
   private lastTopicTextEventId = 0;
 
   constructor(
-    protected accountService: AccountService,
+    // protected accountService: AccountService,
     protected http: HttpClient,
-    private localStorage: LocalStorageService,
-    private sessionStorage: SessionStorageService
+    // private localStorage: LocalStorageService,
+    // private sessionStorage: SessionStorageService,
+    private _cookieService: CookieService
   ) {
-    this.accountService.authenticationState.subscribe(value => {
-      if (value) {
-        const token = this.localStorage.retrieve('authenticationToken') || this.sessionStorage.retrieve('authenticationToken');
-        const downStreamRequestActionData = new ActionData();
-        downStreamRequestActionData.setAction(Action.ACTION_ONLINE);
+    // this.accountService.authenticationState.subscribe(value => {
+    if (this._cookieService.get('access')) {
+      const token = this._cookieService.get('access');
+      const downStreamRequestActionData = new ActionData();
+      downStreamRequestActionData.setAction(Action.ACTION_ONLINE);
 
-        const downStreamRequest = new ActionRequest();
-        downStreamRequest.setToken(token);
-        downStreamRequest.setData(downStreamRequestActionData);
+      const downStreamRequest = new ActionRequest();
+      downStreamRequest.setToken(token);
+      downStreamRequest.setData(downStreamRequestActionData);
 
-        // downstream
-        const SingleDownStreamEnd = (code: grpc.Code, msg: string | undefined, trailers: grpc.Metadata) => {};
-        const SingleDownStreamMessage = (message: ActionResponse) => {
-          console.log('>>>>>>>>>>>>>>>>>>> ' + message.toString());
-          const currentValue = this.topicActions.value;
-          const existingTopics = new Set(currentValue.map(ta => ta.id));
-          const nonExistingTopics = new Set(
-            message
-              .getDataList()
-              .filter(dataListItem => !existingTopics.has(dataListItem.getTopic()))
-              .map(dataListItem => dataListItem.getTopic())
-          );
-          nonExistingTopics.forEach(ta => currentValue.push(new TopicActions(ta)));
-          currentValue.forEach(ta =>
-            message.getDataList().forEach(a => {
-              this.checkForMessage(a);
-              ta.acceptAction(a);
-            })
-          );
+      // downstream
+      const SingleDownStreamEnd = (code: grpc.Code, msg: string | undefined, trailers: grpc.Metadata) => { };
+      const SingleDownStreamMessage = (message: ActionResponse) => {
+        console.log('>>>>>>>>>>>>>>>>>>> ' + message.toString());
+        const currentValue = this.topicActions.value;
+        const existingTopics = new Set(currentValue.map(ta => ta.id));
+        const nonExistingTopics = new Set(
+          message
+            .getDataList()
+            .filter(dataListItem => !existingTopics.has(dataListItem.getTopic()))
+            .map(dataListItem => dataListItem.getTopic())
+        );
+        nonExistingTopics.forEach(ta => currentValue.push(new TopicActions(ta)));
+        currentValue.forEach(ta =>
+          message.getDataList().forEach(a => {
+            this.checkForMessage(a);
+            ta.acceptAction(a);
+          })
+        );
 
-          this.topicActions.next(currentValue);
-        };
+        this.topicActions.next(currentValue);
+      };
 
-        grpc.invoke(Chat.SingleDownStream, {
-          onMessage: SingleDownStreamMessage,
-          onEnd: SingleDownStreamEnd,
-          host: this.grpcResourceUrl,
-          request: downStreamRequest,
-        });
-      } else {
-        // https://stackoverflow.com/questions/37642589/how-can-we-detect-when-user-closes-browser/37642657
-      }
-    });
+      grpc.invoke(Chat.SingleDownStream, {
+        onMessage: SingleDownStreamMessage,
+        onEnd: SingleDownStreamEnd,
+        host: this.grpcResourceUrl,
+        request: downStreamRequest,
+      });
+    } else {
+      // https://stackoverflow.com/questions/37642589/how-can-we-detect-when-user-closes-browser/37642657
+    }
+    // });
   }
 
   updateTopics(topics: ITopic[]): void {
@@ -198,7 +203,7 @@ export class ChatService {
     return res;
   }
 
-  sendTopicEvent(topic: ITopic): void {}
+  sendTopicEvent(topic: ITopic): void { }
 
   sendTopicTextEvent(topicSelected: ITopic | null, hasText: boolean): void {
     if (topicSelected && topicSelected.id) {
@@ -217,14 +222,15 @@ export class ChatService {
       this.lastTopicTextEventId = topicTextEventId;
       this.lastTopicTextEventAt = topicTextEventAt;
 
-      const token = this.localStorage.retrieve('authenticationToken') || this.sessionStorage.retrieve('authenticationToken');
+      const token =this._cookieService.get('token')
+      //  this.localStorage.retrieve('authenticationToken') || this.sessionStorage.retrieve('authenticationToken');
 
       const actionData = new ActionData();
       actionData.setAction(topicTextEventType);
       actionData.setTopic(topicSelected.id);
       actionData.setData(`topic-write-${hasText}`);
 
-      const SingleUpStreamMessage = (output: UnaryOutput<ActionResponse>) => {};
+      const SingleUpStreamMessage = (output: UnaryOutput<ActionResponse>) => { };
 
       const actionRequest = new ActionRequest();
       actionRequest.setToken(token);

@@ -3,7 +3,6 @@ import { ITopic, IUser } from '../../../core/models/topic';
 import { Subscription } from 'rxjs';
 import { FormBuilder } from '@angular/forms';
 import { ChatService } from './chat.service';
-import { AccountService } from '../../../core/services/account.service';
 import { HttpResponse } from '@angular/common/http';
 import { UserService } from '../../../core/services/user.service';
 import { JhiEventManager } from 'ng-jhipster';
@@ -27,7 +26,6 @@ export class ChatViewComponent {
     });
 
     constructor(
-        protected accountService: AccountService,
         protected chatService: ChatService,
         protected eventManager: JhiEventManager,
         private fb: FormBuilder,
