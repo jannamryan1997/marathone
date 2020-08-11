@@ -83,9 +83,9 @@
             <div class="tab-item" (click)="onClickTab(2)" [ngClass]="{'activeTab':tab===2}">
                 <p class="tab-text">Gallery</p>
             </div>
-            <div class="tab-item" (click)="onClickTab(3)" [ngClass]="{'activeTab':tab===3}">
+            <!-- <div class="tab-item" (click)="onClickTab(3)" [ngClass]="{'activeTab':tab===3}">
                 <p class="tab-text">Information</p>
-            </div>
+            </div> -->
             <div class="tab-item" (click)="onClickTab(4)" [ngClass]="{'activeTab':tab===4}">
                 <p class="tab-text">Reviews</p>
             </div>
@@ -156,10 +156,12 @@
             </div>
 
         </div>
-        <div class="events-header information-header" *ngIf="tab===3">
+        <div class="events-header" *ngIf="tab===3">
+            <div class="information-header">
             <app-information [profileCertificates]="false"></app-information>
         </div>
-        <div class="events-header" *ngIf="tab===4">
+        </div>
+        <div class="events-header review-header" *ngIf="tab===4">
             <div class="review-description display-flex">
                 <p class="review-text">Total reviews 20</p>
                 <div class="review-main">

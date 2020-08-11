@@ -8,19 +8,27 @@
 .coach-main {
     // padding: 0 20px;
     position: absolute;
-    background: #ffffff 0% 0% no-repeat padding-box;
-    box-shadow: 2px 30px 43px #5c687b17;
-    border-radius: 0px 0px 15px 15px;
+    // background: #ffffff 0% 0% no-repeat padding-box;
+    // box-shadow: 2px 30px 43px #5c687b17;
+    // border-radius: 0px 0px 15px 15px;
     opacity: 1;
     width: 100%;
     .main-content{
         padding: 0 24px;
+        background: #FFFFFF 0% 0% no-repeat padding-box;
+        box-shadow: 2px 30px 43px #5C687B17;
     }
+
     .review-content {
         padding: 28px 0 19px 0;
 
         .name {
             @include text(24px, 28px, #45535c, EncodeSans-Bold);
+            display: inline-block;
+            width: 330px;
+            white-space: nowrap;
+            overflow: hidden !important;
+            text-overflow: ellipsis;
         }
     }
 
@@ -92,6 +100,8 @@
         justify-content: center;
         padding: 0 30px;
         text-align: center;
+        background: #FFFFFF 0% 0% no-repeat padding-box;
+        box-shadow: 2px 30px 43px #5C687B17;
 
         .tab-item {
             padding: 1.2em 0;
@@ -103,6 +113,8 @@
 
     .events-header {
         padding: 30px 0;
+        background: #FFFFFF 0% 0% no-repeat padding-box;
+        box-shadow: 2px 30px 43px #5C687B17;
 
         .gallery-tab {
             .btn {
@@ -206,4 +218,8 @@
 }
 .information-header{
     margin: 0 24px;
+}
+
+.review-header{
+    padding: 30px 0 0 0 !important;
 }

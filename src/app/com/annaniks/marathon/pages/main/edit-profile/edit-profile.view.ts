@@ -85,8 +85,6 @@ export class EditProfileView implements OnInit {
             instagram: [null],
             linkedin: [null],
             youtube: [null],
-            about: [null],
-            certificatesLocation: [null,Validators.required]
         })
     }
 
@@ -95,7 +93,6 @@ export class EditProfileView implements OnInit {
             firstName: this.user.data.user.first_name,
             userName: this.user.data.user.email,
             status: this.user.data.status,
-            about: this.user.data.about,
             facebook: this.user.data.facebook,
             youtube: this.user.data.youtube,
             instagram: this.user.data.instagram,
@@ -106,41 +103,41 @@ export class EditProfileView implements OnInit {
 
         this.educationItem = [];
         this.education = new FormArray([]);
-        if (this.user.data.education) {
-            this.educationItem = this.user.data.education;
-            this.educationItem.forEach(element => {
-                this.education.push(new FormControl({
-                    name: element.name,
-                    specialization: element.specialization,
-                    start_date: Number(element.start_date),
-                    end_date: Number(element.end_date),
-                    url: element.url,
-                }));
-            });
+        // if (this.user.data.education) {
+        //     this.educationItem = this.user.data.education;
+        //     this.educationItem.forEach(element => {
+        //         this.education.push(new FormControl({
+        //             name: element.name,
+        //             specialization: element.specialization,
+        //             start_date: Number(element.start_date),
+        //             end_date: Number(element.end_date),
+        //             url: element.url,
+        //         }));
+        //     });
 
-        }
+        // }
         this.experienceItem = [];
         this.experience = new FormArray([]);
-        if (this.user.data.experience) {
-            this.experienceItem = this.user.data.experience;
-            this.experienceItem.forEach(element => {
-                this.experience.push(new FormControl({
-                    name: element.name,
-                    specialization: element.specialization,
-                    start_date: Number(element.start_date),
-                    end_date: Number(element.end_date),
-                    url:element.url,
-                }));
-            });
-        }
+        // if (this.user.data.experience) {
+        //     this.experienceItem = this.user.data.experience;
+        //     this.experienceItem.forEach(element => {
+        //         this.experience.push(new FormControl({
+        //             name: element.name,
+        //             specialization: element.specialization,
+        //             start_date: Number(element.start_date),
+        //             end_date: Number(element.end_date),
+        //             url:element.url,
+        //         }));
+        //     });
+        // }
 
         this.certificates = [];
-        if (this.user.data.certificates) {
-            const certificates = this.user.data.certificates;
-            certificates.forEach(element => {
-                this.certificates.push({ description: element.description, file: element.file, url: element.url })
-            });
-        }
+        // if (this.user.data.certificates) {
+        //     const certificates = this.user.data.certificates;
+        //     certificates.forEach(element => {
+        //         this.certificates.push({ description: element.description, file: element.file, url: element.url })
+        //     });
+        // }
     }
 
     private _getCoatch(): void {
@@ -293,15 +290,14 @@ export class EditProfileView implements OnInit {
         this.user.data.user.last_name = this.profileFormGroup.value.userName,
             this.user.data.user.first_name = this.profileFormGroup.value.firstName,
             this.user.data.status = this.profileFormGroup.value.status,
-            this.user.data.about = this.profileFormGroup.value.about,
             this.user.data.facebook = this.profileFormGroup.value.facebook,
             this.user.data.instagram = this.profileFormGroup.value.instagram,
             this.user.data.youtube = this.profileFormGroup.value.youtube,
             this.user.data.linkedin = this.profileFormGroup.value.linkedin,
             this.user.data.location = this.profileFormGroup.value.location,
-            this.user.data.education = this.education.value,
-            this.user.data.experience = this.experience.value,
-            this.user.data.certificates = this.certificates,
+            // this.user.data.education = this.education.value,
+            // this.user.data.experience = this.experience.value,
+            // this.user.data.certificates = this.certificates,
             this.user.data.language = this.url,
             this.user.data.speciality = this.spacialityUrl;
         this._userService.putCoatch(this._userService.user.data.id, this.user.data)
