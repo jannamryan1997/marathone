@@ -1,26 +1,19 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { Injectable, Inject } from '@angular/core';
+import { HttpClient, HttpResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, ReplaySubject, BehaviorSubject, from, of, Subject } from 'rxjs';
 import { map, timestamp } from 'rxjs/operators';
 import * as moment from 'moment';
-
-// import { SERVER_API_URL } from 'app/app.constants';
-// import { ITopicMessage, TopicMessage } from 'app/shared/model/topic-message.model';
-// import { Action, ActionData, ActionRequest, ActionResponse } from 'app/chat/generated/chat_pb';
-// import { LocalStorageService, SessionStorageService } from 'ngx-webstorage';
-
 type EntityResponseType = HttpResponse<ITopic>;
 type EntityArrayResponseType = HttpResponse<ITopic[]>;
 
 import { grpc } from '@improbable-eng/grpc-web';
-// import { AccountService } from 'app/core/auth/account.service';
 import { UnaryOutput } from '@improbable-eng/grpc-web/dist/typings/unary';
 import { Chat } from './generated/chat_pb_service';
 import { Action, ActionData, ActionRequest, ActionResponse } from './generated/chat_pb';
-import { environment } from 'src/environments/environment';
 import { CookieService } from 'ngx-cookie';
 import { ITopic } from '../../../core/models/topic';
 import { ITopicMessage, TopicMessage } from '../../../core/models/topic-message';
+// import { SERVER_API_URL } from 'src/app/app.contant';
 
 export class TopicActions {
   public actions = {};
@@ -76,9 +69,10 @@ export class TopicActions {
 
 @Injectable({ providedIn: 'root' })
 export class ChatService {
-  public topicsResourceUrl = environment.apiUrl + '/client/topics';
-  public topicMessagesResourceUrl = environment.apiUrl + '/client/topic-messages';
-  public grpcResourceUrl = 'https://support.marathon.me';
+  public topicsResourceUrl = 'https://uat.marathon.me/Support/api/client/topics';
+  public topicMessagesResourceUrl = this._baseUrl + 'https://uat.marathon.me/Support/api/client/topic-messages';
+  public grpcResourceUrl = 'https://uat.marathon.me/Support/'
+  // 'https://support.marathon.me';
   public topicActions = new BehaviorSubject<Array<TopicActions>>([]);
   public topicMessages = new ReplaySubject<ITopicMessage>();
   public sendingMessage = new BehaviorSubject<boolean>(false);
@@ -90,6 +84,7 @@ export class ChatService {
   constructor(
     // protected accountService: AccountService,
     protected http: HttpClient,
+    @Inject("BASE_URL") private _baseUrl: string,
     // private localStorage: LocalStorageService,
     // private sessionStorage: SessionStorageService,
     private _cookieService: CookieService
@@ -154,20 +149,32 @@ export class ChatService {
   }
 
   queryTopics(): Observable<EntityArrayResponseType> {
+    let params = new HttpParams();
+    // params = params.set('authorization', 'Bearer ' + this._cookieService.get('access'));
+    let headers = new HttpHeaders();
+    headers = headers.append('Authorization', 'Bearer ' + this._cookieService.get('access'));
     return this.http
-      .get<ITopic[]>(this.topicsResourceUrl, { observe: 'response' })
+      .get<ITopic[]>(this.topicsResourceUrl, { observe: 'response', params: params, headers: headers })
       .pipe(map((res: EntityArrayResponseType) => this.convertTopicDateArrayFromServer(res)));
   }
 
   queryMessages(id: number): Observable<EntityArrayResponseType> {
+    let params = new HttpParams();
+    // params = params.set('authorization', 'Bearer ' + this._cookieService.get('access'));
+    let headers = new HttpHeaders();
+    // headers = headers.append('Authorization', 'Bearer ' + this._cookieService.get('access'));
     return this.http
-      .get<ITopicMessage[]>(`${this.topicMessagesResourceUrl}/${id}`, { observe: 'response' })
+      .get<ITopicMessage[]>(`${this.topicMessagesResourceUrl}/${id}`, { observe: 'response', headers: headers, params: params })
       .pipe(map((res: EntityArrayResponseType) => this.convertMessageDateArrayFromServer(res)));
   }
 
   createMessage(topicMessage: ITopicMessage): Observable<EntityResponseType> {
+    let params = new HttpParams();
+    params = params.set('authorization', 'Bearer ' + this._cookieService.get('access'));
+    let headers = new HttpHeaders();
+    // headers = headers.append('Authorization', 'Bearer ' + this._cookieService.get('access'));
     return this.http
-      .post<ITopicMessage>(this.topicMessagesResourceUrl, topicMessage, { observe: 'response' })
+      .post<ITopicMessage>(this.topicMessagesResourceUrl, topicMessage, { observe: 'response', headers: headers, params: params })
       .pipe(map((res: EntityResponseType) => this.convertMessageDateFromServer(res)));
   }
 
@@ -222,7 +229,7 @@ export class ChatService {
       this.lastTopicTextEventId = topicTextEventId;
       this.lastTopicTextEventAt = topicTextEventAt;
 
-      const token =this._cookieService.get('token')
+      const token = this._cookieService.get('token')
       //  this.localStorage.retrieve('authenticationToken') || this.sessionStorage.retrieve('authenticationToken');
 
       const actionData = new ActionData();

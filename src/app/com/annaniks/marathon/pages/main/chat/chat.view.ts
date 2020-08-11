@@ -2,11 +2,12 @@ import { Component } from "@angular/core";
 import { ITopic, IUser } from '../../../core/models/topic';
 import { Subscription } from 'rxjs';
 import { FormBuilder } from '@angular/forms';
-import { ChatService } from './chat.service';
+import { ChatService, TopicActions } from './chat.service';
 import { HttpResponse } from '@angular/common/http';
 import { UserService } from '../../../core/services/user.service';
 import { JhiEventManager } from 'ng-jhipster';
 import { Action } from './generated/chat_pb';
+import { TopicMessage, ITopicMessage } from '../../../core/models/topic-message';
 
 @Component({
     selector: 'app-chat-view',
@@ -16,8 +17,8 @@ import { Action } from './generated/chat_pb';
 export class ChatViewComponent {
 
     topics: ITopic[];
-    topicActions: any[];
-    topicMessages: Map<number, any[]>;
+    topicActions: TopicActions[];
+    topicMessages: Map<number, TopicMessage[]>;
     topicSelected: ITopic | null;
     sendingMessage: boolean;
     eventSubscriber?: Subscription;
@@ -31,7 +32,7 @@ export class ChatViewComponent {
         private fb: FormBuilder,
         private _userService: UserService
     ) {
-        this.topicMessages = new Map<number, any[]>();
+        this.topicMessages = new Map<number, TopicMessage[]>();
         this.sendingMessage = false;
         this.topicActions = [];
         this.chatService.topicActions.subscribe(value => {
@@ -39,7 +40,7 @@ export class ChatViewComponent {
             value.forEach(ta => this.topicActions.push(ta));
         });
         this.chatService.topicMessages.subscribe(tm => {
-            const currentTopicMessages: any[] = this.topicMessages[tm.topicId || 0] || [];
+            const currentTopicMessages: TopicMessage[] = this.topicMessages[tm.topicId || 0] || [];
             const exists = currentTopicMessages.some(cv => cv.id === tm.id);
             if (!exists) {
                 currentTopicMessages.push(tm);
@@ -71,17 +72,17 @@ export class ChatViewComponent {
         if (topicId) {
             this.chatService
                 .queryMessages(topicId)
-                .subscribe((res: HttpResponse<any[]>) => this.addTopicMessages(topicId, res.body || []));
+                .subscribe((res: HttpResponse<ITopicMessage[]>) => this.addTopicMessages(topicId, res.body || []));
         }
     }
 
-    addTopicMessages(topicId: number, messages: any[]): void {
-        const currentTopicMessages: any[] = this.topicMessages[topicId] || [];
+    addTopicMessages(topicId: number, messages: TopicMessage[]): void {
+        const currentTopicMessages: TopicMessage[] = this.topicMessages[topicId] || [];
         for (let mi = 0; mi < messages.length; mi++) {
-            const message: any = messages[mi];
+            const message: TopicMessage = messages[mi];
             let exists = false;
             for (let me = 0; me < currentTopicMessages.length; me++) {
-                const messageExisting: any = currentTopicMessages[me];
+                const messageExisting: TopicMessage = currentTopicMessages[me];
                 if (messageExisting.id === message.id) {
                     exists = true;
                     break;
