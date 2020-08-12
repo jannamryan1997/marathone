@@ -1,5 +1,6 @@
 <div class="main-container">
     <div class="coach-main">
+        <div class="main-content">
         <div class="review-content display-flex">
             <p class="name">{{email}}</p>
             <div class=" display-flex">
@@ -74,6 +75,7 @@
                 <button class="btn-item basic-btn">Power Lifting</button>
             </div>
         </div>
+    </div>
         <div class="events-tab display-flex" [ngSwitch]="tab">
             <div class="tab-item" (click)="onClickTab(1)" [ngClass]="{'activeTab':tab===1}">
                 <p class="tab-text">Posts</p>
@@ -81,9 +83,9 @@
             <div class="tab-item" (click)="onClickTab(2)" [ngClass]="{'activeTab':tab===2}">
                 <p class="tab-text">Gallery</p>
             </div>
-            <div class="tab-item" (click)="onClickTab(3)" [ngClass]="{'activeTab':tab===3}">
+            <!-- <div class="tab-item" (click)="onClickTab(3)" [ngClass]="{'activeTab':tab===3}">
                 <p class="tab-text">Information</p>
-            </div>
+            </div> -->
             <div class="tab-item" (click)="onClickTab(4)" [ngClass]="{'activeTab':tab===4}">
                 <p class="tab-text">Reviews</p>
             </div>
@@ -114,7 +116,7 @@
            <!--  (scrolled)="onScroll()" -->
             <spinner-loading *ngIf="loading"></spinner-loading>
             <app-feed-post-card-item *ngFor="let item of feedItem" [feedItem]="item"
-                (deletedItem)="deletedFeedItem($event)"></app-feed-post-card-item>
+                (deletedItem)="deletedFeedItem($event)" [style]="true"></app-feed-post-card-item>
         </div>
     </div>
 </div>
@@ -155,9 +157,11 @@
 
         </div>
         <div class="events-header" *ngIf="tab===3">
+            <div class="information-header">
             <app-information [profileCertificates]="false"></app-information>
         </div>
-        <div class="events-header" *ngIf="tab===4">
+        </div>
+        <div class="events-header review-header" *ngIf="tab===4">
             <div class="review-description display-flex">
                 <p class="review-text">Total reviews 20</p>
                 <div class="review-main">

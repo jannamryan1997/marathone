@@ -9,9 +9,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { CountryService } from '../../../../core/services/country.service';
-import { startWith, map, finalize } from 'rxjs/operators';
+import { startWith, map, finalize, takeUntil } from 'rxjs/operators';
 import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { FeedService } from '../../feed/feed.service';
 import { ReceiptData, Slider} from '../../../../core/models/receipt';
 
@@ -52,6 +52,7 @@ export class RecipePostView implements OnInit {
     public showmaCronutrients: boolean;
     public mediaUrl: string;
     public loaclImage:string='/assets/images/food.png';
+    public _unSbscribe=new Subject<void>();
 
     @ViewChild('fruitInput') fruitInput: ElementRef<HTMLInputElement>;
     @ViewChild('auto') matAutocomplete: MatAutocomplete;
@@ -173,7 +174,6 @@ export class RecipePostView implements OnInit {
     private _openAddIngridientImageModal(): void {
         const dialogRef = this._matDialog.open(AddIngridientImageModal, {
             width: "100%",
-            // maxWidth: "100vw",
             data: {
                 data: this.slides
             }
@@ -193,6 +193,7 @@ export class RecipePostView implements OnInit {
             for (let item of this.allTags) {
                 this.tagsItem.push(item.name)
                 this.filteredTags = this.tagsCtrl.valueChanges.pipe(
+                    takeUntil((this._unSbscribe)),
                     startWith(null),
                     map((fruit: string | null) => fruit ? this._filter(fruit) : this.tagsItem.slice()));
 
@@ -211,7 +212,7 @@ export class RecipePostView implements OnInit {
     }
 
     private _getFeedById(): void {
-        this._feedService.getFeedById(this.paramsId)
+        this._feedService.getFeedById(this.paramsId).pipe(takeUntil(this._unSbscribe))
             .subscribe((data: FeedResponseData) => {
                 if (typeof data.feed_media[0].content === 'string') {
                     this.mediaContent = JSON.parse(data.feed_media[0].content);   
@@ -293,20 +294,20 @@ export class RecipePostView implements OnInit {
         }
         if (!this.paramsId) {
             this._userService.postFeed(ReceiptResponseData).pipe(
+                takeUntil((this._unSbscribe)),
                 finalize(() => {
                     this.loading = false;
                     this.recipeFormGroup.enable();
                 })
             )
                 .subscribe((data) => {
-                 
-                   
                     this._router.navigate(['/feed']);
 
                 })
         }
         else if (this.paramsId) {
             this._feedService.updateFeedById(this.mediaUrl, ReceiptResponseData).pipe(
+                takeUntil((this._unSbscribe)),
                 finalize(() => {
                     this.loading = false;
                     this.recipeFormGroup.enable();

@@ -1,5 +1,7 @@
 import { ReceiptResponseData } from './receipt';
 
+import { User } from './like';
+
 export interface FeedData {
     count: number;
     next: null
@@ -23,10 +25,10 @@ export interface FeedResponseData {
     feed_comments_count: number
     feed_likes_count: number
     is_liked: boolean
-    creator_client_info:any;
-    mass:string,
-    is_public:boolean;
-    is_liked_id:number;
+    creator_client_info: any;
+    mass: string,
+    is_public: boolean;
+    is_liked_id: number;
 }
 
 export interface FeedMedia {
@@ -45,3 +47,4 @@ export interface Content {
     url: string;
     recipe?: ReceiptResponseData;
 }
+

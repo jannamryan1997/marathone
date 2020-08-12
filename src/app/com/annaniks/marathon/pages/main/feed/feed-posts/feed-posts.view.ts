@@ -7,6 +7,7 @@ import { RemoveModal, AuthModal } from '../../../../core/modals';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: "feed-posts-view",
@@ -60,6 +61,7 @@ export class FeedPostsView implements OnInit, OnDestroy {
     private async _getFeed(page: number) {
         this.infiniteScrollDisabled = true;
         const data = await this._feedService.feed(this._pageIndex)
+        .pipe(takeUntil(this._unsubscribe))
             .toPromise()
         if (this.feedItem.length === 0) {
         }
@@ -107,7 +109,9 @@ export class FeedPostsView implements OnInit, OnDestroy {
             })
             dialogRef.afterClosed().subscribe((data) => {
                 if (data === "deleted") {
-                    this._feedService.deleteFeed(event).subscribe((data) => {
+                    this._feedService.deleteFeed(event)
+                    .pipe(takeUntil(this._unsubscribe))
+                    .subscribe((data) => {
                         this._pageIndex = 1;
                         this._isCountCalculated = false;
                         this._pagesCount = 0;
@@ -115,7 +119,7 @@ export class FeedPostsView implements OnInit, OnDestroy {
                         this._getFeed(this._pageIndex)
                     })
                 }
-
+                    
             })
         }
 

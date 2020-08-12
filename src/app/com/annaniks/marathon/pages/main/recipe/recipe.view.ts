@@ -88,15 +88,5 @@ export class RecipeView implements OnInit {
         this.tagsItem.splice(ind, 1);
     }
 
-    slickInit(e) {
-    }
 
-    breakpoint(e) {
-    }
-
-    afterChange(e) {
-    }
-
-    beforeChange(e) {
-    }
 }

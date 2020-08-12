@@ -4,8 +4,9 @@ import { UserService } from '../../../core/services/user.service';
 import { UploadFileResponse, FeedResponseData } from '../../../core/models';
 import { FeedService } from '../../../pages/main/feed/feed.service';
 import { CookieService } from 'ngx-cookie';
-import { finalize } from 'rxjs/operators';
+import { finalize, takeUntil } from 'rxjs/operators';
 import { ReceiptData } from '../../../core/models/receipt';
+import { Subject } from 'rxjs';
 
 @Component({
     selector: "app-create-publication",
@@ -19,6 +20,7 @@ export class CreatePublicationComponent implements OnInit {
     public isModalMode: boolean = false;
     public postType = new FormControl('');
     public videoSources = [];
+    public _unsbscribe=new Subject<void>();
     @Input() feedItem: FeedResponseData;
     @Input() feedId: number;
     @Input() editProfile: boolean;
@@ -73,6 +75,7 @@ export class CreatePublicationComponent implements OnInit {
 
     private _getFeedById(): void {
         this._feedService.getFeedById(this.feedId)
+        .pipe(takeUntil(this._unsbscribe))
             .subscribe((data: FeedResponseData) => {
                 this.postType.setValue(data.title);
                 if (typeof data.feed_media[0].content === 'string') {
@@ -197,6 +200,7 @@ export class CreatePublicationComponent implements OnInit {
 
             })
                 .pipe(
+                    takeUntil((this._unsbscribe)),
                     finalize(() => {
                         this.loading = false;
                         this.postType.patchValue('');
@@ -230,6 +234,7 @@ export class CreatePublicationComponent implements OnInit {
 
                 })
                 .pipe(
+                    takeUntil((this._unsbscribe)),
                     finalize(() => {
                         this.closeEditModal.emit(true);
                         this.loading = false;
@@ -243,7 +248,6 @@ export class CreatePublicationComponent implements OnInit {
                     })
                 )
                 .subscribe((data) => {
-                    console.log(data);
                     
                 })
         }

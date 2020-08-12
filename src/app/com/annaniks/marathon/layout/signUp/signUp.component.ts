@@ -1,9 +1,10 @@
 import { Component, OnInit, Output, EventEmitter } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { finalize } from 'rxjs/operators';
+import { finalize, takeUntil } from 'rxjs/operators';
 import { AuthUserService } from '../../core/services/auth.services';
 import { SocialUser} from 'angularx-social-login';
 import { UserService } from '../../core/services/user.service';
+import { Subject } from 'rxjs';
 
 @Component({
     selector: "app-signUp",
@@ -21,6 +22,7 @@ export class SignUpComponent implements OnInit {
     public profileUser;
     public show: boolean = false;
     public hidePassword: boolean = true;
+    public _unsbscribe=new Subject<void>();
 
     @Output() changeSigntab = new EventEmitter;
     @Output() closeModal = new EventEmitter();
@@ -78,6 +80,7 @@ export class SignUpComponent implements OnInit {
         }
         this._authUserService.signUpClient(signUpData)
             .pipe(
+                takeUntil((this._unsbscribe)),
                 finalize(() => {
                     this.loading = false;
                     this.signUpGroup.enable();
@@ -114,6 +117,7 @@ export class SignUpComponent implements OnInit {
         }
         this._authUserService.signUpCoach(signUpData)
             .pipe(
+                takeUntil((this._unsbscribe)),
                 finalize(() => {
                     this.loading = false;
                     this.signUpGroup.enable();

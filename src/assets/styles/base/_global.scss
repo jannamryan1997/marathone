@@ -42,8 +42,11 @@
 .post-content {
     .post-container {
         .title {
-            @include text(17px, 22px, #45535c, NunitoSans-Regular);
             margin: 6px 0;
+            font-size: 17px;
+            line-height: 22px;
+            color: #45535c;
+            font-family: "Nunito Sans", sans-serif;
         }
 
         .more {

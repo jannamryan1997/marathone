@@ -59,7 +59,6 @@ export class PostsComments implements OnInit,OnDestroy {
 
     public addInput(event) {
         if (this.emojiForm.valid) {
-            // this._sendMessage.emit(this.emojiForm.value.inputField);
             this._commentService.createFeedComment(this.feed.id, this.emojiForm.value.inputField, this._parent).pipe(
                 takeUntil(this.unsubscribe$),
                 map(() => {
