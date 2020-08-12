@@ -11,7 +11,7 @@ import { FeedResponseData } from '../../../core/models';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
-    selector: "artivle-view",
+    selector: "article-view",
     templateUrl: "article.view.html",
     styleUrls: ["article.view.scss"]
 })

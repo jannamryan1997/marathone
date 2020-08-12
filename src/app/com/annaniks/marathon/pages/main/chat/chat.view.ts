@@ -120,7 +120,9 @@ export class ChatViewComponent {
     }
 
     ngOnInit(): void {
-        this.loadAll();
+        // this.chatService.sendOptionsRequiest().subscribe((data) => {
+            this.loadAll();
+        // })
     }
 
     ngOnDestroy(): void {

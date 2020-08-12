@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@angular/core';
-import { HttpClient, HttpResponse, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable, ReplaySubject, BehaviorSubject, from, of, Subject } from 'rxjs';
-import { map, timestamp } from 'rxjs/operators';
+import { HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
+import { Observable, ReplaySubject, BehaviorSubject } from 'rxjs';
+import { map } from 'rxjs/operators';
 import * as moment from 'moment';
 type EntityResponseType = HttpResponse<ITopic>;
 type EntityArrayResponseType = HttpResponse<ITopic[]>;
@@ -70,7 +70,7 @@ export class TopicActions {
 export class ChatService {
   public topicsResourceUrl = 'https://support.marathon.me/api/client/topics';
   public topicMessagesResourceUrl = this._baseUrl + 'https://support.marathon.me/api/client/topic-messages';
-  public grpcResourceUrl = 'https://support.marathon.me/'
+  public grpcResourceUrl = 'https://support.marathon.me'
   public topicActions = new BehaviorSubject<Array<TopicActions>>([]);
   public topicMessages = new ReplaySubject<ITopicMessage>();
   public sendingMessage = new BehaviorSubject<boolean>(false);
@@ -78,7 +78,6 @@ export class ChatService {
   private lastTopicTextEventType = 0;
   private lastTopicTextEventAt = 0;
   private lastTopicTextEventId = 0;
-
   constructor(
     // protected accountService: AccountService,
     protected http: HttpClient,
@@ -88,8 +87,8 @@ export class ChatService {
     private _cookieService: CookieService
   ) {
     // this.accountService.authenticationState.subscribe(value => {
-    if (this._cookieService.get('access')) {
-      const token = this._cookieService.get('access');
+    if (this._cookieService.get('chatToken')) {
+      const token = this._cookieService.get('chatToken');
       const downStreamRequestActionData = new ActionData();
       downStreamRequestActionData.setAction(Action.ACTION_ONLINE);
 
@@ -148,15 +147,21 @@ export class ChatService {
 
   queryTopics(): Observable<EntityArrayResponseType> {
     let headers = new HttpHeaders();
-    headers = headers.append('Authorization', 'Bearer ' + this._cookieService.get('access'));
+    headers = headers.append('Authorization', 'Bearer ' + this._cookieService.get('chatToken'));
     return this.http
       .get<ITopic[]>(this.topicsResourceUrl, { observe: 'response', headers: headers })
       .pipe(map((res: EntityArrayResponseType) => this.convertTopicDateArrayFromServer(res)));
   }
+  // sendOptionsRequiest() {
+  //   let headers = new HttpHeaders();
+  //   headers = headers.append('Authorization', 'Bearer ' + this._cookieService.get('chatToken'));
+  //   return this.http
+  //     .options<ITopic[]>(this.topicsResourceUrl, { observe: 'response', headers: headers })
 
+  // }
   queryMessages(id: number): Observable<EntityArrayResponseType> {
     let headers = new HttpHeaders();
-    headers = headers.append('Authorization', 'Bearer ' + this._cookieService.get('access'));
+    headers = headers.append('Authorization', 'Bearer ' + this._cookieService.get('chatToken'));
     return this.http
       .get<ITopicMessage[]>(`${this.topicMessagesResourceUrl}/${id}`, { observe: 'response', headers: headers })
       .pipe(map((res: EntityArrayResponseType) => this.convertMessageDateArrayFromServer(res)));
@@ -164,7 +169,7 @@ export class ChatService {
 
   createMessage(topicMessage: ITopicMessage): Observable<EntityResponseType> {
     let headers = new HttpHeaders();
-    headers = headers.append('Authorization', 'Bearer ' + this._cookieService.get('access'));
+    headers = headers.append('Authorization', 'Bearer ' + this._cookieService.get('chatToken'));
 
     return this.http
       .post<ITopicMessage>(this.topicMessagesResourceUrl, topicMessage, { observe: 'response', headers: headers })
@@ -222,7 +227,7 @@ export class ChatService {
       this.lastTopicTextEventId = topicTextEventId;
       this.lastTopicTextEventAt = topicTextEventAt;
 
-      const token = this._cookieService.get('token')
+      const token = this._cookieService.get('chatToken')
       //  this.localStorage.retrieve('authenticationToken') || this.sessionStorage.retrieve('authenticationToken');
 
       const actionData = new ActionData();
