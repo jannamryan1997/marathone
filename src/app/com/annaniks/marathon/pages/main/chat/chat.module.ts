@@ -7,8 +7,7 @@ import { ChatService } from './chat.service';
 
 @NgModule({
     declarations: [ChatViewComponent],
-    imports: [ChatRoutingModule, SharedModule, FontAwesomeModule,
-    ],
+    imports: [ChatRoutingModule, SharedModule, FontAwesomeModule],
     providers: [ChatService]
 })
 export class ChatModule { }

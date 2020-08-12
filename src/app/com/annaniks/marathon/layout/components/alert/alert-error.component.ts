@@ -21,7 +21,7 @@ export class AlertErrorComponent implements OnDestroy {
   errorListener: Subscription;
   httpErrorListener: Subscription;
 
-  constructor(private alertService: JhiAlertService, private eventManager: JhiEventManager, translateService: TranslateService) {
+  constructor(private alertService: JhiAlertService, private eventManager: JhiEventManager,private _translateService: TranslateService) {
     this.errorListener = eventManager.subscribe('marathonChatApp.error', (response: JhiEventWithContent<AlertError>) => {
       const errorResponse = response.content;
       this.addErrorAlert(errorResponse.message, errorResponse.key, errorResponse.params);
@@ -47,7 +47,7 @@ export class AlertErrorComponent implements OnDestroy {
             }
           });
           if (errorHeader) {
-            const entityName = translateService.instant('global.menu.entities.' + entityKey);
+            const entityName = this._translateService.instant('global.menu.entities.' + entityKey);
             this.addErrorAlert(errorHeader, errorHeader, { entityName });
           } else if (httpErrorResponse.error !== '' && httpErrorResponse.error.fieldErrors) {
             const fieldErrors = httpErrorResponse.error.fieldErrors;
@@ -57,7 +57,7 @@ export class AlertErrorComponent implements OnDestroy {
               }
               // convert 'something[14].other[4].id' to 'something[].other[].id' so translations can be written to it
               const convertedField = fieldError.field.replace(/\[\d*\]/g, '[]');
-              const fieldName = translateService.instant('marathonChatApp.' + fieldError.objectName + '.' + convertedField);
+              const fieldName = this._translateService.instant('marathonChatApp.' + fieldError.objectName + '.' + convertedField);
               this.addErrorAlert('Error on field "' + fieldName + '"', 'error.' + fieldError.message, { fieldName });
             }
           } else if (httpErrorResponse.error !== '' && httpErrorResponse.error.message) {

@@ -13,7 +13,6 @@ import { Action, ActionData, ActionRequest, ActionResponse } from './generated/c
 import { CookieService } from 'ngx-cookie';
 import { ITopic } from '../../../core/models/topic';
 import { ITopicMessage, TopicMessage } from '../../../core/models/topic-message';
-// import { SERVER_API_URL } from 'src/app/app.contant';
 
 export class TopicActions {
   public actions = {};
@@ -69,10 +68,9 @@ export class TopicActions {
 
 @Injectable({ providedIn: 'root' })
 export class ChatService {
-  public topicsResourceUrl = 'https://uat.marathon.me/Support/api/client/topics';
-  public topicMessagesResourceUrl = this._baseUrl + 'https://uat.marathon.me/Support/api/client/topic-messages';
-  public grpcResourceUrl = 'https://uat.marathon.me/Support/'
-  // 'https://support.marathon.me';
+  public topicsResourceUrl = 'https://support.marathon.me/api/client/topics';
+  public topicMessagesResourceUrl = this._baseUrl + 'https://support.marathon.me/api/client/topic-messages';
+  public grpcResourceUrl = 'https://support.marathon.me/'
   public topicActions = new BehaviorSubject<Array<TopicActions>>([]);
   public topicMessages = new ReplaySubject<ITopicMessage>();
   public sendingMessage = new BehaviorSubject<boolean>(false);
@@ -149,32 +147,27 @@ export class ChatService {
   }
 
   queryTopics(): Observable<EntityArrayResponseType> {
-    let params = new HttpParams();
-    // params = params.set('authorization', 'Bearer ' + this._cookieService.get('access'));
     let headers = new HttpHeaders();
     headers = headers.append('Authorization', 'Bearer ' + this._cookieService.get('access'));
     return this.http
-      .get<ITopic[]>(this.topicsResourceUrl, { observe: 'response', params: params, headers: headers })
+      .get<ITopic[]>(this.topicsResourceUrl, { observe: 'response', headers: headers })
       .pipe(map((res: EntityArrayResponseType) => this.convertTopicDateArrayFromServer(res)));
   }
 
   queryMessages(id: number): Observable<EntityArrayResponseType> {
-    let params = new HttpParams();
-    // params = params.set('authorization', 'Bearer ' + this._cookieService.get('access'));
     let headers = new HttpHeaders();
-    // headers = headers.append('Authorization', 'Bearer ' + this._cookieService.get('access'));
+    headers = headers.append('Authorization', 'Bearer ' + this._cookieService.get('access'));
     return this.http
-      .get<ITopicMessage[]>(`${this.topicMessagesResourceUrl}/${id}`, { observe: 'response', headers: headers, params: params })
+      .get<ITopicMessage[]>(`${this.topicMessagesResourceUrl}/${id}`, { observe: 'response', headers: headers })
       .pipe(map((res: EntityArrayResponseType) => this.convertMessageDateArrayFromServer(res)));
   }
 
   createMessage(topicMessage: ITopicMessage): Observable<EntityResponseType> {
-    let params = new HttpParams();
-    params = params.set('authorization', 'Bearer ' + this._cookieService.get('access'));
     let headers = new HttpHeaders();
-    // headers = headers.append('Authorization', 'Bearer ' + this._cookieService.get('access'));
+    headers = headers.append('Authorization', 'Bearer ' + this._cookieService.get('access'));
+
     return this.http
-      .post<ITopicMessage>(this.topicMessagesResourceUrl, topicMessage, { observe: 'response', headers: headers, params: params })
+      .post<ITopicMessage>(this.topicMessagesResourceUrl, topicMessage, { observe: 'response', headers: headers })
       .pipe(map((res: EntityResponseType) => this.convertMessageDateFromServer(res)));
   }
 
