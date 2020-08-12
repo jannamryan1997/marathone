@@ -9,7 +9,7 @@
                         <img src="assets/icons/star.svg" class="star-image">
                     </div>
                 </div>
-                <p class="review-title">2 review</p>
+                <p class="review-title">10 / 5 review</p>
             </div>
         </div>
         <div class="profile-data display-flex">
@@ -110,14 +110,25 @@
             <div *ngIf="checkIsMe()">
                     <app-create-publication   (autoSize)="autoSize($event)"  [style]="true" [feedItem]="feedItem" (postCreateEvent)="onPostCreated($event)"></app-create-publication>
                 </div>
-        <div *ngIf="feedItem?.length > 0" class="feed-item" infinite-scroll
+                
+                <!-- <div *ngIf="feedItem?.length > 0" class="feed-item" infinite-scroll
             [infiniteScrollDistance]="scrollDistance" [infiniteScrollUpDistance]="scrollUpDistance"
             [infiniteScrollThrottle]="throttle" [infiniteScrollDisabled]="infiniteScrollDisabled">
-           <!--  (scrolled)="onScroll()" -->
-            <spinner-loading *ngIf="loading"></spinner-loading>
             <app-feed-post-card-item *ngFor="let item of feedItem" [feedItem]="item"
                 (deletedItem)="deletedFeedItem($event)" [style]="true"></app-feed-post-card-item>
-        </div>
+        </div> -->
+        <div  class="feed-item" infinite-scroll
+        [infiniteScrollDistance]="scrollDistance"
+        [infiniteScrollUpDistance]="scrollUpDistance"
+        [infiniteScrollThrottle]="throttle"
+        [infiniteScrollDisabled]="infiniteScrollDisabled">
+    <ng-container *ngIf="feedItem.length > 0">
+        <app-feed-post-card-item [mode]="'normal'"  *ngFor="let item of feedItem" [feedItem]="item" [style]="true" (deletedItem)="deletedFeedItem($event)"></app-feed-post-card-item>
+    </ng-container>
+    <ng-container *ngIf="feedItem.length < 1">
+            <app-feed-post-card-item [mode]="'skeleton'" *ngFor="let item of [1,3,4]" ></app-feed-post-card-item>
+        </ng-container>
+    </div>
     </div>
 </div>
         <div class="events-header d-flex flex-column" *ngIf="tab===2">

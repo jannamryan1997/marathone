@@ -51,13 +51,19 @@ export class LiketemComponent implements OnInit, OnDestroy {
     ngOnInit() {
 
         if (this.likeItem.liked_coach === null) {
-            this.localImage = this._fileUrl + this.likeItem.liked_user.avatar;
+            if(this.likeItem.liked_user.avatar){
+                this.localImage = this._fileUrl + this.likeItem.liked_user.avatar;
+            }
+           
             this.user_first_name = this.likeItem.liked_user.user.first_name;
             this.followId = this.likeItem.liked_user.id;
 
         }
         else {
-            this.localImage = this._fileUrl + this.likeItem.liked_coach.avatar;
+            if( this.likeItem.liked_coach.avata){
+                this.localImage = this._fileUrl + this.likeItem.liked_coach.avatar;
+            }
+          
             this.user_first_name = this.likeItem.liked_coach.user.first_name;
             this.followId = this.likeItem.liked_coach.id;
         }

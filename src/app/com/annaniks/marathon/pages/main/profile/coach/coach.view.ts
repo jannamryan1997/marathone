@@ -9,7 +9,6 @@ import { Subject, of } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ProfileService } from '../../../../core/services/profile.service';
 import { CountryService } from '../../../../core/services/country.service';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
     selector: "app-coach",
@@ -24,7 +23,7 @@ export class CoachView implements OnInit {
     public postTab: number = 1;
     public galerryTab: number = 1;
     public loading: boolean = false;
-    public reviewItem = [{}, {}, {}, {}, {}];
+    public reviewItem = [{}];
     public scrollDistance = 1;
     public scrollUpDistance = 2;
     public infiniteScrollDisabled = false;
@@ -54,23 +53,26 @@ export class CoachView implements OnInit {
                     this._router.navigate([this._router.url])
                 this.userStatus = '';
                 this._getProfile();
-                this._getLanguages();
+
             }
         })
+
     }
 
-    ngOnInit() { }
+    ngOnInit() { 
+        this._getLanguages();
+    }
 
 
 
-    autoSize(event){
-        if(event){
-        const el = document.getElementById('textarea');
-            setTimeout(()=>{      
+    autoSize(event) {
+        if (event) {
+            const el = document.getElementById('textarea');
+            setTimeout(() => {
                 el.style.cssText = 'height:auto; padding:0';
                 el.style.cssText = 'height:' + el.scrollHeight + 'px';
-              },0);
-            }  
+            }, 0);
+        }
     }
 
     private _getProfile() {
@@ -79,7 +81,10 @@ export class CoachView implements OnInit {
                 if (data.results && data.results.length) {
                     this.user = data.results[0];
                     this._showseeMore();
-                    return this._getFeed()
+                    return this._getLanguages().pipe(switchMap((data) => {
+                        return this._getFeed()
+                    }));
+
                 } else {
                     return of()
                 }
@@ -93,17 +98,17 @@ export class CoachView implements OnInit {
             map((data: FeedData) => {
                 this.feedItem = data.results;
                 for (let item of this.feedItem) {
-                    if(item){
+                    if (item) {
                         this.feedMediaItem.push(item);
-                  
-                    for (let media of item.feed_media) {
-                        if (typeof media.content == 'string') {
-                            media.content = JSON.parse(media.content);
-                            this.mediaItem.push(media.content);
+
+                        for (let media of item.feed_media) {
+                            if (typeof media.content == 'string') {
+                                media.content = JSON.parse(media.content);
+                                this.mediaItem.push(media.content);
+                            }
                         }
                     }
                 }
-            }
                 return data
             }))
     }
@@ -123,21 +128,24 @@ export class CoachView implements OnInit {
         }
     }
 
-    private _getLanguages(): void {
+    private _getLanguages() {
         let url: string;
-        this._countryService.getLanguages().subscribe((data) => {
+        return this._countryService.getLanguages().pipe(map((data) => {
+            this.languageName = []
+
             data.results.map((name, index) => {
                 url = name.url;
-                if (this._userService.user)
-                    this._userService.user.data.language.forEach(element => {
+                if (this.user && this.user.language)
+                    this.user.language.forEach(element => {
                         if (url === element) {
                             this.languageName.push({ name: name.name });
+
                         }
                     })
-
-
             })
-        })
+            return data
+        }))
+
     }
 
     public checkIsMe() {
@@ -198,13 +206,14 @@ export class CoachView implements OnInit {
     }
 
     get email(): string {
-        if (this.user && this.user.user)
-            return this.user.user.email
+        if (this.user)
+        return this.user.slug
     }
     get firstName(): string {
         if (this.user && this.user.user)
             return this.user.user.first_name
     }
+
 
 
     public openGalleryModal(event, message, item): void {

@@ -33,7 +33,7 @@
     }
 
     .review-title {
-        @include text(14px, 16px, #bbcddf, EncodeSans-Medium);
+        @include text(18px, 16px, #bbcddf, EncodeSans-Medium);
     }
 
     .profile-data {
@@ -214,7 +214,7 @@
     padding: 30px !important;
 }
 .star-image{
-    width: 18px;
+    width: 23px;
 }
 .information-header{
     margin: 0 24px;

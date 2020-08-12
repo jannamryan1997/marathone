@@ -234,3 +234,111 @@
 .card-item-style{
     margin: 25px 0;
 }
+
+
+
+
+ .container {
+    border: 0.5px solid #F4F7FC;
+    border-radius: 15px;
+    opacity: 1;
+    margin-top: 32px;
+    padding: 0;
+    background: #ffffff;
+    box-shadow: 2.09px 30px 43px #5C687B17;
+}
+
+
+
+.loading {
+    position: relative;
+    background-color: #E2E2E2;
+
+    &::after {
+        display: block;
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        transform: translateX(-100%);
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .2), transparent);
+        animation: loading 1.5s infinite;
+    }
+}
+
+@keyframes loading {
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+.card-title.loading {
+    height: 1.8rem;
+}
+
+.card-image.image {
+    max-width: 100%;
+    height: auto;
+}
+
+.card-description.loading {
+    height: 60px;
+    margin: 6px 0;
+}
+
+.circle {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-color: #E2E2E2;
+}
+
+///////skeleton
+.skeleton-card-item {
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 3px 9px 43px #5C687B21;
+    border: 0.5px solid #F4F7FC;
+    margin-top: 32px;
+
+    border-radius: 15px;
+    opacity: 1;
+
+    .header-content {
+        padding: 26px 0 15px 15px;
+        align-items: center;
+
+        .image {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: #EBEEF6 0% 0% no-repeat padding-box;
+        }
+
+        .title {
+            background: #EBEEF6 0% 0% no-repeat padding-box;
+            border-radius: 9px;
+            opacity: 1;
+            width: 195px;
+            height: 18px;
+            margin-left: 20px;
+        }
+    }
+
+    .item-image {
+        background: #EBEEF6 0% 0% no-repeat padding-box;
+        opacity: 1;
+        height: 320px;
+    }
+
+    .top-content {
+        padding: 18px 37px 22px 37px;
+
+        .top-item {
+            background: #EBEEF6 0% 0% no-repeat padding-box;
+            border-radius: 13px;
+            opacity: 1;
+            width: 145px;
+            height: 25px;
+        }
+    }
+}
