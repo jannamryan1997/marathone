@@ -70,7 +70,7 @@ export class TopicActions {
 @Injectable({ providedIn: 'root' })
 export class ChatService {
   public topicsResourceUrl = 'https://support.marathon.me/api/client/topics';
-  public topicMessagesResourceUrl = this._baseUrl + 'https://support.marathon.me/api/client/topic-messages';
+  public topicMessagesResourceUrl = 'https://support.marathon.me/api/client/topic-messages';
   public grpcResourceUrl = 'https://support.marathon.me'
   public topicActions = new BehaviorSubject<Array<TopicActions>>([]);
   public topicMessages = new ReplaySubject<ITopicMessage>();
@@ -107,7 +107,7 @@ export class ChatService {
   }
   public downStreamRequest() {
     if (this._cookieService.get('chatToken')) {
-      const token = this._cookieService.get('chatToken');      
+      const token = this._cookieService.get('chatToken');
       const downStreamRequestActionData = new ActionData();
       downStreamRequestActionData.setAction(Action.ACTION_ONLINE);
       const downStreamRequest = new ActionRequest();

@@ -14,10 +14,10 @@
         <div class="row">
             <div class="col-4">
                 <div class="table-responsive" id="entities" *ngIf="topics && topics.length > 0">
-                    <table class="table">
+                    <table class="table topic-table">
                         <tbody>
                             <tr *ngFor="let topic of topics ;"
-                                [ngClass]="((topicSelected?.id || 0) === topic.id) ? 'bg-success' : ''" class="hand"
+                                [ngClass]="((topicSelected?.id || 0) === topic.id) ? 'bg-success' : ''" class="hand topics-title"
                                 (click)="setSelected(topic)">
                                 <td>{{ formatTopicTitle(topic) }}</td>
                             </tr>
