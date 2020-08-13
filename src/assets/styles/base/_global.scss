@@ -172,25 +172,29 @@
 /////forms
 
 .form-group {
-    margin: 20px 10px;
+    margin: 15px 10px;
     background: #ffffff 0% 0% no-repeat padding-box;
     border: 0.5px solid #E3ECFD;
-    border-radius: 100px;
+    border-radius: 16px;
     opacity: 1;
     height: none !important;
     padding: 15px 15px;
     text-align: center;
     align-items: center;
+    box-shadow: 0.42px 6px 16px #9897C914;
 
     .form-input {
         width: calc(100% - 60px);
         border: none;
         margin-left: 10px;
         background: none !important;
-        @include text(17px, 1px, #bbcddf, MicrosoftYaHeiUI);
+        @include text(16px, 1px, #bbcddf, MicrosoftYaHeiUI);
+         font-family: "Nunito Sans", sans-serif !important;
+         
 
         &::placeholder {
-            @include text(17px, 18px, #bbcddf, MicrosoftYaHeiUI);
+            @include text(16px, 18px, #bbcddf, MicrosoftYaHeiUI);
+            font-family: "Nunito Sans", sans-serif !important;
         }
     }
 
@@ -198,6 +202,7 @@
         font-size: 20px;
         line-height: 18px;
         color: #bbcddf;
+        margin-left: 5px;
     }
 }
 
@@ -298,20 +303,20 @@ textarea {
 
 }
 
-.form-group,
-.autocomplete {
-    position: relative;
-}
+// .form-group,
+// .autocomplete {
+//     position: relative;
+// }
 
-.form-group>label {
-    position: absolute;
-    top: -11px;
-    left: 25px;
-    background-color: white;
-    @include text(16px, 19px, #589CFE, NunitoSans-Regular);
-    padding: 0 10px;
-    letter-spacing: 2px;
-}
+// .form-group>label {
+//     position: absolute;
+//     top: -11px;
+//     left: 25px;
+//     background-color: white;
+//     @include text(16px, 19px, #589CFE, NunitoSans-Regular);
+//     padding: 0 10px;
+//     letter-spacing: 2px;
+// }
 
 .update-video-btn {
     background: #FFFFFF 0% 0% no-repeat padding-box;
@@ -396,14 +401,13 @@ textarea {
 }
 
 .btn-radius {
-    width: 40px !important;
-    height: 40px !important;
+    width: 38px !important;
     border-radius: 50% !important;
     display: flex;
     justify-content: center;
 
     .icon {
-        font-size: 16px;
+        font-size: 25px;
     }
 }
 

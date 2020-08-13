@@ -6,7 +6,6 @@
 }
 
 .home-container {
-    // height: 100vh;
     .header {
         position: relative;
 
@@ -43,6 +42,7 @@
 
         .profile-description {
             position: relative;
+            height: 100vh;
 
 
 
@@ -53,9 +53,6 @@
             }
 
             .profile-content {
-
-                // padding: 0 20px;
-                .main-layout {}
 
                 .profile-header-content {
                     padding: 0 20px;
@@ -129,30 +126,6 @@
 
                 }
 
-                .social-media {
-                    background: #FFFFFF 0% 0% no-repeat padding-box;
-                    box-shadow: 2px 30px 43px #5C687B36;
-                    border: 0.5px solid #bbcddf;
-                    opacity: 1;
-                    position: absolute;
-                    border-radius: 10px;
-                    right: 60px;
-                    z-index: 99;
-
-                    .social-media-description {
-                        display: flex;
-                        flex-direction: column;
-                        padding: 20px;
-
-                        .social-image {
-                            width: 26px;
-                            height: 26px;
-                            margin-top: 20px;
-                            cursor: pointer;
-                        }
-                    }
-                }
-
                 .more-content {
                     background: #FFFFFF 0% 0% no-repeat padding-box;
                     box-shadow: 2px 30px 43px #5C687B36;
@@ -191,26 +164,12 @@
         .profile-container {
             margin: 10px 20px;
         }
+
         .link-form {
             padding: 0 1.2em;
 
             .lable {
                 @include text(17px, 18px, #bbcddf, EncodeSans-SemiBold);
-            }
-
-            .form-group-link {
-                margin: 15px 0;
-                background: #FFFFFF 0% 0% no-repeat padding-box;
-                border: 0.5px solid #CFCFE9;
-                border-radius: 26px;
-                opacity: 1;
-                height: none !important;
-                padding: 15px 15px !important;
-                @include text(17px, 18px, #45535C, NunitoSans-Regular !important);
-
-                &::placeholder {
-                    @include text(17px, 18px, #bbcddf, NunitoSans-Regular !important);
-                }
             }
         }
 
@@ -236,53 +195,131 @@
                 }
             }
 
-            .type-form-group {
-                width: 100%;
-                max-width: 400px;
-                border-radius: 16px !important;
 
-                .add-icon {
-                    color: #C2D2E2;
-                    border: none;
-                    border-radius: 50%;
-                    font-size: 25px;
-                    background: #ffff;
-                    cursor: pointer;
-                }
-            }
         }
     }
 }
 
-.profileActiveTab {
-    color: #ffff !important;
-    background: #589CFE !important;
-    border: 1px solid #589CFE !important;
+//////////////
+
+
+input[type="file"] {
+    display: none;
 }
 
+.choose-image {
+    border-radius: 509%;
+    height: 45px;
+    width: 45px;
+    cursor: pointer;
+}
+
+.save-btn {
+    width: 120px;
+    height: 36px;
+    justify-content: center;
+    background: #589CFE;
+    border-radius: 18px;
+    opacity: 1;
+    padding: 9px 0;
+    font-size: 14px;
+    line-height: 16px;
+    color: #FFFFFF;
+    font-family: EncodeSans-SemiBold;
+    margin: 0 11px;
+}
+
+.form-content {
+    margin: 10px 0;
+
+    .label {
+        text-align: left;
+        letter-spacing: 0px;
+        opacity: 1;
+        @include text(15px, 18px, #9DB3C9, EncodeSans-Bold);
+        margin-left: 20px !important;
+        padding: 0;
+
+    }
+
+    .form-group {
+        background: #FFFFFF 0% 0% no-repeat padding-box;
+        border: 1px solid #EDF1F8;
+        border-radius: 16px;
+        opacity: 1;
+        height: 50px;
+        margin: 0;
+        padding: 0;
+        width: 256px;
+        margin-top: 10px;
+
+        .form-input {
+            margin: 0;
+            padding: 14px 23px;
+            @include text(16px, 19px, #45535C, NunitoSans-Regular !important);
+
+            &::placeholder {
+                @include text(16px, 19px, #BBCDDF, NunitoSans-Regular !important);
+            }
+        }
+    }
+
+
+
+}
+
+.text-area-group {
+    height: auto !important;
+    padding-bottom: 8px !important;
+}
 
 .about-form {
-    margin-top: 30px;
+    min-height: 90px !important;
+    height: auto !important;
+    overflow: hidden !important;
+    resize: none !important;
 }
 
-::ng-deep .ui-autocomplete-multiple-container {
-    margin: 15px 0 !important;
-    background: #FFFFFF 0% 0% no-repeat padding-box !important;
-    border: 0.5px solid #E3ECFD !important;
-    border-radius: 26px !important;
-    opacity: 1 !important;
-    height: none !important;
-    padding: 15px 15px !important;
-    @include text(17px, 18px, #bbcddf, NunitoSans-Regular !important);
+.sex-active-btn {
+    background: #589CFE !important;
+    box-shadow: -5.29px 7px 10px #589BFD36 !important;
+    color: #ffff !important;
+    border: 1px solid #589CFE !important;
 
-    &::placeholder {
-        @include text(17px, 18px, #bbcddf, NunitoSans-Regular !important);
+}
+
+
+.sex-btn {
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 0.42px 6px 16px #9897C914;
+    border: 1px solid #F1F5FD;
+    border-radius: 19px;
+    opacity: 1;
+    width: 140px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    @include text(17px, 20px, #9DB3C9, MicrosoftYaHeiUI);
+    margin-top: 10px;
+    padding: 14px 0;
+}
+
+.btn-container {
+    margin-top: 33px;
+
+    .save-btn {
+        width: 120px;
+        height: 40px;
+        background: #589CFE 0% 0% no-repeat padding-box;
+        border-radius: 20px;
+        opacity: 1;
+        border: none;
     }
 }
 
-::ng-deep .ui-widget {
-    width: 100% !important;
-}
+
+/////ng-deep
 
 ::ng-deep .ui-autocomplete-token {
     background: #F5F5FA 0% 0% no-repeat padding-box !important;
@@ -294,7 +331,10 @@
     font-size: 16px !important;
     line-height: 19px !important;
     margin-bottom: 10px !important;
-    font-family: NunitoSans-Regular  !important;
+    font-family: NunitoSans-Regular !important;
+    &:hover{
+        border: 1px solid #96c1ff !important;  
+    }
 }
 
 ::ng-deep .ui-autocomplete-token-icon {
@@ -305,55 +345,45 @@
 
 }
 
-::ng-deep .ng-tns-c114-0 {
+::ng-deep .ui-widget {
+    width: 100% !important;
+}
+
+::ng-deep .ui-autocomplete-multiple-container {
+    background: #FFFFFF 0% 0% no-repeat padding-box !important;
+    border: 1px solid #EDF1F8 !important;
+    border-radius: 16px !important;
+    opacity: 1 !important;
+    height: 50px !important;
+    width: 100% !important;
+    margin-top: 10px !important;
+    .ui-state-focus{
     &::placeholder {
-        @include text(17px, 18px, #bbcddf, MicrosoftYaHeiNunitoSans-Regular UI !important);
+        @include text(16px, 19px, #BBCDDF, NunitoSans-Regular !important);
+    }
+ 
+}
+}
+
+::ng-deep .ui-autocomplete .ui-state-focus {
+    border:  1px solid #96c1ff !important;
+    box-shadow: none !important
+} 
+
+input:focus,.text-area-group:focus{
+border: 1px solid #96c1ff !important;
+border-radius: 16px !important;
+}
+
+input,.text-area-group{
+    &:hover{
+        border: 1px solid #96c1ff !important;  
+        border-radius: 16px !important;
     }
 }
 
-
-.form-group,
-.autocomplete {
-    position: relative;
-}
-
-.form-group>label {
-    position: absolute;
-    top: -11px;
-    left: 25px;
-    background-color: white;
-    @include text(16px, 19px, #589CFE, EncodeSans-Regular);
-}
-
-.form-group>input {
-    border: none;
-}
-
-.autocomplete>label {
-    position: absolute;
-    top: 5px;
-    left: 25px;
-    background-color: white;
-
-    z-index: 1;
-    @include text(16px, 19px, #589CFE, EncodeSans-Regular);
-}
-
-.text-area {
-  overflow: hidden;
-  height: auto;
-  line-height: 22px !important;
-  min-height: 115px;
-  max-height: 350px;
-}
-
-input[type="file"] {
-    display: none;
-}
-
-.choose-image {
-    border-radius: 509%;
-    height: 45px;
-    width: 45px;
-    cursor: pointer;
+::ng-deep .ui-autocomplete-multiple-container {
+    &:hover{
+        border: 1px solid #96c1ff !important;
+    }
 }

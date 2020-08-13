@@ -1,5 +1,5 @@
 export interface SignUpData {
-    slug:string;
+    slug?:string;
     user: {
         email: string,
         password: string,

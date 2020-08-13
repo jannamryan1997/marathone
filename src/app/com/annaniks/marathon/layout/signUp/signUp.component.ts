@@ -78,7 +78,7 @@ export class SignUpComponent implements OnInit {
             google_id: null,
             ui_language: "http://192.168.1.115:8000/api/utils/language/3/",
             metric: "http://192.168.1.115:8000/api/utils/metric/1/",
-            slug:this.signUpGroup.value.userName,
+           // slug:this.signUpGroup.value.userName,
            // is_faworit:true,
         }
         this._authUserService.signUpClient(signUpData)
@@ -115,7 +115,7 @@ export class SignUpComponent implements OnInit {
             google_id: null,
             // ui_language:null,
             //metric: null,
-            slug:this.signUpGroup.value.userName,
+            //slug:this.signUpGroup.value.userName,
            // is_faworit:true,
         }
         this._authUserService.signUpCoach(signUpData)
