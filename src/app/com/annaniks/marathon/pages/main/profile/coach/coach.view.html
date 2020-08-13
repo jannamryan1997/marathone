@@ -2,7 +2,7 @@
     <div class="coach-main">
         <div class="main-content">
         <div class="review-content display-flex">
-            <p class="name">{{email}}</p>
+            <p class="name">{{firstName}}</p>
             <div class=" display-flex">
                 <div class="review display-flex">
                     <div class="review-item" *ngFor="let item of reviewItem">
@@ -14,7 +14,7 @@
         </div>
         <div class="profile-data display-flex">
             <div class="data-item">
-                <p class="item-title">{{firstName}}</p>
+                <p class="item-title">{{email}} </p>
 
             </div>
             <div class="data-item">
@@ -35,28 +35,21 @@
             <div class="m-auto  display-flex">
                 <div class="statistic-item">
                     <div>
-                        <p class="count">600</p>
+                        <p class="count">20</p>
                         <p class="statistic-title">Energy</p>
                     </div>
                 </div>
                 <div class="statistic-item">
                     <div>
-                        <p class="count">600</p>
-                        <p class="statistic-title">Energy</p>
+                        <p class="count">15</p>
+                        <p class="statistic-title">Followers</p>
                     </div>
                 </div>
                 <div class="statistic-item">
                     <div>
-                        <p class="count">600</p>
-                        <p class="statistic-title">Energy</p>
+                        <p class="count">300</p>
+                        <p class="statistic-title">Following</p>
                     </div>
-                </div>
-                <div class="statistic-item">
-                    <div>
-                        <p class="count">600</p>
-                        <p class="statistic-title">Energy</p>
-                    </div>
-
                 </div>
             </div>
         </div>
@@ -70,10 +63,10 @@
 
         <div class="d-flex mt-4">
             <div class="btn-content display-flex m-auto">
-                <button class="btn-item basic-btn mr-3">Body Building</button>
-                <button class="btn-item basic-btn  mr-3">Fat Loss</button>
-                <button class="btn-item basic-btn">Power Lifting</button>
-            </div>
+                <button class="btn-item active-btn mr-3">Body Building</button>
+                <button class="btn-item active-btn mr-3">Fat Loss</button>
+                <button class="btn-item active-btn">Power Lifting</button>
+            </div> 
         </div>
     </div>
         <div class="events-tab display-flex" [ngSwitch]="tab">

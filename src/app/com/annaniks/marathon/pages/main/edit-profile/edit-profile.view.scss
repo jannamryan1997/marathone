@@ -53,7 +53,10 @@
             }
 
             .profile-content {
-
+                box-shadow: 2px 30px 43px #5C687B17;
+                background: #ffff;
+                padding: 10px 0;
+            
                 .profile-header-content {
                     padding: 0 20px;
 
@@ -252,6 +255,7 @@ input[type="file"] {
         padding: 0;
         width: 256px;
         margin-top: 10px;
+        box-shadow: none !important;
 
         .form-input {
             margin: 0;
@@ -274,7 +278,7 @@ input[type="file"] {
 }
 
 .about-form {
-    min-height: 90px !important;
+    min-height: 180px !important;
     height: auto !important;
     overflow: hidden !important;
     resize: none !important;
@@ -322,11 +326,11 @@ input[type="file"] {
 /////ng-deep
 
 ::ng-deep .ui-autocomplete-token {
-    background: #F5F5FA 0% 0% no-repeat padding-box !important;
+    background: #589CFE  !important;
     border-radius: 18px !important;
     opacity: 1 !important;
     padding: 10px !important;
-    color: #45535C !important;
+    color: #FFFFFF !important;
     font-weight: 600 !important;
     font-size: 16px !important;
     line-height: 19px !important;
@@ -336,7 +340,7 @@ input[type="file"] {
 
 ::ng-deep .ui-autocomplete-token-icon {
     font-size: 13px !important;
-    color: #bbcddf !important;
+    color: #FFFFFF !important;
     font-weight: bold !important;
     margin-right: 12px !important;
 

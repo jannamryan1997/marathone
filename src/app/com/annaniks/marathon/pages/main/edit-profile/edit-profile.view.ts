@@ -90,7 +90,6 @@ export class EditProfileView implements OnInit {
     }
 
     private _setPatchValue(): void {
-        console.log(this.user.data);
         
         this.profileFormGroup.patchValue({
             firstName: this.user.data.user.first_name,

@@ -14,26 +14,29 @@
 
         .profile-description {
             position: relative;
-.header{
-    position: relative;
 
-            .header-icon-btn {
-                width: 33px;
-                height: 33px;
-                background: #F5F5FA 0% 0% no-repeat padding-box;
-                border: 2px solid #FFFFFF;
-                opacity: 1;
-                position: absolute;
-                border-radius: 50%;
-                right: 2px;
-                bottom: -7px;
-                cursor: pointer;
-                i {
-                    color: #B6C1D7;
-                    font-size: 15px;
+            .header {
+                position: relative;
+
+                .header-icon-btn {
+                    width: 33px;
+                    height: 33px;
+                    background: #F5F5FA 0% 0% no-repeat padding-box;
+                    border: 2px solid #FFFFFF;
+                    opacity: 1;
+                    position: absolute;
+                    border-radius: 50%;
+                    right: 2px;
+                    bottom: -7px;
+                    cursor: pointer;
+
+                    i {
+                        color: #B6C1D7;
+                        font-size: 15px;
+                    }
                 }
             }
-        }
+
             .cover-image {
                 height: 185px;
                 width: 100%;
@@ -45,6 +48,7 @@
                     padding: 0 10px;
                     background: #FFFFFF 0% 0% no-repeat padding-box;
                     box-shadow: 2px 30px 43px #5C687B17;
+
                     .profile-image {
                         margin-top: -40px;
                         display: flex;
@@ -99,8 +103,10 @@
                     opacity: 1;
                     position: absolute;
                     border-radius: 10px;
-                    right: 60px;
+                    right: 50px;
                     z-index: 99;
+                    top: 260px;
+                    opacity: 0;
 
                     .social-media-description {
                         display: flex;
@@ -168,4 +174,25 @@ input[type="file"] {
 .feed-shadow-class {
     border-radius: 0 !important;
     box-shadow: 0px 0px 3px #5C687B17 !important;
+}
+
+.btn-container {
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+}
+.social-media-btn-content{
+    &:hover {
+.social-media-btn {
+    background: #589CFE;
+    border: 1px solid #589CFE;
+    color: #ffffff !important;
+    align-items: center;
+  
+       
+    }
+    .social-media {
+        opacity: 1 !important;
+    }
+}
 }
