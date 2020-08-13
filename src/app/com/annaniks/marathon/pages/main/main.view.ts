@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { UserService } from '../../core/services/user.service';
 import { CookieService } from 'ngx-cookie';
 import { Router } from '@angular/router';
+import { map } from 'rxjs/operators';
 
 @Component({
     selector: "main-view",
@@ -19,10 +20,20 @@ export class MainView implements OnInit {
 
     }
 
-    ngOnInit() {
-   // this._getProfileData();
-    }
+    ngOnInit() { }
 
+    // private _getTokenForChat(role) {
+    //     if (!this._cookieService.get('chatToken')) {
+    //         let token = this._cookieService.get('access');
+    //         return this._profileUserService.getTokenForChat(this._profileUserService.user.data.user.id, role, token).pipe(
+    //             map((data) => {
+    //                 console.log(data);
+    //                 // this._cookieService.put('chatToken',data)
+    //                 return data
+    //             })
+    //         )
+    //     }
+    // }
     get showUserData(): boolean {
         return this._profileUserService.isAuthorized;
     }

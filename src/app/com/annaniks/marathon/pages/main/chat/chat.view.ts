@@ -107,6 +107,8 @@ export class ChatViewComponent {
 
     loadAll(): void {
         this.chatService.queryTopics().subscribe((res: HttpResponse<ITopic[]>) => {
+            this.chatService.downStreamRequest()
+
             if (res && res.body) {
                 this.chatService.updateTopics(res.body);
                 for (let i = 0; i < res?.body?.length; i++) {
@@ -121,7 +123,7 @@ export class ChatViewComponent {
 
     ngOnInit(): void {
         // this.chatService.sendOptionsRequiest().subscribe((data) => {
-            this.loadAll();
+        this.loadAll();
         // })
     }
 

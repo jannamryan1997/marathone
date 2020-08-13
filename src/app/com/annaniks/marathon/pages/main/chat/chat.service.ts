@@ -13,6 +13,7 @@ import { Action, ActionData, ActionRequest, ActionResponse } from './generated/c
 import { CookieService } from 'ngx-cookie';
 import { ITopic } from '../../../core/models/topic';
 import { ITopicMessage, TopicMessage } from '../../../core/models/topic-message';
+import { UserService } from '../../../core/services/user.service';
 
 export class TopicActions {
   public actions = {};
@@ -87,11 +88,28 @@ export class ChatService {
     private _cookieService: CookieService
   ) {
     // this.accountService.authenticationState.subscribe(value => {
+
+    // });
+  }
+
+  updateTopics(topics: ITopic[]): void {
+    const currentValue = this.topicActions.value;
+    const existingTopics = new Set(currentValue.map(ta => ta.id));
+    const nonExistingTopics = new Set(
+      topics.filter(dataListItem => dataListItem.id && !existingTopics.has(dataListItem.id)).map(dataListItem => dataListItem.id)
+    );
+    nonExistingTopics.forEach(ta => {
+      if (ta) {
+        currentValue.push(new TopicActions(ta));
+      }
+    });
+    this.topicActions.next(currentValue);
+  }
+  public downStreamRequest() {
     if (this._cookieService.get('chatToken')) {
-      const token = this._cookieService.get('chatToken');
+      const token = this._cookieService.get('chatToken');      
       const downStreamRequestActionData = new ActionData();
       downStreamRequestActionData.setAction(Action.ACTION_ONLINE);
-
       const downStreamRequest = new ActionRequest();
       downStreamRequest.setToken(token);
       downStreamRequest.setData(downStreamRequestActionData);
@@ -128,23 +146,7 @@ export class ChatService {
     } else {
       // https://stackoverflow.com/questions/37642589/how-can-we-detect-when-user-closes-browser/37642657
     }
-    // });
   }
-
-  updateTopics(topics: ITopic[]): void {
-    const currentValue = this.topicActions.value;
-    const existingTopics = new Set(currentValue.map(ta => ta.id));
-    const nonExistingTopics = new Set(
-      topics.filter(dataListItem => dataListItem.id && !existingTopics.has(dataListItem.id)).map(dataListItem => dataListItem.id)
-    );
-    nonExistingTopics.forEach(ta => {
-      if (ta) {
-        currentValue.push(new TopicActions(ta));
-      }
-    });
-    this.topicActions.next(currentValue);
-  }
-
   queryTopics(): Observable<EntityArrayResponseType> {
     let headers = new HttpHeaders();
     headers = headers.append('Authorization', 'Bearer ' + this._cookieService.get('chatToken'));
