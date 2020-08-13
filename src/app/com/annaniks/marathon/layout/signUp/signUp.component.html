@@ -6,8 +6,19 @@
     <form [formGroup]="signUpGroup">
         <p class="text-danger mt-2">{{errorMessage}}</p>
         <div class="signUp-form">
+
+                <div class="form-group d-flex p-0">
+                    <div class="form-item">
+                        <input type="text" required='' placeholder="First Name" class="form-input w-100"
+                            formControlName="firstName">
+                        </div>
+                            <input type="text" required='' placeholder="Last Name" class="form-input w-100"
+                            formControlName="userName">
+                </div>
+            
+
+
             <div class="form-group">
-                <label [ngClass]="{'activeTab':chackIsValid('email')}">Email</label>
                 <input type="text" required='' placeholder="Email" class="form-input w-100" formControlName="email">
             </div>
             <div class="d-flex" class="d-none"  [ngClass]="{'d-block':signUpGroup.get('email').hasError('pattern') && signUpGroup.get('email').touched}">
@@ -16,19 +27,8 @@
                 provide a valid email</span>
             </div>
           
+           
             <div class="form-group">
-                <label [ngClass]="{'activeTab':chackIsValid('firstName')}">Full Name</label>
-                <input type="text" required='' placeholder="Full Name" class="form-input w-100"
-                    formControlName="firstName">
-
-            </div>
-            <div class="form-group">
-                <label [ngClass]="{'activeTab':chackIsValid('userName')}">User Name</label>
-                <input type="text" required='' placeholder="User Name" class="form-input w-100"
-                    formControlName="userName">
-            </div>
-            <div class="form-group">
-                <label [ngClass]="{'activeTab':chackIsValid('password')}">Password</label>
                 <div class="d-flex align-items-center">
                     <input [type]="show ? 'text' : 'password'" placeholder="Password" required=''
                         class="form-input w-100" formControlName="password">
@@ -41,6 +41,25 @@
                     </span>
                 </div>
             </div>
+
+
+            <div class="form-group">
+                    <div class="d-flex align-items-center">
+                        <input [type]="showRepeatPassword ? 'text' : 'password'" placeholder="Repeat Password" required=''
+                            class="form-input w-100" formControlName="repeat_password">
+                        <span class="material-icons form-icon password-icon" *ngIf="hideRepeatPassword"
+                            (click)="showRepeatPasswordValue()">
+                            visibility
+                        </span>
+                        <span class="material-icons form-icon password-icon" *ngIf="showRepeatPassword" (click)="hideRepeatPasswordValue()">
+                            visibility_off
+                        </span>
+                    </div>
+                </div>
+
+
+
+
 
             <div class="auth-description social-media">
 

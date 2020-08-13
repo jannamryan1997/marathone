@@ -6,10 +6,10 @@ import { CommonModule } from '@angular/common';
 import { PropertyModal, RemoveModal } from '../../../../core/modals';
 import { FeedPostsService } from './feed-posts.service';
 
-
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 @NgModule({
     declarations: [FeedPostsView,PropertyModal],
-    imports: [FeedPostsRoutingModule,SharedModule,CommonModule],
+    imports: [FeedPostsRoutingModule,SharedModule,CommonModule,NgxSkeletonLoaderModule],
     entryComponents:[PropertyModal,RemoveModal],
     providers:[FeedPostsService]
 })

@@ -194,3 +194,14 @@
     @include text(16px, 19px, #E3ECFD, EncodeSans-SemiBold);
     margin: 0 20px;
 }
+
+.signUp-btn:hover{
+    background: #589CFE;
+    border: 1px solid #589CFE;
+    color: #ffffff !important;
+    align-items: center;
+}
+.form-item{
+padding: 15px 15px;
+border-right: 1px solid #E3ECFD;
+}

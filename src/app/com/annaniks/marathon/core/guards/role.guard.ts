@@ -19,13 +19,12 @@ export class RoleGuard implements CanActivate {
     ) { }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
+console.log(state,"kkkkkkkkkkkkk");
 
         const isAuthorized = this._userService.isAuthorized;
 
         if (!isAuthorized) {
             const dialogRef = this._matDialog.open(AuthModal, {
-                // width: "100%",
-                // maxWidth: "100vw",
             });
             dialogRef.afterClosed().subscribe((value) => {
                 if (value) {

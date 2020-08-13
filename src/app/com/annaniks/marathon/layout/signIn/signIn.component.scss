@@ -50,6 +50,7 @@
 
         .social-media-icon {
             width: 20px;
+            margin-left: 10px;
         }
     }
 
@@ -99,4 +100,12 @@
 
 .password-icon{
     cursor: pointer;
+}
+.sign-btn{
+    &:hover{
+        background: #589CFE;
+        border: 1px solid #589CFE;
+        color: #ffffff !important;
+        align-items: center;
+    }
 }

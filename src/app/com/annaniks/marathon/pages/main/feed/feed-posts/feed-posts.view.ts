@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Component, OnInit, OnDestroy, Input } from "@angular/core";
 import { FeedService } from '../feed.service';
 import { FeedResponseData } from '../../../../core/models';
 import { UserService } from '../../../../core/services/user.service';
@@ -7,7 +7,7 @@ import { RemoveModal, AuthModal } from '../../../../core/modals';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, finalize } from 'rxjs/operators';
 
 @Component({
     selector: "feed-posts-view",
@@ -26,17 +26,17 @@ export class FeedPostsView implements OnInit, OnDestroy {
     public scrollDistance = 1;
     public scrollUpDistance = 2;
     public infiniteScrollDisabled = false;
-    public loading: boolean = false;
+    public loading: boolean;
     public _token: string;
-    public role:string;
+    public role: string;
     constructor(
         public _feedService: FeedService,
         public userService: UserService,
         private _dialog: MatDialog,
         private _activatedRoute: ActivatedRoute,
-        private _coookieService:CookieService,
-    ) { 
-        this.role=this._coookieService.get('role');
+        private _coookieService: CookieService,
+    ) {
+        this.role = this._coookieService.get('role');
     }
 
     ngOnInit() {
@@ -59,21 +59,31 @@ export class FeedPostsView implements OnInit, OnDestroy {
     }
 
     private async _getFeed(page: number) {
+        this.loading = true;
         this.infiniteScrollDisabled = true;
         const data = await this._feedService.feed(this._pageIndex)
-        .pipe(takeUntil(this._unsubscribe))
+            .pipe(takeUntil(this._unsubscribe),
+            finalize(() => {
+                this.loading = false;
+            })
+            )
             .toPromise()
         if (this.feedItem.length === 0) {
         }
         if (!this._isCountCalculated) {
-            this._pagesCount = Math.ceil(data.count / 10);
-            this._isCountCalculated = true;
+            if (data) {
+
+                this._pagesCount = Math.ceil(data.count / 10);
+                this._isCountCalculated = true;
+            }
         }
         if (this._pageIndex > this._pagesCount) {
             return;
         }
+        if (data && data.results) {
+            this.feedItem.push(...data.results);
+        }
 
-        this.feedItem.push(...data.results);
         this._pageIndex++;
         for (let item of this.feedItem) {
             for (let media of item.feed_media) {
@@ -82,7 +92,8 @@ export class FeedPostsView implements OnInit, OnDestroy {
                 }
             }
         }
-        this.infiniteScrollDisabled = false;  
+        this.infiniteScrollDisabled = false;
+
     }
 
     public onPostCreated(event): void {
@@ -110,16 +121,16 @@ export class FeedPostsView implements OnInit, OnDestroy {
             dialogRef.afterClosed().subscribe((data) => {
                 if (data === "deleted") {
                     this._feedService.deleteFeed(event)
-                    .pipe(takeUntil(this._unsubscribe))
-                    .subscribe((data) => {
-                        this._pageIndex = 1;
-                        this._isCountCalculated = false;
-                        this._pagesCount = 0;
-                        this.feedItem = [];
-                        this._getFeed(this._pageIndex)
-                    })
+                        .pipe(takeUntil(this._unsubscribe))
+                        .subscribe((data) => {
+                            this._pageIndex = 1;
+                            this._isCountCalculated = false;
+                            this._pagesCount = 0;
+                            this.feedItem = [];
+                            this._getFeed(this._pageIndex)
+                        })
                 }
-                    
+
             })
         }
 

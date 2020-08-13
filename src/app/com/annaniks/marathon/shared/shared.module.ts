@@ -23,7 +23,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 
-
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 
 import {
@@ -50,6 +50,7 @@ import {
     LiketemComponent,
     ShareComponent,
     UserItemComponent,
+    SkeletonLoadingComponent
 } from '../layout';
 import { FeedService } from '../pages/main/feed/feed.service';
 import { CountryService } from '../core/services/country.service';
@@ -84,7 +85,7 @@ import { LikeService } from '../core/services/like.service';
         LikeModal,
         ShareComponent,
         UserItemComponent,
-        
+        SkeletonLoadingComponent
     ],
     imports: [
         ReactiveFormsModule,
@@ -102,7 +103,7 @@ import { LikeService } from '../core/services/like.service';
         NgxLoadingModule,
         InfiniteScrollModule,
         SlickCarouselModule,
- 
+        MatProgressBarModule,
     ],
     providers: [AuthGuard,FeedService,CountryService,LikeService],
     entryComponents: [LikeModal],
@@ -148,7 +149,10 @@ import { LikeService } from '../core/services/like.service';
         LikeModal,
         LiketemComponent,
         ShareComponent,
-        UserItemComponent      
+        UserItemComponent,
+        MatProgressBarModule,
+        SkeletonLoadingComponent
+   
     ],
 })
 

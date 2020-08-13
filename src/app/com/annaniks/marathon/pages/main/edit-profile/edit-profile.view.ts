@@ -89,9 +89,11 @@ export class EditProfileView implements OnInit {
     }
 
     private _setPatchValue(): void {
+        console.log(this.user.data);
+        
         this.profileFormGroup.patchValue({
             firstName: this.user.data.user.first_name,
-            userName: this.user.data.user.email,
+            userName: this.user.data.slug,
             status: this.user.data.status,
             facebook: this.user.data.facebook,
             youtube: this.user.data.youtube,
@@ -219,6 +221,8 @@ export class EditProfileView implements OnInit {
             this._userService.putCoatch(this._userService.user.data.id, this._userService.user.data)
             .pipe(takeUntil(this._unsbscribe))
                 .subscribe((data) => {
+                    console.log(this._userService.user.data,"hhhhhhhhhhhhhs");
+                    
                     this._userService.getCoatch().subscribe((data) => {
                         if (type === 'avatar') {
                             this.localImage = this._fileUrl + data.data.avatar;
@@ -303,7 +307,9 @@ export class EditProfileView implements OnInit {
         this._userService.putCoatch(this._userService.user.data.id, this.user.data)
         .pipe(takeUntil(this._unsbscribe))
             .subscribe((data) => {
+                console.log(this.user.data);
                 this._userService.getCoatch().subscribe((data) => {
+                    
                     this.user.data = data.data;
                 })
             })

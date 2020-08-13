@@ -62,8 +62,6 @@ export class HeaderComponent implements OnInit {
 
     public onClickOpenAuth(value: string): void {
         const dialogRef = this._mathDialog.open(AuthModal, {
-            // width: "100%",
-            // maxWidth: "100vw",
             data: {
                 value: value,
             }
@@ -92,9 +90,9 @@ export class HeaderComponent implements OnInit {
         this._cookieService.removeAll();
         this._profileUserService.isAuthorized = false;
         this._profileUserService.user = null;
-        location.reload();
-        this.router.navigate(['/feed']);
-
+     
+        this.router.navigate(['feed']);
+        // location.reload();
     }
 
 }

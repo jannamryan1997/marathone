@@ -30,6 +30,7 @@ export class FeedPostCardItemComponent implements OnInit {
     @Output() deletedItem = new EventEmitter<any>();
     @Output() editFeed = new EventEmitter<any>();
     @Input() style:boolean;
+    @Input() mode = 'skeleton' || 'normal'
     public showTitle: boolean = false;
     public isOpen: boolean = false;
     public content;
@@ -67,9 +68,14 @@ export class FeedPostCardItemComponent implements OnInit {
             autoplaySpeed: 2000
         }
         this.user = this._userService.user;
+        console.log(this.feedItem);
+        
     }
 
     ngOnInit() {
+        console.log(this.mode);
+        
+        if(this.mode == 'skeleton') return 
         this.time = moment(this.feedItem.timeStamp).fromNow();
         if (this.feedItem.feed_media && this.feedItem.feed_media.length) {
             this.content = this.feedItem.feed_media[0].content;

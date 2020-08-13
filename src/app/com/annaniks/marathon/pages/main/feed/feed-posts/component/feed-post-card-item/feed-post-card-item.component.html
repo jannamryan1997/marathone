@@ -1,3 +1,4 @@
+<div *ngIf="mode == 'normal'">
 <div class="card-item"  [ngClass]="{'card-item-style':style}">
     <div class="item-header">
         <div class="item-head-description">
@@ -160,3 +161,19 @@
         <app-posts-comments [feed]="feedItem"  (sendMessage)="sendMessage($event)" *ngIf="role" [comments]="comments"></app-posts-comments>
     </div>
 </div>
+</div>
+
+
+        
+<div class="skeleton-card-item" *ngIf="mode == 'skeleton'">
+        <div class="header-content d-flex">
+            <div class="image loading"></div>
+            <p class="title loading"></p>
+        </div>
+        <div class="item-image loading"></div>
+        <div class="top-content d-flex justify-content-between">
+            <div class="top-item loading"></div>
+            <div class="top-item loading"></div>
+            <div class="top-item loading"></div>
+        </div>
+    </div>

@@ -25,7 +25,7 @@ export class ClientView implements OnInit {
     public postTab: number = 1;
     public loading: boolean = false;
     public throttle = 300;
-    public reviewItem = [{}, {}, {}, {}, {}];
+    public reviewItem = [{}];
     public scrollDistance = 1;
     public scrollUpDistance = 2;
     public infiniteScrollDisabled = false;
@@ -69,7 +69,9 @@ export class ClientView implements OnInit {
                 if (data.results && data.results.length) {
                     this.user = data.results[0];
                     this._showseeMore();
-                    return this._getFeed()
+                    return this._getLanguages().pipe(switchMap((data) => {
+                        return this._getFeed()
+                    }));
                 } else {
                     return of()
                 }
@@ -116,21 +118,24 @@ export class ClientView implements OnInit {
         }
     }
 
-    private _getLanguages(): void {
+    private _getLanguages() {
         let url: string;
-        this._countryService.getLanguages().subscribe((data) => {
+        return this._countryService.getLanguages().pipe(map((data) => {
+            this.languageName = []
+
             data.results.map((name, index) => {
                 url = name.url;
-                if (this._userService.user)
-                    this._userService.user.data.language.forEach(element => {
+                if (this.user && this.user.language)
+                    this.user.language.forEach(element => {
                         if (url === element) {
                             this.languageName.push({ name: name.name });
+
                         }
                     })
-
-
             })
-        })
+            return data
+        }))
+
     }
 
     public onClickSeeMore(): void {
@@ -200,7 +205,7 @@ export class ClientView implements OnInit {
 
     get email(): string {
         if (this.user)
-            return this.user.user.email
+            return this.user.slug
     }
     get firstName(): string {
         if (this.user)

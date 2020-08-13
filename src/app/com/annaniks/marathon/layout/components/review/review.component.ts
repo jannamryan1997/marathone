@@ -7,7 +7,7 @@ import { Component, OnInit } from "@angular/core";
 })
 
 export class ReviewComponent implements OnInit {
-    public reviewItem = [{}, {}, {}, {}, {}]
+    public reviewItem = [{}]
     constructor() { }
 
     ngOnInit() { }

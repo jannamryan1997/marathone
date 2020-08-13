@@ -21,7 +21,9 @@ export class SignUpComponent implements OnInit {
     public loggedIn: boolean;
     public profileUser;
     public show: boolean = false;
+    public showRepeatPassword:boolean=false;
     public hidePassword: boolean = true;
+    public hideRepeatPassword:boolean=true;
     public _unsbscribe=new Subject<void>();
 
     @Output() changeSigntab = new EventEmitter;
@@ -46,6 +48,7 @@ export class SignUpComponent implements OnInit {
             userName: [null, Validators.required],
             email: [null, [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]],
             password: [null, Validators.required],
+            repeat_password:[null,Validators.required],
             coach: [null],
         })
     }
@@ -149,9 +152,19 @@ export class SignUpComponent implements OnInit {
         this.hidePassword = false;
     }
 
+    public showRepeatPasswordValue():void{
+         this.showRepeatPassword=true;
+        this.hideRepeatPassword=false;
+    }
+
     public hide(): void {
         this.show = false;
         this.hidePassword = true;
+    }
+
+    public hideRepeatPasswordValue():void{
+        this.showRepeatPassword=false;
+        this.hideRepeatPassword=true;
     }
 
     public checkIsValid(controlName): boolean {
