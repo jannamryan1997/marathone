@@ -332,9 +332,6 @@ input[type="file"] {
     line-height: 19px !important;
     margin-bottom: 10px !important;
     font-family: NunitoSans-Regular !important;
-    &:hover{
-        border: 1px solid #96c1ff !important;  
-    }
 }
 
 ::ng-deep .ui-autocomplete-token-icon {
@@ -370,7 +367,7 @@ input[type="file"] {
     box-shadow: none !important
 } 
 
-input:focus,.text-area-group:focus{
+input:focus{
 border: 1px solid #96c1ff !important;
 border-radius: 16px !important;
 }
