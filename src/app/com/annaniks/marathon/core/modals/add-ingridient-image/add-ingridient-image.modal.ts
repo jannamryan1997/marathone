@@ -1,6 +1,7 @@
 import { Component, OnInit, Injectable, Inject } from "@angular/core";
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Slider } from '../../models';
+import { Slider, UploadFileResponse } from '../../models';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: "add-ingridient-image",
@@ -13,7 +14,12 @@ export class AddIngridientImageModal implements OnInit {
 
   slideConfig = {};
 
-  constructor(@Inject(MAT_DIALOG_DATA) private _data, private _matDialogRf: MatDialogRef<AddIngridientImageModal>) {
+  constructor(
+    @Inject(MAT_DIALOG_DATA) private _data,
+    @Inject('FILE_URL') private _fileUrl,
+    private _matDialogRf: MatDialogRef<AddIngridientImageModal>,
+    private _userService: UserService,
+  ) {
     if (_data && _data.data) {
       this.slides = this._data.data;
     }
@@ -36,18 +42,28 @@ export class AddIngridientImageModal implements OnInit {
   }
 
 
-  public setServicePhoto(event): void {
-    if (event) {
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        this.slides.push({ img: e.target.result });
-      };
-      if (event.target.files[0]) {
-        reader.readAsDataURL(event.target.files[0]);
-      }
 
+  public setServicePhoto(image): void {
+    if (image && image.target) {
+      const formData = new FormData();
+      let fileList: FileList = image.target.files;
+      if (fileList.length > 0) {
+        let file: File = fileList[0];
+        formData.append('file', file, file.name);
+
+        this._userService.uploadVideoFile(formData)
+          .subscribe((data: UploadFileResponse) => {
+            this.slides.push({ img: this._fileUrl + data.file_name });
+
+          })
+      }
     }
   }
+
+
+
+
+
 
   public removeRecipeImageItem(event, ind): void {
     if (event) {

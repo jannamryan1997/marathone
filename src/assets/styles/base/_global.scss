@@ -172,25 +172,29 @@
 /////forms
 
 .form-group {
-    margin: 20px 10px;
+    margin: 15px 10px;
     background: #ffffff 0% 0% no-repeat padding-box;
     border: 0.5px solid #E3ECFD;
-    border-radius: 100px;
+    border-radius: 16px;
     opacity: 1;
     height: none !important;
     padding: 15px 15px;
     text-align: center;
     align-items: center;
+    box-shadow: 0.42px 6px 16px #9897C914;
 
     .form-input {
         width: calc(100% - 60px);
         border: none;
         margin-left: 10px;
         background: none !important;
-        @include text(17px, 1px, #bbcddf, MicrosoftYaHeiUI);
+        @include text(16px, 1px, #bbcddf, MicrosoftYaHeiUI);
+         font-family: "Nunito Sans", sans-serif !important;
+         
 
         &::placeholder {
-            @include text(17px, 18px, #bbcddf, MicrosoftYaHeiUI);
+            @include text(16px, 18px, #bbcddf, MicrosoftYaHeiUI);
+            font-family: "Nunito Sans", sans-serif !important;
         }
     }
 
@@ -198,6 +202,7 @@
         font-size: 20px;
         line-height: 18px;
         color: #bbcddf;
+        margin-left: 13px;
     }
 }
 
@@ -429,3 +434,11 @@ textarea {
 }
 
 
+input[type="email"] {
+    &:valid {
+      .form-group{
+          border: 1px solid #589CFE !important;
+      }
+   
+  }
+   }
