@@ -43,6 +43,7 @@ export class EditProfileView implements OnInit {
     public experienceItem:ExperienceData[]=[];
     public routerUrl:string;
     public _unsbscribe=new Subject<void>();
+    public maleTab:string="male";
     constructor(
         private _fb: FormBuilder,
         private _countryService: CountryService,
@@ -518,7 +519,12 @@ export class EditProfileView implements OnInit {
         document.body.removeChild(selBox);
     }
 
-
+    public onClickMaleTab(event):void{
+        this.maleTab=event;
+    }
+    public focus(autocomplete) {
+        autocomplete.handleDropdownClick()
+    }
 }
 
 

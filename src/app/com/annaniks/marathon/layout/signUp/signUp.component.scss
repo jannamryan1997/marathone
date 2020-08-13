@@ -46,12 +46,14 @@
 
             .form-input {
                 color: #45535C !important;
+                margin-left: 5px !important;
             }
 
             &::placeholder {
                 color: #CFCFE9 !important;
             }
         }
+       
 
         .checkbox-lable {
             @include text(16px, 16px, #bbcddf, EncodeSans-SemiBold);
@@ -204,6 +206,9 @@
 .form-item{
 padding: 15px 15px;
 border-right: 1px solid #E3ECFD;
+}
+.form-item-item{
+    padding: 15px 15px;
 }
 
 

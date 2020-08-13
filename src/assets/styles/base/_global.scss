@@ -202,7 +202,7 @@
         font-size: 20px;
         line-height: 18px;
         color: #bbcddf;
-        margin-left: 13px;
+        margin-left: 5px;
     }
 }
 
@@ -303,20 +303,20 @@ textarea {
 
 }
 
-.form-group,
-.autocomplete {
-    position: relative;
-}
+// .form-group,
+// .autocomplete {
+//     position: relative;
+// }
 
-.form-group>label {
-    position: absolute;
-    top: -11px;
-    left: 25px;
-    background-color: white;
-    @include text(16px, 19px, #589CFE, NunitoSans-Regular);
-    padding: 0 10px;
-    letter-spacing: 2px;
-}
+// .form-group>label {
+//     position: absolute;
+//     top: -11px;
+//     left: 25px;
+//     background-color: white;
+//     @include text(16px, 19px, #589CFE, NunitoSans-Regular);
+//     padding: 0 10px;
+//     letter-spacing: 2px;
+// }
 
 .update-video-btn {
     background: #FFFFFF 0% 0% no-repeat padding-box;
@@ -401,14 +401,13 @@ textarea {
 }
 
 .btn-radius {
-    width: 40px !important;
-    height: 40px !important;
+    width: 38px !important;
     border-radius: 50% !important;
     display: flex;
     justify-content: center;
 
     .icon {
-        font-size: 16px;
+        font-size: 25px;
     }
 }
 
@@ -434,11 +433,3 @@ textarea {
 }
 
 
-input[type="email"] {
-    &:valid {
-      .form-group{
-          border: 1px solid #589CFE !important;
-      }
-   
-  }
-   }
