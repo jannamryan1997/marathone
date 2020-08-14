@@ -42,7 +42,10 @@
             border-top: 1px solid #F1F1F6;
 
             .title {
-                @include text(28px, 33px, #45535C, BarlowCondensed-Medium);
+                font-size: 16px;
+                line-height: 22px;
+                color: #45535C;
+                font-family: 'Nunito Sans', sans-serif;
             }
 
             .name {
