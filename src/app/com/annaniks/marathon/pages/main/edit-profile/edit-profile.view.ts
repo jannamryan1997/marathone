@@ -13,6 +13,7 @@ import { takeUntil } from 'rxjs/operators';
 import { SpecialtiesModal } from '../../../core/modals';
 import { MatDialog } from '@angular/material/dialog';
 import {MatAutocompleteSelectedEvent, MatAutocomplete} from '@angular/material/autocomplete';
+import { Router, ActivatedRoute } from '@angular/router';
 @Component({
     selector: "app-edit-profile",
     templateUrl: "edit-profile.view.html",
@@ -55,6 +56,8 @@ export class EditProfileView implements OnInit {
         private _profileService: ProfileService,
         private _location: Location,
         private _dialog:MatDialog,
+        private _router:Router,
+        private _activatedRouter:ActivatedRoute,
 
         @Inject("FILE_URL") public _fileUrl: string,
     ) {
@@ -90,6 +93,7 @@ export class EditProfileView implements OnInit {
             instagram: [null],
             linkedin: [null],
             youtube: [null],
+            user_name:[null],
         })
     }
 
@@ -104,6 +108,7 @@ export class EditProfileView implements OnInit {
             instagram: this.user.data.instagram,
             linkedin: this.user.data.linkedin,
             location: this.user.data.location,
+            user_name:this.user.data.slug,
         });
 console.log( this.user.data.location);
 
@@ -307,12 +312,14 @@ console.log( this.user.data.location);
             // this.user.data.certificates = this.certificates,
             this.user.data.language = this.url,
             this.user.data.speciality = this.spacialityUrl;
+            this.user.data.slug=this.profileFormGroup.value.user_name,
         this._userService.putCoatch(this._userService.user.data.id, this.user.data)
         .pipe(takeUntil(this._unsbscribe))
             .subscribe((data) => {
                 this._userService.getCoatch().subscribe((data) => {
                     
                     this.user.data = data.data;
+                    this._router.navigate([`/profile/${this.user.data.slug}/coach`]);
                 })
             })
 
@@ -338,10 +345,12 @@ console.log( this.user.data.location);
             this.user.data.location = this.profileFormGroup.value.location,
             this.user.data.language = this.url,
             this.user.data.speciality = this.spacialityUrl;
+            this.user.data.slug=this.profileFormGroup.value.user_name,
         this._userService.putClient(this._userService.user.data.id, this.user.data)
         .pipe(takeUntil(this._unsbscribe))
             .subscribe((data) => {
                 this._userService.getClient().subscribe((data) => {
+                    this._router.navigate([`/profile/${this.user.data.slug}/client`]);
                 })
             })
     }
