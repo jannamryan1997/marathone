@@ -12,7 +12,7 @@ export class CountryService {
         return this._httpClient.get<any>(this._baseUrl + '/utils/language/');
     }
     getSpeciality(): Observable<any> {
-        return this._httpClient.get<any>(this._baseUrl + '/career/speciality/');
+        return this._httpClient.get<any>(this._baseUrl + '/career/speciality/?page_size=1000');
     }
 
     getCountry():Observable<any>{

@@ -335,11 +335,11 @@ input[type="file"] {
     background: #589CFE !important;
     border-radius: 18px !important;
     opacity: 1 !important;
-    padding: 10px !important;
+    padding:7px 8px !important;
     color: #FFFFFF !important;
     font-weight: 600 !important;
-    font-size: 16px !important;
-    line-height: 19px !important;
+    font-size: 14px !important;
+    line-height: 15px !important;
     margin-bottom: 10px !important;
     font-family: "Nunito Sans", sans-serif !important;
 }
@@ -379,18 +379,9 @@ input[type="file"] {
     box-shadow: none !important
 }
 
-input:focus {
-    border: 1px solid #96c1ff !important;
-    border-radius: 16px !important;
-}
 
-input,
-.text-area-group {
-    &:hover {
-        border: 1px solid #96c1ff !important;
-        border-radius: 16px !important;
-    }
-}
+
+
 
 ::ng-deep .ui-autocomplete-multiple-container {
     &:hover {
@@ -443,6 +434,12 @@ input,
     display: flex !important;
 }
 
+::ng-deep .ui-autocomplete.ui-autocomplete-multiple .ui-autocomplete-multiple-container{
+    padding: 14px 23px !important;
+}
+
+
+
 ::ng-deep .ui-multiselect {
     background: #FFFFFF 0% 0% no-repeat padding-box !important;
     border: 1px solid #EDF1F8 !important;
@@ -459,7 +456,7 @@ input,
     }
 
     &:focus {
-        border: 1px solid #96c1ff !important;
+        border: .5px solid #96c1ff !important;
     }
 }
 
@@ -474,4 +471,40 @@ input,
 ::ng-deep .ui-multiselect-trigger {
     background-color: none !important;
     border-radius: 16px !important;
+}
+
+
+
+
+//////form-group focuse
+.form-group:focus {
+    border: 1px solid #96c1ff !important;
+    border-radius: 16px !important;
+    padding: 14px 23px;
+    border-radius: 16px;
+    line-height: 19px;
+    font-size: 16px;
+    font-family: "Nunito Sans", sans-serif !important;
+    box-sizing: inherit;
+    margin: 0;
+    &:hover {
+        border: none !important;
+    }
+}
+
+
+
+//////form-group hover
+.form-group {
+    &:hover {
+        border: 1px solid #96c1ff !important;
+        border-radius: 16px !important;
+        padding: 14px 23px;
+        border-radius: 16px;
+        line-height: 19px;
+        font-size: 16px;
+        font-family: "Nunito Sans", sans-serif !important;
+        box-sizing: inherit;
+        margin: 0;
+    }
 }

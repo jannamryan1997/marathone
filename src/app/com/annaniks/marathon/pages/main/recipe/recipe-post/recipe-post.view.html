@@ -66,11 +66,11 @@
     <form [formGroup]="recipeFormGroup">
         <div class="forms-group">
             <div class="form-group" [ngClass]="{'border':checkIsValid('title')}">
-                <label [ngClass]="{'form-lable':checkIsValid('title')}">Recipe Title</label>
+                <!-- <label [ngClass]="{'form-lable':checkIsValid('title')}">Recipe Title</label> -->
                 <input type="text" class="form-input w-100" placeholder="Type Title" formControlName="title">
             </div>
             <div class="form-group pt-15 pl-0 pr-0 pb-0 form-grup-redius">
-                <label>Ingridient</label>
+                <!-- <label>Ingridient</label> -->
                 <!-- <div class="form-group  d-flex">
                 <input type="text" class="form-input w-100" placeholder="Search Ingridient">
                 <span class="material-icons search-icon">
@@ -107,7 +107,7 @@
 
 
             <div class="form-group form-grup-redius">
-                <label>Caloris</label>
+                <!-- <label>Caloris</label> -->
                 <div class="checked  m-auto">
                     <input type="radio" class="radio" id="Auto Calcualted" name="form" value="Auto Calcualted" disabled>
                     <label for="male" class="label">Auto Calcualted</label>
@@ -173,7 +173,7 @@
 
             </div>
             <div class="form-group display-flex p-0 ">
-                <label>Serving</label>
+                <!-- <label>Serving</label> -->
                 <div class="caloris-content d-flex w-100 align-items-center">
                     <span class="material-icons">
                         room_service
@@ -188,7 +188,7 @@
             </div>
 
             <div class="form-group display-flex p-0 ">
-                <label>Cooking time</label>
+                <!-- <label>Cooking time</label> -->
                 <div class="caloris-content d-flex w-100 align-items-center">
                     <span class="material-icons">
                         query_builder
@@ -202,7 +202,7 @@
 
             </div>
             <div class="form-group pt-15 pl-0 pr-0 pb-0 form-grup-redius">
-                <label>Preparation Steps</label>
+                <!-- <label>Preparation Steps</label> -->
                 <div class="preparation" *ngFor="let control of preparationStepItem.controls; let ind=index">
                     <app-preparation-step [formControl]="preparationStepItem.controls[ind]" [index]="ind+1">
                     </app-preparation-step>
@@ -211,14 +211,14 @@
                         Step</span></button>
             </div>
             <div class="form-group form-grup-redius">
-                <label [ngClass]="{'form-lable':checkIsValid('information')}">Information</label>
+                <!-- <label [ngClass]="{'form-lable':checkIsValid('information')}">Information</label> -->
                 <textarea type="text" class="form-input w-100 information-input" placeholder="Type Recipe info here"
                     formControlName="information" [ngClass]="{'form-title':checkIsValid('information')}"></textarea>
 
             </div>
 
             <div class="form-group form-grup-redius">
-                <label>Tags</label>
+                <!-- <label>Tags</label> -->
                 <div class="d-flex justify-content-end">
                     <div class="tags w-100 d-flex">
                         <mat-form-field class="example-chip-list">

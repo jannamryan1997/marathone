@@ -101,18 +101,22 @@
                                                         <label class="label">Location</label>
                                                         <div class="form-group w-100">
                                                             <input type="text" class="form-input w-100"
-                                                                placeholder="location">
+                                                                placeholder="location" formControlName="location">
                                                         </div>
                                                     </div>
 
                                                 <div class="form-content w-100">
                                                     <label class="label">Languages</label>
-                                                    <!-- <p-autoComplete formControlName="languages" #autocomplete 
+                                                    <!-- <p-autoComplete formControlName="languages"  (optionSelected)="selected($event)"
                                                         [suggestions]="filteredCountriesMultiple"
                                                         (completeMethod)="filterCountryMultiple($event)" [minLength]="1"
                                                         placeholder="" field="name" [multiple]="true">
                                                     </p-autoComplete> -->
                                                     <p-multiSelect [options]="countries" formControlName="languages" optionLabel="name"></p-multiSelect>
+
+
+
+
                                                 </div>
 
                                        

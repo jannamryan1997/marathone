@@ -12,6 +12,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { SpecialtiesModal } from '../../../core/modals';
 
 
+
 @NgModule({
     declarations: [EditProfileView,SpecialtiesModal],
     imports: [

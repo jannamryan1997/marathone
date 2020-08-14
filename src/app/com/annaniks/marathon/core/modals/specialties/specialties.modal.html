@@ -11,9 +11,6 @@
             <mat-chip *ngFor="let offer of speciality" selectable="true" [selected]="isSelected(offer)" #ref="matChip"
                 (click)="toggleOffer(offer)"  [ngClass]="{'background-color':ref.selected}">
                 {{offer.name}}&nbsp;
-                <!-- <span >{{isSelected(offer) ? "close" : "add"}}
-                    close
-                    </span> -->
             </mat-chip>
         
         </mat-chip-list>

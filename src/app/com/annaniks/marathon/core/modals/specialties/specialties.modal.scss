@@ -1,13 +1,22 @@
 .speciality-content {
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 0.7px 10px 40px #5C687B4A;
+    border: 0.5px solid #E3ECFD;
+    border-radius: 30px;
+    opacity: 1;
+
     .speciality-container {
+        padding: 29px 32px 18px 30px;
         .header-content {
             justify-content: space-between;
+
             .title {
                 color: #45535c;
                 font-family: EncodeSans-SemiBold;
                 font-size: 18px;
                 line-height: 21px;
             }
+
             .icon {
                 cursor: pointer;
                 color: #9db3c9;
@@ -15,13 +24,19 @@
                 font-size: 25px;
             }
         }
+
         .speciality-item-content {
-            padding: 60px 0 40px 0;
+            padding: 40px 0 25px 0;
+        }
+        .blue-btn{
+            width: 135px;
+            justify-content: center;
+            padding: 10px 0;
         }
     }
 }
 
-::ng-deep .mat-chip  {
+::ng-deep .mat-chip {
     border: 1px solid #589cfe !important;
     border-radius: 18px !important;
     opacity: 1 !important;
@@ -35,20 +50,31 @@
     justify-content: center !important;
     display: flex !important;
     cursor: pointer !important;
-    padding: 17px 15px !important;
     position: unset !important;
-    &:hover{
-        background: #589cfe  !important;
+    padding: 17px 20px !important;
+    margin: 13px 4px !important;
+
+    &:hover {
+        background: #589cfe !important;
         color: #ffffff !important;
     }
 }
 
 
 
-.background-color{
+.background-color {
     background: #589CFE 0% 0% no-repeat padding-box !important;
     box-shadow: -4.36px 8px 6px #589BFD24 !important;
     border-radius: 18px !important;
     opacity: 1 !important;
     color: #ffff !important;
+}
+
+//host
+::ng-deep {
+    .mat-dialog-container {
+        padding: 0 !important;
+        box-shadow:none !important;
+     background: none !important;
+    }
 }
