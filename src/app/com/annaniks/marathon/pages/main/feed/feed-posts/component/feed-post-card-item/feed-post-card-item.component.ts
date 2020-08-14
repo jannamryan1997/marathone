@@ -68,12 +68,10 @@ export class FeedPostCardItemComponent implements OnInit {
             autoplaySpeed: 2000
         }
         this.user = this._userService.user;
-        console.log(this.feedItem);
         
     }
 
     ngOnInit() {
-        console.log(this.mode);
         
         if(this.mode == 'skeleton') return 
         this.time = moment(this.feedItem.timeStamp).fromNow();

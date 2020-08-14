@@ -30,7 +30,6 @@ export class LikeModal implements OnInit, OnDestroy {
 
     public _getLike(): void {
         this._likeService.getLike(this.feedId).subscribe((data: LikeResponseData) => {
-            console.log(data);
             this.likeItem = data.results;
 
             this.count = data.count;

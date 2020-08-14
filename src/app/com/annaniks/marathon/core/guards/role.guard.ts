@@ -19,8 +19,6 @@ export class RoleGuard implements CanActivate {
     ) { }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
-console.log(state,"kkkkkkkkkkkkk");
-
         const isAuthorized = this._userService.isAuthorized;
 
         if (!isAuthorized) {
