@@ -88,7 +88,49 @@ export class ChatService {
     private _cookieService: CookieService
   ) {
     // this.accountService.authenticationState.subscribe(value => {
-
+      if (this._cookieService.get('chatToken')) {
+        const token = this._cookieService.get('chatToken');
+        const downStreamRequestActionData = new ActionData();
+        downStreamRequestActionData.setAction(Action.ACTION_ONLINE);
+        const downStreamRequest = new ActionRequest();
+        downStreamRequest.setToken(token);
+        downStreamRequest.setData(downStreamRequestActionData);
+        // this.http.options('https://support.marathon.me/Chat/SingleDownStream').subscribe(()=>{
+  
+        
+        // downstream
+        const SingleDownStreamEnd = (code: grpc.Code, msg: string | undefined, trailers: grpc.Metadata) => { };
+        const SingleDownStreamMessage = (message: ActionResponse) => {
+          console.log('>>>>>>>>>>>>>>>>>>> ' + message.toString());
+          const currentValue = this.topicActions.value;
+          const existingTopics = new Set(currentValue.map(ta => ta.id));
+          const nonExistingTopics = new Set(
+            message
+              .getDataList()
+              .filter(dataListItem => !existingTopics.has(dataListItem.getTopic()))
+              .map(dataListItem => dataListItem.getTopic())
+          );
+          nonExistingTopics.forEach(ta => currentValue.push(new TopicActions(ta)));
+          currentValue.forEach(ta =>
+            message.getDataList().forEach(a => {
+              this.checkForMessage(a);
+              ta.acceptAction(a);
+            })
+          );
+  
+          this.topicActions.next(currentValue);
+        };
+  
+        grpc.invoke(Chat.SingleDownStream, {
+          onMessage: SingleDownStreamMessage,
+          onEnd: SingleDownStreamEnd,
+          host: this.grpcResourceUrl,
+          request: downStreamRequest,
+        // });
+      })
+      } else {
+        // https://stackoverflow.com/questions/37642589/how-can-we-detect-when-user-closes-browser/37642657
+      }
     // });
   }
 
@@ -106,49 +148,7 @@ export class ChatService {
     this.topicActions.next(currentValue);
   }
   public downStreamRequest() {
-    if (this._cookieService.get('chatToken')) {
-      const token = this._cookieService.get('chatToken');
-      const downStreamRequestActionData = new ActionData();
-      downStreamRequestActionData.setAction(Action.ACTION_ONLINE);
-      const downStreamRequest = new ActionRequest();
-      downStreamRequest.setToken(token);
-      downStreamRequest.setData(downStreamRequestActionData);
-      // this.http.options('https://support.marathon.me/Chat/SingleDownStream').subscribe(()=>{
-
-      
-      // downstream
-      const SingleDownStreamEnd = (code: grpc.Code, msg: string | undefined, trailers: grpc.Metadata) => { };
-      const SingleDownStreamMessage = (message: ActionResponse) => {
-        console.log('>>>>>>>>>>>>>>>>>>> ' + message.toString());
-        const currentValue = this.topicActions.value;
-        const existingTopics = new Set(currentValue.map(ta => ta.id));
-        const nonExistingTopics = new Set(
-          message
-            .getDataList()
-            .filter(dataListItem => !existingTopics.has(dataListItem.getTopic()))
-            .map(dataListItem => dataListItem.getTopic())
-        );
-        nonExistingTopics.forEach(ta => currentValue.push(new TopicActions(ta)));
-        currentValue.forEach(ta =>
-          message.getDataList().forEach(a => {
-            this.checkForMessage(a);
-            ta.acceptAction(a);
-          })
-        );
-
-        this.topicActions.next(currentValue);
-      };
-
-      grpc.invoke(Chat.SingleDownStream, {
-        onMessage: SingleDownStreamMessage,
-        onEnd: SingleDownStreamEnd,
-        host: this.grpcResourceUrl,
-        request: downStreamRequest,
-      // });
-    })
-    } else {
-      // https://stackoverflow.com/questions/37642589/how-can-we-detect-when-user-closes-browser/37642657
-    }
+   
   }
   queryTopics(): Observable<EntityArrayResponseType> {
     let headers = new HttpHeaders();

@@ -109,8 +109,6 @@ export class ChatViewComponent {
 
     loadAll(): void {
         this.chatService.queryTopics().subscribe((res: HttpResponse<ITopic[]>) => {
-            this.chatService.downStreamRequest()
-
             if (res && res.body) {
                 this.chatService.updateTopics(res.body);
                 for (let i = 0; i < res?.body?.length; i++) {
@@ -154,8 +152,6 @@ export class ChatViewComponent {
     getUserId(): number {
         let chatId = +this._cookieService.get('chatId');
         return chatId
-
-
     }
 
     isOnline(participant: IUser, topicSelected: ITopic): boolean {

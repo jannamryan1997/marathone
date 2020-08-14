@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from "@angular/core";
+import { Component, OnInit, Inject, ViewChild, ElementRef } from "@angular/core";
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { CookieService } from 'ngx-cookie';
 import { UserResponseData, Results, EducationData, ExperienceData } from '../../../core/models/user';
@@ -12,13 +12,14 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { SpecialtiesModal } from '../../../core/modals';
 import { MatDialog } from '@angular/material/dialog';
-
+import {MatAutocompleteSelectedEvent, MatAutocomplete} from '@angular/material/autocomplete';
 @Component({
     selector: "app-edit-profile",
     templateUrl: "edit-profile.view.html",
     styleUrls: ["edit-profile.view.scss"]
 })
 export class EditProfileView implements OnInit {
+    public removable = true;
     public user: UserResponseData;
     public role: string;
     public country: any;
@@ -44,6 +45,8 @@ export class EditProfileView implements OnInit {
     public routerUrl:string;
     public _unsbscribe=new Subject<void>();
     public maleTab:string="male";
+    @ViewChild('fruitInput') fruitInput: ElementRef<HTMLInputElement>;
+    @ViewChild('auto') matAutocomplete: MatAutocomplete;
     constructor(
         private _fb: FormBuilder,
         private _countryService: CountryService,
@@ -92,7 +95,7 @@ export class EditProfileView implements OnInit {
 
     private _setPatchValue(): void {
         
-        this.profileFormGroup.patchValue({
+        this.profileFormGroup.patchValue({    
             firstName: this.user.data.user.first_name,
             userName: this.user.data.user.last_name,
             status: this.user.data.status,
@@ -102,6 +105,7 @@ export class EditProfileView implements OnInit {
             linkedin: this.user.data.linkedin,
             location: this.user.data.location,
         });
+console.log( this.user.data.location);
 
 
         this.educationItem = [];
@@ -539,7 +543,17 @@ public openSpecialtiesModal():void{
         
     })
 }
+selected(event: MatAutocompleteSelectedEvent): void {
+    console.log('fdfdfdf');
+    this.countries.push(event.option.viewValue);
+    this.fruitInput.nativeElement.value = '';
+    this.profileFormGroup.value.languages.setValue(null);
+  }
+
+
 }
+
+
 
 
 
