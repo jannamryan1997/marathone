@@ -113,7 +113,9 @@ export class ChatService {
       const downStreamRequest = new ActionRequest();
       downStreamRequest.setToken(token);
       downStreamRequest.setData(downStreamRequestActionData);
+      // this.http.options('https://support.marathon.me/Chat/SingleDownStream').subscribe(()=>{
 
+      
       // downstream
       const SingleDownStreamEnd = (code: grpc.Code, msg: string | undefined, trailers: grpc.Metadata) => { };
       const SingleDownStreamMessage = (message: ActionResponse) => {
@@ -142,7 +144,8 @@ export class ChatService {
         onEnd: SingleDownStreamEnd,
         host: this.grpcResourceUrl,
         request: downStreamRequest,
-      });
+      // });
+    })
     } else {
       // https://stackoverflow.com/questions/37642589/how-can-we-detect-when-user-closes-browser/37642657
     }
@@ -154,13 +157,13 @@ export class ChatService {
       .get<ITopic[]>(this.topicsResourceUrl, { observe: 'response', headers: headers })
       .pipe(map((res: EntityArrayResponseType) => this.convertTopicDateArrayFromServer(res)));
   }
-  // sendOptionsRequiest() {
-  //   let headers = new HttpHeaders();
-  //   headers = headers.append('Authorization', 'Bearer ' + this._cookieService.get('chatToken'));
-  //   return this.http
-  //     .options<ITopic[]>(this.topicsResourceUrl, { observe: 'response', headers: headers })
+  sendOptionsRequiest() {
+    let headers = new HttpHeaders();
+    headers = headers.append('Authorization', 'Bearer ' + this._cookieService.get('chatToken'));
+    return this.http
+      .options<ITopic[]>(this.topicsResourceUrl, { observe: 'response', headers: headers })
 
-  // }
+  }
   queryMessages(id: number): Observable<EntityArrayResponseType> {
     let headers = new HttpHeaders();
     headers = headers.append('Authorization', 'Bearer ' + this._cookieService.get('chatToken'));

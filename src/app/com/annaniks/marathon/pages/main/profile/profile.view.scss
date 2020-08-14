@@ -100,14 +100,13 @@
                     background: #FFFFFF 0% 0% no-repeat padding-box;
                     box-shadow: 2px 30px 43px #5C687B36;
                     border: 0.5px solid #bbcddf;
-                    opacity: 1;
                     position: absolute;
                     border-radius: 10px;
                     right: 50px;
                     z-index: 99;
                     top: 260px;
                     opacity: 0;
-
+                    // display: none;
                     .social-media-description {
                         display: flex;
                         flex-direction: column;
@@ -193,6 +192,7 @@ input[type="file"] {
     }
     .social-media {
         opacity: 1 !important;
+        display: block !important;
     }
 }
 }

@@ -8,6 +8,7 @@ import { UserService } from '../../../core/services/user.service';
 import { JhiEventManager } from 'ng-jhipster';
 import { Action } from './generated/chat_pb';
 import { TopicMessage, ITopicMessage } from '../../../core/models/topic-message';
+import { CookieService } from 'ngx-cookie';
 
 @Component({
     selector: 'app-chat-view',
@@ -30,7 +31,8 @@ export class ChatViewComponent {
         protected chatService: ChatService,
         protected eventManager: JhiEventManager,
         private fb: FormBuilder,
-        private _userService: UserService
+        private _userService: UserService,
+        private _cookieService: CookieService
     ) {
         this.topicMessages = new Map<number, TopicMessage[]>();
         this.sendingMessage = false;
@@ -101,6 +103,7 @@ export class ChatViewComponent {
             }
             return 0;
         });
+        console.log(currentTopicMessages);
         this.topicMessages[topicId] = currentTopicMessages;
     }
 
@@ -148,9 +151,10 @@ export class ChatViewComponent {
         return res.join(' , ');
     }
 
-    getUserId(): number {        
-        if (this._userService.user)
-            return this._userService.user.data.user.id
+    getUserId(): number {
+        let chatId = +this._cookieService.get('chatId');
+        return chatId
+
 
     }
 
@@ -160,7 +164,7 @@ export class ChatViewComponent {
         }
         for (let index = 0; index < this.topicActions.length; index++) {
             if (this.topicActions[index].id === topicSelected.id && this.topicActions[index].actions[participant.id]) {
-                
+
                 return this.topicActions[index].actions[participant.id] >= Action.ACTION_ONLINE;
             }
         }

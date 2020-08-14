@@ -42,13 +42,6 @@ export class UserService {
         return this._httpClient.post<any>(this._baseUrl + '/feed/create', body);
     }
     public getTokenForChat(id: number, role, token: string) {
-        // let headers = new HttpHeaders();
-        // headers = headers.append('Authorization', null);
-        // return this._httpClient.post<any>('https://support.marathon.me/api/client/forward/', {
-        //     id: id,
-        //     type: role,
-        //     token: token
-        // }        );
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
         // var raw = JSON.stringify({ "type": 1, "id": 91, "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMjYsImp0aSI6Ijc3YzQyNTA3ZGQyOTQxNjk5YmE3NmJmOTVlNzQxNjg4IiwiZXhwIjoxNjU3MTM3MjA4LCJ0b2tlbl90eXBlIjoiYWNjZXNzIn0.bZfJTOgxyoRcIsHPju5w3WcYC8Wh2j5XkTCbX7cU0-k" });
@@ -68,7 +61,10 @@ export class UserService {
                 if (result) {
                     let data = JSON.parse(result);
                     if (data && data.token) {
+                        console.log(data);
+                        
                         this._cookieService.put('chatToken', data.token);
+                        this._cookieService.put('chatId',data.id)
                     }
                 }
             })
