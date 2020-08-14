@@ -37,6 +37,10 @@
     cursor: pointer !important;
     padding: 17px 15px !important;
     position: unset !important;
+    &:hover{
+        background: #589cfe  !important;
+        color: #ffffff !important;
+    }
 }
 
 

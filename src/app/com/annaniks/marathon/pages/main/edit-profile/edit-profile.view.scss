@@ -56,7 +56,7 @@
                 box-shadow: 2px 30px 43px #5C687B17;
                 background: #ffff;
                 padding: 10px 0;
-            
+
                 .profile-header-content {
                     padding: 0 20px;
 
@@ -260,10 +260,16 @@ input[type="file"] {
         .form-input {
             margin: 0;
             padding: 14px 23px;
-            @include text(16px, 19px, #45535C, NunitoSans-Regular !important);
+            font-size: 16px;
+            line-height: 19px;
+            color: #45535C;
+            font-family: "Nunito Sans", sans-serif !important;
 
             &::placeholder {
-                @include text(16px, 19px, #BBCDDF, NunitoSans-Regular !important);
+                font-size: 16px;
+                line-height: 19px;
+                color: #BBCDDF;
+                font-family: "Nunito Sans", sans-serif !important;
             }
         }
     }
@@ -326,7 +332,7 @@ input[type="file"] {
 /////ng-deep
 
 ::ng-deep .ui-autocomplete-token {
-    background: #589CFE  !important;
+    background: #589CFE !important;
     border-radius: 18px !important;
     opacity: 1 !important;
     padding: 10px !important;
@@ -335,7 +341,7 @@ input[type="file"] {
     font-size: 16px !important;
     line-height: 19px !important;
     margin-bottom: 10px !important;
-    font-family: NunitoSans-Regular !important;
+    font-family: "Nunito Sans", sans-serif !important;
 }
 
 ::ng-deep .ui-autocomplete-token-icon {
@@ -359,33 +365,35 @@ input[type="file"] {
     height: auto !important;
     width: 100% !important;
     margin-top: 10px !important;
-    .ui-state-focus{
-    &::placeholder {
-        @include text(16px, 19px, #BBCDDF, NunitoSans-Regular !important);
+
+    .ui-state-focus {
+        &::placeholder {
+            @include text(16px, 19px, #BBCDDF, NunitoSans-Regular !important);
+        }
+
     }
- 
-}
 }
 
 ::ng-deep .ui-autocomplete .ui-state-focus {
-    border:  1px solid #96c1ff !important;
+    border: 1px solid #96c1ff !important;
     box-shadow: none !important
-} 
-
-input:focus{
-border: 1px solid #96c1ff !important;
-border-radius: 16px !important;
 }
 
-input,.text-area-group{
-    &:hover{
-        border: 1px solid #96c1ff !important;  
+input:focus {
+    border: 1px solid #96c1ff !important;
+    border-radius: 16px !important;
+}
+
+input,
+.text-area-group {
+    &:hover {
+        border: 1px solid #96c1ff !important;
         border-radius: 16px !important;
     }
 }
 
 ::ng-deep .ui-autocomplete-multiple-container {
-    &:hover{
+    &:hover {
         border: 1px solid #96c1ff !important;
     }
 }
@@ -414,7 +422,7 @@ input,.text-area-group{
         border-radius: 3px;
         display: inline-flex;
         margin-right: .5rem;
-        background-color:#589CFE ;
+        background-color: #589CFE;
         color: #ffff;
 
         img.flag {
@@ -430,10 +438,12 @@ input,.text-area-group{
 ::ng-deep .ui-chkbox {
     width: 20px !important;
 }
-::ng-deep .ui-multiselect-item{
+
+::ng-deep .ui-multiselect-item {
     display: flex !important;
 }
-::ng-deep .ui-multiselect{
+
+::ng-deep .ui-multiselect {
     background: #FFFFFF 0% 0% no-repeat padding-box !important;
     border: 1px solid #EDF1F8 !important;
     border-radius: 16px !important;
@@ -443,20 +453,25 @@ input,.text-area-group{
     padding: 0 !important;
     margin-top: 10px !important;
     box-shadow: none !important;
-    &:hover{
+
+    &:hover {
         border: 1px solid #96c1ff !important;
     }
-    &:focus{
+
+    &:focus {
         border: 1px solid #96c1ff !important;
     }
 }
 
-::ng-deep .ui-multiselect-label{
+::ng-deep .ui-multiselect-label {
     padding: 14px 23px !important;
-    @include text(16px, 19px, #45535C, NunitoSans-Regular !important);
+    font-size: 16px;
+    line-height: 19px;
+    color: #45535C;
+    font-family: "Nunito Sans", sans-serif !important;
 }
 
-::ng-deep .ui-multiselect-trigger{
-background-color: none !important;
-border-radius: 16px !important;
+::ng-deep .ui-multiselect-trigger {
+    background-color: none !important;
+    border-radius: 16px !important;
 }
