@@ -240,7 +240,6 @@ export class RecipePostView implements OnInit {
 
                 this._userService.uploadVideoFile(formData)
                     .subscribe((data: UploadFileResponse) => {
-                        console.log(data);
 
                         this.slides.push({ img: this._fileUrl + data.file_name });
                         this.showCarousel = true;
@@ -267,9 +266,6 @@ export class RecipePostView implements OnInit {
 
 
     public postRecipe(): void {
-        console.log(this.recipeFormGroup.value.calories);
-        console.log(this.slides);
-
         this.loading = true;
         let receipt = {
             title: this.recipeFormGroup.value.title,

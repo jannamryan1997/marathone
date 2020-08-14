@@ -528,10 +528,14 @@ public openSpecialtiesModal():void{
         }
     })
     dialogRef.afterClosed().subscribe((data)=>{
-        this.profileFormGroup.patchValue({
-            speciality:data,
-        })
-        
+        if(data){
+            this.profileFormGroup.patchValue({
+                speciality:data,
+            })
+            console.log(data);
+            
+        }
+   
         
     })
 }

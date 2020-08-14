@@ -79,7 +79,6 @@ export class GalleryModal implements OnInit, OnDestroy {
 
             if (parent) {
                 this.comments = this.comments.map((val) => {
-                    console.log(this.comments);
 
                     if (val.url == parent) {
                         val.isShowSubMessages = true

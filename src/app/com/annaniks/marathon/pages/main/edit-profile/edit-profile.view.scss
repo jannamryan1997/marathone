@@ -355,7 +355,8 @@ input[type="file"] {
     border: 1px solid #EDF1F8 !important;
     border-radius: 16px !important;
     opacity: 1 !important;
-    height: 50px !important;
+    min-height: 50px !important;
+    height: auto !important;
     width: 100% !important;
     margin-top: 10px !important;
     .ui-state-focus{
