@@ -39,7 +39,7 @@
 
         </div>
         <div class="main-container">
-            <p class="title">{{receipt?.title}}.</p>
+            <p class="title title-description">{{receipt?.title}}.</p>
             <div class="d-flex align-items-center mt-3">
                 <div class="d-flex text-align-centre">
                     <p class="name mr-2">by </p>
@@ -100,7 +100,7 @@
 
             </div>
             <div class="ingridient-content">
-                <p class="title">Ingredients</p>
+                <p class="title ingridient-description">Ingredients</p>
                 <div class="ingridient" *ngFor="let item of receipt?.ingridient">
                     <div class="ingridient-item d-flex" *ngIf="item">
                         <p class="ingridient-title">{{item?.name}}</p>
@@ -112,7 +112,7 @@
             </div>
             <div class="instruction-content">
 
-                <p class="title">Instructions</p>
+                <p class="title  ingridient-description">Instructions</p>
                 <div *ngFor="let item of receipt?.preparationSteps;let ind=index">
                     <div class="instruction-item d-flex" *ngIf="item">
                         <p class="number">{{ind+1}}</p>

@@ -9,12 +9,12 @@
     background: #ffff;
     padding: 0 10px;
     position: relative;
-        height: 100vh;
+    height: 100vh;
 
     .chicken-header {
         position: relative;
         background: #FFFFFF 0% 0% no-repeat padding-box;
-        box-shadow: 2px 30px 43px  #5C687B17;
+        box-shadow: 2px 30px 43px #5C687B17;
 
         .chicken-image {
             height: 360px;
@@ -42,10 +42,10 @@
             border-top: 1px solid #F1F1F6;
 
             .title {
-                font-size: 16px;
-                line-height: 22px;
-                color: #45535C;
-                font-family: 'Nunito Sans', sans-serif;
+                font-size: 16px !important;
+                line-height: 22px !important;
+                color: #45535C !important;
+                font-family: 'Nunito Sans', sans-serif !important;
             }
 
             .name {
@@ -110,7 +110,7 @@
                 border-top: 1px solid #F1F1F6;
 
                 .title {
-                    @include text(21px, 25px, #589CFE,  EncodeSans-SemiBold);
+                    @include text(21px, 25px, #589CFE, EncodeSans-SemiBold);
                     margin: 20px 0;
                 }
 
@@ -263,4 +263,18 @@
     left: 0;
     z-index: 1;
     height: auto;
+}
+
+
+.title-description {
+    font-size: 16px !important;
+    line-height: 22px !important;
+    color: #45535C !important;
+    font-family: 'Nunito Sans', sans-serif !important;
+}
+
+
+.ingridient-description {
+    @include text(21px, 25px, #589CFE, EncodeSans-SemiBold !important);
+    margin: 20px 0;
 }
