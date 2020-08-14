@@ -1,0 +1,25 @@
+<div class="speciality-content">
+    <div class="speciality-container">
+        <div class="header-content d-flex">
+            <p class="title">Choose sports directions</p>
+            <span class="material-icons icon" (click)="closeModal()">
+                close
+                </span>
+        </div>
+     <div class="speciality-item-content">
+        <mat-chip-list [(ngModel)]="selectedOffers" multiple>
+            <mat-chip *ngFor="let offer of speciality" selectable="true" [selected]="isSelected(offer)" #ref="matChip"
+                (click)="toggleOffer(offer)"  [ngClass]="{'background-color':ref.selected}">
+                {{offer.name}}&nbsp;
+                <!-- <span >{{isSelected(offer) ? "close" : "add"}}
+                    close
+                    </span> -->
+            </mat-chip>
+        
+        </mat-chip-list>
+     </div>
+     <div class="button-content d-flex justify-content-end">
+         <button class="blue-btn btn-item" (click)="sentselectedOffers()">Apply</button>
+     </div>
+    </div>
+</div>

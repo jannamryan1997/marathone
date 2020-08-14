@@ -20,7 +20,6 @@ export class ProfileView implements OnInit {
     private unsubscribe$ = new Subject<void>();
     public role: string;
     public languageName: string;
-    public showSocialMedium: boolean = false;
     public showMore: boolean = false;
     public showProfile: boolean = false;
     public router: boolean = false;
@@ -141,20 +140,7 @@ export class ProfileView implements OnInit {
     }
 
 
-
-    public onClickShowSocialMedium(): void {
-        if (this.showMore === true) {
-            this.showMore = false;
-
-        }
-        this.showSocialMedium = !this.showSocialMedium;
-
-    }
     public onClickShowMore(): void {
-        if (this.showSocialMedium === true) {
-            this.showSocialMedium = false;
-
-        }
         this.showMore = !this.showMore;
     }
     public checkIsMe() {
@@ -189,7 +175,6 @@ export class ProfileView implements OnInit {
 
     public onClickedOutside(event): void {
         this.showMore = false;
-        this.showSocialMedium = false;
     }
 
     public copyUrl(): void {

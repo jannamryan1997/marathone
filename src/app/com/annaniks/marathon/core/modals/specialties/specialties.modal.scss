@@ -1,0 +1,50 @@
+.speciality-content {
+    .speciality-container {
+        .header-content {
+            justify-content: space-between;
+            .title {
+                color: #45535c;
+                font-family: EncodeSans-SemiBold;
+                font-size: 18px;
+                line-height: 21px;
+            }
+            .icon {
+                cursor: pointer;
+                color: #9db3c9;
+                opacity: 1;
+                font-size: 25px;
+            }
+        }
+        .speciality-item-content {
+            padding: 60px 0 40px 0;
+        }
+    }
+}
+
+::ng-deep .mat-chip  {
+    width: 113px !important;
+    height: 35px !important;
+    border: 1px solid #589cfe !important;
+    border-radius: 18px !important;
+    opacity: 1 !important;
+    color: #589cfe !important;
+    font-size: 14px !important;
+    line-height: 16px !important;
+    font-family: EncodeSans-SemiBold !important;
+    padding: 10px 0;
+    background: #ffff !important;
+    align-items: center !important;
+    text-align: center !important;
+    justify-content: center !important;
+    display: flex !important;
+}
+
+
+
+.background-color{
+    background: #589CFE 0% 0% no-repeat padding-box !important;
+    box-shadow: -4.36px 8px 6px #589BFD24 !important;
+    border-radius: 18px !important;
+    opacity: 1 !important;
+    color: #ffff !important;
+}

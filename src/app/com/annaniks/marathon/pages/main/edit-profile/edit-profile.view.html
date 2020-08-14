@@ -27,22 +27,8 @@
                     </div>
 
                     <div class="btn-content d-flex align-items-center">
-                        <button class="info-btn btn-item ml-2 mr-2" routerLink="/edit-profile"
-                            routerLinkActive="active-btn" (click)="update()">Save Profile
-                            <span class="ml-2 material-icons">
-                                create
-                            </span>
-                        </button>
-                        <button class="info-btn btn-item btn-radius mr-2">
-                            <span class="material-icons icon">
-                                insert_comment
-                            </span>
-                        </button>
-                        <button class="info-btn btn-item btn-radius ml-2 mr-2" (click)="onClickShowSocialMedium()"
-                            [ngClass]="{'active-btn':showSocialMedium}">
-                            <span class="material-icons icon">
-                                alternate_email
-                            </span>
+                        <button class="save-btn ml-2 mr-2" routerLink="/edit-profile" routerLinkActive="active-btn"
+                            (click)="update()">Save
                         </button>
                         <button class="info-btn btn-item btn-radius" (click)="onClickShowMore()"
                             [ngClass]="{'active-btn':showMore}">
@@ -50,23 +36,6 @@
                                 more_horiz
                             </span>
                         </button>
-                    </div>
-                </div>
-                <div class="social-media" *ngIf="showSocialMedium">
-                    <p> <i class="arrow up"></i></p>
-                    <div class="social-media-description">
-                        <a href="{{user?.data?.instagram}}" target="blank">
-                            <img src="assets/images/social/inst.png.png" class="social-image mt-0" alt="Cinque Terre">
-                        </a>
-                        <a href="{{user?.data?.facebook}}" target="blank">
-                            <img src="assets/images/social/facebook.png" class="social-image" alt="Cinque Terre">
-                        </a>
-                        <a href="{{user?.data?.linkedin}}" target="blank">
-                            <img src="assets/images/social/linkedin.png.png" class="social-image" alt="Cinque Terre">
-                        </a>
-                        <a href="{{user?.data?.youtube}}" target="blank">
-                            <img src="assets/images/social/youtube.jpg" class="social-image" alt="Cinque Terre">
-                        </a>
                     </div>
                 </div>
                 <div class="more-content" *ngIf="showMore">
@@ -87,162 +56,113 @@
                                         <div class="profile-container">
                                             <form [formGroup]="profileFormGroup">
                                                 <div class="display-flex">
-                                                    <div class="form-group">
-                                                        <label>First Name</label>
-                                                        <input type="text" class="form-input w-100"
-                                                            formControlName="firstName" placeholder="">
+                                                    <div class="form-content">
+                                                        <label class="label">First Name</label>
+                                                        <div class="form-group">
+                                                            <input type="text" class="form-input w-100"
+                                                                formControlName="firstName" placeholder="First Name">
+                                                        </div>
                                                     </div>
-                                                    <div class="form-group">
-                                                        <label>User Name</label>
+                                                    <div class="form-content">
+                                                        <label class="label">Last Name</label>
+                                                        <div class="form-group">
+                                                            <input type="text" class="form-input w-100"
+                                                                formControlName="userName" placeholder="Last Name">
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+
+                                                <div class="form-content w-100">
+                                                    <label class="label">User Name</label>
+                                                    <div class="form-group w-100">
                                                         <input type="text" class="form-input w-100"
-                                                            formControlName="userName" placeholder="">
+                                                            placeholder="User Name">
                                                     </div>
                                                 </div>
-                                                <div class="form-group">
-                                                    <label>Location</label>
-                                                    <input type="text" class="form-input w-100"
-                                                        formControlName="location" placeholder="">
+
+
+                                                <div class="form-content w-100">
+                                                    <label class="label">Sex</label>
+                                                    <div class="d-flex" [ngSwitch]="maleTab">
+                                                        <button class="sex-btn" (click)="onClickMaleTab('male')"
+                                                            [ngClass]="{'sex-active-btn':maleTab==='male'}">
+                                                            Male
+                                                        </button>
+                                                        <button class="sex-btn ml-3" (click)="onClickMaleTab('female')"
+                                                            [ngClass]="{'sex-active-btn':maleTab==='female'}">
+                                                            Female
+                                                        </button>
+                                                    </div>
                                                 </div>
-                                                <div class="autocomplete form-grup-redius">
-                                                    <label>Languages</label>
-                                                    <p-autoComplete class="w-100" formControlName="languages"
+
+                                                <div class="form-content w-100">
+                                                    <label class="label">Location</label>
+                                                    <div class="form-group w-100">
+                                                        <input type="text" class="form-input w-100"
+                                                            placeholder="location">
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-content w-100">
+                                                    <label class="label">Languages</label>
+                                                    <!-- <p-autoComplete formControlName="languages" #autocomplete 
                                                         [suggestions]="filteredCountriesMultiple"
                                                         (completeMethod)="filterCountryMultiple($event)" [minLength]="1"
                                                         placeholder="" field="name" [multiple]="true">
-                                                    </p-autoComplete>
+                                                    </p-autoComplete> -->
+                                                    <p-multiSelect [options]="countries" formControlName="languages"
+                                                        optionLabel="name"></p-multiSelect>
                                                 </div>
 
 
 
-
-                                                <div class="form-group  form-grup-redius">
-                                                    <label>Status</label>
-                                                    <textarea type="text" class="form-input w-100 text-area"
-                                                        formControlName="status"></textarea>
-                                                </div>
-                                                <div class="autocomplete">
-                                                    <label>Speciality</label>
-                                                    <p-autoComplete class="w-100 form-grup-redius"
+                                                <div class="form-content w-100">
+                                                    <label class="label">Specialties</label>
+                                                    <p-autoComplete (click)="openSpecialtiesModal()"
                                                         formControlName="speciality"
                                                         [suggestions]="filteredSpecialitesMultiple"
                                                         (completeMethod)="filterSpecialitypMultiple($event)"
                                                         [minLength]="1" placeholder="" field="name" [multiple]="true">
                                                     </p-autoComplete>
                                                 </div>
-                                                <div class="form-group d-flex  flex-column form-grup-redius">
-                                                    <label>Social Accounts</label>
-                                                    <div class="display-flex">
-                                                        <div class="link-form">
-                                                            <label class="lable">Facebook</label>
-                                                            <input type="text" class="form-group-link w-100"
-                                                                formControlName="facebook" placeholder="Insert Link">
-                                                        </div>
-                                                        <div class="link-form">
-                                                            <label class="lable">Instagram</label>
-                                                            <input type="text" class="form-group-link w-100 "
-                                                                formControlName="instagram" placeholder="Insert Link">
-                                                        </div>
-                                                    </div>
-                                                    <div class="display-flex">
-                                                        <div class="link-form">
-                                                            <label class="lable">Linkedin</label>
-                                                            <input type="text" class="form-group-link w-100"
-                                                                formControlName="linkedin" placeholder="Insert Link">
-                                                        </div>
-                                                        <div class="link-form">
-                                                            <label class="lable">Youtube</label>
-                                                            <input type="text" class="form-group-link w-100 "
-                                                                formControlName="youtube" placeholder="Insert Link">
-                                                        </div>
-                                                    </div>
 
+                                                <div class="form-content w-100">
+                                                    <label class="label">About Yourself</label>
+                                                    <div class="form-group w-100 text-area-group">
+                                                        <textarea type="text" class="form-input  about-form w-100"
+                                                            placeholder="Tell us about your achievements"
+                                                            formControlName="status">
+                                                                    </textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="form-content w-100">
+                                                    <label class="label">Social Accounts</label>
+                                                    <div class="form-group w-100">
+                                                        <input type="text" class="form-input w-100"
+                                                            placeholder="Facebook link" formControlName="facebook">
+                                                    </div>
+                                                </div>
+                                                <div class="form-content w-100">
+                                                    <div class="form-group w-100">
+                                                        <input type="text" class="form-input w-100"
+                                                            placeholder="Instagram link" formControlName="instagram">
+                                                    </div>
                                                 </div>
 
-                                                <!-- <div class="form-group about-form form-grup-redius"
-                                                    *ngIf="role=='coach'">
-                                                    <label>About</label>
-                                                    <textarea type="text" class="form-input w-100 text-area"
-                                                        formControlName="about" placeholder=""></textarea>
-                                                </div> -->
-                                                <!-- <div class="form-group about-form form-grup-redius"
-                                                    *ngIf="role=='coach'">
-                                                    <label>Certificates</label>
-                                                    <app-information [profileCertificates]="true"
-                                                        *ngFor="let item of certificates;let ind=index"
-                                                        [certificates]="item"
-                                                        (deleted)="removeCerticatesItem($event,ind,item)">
-                                                    </app-information>
-
-                                                    <div class="add-certificates display-flex">
-
-                                                        <div class="add-file d-flex">
-                                                            <input class="" type="file" id="file1" name="avatar1"
-                                                                accept="image/png,image/jpeg"
-                                                                (change)="setCeriticatesPhoto($event)">
-                                                            <div class="d-flex m-auto">
-                                                                <label class="icon-btn d-flex m-auto" for="file1">
-                                                                    <span class="material-icons m-auto"
-                                                                        *ngIf="!certificatesImage">
-                                                                        insert_drive_file
-                                                                    </span>
-                                                                    <img *ngIf="certificatesImage"
-                                                                        [src]="_fileUrl+certificatesImage"
-                                                                        class="choose-image">
-                                                                </label>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="form-group d-flex type-form-group">
-                                                            <input type="text" class="form-input w-100"
-                                                                formControlName="certificatesLocation"
-                                                                placeholder="Type Cerificate Information">
-                                                            <button (click)="addCertificates()" class="add-icon"
-                                                                [disabled]="profileFormGroup.get('certificatesLocation').invalid">
-                                                                <span class="material-icons">
-                                                                    add
-                                                                </span>
-                                                            </button>
-
-                                                        </div>
-
-
+                                                <div class="form-content w-100">
+                                                    <div class="form-group w-100">
+                                                        <input type="text" class="form-input w-100"
+                                                            placeholder="Linkedin link" formControlName="linkedin">
                                                     </div>
-                                                </div> -->
+                                                </div>
 
-                                                <!-- <div class="form-group about-form form-grup-redius"
-                                                    *ngIf="role=='coach'">
-                                                    <label>Education</label>
-                                                    <app-education [profileEducation]="true"
-                                                        *ngFor="let item of education.controls,let ind=index"
-                                                        [education]="item"
-                                                        (deleted)="removeEducationItem($event,ind,item)"
-                                                        [formControl]="education.controls[ind]"></app-education>
-                                                    <button class="add-btn d-flex w-100"><span class="m-auto btn-text"
-                                                            (click)="addEducatin()">Add more</span></button>
-                                                </div> -->
-
-                                                <!-- <div class="form-group about-form form-grup-redius"
-                                                    *ngIf="role=='coach'">
-                                                    <label>Experience</label>
-                                                    <app-experience [profileExperience]="true"
-                                                        *ngFor="let item of experience.controls,let ind=index"
-                                                        [experience]="item"
-                                                        (deleted)="removeExperianceItem($event,ind,item)"
-                                                        [formControl]="experience.controls[ind]">
-                                                    </app-experience>
-                                                    <button class="add-btn d-flex w-100"><span class="m-auto btn-text"
-                                                            (click)="addExperience()">Add more</span></button>
-                                                </div> -->
                                             </form>
-                                            <div class="d-flex">
-                                                    <button class="active-btn btn-item ml-2 mr-2"
-                                                     (click)="update()">Save Profile
-                                                    <span class="ml-2 material-icons">
-                                                        create
-                                                    </span>
-                                                </button>
+                                            <div class="btn-container d-flex justify-content-end">
+                                                <button class="save-btn ml-2 mr-2" (click)="update()">Save</button>
                                             </div>
-                                          
+
                                         </div>
                                     </div>
                                 </div>

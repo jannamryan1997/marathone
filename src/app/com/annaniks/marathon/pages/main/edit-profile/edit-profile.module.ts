@@ -5,12 +5,15 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {AutoCompleteModule} from 'primeng/autocomplete';
 import { SharedModule } from '../../../shared/shared.module';
-
+import {MultiSelectModule} from 'primeng/multiselect';
 
 import {MatChipsModule} from '@angular/material/chips';
-import {MatAutocompleteModule} from '@angular/material/autocomplete'
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { SpecialtiesModal } from '../../../core/modals';
+
+
 @NgModule({
-    declarations: [EditProfileView],
+    declarations: [EditProfileView,SpecialtiesModal],
     imports: [
         EditProfileRoutingModule,
         CommonModule,
@@ -19,8 +22,10 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete'
         AutoCompleteModule,
         MatChipsModule,
         MatAutocompleteModule,
+        MultiSelectModule,
         SharedModule],
-    providers:[]
+    providers:[],
+    entryComponents:[SpecialtiesModal]
 })
 
 export class EditProfileModule {

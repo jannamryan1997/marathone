@@ -101,7 +101,6 @@ export class ChatViewComponent {
             }
             return 0;
         });
-        console.log(currentTopicMessages);
         this.topicMessages[topicId] = currentTopicMessages;
     }
 

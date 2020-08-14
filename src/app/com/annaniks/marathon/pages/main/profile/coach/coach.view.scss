@@ -13,7 +13,8 @@
     // border-radius: 0px 0px 15px 15px;
     opacity: 1;
     width: 100%;
-    .main-content{
+
+    .main-content {
         padding: 0 24px;
         background: #FFFFFF 0% 0% no-repeat padding-box;
         box-shadow: 2px 30px 43px #5C687B17;
@@ -41,9 +42,9 @@
             // width: 33.333333%;s
 
             .item-title {
-                @include text(16px, 20px, #45535c, EncodeSans-Medium);
+                @include text(18px, 25px, #45535c, EncodeSans-Medium);
                 display: inline-block;
-                width: 140px;
+                width: 190px;
                 white-space: nowrap;
                 overflow: hidden !important;
                 text-overflow: ellipsis;
@@ -58,6 +59,9 @@
 
             .country-name {
                 @include text(12px, 19px, #45535c, EncodeSans-Medium);
+                overflow: hidden;
+                width: 22px;
+                white-space: nowrap;
             }
         }
     }
@@ -69,20 +73,6 @@
             text-align: center;
             text-align: center;
             display: flex;
-
-            &::after {
-                display: inline-block;
-                content: "";
-                border-right: 1px solid #d1e3fc;
-                height: 50px;
-                margin-left: 30px;
-            }
-
-            &:last-child {
-                &::after {
-                    content: none !important;
-                }
-            }
 
             .count {
                 @include text(24px, 28px, #589cfe, EncodeSans-Bold);
@@ -129,7 +119,7 @@
 }
 
 .review-description {
-     padding: 0 20px;
+    padding: 0 20px;
 
     .review-text {
         @include text(17px, 20px, #589cfe, EncodeSans-Medium);
@@ -198,6 +188,7 @@
 .gallery-content {
     flex-wrap: wrap;
     display: flex;
+
     .gallery-item {
         width: 33.3333333%;
         padding: 2px;
@@ -213,13 +204,15 @@
     opacity: 1;
     padding: 30px !important;
 }
-.star-image{
+
+.star-image {
     width: 23px;
 }
-.information-header{
+
+.information-header {
     margin: 0 24px;
 }
 
-.review-header{
+.review-header {
     padding: 30px 0 0 0 !important;
 }
