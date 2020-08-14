@@ -10,6 +10,8 @@ import { Location } from '@angular/common';
 import { ProfileService } from '../../../core/services/profile.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { SpecialtiesModal } from '../../../core/modals';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
     selector: "app-edit-profile",
@@ -33,12 +35,10 @@ export class EditProfileView implements OnInit {
     public experience = new FormArray([]);
     public certificates: CertificateData[] = [];
     public certificatesImage: string;
-    public languages = [];
     public speciality = [];
     public url = [];
     public spacialityUrl = [];
     public countries = [];
-    public leng = [];
     public educationItem: EducationData[] = [];
     public experienceItem:ExperienceData[]=[];
     public routerUrl:string;
@@ -51,6 +51,7 @@ export class EditProfileView implements OnInit {
         private _userService: UserService,
         private _profileService: ProfileService,
         private _location: Location,
+        private _dialog:MatDialog,
 
         @Inject("FILE_URL") public _fileUrl: string,
     ) {
@@ -93,7 +94,7 @@ export class EditProfileView implements OnInit {
         
         this.profileFormGroup.patchValue({
             firstName: this.user.data.user.first_name,
-            userName: this.user.data.slug,
+            userName: this.user.data.user.last_name,
             status: this.user.data.status,
             facebook: this.user.data.facebook,
             youtube: this.user.data.youtube,
@@ -221,8 +222,6 @@ export class EditProfileView implements OnInit {
             this._userService.putCoatch(this._userService.user.data.id, this._userService.user.data)
             .pipe(takeUntil(this._unsbscribe))
                 .subscribe((data) => {
-                    console.log(this._userService.user.data,"hhhhhhhhhhhhhs");
-                    
                     this._userService.getCoatch().subscribe((data) => {
                         if (type === 'avatar') {
                             this.localImage = this._fileUrl + data.data.avatar;
@@ -307,7 +306,6 @@ export class EditProfileView implements OnInit {
         this._userService.putCoatch(this._userService.user.data.id, this.user.data)
         .pipe(takeUntil(this._unsbscribe))
             .subscribe((data) => {
-                console.log(this.user.data);
                 this._userService.getCoatch().subscribe((data) => {
                     
                     this.user.data = data.data;
@@ -521,9 +519,22 @@ export class EditProfileView implements OnInit {
     public onClickMaleTab(event):void{
         this.maleTab=event;
     }
-    public focus(autocomplete) {
-        autocomplete.handleDropdownClick()
-    }
+   
+public openSpecialtiesModal():void{
+    const dialogRef=this._dialog.open(SpecialtiesModal,{
+        width:" 520px",
+        data:{
+            data:this.speciality,
+        }
+    })
+    dialogRef.afterClosed().subscribe((data)=>{
+        this.profileFormGroup.patchValue({
+            speciality:data,
+        })
+        
+        
+    })
+}
 }
 
 

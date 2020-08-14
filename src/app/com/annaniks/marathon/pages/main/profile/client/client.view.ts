@@ -205,7 +205,7 @@ export class ClientView implements OnInit {
 
     get email(): string {
         if (this.user)
-            return this.user.slug
+            return this.user.user.email;
     }
     get firstName(): string {
         if (this.user)

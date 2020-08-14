@@ -44,7 +44,7 @@
             .item-title {
                 @include text(18px, 25px, #45535c, EncodeSans-Medium);
                 display: inline-block;
-                width: 140px;
+                width: 190px;
                 white-space: nowrap;
                 overflow: hidden !important;
                 text-overflow: ellipsis;
@@ -60,7 +60,7 @@
             .country-name {
                 @include text(12px, 19px, #45535c, EncodeSans-Medium);
                 overflow: hidden;
-                width: 23px;
+                width: 22px;
                 white-space: nowrap;
             }
         }

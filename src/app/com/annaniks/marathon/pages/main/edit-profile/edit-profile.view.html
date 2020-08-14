@@ -107,18 +107,19 @@
 
                                                 <div class="form-content w-100">
                                                     <label class="label">Languages</label>
-                                                    <p-autoComplete formControlName="languages" #autocomplete 
+                                                    <!-- <p-autoComplete formControlName="languages" #autocomplete 
                                                         [suggestions]="filteredCountriesMultiple"
                                                         (completeMethod)="filterCountryMultiple($event)" [minLength]="1"
                                                         placeholder="" field="name" [multiple]="true">
-                                                    </p-autoComplete>
+                                                    </p-autoComplete> -->
+                                                    <p-multiSelect [options]="countries" formControlName="languages" optionLabel="name"></p-multiSelect>
                                                 </div>
 
+                                       
 
-                                                
                                                 <div class="form-content w-100">
                                                     <label class="label">Specialties</label>
-                                                    <p-autoComplete
+                                                    <p-autoComplete (click)="openSpecialtiesModal()"
                                                         formControlName="speciality"
                                                         [suggestions]="filteredSpecialitesMultiple"
                                                         (completeMethod)="filterSpecialitypMultiple($event)"
@@ -181,3 +182,4 @@
 
     </div>
 </div>
+
