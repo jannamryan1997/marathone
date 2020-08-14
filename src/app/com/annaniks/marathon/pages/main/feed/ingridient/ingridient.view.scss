@@ -9,9 +9,12 @@
     background: #ffff;
     padding: 0 10px;
     position: relative;
+        height: 100vh;
 
     .chicken-header {
         position: relative;
+        background: #FFFFFF 0% 0% no-repeat padding-box;
+        box-shadow: 2px 30px 43px  #5C687B17;
 
         .chicken-image {
             height: 360px;
@@ -21,7 +24,7 @@
             padding: 20px 20px;
 
             .star-image {
-              width: 21px;
+                width: 21px;
             }
 
             .title {
@@ -43,11 +46,12 @@
             }
 
             .name {
-                @include text(18px, 21px, #BDC0D5, BarlowCondensed-Regular);
+                @include text(16px, 21px, #589CFE, EncodeSans-Bold);
             }
 
             .date {
-                @include text(15px, 21px, #45535C, BarlowCondensed-Light);
+                @include text(15px, 33px, #BEC8DD, EncodeSans-Medium);
+                margin: 0 14px;
             }
 
             .loader-container {
@@ -95,7 +99,7 @@
             }
 
             .title {
-                @include text(17px, 26px, #45535C, BarlowCondensed-Medium);
+                @include text(21px, 23px, #45535C, EncodeSans-Bold);
                 margin-bottom: 20px;
             }
 
@@ -103,7 +107,7 @@
                 border-top: 1px solid #F1F1F6;
 
                 .title {
-                    @include text(28px, 33px, #589CFE, BarlowCondensed-Medium);
+                    @include text(21px, 25px, #589CFE,  EncodeSans-SemiBold);
                     margin: 20px 0;
                 }
 
@@ -139,7 +143,10 @@
                     }
 
                     .ingridient-value {
-                        @include text(17px, 20px, #45535C, EncodeSans-Medium);
+                        font-family: 'Nunito Sans', sans-serif;
+                        font-size: 16px;
+                        line-height: 22px;
+                        color: #45535C;
                     }
                 }
             }
@@ -149,7 +156,7 @@
                 margin: 26px 0;
 
                 .title {
-                    @include text(28px, 33px, #589CFE, BarlowCondensed-Medium);
+                    @include text(21px, 25px, #589CFE, EncodeSans-SemiBold);
                     margin: 20px 0;
 
                 }
@@ -245,12 +252,12 @@
     }
 }
 
-.theme{
-    position:absolute;
-    top:0;
+.theme {
+    position: absolute;
+    top: 0;
     bottom: 0;
     right: 0;
-    left: 0 ;
+    left: 0;
     z-index: 1;
-    height:auto;
+    height: auto;
 }

@@ -9,6 +9,9 @@
     background: #ffff;
     padding: 0 0px 10px 0px;
     position: relative;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+box-shadow: 2px 30px 43px #5C687B17;
+    
     .combination-header {
         position: relative;
 
@@ -31,23 +34,25 @@
         padding: 14px 10px;
 
         .title {
-            @include text(25px, 33px, #45535C, BarlowCondensed-Medium);
+            @include text(21px, 33px, #45535C, EncodeSans-Bold);
             
         }
 
         .name {
-            @include text(18px, 21px, #BDC0D5, BarlowCondensed-Regular);
+            @include text(16px, 21px, #589CFE, EncodeSans-Bold);
         }
 
         .date {
-            @include text(15px, 21px, #45535C, BarlowCondensed-Light);
+            @include text(15px, 33px, #BEC8DD,EncodeSans-Medium);
         }
 
         .combination-item {
             padding: 20px 0;
 
             .text {
-                @include text(18px, 26px, #45535C, BarlowCondensed-Regular);
+                @include text(16px, 23px, #45535C, BarlowCondensed-Regular);
+                font-family: 'Nunito Sans', sans-serif !important;
+
                  
             }
 
