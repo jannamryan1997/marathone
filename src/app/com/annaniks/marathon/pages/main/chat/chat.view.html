@@ -17,8 +17,8 @@
                     <table class="table topic-table">
                         <tbody>
                             <tr *ngFor="let topic of topics ;"
-                                [ngClass]="((topicSelected?.id || 0) === topic.id) ? 'bg-success' : ''" class="hand topics-title"
-                                (click)="setSelected(topic)">
+                                [ngClass]="((topicSelected?.id || 0) === topic.id) ? 'bg-success' : ''"
+                                class="hand topics-title" (click)="setSelected(topic)">
                                 <td>{{ formatTopicTitle(topic) }}</td>
                             </tr>
                         </tbody>
@@ -47,12 +47,12 @@
                     <form name="inputForm" role="form" novalidate [formGroup]="inputForm">
 
                         <ng-container *ngFor="let participant of topicSelected.participants ;">
-                            <span *ngIf="participant.id !== getUserId()"
+                            <div *ngIf="participant.id !== getUserId()"
                                 [ngClass]="isOnline(participant, topicSelected) ? 'bg-success' : 'bg-light'"
                                 class="hand p-1 m-2">
                                 {{ participant?.firstName }} {{ participant?.lastName }}
                                 <fa-icon *ngIf="isWriting(participant, topicSelected)" icon="pencil-alt"></fa-icon>
-                            </span>
+                            </div>
                         </ng-container>
 
                         <div class="p-2 mt-2">

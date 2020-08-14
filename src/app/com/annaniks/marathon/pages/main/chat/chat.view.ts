@@ -149,9 +149,9 @@ export class ChatViewComponent {
         return res.join(' , ');
     }
 
-    getUserId(): number {
+    getUserId(): number {        
         if (this._userService.user)
-            return this._userService.user.data.id
+            return this._userService.user.data.user.id
 
     }
 
@@ -161,6 +161,7 @@ export class ChatViewComponent {
         }
         for (let index = 0; index < this.topicActions.length; index++) {
             if (this.topicActions[index].id === topicSelected.id && this.topicActions[index].actions[participant.id]) {
+                
                 return this.topicActions[index].actions[participant.id] >= Action.ACTION_ONLINE;
             }
         }
