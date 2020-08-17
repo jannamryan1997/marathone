@@ -20,6 +20,25 @@
         box-shadow: 2px 30px 43px #5C687B17;
     }
 
+    .review{
+        .star-image {
+            width: 21px;
+            height: 21px;
+        }
+        .rate-title {
+            @include text(16px, 19px, #45535c,EncodeSans-SemiBold);
+        }
+        .rate {
+            margin-left: 15px;
+            &::after {
+                border: 1px solid #d7e4f0;
+                height: 20px;
+                width: 4px;
+                content: "";
+                margin: 0 10px;
+            }
+        }
+    }
     .review-content {
         padding: 28px 0 19px 0;
 
