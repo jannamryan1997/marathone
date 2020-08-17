@@ -1,9 +1,9 @@
-// @mixin text($fontSize, $lineHeight, $color, $fontFamily) {
-//     font-size: $fontSize;
-//     line-height: $lineHeight;
-//     color: $color;
-//     font-family: $fontFamily;
-// }
+@mixin text($fontSize, $lineHeight, $color, $fontFamily) {
+    font-size: $fontSize;
+    line-height: $lineHeight;
+    color: $color;
+    font-family: $fontFamily;
+}
 
 // .home-container {
 //     .header {
@@ -372,10 +372,7 @@
 //     }
 // }
 
-// ::ng-deep .ui-autocomplete .ui-state-focus {
-//     border: 1px solid #96c1ff !important;
-//     box-shadow: none !important
-// }
+
 
 
 // ::ng-deep .ui-autocomplete-multiple-container {
@@ -471,38 +468,9 @@
 // ::ng-deep .ui-autocomplete-token-label{
 //     margin-right: 0 !important;
 // }
-// //////form-group focuse
-// .form-group:focus {
-//     border: 1px solid #96c1ff !important;
-//     border-radius: 16px !important;
-//     padding: 14px 23px;
-//     border-radius: 16px;
-//     line-height: 19px;
-//     font-size: 16px;
-//     font-family: "Nunito Sans", sans-serif !important;
-//     box-sizing: inherit;
-//     margin: 0;
-//     &:hover {
-//         border: none !important;
-//     }
-// }
 
 
 
-// //////form-group hover
-// .form-group {
-//     &:hover {
-//         border: 1px solid #96c1ff !important;
-//         border-radius: 16px !important;
-//         padding: 14px 23px;
-//         border-radius: 16px;
-//         line-height: 19px;
-//         font-size: 16px;
-//         font-family: "Nunito Sans", sans-serif !important;
-//         box-sizing: inherit;
-//         margin: 0;
-//     }
-// }
 
 @mixin text($fontSize, $lineHeight, $color, $fontFamily) {
     font-size: $fontSize;
@@ -776,6 +744,7 @@
         font-size: 14px !important;
         line-height: 15px !important;
         font-family: "Nunito Sans", sans-serif !important;
+          margin: 0 5px 5px 0 !important;
     }
 
     .ui-autocomplete-multiple-container {
@@ -811,6 +780,10 @@
 
     .ui-autocomplete-token-label {
         margin-right: 0 !important;
+    }
+ .ui-autocomplete .ui-state-focus {
+        border: 1px solid #96c1ff !important;
+        box-shadow: none !important
     }
 }
 

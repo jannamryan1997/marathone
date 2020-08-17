@@ -8,7 +8,6 @@
                             <img src="assets/icons/star.svg" class="star-image" alt="">
                             <p class="rate-title"><span class="rate">4.9</span> 120 rates</p>
                     </div>
-                    <!-- <p class="review-title">10 / 5 review</p> -->
                 </div>
             </div>
             <div class="profile-data display-flex">
@@ -16,7 +15,8 @@
                     <p class="item-title"> {{email}} </p>
 
                 </div>
-                <div class="data-item">
+                <div class="data-item d-flex align-item-center" *ngIf="user?.location">
+                        <img src="assets/icons/location.svg" class="location-image" alt="">
                     <p class="item-title">{{user?.location}}</p>
                 </div>
                 <div class="d-flex">

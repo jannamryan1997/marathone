@@ -31,24 +31,12 @@
                     <div class="btn-content d-flex align-items-center">
                         <button *ngIf="!checkIsMe() && role" (click)="follow()" [class.active-btn]="isFollowed"
                             class="btn-item info-btn">{{isFollowed?'Unfollow':'Follow'}}</button>
-                        <button *ngIf="checkIsMe()" class="btn-item info-btn" routerLink="/edit-profile"
-                            routerLinkActive="profileActiveTab">
-                            <div class="btn-container">
-                                <span>Edit Profile</span>
-                                <span class="ml-2 material-icons">
-                                    create
-                                </span>
-                            </div>
-
-                        </button>
-                        <button class="btn-item info-btn" *ngIf="role==='coach'">
-                            <div class="btn-container"><span>Packages</span></div>
-                        </button>
-                        <button class="btn-item info-btn btn-radius">
-                            <span class="material-icons icon">
-                                insert_comment
-                            </span>
-                        </button>
+                            <button class="btn-item info-btn" *ngIf="role==='coach'">
+                                    <div class="btn-container"><span>Packages</span></div>
+                                </button>
+                       
+                       
+                      
                         <div class="social-media-btn-content">
                             <button class="btn-item info-btn  btn-radius social-media-btn">
                                 <span class="material-icons icon">
@@ -77,7 +65,21 @@
                                 </div>
                             </div>
                         </div>
+                        <button *ngIf="checkIsMe()" class="btn-item info-btn" routerLink="/edit-profile"
+                        routerLinkActive="profileActiveTab">
+                        <div class="btn-container">
+                            <span>Edit Profile</span>
+                            <span class="ml-2 material-icons">
+                                create
+                            </span>
+                        </div>
 
+                    </button>
+                        <button class="btn-item info-btn btn-radius"  *ngIf="!checkIsMe() && role">
+                                <span class="material-icons icon">
+                                    insert_comment
+                                </span>
+                            </button>
                         <button class="btn-item info-btn btn-radius" (click)="onClickShowMore()"
                             [ngClass]="{'active-btn':showMore}">
                             <span class="material-icons icon ">

@@ -9,22 +9,17 @@
                             <p class="rate-title"><span class="rate">4.9</span> 120 rates</p>
                     </div>
                 </div>
-            <!-- <div class=" display-flex">
-                <div class="review display-flex">
-                    <div class="review-item" *ngFor="let item of reviewItem">
-                        <img src="assets/icons/star.svg" class="star-image">
-                    </div>
-                </div>
-                <p class="review-title">10 / 5 review</p>
-            </div> -->
         </div>
         <div class="profile-data display-flex">
             <div class="data-item">
                 <p class="item-title">{{email}} </p>
 
             </div>
-            <div class="data-item">
-                <p class="item-title">{{user?.location}}</p>
+            <div class="data-item d-flex align-item-center">
+                  
+                <p class="item-title" *ngIf="user?.location">   
+                    <img src="assets/icons/location.svg" class="location-image" alt="">
+                    {{user?.location}}</p>
             </div>
             <div class="d-flex">
                 <div class="data-item" *ngFor="let item of languageName">

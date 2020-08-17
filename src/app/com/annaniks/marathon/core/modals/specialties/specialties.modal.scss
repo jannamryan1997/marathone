@@ -58,9 +58,11 @@
         background: #589cfe !important;
         color: #ffffff !important;
     }
+    &:active{
+        box-shadow:none !important;
+    }
+   
 }
-
-
 
 .background-color {
     background: #589CFE 0% 0% no-repeat padding-box !important;

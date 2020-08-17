@@ -282,9 +282,16 @@
 
                     </div>
                     <div class="form-content w-100">
+                            <label class="label">Location</label>
+                            <div class="form-group w-100">
+                                <input type="text" class="form-input w-100"
+                                    placeholder="location" formControlName="location">
+                            </div>
+                        </div>
+                    <div class="form-content w-100">
                         <label class="label">Specialties</label>
                         <div>
-                            <p-autoComplete (click)="openSpecialtiesModal()" formControlName="speciality"
+                            <p-autoComplete (click)="openSpecialtiesModal()" formControlName="speciality" [disabled]="true"
                                 [suggestions]="filteredSpecialitesMultiple" (completeMethod)="$event.stopPropagation()"
                                 [minLength]="1" placeholder="" field="name" [multiple]="true">
                             </p-autoComplete>

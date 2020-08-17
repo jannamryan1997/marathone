@@ -10,7 +10,7 @@
         <mat-chip-list [(ngModel)]="selectedOffers" multiple>
             <mat-chip *ngFor="let offer of speciality" selectable="true" [selected]="isSelected(offer)" #ref="matChip"
                 (click)="toggleOffer(offer)"  [ngClass]="{'background-color':ref.selected}">
-                {{offer.name}}&nbsp;
+                {{offer.name}}
             </mat-chip>
         
         </mat-chip-list>

@@ -19,16 +19,20 @@
         background: #ffffff 0% 0% no-repeat padding-box;
         box-shadow: 2px 30px 43px #5c687b17;
     }
-    .review{
+
+    .review {
         .star-image {
             width: 21px;
             height: 21px;
         }
+
         .rate-title {
-            @include text(16px, 19px, #45535c,EncodeSans-SemiBold);
+            @include text(16px, 19px, #45535c, EncodeSans-SemiBold);
         }
+
         .rate {
             margin-left: 15px;
+
             &::after {
                 border: 1px solid #d7e4f0;
                 height: 20px;
@@ -63,11 +67,11 @@
             .item-title {
                 @include text(18px, 25px, #45535c, EncodeSans-Medium);
                 display: inline-block;
-                width: 180px;
                 white-space: nowrap;
                 overflow: hidden !important;
                 text-overflow: ellipsis;
                 text-align: center;
+                width: 180px;
             }
 
             .country-img {
@@ -103,17 +107,18 @@
 
             .folowers-item {
                 &::before {
-                content: "";
-                    border: 0.5px solid #D1E3FC;
+                    content: "";
+                    border: 0.5px solid #f1f6fe;
                     height: 44px;
                     margin: 10px 20px 0 0;
                 }
+
                 &::after {
                     content: "";
-                        border: 0.5px solid #D1E3FC;
-                        height: 44px;
-                        margin: 10px 0 0 20px ;
-                    }
+                    border: 0.5px solid #f1f6fe;
+                    height: 44px;
+                    margin: 10px 0 0 20px;
+                }
             }
         }
     }
@@ -212,4 +217,9 @@
 
 .star-image {
     width: 23px;
+}
+
+.location-image {
+    width: 20px;
+    margin-right: 10px;
 }

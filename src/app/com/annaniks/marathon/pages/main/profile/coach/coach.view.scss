@@ -20,16 +20,19 @@
         box-shadow: 2px 30px 43px #5C687B17;
     }
 
-    .review{
+    .review {
         .star-image {
             width: 21px;
             height: 21px;
         }
+
         .rate-title {
-            @include text(16px, 19px, #45535c,EncodeSans-SemiBold);
+            @include text(16px, 19px, #45535c, EncodeSans-SemiBold);
         }
+
         .rate {
             margin-left: 15px;
+
             &::after {
                 border: 1px solid #d7e4f0;
                 height: 20px;
@@ -39,6 +42,7 @@
             }
         }
     }
+
     .review-content {
         padding: 28px 0 19px 0;
 
@@ -63,11 +67,11 @@
             .item-title {
                 @include text(18px, 25px, #45535c, EncodeSans-Medium);
                 display: inline-block;
-                width: 180px;
                 white-space: nowrap;
                 overflow: hidden !important;
                 text-overflow: ellipsis;
                 text-align: center;
+                width: 180px;
             }
 
             .country-img {
@@ -101,19 +105,21 @@
                 @include text(16px, 16px, #45535c, EncodeSans-Medium);
                 margin-top: 4px;
             }
+
             .folowers-item {
                 &::before {
-                content: "";
-                    border: 0.5px solid #D1E3FC;
+                    content: "";
+                    border: 0.5px solid #f1f6fe;
                     height: 44px;
                     margin: 10px 20px 0 0;
                 }
+
                 &::after {
                     content: "";
-                        border: 0.5px solid #D1E3FC;
-                        height: 44px;
-                        margin: 10px 0 0 20px ;
-                    }
+                    border: 0.5px solid #f1f6fe;
+                    height: 44px;
+                    margin: 10px 0 0 20px;
+                }
             }
         }
     }
@@ -124,7 +130,7 @@
         padding: 0 30px;
         text-align: center;
         background: #FFFFFF 0% 0% no-repeat padding-box;
-         box-shadow: 2px 30px 43px #5C687B17;
+        box-shadow: 2px 30px 43px #5C687B17;
 
         .tab-item {
             padding: 1.2em 0;
@@ -137,7 +143,7 @@
     .events-header {
         padding: 30px 0;
         background: #FFFFFF 0% 0% no-repeat padding-box;
-         box-shadow: 2px 30px 43px #5C687B17;
+        box-shadow: 2px 30px 43px #5C687B17;
 
         .gallery-tab {
             .btn {
@@ -232,7 +238,7 @@
 
 .post-event {
     background: #ffffff 0% 0% no-repeat padding-box;
-     box-shadow: 2px 30px 43px #5c687b17;
+    box-shadow: 2px 30px 43px #5c687b17;
     border-radius: 0px 0px 15px 15px;
     opacity: 1;
     padding: 30px !important;
@@ -248,4 +254,9 @@
 
 .review-header {
     padding: 30px 0 0 0 !important;
+}
+
+.location-image{
+width: 20px;
+margin-right: 10px;
 }
