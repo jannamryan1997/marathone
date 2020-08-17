@@ -11,16 +11,16 @@ import { Router } from '@angular/router';
 
 export class MainView implements OnInit {
     public getmeiD: string;
+    public ingridientid: string;
     constructor(
         private _profileUserService: UserService,
         private _cookieService: CookieService,
         public router: Router,
     ) {
-
     }
 
     ngOnInit() {
-   // this._getProfileData();
+        // this._getProfileData();
     }
 
     get showUserData(): boolean {

@@ -1,4 +1,4 @@
-<div class="chicken-content">
+<!-- <div class="chicken-content">
 
     <ngx-skeleton-loader  count="5"
     appearance="squard" class="skeleton" [theme]="{ 
@@ -135,4 +135,132 @@
 
         </div>
     </div>
+</div> -->
+
+<div class="ingridient"> 
+    <ngx-skeleton-loader  count="5"
+    appearance="squard" class="skeleton" [theme]="{ 
+        'position': 'absolute',
+        'top': '0',
+        'bottom': '0',
+        'right': '0',
+        'left': '0' ,
+        'z-index': '1',
+        'height':'auto'
+      }" *ngIf="loading"></ngx-skeleton-loader>
+    <div class="image-content">
+        <img src="assets/images/food.png" class="slick-carousel-image"
+            *ngIf="!receipt?.imageSlider.length && receipt?.videoLink ===''" alt="">
+        <ngx-slick-carousel *ngIf="receipt?.imageSlider" class="carousel w-100 slide-image" #slickModal="slick-carousel"
+            [config]="slideConfig">
+            <div ngxSlickItem *ngFor="let slide of receipt?.imageSlider" class="slide">
+                <img [src]="slide?.img" alt="" width="100%" class="slide-image">
+            </div>
+        </ngx-slick-carousel>
+        <div *ngIf="receipt?.videoLink !=''">
+            <plyr plyrTitle="Video 1" [plyrSources]="receptvideoSources" class="slick-carousel-image"></plyr>
+        </div>
+        <div class="ingridient-image-content">
+            <div class="image-item" *ngFor="let slide of receipt?.imageSlider">
+                <img [src]="slide?.img" alt="" class="ingridient-image-item">
+            </div>
+        </div>
+    </div>
+    <div class="header-container">
+        <div class="header-description">
+            <div class="d-flex align-items-center">
+                <img src="assets/icons/star.svg" class="star-image" alt="">
+                <p class="rate-title"><span class="rate">4.9</span> 120 rates</p>
+            </div>
+            <div class="d-flex align-items-center">
+                <p class="share-title">Share Recipe</p>
+                <img src="assets/icons/Marathon_light.svg" alt="" width="100%" class="social-icon">
+                <img src="assets/icons/Twitter_light.svg" alt="" width="100%" class="social-icon">
+                <span class="material-icons social-icon">
+                    more_vert
+                </span>
+            </div>
+
+        </div>
+    </div>
+    <div class="main-content">
+        <div class="main-secription">
+            <p class="ingridient-type">{{receipt?.title}} Chicken fajita drumsticks with Mexican salad</p>
+            <div class="profile-information d-flex align-items-center">
+                <p class="profile-user_name mr-2">by</p>
+                    <p class="profile-user_name" *ngIf="role==='client'">
+                        {{feedItem?.creator_client_info?.user?.first_name}}</p>
+                    <p class="profile-user_name" *ngIf="role==='coach'">{{feedItem?.creator_info?.user?.first_name}}</p>
+                    <p class="profile-user_name" *ngIf="!role && feedItem?.creator_info">
+                        {{feedItem?.creator_info?.user?.first_name}}</p>
+                    <p class="profile-user_name" *ngIf="!role && feedItem?.creator_client_info">
+                        {{feedItem?.creator_client_info?.user?.first_name}}</p>
+
+
+
+
+
+                <p class="time">{{time}}</p>
+                <button *ngIf="!checkIsMe()" (click)="follow()" [class.active-btn]="user?.is_follower" type="button"
+                    class="info-btn btn-item">{{user?.is_follower?'Unfollow':'Follow'}}</button>
+            </div>
+            <div class="main-calcualted">
+                <div class="calcualted-item">
+                    <p class="calcualted-title">Calories</p>
+                    <div class="radius">{{receipt?.calories}}</div>
+                    <p class="calcualted-title">kcal</p>
+                </div>
+                <div class="calcualted-item">
+                    <p class="calcualted-title">Carbs</p>
+                    <div class="radius">{{receipt?.carbs}}</div>
+                    <p class="calcualted-title">gm</p>
+                </div>
+                <div class="calcualted-item">
+                    <p class="calcualted-title">Protein</p>
+                    <div class="radius">{{receipt?.protein}}</div>
+                    <p class="calcualted-title">gm</p>
+                </div>
+                <div class="calcualted-item mr-0">
+                    <p class="calcualted-title">Fat</p>
+                    <div class="radius">{{receipt?.fat}}</div>
+                    <p class="calcualted-title">gm</p>
+                </div>
+            </div>
+            <div class="tag-main">
+                <button type="button" class="tag-item" *ngFor="let item of receipt?.tag">{{item}}</button>
+            </div>
+            <p class="information">{{receipt?.information}}</p>
+            <div class="ingridient-description">
+                <p class="ingridient-title">Ingredients</p>
+                <div class="ingridient-content" >
+                    <div class="ingridient-item d-flex justify-content-between"  *ngFor="let item of receipt?.ingridient">
+                        <p class="ingridient-title">{{item?.name}}</p>
+                        <p class="ingridient-value">{{item?.value}} gm</p>
+
+                    </div>
+                  
+                </div>
+            </div>
+            <div class="ingridient-description">
+                <p class="ingridient-title">Preparation</p>
+                <div class="ingridient-content" >
+                    <div class="ingridient-item d-flex justify-content-between" *ngFor="let item of receipt?.preparationSteps;let ind=index">
+                        <div class="before">{{ind+1}}</div>
+                        <p class="ingridient-value preparation-value">{{item}}</p>
+
+                    </div>
+                  
+                </div>
+            </div>
+        </div>
+    </div>
+    <app-settings [feed]="feedItem" [role]="role" (getButtonsType)="getButtonsType($event)"
+    (openChanges)='onClickOpen($event)'></app-settings>
+<div class="posts-comments" *ngIf="isOpen">
+    <app-comments (sendMessage)="sendMessage($event)" (likeOrDislike)="likeOrDislike($event)"
+        *ngFor="let item of comments" [feed]="feedItem" [comments]="item" [role]="role">
+    </app-comments>
+    <app-posts-comments [feed]="feedItem" (sendMessage)="sendMessage($event)" *ngIf="role"
+        [comments]="comments">
+    </app-posts-comments>
 </div>

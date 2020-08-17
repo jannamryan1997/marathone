@@ -49,13 +49,13 @@ export class IngridientViewComponent implements OnInit {
         private _matDialog: MatDialog,
         private _profileService: ProfileService,
         private _userService: UserService,
-        private _location:Location,
-        private _followService: FollowService
+        private _location: Location,
+        private _followService: FollowService,
+        private _router: Router,
     ) {
         this._activatedRoute.params.subscribe((params) => {
             this.feedId = Number(params.id);
 
-            
             this.role = this._cookieService.get('role');
         })
         this.slideConfig = {
@@ -69,6 +69,7 @@ export class IngridientViewComponent implements OnInit {
     }
 
     ngOnInit() {
+        console.log(this._router.url)
         this._getFeedById().pipe(takeUntil(this.unsubscribe$)).subscribe();
     }
 
@@ -183,7 +184,7 @@ export class IngridientViewComponent implements OnInit {
 
     public onClickGotoBack() {
         this._location.back();
-      
+
 
     }
     ngOnDestroy() {

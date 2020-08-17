@@ -1,4 +1,4 @@
-ng build 
+ng build --prod
 pause
 winscp.exe marathon /keepuptodate "C:\Users\Janna\Desktop\marathon\dist\marathon" /srv/www/uat /defaults
 pause
