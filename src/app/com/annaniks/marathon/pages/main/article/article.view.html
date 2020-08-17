@@ -87,7 +87,7 @@
             </div>
             <div class="forms-group">
                 <div class="form-group">
-                    <label>Article Title</label>
+                    <!-- <label>Article Title</label> -->
                     <input formControlName="title" type="text" class="form-input w-100" placeholder="Type Title">
                 </div>
                 <!-- cdkDropList (cdkDropListDropped)="drop($event)" cdkDrag -->
@@ -98,7 +98,7 @@
                         <div [ngSwitch]="control.get('type').value">
                             <div *ngSwitchCase="'text'" class="form-group d-flex align-items-start form-grup-redius">
 
-                                <label>Content / Text</label>
+                                <!-- <label>Content / Text</label> -->
                                 <ckeditor [id]="'text'+i" (ngModelChange)="changeText(i)" (drop)="onDrop($event)" [config]="config"
                                     formControlName="value" class="form-input w-100" id="ckeditor"></ckeditor>
                                 <span (click)="removeControl(true,i)" class="material-icons close">
@@ -122,7 +122,7 @@
                 </div>
                 <div *ngIf="isShowImageRedacor"
                     class="form-group broves-file-form d-flex align-items-start form-grup-redius">
-                    <label>Content / Image</label>
+                    <!-- <label>Content / Image</label> -->
                     <div class="m-auto">
 
                         <input class="" type="file" id="file" name="avatar" (change)="setServicePhoto($event)">
@@ -138,7 +138,7 @@
 
                 <div *ngIf="isShowVideoRedactor"
                     class="form-group broves-file-form d-flex align-items-start form-grup-redius">
-                    <label>Content / Youtube Image</label>
+                    <!-- <label>Content / Youtube Image</label> -->
                     <div class="m-auto">
                         <button class="update-video-btn">
                             <span class="material-icons mr-2">

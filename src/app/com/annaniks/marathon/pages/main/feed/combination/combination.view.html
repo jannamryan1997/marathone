@@ -1,4 +1,4 @@
-<div class="combination-content">
+<!-- <div class="combination-content">
         <ngx-skeleton-loader appearance="squard" class="skeleton" [theme]="{ 
             'position': 'absolute',
             'top': '0',
@@ -60,5 +60,51 @@
         </app-comments>
         <app-posts-comments [feed]="article" (sendMessage)="sendMessage($event)" *ngIf="role" [comments]="comments">
         </app-posts-comments>
+    </div>
+</div> -->
+
+<div class="conbination">
+        <ngx-skeleton-loader  count="5"
+        appearance="squard" class="skeleton" [theme]="{ 
+            'position': 'absolute',
+            'top': '0',
+            'bottom': '0',
+            'right': '0',
+            'left': '0' ,
+            'z-index': '1',
+            'height':'100vh'
+          }" *ngIf="loading"></ngx-skeleton-loader>
+    <div class="header-content">
+        <img *ngIf="content && content?.cover" [src]="fileUrl+content?.cover" class="combination-image"
+        alt="Cinque Terre">
+    </div>
+    <div class="social-contetent">
+        <div class="social-description">
+            <img src="assets/icons/Marathon_light.svg" alt="" width="100%" class="social-icon">
+            <img src="assets/icons/Twitter_light.svg" alt="" width="100%" class="social-icon">
+            <span class="material-icons social-icon">
+                more_vert
+            </span>
+        </div>
+    </div>
+    <div class="main-content">
+        <p class="combination-type">{{article?.title}}</p>
+        <div class="profile-information d-flex align-items-center">
+            <p class="profile-user_name mr-2">by</p>
+                <p class="profile-user_name" *ngIf="role==='client'">
+                    {{article?.creator_client_info?.user?.first_name}}</p>
+                <p class="profile-user_name" *ngIf="role==='coach'">{{article?.creator_info?.user?.first_name}}</p>
+                <p class="profile-user_name" *ngIf="!role && article?.creator_info">
+                    {{article?.creator_info?.user?.first_name}}</p>
+                <p class="profile-user_name" *ngIf="!role && article?.creator_client_info">
+                    {{article?.creator_client_info?.user?.first_name}}</p>
+            <p class="time">{{time}}</p>
+            <button *ngIf="!checkIsMe()" (click)="follow()" [class.active-btn]="user?.is_follower" type="button"
+                class="info-btn btn-item">{{user?.is_follower?'Unfollow':'Follow'}}</button>
+        </div>
+        <div *ngFor="let array of arrays">
+            <div *ngIf="array.type == 'text'" class="combination-item">
+                <p class="information" [innerHtml]="array?.value"> </p>
+            </div>
     </div>
 </div>

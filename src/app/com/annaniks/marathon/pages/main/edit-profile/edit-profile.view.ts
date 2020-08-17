@@ -545,7 +545,6 @@ public openSpecialtiesModal():void{
             this.profileFormGroup.patchValue({
                 speciality:data,
             })
-            console.log(data);
             
         }
    
@@ -553,11 +552,19 @@ public openSpecialtiesModal():void{
     })
 }
 selected(event: MatAutocompleteSelectedEvent): void {
-    console.log('fdfdfdf');
     this.countries.push(event.option.viewValue);
     this.fruitInput.nativeElement.value = '';
     this.profileFormGroup.value.languages.setValue(null);
   }
+
+
+public stopPropagation(event){
+    console.log("Dddddddd");
+    event.stopPropagation();
+ 
+    
+    
+}
 
 
 }

@@ -1,109 +1,183 @@
-@mixin text($fontSize, $lineHeight, $color, $fontFamily) {
+// @mixin text($fontSize, $lineHeight, $color, $fontFamily) {
+//     font-size: $fontSize;
+//     line-height: $lineHeight;
+//     color: $color;
+//     font-family: $fontFamily;
+// }
+
+// .combination-content {
+//     background: #ffff;
+//     padding: 0 0px 10px 0px;
+//     position: relative;
+//     background: #FFFFFF 0% 0% no-repeat padding-box;
+// box-shadow: 2px 30px 43px #5C687B17;
+
+//     .combination-header {
+//         position: relative;
+
+//         .combination-image {
+//             height: 260px;
+//         }
+
+//         .header-container {
+//             padding: 20px 20px;
+
+//             .icon {
+//                 font-size: 28px;
+//                 cursor: pointer;
+//             }
+//         }
+//     }
+
+//     .combination-main-content {
+//         border-top: 1px solid #F1F1F6;
+//         padding: 14px 10px;
+
+//         .title {
+//             @include text(21px, 33px, #45535C, EncodeSans-Bold);
+
+//         }
+
+//         .name {
+//             @include text(16px, 21px, #589CFE, EncodeSans-Bold);
+//         }
+
+//         .date {
+//             @include text(15px, 33px, #BEC8DD,EncodeSans-Medium);
+//         }
+
+//         .combination-item {
+//             padding: 20px 0;
+
+//             .text {
+//                 @include text(16px, 23px, #45535C, BarlowCondensed-Regular);
+//                 font-family: 'Nunito Sans', sans-serif !important;
+
+
+//             }
+
+//             .title {
+//                 @include text(25px, 26px, #45535C, BarlowCondensed-Medium);
+//                 margin-bottom: 15px;
+
+
+//             }
+//         }
+//     }
+
+//     .setting-content {
+//         border-top: 1px solid #F1F1F6;
+//         border-bottom: 1px solid #F1F1F6;
+//         padding: 0 !important;
+
+//         .setting-item {
+//             padding: 19px 0;
+
+//             .title {
+//                 margin: 0 !important;
+//             }
+//         }
+//     }
+
+// }
+// .radius {
+//     background: #ffffff 0% 0% no-repeat padding-box;
+//     border-radius: 26px;
+//     opacity: 1;
+//     width: 52px;
+//     height: 52px;
+//     cursor: pointer;
+//     align-items: center;
+//     position: absolute;
+//     top: 0;
+//     left: 0;
+//     margin: 7px 7px;
+//     border: none;
+
+//     .icon {
+//         color: #acb9d1 !important;
+//         font-size: 35px;
+
+//     }
+// }
+// :host::ng-deep{
+//     app-content-video{
+//         .image-content{
+//             margin-top: 0 !important;
+//         }
+//     }
+// }
+
+@mixin text($fontSize, $lineHeight, $color) {
     font-size: $fontSize;
     line-height: $lineHeight;
     color: $color;
-    font-family: $fontFamily;
 }
 
-.combination-content {
-    background: #ffff;
-    padding: 0 0px 10px 0px;
-    position: relative;
+.conbination {
+    position: absolute;
+    top: 85px;
+    width: 600px;
     background: #FFFFFF 0% 0% no-repeat padding-box;
-box-shadow: 2px 30px 43px #5C687B17;
-    
-    .combination-header {
-        position: relative;
+    box-shadow: 2px 30px 43px #5C687B17;
+    opacity: 1;
+
+    .header-content {
+        padding: 0 5px;
 
         .combination-image {
-            height: 260px;
-        }
-
-        .header-container {
-            padding: 20px 20px;
-
-            .icon {
-                font-size: 28px;
-                cursor: pointer;
-            }
+            height: 300px;
         }
     }
-
-    .combination-main-content {
-        border-top: 1px solid #F1F1F6;
-        padding: 14px 10px;
-
-        .title {
-            @include text(21px, 33px, #45535C, EncodeSans-Bold);
-            
-        }
-
-        .name {
-            @include text(16px, 21px, #589CFE, EncodeSans-Bold);
-        }
-
-        .date {
-            @include text(15px, 33px, #BEC8DD,EncodeSans-Medium);
-        }
-
-        .combination-item {
-            padding: 20px 0;
-
-            .text {
-                @include text(16px, 23px, #45535C, BarlowCondensed-Regular);
-                font-family: 'Nunito Sans', sans-serif !important;
-
-                 
-            }
-
-            .title {
-                @include text(25px, 26px, #45535C, BarlowCondensed-Medium);
-                margin-bottom: 15px;
+            .social-contetent{
+                &::after{
+                    content: "";
+                    border: 1px solid #E3ECFD; 
+                    width: 100%;
+                    margin: 20px 0;
+                    display: block;
+                }
+                .social-description{
+                    display: flex;
+                    justify-content: flex-end;
+                    padding: 20px  33px 0 0;
+                    .social-icon{
+                        width: 26px;
+                        margin: 0 9px;
+                        cursor: pointer;
+                    }
+                }
                 
-
+            }
+            .main-content{
+                padding: 0 24px;
+                .combination-type{
+                    @include text(21px, 25px, #45535c);
+                    font-family: EncodeSans-SemiBold;
+                }
+                .profile-information {
+                    margin-top: 12px;
+                    .profile-user_name {
+                        @include text(16px, 21px, #589cfe);
+                        font-family: EncodeSans-SemiBold;
+                    }
+                    .time {
+                        @include text(15px, 33px, #bec8dd);
+                        font-family: EncodeSans-SemiBold;
+                        margin: 0 15px;
+                    }
+                    .info-btn {
+                        padding: 6px 22px;
+                        font-size: 11px;
+                    }
+                }
+                .information{
+                    @include text(16px, 22px, #45535c);
+                    font-family: "Nunito Sans", sans-serif;
+                    margin: 22px 0 28px;
+                }
             }
         }
-    }
 
-    .setting-content {
-        border-top: 1px solid #F1F1F6;
-        border-bottom: 1px solid #F1F1F6;
-        padding: 0 !important;
 
-        .setting-item {
-            padding: 19px 0;
-
-            .title {
-                margin: 0 !important;
-            }
-        }
-    }
-
-}
-.radius {
-    background: #ffffff 0% 0% no-repeat padding-box;
-    border-radius: 26px;
-    opacity: 1;
-    width: 52px;
-    height: 52px;
-    cursor: pointer;
-    align-items: center;
-    position: absolute;
-    top: 0;
-    left: 0;
-    margin: 7px 7px;
-    border: none;
-
-    .icon {
-        color: #acb9d1 !important;
-        font-size: 35px;
         
-    }
-}
-:host::ng-deep{
-    app-content-video{
-        .image-content{
-            margin-top: 0 !important;
-        }
-    }
-}

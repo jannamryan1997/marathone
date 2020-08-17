@@ -44,7 +44,7 @@
             .item-title {
                 @include text(18px, 25px, #45535c, EncodeSans-Medium);
                 display: inline-block;
-                width: 190px;
+                width: 180px;
                 white-space: nowrap;
                 overflow: hidden !important;
                 text-overflow: ellipsis;
@@ -80,6 +80,21 @@
             .statistic-title {
                 @include text(16px, 16px, #45535c, EncodeSans-Medium);
                 margin-top: 4px;
+            }
+
+            .folowers-item {
+                &::before {
+                content: "";
+                    border: 0.5px solid #D1E3FC;
+                    height: 44px;
+                    margin: 10px 20px 0 0;
+                }
+                &::after {
+                    content: "";
+                        border: 0.5px solid #D1E3FC;
+                        height: 44px;
+                        margin: 10px 0 0 20px ;
+                    }
             }
         }
     }
