@@ -110,7 +110,6 @@ export class EditProfileView implements OnInit {
             location: this.user.data.location,
             user_name: this.user.data.slug,
         });
-        console.log(this.user.data.location);
 
 
         this.educationItem = [];
@@ -563,7 +562,6 @@ export class EditProfileView implements OnInit {
     public stopPropagation(event) {
         event.stopPropagation();
     }
-
 
 }
 

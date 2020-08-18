@@ -216,7 +216,7 @@
                     <button class="btn-item active-btn ml-2 mr-2" routerLink="/edit-profile" routerLinkActive="active-btn"
                         (click)="update()">Save
                     </button>
-                    <button class="info-btn btn-item btn-radius" (click)="onClickShowMore()"
+                    <button class="info-btn btn-radius" (click)="onClickShowMore()"
                         [ngClass]="{'active-btn':showMore}">
                         <span class="material-icons icon">
                             more_horiz
@@ -276,8 +276,14 @@
                     <div class="form-content">
                         <label class="label">Languages</label>
                         <div>
-                            <p-multiSelect [options]="countries" formControlName="languages" optionLabel="name">
-                            </p-multiSelect>
+                            <!-- <p-multiSelect [options]="countries" formControlName="languages" optionLabel="name">
+                            </p-multiSelect>  -->
+                             <p-autoComplete formControlName="languages"  (optionSelected)="selected($event)" 
+                            [suggestions]="filteredCountriesMultiple"
+                            (completeMethod)="filterCountryMultiple($event)" [minLength]="1"
+                            placeholder="" field="name" [multiple]="true">
+                        </p-autoComplete> 
+
                         </div>
 
                     </div>

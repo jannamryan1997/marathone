@@ -5,8 +5,8 @@
                 <p class="name"> {{firstName}}</p>
                 <div class=" display-flex">
                     <div class="review display-flex">
-                            <img src="assets/icons/star.svg" class="star-image" alt="">
-                            <p class="rate-title"><span class="rate">4.9</span> 120 rates</p>
+                        <img src="assets/icons/star.svg" class="star-image" alt="">
+                        <p class="rate-title"><span class="rate">4.9</span> 120 rates</p>
                     </div>
                 </div>
             </div>
@@ -16,8 +16,8 @@
 
                 </div>
                 <div class="data-item d-flex align-item-center" *ngIf="user?.location">
-                        <img src="assets/icons/location.svg" class="location-image" alt="">
-                    <p class="item-title">{{user?.location}}</p>
+                    <p class="item-title"> <img src="assets/icons/location.svg" class="location-image"
+                            alt="">{{user?.location}}</p>
                 </div>
                 <div class="d-flex">
                     <div class="data-item" *ngFor="let item of languageName">
@@ -44,10 +44,10 @@
                     <div class="statistic-item">
                         <div class="folowers-item d-flex">
                             <div>
-                                    <p class="count">300</p>
-                                    <p class="statistic-title">Followers</p>
+                                <p class="count">300</p>
+                                <p class="statistic-title">Followers</p>
                             </div>
-                           
+
                         </div>
                     </div>
                     <div class="statistic-item">

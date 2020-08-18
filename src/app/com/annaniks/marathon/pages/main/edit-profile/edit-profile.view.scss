@@ -494,7 +494,7 @@
         }
 
         .profile-header-content {
-            padding: 0 20px;
+            padding: 5px 20px;
 
             .profile-image {
                 margin-top: -80px;
@@ -663,7 +663,6 @@
 
         .btn-container {
             .btn-item {
-                padding: 10px 40px !important;
                 margin: 33px 0;
             }
         }
@@ -706,11 +705,10 @@
         background: #589cfe !important;
         border-radius: 18px !important;
         opacity: 1 !important;
-        padding: 10px 15px !important;
+        padding: 10px 25px !important;
         color: #ffffff !important;
-        font-weight: 600 !important;
-        font-size: 14px !important;
-        line-height: 15px !important;
+        font-size: 16px !important;
+        line-height: 19px !important;
         font-family: "Nunito Sans", sans-serif !important;
         margin: 0 5px 5px 0 !important;
     }
@@ -742,18 +740,23 @@
     }
 
     .pi-times:before {
-        display: none !important;
+        //display: none !important;
+        font-size: 13px !important;
+        font-size: 13px !important;
+        display: flex !important;
+        margin: 4px 10px !important;
     }
 
     .ui-autocomplete-token-label {
         margin-right: 0 !important;
     }
+
     .ui-autocomplete .ui-state-focus {
         border: 1px solid #96c1ff !important;
         box-shadow: none !important;
     }
 
-     .ui-multiselect-trigger {
+    .ui-multiselect-trigger {
         background-color: none !important;
         border-radius: 16px !important;
     }
@@ -791,4 +794,8 @@ input[type="file"] {
         box-sizing: inherit;
         margin: 0;
     }
+}
+
+.btn-item {
+    padding: 10px 40px !important;
 }

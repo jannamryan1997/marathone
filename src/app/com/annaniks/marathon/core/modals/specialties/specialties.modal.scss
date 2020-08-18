@@ -37,14 +37,13 @@
 }
 
 ::ng-deep .mat-chip {
-    border: 1px solid #589cfe;
+    border: 1px solid #589cfe !important;
     border-radius: 18px !important;
     opacity: 1 !important;
-    color: #589cfe ;
+    color: #589cfe !important ;
     font-size: 14px !important;
     line-height: 16px !important;
     font-family: EncodeSans-SemiBold !important;
-    background: #ffff !important;
     align-items: center !important;
     text-align: center !important;
     justify-content: center !important;
@@ -53,6 +52,7 @@
     position: unset !important;
     padding: 17px 20px !important;
     margin: 13px 4px !important;
+    background: #ffff !important;
 
     &:hover {
         background: #589cfe !important;
