@@ -183,21 +183,18 @@ input[type="file"] {
 }
 
 
-    .social-media-btn-content {
-        position: relative;
-        &:hover {
-            .social-media-btn {
-                background: #589CFE;
-                border: 1px solid #589CFE;
-                color: #ffffff !important;
-                align-items: center;
+.social-media-btn-content {
+    position: relative;
 
-
-            }
-
+    &:hover {
+        .social-media-btn {
+            background: #589CFE;
+            border: 1px solid #589CFE;
+            color: #ffffff !important;
+            align-items: center;
+        }
             .social-media {
-                opacity: 1 !important; 
+                opacity: 1 !important;
             }
         }
     }
-

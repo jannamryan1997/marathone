@@ -29,7 +29,8 @@
             </div>
         </div>
         <div class="emoji-content">
-            <emoji-mart (emojiClick)="addEmoji($event)" emoji="point_up" *ngIf="showemoji"></emoji-mart>
+            <emoji-mart (emojiClick)="addEmoji($event)" emoji="point_up" *ngIf="showemoji"
+            ></emoji-mart>
             <textarea id="textarea" rows="2" type="text"  [formControl]="postType" class="message-input" placeholder="Type Something..."
                 (focus)="showPost()" (blur)="play()">
         </textarea>

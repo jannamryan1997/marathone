@@ -16,11 +16,12 @@ import { Subject } from 'rxjs';
 
 
 export class CreatePublicationComponent implements OnInit {
- 
+
+    public i18n;
     public isModalMode: boolean = false;
     public postType = new FormControl('');
     public videoSources = [];
-    public _unsbscribe=new Subject<void>();
+    public _unsbscribe = new Subject<void>();
     @Input() feedItem: FeedResponseData;
     @Input() feedId: number;
     @Input() editProfile: boolean;
@@ -31,7 +32,7 @@ export class CreatePublicationComponent implements OnInit {
     @ViewChild('inputImageReference') private _inputImageReference: ElementRef;
     @ViewChild('inputVideoReference') private _inputVideoReference: ElementRef;
 
-    @Output () autoSize=new EventEmitter<any>();
+    @Output() autoSize = new EventEmitter<any>();
     public uploadType: string;
     public showemoji: boolean = false;
     public controImageItem: string = "";
@@ -51,7 +52,7 @@ export class CreatePublicationComponent implements OnInit {
         private _cookieServie: CookieService,
 
         @Inject("FILE_URL") private _fileUrl,
-    ) { 
+    ) {
     }
 
     ngOnInit() {
@@ -60,22 +61,57 @@ export class CreatePublicationComponent implements OnInit {
         }
         this._autosize();
 
+        this._initi18n();
+
     }
-    private _autosize(){
+
+    private _initi18n() {
+        this.i18n = {
+
+            search: 'Search',
+            emojilist: 'List of emoji',
+            notfound: 'No Emoji Found',
+            clear: 'Clear',
+            categories: {
+                search: 'Search Results',
+                recent: 'Frequently Used',
+                people: 'Smileys & People',
+                nature: 'Animals & Nature',
+                foods: 'Food & Drink',
+                activity: 'Activity',
+                places: 'Travel & Places',
+                objects: 'Objects',
+                symbols: 'Symbols',
+                custom: 'Custom',
+            },
+            skintones: {
+                1: 'Default Skin Tone',
+                2: 'Light Skin Tone',
+                3: 'Medium-Light Skin Tone',
+                4: 'Medium Skin Tone',
+                5: 'Medium-Dark Skin Tone',
+                6: 'Dark Skin Tone',
+            },
+        }
+    }
+
+
+
+    private _autosize() {
         const el = document.getElementById('textarea');
-        this.postType.valueChanges.subscribe((data)=>{
+        this.postType.valueChanges.subscribe((data) => {
             this.autoSize.emit(data);
-            setTimeout(()=>{      
+            setTimeout(() => {
                 el.style.cssText = 'height:auto; padding:0';
                 el.style.cssText = 'height:' + el.scrollHeight + 'px';
-              },0);
-        })  
-           
+            }, 0);
+        })
+
     }
 
     private _getFeedById(): void {
         this._feedService.getFeedById(this.feedId)
-        .pipe(takeUntil(this._unsbscribe))
+            .pipe(takeUntil(this._unsbscribe))
             .subscribe((data: FeedResponseData) => {
                 this.postType.setValue(data.title);
                 if (typeof data.feed_media[0].content === 'string') {
@@ -248,7 +284,7 @@ export class CreatePublicationComponent implements OnInit {
                     })
                 )
                 .subscribe((data) => {
-                    
+
                 })
         }
     }

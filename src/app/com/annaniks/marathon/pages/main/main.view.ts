@@ -61,6 +61,6 @@ export class MainView implements OnInit {
         }
     }
     get isIncludeProfile(): boolean {
-        return (this.router.url).search('/profile') > -1 || this.router.url === '/edit-profile' ? true : false;
+        return (this.router.url).search('/profile') > -1 || this.router.url === '/edit-profile' || this.router.url==='/article' || this.router.url==='/recipe/recipe-post' ? true : false;
     }
 }
