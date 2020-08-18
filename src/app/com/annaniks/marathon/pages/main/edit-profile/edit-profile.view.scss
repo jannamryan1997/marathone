@@ -149,7 +149,6 @@
 //                             padding: 15px 0;
 //                             cursor: pointer;
 
-
 //                             &:hover {
 //                                 background: #F7F7FC 0% 0% no-repeat padding-box !important;
 //                                 opacity: 1;
@@ -196,13 +195,11 @@
 //                 }
 //             }
 
-
 //         }
 //     }
 // }
 
 // //////////////
-
 
 // input[type="file"] {
 //     display: none;
@@ -272,8 +269,6 @@
 //         }
 //     }
 
-
-
 // }
 
 // .text-area-group {
@@ -295,7 +290,6 @@
 //     border: 1px solid #589CFE !important;
 
 // }
-
 
 // .sex-btn {
 //     background: #FFFFFF 0% 0% no-repeat padding-box;
@@ -325,7 +319,6 @@
 //         border: none;
 //     }
 // }
-
 
 // /////ng-deep
 
@@ -372,15 +365,11 @@
 //     }
 // }
 
-
-
-
 // ::ng-deep .ui-autocomplete-multiple-container {
 //     &:hover {
 //         border: 1px solid #96c1ff !important;
 //     }
 // }
-
 
 // :host ::ng-deep .p-multiselect {
 //     min-width: 15rem;
@@ -426,8 +415,6 @@
 //     padding: 14px 23px !important;
 // }
 
-
-
 // ::ng-deep .ui-multiselect {
 //     background: #FFFFFF 0% 0% no-repeat padding-box !important;
 //     border: 1px solid #EDF1F8 !important;
@@ -461,16 +448,12 @@
 //     border-radius: 16px !important;
 // }
 
-
 // ::ng-deep .pi-times:before{
 //     display: none !important;
 // }
 // ::ng-deep .ui-autocomplete-token-label{
 //     margin-right: 0 !important;
 // }
-
-
-
 
 @mixin text($fontSize, $lineHeight, $color, $fontFamily) {
     font-size: $fontSize;
@@ -480,8 +463,8 @@
 }
 
 .edit-prodile-content {
-    background: #FFFFFF 0% 0% no-repeat padding-box;
-    box-shadow: 2px 30px 43px #5C687B17;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    box-shadow: 2px 30px 43px #5c687b17;
     border-radius: 0px 0px 15px 15px;
     opacity: 1;
 
@@ -495,8 +478,8 @@
         .header-icon-btn {
             width: 33px;
             height: 33px;
-            background: #F5F5FA 0% 0% no-repeat padding-box;
-            border: 2px solid #FFFFFF;
+            background: #f5f5fa 0% 0% no-repeat padding-box;
+            border: 2px solid #ffffff;
             opacity: 1;
             position: absolute;
             border-radius: 50%;
@@ -505,7 +488,7 @@
             cursor: pointer;
 
             i {
-                color: #B6C1D7;
+                color: #b6c1d7;
                 font-size: 15px;
             }
         }
@@ -523,8 +506,8 @@
                 .icon-btn {
                     width: 33px;
                     height: 33px;
-                    background: #F5F5FA 0% 0% no-repeat padding-box;
-                    border: 2px solid #FFFFFF;
+                    background: #f5f5fa 0% 0% no-repeat padding-box;
+                    border: 2px solid #ffffff;
                     opacity: 1;
                     position: absolute;
                     border-radius: 50%;
@@ -533,7 +516,7 @@
                     cursor: pointer;
 
                     i {
-                        color: #B6C1D7;
+                        color: #b6c1d7;
                         font-size: 15px;
                     }
                 }
@@ -546,10 +529,10 @@
                 }
 
                 .coach-btn {
-                    border: 2px solid #FFFFFF;
+                    border: 2px solid #ffffff;
                     border-radius: 16px;
                     opacity: 1;
-                    background: #589CFE;
+                    background: #589cfe;
                     padding: 3px 20px;
                     color: #ffff;
                     margin-top: -25px;
@@ -567,11 +550,11 @@
 
             .follow-btn,
             .btn-loader {
-                background: #FFFFFF 0% 0% no-repeat padding-box;
-                border: 1px solid #589CFE;
+                background: #ffffff 0% 0% no-repeat padding-box;
+                border: 1px solid #589cfe;
                 border-radius: 18px;
                 opacity: 1;
-                color: #589CFE;
+                color: #589cfe;
                 margin-left: 10px !important;
                 padding: 9px 17px 9px 20px;
 
@@ -579,11 +562,10 @@
                     font-size: 17px;
                 }
             }
-
         }
 
         .more-content {
-            background: #FFFFFF 0% 0% no-repeat padding-box;
+            background: #ffffff 0% 0% no-repeat padding-box;
             // box-shadow: 2px 30px 43px #5C687B36;
             border: 1px solid #bbcddf;
             opacity: 1;
@@ -600,13 +582,12 @@
                 flex-direction: column;
 
                 .more-item {
-                    @include text(16px, 19px, #45535C, EncodeSans-Medium);
+                    @include text(16px, 19px, #45535c, EncodeSans-Medium);
                     padding: 15px 0;
                     cursor: pointer;
 
-
                     &:hover {
-                        background: #F7F7FC 0% 0% no-repeat padding-box !important;
+                        background: #f7f7fc 0% 0% no-repeat padding-box !important;
                         opacity: 1;
                     }
                 }
@@ -614,95 +595,86 @@
         }
     }
 
+    .form-group-main {
+        .form-group-main-description {
+            padding: 0 24px;
 
+            .form-content {
+                margin-top: 25px;
 
-.form-group-main {
-    .form-group-main-description {
-        padding: 0 24px;
+                .label {
+                    text-align: left;
+                    letter-spacing: 0px;
+                    opacity: 1;
+                    @include text(15px, 18px, #9db3c9, EncodeSans-Bold);
+                    margin-left: 20px !important;
+                }
 
-        .form-content {
-            margin-top: 25px;
-
-            .label {
-                text-align: left;
-                letter-spacing: 0px;
-                opacity: 1;
-                @include text(15px, 18px, #9DB3C9, EncodeSans-Bold);
-                margin-left: 20px !important;
-
-            }
-
-            .form-group {
-                background: #FFFFFF 0% 0% no-repeat padding-box;
-                border: 1px solid #EDF1F8;
-                border-radius: 16px;
-                opacity: 1;
-                height: 50px;
-                margin: 0;
-                padding: 0;
-                width: 256px;
-                margin-top: 10px;
-                box-shadow: none !important;
-
-                .form-input {
+                .form-group {
+                    background: #ffffff 0% 0% no-repeat padding-box;
+                    border: 1px solid #edf1f8;
+                    border-radius: 16px;
+                    opacity: 1;
+                    height: 50px;
                     margin: 0;
-                    padding: 14px 23px;
-                    font-size: 16px;
-                    line-height: 19px;
-                    color: #45535C;
-                    font-family: "Nunito Sans", sans-serif !important;
+                    padding: 0;
+                    width: 256px;
+                    margin-top: 10px;
+                    box-shadow: none !important;
 
-                    &::placeholder {
+                    .form-input {
+                        margin: 0;
+                        padding: 14px 23px;
                         font-size: 16px;
                         line-height: 19px;
-                        color: #BBCDDF;
+                        color: #45535c;
                         font-family: "Nunito Sans", sans-serif !important;
+
+                        &::placeholder {
+                            font-size: 16px;
+                            line-height: 19px;
+                            color: #bbcddf;
+                            font-family: "Nunito Sans", sans-serif !important;
+                        }
+                    }
+
+                    .social-input {
+                        margin-top: 17px;
                     }
                 }
 
-                .social-input {
-                    margin-top: 17px;
+                .sex-btn {
+                    background: #ffffff 0% 0% no-repeat padding-box;
+                    box-shadow: 0.42px 6px 16px #9897c914;
+                    border: 1px solid #f1f5fd;
+                    border-radius: 19px;
+                    opacity: 1;
+                    width: 140px;
+                    height: 50px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    @include text(17px, 20px, #9db3c9, MicrosoftYaHeiUI);
+                    margin-top: 10px;
+                    padding: 14px 0;
                 }
             }
+        }
 
-            .sex-btn {
-                background: #FFFFFF 0% 0% no-repeat padding-box;
-                box-shadow: 0.42px 6px 16px #9897C914;
-                border: 1px solid #F1F5FD;
-                border-radius: 19px;
-                opacity: 1;
-                width: 140px;
-                height: 50px;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                @include text(17px, 20px, #9DB3C9, MicrosoftYaHeiUI);
-                margin-top: 10px;
-                padding: 14px 0;
+        .btn-container {
+            .btn-item {
+                padding: 10px 40px !important;
+                margin: 33px 0;
             }
         }
     }
-
-    .btn-container {
-        .btn-item {
-            padding: 10px 40px !important;
-            margin: 33px 0;
-        }
-    }
 }
-}
-
-
-
-
-
 
 //ng-deep
 
-
 ::ng-deep .ui-multiselect {
-    background: #FFFFFF 0% 0% no-repeat padding-box !important;
-    border: 1px solid #EDF1F8 !important;
+    background: #ffffff 0% 0% no-repeat padding-box !important;
+    border: 1px solid #edf1f8 !important;
     border-radius: 16px !important;
     opacity: 1 !important;
     height: 50px !important;
@@ -716,7 +688,7 @@
         padding: 14px 23px !important;
         font-size: 16px;
         line-height: 19px;
-        color: #45535C;
+        color: #45535c;
         font-family: "Nunito Sans", sans-serif !important;
     }
 
@@ -725,31 +697,27 @@
     }
 
     &:focus {
-        border: .5px solid #96c1ff !important;
+        border: 0.5px solid #96c1ff !important;
     }
-
-
 }
-
-
 
 ::ng-deep {
     .ui-autocomplete-token {
-        background: #589CFE !important;
+        background: #589cfe !important;
         border-radius: 18px !important;
         opacity: 1 !important;
         padding: 10px 15px !important;
-        color: #FFFFFF !important;
+        color: #ffffff !important;
         font-weight: 600 !important;
         font-size: 14px !important;
         line-height: 15px !important;
         font-family: "Nunito Sans", sans-serif !important;
-          margin: 0 5px 5px 0 !important;
+        margin: 0 5px 5px 0 !important;
     }
 
     .ui-autocomplete-multiple-container {
-        background: #FFFFFF 0% 0% no-repeat padding-box !important;
-        border: 1px solid #EDF1F8 !important;
+        background: #ffffff 0% 0% no-repeat padding-box !important;
+        border: 1px solid #edf1f8 !important;
         border-radius: 16px !important;
         opacity: 1 !important;
         min-height: 50px !important;
@@ -764,9 +732,8 @@
 
         .ui-state-focus {
             &::placeholder {
-                @include text(16px, 19px, #BBCDDF, NunitoSans-Regular !important);
+                @include text(16px, 19px, #bbcddf, NunitoSans-Regular !important);
             }
-
         }
     }
 
@@ -781,13 +748,16 @@
     .ui-autocomplete-token-label {
         margin-right: 0 !important;
     }
- .ui-autocomplete .ui-state-focus {
+    .ui-autocomplete .ui-state-focus {
         border: 1px solid #96c1ff !important;
-        box-shadow: none !important
+        box-shadow: none !important;
+    }
+
+     .ui-multiselect-trigger {
+        background-color: none !important;
+        border-radius: 16px !important;
     }
 }
-
-
 
 ///all clase
 
@@ -806,10 +776,7 @@ input[type="file"] {
     resize: none !important;
 }
 
-
 ////focuse hover
-
-
 
 //hover
 .form-group {
