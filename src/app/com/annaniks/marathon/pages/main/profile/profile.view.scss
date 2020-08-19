@@ -101,10 +101,10 @@
                     box-shadow: 2px 30px 43px #5C687B36;
                     border: 0.5px solid #bbcddf;
                     opacity: 1;
-                    position: absolute;
+                     position: absolute;
                     border-radius: 10px;
                     z-index: 99;
-                    opacity: 0;
+                     opacity: 0;
                     top: 45px;
                     right: -10px;
 
@@ -182,19 +182,20 @@ input[type="file"] {
     padding: 0 10px;
 }
 
-
-.social-media-btn-content {
+.social-media-btn-content{
     position: relative;
-
     &:hover {
-        .social-media-btn {
-            background: #589CFE;
-            border: 1px solid #589CFE;
-            color: #ffffff !important;
-            align-items: center;
-        }
-            .social-media {
-                opacity: 1 !important;
-            }
-        }
+.social-media-btn {
+    background: #589CFE;
+    border: 1px solid #589CFE;
+    color: #ffffff !important;
+    align-items: center;
+  
+       
     }
+    .social-media {
+        opacity: 1 !important;
+        display: block !important;
+    }
+}
+}

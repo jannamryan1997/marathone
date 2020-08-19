@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, ViewChild, ElementRef } from "@angular/core";
+import { Component, OnInit, Inject, ViewChild, ElementRef, EventEmitter, Output, Input } from "@angular/core";
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { CookieService } from 'ngx-cookie';
 import { UserResponseData, Results, EducationData, ExperienceData } from '../../../core/models/user';
@@ -14,12 +14,26 @@ import { SpecialtiesModal } from '../../../core/modals';
 import { MatDialog } from '@angular/material/dialog';
 import { MatAutocompleteSelectedEvent, MatAutocomplete } from '@angular/material/autocomplete';
 import { Router, ActivatedRoute } from '@angular/router';
+import { GooglePlaceDirective } from 'ngx-google-places-autocomplete';
+
 @Component({
     selector: "app-edit-profile",
     templateUrl: "edit-profile.view.html",
     styleUrls: ["edit-profile.view.scss"]
 })
 export class EditProfileView implements OnInit {
+    @ViewChild("placesRef") placesRef : GooglePlaceDirective;
+  public   formattedAddress="";
+  public   options={
+    //   type:["locality"],
+    types: ['(cities)'],
+        componentRestrictions: 
+        {
+             country: ['AM','FR'],
+             
+            }
+        }
+
     public removable = true;
     public user: UserResponseData;
     public role: string;
@@ -80,6 +94,9 @@ export class EditProfileView implements OnInit {
         this._getCountries();
         this._getSpeciality();
     }
+
+
+
 
     private _formBuilder(): void {
         this.profileFormGroup = this._fb.group({
@@ -563,6 +580,10 @@ export class EditProfileView implements OnInit {
         event.stopPropagation();
     }
 
+    public handleAddressChange(address:any) {
+        this.profileFormGroup.value.location=address.formatted_address;
+        
+    }
 }
 
 

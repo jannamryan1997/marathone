@@ -184,7 +184,7 @@
             </div>
         </div>
     </div>
-</div> -->
+</div>
 
 <div class="article">
     <div class="header-content">
@@ -330,6 +330,63 @@
                 </div>
             </div>
     </div>
+</div> -->
 
-
+<div class="article">
+    <header class="header">
+        <div></div>
+        <div class="header-description d-flex align-items-center justify-content-between">
+            <p class="header-title">Save Draft</p>
+            <button class="btn-item info-btn ml-2 mr-3">Preview</button>
+            <button (click)="publish()" [disabled]="articleGroup.invalid"
+                class="btn-item info-btn mr-3 active-btn">{{articleId?'Update':'Publish'}}</button>
+            <button class="btn-item info-btn btn-radius d-flex justify-content-center" (click)="onClickShowSetting()"
+                [ngClass]="{'active-btn':showSetting}">
+                <span class="material-icons icon">
+                    more_horiz
+                </span>
+            </button>
+        </div>
+    </header>
+    <main class="main">
+        <form formGroup="articleGroup">
+            <div class="form-group-content">
+                <div class="form-group-header">
+                    <p class="header-title">Image</p>
+                    <span class="material-icons icon">
+                        close
+                    </span>
+                </div>
+                <div class="form-group-main d-flex">
+                    <button class="btn-item info-btn m-auto">Browse files <span class="material-icons ml-2">
+                            save_alt
+                        </span></button>
+                </div>
+            </div>
+            <div class="form-group-content">
+                    <div class="form-group-header">
+                        <p class="header-title">Video</p>
+                        <span class="material-icons icon">
+                            close
+                        </span>
+                    </div>
+                    <div class="form-group-main d-flex">
+                        <input type="text" placeholder="Youtube link" class="form-group-input m-auto">
+                    </div>
+                </div>
+                <div class="form-group-content">
+                        <div class="form-group-header">
+                            <p class="header-title">Text</p>
+                            <span class="material-icons icon">
+                                close
+                            </span>
+                        </div>
+                        <!-- <div class="form-group-main d-flex">
+                            <ckeditor [id]="'text'+i" (ngModelChange)="changeText(i)" (drop)="onDrop($event)"
+                            [config]="config" formControlName="value" class="form-input w-100"
+                            id="ckeditor" class="form-group-tetxt-area" placeholder="Type text here"></ckeditor>
+                        </div> -->
+                    </div>
+        </form>
+    </main>
 </div>

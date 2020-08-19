@@ -198,40 +198,39 @@
                 <i class="fa fa-refresh m-auto" aria-hidden="true"></i>
             </label>
         </div>
-            <div class="profile-header-content display-flex" (clickOutside)="onClickedOutside($event)">
-                <div class="profile-image">
-                    <div class=" d-flex">
-                        <input class="" type="file" id="file" name="avatar" accept="image/png,image/jpeg"
-                            (change)="setServicePhoto($event)">
-                        <label class="icon-btn d-flex m-auto" for="file">
-                            <i class="fa fa-refresh m-auto" aria-hidden="true"></i>
-                        </label>
-                    </div>
-                    <img [src]="localImage" class="user-image" alt="Cinque Terre">
-                    <button class="btn coach-btn" *ngIf="role==='coach'">Coach</button>
-                    <spinner-loading [profileLoading]="true" *ngIf="loading"></spinner-loading>
+        <div class="profile-header-content display-flex" (clickOutside)="onClickedOutside($event)">
+            <div class="profile-image">
+                <div class=" d-flex">
+                    <input class="" type="file" id="file" name="avatar" accept="image/png,image/jpeg"
+                        (change)="setServicePhoto($event)">
+                    <label class="icon-btn d-flex m-auto" for="file">
+                        <i class="fa fa-refresh m-auto" aria-hidden="true"></i>
+                    </label>
                 </div>
-
-                <div class="btn-content d-flex align-items-center">
-                    <button class="btn-item active-btn ml-2 mr-2" routerLink="/edit-profile" routerLinkActive="active-btn"
-                        (click)="update()">Save
-                    </button>
-                    <button class="info-btn btn-radius" (click)="onClickShowMore()"
-                        [ngClass]="{'active-btn':showMore}">
-                        <span class="material-icons icon">
-                            more_horiz
-                        </span>
-                    </button>
-                </div>
+                <img [src]="localImage" class="user-image" alt="Cinque Terre">
+                <button class="btn coach-btn" *ngIf="role==='coach'">Coach</button>
+                <spinner-loading [profileLoading]="true" *ngIf="loading"></spinner-loading>
             </div>
-            <div class="more-content" *ngIf="showMore">
-                    <p> <i class="arrow up"></i></p>
-                    <div class="more-description">
-                        <p class="more-item w-100" (click)="copyUrl()">Copy Profile URL</p>
-                        <p class="more-item w-100">Block</p>
-                        <p class="more-item w-100">Report</p>
-                    </div>
-                </div>
+
+            <div class="btn-content d-flex align-items-center">
+                <button class="btn-item active-btn ml-2 mr-2" routerLink="/edit-profile" routerLinkActive="active-btn"
+                    (click)="update()">Save
+                </button>
+                <button class="info-btn btn-radius" (click)="onClickShowMore()" [ngClass]="{'active-btn':showMore}">
+                    <span class="material-icons icon">
+                        more_horiz
+                    </span>
+                </button>
+            </div>
+        </div>
+        <div class="more-content" *ngIf="showMore">
+            <p> <i class="arrow up"></i></p>
+            <div class="more-description">
+                <p class="more-item w-100" (click)="copyUrl()">Copy Profile URL</p>
+                <p class="more-item w-100">Block</p>
+                <p class="more-item w-100">Report</p>
+            </div>
+        </div>
 
         <div class="form-group-main">
             <div class="form-group-main-description">
@@ -278,28 +277,34 @@
                         <div>
                             <!-- <p-multiSelect [options]="countries" formControlName="languages" optionLabel="name">
                             </p-multiSelect>  -->
-                             <p-autoComplete formControlName="languages"  (optionSelected)="selected($event)" 
-                            [suggestions]="filteredCountriesMultiple"
-                            (completeMethod)="filterCountryMultiple($event)" [minLength]="1"
-                            placeholder="" field="name" [multiple]="true">
-                        </p-autoComplete> 
+                            <p-autoComplete formControlName="languages" (optionSelected)="selected($event)"
+                                [suggestions]="filteredCountriesMultiple"
+                                (completeMethod)="filterCountryMultiple($event)" [minLength]="1" placeholder=""
+                                field="name" [multiple]="true">
+                            </p-autoComplete>
 
                         </div>
 
                     </div>
                     <div class="form-content w-100">
-                            <label class="label">Location</label>
-                            <div class="form-group w-100">
-                                <input type="text" class="form-input w-100"
-                                    placeholder="location" formControlName="location">
-                            </div>
+                        <label class="label">Location</label>
+                        <div class="form-group w-100">
+                            <!-- <input type="text" class="form-input w-100" placeholder="location"
+                                formControlName="location"> -->
+                                <input  class="form-input w-100" placeholder="location" ngx-google-places-autocomplete [options]='options' #placesRef="ngx-places"
+                                (onAddressChange)="handleAddressChange($event)"  formControlName="location"/>
                         </div>
+                    </div>
+
+
+
                     <div class="form-content w-100">
                         <label class="label">Specialties</label>
                         <div>
-                            <p-autoComplete (click)="openSpecialtiesModal()" formControlName="speciality" [disabled]="true"
-                                [suggestions]="filteredSpecialitesMultiple" (completeMethod)="$event.stopPropagation()"
-                                [minLength]="1" placeholder="" field="name" [multiple]="true">
+                            <p-autoComplete (click)="openSpecialtiesModal()" formControlName="speciality"
+                                [disabled]="true" [suggestions]="filteredSpecialitesMultiple"
+                                (completeMethod)="$event.stopPropagation()" [minLength]="1" placeholder="" field="name"
+                                [multiple]="true">
                             </p-autoComplete>
                         </div>
                     </div>
@@ -335,11 +340,13 @@
                                 formControlName="linkedin">
                         </div>
                     </div>
-
+                  
                 </form>
+               
                 <div class="btn-container d-flex justify-content-end">
                     <button class="btn-item active-btn" (click)="update()">Save</button>
                 </div>
+             
             </div>
         </div>
     </div>
