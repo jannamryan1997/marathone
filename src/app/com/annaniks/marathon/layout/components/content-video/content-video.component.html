@@ -1,4 +1,4 @@
-<div class="content-image-item">
+<!-- <div class="content-image-item">
     <div class="image-content">
         <label *ngIf="!isShowDeleButton">Content /Youtube Video</label>
         <plyr style="display: block; width: 100%" plyrTitle="Video 1" [plyrPlaysInline]="true"
@@ -9,4 +9,18 @@
                 close
             </span>
         </div>
-    </div>
+    </div> -->
+
+
+    <div class="form-group-content">
+            <div class="form-group-header">
+                    <p class="header-title">Video</p>
+                <span class="material-icons icon" (click)="delete()">
+                    close
+                </span>
+            </div>
+            <div class="form-group-main d-flex">
+                    <plyr style="display: block; width: 100%" plyrTitle="Video 1" [plyrPlaysInline]="true"
+                    [plyrSources]="videoSources" ></plyr>
+                </div>
+            </div>

@@ -301,8 +301,12 @@
             }
 
             .form-group-main {
-                // border: 1px solid black;
                 min-height: calc(170px - 50px);
+
+                .article-image {
+                    height: 380px;
+                    border-radius: 0px 0px 16px 16px;
+                }
 
                 .form-group-input {
                     background: #FFFFFF 0% 0% no-repeat padding-box;
@@ -314,12 +318,12 @@
                     padding: 10px;
                     @include text(16px, 19px, #BBCDDF);
                     font-family: "Nunito Sans", sans-serif;
-                
+
                     &::placeholder {
                         text-align: center;
                         @include text(16px, 19px, #BBCDDF);
                         font-family: "Nunito Sans", sans-serif;
-                    
+
                     }
 
                 }
@@ -327,18 +331,32 @@
                 .form-group-tetxt-area {
                     resize: none !important;
                     width: 100%;
-                    min-height: 50px;
+                    min-height: 120px;
                     height: auto;
                     border-radius: 16px;
                     padding: 10px;
                     border: none;
+                    @include text(16px, 19px, #BBCDDF);
+                    font-family: "Nunito Sans", sans-serif;
 
+                    &::placeholder {
+                        @include text(16px, 19px, #BBCDDF);
+                        font-family: "Nunito Sans", sans-serif;
+                    }
                 }
-
+                .ckeditor-content{
+                    margin: 10px 0;
+                }
             }
         }
-    }
 
+    }
+}
+
+
+
+input[type="file"] {
+    display: none !important;
 }
 
 ////ng-deep 
@@ -356,14 +374,22 @@
     #cke_editor1 {
         resize: none !important;
         width: 100%;
-        min-height: 50px;
+        min-height: 120px;
         height: auto;
         border-radius: 16px;
-        border: none;
-   
-    }
-  #cke_1_contents{
-      height: inherit !important;
-  }
+        border: none !important;
 
+    }
+
+    #cke_1_contents {
+        height: inherit !important;
+    }
+
+    .cke_chrome {
+        border: none !important;
+    }
+
+    .cke_contents {
+        height:auto !important;
+    }
 }

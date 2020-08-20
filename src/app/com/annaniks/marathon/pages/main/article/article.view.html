@@ -115,7 +115,7 @@
                         </div>
 
                     </div>
-                </div>
+                </div>stexic
                 <div *ngIf="isShowImageRedacor"
                     class="form-group broves-file-form d-flex align-items-start form-grup-redius">
                     <div class="m-auto">
@@ -184,9 +184,11 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
-<div class="article">
+<!---->
+<!---->
+<!-- <div class="article">
     <div class="header-content">
         <div class="header-content-description">
             <div></div>
@@ -332,6 +334,8 @@
     </div>
 </div> -->
 
+
+
 <div class="article">
     <header class="header">
         <div></div>
@@ -349,44 +353,113 @@
         </div>
     </header>
     <main class="main">
-        <form formGroup="articleGroup">
+        <form [formGroup]="articleGroup">
             <div class="form-group-content">
                 <div class="form-group-header">
-                    <p class="header-title">Image</p>
-                    <span class="material-icons icon">
+                    <p class="header-title">Cover</p>
+                    <span class="material-icons icon" (click)="deleteCover()">
                         close
                     </span>
                 </div>
                 <div class="form-group-main d-flex">
-                    <button class="btn-item info-btn m-auto">Browse files <span class="material-icons ml-2">
-                            save_alt
-                        </span></button>
+                    <div class="m-auto" *ngIf="!articleGroup.get('cover').value">
+                        <input class="" type="file" id="file1" name="cover" (change)="setArticleCover($event)">
+                        <label class="btn-item info-btn  d-flex " for="file1">
+                            <p>Browse files</p> <span class="material-icons ml-2">
+                                save_alt
+                            </span>
+                        </label>
+                    </div>
+                    <img *ngIf="articleGroup.get('cover').value" [src]="fileUrl+articleGroup.get('cover').value"
+                        class="article-image" alt="Cinque Terre">
                 </div>
             </div>
             <div class="form-group-content">
-                    <div class="form-group-header">
-                        <p class="header-title">Video</p>
-                        <span class="material-icons icon">
-                            close
-                        </span>
-                    </div>
-                    <div class="form-group-main d-flex">
-                        <input type="text" placeholder="Youtube link" class="form-group-input m-auto">
-                    </div>
+                <div class="form-group-header">
+                    <p class="header-title">Title</p>
+                    <span class="material-icons icon">
+                        close
+                    </span>
                 </div>
-                <div class="form-group-content">
+                <div class="form-group-main">
+                    <textarea type="text" class="form-group-tetxt-area" formControlName="title"
+                        placeholder="Type Title"></textarea>
+                </div>
+
+            </div>
+
+
+            <div *ngFor="let control of getControls(); let i=index" style="position: relative;" [formGroup]="control">
+
+                <div [ngSwitch]="control.get('type').value">
+
+                    <div class="form-group-content"
+                        *ngIf="!control.get('value').value && control.get('type').value == 'image'">
                         <div class="form-group-header">
-                            <p class="header-title">Text</p>
-                            <span class="material-icons icon">
+                            <p class="header-title">Image</p>
+                            <span class="material-icons icon" (click)="closeContentImage(i)" >
                                 close
                             </span>
                         </div>
-                        <!-- <div class="form-group-main d-flex">
-                            <ckeditor [id]="'text'+i" (ngModelChange)="changeText(i)" (drop)="onDrop($event)"
-                            [config]="config" formControlName="value" class="form-input w-100"
-                            id="ckeditor" class="form-group-tetxt-area" placeholder="Type text here"></ckeditor>
-                        </div> -->
+                        <div class="form-group-main d-flex">
+                            <div class="m-auto">
+                                <input class="" type="file" id="file" name="avatar" (change)="setServicePhoto($event,control)">
+                                <label class="btn-item info-btn d-flex" for="file"> Broves Files <span
+                                        class="material-icons ml-2">
+                                        save_alt
+                                    </span></label>
+                            </div>
+                        </div>
+
                     </div>
+                    <div class="form-group-content"
+                        *ngIf="!control.get('value').value && control.get('type').value == 'video'">
+                        <div class="form-group-header" (click)="sendVideo(control)">
+                            <p class="header-title">Video</p>
+                            <span class="material-icons icon" (click)="closeContentVideo(i)">
+                                close
+                            </span>
+                        </div>
+                        <div class="form-group-main d-flex">
+                            <input type="text" formControlName="value" placeholder="Youtube link"
+                                class="form-group-input m-auto">
+                        </div>
+                    </div>
+
+                    <div *ngSwitchCase="'text'" class="form-group-content">
+                        <div class="form-group-header">
+                            <p class="header-title">Text</p>
+                            <span class="material-icons icon" (click)="removeTextContent(i)">
+                                close
+                            </span>
+                        </div>
+                        <div class="form-group-main d-flex">
+                            <div  class="ckeditor-content w-100">
+                                <ckeditor [id]="'text'+i" (ngModelChange)="changeText(i)" (drop)="onDrop($event)"
+                                    [config]="config" formControlName="value" class="" id="ckeditor"
+                                    class="" placeholder="Type text here">
+                                </ckeditor>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div *ngSwitchCase="'image'">
+                        <div *ngIf="control.get('value').value" class="content-image display-flex w-100">
+                            <app-content-image [contentImageItem]="control.get('value').value"
+                                (delete)="removeControl($event,i)" class="w-100">
+                            </app-content-image>
+                        </div>
+                    </div>
+                    <div *ngSwitchCase="'video'">
+                        <div *ngIf="control.get('value').value" class="content-image display-flex">
+                            <app-content-video [source]="control.get('value').value" (delete)="removeControl($event,i)"
+                                class="w-100">
+                            </app-content-video>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </form>
     </main>
 </div>

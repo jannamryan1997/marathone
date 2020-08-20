@@ -1,43 +1,95 @@
-@mixin text($fontSize, $lineHeight, $color, $fontFamily) {
+// @mixin text($fontSize, $lineHeight, $color, $fontFamily) {
+//     font-size: $fontSize;
+//     line-height: $lineHeight;
+//     color: $color;
+//     font-family: $fontFamily;
+// }
+// .image-content{
+//     margin: 15px 0;
+//     background: #ffffff 0% 0% no-repeat padding-box;
+//     border: 0.5px solid #cfcfe9;
+//      border-radius: 26px; 
+//     opacity: 1;
+//     height: none !important;
+//     text-align: center;
+//     align-items: center;
+//     .update-image{
+//         border-radius: 26px;
+//     }
+//     .close-img{
+//         border-radius: 0px 20px 0px 20px !important;   
+//     }
+// }
+
+// .image-content,.autocomplete{
+//     margin: 40px 0 0 0 !important;
+//     position: relative;
+//    }
+//    .image-content>label{
+//      position: absolute;
+//      top: -11px;
+//      left: 25px;
+//      background-color:white;
+//      padding: 5px 13px;
+//      background: #FFFFFF 0% 0% no-repeat padding-box;
+//      border-radius: 15px;
+//      z-index: 1;
+//      @include text(16px, 19px, #589CFE,EncodeSans-Medium);
+//    }
+//    :host::ng-deep{
+//    .plyr--video{
+//        border-radius: 20px;
+//    }
+// }
+@mixin text($fontSize, $lineHeight, $color) {
     font-size: $fontSize;
     line-height: $lineHeight;
     color: $color;
-    font-family: $fontFamily;
 }
-.image-content{
-    margin: 15px 0;
-    background: #ffffff 0% 0% no-repeat padding-box;
-    border: 0.5px solid #cfcfe9;
-     border-radius: 26px; 
+
+.form-group-content {
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: -1.63px 5px 18px #5C687B0D;
+    border: 1px solid #E3ECFD;
+    border-radius: 16px;
     opacity: 1;
-    height: none !important;
-    text-align: center;
-    align-items: center;
-    .update-image{
-        border-radius: 26px;
+    min-height: 170px;
+    max-height: auto;
+    margin: 30px 0;
+
+    .form-group-header {
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: #F8FAFE 0% 0% no-repeat padding-box;
+        border-radius: 16px 16px 0px 0px;
+        padding: 14px 25px;
+        .header-title {
+            @include text(15px, 18px, #9DB3C9);
+            font-family: EncodeSans-SemiBold;
+
+        }
+
+        .icon {
+            @include text(24px, 18px, #9DB3C9);
+            cursor: pointer;
+
+        }
     }
-    .close-img{
-        border-radius: 0px 20px 0px 20px !important;   
+
+    .form-group-main {
+        min-height: calc(170px - 50px);
+
+        .article-image {
+            height: 380px;
+            border-radius: 0px 0px 16px 16px;
+        }
     }
 }
 
-.image-content,.autocomplete{
-    margin: 40px 0 0 0 !important;
-    position: relative;
-   }
-   .image-content>label{
-     position: absolute;
-     top: -11px;
-     left: 25px;
-     background-color:white;
-     padding: 5px 13px;
-     background: #FFFFFF 0% 0% no-repeat padding-box;
-     border-radius: 15px;
-     z-index: 1;
-     @include text(16px, 19px, #589CFE,EncodeSans-Medium);
-   }
    :host::ng-deep{
    .plyr--video{
-       border-radius: 20px;
+    border-radius: 0px 0px 16px 16px;
    }
 }
