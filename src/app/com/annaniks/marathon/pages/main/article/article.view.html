@@ -340,9 +340,9 @@
     <header class="header">
         <div></div>
         <div class="header-description d-flex align-items-center justify-content-between">
-            <p class="header-title">Save Draft</p>
-            <button class="btn-item info-btn ml-2 mr-3">Preview</button>
-            <button (click)="publish()" [disabled]="articleGroup.invalid"
+            <p class="header-title"> {{articleId?'Switch to Draft':'Save Draft'}} </p>
+            <button class="btn-item info-btn ml-2 mr-3" [disabled]="articleGroup.invalid" (click)="publish('preview')" >Preview</button>
+            <button (click)="publish('publish')" [disabled]="articleGroup.invalid"
                 class="btn-item info-btn mr-3 active-btn">{{articleId?'Update':'Publish'}}</button>
             <button class="btn-item info-btn btn-radius d-flex justify-content-center" (click)="onClickShowSetting()"
                 [ngClass]="{'active-btn':showSetting}">
@@ -461,5 +461,34 @@
 
             </div>
         </form>
+        <div class="add-item-content d-flex w-100">
+                <div class="add-container w-80  display-flex">
+                    <div (click)="addContent()" class="add-item active-item">
+                        <span class="material-icons m-auto">
+                            title
+                        </span>
+                    </div>
+                    <div (click)="addImage()" class="add-item active-item">
+                        <span class="material-icons m-auto">
+                            panorama
+                        </span>
+                    </div>
+                    <div class="add-item active-item" (click)="addVideo()">
+                        <span class="material-icons m-auto">
+                            videocam
+                        </span>
+                    </div>
+                    <div class="add-item">
+                        <span class="material-icons m-auto">
+                            maps_ugc
+                        </span>
+                    </div>
+                    <div class="add-item">
+                        <span class="material-icons m-auto">
+                            integration_instructions
+                        </span>
+                    </div>
+                </div>
+            </div>
     </main>
 </div>

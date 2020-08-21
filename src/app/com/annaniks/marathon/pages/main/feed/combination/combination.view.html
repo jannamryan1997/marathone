@@ -1,68 +1,3 @@
-<!-- <div class="combination-content">
-        <ngx-skeleton-loader appearance="squard" class="skeleton" [theme]="{ 
-            'position': 'absolute',
-            'top': '0',
-            'bottom': '0',
-            'right': '0',
-            'left': '0' ,
-            'z-index': '1',
-            'height':'auto'
-          }" *ngIf="loading"></ngx-skeleton-loader>
-    <div class="combination-header">
-        <img *ngIf="content && content?.cover" [src]="fileUrl+content?.cover" class="combination-image"
-            alt="Cinque Terre">
-        <button class="radius d-flex" (click)="onClickGoBack()">
-            <span class="material-icons m-auto icon">
-                keyboard_arrow_left
-            </span>
-        </button>
-        <div class="header-container d-flex justify-content-end">
-            <span class="material-icons icon">
-                more_vert
-            </span>
-
-        </div>
-    </div>
-    <div class="combination-main-content">
-        <p class="title">{{article?.title}}</p>
-        <div class="d-flex align-items-center mt-3">
-            <p class="name mr-2">by </p>
-            <p class="name mb-0" *ngIf="role==='client' || (role && article?.creator_client_info)">
-                {{article?.creator_client_info?.user?.first_name}} {{article?.creator_client_info?.user?.first_name}}</p>
-            <p class="name mb-0" *ngIf="role==='coach' || (!role && article?.creator_info)">
-                {{article?.creator_info?.user?.first_name}}</p>
-            <p class="date ml-2">{{time}}</p>
-            <button *ngIf="!checkIsMe()" (click)="follow()" type="button" [class.active-btn]="user?.is_follower"
-                class="btn-item info-btn ml-2">{{user?.is_follower?'Unfollow':'Follow'}}</button>
-        </div>
-  
-
-        <div *ngFor="let array of arrays">
-            <div *ngIf="array.type == 'text'" class="combination-item">
-                <p class="text" [innerHtml]="array?.value"> </p>
-            </div>
-
-            <div *ngIf="array.type == 'image'">
-                <img [src]="fileUrl+array?.value" alt="" width="100%" class="chicken-image">
-            </div>
-            <div *ngIf="array.type == 'video'">
-                <app-content-video [isShowDelete]="true" [source]="array?.value" class="w-100">
-                </app-content-video>
-            </div>
-        </div>
-    </div>
-
-    <app-settings [feed]="article" [role]="role" (getButtonsType)="getButtonsType($event)"
-        (openChanges)='onClickOpen($event)'></app-settings>
-    <div class="posts-comments" *ngIf="isOpen">
-        <app-comments (sendMessage)="sendMessage($event)" (likeOrDislike)="likeOrDislike($event)"
-            *ngFor="let item of comments" [feed]="article" [comments]="item" [role]="role">
-        </app-comments>
-        <app-posts-comments [feed]="article" (sendMessage)="sendMessage($event)" *ngIf="role" [comments]="comments">
-        </app-posts-comments>
-    </div>
-</div> -->
-
 <div class="conbination">
         <ngx-skeleton-loader  count="5"
         appearance="squard" class="skeleton" [theme]="{ 
@@ -74,6 +9,20 @@
             'z-index': '1',
             'height':'100vh'
           }" *ngIf="loading"></ngx-skeleton-loader>
+          <div class="combination-header">
+            <div></div>
+            <div class="header-description d-flex align-items-center justify-content-between">
+                <p class="header-title">Switch to Draft</p>
+                <button class="btn-item info-btn ml-2 mr-3" (click)="backToArticleById()" >Back to edit</button>
+                <button class="btn-item info-btn mr-3 active-btn" routerLink="/feed">Publish</button>
+                <button class="btn-item info-btn btn-radius d-flex justify-content-center" >
+                    <span class="material-icons icon">
+                        more_horiz
+                    </span>
+                </button>
+            </div>  
+          </div>
+          <div class="combination-main">
     <div class="header-content">
         <img *ngIf="content && content?.cover" [src]="fileUrl+content?.cover" class="combination-image"
         alt="Cinque Terre">
@@ -107,4 +56,5 @@
                 <p class="information" [innerHtml]="array?.value"> </p>
             </div>
     </div>
+</div>
 </div>

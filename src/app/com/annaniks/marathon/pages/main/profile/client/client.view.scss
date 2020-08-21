@@ -6,11 +6,7 @@
 }
 
 .user-main {
-    // padding: 0 15px;
     position: absolute;
-    // background: #ffffff 0% 0% no-repeat padding-box;
-    // box-shadow: 2px 30px 43px #5c687b17;
-    // border-radius: 0px 0px 15px 15px;
     opacity: 1;
     width: 100%;
 
@@ -62,8 +58,6 @@
 
     .profile-data {
         .data-item {
-            // width: 33.333333%;
-
             .item-title {
                 @include text(18px, 25px, #45535c, EncodeSans-Medium);
                 display: inline-block;
@@ -155,16 +149,35 @@
     }
 }
 
-.btn-content {
-    margin: auto;
 
+    .speciality-btn-content {
+        margin: auto;
+        display: flex;
+        flex-wrap: wrap;
+        width: 80%;
+        margin: auto;
+        .active-btn {
+            width: 140px;
+            padding: 10px 7px;
+            margin: 6px 0;
+            justify-content: center;
+            display: flex;
+        }
+    }
+    
+        .post-item {
+            color: #bbcddf;
+            margin-left: 9px;
+            @include text(17px, 20px, #bbcddf, EncodeSans-Medium);
+            cursor: pointer;
+        }
+    
     .post-item {
         color: #bbcddf;
         margin-left: 9px;
         @include text(17px, 20px, #bbcddf, EncodeSans-Medium);
         cursor: pointer;
     }
-}
 
 .show {
     overflow: visible;

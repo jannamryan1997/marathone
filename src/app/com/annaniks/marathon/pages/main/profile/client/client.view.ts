@@ -6,7 +6,7 @@ import { FeedResponseData, FeedData } from '../../../../core/models';
 import { RemoveModal, GalleryModal } from '../../../../core/modals';
 import { MatDialog } from '@angular/material/dialog';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Subject, of, iif } from 'rxjs';
+import { Subject, of} from 'rxjs';
 import { ProfileService } from '../../../../core/services/profile.service';
 import { CountryService } from '../../../../core/services/country.service';
 
@@ -18,6 +18,7 @@ import { CountryService } from '../../../../core/services/country.service';
 })
 
 export class ClientView implements OnInit {
+    public _unsbscribe=new Subject<void>();
     public feedItem: FeedResponseData[] = [];
     public user: any;
     public tab: number = 1;
@@ -39,6 +40,7 @@ export class ClientView implements OnInit {
     public languageName = [];
     public mediaItem = [];
     public feedMediaItem = [];
+    public specialityName=[];
 
     constructor(
         private _feedService: FeedService,
@@ -56,6 +58,7 @@ export class ClientView implements OnInit {
                     this._router.navigate([this._router.url])
                 this.userStatus = '';
                 this._getLanguages();
+                this._getSpeciality();
                 this._getProfile()
             }
         })
@@ -137,6 +140,24 @@ export class ClientView implements OnInit {
         }))
 
     }
+    private _getSpeciality() {
+        let url: string;
+        this._countryService.getSpeciality()
+            .pipe(takeUntil(this._unsbscribe))
+            .subscribe((data) => {
+                this.specialityName = []
+                data.results.map((name, index) => {
+                    url = name.url;
+                    this._userService.user.data.speciality.forEach(element => {
+                        if (url === element) {
+                            this.specialityName.push({ name: name.name });
+
+                        }
+                    })
+                })
+            })
+    }
+
 
     public onClickSeeMore(): void {
         this.userStatus = this.user.status.slice(0, this.user.status.length);

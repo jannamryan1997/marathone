@@ -184,8 +184,20 @@
     }
 }
 
-.btn-content {
+.speciality-btn-content {
     margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    width: 80%;
+    margin: auto;
+
+    .active-btn {
+        width: 140px;
+        padding: 10px 7px;
+        margin: 6px 0;
+        justify-content: center;
+        display: flex;
+    }
 
     .post-item {
         color: #bbcddf;
@@ -256,7 +268,7 @@
     padding: 30px 0 0 0 !important;
 }
 
-.location-image{
-width: 20px;
-margin-right: 10px;
+.location-image {
+    width: 20px;
+    margin-right: 10px;
 }

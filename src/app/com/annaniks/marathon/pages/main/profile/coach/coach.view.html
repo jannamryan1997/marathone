@@ -64,14 +64,9 @@
                         (click)="onClickSeeMore()">... See More</span></p>
             </div>
         </div>
-
-        <div class="d-flex mt-4">
-            <div class="btn-content display-flex m-auto">
-                <button class="btn-item active-btn mr-3">Body Building</button>
-                <button class="btn-item active-btn mr-3">Fat Loss</button>
-                <button class="btn-item active-btn">Power Lifting</button>
+            <div class="speciality-btn-content display-flex m-auto">
+                <button class="btn-item active-btn" *ngFor="let item of specialityName">{{item.name}}</button>
             </div> 
-        </div>
     </div>
         <div class="events-tab display-flex" [ngSwitch]="tab">
             <div class="tab-item" (click)="onClickTab(1)" [ngClass]="{'activeTab':tab===1}">

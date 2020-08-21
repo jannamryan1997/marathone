@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from "@angular/core";
 import { FeedService } from '../feed.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { takeUntil, switchMap, map, finalize } from 'rxjs/operators';
 import { Subject, forkJoin, Observable, of } from 'rxjs';
 import { FeedResponseData, ServerResponse } from '../../../../core/models';
@@ -43,6 +43,7 @@ export class CombinationView implements OnInit {
         private _userService: UserService,
         private _location: Location,
         private _followService: FollowService,
+        private _router:Router,
         @Inject("FILE_URL") public fileUrl: string) {
         this.role = this._cookieService.get('role');
 
@@ -178,6 +179,10 @@ export class CombinationView implements OnInit {
     }
     public onClickGoBack(): void {
         this._location.back();
+    }
+
+    public backToArticleById():void{
+        this._router.navigate([`article/${this._articleId}`])
     }
     ngOnDestroy() {
         this.unsubscribe$.next();

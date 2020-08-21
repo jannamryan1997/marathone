@@ -17,6 +17,7 @@ import { CountryService } from '../../../../core/services/country.service';
 })
 
 export class CoachView implements OnInit {
+    public _unsbscribe = new Subject<void>();
     public feedItem: FeedResponseData[] = [];
     public user: any;
     public tab: number = 1;
@@ -35,6 +36,7 @@ export class CoachView implements OnInit {
     public userStatus: string;
     private unsubscribe$ = new Subject<void>()
     public languageName = [];
+    public specialityName = [];
     public mediaItem = [];
     public feedMediaItem = [];
     private _userSlug: string;
@@ -53,14 +55,15 @@ export class CoachView implements OnInit {
                     this._router.navigate([this._router.url])
                 this.userStatus = '';
                 this._getProfile();
+                this._getLanguages();
 
             }
         })
 
     }
 
-    ngOnInit() { 
-        this._getLanguages();
+    ngOnInit() {
+        this._getSpeciality();
     }
 
 
@@ -131,8 +134,8 @@ export class CoachView implements OnInit {
     private _getLanguages() {
         let url: string;
         return this._countryService.getLanguages().pipe(map((data) => {
-            this.languageName = []
 
+            this.languageName = []
             data.results.map((name, index) => {
                 url = name.url;
                 if (this.user && this.user.language)
@@ -146,6 +149,23 @@ export class CoachView implements OnInit {
             return data
         }))
 
+    }
+    private _getSpeciality() {
+        let url: string;
+        this._countryService.getSpeciality()
+            .pipe(takeUntil(this._unsbscribe))
+            .subscribe((data) => {
+                this.specialityName = []
+                data.results.map((name, index) => {
+                    url = name.url;
+                    this._userService.user.data.speciality.forEach(element => {
+                        if (url === element) {
+                            this.specialityName.push({ name: name.name });
+
+                        }
+                    })
+                })
+            })
     }
 
     public checkIsMe() {
@@ -207,7 +227,7 @@ export class CoachView implements OnInit {
 
     get email(): string {
         if (this.user)
-        return this.user.user.email;
+            return this.user.user.email;
     }
     get firstName(): string {
         if (this.user && this.user.user)
