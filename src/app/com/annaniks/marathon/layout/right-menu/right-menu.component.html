@@ -8,6 +8,9 @@
             <app-user-item (getUser)="getUser()" [item]="followItem"></app-user-item>
         </div>
         <div class="contact" *ngIf="showUserData">
+            <div class="chat" *ngIf="isShowChatItem">
+                <app-chat (closeItem)="closeItem()" [activeChat]="activeChat"></app-chat>
+            </div>
             <div class="serch-content">
                 <input type="tex" class="search-input" placeholder="Contacts">
                 <span class="material-icons search-icon">
@@ -15,8 +18,8 @@
                 </span>
             </div>
             <div class="contact-item" (scroll)="onScroll($event)">
-                <div *ngFor="let item of contactItem" class="user-item d-flex">
-                    <img [src]="item?.image" class="user-image" alt="Cinque Terre">
+                <div (click)="openChat(item)" *ngFor="let item of contactItem" class="user-item d-flex">
+                    <img [src]="item?.avatar" class="user-image" alt="Cinque Terre">
                     <p class="name">{{item?.name}}</p>
                 </div>
             </div>

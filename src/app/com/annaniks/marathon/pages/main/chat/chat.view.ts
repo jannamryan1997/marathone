@@ -2,11 +2,11 @@ import { Component } from "@angular/core";
 import { ITopic, IUser } from '../../../core/models/topic';
 import { Subscription } from 'rxjs';
 import { FormBuilder } from '@angular/forms';
-import { ChatService, TopicActions } from './chat.service';
+import { ChatService, TopicActions } from '../../../core/services/chat.service';
 import { HttpResponse } from '@angular/common/http';
 import { UserService } from '../../../core/services/user.service';
 import { JhiEventManager } from 'ng-jhipster';
-import { Action } from './generated/chat_pb';
+import { Action } from '../../../core/services/generated/chat_pb';
 import { TopicMessage, ITopicMessage } from '../../../core/models/topic-message';
 import { CookieService } from 'ngx-cookie';
 

@@ -11,7 +11,7 @@ import {MatChipsModule} from '@angular/material/chips';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { SpecialtiesModal } from '../../../core/modals';
 
-
+import { GooglePlaceModule } from "ngx-google-places-autocomplete";
 
 @NgModule({
     declarations: [EditProfileView,SpecialtiesModal],
@@ -24,6 +24,7 @@ import { SpecialtiesModal } from '../../../core/modals';
         MatChipsModule,
         MatAutocompleteModule,
         MultiSelectModule,
+        GooglePlaceModule,
         SharedModule],
     providers:[],
     entryComponents:[SpecialtiesModal]

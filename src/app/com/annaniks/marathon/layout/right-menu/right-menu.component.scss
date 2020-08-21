@@ -18,6 +18,7 @@
     }
 
     .contact {
+        position: relative;
         .serch-content {
             display: flex;
             justify-content: space-between;
@@ -54,7 +55,7 @@
     .user-item {
         align-items: center;
         padding: 10px;
-        // cursor: pointer;
+        cursor: pointer;
 
 
         .user-image {
@@ -82,4 +83,12 @@
 .position {
     position: fixed !important;
     top: 110px;
+}
+.chat{
+    position: absolute;
+    right: 60px;
+    top: 24%;
+    z-index: 9999;
+    width: 300px;
+    overflow: auto;
 }

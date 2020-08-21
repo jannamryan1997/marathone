@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, ViewChild, ElementRef } from "@angular/core";
+import { Component, OnInit, Inject, ViewChild, ElementRef, EventEmitter, Output, Input } from "@angular/core";
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { CookieService } from 'ngx-cookie';
 import { UserResponseData, Results, EducationData, ExperienceData } from '../../../core/models/user';
@@ -12,13 +12,28 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { SpecialtiesModal } from '../../../core/modals';
 import { MatDialog } from '@angular/material/dialog';
-import {MatAutocompleteSelectedEvent, MatAutocomplete} from '@angular/material/autocomplete';
+import { MatAutocompleteSelectedEvent, MatAutocomplete } from '@angular/material/autocomplete';
+import { Router, ActivatedRoute } from '@angular/router';
+import { GooglePlaceDirective } from 'ngx-google-places-autocomplete';
+
 @Component({
     selector: "app-edit-profile",
     templateUrl: "edit-profile.view.html",
     styleUrls: ["edit-profile.view.scss"]
 })
 export class EditProfileView implements OnInit {
+    @ViewChild("placesRef") placesRef: GooglePlaceDirective;
+    public formattedAddress = "";
+    public options = {
+        //   type:["locality"],
+        types: ['(cities)'],
+        componentRestrictions:
+        {
+            country: ['AM', 'FR'],
+
+        }
+    }
+
     public removable = true;
     public user: UserResponseData;
     public role: string;
@@ -41,10 +56,10 @@ export class EditProfileView implements OnInit {
     public spacialityUrl = [];
     public countries = [];
     public educationItem: EducationData[] = [];
-    public experienceItem:ExperienceData[]=[];
-    public routerUrl:string;
-    public _unsbscribe=new Subject<void>();
-    public maleTab:string="male";
+    public experienceItem: ExperienceData[] = [];
+    public routerUrl: string;
+    public _unsbscribe = new Subject<void>();
+    public maleTab: string = "male";
     @ViewChild('fruitInput') fruitInput: ElementRef<HTMLInputElement>;
     @ViewChild('auto') matAutocomplete: MatAutocomplete;
     constructor(
@@ -54,13 +69,15 @@ export class EditProfileView implements OnInit {
         private _userService: UserService,
         private _profileService: ProfileService,
         private _location: Location,
-        private _dialog:MatDialog,
+        private _dialog: MatDialog,
+        private _router: Router,
+        private _activatedRouter: ActivatedRoute,
 
         @Inject("FILE_URL") public _fileUrl: string,
     ) {
         this.role = this._cookieService.get('role');
         this.user = this._userService.user;
-        
+
 
         if (this._userService.user.data.avatar) {
             this.localImage = this._fileUrl + this._userService.user.data.avatar;
@@ -78,6 +95,9 @@ export class EditProfileView implements OnInit {
         this._getSpeciality();
     }
 
+
+
+
     private _formBuilder(): void {
         this.profileFormGroup = this._fb.group({
             firstName: [null, Validators.required],
@@ -90,12 +110,13 @@ export class EditProfileView implements OnInit {
             instagram: [null],
             linkedin: [null],
             youtube: [null],
+            user_name: [null],
         })
     }
 
     private _setPatchValue(): void {
-        
-        this.profileFormGroup.patchValue({    
+
+        this.profileFormGroup.patchValue({
             firstName: this.user.data.user.first_name,
             userName: this.user.data.user.last_name,
             status: this.user.data.status,
@@ -104,8 +125,8 @@ export class EditProfileView implements OnInit {
             instagram: this.user.data.instagram,
             linkedin: this.user.data.linkedin,
             location: this.user.data.location,
+            user_name: this.user.data.slug,
         });
-console.log( this.user.data.location);
 
 
         this.educationItem = [];
@@ -205,7 +226,7 @@ console.log( this.user.data.location);
         }
         if (this.role === 'client') {
             this._userService.putClient(this._userService.user.data.id, this._userService.user.data)
-            .pipe(takeUntil(this._unsbscribe))
+                .pipe(takeUntil(this._unsbscribe))
                 .subscribe((data) => {
                     this._userService.getClient().subscribe((data) => {
                         if (type === 'avatar') {
@@ -224,7 +245,7 @@ console.log( this.user.data.location);
         }
         else {
             this._userService.putCoatch(this._userService.user.data.id, this._userService.user.data)
-            .pipe(takeUntil(this._unsbscribe))
+                .pipe(takeUntil(this._unsbscribe))
                 .subscribe((data) => {
                     this._userService.getCoatch().subscribe((data) => {
                         if (type === 'avatar') {
@@ -242,42 +263,42 @@ console.log( this.user.data.location);
     }
     private _getCountries(): void {
         this._countryService.getLanguages()
-        .pipe(takeUntil(this._unsbscribe))
-        .subscribe((countries) => {
-            this.countries = countries.results;
-            const selectedlanguages: any[] = this.user.data.language || [];
-            const selectedcountries = [];
-            selectedlanguages.map((e) => {
-                const findedCountry = this.countries.find((f) => f.url === e);
-                if (findedCountry) {
-                    selectedcountries.push(findedCountry);
-                }
-            })
-            this.profileFormGroup.patchValue({
-                languages: selectedcountries
-            })
-        });
+            .pipe(takeUntil(this._unsbscribe))
+            .subscribe((countries) => {
+                this.countries = countries.results;
+                const selectedlanguages: any[] = this.user.data.language || [];
+                const selectedcountries = [];
+                selectedlanguages.map((e) => {
+                    const findedCountry = this.countries.find((f) => f.url === e);
+                    if (findedCountry) {
+                        selectedcountries.push(findedCountry);
+                    }
+                })
+                this.profileFormGroup.patchValue({
+                    languages: selectedcountries
+                })
+            });
     }
 
     private _getSpeciality(): void {
         this._countryService.getSpeciality()
-        .pipe(takeUntil(this._unsbscribe))
-        .subscribe((speciality) => {
-            this.speciality = speciality.results;
-            const selectedspaciality: any[] = this.user.data.speciality || [];
-            const selectspaciality = [];
-            selectedspaciality.map((e) => {
-                const findedCountry = this.speciality.find((f) => f.url === e);
-                if (findedCountry) {
-                    selectspaciality.push(findedCountry);
-                }
-            })
-            this.profileFormGroup.patchValue({
-                speciality: selectspaciality
-            })
+            .pipe(takeUntil(this._unsbscribe))
+            .subscribe((speciality) => {
+                this.speciality = speciality.results;
+                const selectedspaciality: any[] = this.user.data.speciality || [];
+                const selectspaciality = [];
+                selectedspaciality.map((e) => {
+                    const findedCountry = this.speciality.find((f) => f.url === e);
+                    if (findedCountry) {
+                        selectspaciality.push(findedCountry);
+                    }
+                })
+                this.profileFormGroup.patchValue({
+                    speciality: selectspaciality
+                })
 
 
-        });
+            });
     }
 
     ///--------------PICTURE UPLOAD
@@ -307,14 +328,16 @@ console.log( this.user.data.location);
             // this.user.data.certificates = this.certificates,
             this.user.data.language = this.url,
             this.user.data.speciality = this.spacialityUrl;
-        this._userService.putCoatch(this._userService.user.data.id, this.user.data)
-        .pipe(takeUntil(this._unsbscribe))
-            .subscribe((data) => {
-                this._userService.getCoatch().subscribe((data) => {
-                    
-                    this.user.data = data.data;
+        this.user.data.slug = this.profileFormGroup.value.user_name,
+            this._userService.putCoatch(this._userService.user.data.id, this.user.data)
+                .pipe(takeUntil(this._unsbscribe))
+                .subscribe((data) => {
+                    this._userService.getCoatch().subscribe((data) => {
+
+                        this.user.data = data.data;
+                        this._router.navigate([`/profile/${this.user.data.slug}/coach`]);
+                    })
                 })
-            })
 
     }
 
@@ -338,12 +361,14 @@ console.log( this.user.data.location);
             this.user.data.location = this.profileFormGroup.value.location,
             this.user.data.language = this.url,
             this.user.data.speciality = this.spacialityUrl;
-        this._userService.putClient(this._userService.user.data.id, this.user.data)
-        .pipe(takeUntil(this._unsbscribe))
-            .subscribe((data) => {
-                this._userService.getClient().subscribe((data) => {
+        this.user.data.slug = this.profileFormGroup.value.user_name,
+            this._userService.putClient(this._userService.user.data.id, this.user.data)
+                .pipe(takeUntil(this._unsbscribe))
+                .subscribe((data) => {
+                    this._userService.getClient().subscribe((data) => {
+                        this._router.navigate([`/profile/${this.user.data.slug}/client`]);
+                    })
                 })
-            })
     }
 
     /////----------------------UPDATE USER AND COATC
@@ -367,7 +392,7 @@ console.log( this.user.data.location);
     public removeEducationItem(event, ind, item): void {
         if (event && item.value.url) {
             this._profileService.deleteProfileInformation(item.value.url, item.value)
-            .pipe(takeUntil(this._unsbscribe))
+                .pipe(takeUntil(this._unsbscribe))
                 .subscribe((data) => {
                     if (this.role === 'client') {
                         this._getClient();
@@ -388,10 +413,10 @@ console.log( this.user.data.location);
         this.experience.push(new FormControl(''));
     }
 
-    public removeExperianceItem(event, ind,item): void {
+    public removeExperianceItem(event, ind, item): void {
         if (event && item.value.url) {
             this._profileService.deleteProfileInformation(item.value.url, item.value)
-            .pipe(takeUntil(this._unsbscribe))
+                .pipe(takeUntil(this._unsbscribe))
                 .subscribe((data) => {
                     if (this.role === 'client') {
                         this._getClient();
@@ -416,16 +441,16 @@ console.log( this.user.data.location);
 
     public addCertificates(): void {
         this.certificates.push({ file: this.certificatesImage, description: this.profileFormGroup.value.certificatesLocation });
-        this.certificatesImage='';
+        this.certificatesImage = '';
         this.profileFormGroup.patchValue({
-            certificatesLocation :'', 
+            certificatesLocation: '',
         });
-        }
+    }
 
     public removeCerticatesItem(event, ind, item): void {
         if (event && item.url) {
             this._profileService.deleteProfileInformation(item.url, item)
-            .pipe(takeUntil(this._unsbscribe))
+                .pipe(takeUntil(this._unsbscribe))
                 .subscribe((data) => {
                     if (this.role === 'client') {
                         this._getClient();
@@ -441,17 +466,17 @@ console.log( this.user.data.location);
         }
     }
     public onClickShowSocialMedium(): void {
-        if(this.showMore===true){
-            this.showMore=false;
-         
+        if (this.showMore === true) {
+            this.showMore = false;
+
         }
         this.showSocialMedium = !this.showSocialMedium;
-        
+
     }
     public onClickShowMore(): void {
-        if(this.showSocialMedium===true){
-            this.showSocialMedium=false;
-        
+        if (this.showSocialMedium === true) {
+            this.showSocialMedium = false;
+
         }
         this.showMore = !this.showMore;
     }
@@ -502,11 +527,11 @@ console.log( this.user.data.location);
         return filtered;
     }
 
-    public onClickedOutside(event):void{
-        this.showMore=false;
-        this.showSocialMedium=false;
+    public onClickedOutside(event): void {
+        this.showMore = false;
+        this.showSocialMedium = false;
     }
-    public copyUrl():void{
+    public copyUrl(): void {
         const selBox = document.createElement('textarea');
         selBox.style.position = 'fixed';
         selBox.style.left = '0';
@@ -520,37 +545,45 @@ console.log( this.user.data.location);
         document.body.removeChild(selBox);
     }
 
-    public onClickMaleTab(event):void{
-        this.maleTab=event;
+    public onClickMaleTab(event): void {
+        this.maleTab = event;
     }
-   
-public openSpecialtiesModal():void{
-    const dialogRef=this._dialog.open(SpecialtiesModal,{
-        width:" 520px",
-        data:{
-            data:this.speciality,
-        }
-    })
-    dialogRef.afterClosed().subscribe((data)=>{
-        if(data){
-            this.profileFormGroup.patchValue({
-                speciality:data,
-            })
-            console.log(data);
-            
-        }
-   
-        
-    })
-}
-selected(event: MatAutocompleteSelectedEvent): void {
-    console.log('fdfdfdf');
-    this.countries.push(event.option.viewValue);
-    this.fruitInput.nativeElement.value = '';
-    this.profileFormGroup.value.languages.setValue(null);
-  }
+
+    public openSpecialtiesModal(): void {
+        let activeItem = this.profileFormGroup.value.speciality
+        const dialogRef = this._dialog.open(SpecialtiesModal, {
+            width: " 520px",
+            data: {
+                data: this.speciality,
+                activeItem: activeItem,
+            }
+        })
+        dialogRef.afterClosed().subscribe((data) => {
+            if (data) {
+                this.profileFormGroup.patchValue({
+                    speciality: data,
+                })
+
+            }
 
 
+        })
+    }
+    selected(event: MatAutocompleteSelectedEvent): void {
+        this.countries.push(event.option.viewValue);
+        this.fruitInput.nativeElement.value = '';
+        this.profileFormGroup.value.languages.setValue(null);
+    }
+
+
+    public stopPropagation(event) {
+        event.stopPropagation();
+    }
+
+    public handleAddressChange(address: any) {
+        this.profileFormGroup.value.location = address.formatted_address;
+
+    }
 }
 
 

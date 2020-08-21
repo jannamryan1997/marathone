@@ -2,7 +2,8 @@
     .main-container {
         width: 100%;
         max-width: 1200px;
-        margin: 110px auto;
+        // margin: 110px auto;
+        margin: 110px auto 0 auto;
 
         .left-content {
             width: 100%;
@@ -27,5 +28,5 @@
 // }
 
 .router {
-    margin-top: -27px !important;
+ margin-top: -28px !important;
 }

@@ -11,9 +11,9 @@ import { UnaryOutput } from '@improbable-eng/grpc-web/dist/typings/unary';
 import { Chat } from './generated/chat_pb_service';
 import { Action, ActionData, ActionRequest, ActionResponse } from './generated/chat_pb';
 import { CookieService } from 'ngx-cookie';
-import { ITopic } from '../../../core/models/topic';
-import { ITopicMessage, TopicMessage } from '../../../core/models/topic-message';
-import { UserService } from '../../../core/services/user.service';
+import { ITopic } from '../models/topic';
+import { ITopicMessage, TopicMessage } from '../models/topic-message';
+import { UserService } from './user.service';
 
 export class TopicActions {
   public actions = {};

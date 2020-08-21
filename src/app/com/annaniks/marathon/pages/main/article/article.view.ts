@@ -96,7 +96,7 @@ export class ArticleView implements OnInit {
             }
         }
     }
-    private _uploadFile(image, type: string) {
+    private _uploadFile(image, type: string,control?:FormGroup) {
         if (image && image.target) {
             const formData = new FormData();
             let fileList: FileList = image.target.files;
@@ -106,7 +106,8 @@ export class ArticleView implements OnInit {
                 this._userService.uploadVideoFile(formData).pipe(takeUntil(this.unsubscribe$)).subscribe((data) => {
                     if (data && data.file_name) {
                         if (type == 'image') {
-                            this._createControls('image', data.file_name)
+                            control.get('value').setValue(data.file_name)
+                            // this._createControls('image', data.file_name)
                         } else {
                             (this.articleGroup.get('cover').setValue(data.file_name));
                         }
@@ -121,11 +122,17 @@ export class ArticleView implements OnInit {
             (this.articleGroup.get('arrays') as FormArray).removeAt(index);
         }
     }
-    public sendVideo(): void {
-        if (this.articleGroup.get('currentYoutubeLink').value) {
-            this._createControls('video', this.articleGroup.get('currentYoutubeLink').value)
-            this.articleGroup.get('currentYoutubeLink').reset();
-            this.closeContentVideo();
+    public sendVideo(control): void {
+        // this.getControls();
+        console.log(this.isShowVideoRedactor);
+        
+        console.log("ggg")
+        if (control.get('value').value) {
+            // control.get('value').setValue()
+            // this._createControls('video', this.articleGroup.get('currentYoutubeLink').value)
+            // this.articleGroup.get('currentYoutubeLink').reset();
+            // this.closeContentVideo();
+            // control.get(')'
         }
     }
     public deleteCover() {
@@ -148,7 +155,7 @@ export class ArticleView implements OnInit {
             this._uploadFile(event, 'cover')
         }
     }
-    public setServicePhoto(event): void {
+    public setServicePhoto(event,control): void {
         if (event) {
             this.isShowImageRedacor = false;
             const reader = new FileReader();
@@ -156,28 +163,28 @@ export class ArticleView implements OnInit {
             if (event.target.files[0]) {
                 reader.readAsDataURL(event.target.files[0]);
             }
-            this._uploadFile(event, 'image')
+            this._uploadFile(event, 'image',control)
 
         }
     }
 
 
     public removeTextContent(index: number) {
-        let formArray = this.articleGroup.get('contentTexts') as FormArray;
-        formArray.removeAt(index)
+        // let formArray = this.articleGroup.get('contentTexts') as FormArray;
+        // formArray.removeAt(index)
+        (this.articleGroup.get('arrays') as FormArray).removeAt(index);
     }
-    public closeContentImage() {
-        this.isShowImageRedacor = false;
+    public closeContentImage(index) {
+        (this.articleGroup.get('arrays') as FormArray).removeAt(index);
 
     }
-    public closeContentVideo() {
-        this.isShowVideoRedactor = false;
-
+    public closeContentVideo(index) {
+        (this.articleGroup.get('arrays') as FormArray).removeAt(index);
     }
     public addContent() {
-        if (!this.isShowImageRedacor && !this.isShowVideoRedactor) {
+        // if (!this.isShowImageRedacor && !this.isShowVideoRedactor) {
             this._createControls('text')
-        }
+        // }
     }
 
     public drop(event: CdkDragDrop<string[]>) {
@@ -185,12 +192,14 @@ export class ArticleView implements OnInit {
     }
 
     public addImage() {
-        if (!this.isShowVideoRedactor)
-            this.isShowImageRedacor = true;
+        // if (!this.isShowVideoRedactor)
+            // this.isShowImageRedacor = true;
+            this._createControls('image',null)
     }
     public addVideo() {
-        if (!this.isShowImageRedacor)
-            this.isShowVideoRedactor = true;
+        // if (!this.isShowImageRedacor)
+            // this.isShowVideoRedactor = true;
+            this._createControls('video',null)
     }
     public onClickShowCreatedMenu(): void {
         this.showCreatedMenu = !this.showCreatedMenu;

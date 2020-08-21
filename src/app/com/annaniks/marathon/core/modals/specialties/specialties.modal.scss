@@ -1,3 +1,9 @@
+@mixin text($fontSize, $lineHeight, $color) {
+    font-size: $fontSize;
+    line-height: $lineHeight;
+    color: $color;
+}
+
 .speciality-content {
     background: #FFFFFF 0% 0% no-repeat padding-box;
     box-shadow: 0.7px 10px 40px #5C687B4A;
@@ -11,10 +17,8 @@
             justify-content: space-between;
 
             .title {
-                color: #45535c;
                 font-family: EncodeSans-SemiBold;
-                font-size: 18px;
-                line-height: 21px;
+                @include text(18px,21px,#45535c);
             }
 
             .icon {
@@ -22,6 +26,7 @@
                 color: #9db3c9;
                 opacity: 1;
                 font-size: 25px;
+
             }
         }
 
@@ -37,30 +42,24 @@
 }
 
 ::ng-deep .mat-chip {
-    border: 1px solid #589cfe !important;
-    border-radius: 18px !important;
-    opacity: 1 !important;
-    color: #589cfe !important;
-    font-size: 14px !important;
-    line-height: 16px !important;
-    font-family: EncodeSans-SemiBold !important;
-    background: #ffff !important;
-    align-items: center !important;
-    text-align: center !important;
-    justify-content: center !important;
-    display: flex !important;
-    cursor: pointer !important;
-    position: unset !important;
-    padding: 17px 20px !important;
     margin: 13px 4px !important;
+     border: 1px solid #589cfe !important;
+    background: #ffff !important;
+    color: #589cfe !important;
+     height: 35px !important;
+     border-radius: 20px !important;
+     padding: 17px 22px !important;
+     font-family: EncodeSans-SemiBold !important;
+     @include text(14px,17px,#589cfe);
+  
 
     &:hover {
         background: #589cfe !important;
         color: #ffffff !important;
+        
     }
+   
 }
-
-
 
 .background-color {
     background: #589CFE 0% 0% no-repeat padding-box !important;
@@ -77,4 +76,8 @@
         box-shadow:none !important;
      background: none !important;
     }
+}
+
+::ng-deep .mat-chip.mat-standard-chip::after{
+    background: none !important;
 }

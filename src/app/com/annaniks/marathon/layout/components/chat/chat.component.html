@@ -1,0 +1,51 @@
+<div class="chat-content">
+    <div class="d-flex topbar">
+        <div class="entity">
+            <img [routerLink]="getLinkUrl(item)" [src]="getAvatar(item)" class="user-image" alt="Cinque Terre">
+            <div class="main-info" [routerLink]="getLinkUrl(item)">
+                <p class="name more-point">{{item?.name}}</p>
+            </div>
+        </div>
+        <span class="material-icons clear-icon" (click)="closeItem()">
+            clear
+        </span>
+    </div>
+    <div class="message-content">
+        <div>
+            <div class="friend-message d-flex">
+                <img [src]="getAvatar(item)" alt="">
+                <div class="message">
+                    hellohellohellohellohellohellohellohellohellohello
+                    hellohellohellohellohellohellohellohellohellohellohello
+                    hellohellohellohellohellohellohello
+                </div>
+            </div>
+            <div class="my-message d-flex">
+                <div class="message">
+                    hellohellohellohellohellohellohellohellohellohello
+                    hellohellohellohellohellohellohellohellohellohellohello
+                    hellohellohellohellohellohellohello
+                </div>
+            </div>
+            <div class="friend-message d-flex">
+                <img [src]="getAvatar(item)" alt="">
+                <div class="message">
+                    hello
+                </div>
+            </div>
+        </div>
+    </div>
+    <form name="inputForm" role="form" novalidate [formGroup]="inputForm">
+        <div class="p-2 mt-2">
+            <textarea rows="3" style="width: 100%" class="form-control" name="text" id="field_text"
+                formControlName="text"></textarea>
+        </div>
+        <div class="p-2">
+            <button class="btn btn-primary btn-block">
+                <i  class="fa fa-paper-plane icon" aria-hidden="true"></i>
+                <span style="margin: 0 5px;">Send</span>
+                <app-loading ></app-loading>
+            </button>
+        </div>
+    </form>
+</div>

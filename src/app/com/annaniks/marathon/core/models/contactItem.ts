@@ -1,4 +1,4 @@
 export interface ContactItem{
-    image:string,
+    avatar:string,
     name:string,
 }

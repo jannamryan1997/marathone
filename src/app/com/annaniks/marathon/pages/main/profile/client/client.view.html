@@ -5,11 +5,9 @@
                 <p class="name"> {{firstName}}</p>
                 <div class=" display-flex">
                     <div class="review display-flex">
-                        <div class="review-item" *ngFor="let item of reviewItem">
-                            <img src="assets/icons/star.svg" class="star-image">
-                        </div>
+                        <img src="assets/icons/star.svg" class="star-image" alt="">
+                        <p class="rate-title"><span class="rate">4.9</span> 120 rates</p>
                     </div>
-                    <p class="review-title">10 / 5 review</p>
                 </div>
             </div>
             <div class="profile-data display-flex">
@@ -17,8 +15,9 @@
                     <p class="item-title"> {{email}} </p>
 
                 </div>
-                <div class="data-item">
-                    <p class="item-title">{{user?.location}}</p>
+                <div class="data-item d-flex align-item-center" *ngIf="user?.location">
+                    <p class="item-title"> <img src="assets/icons/location.svg" class="location-image"
+                            alt="">{{user?.location}}</p>
                 </div>
                 <div class="d-flex">
                     <div class="data-item" *ngFor="let item of languageName">
@@ -43,9 +42,12 @@
                         </div>
                     </div>
                     <div class="statistic-item">
-                        <div>
-                            <p class="count">30</p>
-                            <p class="statistic-title">Followers</p>
+                        <div class="folowers-item d-flex">
+                            <div>
+                                <p class="count">300</p>
+                                <p class="statistic-title">Followers</p>
+                            </div>
+
                         </div>
                     </div>
                     <div class="statistic-item">

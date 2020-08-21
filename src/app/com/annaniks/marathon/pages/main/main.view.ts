@@ -12,15 +12,17 @@ import { map } from 'rxjs/operators';
 
 export class MainView implements OnInit {
     public getmeiD: string;
+    public ingridientid: string;
     constructor(
         private _profileUserService: UserService,
         private _cookieService: CookieService,
         public router: Router,
     ) {
-
     }
 
-    ngOnInit() { }
+    ngOnInit() {
+        // this._getProfileData();
+    }
 
     // private _getTokenForChat(role) {
     //     if (!this._cookieService.get('chatToken')) {
@@ -72,6 +74,6 @@ export class MainView implements OnInit {
         }
     }
     get isIncludeProfile(): boolean {
-        return (this.router.url).search('/profile') > -1 || this.router.url === '/edit-profile' ? true : false;
+        return (this.router.url).search('/profile') > -1 || this.router.url === '/edit-profile' || this.router.url==='/article' || this.router.url==='/recipe/recipe-post' ? true : false;
     }
 }

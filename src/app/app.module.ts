@@ -15,9 +15,8 @@ import { environment } from 'src/environments/environment';
 
 import { SocialLoginModule, AuthServiceConfig } from "angularx-social-login";
 import { GoogleLoginProvider, FacebookLoginProvider } from "angularx-social-login";
-
-
 import { CookieModule } from 'ngx-cookie';
+
 
 let config = new AuthServiceConfig([
   {

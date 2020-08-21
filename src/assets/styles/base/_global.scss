@@ -379,10 +379,10 @@ textarea {
 }
 
 .active-btn {
-    background: #589CFE;
-    border: 1px solid #589CFE;
+    background: #589CFE !important;
+    border: 1px solid #589CFE !important;
     color: #ffffff !important;
-    align-items: center;
+    align-items: center !important; 
 }
 
 .basic-btn {
@@ -401,7 +401,8 @@ textarea {
 }
 
 .btn-radius {
-    width: 38px !important;
+    width: 40px !important;
+    height: 40px !important;
     border-radius: 50% !important;
     display: flex;
     justify-content: center;

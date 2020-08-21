@@ -20,6 +20,29 @@
         box-shadow: 2px 30px 43px #5c687b17;
     }
 
+    .review {
+        .star-image {
+            width: 21px;
+            height: 21px;
+        }
+
+        .rate-title {
+            @include text(16px, 19px, #45535c, EncodeSans-SemiBold);
+        }
+
+        .rate {
+            margin-left: 15px;
+
+            &::after {
+                border: 1px solid #d7e4f0;
+                height: 20px;
+                width: 4px;
+                content: "";
+                margin: 0 10px;
+            }
+        }
+    }
+
     .review-content {
         padding: 28px 0 19px 0;
 
@@ -44,11 +67,11 @@
             .item-title {
                 @include text(18px, 25px, #45535c, EncodeSans-Medium);
                 display: inline-block;
-                width: 190px;
                 white-space: nowrap;
                 overflow: hidden !important;
                 text-overflow: ellipsis;
                 text-align: center;
+                width: 180px;
             }
 
             .country-img {
@@ -80,6 +103,22 @@
             .statistic-title {
                 @include text(16px, 16px, #45535c, EncodeSans-Medium);
                 margin-top: 4px;
+            }
+
+            .folowers-item {
+                &::before {
+                    content: "";
+                    border: 0.5px solid #f1f6fe;
+                    height: 44px;
+                    margin: 10px 20px 0 0;
+                }
+
+                &::after {
+                    content: "";
+                    border: 0.5px solid #f1f6fe;
+                    height: 44px;
+                    margin: 10px 0 0 20px;
+                }
             }
         }
     }
@@ -178,4 +217,9 @@
 
 .star-image {
     width: 23px;
+}
+
+.location-image {
+    width: 20px;
+    margin-right: 10px;
 }

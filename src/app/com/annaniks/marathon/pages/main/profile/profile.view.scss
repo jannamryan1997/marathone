@@ -27,7 +27,7 @@
                     position: absolute;
                     border-radius: 50%;
                     right: 2px;
-                    bottom: -7px;
+                    bottom: -10px;
                     cursor: pointer;
 
                     i {
@@ -100,13 +100,14 @@
                     background: #FFFFFF 0% 0% no-repeat padding-box;
                     box-shadow: 2px 30px 43px #5C687B36;
                     border: 0.5px solid #bbcddf;
-                    position: absolute;
+                    opacity: 1;
+                     position: absolute;
                     border-radius: 10px;
-                    right: 50px;
                     z-index: 99;
-                    top: 260px;
-                    opacity: 0;
-                    // display: none;
+                     opacity: 0;
+                    top: 45px;
+                    right: -10px;
+
                     .social-media-description {
                         display: flex;
                         flex-direction: column;
@@ -180,7 +181,9 @@ input[type="file"] {
     align-items: center;
     padding: 0 10px;
 }
+
 .social-media-btn-content{
+    position: relative;
     &:hover {
 .social-media-btn {
     background: #589CFE;
