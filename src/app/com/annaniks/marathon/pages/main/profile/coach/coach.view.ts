@@ -227,7 +227,7 @@ export class CoachView implements OnInit {
 
     get email(): string {
         if (this.user)
-            return this.user.user.email;
+            return this.user.user.last_name;
     }
     get firstName(): string {
         if (this.user && this.user.user)

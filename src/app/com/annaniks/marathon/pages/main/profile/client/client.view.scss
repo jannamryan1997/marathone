@@ -236,3 +236,10 @@
     width: 20px;
     margin-right: 10px;
 }
+
+.post-item {
+    color: #bbcddf;
+    margin-left: 9px;
+    @include text(17px, 20px, #bbcddf, EncodeSans-Medium);
+    cursor: pointer;
+}
