@@ -46,9 +46,9 @@
      border: 1px solid #589cfe !important;
     background: #ffff !important;
     color: #589cfe !important;
-     height: 35px !important;
+    //  height: 35px !important;
      border-radius: 20px !important;
-     padding: 17px 22px !important;
+     padding: 20px 22px !important;
      font-family: EncodeSans-SemiBold !important;
      @include text(14px,17px,#589cfe);
   
@@ -64,8 +64,6 @@
 .background-color {
     background: #589CFE 0% 0% no-repeat padding-box !important;
     box-shadow: -4.36px 8px 6px #589BFD24 !important;
-    border-radius: 18px !important;
-    opacity: 1 !important;
     color: #ffff !important;
 }
 

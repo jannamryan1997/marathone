@@ -72,6 +72,7 @@ export class FeedPostCardItemComponent implements OnInit {
     }
 
     ngOnInit() {
+        console.log(this.feedTitle);
         
         if(this.mode == 'skeleton') return 
         this.time = moment(this.feedItem.timeStamp).fromNow();

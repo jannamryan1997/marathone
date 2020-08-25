@@ -16,7 +16,7 @@ import { Subject } from 'rxjs';
 
 
 export class CreatePublicationComponent implements OnInit {
-
+  
     public i18n;
     public isModalMode: boolean = false;
     public postType = new FormControl('');
@@ -62,7 +62,7 @@ export class CreatePublicationComponent implements OnInit {
         this._autosize();
 
         this._initi18n();
-
+this._setPatchValue();
     }
 
     private _initi18n() {
@@ -95,7 +95,12 @@ export class CreatePublicationComponent implements OnInit {
         }
     }
 
-
+private _setPatchValue():void{
+    this.postType.valueChanges
+    .subscribe((data)=>{
+        this.play();
+    })
+}
 
     private _autosize() {
         const el = document.getElementById('textarea');

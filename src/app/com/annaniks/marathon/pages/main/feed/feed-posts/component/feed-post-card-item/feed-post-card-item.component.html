@@ -30,6 +30,12 @@
                 <p class="title show-content">{{feedTitle}} <span *ngIf="seeMore" class="title more"
                         (click)="onClickSeeMore()">... See More</span></p>
             </div>
+            <div class="title-content" *ngIf="content?.type === 'videoLink'">
+                    <a class="title show-content youtuble-title" target="_blank" href="{{feedTitle}}">{{feedTitle}}
+                            <span *ngIf="seeMore" class="title more"
+                            (click)="onClickSeeMore()">... See More</span>
+                         </a>
+                </div>
 
             <div class="d-none" [ngClass]="{'d-block':content?.type ==='image'}">
                 <img src="{{fileUrl+content?.url}}" class="image" alt="Cinque Terre"
