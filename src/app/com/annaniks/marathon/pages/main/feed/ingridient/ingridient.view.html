@@ -244,9 +244,12 @@
             <div class="ingridient-description">
                 <p class="ingridient-title">Preparation</p>
                 <div class="ingridient-content" >
-                    <div class="ingridient-item d-flex justify-content-between" *ngFor="let item of receipt?.preparationSteps;let ind=index">
-                        <div class="before">{{ind+1}}</div>
-                        <p class="ingridient-value preparation-value">{{item}}</p>
+                    <div class="ingridient-item" *ngFor="let item of receipt?.preparationSteps;let ind=index">
+                        <div class="d-flex">
+                                <div class="before">{{ind+1}}</div>
+                                <p class="ingridient-value preparation-value w-100">{{item}}</p>
+                        </div>
+                       
 
                     </div>
                   

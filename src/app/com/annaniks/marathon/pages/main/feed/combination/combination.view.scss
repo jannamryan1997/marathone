@@ -6,12 +6,12 @@
 
 .conbination {
     position: absolute;
-    top: 82px;
+    top: 80px;
     width: 600px;
     background: #FFFFFF 0% 0% no-repeat padding-box;
     box-shadow: 2px 30px 43px #5C687B17;
     opacity: 1;
-    height: 100%;
+    min-height: 100vh;
 
     .combination-header {
         height: 70px;
@@ -38,6 +38,7 @@
 
     .combination-main {
         margin: 70px 0px;
+
         .header-content {
             //  padding: 0 5px;
 
@@ -108,4 +109,12 @@
         }
     }
 
+}
+
+.combination-top {
+    top: 10px !important;
+}
+
+.combination-main-top {
+    margin: 0 !important;
 }

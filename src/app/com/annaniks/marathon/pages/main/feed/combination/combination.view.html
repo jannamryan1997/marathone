@@ -1,4 +1,4 @@
-<div class="conbination">
+<div class="conbination" [ngClass]="{'combination-top':!role}">
         <ngx-skeleton-loader  count="5"
         appearance="squard" class="skeleton" [theme]="{ 
             'position': 'absolute',
@@ -9,9 +9,9 @@
             'z-index': '1',
             'height':'100vh'
           }" *ngIf="loading"></ngx-skeleton-loader>
-          <div class="combination-header">
+          <div class="combination-header" *ngIf="role">
             <div></div>
-            <div class="header-description d-flex align-items-center justify-content-between">
+            <div class="header-description d-flex align-items-center justify-content-between" >
                 <p class="header-title">Switch to Draft</p>
                 <button class="btn-item info-btn ml-2 mr-3" (click)="backToArticleById()" >Back to edit</button>
                 <button class="btn-item info-btn mr-3 active-btn" routerLink="/feed">Publish</button>
@@ -22,7 +22,7 @@
                 </button>
             </div>  
           </div>
-          <div class="combination-main">
+          <div class="combination-main" [ngClass]="{'combination-main-top':!role}">
     <div class="header-content">
         <img *ngIf="content && content?.cover" [src]="fileUrl+content?.cover" class="combination-image"
         alt="Cinque Terre">

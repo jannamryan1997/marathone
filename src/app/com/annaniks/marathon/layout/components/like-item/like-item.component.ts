@@ -1,5 +1,4 @@
 import { Component, OnInit, OnDestroy, Input, Inject } from "@angular/core";
-import { Results } from '../../../core/models/like';
 import { CookieService } from 'ngx-cookie';
 import { UserService } from '../../../core/services/user.service';
 import { ProfileService } from '../../../core/services/profile.service';

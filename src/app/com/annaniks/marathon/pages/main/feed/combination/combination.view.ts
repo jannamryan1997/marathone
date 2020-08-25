@@ -9,8 +9,6 @@ import * as moment from 'moment';
 import { CommentService } from '../../../../core/services/comment.service';
 import { AuthModal } from '../../../../core/modals';
 import { MatDialog } from '@angular/material/dialog';
-import { FeedLikeService } from '../../../../core/services/feed-like.service';
-import { ProfileService } from '../../../../core/services/profile.service';
 import { UserService } from '../../../../core/services/user.service';
 import { Location } from '@angular/common';
 import { FollowService } from '../../../../core/services/follow.service';

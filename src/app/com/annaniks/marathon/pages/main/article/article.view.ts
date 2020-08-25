@@ -28,16 +28,22 @@ export class ArticleView implements OnInit {
     private _article: FeedResponseData;
     public fileUrl: string = environment.fileUrl;
     public combinationId: number;
+    public role;
     constructor(public router: Router,
         private _cookieServie: CookieService,
         private _router: Router,
         private _articleService: ArticleService,
-        private _fb: FormBuilder, private _userService: UserService,
-        private _activatedRoute: ActivatedRoute) {
+        private _fb: FormBuilder, 
+        private _userService: UserService,
+        private _activatedRoute: ActivatedRoute,
+        ) {
+        
         this._activatedRoute.params.pipe(takeUntil(this.unsubscribe$)).subscribe(params => {
             if (params && params.id)
                 this._articleId = params.id;
         })
+      
+        
     }
 
     ngOnInit() {

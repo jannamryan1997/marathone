@@ -341,7 +341,8 @@
         <div></div>
         <div class="header-description d-flex align-items-center justify-content-between">
             <p class="header-title"> {{articleId?'Switch to Draft':'Save Draft'}} </p>
-            <button class="btn-item info-btn ml-2 mr-3" [disabled]="articleGroup.invalid" (click)="publish('preview')" >Preview</button>
+            <button class="btn-item info-btn ml-2 mr-3" [disabled]="articleGroup.invalid"
+                (click)="publish('preview')" [ngClass]="{' active-btn':articleGroup.valid}">Preview</button>
             <button (click)="publish('publish')" [disabled]="articleGroup.invalid"
                 class="btn-item info-btn mr-3 active-btn">{{articleId?'Update':'Publish'}}</button>
             <button class="btn-item info-btn btn-radius d-flex justify-content-center" (click)="onClickShowSetting()"
@@ -354,15 +355,10 @@
     </header>
     <main class="main">
         <form [formGroup]="articleGroup">
-            <div class="form-group-content">
-                <div class="form-group-header">
-                    <p class="header-title">Cover</p>
-                    <span class="material-icons icon" (click)="deleteCover()">
-                        close
-                    </span>
-                </div>
-                <div class="form-group-main d-flex">
-                    <div class="m-auto" *ngIf="!articleGroup.get('cover').value">
+            <div class="cover-content">
+                <div class="cover d-flex" *ngIf="!articleGroup.get('cover').value">
+                    <div class="m-auto">
+                        <p class="cover-title">Set Article cover</p>
                         <input class="" type="file" id="file1" name="cover" (change)="setArticleCover($event)">
                         <label class="btn-item info-btn  d-flex " for="file1">
                             <p>Browse files</p> <span class="material-icons ml-2">
@@ -370,40 +366,37 @@
                             </span>
                         </label>
                     </div>
-                    <img *ngIf="articleGroup.get('cover').value" [src]="fileUrl+articleGroup.get('cover').value"
-                        class="article-image" alt="Cinque Terre">
+                </div>
+                <div class="position-relative" *ngIf="articleGroup.get('cover').value">
+                    <img [src]="fileUrl+articleGroup.get('cover').value" class="cover-image" alt="Cinque Terre">
+                    <div class="deleted-cover" (click)="deleteCover()">
+                        <span class="material-icons icon">
+                            close
+                        </span>
+                    </div>
                 </div>
             </div>
-            <div class="form-group-content">
-                <div class="form-group-header">
-                    <p class="header-title">Title</p>
-                    <span class="material-icons icon">
-                        close
-                    </span>
+            <div class="form-content w-100">
+                    <label class="label">Title</label>
+                    <div class="form-group w-100">
+                        <input type="text" class="form-input w-100" placeholder="Title"
+                            formControlName="title">
+                    </div>
                 </div>
-                <div class="form-group-main">
-                    <textarea type="text" class="form-group-tetxt-area" formControlName="title"
-                        placeholder="Type Title"></textarea>
-                </div>
-
-            </div>
-
-
             <div *ngFor="let control of getControls(); let i=index" style="position: relative;" [formGroup]="control">
-
                 <div [ngSwitch]="control.get('type').value">
-
                     <div class="form-group-content"
                         *ngIf="!control.get('value').value && control.get('type').value == 'image'">
                         <div class="form-group-header">
                             <p class="header-title">Image</p>
-                            <span class="material-icons icon" (click)="closeContentImage(i)" >
+                            <span class="material-icons icon" (click)="closeContentImage(i)">
                                 close
                             </span>
                         </div>
                         <div class="form-group-main d-flex">
                             <div class="m-auto">
-                                <input class="" type="file" id="file" name="avatar" (change)="setServicePhoto($event,control)">
+                                <input class="" type="file" id="file" name="avatar"
+                                    (change)="setServicePhoto($event,control)">
                                 <label class="btn-item info-btn d-flex" for="file"> Broves Files <span
                                         class="material-icons ml-2">
                                         save_alt
@@ -434,10 +427,10 @@
                             </span>
                         </div>
                         <div class="form-group-main d-flex">
-                            <div  class="ckeditor-content w-100">
+                            <div class="ckeditor-content w-100">
                                 <ckeditor [id]="'text'+i" (ngModelChange)="changeText(i)" (drop)="onDrop($event)"
-                                    [config]="config" formControlName="value" class="" id="ckeditor"
-                                    class="" placeholder="Type text here">
+                                    [config]="config" formControlName="value" class="" id="ckeditor" class=""
+                                    placeholder="Type text here">
                                 </ckeditor>
                             </div>
                         </div>
@@ -462,33 +455,36 @@
             </div>
         </form>
         <div class="add-item-content d-flex w-100">
-                <div class="add-container w-80  display-flex">
-                    <div (click)="addContent()" class="add-item active-item">
-                        <span class="material-icons m-auto">
-                            title
-                        </span>
-                    </div>
-                    <div (click)="addImage()" class="add-item active-item">
-                        <span class="material-icons m-auto">
-                            panorama
-                        </span>
-                    </div>
-                    <div class="add-item active-item" (click)="addVideo()">
-                        <span class="material-icons m-auto">
-                            videocam
-                        </span>
-                    </div>
-                    <div class="add-item">
-                        <span class="material-icons m-auto">
-                            maps_ugc
-                        </span>
-                    </div>
-                    <div class="add-item">
-                        <span class="material-icons m-auto">
-                            integration_instructions
-                        </span>
-                    </div>
+            <div class="add-container w-80  display-flex">
+                <div (click)="addContent()" class="add-item active-item">
+                    <span class="material-icons m-auto">
+                        title
+                    </span>
+                </div>
+                <div (click)="addImage()" class="add-item active-item">
+                    <span class="material-icons m-auto">
+                        panorama
+                    </span>
+                </div>
+                <div class="add-item active-item" (click)="addVideo()">
+                    <span class="material-icons m-auto">
+                        videocam
+                    </span>
+                </div>
+                <div class="add-item">
+                    <span class="material-icons m-auto">
+                        maps_ugc
+                    </span>
+                </div>
+                <div class="add-item">
+                    <span class="material-icons m-auto">
+                        integration_instructions
+                    </span>
                 </div>
             </div>
+        </div>
+     
     </main>
 </div>
+
+

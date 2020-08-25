@@ -89,9 +89,9 @@ export class HeaderComponent implements OnInit {
     public logOut(): void {
         this._cookieService.removeAll();
         this._profileUserService.isAuthorized = false;
-        this._profileUserService.user = null;
-     
-        this.router.navigate(['feed']);
+        //this._profileUserService.user = null;
+
+        this.router.navigate(['/feed']);
         // location.reload();
     }
 
