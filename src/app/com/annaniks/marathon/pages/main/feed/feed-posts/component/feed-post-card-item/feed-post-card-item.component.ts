@@ -10,7 +10,7 @@ import { ReceiptResponseData } from 'src/app/com/annaniks/marathon/core/models/r
 import { Subject, forkJoin, Observable } from 'rxjs';
 import { takeUntil, switchMap, map } from 'rxjs/operators';
 import { CommentService } from 'src/app/com/annaniks/marathon/core/services/comment.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router} from '@angular/router';
 
 @Component({
     selector: "app-feed-post-card-item",
@@ -19,7 +19,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 
 export class FeedPostCardItemComponent implements OnInit {
-
+    public videoLink;
     private unsubscribe$ = new Subject<void>();
     public feedItem: FeedResponseData;
     @Input('feedItem') set setFeedItem($event) {
@@ -29,7 +29,7 @@ export class FeedPostCardItemComponent implements OnInit {
     @Input() routerLink: string;
     @Output() deletedItem = new EventEmitter<any>();
     @Output() editFeed = new EventEmitter<any>();
-    @Input() style:boolean;
+    @Input() style: boolean;
     @Input() mode = 'skeleton' || 'normal'
     public showTitle: boolean = false;
     public isOpen: boolean = false;
@@ -56,7 +56,6 @@ export class FeedPostCardItemComponent implements OnInit {
         private _commentService: CommentService,
         private _dialog: MatDialog,
         private _router: Router,
-        private _activatedRouter:ActivatedRoute,
     ) {
         this.role = this._cookieService.get('role');
         this.slideConfig = {
@@ -68,25 +67,32 @@ export class FeedPostCardItemComponent implements OnInit {
             autoplaySpeed: 2000
         }
         this.user = this._userService.user;
-        
+
     }
 
     ngOnInit() {
-        console.log(this.feedTitle);
-        
-        if(this.mode == 'skeleton') return 
+
+        if (this.mode == 'skeleton') return
         this.time = moment(this.feedItem.timeStamp).fromNow();
         if (this.feedItem.feed_media && this.feedItem.feed_media.length) {
             this.content = this.feedItem.feed_media[0].content;
             this.receipt = this.content.receipt;
         }
         if (this.content) {
+
+            /////////////////////////
+
+
             if (this.content.type === "videoLink") {
+               
                 this.videoSources = [{
-                    src: this.content.url,
+                    src:this.content.videoTitle,
                     provider: 'youtube',
-                }]
-            }
+                }] 
+                }
+
+            ///////////////////////////////////
+
             if (this.content.type === "recipeType") {
                 this.receptvideoSources = [{
                     src: this.receipt.videoLink,
@@ -94,6 +100,7 @@ export class FeedPostCardItemComponent implements OnInit {
                 }]
             }
         }
+
         let role = this.userRole;
         if (role == 'client' && this.feedItem.creator_client_info && this.feedItem.creator_client_info.avatar) {
             this.localImage = this.fileUrl + this.feedItem.creator_client_info.avatar;
@@ -285,9 +292,9 @@ export class FeedPostCardItemComponent implements OnInit {
 
 
     public routerIngridientPage(): void {
-        this.scrollY=window.scrollY;
+        this.scrollY = window.scrollY;
         this._router.navigate([`/feed/ingridient/${this.feedItem.id}`]);
-   
+
     }
 
     get userRole() {

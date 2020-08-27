@@ -59,11 +59,15 @@
             </span>
         </div>
     </div>
-    <div class="localimage-content" *ngIf="showYoutube">
+    <div class="localimage-content position-relative" *ngIf="showYoutube">
         <div>
             <plyr style="display:block" plyrTitle="Video 1" [plyrSources]="videoSources" ></plyr>
         </div>
-   
+        <div class="close-img d-flex" (click)="closeVideo()">
+            <span class="material-icons m-auto">
+                close
+            </span>
+        </div>
     </div>
 
 
