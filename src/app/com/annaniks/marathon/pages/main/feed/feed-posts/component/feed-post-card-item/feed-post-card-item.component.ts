@@ -19,6 +19,7 @@ import { Router} from '@angular/router';
 })
 
 export class FeedPostCardItemComponent implements OnInit {
+    public user_name:string;
     public videoLink;
     private unsubscribe$ = new Subject<void>();
     public feedItem: FeedResponseData;
@@ -67,7 +68,6 @@ export class FeedPostCardItemComponent implements OnInit {
             autoplaySpeed: 2000
         }
         this.user = this._userService.user;
-
     }
 
     ngOnInit() {
@@ -100,7 +100,6 @@ export class FeedPostCardItemComponent implements OnInit {
                 }]
             }
         }
-
         let role = this.userRole;
         if (role == 'client' && this.feedItem.creator_client_info && this.feedItem.creator_client_info.avatar) {
             this.localImage = this.fileUrl + this.feedItem.creator_client_info.avatar;
@@ -109,6 +108,33 @@ export class FeedPostCardItemComponent implements OnInit {
                 this.localImage = this.fileUrl + this.feedItem.creator_info.avatar;
             }
         }
+if(this.userRole === 'coach' && this.feedItem.creator_info && this.feedItem.creator_info.slug){
+    if(this.feedItem.creator_info.slug.match(/\d+/g)){
+        this.user_name=this.feedItem.creator_info.user.first_name;
+    }
+    else{
+        this.user_name=this.feedItem.creator_info.slug;
+        console.log( this.user_name);
+        
+        
+    }
+    
+}
+if (this.userRole === 'client' && this.feedItem.creator_client_info && this.feedItem.creator_client_info.slug){
+    if(this.feedItem.creator_client_info.slug.match(/\d+/g)){
+        this.user_name=this.feedItem.creator_client_info.user.first_name;
+    }
+    else{
+        this.user_name=this.feedItem.creator_client_info.slug;
+        console.log( this.user_name);
+        
+        
+    }
+}
+
+
+
+
         this._showseeMore();
     }
 

@@ -2,7 +2,7 @@
     <div class="home-main">
         <div class="profile-description">
             <div class="header">
-                <img [src]="headerLocalImage" class="cover-image" alt="Cinque Terre">
+                <img [src]="headerLocalImage" class="cover-image" alt="Cinque Terre" (click)="openProfileCoverModal(headerLocalImage)">
                 <div *ngIf="checkIsMe()" class=" d-flex">
                     <input class="" type="file" id="headerprofile" name="headerprofile" accept="image/png,image/jpeg"
                         (change)="setServiceHeaderPhoto($event)">
@@ -22,7 +22,7 @@
                                     <i class="fa fa-refresh m-auto" aria-hidden="true"></i>
                                 </label>
                             </div>
-                            <img [src]="localImage" class="user-image" alt="Cinque Terre">
+                            <img [src]="localImage" class="user-image" alt="Cinque Terre" (click)="openProfileCoverModal(localImage)">
                             <button class="btn coach-btn" *ngIf="userRole==='coach'">Coach</button>
                             <spinner-loading [profileLoading]="true" *ngIf="loading"></spinner-loading>
                         </div>

@@ -243,8 +243,8 @@
     .gallery-item {
         width: 33.3333333%;
         padding: 2px;
-        display: none;
         cursor: pointer;
+        display: none;
     }
 }
 
@@ -277,4 +277,25 @@
     margin-left: 9px;
     @include text(17px, 20px, #bbcddf, EncodeSans-Medium);
     cursor: pointer;
+}
+
+.local-gallery-content{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .local-gallery-item{
+        width: 33.3333333%;
+        margin: 2px;   
+        background: #F5F5FA 0% 0% no-repeat padding-box;
+        opacity: 1;
+        display: flex;
+        height: 191px;
+        .add-icon{
+            color: #CAD2E1;
+            font-size: 50px;
+            margin: auto;
+            cursor: pointer;
+        }
+    }
+
 }

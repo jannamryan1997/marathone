@@ -180,6 +180,9 @@ export class CreatePublicationComponent implements OnInit {
 
             }
         }
+        if(this.showYoutube){
+            this.showYoutube=false;
+        }
     }
 
 
@@ -334,7 +337,11 @@ export class CreatePublicationComponent implements OnInit {
                 this.uploadType = 'videoLink'
             this.videoPleyer = false;
 
-        }  
+        }
+        // if(!this.showYoutube  && this.postType.value.slice(0, 8) === 'https://'){
+        //     this.showYoutube = true;
+        //     this.videoPleyer = true;
+        // }  
 
     
         //     else {
@@ -348,10 +355,13 @@ export class CreatePublicationComponent implements OnInit {
         //     else {
         //         this.showYoutube = false;
         //     }
+
     }
     public closeVideo():void{
         this.showYoutube=false;
+        this.videoPleyer = false;
         this.postType.patchValue('');
+        this.videoTitle ='';
     }
  
 }

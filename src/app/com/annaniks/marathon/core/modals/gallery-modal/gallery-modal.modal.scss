@@ -1,27 +1,29 @@
 .gallery-modal {
 background: #ffff;
-padding: 10px ;
     .left-content {
-        width: 60%;
+        width: 100%;
+        max-width: 980px;
     }
    
     .youtube-video {
         background: black;
-        height: 600px;
+        height: 800px;
     }
 
 .image{
-    height: 500px;
+    height: 800px;
 }
 .video-item{
     background: black;
-    height: 500px;
+    height: 800px;
 }
     .rigth-content {
-        margin-left: 30px;
-        width: calc(40% - 30px);
+        margin-left: 23px;
+        width: 100%;
+        max-width: 420px;
 
         .rigth-description {
+            margin: 25px 23px 25px 0;
             .header-content {
                 align-items: center;
                 text-align: center;
@@ -34,8 +36,8 @@ padding: 10px ;
                 }
 
                 .local-image {
-                    height: 45px;
-                    width: 45px;
+                    height: 47px;
+                    width: 47px;
                     border-radius: 50%;
                 }
 
@@ -44,6 +46,7 @@ padding: 10px ;
                     color: #45535c;
                     font-family: EncodeSans-Bold;
                     margin-left: 20px;
+                    font-size: 20px;
                 }
 
                 .icon {
@@ -58,7 +61,7 @@ padding: 10px ;
 
 
 ::ng-deep .mat-dialog-container {
-    padding: 15px;
+    padding: 0px;
     border-radius: 15px;
 }
 

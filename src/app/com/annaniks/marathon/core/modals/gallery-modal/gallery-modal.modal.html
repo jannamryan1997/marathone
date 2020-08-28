@@ -52,7 +52,7 @@
           </app-comments>
         </div>
         <app-settings [feed]="feedItem" [role]="role" (getButtonsType)="getButtonsType($event)"
-          (openChanges)='onClickOpen($event)' [type]="mediaItem[0]?.type" [style]="true"></app-settings>
+          (openChanges)='onClickOpen($event)' [type]="mediaItem[0]?.type"></app-settings>
 
         <div *ngIf="isOpen">
           <app-posts-comments [feed]="feedItem" (sendMessage)="sendMessage($event)" *ngIf="role" [comments]="comments">
