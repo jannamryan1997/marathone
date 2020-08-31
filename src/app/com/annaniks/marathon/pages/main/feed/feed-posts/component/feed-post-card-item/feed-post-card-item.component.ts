@@ -10,7 +10,7 @@ import { ReceiptResponseData } from 'src/app/com/annaniks/marathon/core/models/r
 import { Subject, forkJoin, Observable } from 'rxjs';
 import { takeUntil, switchMap, map } from 'rxjs/operators';
 import { CommentService } from 'src/app/com/annaniks/marathon/core/services/comment.service';
-import { Router} from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
     selector: "app-feed-post-card-item",
@@ -19,7 +19,7 @@ import { Router} from '@angular/router';
 })
 
 export class FeedPostCardItemComponent implements OnInit {
-    public user_name:string;
+    public user_name: string;
     public videoLink;
     private unsubscribe$ = new Subject<void>();
     public feedItem: FeedResponseData;
@@ -84,12 +84,12 @@ export class FeedPostCardItemComponent implements OnInit {
 
 
             if (this.content.type === "videoLink") {
-               
+
                 this.videoSources = [{
-                    src:this.content.videoTitle,
+                    src: this.content.videoTitle,
                     provider: 'youtube',
-                }] 
-                }
+                }]
+            }
 
             ///////////////////////////////////
 
@@ -108,37 +108,28 @@ export class FeedPostCardItemComponent implements OnInit {
                 this.localImage = this.fileUrl + this.feedItem.creator_info.avatar;
             }
         }
-if(this.userRole === 'coach' && this.feedItem.creator_info && this.feedItem.creator_info.slug){
-    if(this.feedItem.creator_info.slug.match(/\d+/g)){
-        this.user_name=this.feedItem.creator_info.user.first_name;
-    }
-    else{
-        this.user_name=this.feedItem.creator_info.slug;
-        console.log( this.user_name);
-        
-        
-    }
-    
-}
-if (this.userRole === 'client' && this.feedItem.creator_client_info && this.feedItem.creator_client_info.slug){
-    if(this.feedItem.creator_client_info.slug.match(/\d+/g)){
-        this.user_name=this.feedItem.creator_client_info.user.first_name;
-    }
-    else{
-        this.user_name=this.feedItem.creator_client_info.slug;
-        console.log( this.user_name);
-        
-        
-    }
-}
+        if (this.userRole === 'coach' && this.feedItem.creator_info && this.feedItem.creator_info.slug) {
+            if (this.feedItem.creator_info.slug.match(/\d+/g)) {
+                this.user_name = this.feedItem.creator_info.user.first_name;
+            }
+            else {
+                this.user_name = this.feedItem.creator_info.slug;
+                console.log(this.user_name);
 
 
+            }
 
-
+        }
+        if (this.userRole === 'client' && this.feedItem.creator_client_info && this.feedItem.creator_client_info.slug) {
+            if (this.feedItem.creator_client_info.slug.match(/\d+/g)) {
+                this.user_name = this.feedItem.creator_client_info.user.first_name;
+            }
+            else {
+                this.user_name = this.feedItem.creator_client_info.slug;
+            }
+        }
         this._showseeMore();
     }
-
-
 
 
     private _getComments(parent?: string): Observable<ServerResponse<Comment[]>> {
@@ -171,19 +162,22 @@ if (this.userRole === 'client' && this.feedItem.creator_client_info && this.feed
         }
     }
 
-    private _getFeedById() {
+    private _getFeedById(message) {
         return this._feedService.getFeedById(this.feedItem.id).pipe(map((result) => {
             if (result && result.feed_media && result.feed_media[0] && result.feed_media[0].content) {
                 this.content = JSON.parse(result.feed_media[0].content)
             }
             this.feedItem = result;
             this.showDeleteModal = false;
-            if (this.content && this.content.url) {
-                this.videoSources = [{
-                    src: this.content.url,
-                    provider: 'youtube',
-                }]
+            if(message = !'setting'){
+                if (this.content && this.content.url) {
+                    this.videoSources = [{
+                        src: this.content.url,
+                        provider: 'youtube',
+                    }]
+                }
             }
+           
             return result;
         }))
     }
@@ -216,7 +210,7 @@ if (this.userRole === 'client' && this.feedItem.creator_client_info && this.feed
 
         dialogRef.afterClosed().pipe(takeUntil(this.unsubscribe$),
             switchMap(() => {
-                return this._getFeedById()
+                return this._getFeedById(event)
             })
         ).subscribe()
     }
@@ -232,9 +226,11 @@ if (this.userRole === 'client' && this.feedItem.creator_client_info && this.feed
             }
         })
     }
-    public getButtonsType(event: string) {
+    public getButtonsType(event: string,message='setting') {
+        console.log(event);
+
         if (event) {
-            this._getFeedById().pipe(takeUntil(this.unsubscribe$)).subscribe();
+            this._getFeedById(message).pipe(takeUntil(this.unsubscribe$)).subscribe();
         } else {
             this.onClickOpenAuth()
         }
@@ -257,7 +253,7 @@ if (this.userRole === 'client' && this.feedItem.creator_client_info && this.feed
     private _combineObservable(parent?) {
         const combine = forkJoin(
             this._getComments(parent),
-            this._getFeedById()
+            this._getFeedById(event)
         )
         return combine;
     }
@@ -301,7 +297,7 @@ if (this.userRole === 'client' && this.feedItem.creator_client_info && this.feed
 
     public onClickeditFeedItem(event): void {
         if (event) {
-            this._getFeedById().subscribe()
+            this._getFeedById(event).subscribe()
         }
     }
     public showLikeModal(event): void {
