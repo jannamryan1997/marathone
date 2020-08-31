@@ -31,7 +31,7 @@
         <div class="emoji-content">
             <emoji-mart (emojiClick)="addEmoji($event)" emoji="point_up" *ngIf="showemoji"
             ></emoji-mart>
-            <textarea id="textarea" rows="4" type="text"  [formControl]="postType" class="message-input" placeholder="Type Something..."
+            <textarea   [ngClass]="{'textArea-height':isModalMode}" id="textarea"  type="text"  [formControl]="postType" class="message-input" placeholder="Type Something..."
                 (focus)="showPost()" >
         </textarea>
             <img src="assets/icons/smile.png" class="smile-image" (click)="showEmoji()" *ngIf="isModalMode">

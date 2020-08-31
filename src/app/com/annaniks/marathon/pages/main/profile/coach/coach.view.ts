@@ -246,7 +246,7 @@ export class CoachView implements OnInit {
         this._isCountCalculated = false;
         this._pagesCount = 0;
         this.feedItem = [];
-        this._getFeed().pipe(takeUntil(this.unsubscribe$)).subscribe();
+         this._getFeed().pipe(takeUntil(this.unsubscribe$)).subscribe();
 
     }
 

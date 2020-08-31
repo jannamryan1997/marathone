@@ -93,7 +93,7 @@ export class GalleryModal implements OnInit, OnDestroy {
     private _combineObservable(parent?) {
         const combine = forkJoin(
             this._getComments(parent),
-            this._getFeedById()
+           this._getFeedById()
         )
         return combine
     }
@@ -113,7 +113,7 @@ export class GalleryModal implements OnInit, OnDestroy {
 
     public getButtonsType(event: string) {
         if (event) {
-            this._getFeedById().pipe(takeUntil(this.unsubscribe$)).subscribe();
+         this._getFeedById().pipe(takeUntil(this.unsubscribe$)).subscribe();
         }
     }
     public likeOrDislike(event) {

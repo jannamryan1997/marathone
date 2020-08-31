@@ -169,7 +169,7 @@ export class FeedPostCardItemComponent implements OnInit {
             }
             this.feedItem = result;
             this.showDeleteModal = false;
-            if(message = !'setting'){
+            if(message =! 'setting'){
                 if (this.content && this.content.url) {
                     this.videoSources = [{
                         src: this.content.url,
