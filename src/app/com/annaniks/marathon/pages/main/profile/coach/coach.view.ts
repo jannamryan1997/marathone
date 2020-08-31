@@ -17,6 +17,8 @@ import { CountryService } from '../../../../core/services/country.service';
 })
 
 export class CoachView implements OnInit {
+    public showGallery: boolean;
+    public showVideo: boolean;
     public _unsbscribe = new Subject<void>();
     public feedItem: FeedResponseData[] = [];
     public user: any;
@@ -188,6 +190,29 @@ export class CoachView implements OnInit {
     }
     public onClickGalerryTab(tab): void {
         this.galerryTab = tab;
+        if (this.galerryTab === 2) {
+            let imageContent = this.feedMediaItem.filter((data) => { return data.feed_media[0].content.type == 'image' });
+            if (imageContent && imageContent.length) {
+                console.log(this.showGallery);
+
+                this.showGallery = true;
+            } else {
+                this.showGallery = false;
+            }
+
+        }
+
+        if (this.galerryTab === 3) {
+            let videoContent = this.feedMediaItem.filter((data) => { return data.feed_media[0].content.type == 'video' || data.feed_media[0].content.type == "videoLink" });
+            if (videoContent && videoContent.length) {
+                console.log(this.showVideo);
+
+                this.showVideo = true;
+            } else {
+                this.showVideo = false;
+            }
+        }
+
     }
     public onClickPostEventsTab(tab): void {
         this.postTab = tab;

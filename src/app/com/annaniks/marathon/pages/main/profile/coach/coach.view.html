@@ -1,4 +1,4 @@
-<div class="main-container">
+<div class="main-container" [ngClass]="{'box-shadow':tab===2 || tab===3}">
     <div class="coach-main">
         <div class="main-content">
             <div class="review-content display-flex">
@@ -139,7 +139,7 @@
                 </div>
             </div>
             <div class="events-content" [ngSwitch]="galerryTab">
-                <div class="local-gallery-content" *ngIf="feedMediaItem.length < 1">
+                <div class="local-gallery-content w-100" *ngIf="feedMediaItem.length < 1">
                     <div class="local-gallery-item">
                         <span class="material-icons add-icon">
                             add
@@ -157,6 +157,11 @@
                     </div>
                 </div>
                 <div *ngIf="galerryTab===1" class="gallery-content">
+                    <div class="local-gallery-item" *ngIf="feedMediaItem.length">
+                        <span class="material-icons add-icon">
+                            add
+                        </span>
+                    </div>
                     <div class="gallery-item" *ngFor="let item of feedMediaItem"
                         [ngClass]="{'d-block':item?.feed_media[0]?.content?.url}">
                         <app-galery [mediaItem]="item" (showGalleryModal)="openGalleryModal($event,'all',item)">
@@ -167,6 +172,29 @@
 
 
                 <div *ngIf="galerryTab===2" class="gallery-content">
+
+                    <div class="local-gallery-content w-100" *ngIf="!showGallery && feedMediaItem.length">
+                        <div class="local-gallery-item">
+                            <span class="material-icons add-icon">
+                                add
+                            </span>
+                        </div>
+                        <div class="local-gallery-item">
+                            <span class="material-icons add-icon">
+                                add
+                            </span>
+                        </div>
+                        <div class="local-gallery-item">
+                            <span class="material-icons add-icon">
+                                add
+                            </span>
+                        </div>
+                    </div>
+                    <div class="local-gallery-item" *ngIf="showGallery">
+                        <span class="material-icons add-icon">
+                            add
+                        </span>
+                    </div>
                     <div class="gallery-item" *ngFor="let item of feedMediaItem"
                         [ngClass]="{'d-block':item?.feed_media[0]?.content?.url && item?.feed_media[0]?.content?.type==='image'}">
                         <app-galery [mediaItem]="item" (showGalleryModal)="openGalleryModal($event,'image',item)">
@@ -176,10 +204,35 @@
                 </div>
 
                 <div *ngIf="galerryTab===3" class="gallery-content">
-              
+
+                    <div class="local-gallery-content w-100" *ngIf="!showVideo && feedMediaItem.length">
+                        <div class="local-gallery-item">
+                            <span class="material-icons add-icon">
+                                add
+                            </span>
+                        </div>
+                        <div class="local-gallery-item">
+                            <span class="material-icons add-icon">
+                                add
+                            </span>
+                        </div>
+                        <div class="local-gallery-item">
+                            <span class="material-icons add-icon">
+                                add
+                            </span>
+                        </div>
+                    </div>
+
+
+
+                    <div class="local-gallery-item" *ngIf="showVideo">
+                        <span class="material-icons add-icon">
+                            add
+                        </span>
+                    </div>
                     <div class="gallery-item" *ngFor="let item of feedMediaItem"
                         [ngClass]="{'d-block':item?.feed_media[0]?.content?.url && item?.feed_media[0]?.content?.type==='video'|| item?.feed_media[0]?.content?.type==='videoLink'}">
-                        
+
                         <app-galery [mediaItem]="item" (showGalleryModal)="openGalleryModal($event,'video',item)">
                         </app-galery>
                     </div>

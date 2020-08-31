@@ -1,5 +1,5 @@
-<div class="main-container">
-    <div class="user-main">
+<div class="main-container" >
+    <div class="user-main"  >
         <div class="main-content">
             <div class="review-content display-flex">
                 <p class="name"> {{firstName}}</p>
@@ -81,7 +81,8 @@
             </div>
 
         </div>
-        <div class="events-header post-event" *ngIf="tab===1" [ngClass]="{'feed-padding-class':feedItem?.length>0}">
+        <div class="events-header post-event" *ngIf="tab===1"
+         [ngClass]="{'feed-padding-class':feedItem?.length>0}">
             <div class="posts-tab">
                 <div class="btn-content display-flex">
                     <p class="post-item" (click)="onClickPostEventsTab(1)" [ngClass]="{'activePostButton':postTab===1}">
@@ -139,7 +140,7 @@
             </div>
 
 
-
+<!-- 
             <div class="events-content" [ngSwitch]="galerryTab">
                 <div *ngIf="galerryTab===1" class="gallery-content">
                     <div class="gallery-item" *ngFor="let item of feedMediaItem"
@@ -168,8 +169,108 @@
                     </div>
 
                 </div>
-            </div>
-
+            </div> -->
+            <div class="events-content" [ngSwitch]="galerryTab">
+                    <div class="local-gallery-content w-100" *ngIf="feedMediaItem.length < 1">
+                        <div class="local-gallery-item">
+                            <span class="material-icons add-icon">
+                                add
+                            </span>
+                        </div>
+                        <div class="local-gallery-item">
+                            <span class="material-icons add-icon">
+                                add
+                            </span>
+                        </div>
+                        <div class="local-gallery-item">
+                            <span class="material-icons add-icon">
+                                add
+                            </span>
+                        </div>
+                    </div>
+                    <div *ngIf="galerryTab===1" class="gallery-content">
+                        <div class="local-gallery-item" *ngIf="feedMediaItem.length">
+                            <span class="material-icons add-icon">
+                                add
+                            </span>
+                        </div>
+                        <div class="gallery-item" *ngFor="let item of feedMediaItem"
+                            [ngClass]="{'d-block':item?.feed_media[0]?.content?.url}">
+                            <app-galery [mediaItem]="item" (showGalleryModal)="openGalleryModal($event,'all',item)">
+                            </app-galery>
+                        </div>
+    
+                    </div>
+    
+    
+                    <div *ngIf="galerryTab===2" class="gallery-content">
+    
+                        <div class="local-gallery-content w-100" *ngIf="!showGallery && feedMediaItem.length">
+                            <div class="local-gallery-item">
+                                <span class="material-icons add-icon">
+                                    add
+                                </span>
+                            </div>
+                            <div class="local-gallery-item">
+                                <span class="material-icons add-icon">
+                                    add
+                                </span>
+                            </div>
+                            <div class="local-gallery-item">
+                                <span class="material-icons add-icon">
+                                    add
+                                </span>
+                            </div>
+                        </div>
+                        <div class="local-gallery-item" *ngIf="showGallery">
+                            <span class="material-icons add-icon">
+                                add
+                            </span>
+                        </div>
+                        <div class="gallery-item" *ngFor="let item of feedMediaItem"
+                            [ngClass]="{'d-block':item?.feed_media[0]?.content?.url && item?.feed_media[0]?.content?.type==='image'}">
+                            <app-galery [mediaItem]="item" (showGalleryModal)="openGalleryModal($event,'image',item)">
+                            </app-galery>
+                        </div>
+    
+                    </div>
+    
+                    <div *ngIf="galerryTab===3" class="gallery-content">
+    
+                        <div class="local-gallery-content w-100" *ngIf="!showVideo && feedMediaItem.length">
+                            <div class="local-gallery-item">
+                                <span class="material-icons add-icon">
+                                    add
+                                </span>
+                            </div>
+                            <div class="local-gallery-item">
+                                <span class="material-icons add-icon">
+                                    add
+                                </span>
+                            </div>
+                            <div class="local-gallery-item">
+                                <span class="material-icons add-icon">
+                                    add
+                                </span>
+                            </div>
+                        </div>
+    
+    
+    
+                        <div class="local-gallery-item" *ngIf="showVideo">
+                            <span class="material-icons add-icon">
+                                add
+                            </span>
+                        </div>
+                        <div class="gallery-item" *ngFor="let item of feedMediaItem"
+                            [ngClass]="{'d-block':item?.feed_media[0]?.content?.url && item?.feed_media[0]?.content?.type==='video'|| item?.feed_media[0]?.content?.type==='videoLink'}">
+    
+                            <app-galery [mediaItem]="item" (showGalleryModal)="openGalleryModal($event,'video',item)">
+                            </app-galery>
+                        </div>
+    
+                    </div>
+                </div>
 
 
 

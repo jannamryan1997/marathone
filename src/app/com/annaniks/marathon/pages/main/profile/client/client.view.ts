@@ -6,7 +6,7 @@ import { FeedResponseData, FeedData } from '../../../../core/models';
 import { RemoveModal, GalleryModal } from '../../../../core/modals';
 import { MatDialog } from '@angular/material/dialog';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Subject, of} from 'rxjs';
+import { Subject, of } from 'rxjs';
 import { ProfileService } from '../../../../core/services/profile.service';
 import { CountryService } from '../../../../core/services/country.service';
 
@@ -18,7 +18,9 @@ import { CountryService } from '../../../../core/services/country.service';
 })
 
 export class ClientView implements OnInit {
-    public _unsbscribe=new Subject<void>();
+    public showGallery: boolean;
+    public showVideo: boolean;
+    public _unsbscribe = new Subject<void>();
     public feedItem: FeedResponseData[] = [];
     public user: any;
     public tab: number = 1;
@@ -40,7 +42,7 @@ export class ClientView implements OnInit {
     public languageName = [];
     public mediaItem = [];
     public feedMediaItem = [];
-    public specialityName=[];
+    public specialityName = [];
 
     constructor(
         private _feedService: FeedService,
@@ -171,8 +173,30 @@ export class ClientView implements OnInit {
 
     }
     public onClickGalerryTab(tab): void {
-
         this.galerryTab = tab;
+        if (this.galerryTab === 2) {
+            let imageContent = this.feedMediaItem.filter((data) => { return data.feed_media[0].content.type == 'image' });
+            if (imageContent && imageContent.length) {
+                console.log(this.showGallery);
+
+                this.showGallery = true;
+            } else {
+                this.showGallery = false;
+            }
+
+        }
+
+        if (this.galerryTab === 3) {
+            let videoContent = this.feedMediaItem.filter((data) => { return data.feed_media[0].content.type == 'video' || data.feed_media[0].content.type == "videoLink" });
+            if (videoContent && videoContent.length) {
+                console.log(this.showVideo);
+
+                this.showVideo = true;
+            } else {
+                this.showVideo = false;
+            }
+        }
+
     }
 
     public onClickPostEventsTab(postTab): void {

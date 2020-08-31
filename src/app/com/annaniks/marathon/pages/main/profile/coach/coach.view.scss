@@ -5,6 +5,12 @@
     font-family: $fontFamily;
 }
 
+.main-container{
+    min-height: 100vh;
+    height: auto;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    // box-shadow: 2px 30px 43px #5C687B17;
+}
 .coach-main {
     // padding: 0 20px;
     position: absolute;
@@ -143,7 +149,7 @@
     .events-header {
         padding: 30px 0;
         background: #FFFFFF 0% 0% no-repeat padding-box;
-        box-shadow: 2px 30px 43px #5C687B17;
+        // box-shadow: 2px 30px 43px #5C687B17;
 
         .gallery-tab {
             .btn {
@@ -241,10 +247,11 @@
     display: flex;
 
     .gallery-item {
-        width: 33.3333333%;
-        padding: 2px;
+        width: 33%;
+        margin: 1px;
         cursor: pointer;
         display: none;
+
     }
 }
 
@@ -283,19 +290,24 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    .local-gallery-item{
-        width: 33.3333333%;
-        margin: 2px;   
-        background: #F5F5FA 0% 0% no-repeat padding-box;
-        opacity: 1;
-        display: flex;
-        height: 191px;
-        .add-icon{
-            color: #CAD2E1;
-            font-size: 50px;
-            margin: auto;
-            cursor: pointer;
-        }
-    }
 
+
+}
+.local-gallery-item{
+    width: 33%;
+    margin: 1px;   
+    background: #F5F5FA 0% 0% no-repeat padding-box;
+    opacity: 1;
+    display: flex;
+    height: 191px;
+    .add-icon{
+        color: #CAD2E1;
+        font-size: 50px;
+        margin: auto;
+        cursor: pointer;
+    }
+}
+
+.box-shadow{
+    box-shadow: 2px 30px 43px #5C687B17 !important;
 }

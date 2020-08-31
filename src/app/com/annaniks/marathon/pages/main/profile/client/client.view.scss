@@ -9,6 +9,9 @@
     position: absolute;
     opacity: 1;
     width: 100%;
+    min-height: 100vh;
+    height: auto;
+    background: white;
 
     .main-content {
         padding: 0 24px;
@@ -135,7 +138,7 @@
     .events-header {
         padding: 30px 0 30px 0;
         background: #ffffff 0% 0% no-repeat padding-box;
-        box-shadow: 2px 30px 43px #5c687b17;
+        // box-shadow: 2px 30px 43px #5c687b17;
 
         .gallery-tab {
             .btn {
@@ -241,4 +244,26 @@
     margin-left: 9px;
     @include text(17px, 20px, #bbcddf, EncodeSans-Medium);
     cursor: pointer;
+}
+
+.local-gallery-content{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+
+}
+.local-gallery-item{
+    width: 33%;
+    margin: 1px;   
+    background: #F5F5FA 0% 0% no-repeat padding-box;
+    opacity: 1;
+    display: flex;
+    height: 191px;
+    .add-icon{
+        color: #CAD2E1;
+        font-size: 50px;
+        margin: auto;
+        cursor: pointer;
+    }
 }
