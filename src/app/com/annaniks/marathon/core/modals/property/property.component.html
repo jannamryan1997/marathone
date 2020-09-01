@@ -1,4 +1,4 @@
-<div class="property-content">
+<!-- <div class="property-content">
     <div class="text-right">
         <span class="material-icons clear-icon" (click)="closeModal()">
             clear
@@ -57,5 +57,70 @@
 
         </div>
 
+    </div>
+</div> -->
+
+<div class="proporty">
+    <div class="proporty-content">
+        <div class="left-content">
+            <img src="{{fileUrl+content?.url}}" class="image d-none" alt="Cinque Terre"
+                [ngClass]="{'d-block':content?.type==='image'}">
+                <video controls class="video d-none w-100" poster="" [ngClass]="{'d-block':content.type==='video'}"
+                src="{{fileUrl+content?.url}}">
+            </video>
+        </div>
+        <div class="right-content">
+            <div class="right-content-description">
+                <div class="right-container">
+                    <div class="header-content">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <img class="user-avatar" [src]="localImage">
+                            <p class="name-title mb-0" *ngIf="userRole==='client'">
+                                {{feedItem?.creator_client_info?.user?.first_name}}</p>
+                            <p class="name-title mb-0" *ngIf="userRole==='coach'">
+                                {{feedItem?.creator_info?.user?.first_name}}</p>
+                            <p class="name-title mb-0" *ngIf="!userRole && feedItem.creator_info">
+                                {{feedItem?.creator_info?.user?.first_name}}</p>
+                            <p class="name-title mb-0" *ngIf="!userRole && feedItem.creator_client_info">
+                                {{feedItem?.creator_client_info?.user?.first_name}}</p>
+                            <p class="time mb-0">{{timeStamp}}</p>
+                        </div>
+                        <span class="material-icons icon">
+                            more_vert
+                        </span>
+                    </div>
+                    <div class="post-content">
+                        <div class="post-container">
+                            <p class="post-title show-content">{{feedTitle}} <span *ngIf="seeMore" class="title more"
+                                    (click)="onClickSeeMore()">... See More</span></p>
+                        </div>
+
+                    </div>
+                    <div class="comment-messages">
+                            <div class="comments-content" *ngIf="comments.length">
+                                    <app-comments (sendMessage)="sendMessage($event)" (likeOrDislike)="likeOrDislike($event)"
+                                        *ngFor="let item of comments" [feed]="feedItem" [comments]="item" [role]="role"
+                                        [type]="content?.type"></app-comments>
+                                </div>
+                    </div>
+                </div>
+                <div class="comment-contnet">
+                    
+                    <app-settings [feed]="feedItem" [role]="role" (getButtonsType)="getButtonsType($event)"
+                        (openChanges)='onClickOpen($event)' [type]="content?.type"></app-settings>
+
+                    <div *ngIf="isOpen">
+                        <app-posts-comments [feed]="feedItem" (sendMessage)="sendMessage($event)" *ngIf="role"
+                            [comments]="comments">
+                        </app-posts-comments>
+                    </div>
+
+
+
+
+
+                </div>
+            </div>
+        </div>
     </div>
 </div>

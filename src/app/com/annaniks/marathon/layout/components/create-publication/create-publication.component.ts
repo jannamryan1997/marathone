@@ -97,15 +97,13 @@ export class CreatePublicationComponent implements OnInit {
     }
 
     private _setPatchValue(): void {
-      
-        this.postType.valueChanges
-            .subscribe((data) => {
-                if (this.videoPleyer) {
-                    this.videoTitle = data;
-                }
-                this.play();
-            })
-            this.videoPleyer = true;
+        this.postType.valueChanges.subscribe((data) => {
+            if (this.videoPleyer) {
+                this.videoTitle = data;
+            }
+            this.play();
+        })
+        this.videoPleyer = true;
     }
 
     private _autosize() {
@@ -180,8 +178,8 @@ export class CreatePublicationComponent implements OnInit {
 
             }
         }
-        if(this.showYoutube){
-            this.showYoutube=false;
+        if (this.showYoutube) {
+            this.showYoutube = false;
         }
     }
 
@@ -226,15 +224,13 @@ export class CreatePublicationComponent implements OnInit {
 
 
     public closeControlItem(): void {
-        this.uploadType = null;
-
+        this.uploadType = null;  
     }
 
 
 
     public createdPost(): void {
         this.loading = true;
-        let videoLink;
         let content = JSON.stringify(
             {
                 url: this.contentFileName,
@@ -265,7 +261,7 @@ export class CreatePublicationComponent implements OnInit {
                     })
                 )
                 .subscribe((data) => {
-                    this.videoPleyer=true;
+                    this.videoPleyer = true;
 
                 })
         }
@@ -301,10 +297,12 @@ export class CreatePublicationComponent implements OnInit {
                     })
                 )
                 .subscribe((data) => {
-                    this.videoPleyer=true;
+                    this.videoPleyer = true;
                 })
         }
     }
+
+
 
     public showPost(): void {
         this.isModalMode = true;
@@ -320,7 +318,7 @@ export class CreatePublicationComponent implements OnInit {
         this.showYoutube = false;
         this.player = null;
         this.showemoji = false;
-        this.videoPleyer=true;
+        this.videoPleyer = true;
     }
 
     public play(): void {
@@ -343,7 +341,7 @@ export class CreatePublicationComponent implements OnInit {
         //     this.videoPleyer = true;
         // }  
 
-    
+
         //     else {
         //         title = this.postType.value.slice(0, 22);
         //     }
@@ -357,13 +355,13 @@ export class CreatePublicationComponent implements OnInit {
         //     }
 
     }
-    public closeVideo():void{
-        this.showYoutube=false;
+    public closeVideo(): void {
+        this.showYoutube = false;
         this.videoPleyer = false;
         this.postType.patchValue('');
-        this.videoTitle ='';
+        this.videoTitle = '';
     }
- 
+
 }
 
 

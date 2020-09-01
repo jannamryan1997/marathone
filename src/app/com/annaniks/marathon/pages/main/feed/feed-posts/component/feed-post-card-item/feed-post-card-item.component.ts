@@ -201,6 +201,7 @@ export class FeedPostCardItemComponent implements OnInit {
     public openPropertyModalByImage(): void {
         const dialogRef = this._dialog.open(PropertyModal, {
             width: "100%",
+            maxWidth:"1400px",
             data: {
                 data: this.feedItem,
                 localImage: this.localImage
@@ -218,6 +219,7 @@ export class FeedPostCardItemComponent implements OnInit {
     public openPropertyModalByVideo(): void {
         const dialogRef = this._dialog.open(PropertyModal, {
             width: "100%",
+            maxWidth:"1400px",
             // maxWidth: "100vw",
             // height: "100vh",
             data: {

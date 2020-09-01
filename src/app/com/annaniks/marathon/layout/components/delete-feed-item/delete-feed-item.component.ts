@@ -15,7 +15,7 @@ export class DeleteFeedItemComponent implements OnInit {
     @Input() content;
     @Input() feedId: number;
     @Input() mediaUrl: string;
-    @Output() editFeedItem=new EventEmitter<any>();
+    @Output() editFeedItem = new EventEmitter<any>();
     constructor(private _cookieService: CookieService, private _router: Router) {
         this.role = this._cookieService.get('role');
 
@@ -25,7 +25,7 @@ export class DeleteFeedItemComponent implements OnInit {
     ngOnInit() {
 
     }
-    
+
 
     public deletedFeedItem(): void {
         this.deleted.emit(true);
@@ -38,12 +38,12 @@ export class DeleteFeedItemComponent implements OnInit {
 
             this._router.navigate([router], { queryParams: { feedId: this.feedId, url: this.mediaUrl } })
         }
-        else if(this.content === 'article'){
-            router=`/article/${this.feedId}`;
+        else if (this.content === 'article') {
+            router = `/article/${this.feedId}`;
             this._router.navigate([router], { queryParams: { feedId: this.feedId, url: this.mediaUrl } })
 
         }
-        else if (this.content === 'image' || this.content === 'video' || this.content === undefined || this.content==='videoLink') {
+        else if (this.content === 'image' || this.content === 'video' || this.content === undefined || this.content === 'videoLink') {
             this.isModalMode = true;
         }
 
@@ -58,5 +58,6 @@ export class DeleteFeedItemComponent implements OnInit {
             this.editFeedItem.emit(true);
         }
     }
+
 
 }
