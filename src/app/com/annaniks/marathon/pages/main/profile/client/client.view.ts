@@ -95,6 +95,7 @@ export class ClientView implements OnInit {
         let isAll = this.checkIsMe() ? 'me' : 'true'
         return this._profileService.getFeedByProfileId('creator_client', this.user.id, isAll).pipe(finalize(() => { this.loading = false }),
             map((data: FeedData) => {
+                this.feedMediaItem=[];
                 this.feedItem = data.results;
                 for (let item of this.feedItem) {
                     this.feedMediaItem.push(item);
@@ -170,6 +171,7 @@ export class ClientView implements OnInit {
 
     public onClickTab(tab): void {
         this.tab = tab;
+        this.galerryTab=1;
 
     }
     public onClickGalerryTab(tab): void {
@@ -177,7 +179,6 @@ export class ClientView implements OnInit {
         if (this.galerryTab === 2) {
             let imageContent = this.feedMediaItem.filter((data) => { return data.feed_media[0].content.type == 'image' });
             if (imageContent && imageContent.length) {
-                console.log(this.showGallery);
 
                 this.showGallery = true;
             } else {
@@ -189,7 +190,6 @@ export class ClientView implements OnInit {
         if (this.galerryTab === 3) {
             let videoContent = this.feedMediaItem.filter((data) => { return data.feed_media[0].content.type == 'video' || data.feed_media[0].content.type == "videoLink" });
             if (videoContent && videoContent.length) {
-                console.log(this.showVideo);
 
                 this.showVideo = true;
             } else {
@@ -217,6 +217,7 @@ export class ClientView implements OnInit {
                             this._isCountCalculated = false;
                             this._pagesCount = 0;
                             this.feedItem = [];
+                            this.feedMediaItem=[];
                             return this._getFeed()
                         }))
 
@@ -233,6 +234,7 @@ export class ClientView implements OnInit {
         this._isCountCalculated = false;
         this._pagesCount = 0;
         this.feedItem = [];
+        this.feedMediaItem=[];
         this._getFeed().pipe(takeUntil(this.unsubscribe$)).subscribe();
 
     }
@@ -244,6 +246,12 @@ export class ClientView implements OnInit {
                     data: item,
                     type: message,
                 }
+            })
+            dialogRef.afterClosed().subscribe((data)=>{
+                this._getFeed().pipe(takeUntil(this.unsubscribe$)).subscribe((data)=>{
+                    console.log(data);
+                    
+                });
             })
         }
     }

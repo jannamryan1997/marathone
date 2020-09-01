@@ -91,7 +91,7 @@ export class HeaderComponent implements OnInit {
         this._profileUserService.isAuthorized = false;
         //this._profileUserService.user = null;
 
-        this.router.navigate(['/feed']);
+        this.router.navigate(['feed']);
         // location.reload();
     }
 

@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Inject } from "@angular/core";
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { UserData } from '../../models/user';
 import { UserService } from '../../services/user.service';
 import { Observable, Subject, forkJoin } from 'rxjs';
@@ -8,6 +8,11 @@ import { map, takeUntil } from 'rxjs/operators';
 import { CommentService } from '../../services/comment.service';
 import { CookieService } from 'ngx-cookie';
 import { FeedService } from '../../../pages/main/feed/feed.service';
+import { AuthModal } from '../auth/auth.modal';
+import * as moment from 'moment';
+import { FeedLikeService } from '../../services/feed-like.service';
+import { PropertyModal } from '..';
+import { FeedResponseData } from '../../models';
 
 @Component({
     selector: "app-gallery-modal",
@@ -35,6 +40,7 @@ export class GalleryModal implements OnInit, OnDestroy {
         private _commentService: CommentService,
         private _cookieService: CookieService,
         private _feedService: FeedService,
+        private _dialogRef:MatDialogRef<GalleryModal>
     ) {
         this.role = this._cookieService.get('role');
         if (this._data && this._data.type) {
@@ -53,9 +59,7 @@ export class GalleryModal implements OnInit, OnDestroy {
                 provider: 'youtube',
             }]
         }
-
-
-        // this._userService.user.data;
+        this._userService.user.data;
         if (this.user) {
             this.localImage = this.fileURL + this.user.avatar;
         }
@@ -64,6 +68,11 @@ export class GalleryModal implements OnInit, OnDestroy {
 
     ngOnInit() {
         this._getComments();
+    }
+
+    get userRole() {
+        let role = this.feedItem.creator_client_info ? 'client' : 'coach';
+        return role
     }
 
     private _getFeedById() {
@@ -93,7 +102,7 @@ export class GalleryModal implements OnInit, OnDestroy {
     private _combineObservable(parent?) {
         const combine = forkJoin(
             this._getComments(parent),
-           this._getFeedById()
+            this._getFeedById()
         )
         return combine
     }
@@ -113,6 +122,7 @@ export class GalleryModal implements OnInit, OnDestroy {
 
     public getButtonsType(event: string) {
         if (event) {
+            console.log(event);
          this._getFeedById().pipe(takeUntil(this.unsubscribe$)).subscribe();
         }
     }
@@ -124,4 +134,5 @@ export class GalleryModal implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() { }
+
 } 

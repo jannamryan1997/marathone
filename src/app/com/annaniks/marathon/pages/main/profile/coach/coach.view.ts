@@ -99,17 +99,18 @@ export class CoachView implements OnInit {
     private _getFeed() {
         this.loading = true;
         let isAll = this.checkIsMe() ? 'me' : 'true'
-        return this._profileService.getFeedByProfileId('creator', this.user.id, isAll).pipe(finalize(() => { this.loading = false }),
+         return this._profileService.getFeedByProfileId('creator', this.user.id, isAll).pipe(finalize(() => { this.loading = false }),
             map((data: FeedData) => {
+                this.feedMediaItem=[];
                 this.feedItem = data.results;
                 for (let item of this.feedItem) {
                     if (item) {
-                        this.feedMediaItem.push(item);
+                         this.feedMediaItem.push(item);
 
                         for (let media of item.feed_media) {
                             if (typeof media.content == 'string') {
                                 media.content = JSON.parse(media.content);
-                                this.mediaItem.push(media.content);
+                                 this.mediaItem.push(media.content);
                             }
                         }
                     }
@@ -186,6 +187,7 @@ export class CoachView implements OnInit {
 
     public onClickTab(tab): void {
         this.tab = tab;
+        this.galerryTab=1;
 
     }
     public onClickGalerryTab(tab): void {
@@ -193,8 +195,6 @@ export class CoachView implements OnInit {
         if (this.galerryTab === 2) {
             let imageContent = this.feedMediaItem.filter((data) => { return data.feed_media[0].content.type == 'image' });
             if (imageContent && imageContent.length) {
-                console.log(this.showGallery);
-
                 this.showGallery = true;
             } else {
                 this.showGallery = false;
@@ -205,7 +205,6 @@ export class CoachView implements OnInit {
         if (this.galerryTab === 3) {
             let videoContent = this.feedMediaItem.filter((data) => { return data.feed_media[0].content.type == 'video' || data.feed_media[0].content.type == "videoLink" });
             if (videoContent && videoContent.length) {
-                console.log(this.showVideo);
 
                 this.showVideo = true;
             } else {
@@ -214,6 +213,7 @@ export class CoachView implements OnInit {
         }
 
     }
+    
     public onClickPostEventsTab(tab): void {
         this.postTab = tab;
     }
@@ -231,6 +231,7 @@ export class CoachView implements OnInit {
                             this._isCountCalculated = false;
                             this._pagesCount = 0;
                             this.feedItem = [];
+                            this.feedMediaItem=[];
                             return this._getFeed()
                         }))
                     } else {
@@ -246,6 +247,7 @@ export class CoachView implements OnInit {
         this._isCountCalculated = false;
         this._pagesCount = 0;
         this.feedItem = [];
+        this.feedMediaItem=[];
          this._getFeed().pipe(takeUntil(this.unsubscribe$)).subscribe();
 
     }
@@ -270,7 +272,14 @@ export class CoachView implements OnInit {
                     type: message,
                 }
             })
+            dialogRef.afterClosed().subscribe((data)=>{
+                this._getFeed().pipe(takeUntil(this.unsubscribe$)).subscribe((data)=>{
+                    console.log(data);
+                    
+                });
+            })
         }
+        
     }
     ngOnDestroy() {
         this.unsubscribe$.next();

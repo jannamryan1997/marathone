@@ -51,8 +51,6 @@ export class PropertyModal implements OnInit {
 
     ngOnInit() {
         if( this.feedItem ){
-
-    
         for (let item of this.feedItem.feed_media) {
             this.content =  item.content;
                 if (typeof item.content == 'string') {
