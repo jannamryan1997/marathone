@@ -311,3 +311,17 @@
 .box-shadow{
     box-shadow: 2px 30px 43px #5C687B17 !important;
 }
+
+input[type="file"] {
+    display: none;
+}
+
+.no-post-yet{
+    font-size: 24px;
+    line-height: 28px;
+    color: #589cfe;
+    font-family: EncodeSans-Bold;
+    margin: 20px auto;
+    align-items: center;
+    text-align: center;
+}

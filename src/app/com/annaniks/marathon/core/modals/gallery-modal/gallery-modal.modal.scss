@@ -3,19 +3,23 @@ background: #ffff;
     .left-content {
         width: 100%;
         max-width: 980px;
+        height: 800px;
     }
    
     .youtube-video {
         background: black;
-        height: 800px;
+         height: 800px;
+         display: none;
     }
 
 .image{
-    height: 800px;
+height: 800px;
+display: none;
 }
 .video-item{
     background: black;
     height: 800px;
+    display: none;
 }
     .rigth-content {
         margin-left: 23px;
@@ -24,6 +28,10 @@ background: #ffff;
 
         .rigth-description {
             margin: 25px 23px 25px 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 750px;
             .header-content {
                 align-items: center;
                 text-align: center;
@@ -90,6 +98,9 @@ background: #ffff;
 
 
 .comments-content{
-    max-height: 260px;
+    max-height: 400px;
     overflow-y: auto;
+}
+.settings{
+    border-top: 1px solid #F1F1F6;
 }

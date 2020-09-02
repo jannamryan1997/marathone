@@ -18,7 +18,7 @@
 
                 <div class="d-flex" *ngIf="isModalMode">
                     <input #inputVideoReference class="" type="file" id="videofile" name="videofile"
-                        accept="video/mp4,video/x-m4v,video/" (change)="setServicePhoto($event,'video')">
+                        accept="video/mp4,video/x-m4v,video/" (change)="setServicePhoto($event,'video')" value="">
                     <label class=" label-btn d-flex" for="videofile">
                         <div class="display-flex">
                             <p class="title">Video</p>

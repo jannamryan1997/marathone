@@ -26,7 +26,7 @@ export class GalleryModal implements OnInit, OnDestroy {
     public localImage: string;
     public feedItem;
     public comments = [];
-    public isOpen: boolean = false;
+    public isOpen: boolean = true;
     public role: string;
     private unsubscribe$ = new Subject<void>();
 

@@ -1,7 +1,7 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Inject } from "@angular/core";
 import { UserService } from '../../../../core/services/user.service';
 import { FeedService } from '../../feed/feed.service';
-import { FeedResponseData, FeedData } from '../../../../core/models';
+import { FeedResponseData, FeedData, UploadFileResponse } from '../../../../core/models';
 import { finalize, takeUntil, switchMap, map } from 'rxjs/operators';
 import { RemoveModal, GalleryModal } from '../../../../core/modals';
 import { MatDialog } from '@angular/material/dialog';
@@ -9,6 +9,7 @@ import { Subject, of } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ProfileService } from '../../../../core/services/profile.service';
 import { CountryService } from '../../../../core/services/country.service';
+import { CookieService } from 'ngx-cookie';
 
 @Component({
     selector: "app-coach",
@@ -17,6 +18,9 @@ import { CountryService } from '../../../../core/services/country.service';
 })
 
 export class CoachView implements OnInit {
+    public inputTypeValue;
+    public fileName: string;
+    public contentFileName: string;
     public showGallery: boolean;
     public showVideo: boolean;
     public _unsbscribe = new Subject<void>();
@@ -42,14 +46,18 @@ export class CoachView implements OnInit {
     public mediaItem = [];
     public feedMediaItem = [];
     private _userSlug: string;
+    private role: string;
     constructor(
         private _userService: UserService,
         private _feedService: FeedService,
         private _dialog: MatDialog,
         private _profileService: ProfileService,
         private _countryService: CountryService,
+        private _cookieService: CookieService,
         private _router: Router,
-        private _activatedRoute: ActivatedRoute) {
+        private _activatedRoute: ActivatedRoute,
+        @Inject("FILE_URL") private _fileUrl,
+    ) {
         this._activatedRoute.parent.parent.params.subscribe((param) => {
             if (param && param.id) {
                 this._userSlug = param.id;
@@ -61,7 +69,8 @@ export class CoachView implements OnInit {
 
             }
         })
-
+        this.role = this._cookieService.get('role');
+  
     }
 
     ngOnInit() {
@@ -99,18 +108,18 @@ export class CoachView implements OnInit {
     private _getFeed() {
         this.loading = true;
         let isAll = this.checkIsMe() ? 'me' : 'true'
-         return this._profileService.getFeedByProfileId('creator', this.user.id, isAll).pipe(finalize(() => { this.loading = false }),
+        return this._profileService.getFeedByProfileId('creator', this.user.id, isAll).pipe(finalize(() => { this.loading = false }),
             map((data: FeedData) => {
-                this.feedMediaItem=[];
+                this.feedMediaItem = [];
                 this.feedItem = data.results;
                 for (let item of this.feedItem) {
                     if (item) {
-                         this.feedMediaItem.push(item);
+                        this.feedMediaItem.push(item);
 
                         for (let media of item.feed_media) {
                             if (typeof media.content == 'string') {
                                 media.content = JSON.parse(media.content);
-                                 this.mediaItem.push(media.content);
+                                this.mediaItem.push(media.content);
                             }
                         }
                     }
@@ -172,8 +181,8 @@ export class CoachView implements OnInit {
     }
 
     public checkIsMe() {
-        if (this._userService.user) {
-            return (!this.user || +this.user.id == +this._userService.user.data.id)
+        if (this._userService.user) {                                  
+            return (!this.user || +this.user.user.id == +this._userService.user.data.user.id)
         } else {
             return false
         }
@@ -187,10 +196,12 @@ export class CoachView implements OnInit {
 
     public onClickTab(tab): void {
         this.tab = tab;
-        this.galerryTab=1;
+        this.galerryTab = 1;
 
     }
     public onClickGalerryTab(tab): void {
+        console.log(this.feedMediaItem);
+
         this.galerryTab = tab;
         if (this.galerryTab === 2) {
             let imageContent = this.feedMediaItem.filter((data) => { return data.feed_media[0].content.type == 'image' });
@@ -213,7 +224,7 @@ export class CoachView implements OnInit {
         }
 
     }
-    
+
     public onClickPostEventsTab(tab): void {
         this.postTab = tab;
     }
@@ -231,7 +242,7 @@ export class CoachView implements OnInit {
                             this._isCountCalculated = false;
                             this._pagesCount = 0;
                             this.feedItem = [];
-                            this.feedMediaItem=[];
+                            this.feedMediaItem = [];
                             return this._getFeed()
                         }))
                     } else {
@@ -247,8 +258,8 @@ export class CoachView implements OnInit {
         this._isCountCalculated = false;
         this._pagesCount = 0;
         this.feedItem = [];
-        this.feedMediaItem=[];
-         this._getFeed().pipe(takeUntil(this.unsubscribe$)).subscribe();
+        this.feedMediaItem = [];
+        this._getFeed().pipe(takeUntil(this.unsubscribe$)).subscribe();
 
     }
 
@@ -264,8 +275,6 @@ export class CoachView implements OnInit {
 
 
     public openGalleryModal(event, message, item): void {
-        console.log(item);
-        
         if (event) {
             const dialogRef = this._dialog.open(GalleryModal, {
                 width: "1400px",
@@ -274,20 +283,96 @@ export class CoachView implements OnInit {
                     type: message,
                 }
             })
-            dialogRef.afterClosed().subscribe((data)=>{
-                this._getFeed().pipe(takeUntil(this.unsubscribe$)).subscribe((data)=>{
+            dialogRef.afterClosed().subscribe((data) => {
+                this._getFeed().pipe(takeUntil(this.unsubscribe$)).subscribe((data) => {
                     console.log(data);
-                    
+
                 });
             })
         }
-        else{
-            console.log('fffff')
-        }
-        
     }
+
+    private _setFormDataForImage(image, type: string): void {
+        if (image && image.target) {
+            const formData = new FormData();
+            let fileList: FileList = image.target.files;
+            if (fileList.length > 0) {
+                let file: File = fileList[0];
+                formData.append('file', file, file.name);
+
+                this._userService.uploadVideoFile(formData)
+                    .subscribe((data: UploadFileResponse) => {
+                        this.fileName = this._fileUrl + data.file_name;
+                        this.contentFileName = data.file_name;
+                        console.log(    this.contentFileName );
+                        
+                        this.createdPost(type)
+                    })
+            }
+        }
+    }
+
+    public setGalleryPhoto(event, type): void {
+        console.log(event);
+        
+        if (event) {
+            this._setFormDataForImage(event, type);
+
+        }
+    }
+
+
+    public createdPost(type): void {
+        this._userService.postFeed({
+            content: JSON.stringify({
+                url: this.contentFileName,
+                type: type,
+                videoTitle: '',
+            },
+            ),
+            role: this.role,
+            is_public: true,
+            title: "",
+
+        })
+            .pipe(
+                takeUntil((this._unsbscribe)),
+                finalize(() => {
+                })
+            )
+            .subscribe((data) => {
+                this.feedItem.push(data);
+                this._getFeed().pipe(takeUntil(this.unsubscribe$)).subscribe();
+                if(type==='image'){
+                    if(this.showGallery===false){
+                        this.showGallery=true;
+                    }
+                }
+               if(type==='video'){
+                if(this.showVideo===false){
+                    this.showVideo=true;
+                }
+               }
+               
+                console.log(this.feedItem);
+                
+
+            })
+    }
+
     ngOnDestroy() {
         this.unsubscribe$.next();
         this.unsubscribe$.complete();
     }
+
+
+   
+
+
+
+
+
+
 }
+
+
