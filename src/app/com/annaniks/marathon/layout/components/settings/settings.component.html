@@ -18,7 +18,7 @@
         <img src="assets/icons/Repost.svg" alt="" class="repost-icon">
         <span class="title">Share </span>
         <span class="count" (click)="onClichShowFollowModal()">0
-            <div class="share-item" *ngIf="role">
+            <div class="share-item" *ngIf="role && share" >
                 <div class="share-content">
                     <app-share-item></app-share-item>
                     <app-share-item></app-share-item>

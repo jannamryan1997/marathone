@@ -20,7 +20,7 @@ export class PropertyModal implements OnInit {
     public isShowSubMessages: boolean = false;
     private unsubscribe$ = new Subject<void>();
     public show: boolean = false;
-    public isOpen: boolean = false;
+    public isOpen: boolean = true;
     public seeMore: boolean = false;
     public timeStamp: string;
     public content: any;

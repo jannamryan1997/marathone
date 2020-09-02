@@ -107,7 +107,7 @@
                 <div class="comment-contnet">
                     
                     <app-settings [feed]="feedItem" [role]="role" (getButtonsType)="getButtonsType($event)"
-                        (openChanges)='onClickOpen($event)' [type]="content?.type"></app-settings>
+                        (openChanges)='onClickOpen($event)' [type]="content?.type" [share]="false"></app-settings>
 
                     <div *ngIf="isOpen">
                         <app-posts-comments [feed]="feedItem" (sendMessage)="sendMessage($event)" *ngIf="role"
