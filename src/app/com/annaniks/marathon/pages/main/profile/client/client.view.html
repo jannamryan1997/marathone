@@ -172,27 +172,43 @@
             <div class="events-content" [ngSwitch]="galerryTab">
                 <div class="local-gallery-content w-100" *ngIf="checkIsMe() && feedMediaItem.length < 1">
                     <div class="local-gallery-item">
-                        <span class="material-icons add-icon">
-                            add
-                        </span>
+                            <input class="" type="file" id="gallery" name="gallery" accept="image/png,image/jpeg"
+                            (change)="setGalleryPhoto($event,'image')">
+                        <label class="icon-btn d-flex m-auto" for="gallery">
+                              <span class="material-icons add-icon">
+                                add
+                            </span>
+                        </label>
                     </div>
                     <div class="local-gallery-item">
-                        <span class="material-icons add-icon">
-                            add
-                        </span>
+                            <input class="" type="file" id="gallery" name="gallery" accept="image/png,image/jpeg"
+                            (change)="setGalleryPhoto($event,'image')">
+                        <label class="icon-btn d-flex m-auto" for="gallery">
+                              <span class="material-icons add-icon">
+                                add
+                            </span>
+                        </label>
                     </div>
                     <div class="local-gallery-item">
-                        <span class="material-icons add-icon">
-                            add
-                        </span>
+                            <input class="" type="file" id="gallery" name="gallery" accept="image/png,image/jpeg"
+                            (change)="setGalleryPhoto($event,'image')">
+                        <label class="icon-btn d-flex m-auto" for="gallery">
+                              <span class="material-icons add-icon">
+                                add
+                            </span>
+                        </label>
                     </div>
                 </div>
                 <p *ngIf="!checkIsMe() && feedMediaItem.length < 1" class="no-post-yet">No Posts Yet</p>
                 <div *ngIf="galerryTab===1" class="gallery-content">
                     <div class="local-gallery-item" *ngIf="checkIsMe() && feedMediaItem.length">
-                        <span class="material-icons add-icon">
-                            add
-                        </span>
+                            <input class="" type="file" id="gallery" name="gallery" accept="image/png,image/jpeg"
+                            (change)="setGalleryPhoto($event,'image')">
+                        <label class="icon-btn d-flex m-auto" for="gallery">
+                              <span class="material-icons add-icon">
+                                add
+                            </span>
+                        </label>
                     </div>
                     <div class="gallery-item" *ngFor="let item of feedMediaItem"
                         [ngClass]="{'d-block':item?.feed_media[0]?.content?.url}">
