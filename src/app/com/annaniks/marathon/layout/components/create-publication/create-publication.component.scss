@@ -11,12 +11,12 @@
     border: 0.5px solid #F4F7FC;
     border-radius: 15px;
     opacity: 1;
-    // height: 160px;
+    min-height: 160px;
 
     .created-publication-main {
         // border: 1px solid red;
         padding: 18px 16px 11px 16px;
-        // height: 160px;
+        min-height: 160px;
     }
 }
 
