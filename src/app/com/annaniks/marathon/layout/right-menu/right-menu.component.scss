@@ -82,12 +82,18 @@
 
 .position {
     position: fixed !important;
+}
+.top{
     top: 110px;
+
+}
+.bottom{
+    bottom:0
 }
 .chat{
     position: absolute;
     right: 60px;
-    top: 24%;
+    bottom: 0;
     z-index: 9999;
     width: 300px;
     overflow: auto;

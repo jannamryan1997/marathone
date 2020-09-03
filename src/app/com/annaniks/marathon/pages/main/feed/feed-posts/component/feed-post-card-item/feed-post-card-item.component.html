@@ -3,12 +3,14 @@
     <div class="item-header">
         <div class="item-head-description">
             <img [routerLink]="getProfleUrl()" [src]="localImage" class="image" alt="Cinque Terre">
-            <p [routerLink]="getProfleUrl()" class="name-title mb-0" *ngIf="userRole==='client'">
+            <!-- <p [routerLink]="getProfleUrl()" class="name-title mb-0" *ngIf="userRole==='client'">
                 {{feedItem?.creator_client_info?.user?.first_name}}</p>
             <p [routerLink]="getProfleUrl()" class="name-title mb-0" *ngIf="userRole==='coach'">
                 {{feedItem?.creator_info?.user?.first_name}}
-            </p>
-
+            </p> -->
+            <p [routerLink]="getProfleUrl()" class="name-title mb-0">
+                    {{user_name}}
+                </p> 
             <p class="time mb-0">{{time}}</p>
         </div>
         <div (clickOutside)="onClickedOutside($event)">
@@ -30,6 +32,12 @@
                 <p class="title show-content">{{feedTitle}} <span *ngIf="seeMore" class="title more"
                         (click)="onClickSeeMore()">... See More</span></p>
             </div>
+            <div class="title-content" *ngIf="content?.type === 'videoLink'">
+                    <a class="title show-content" target="_blank" href="{{feedTitle}}">{{feedTitle}}
+                            <span *ngIf="seeMore" class="title more"
+                            (click)="onClickSeeMore()">... See More</span>
+                         </a>
+                </div>
 
             <div class="d-none" [ngClass]="{'d-block':content?.type ==='image'}">
                 <img src="{{fileUrl+content?.url}}" class="image" alt="Cinque Terre"

@@ -7,11 +7,6 @@
 
 .home-container {
     .home-main {
-        // background: #FFFFFF 0% 0% no-repeat padding-box;
-        // box-shadow: 2px 30px 43px #5C687B17;
-        // border-radius: 0px 0px 15px 15px;
-        // opacity: 1;
-
         .profile-description {
             position: relative;
 
@@ -100,11 +95,10 @@
                     background: #FFFFFF 0% 0% no-repeat padding-box;
                     box-shadow: 2px 30px 43px #5C687B36;
                     border: 0.5px solid #bbcddf;
-                    opacity: 1;
                      position: absolute;
                     border-radius: 10px;
                     z-index: 99;
-                     opacity: 0;
+                    opacity: 0;
                     top: 45px;
                     right: -10px;
 
@@ -185,17 +179,16 @@ input[type="file"] {
 .social-media-btn-content{
     position: relative;
     &:hover {
-.social-media-btn {
+    .social-media-btn{
     background: #589CFE;
     border: 1px solid #589CFE;
     color: #ffffff !important;
     align-items: center;
-  
-       
-    }
-    .social-media {
-        opacity: 1 !important;
-        display: block !important;
-    }
+
+}
+.social-media {
+    opacity: 1 !important;
+    display: block !important;
+}
 }
 }

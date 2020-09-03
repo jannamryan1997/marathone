@@ -20,7 +20,7 @@ export class PropertyModal implements OnInit {
     public isShowSubMessages: boolean = false;
     private unsubscribe$ = new Subject<void>();
     public show: boolean = false;
-    public isOpen: boolean = false;
+    public isOpen: boolean = true;
     public seeMore: boolean = false;
     public timeStamp: string;
     public content: any;
@@ -28,7 +28,7 @@ export class PropertyModal implements OnInit {
     public feedTitle: string;
     public role: string;
     public localImage: string;
-    public comments = []
+    public comments = [];
     constructor(@Inject(MAT_DIALOG_DATA) private _data,
         private _dialogRef: MatDialogRef<PropertyModal>,
         private _cookieService: CookieService,
@@ -50,9 +50,10 @@ export class PropertyModal implements OnInit {
     }
 
     ngOnInit() {
+        this._getComments().pipe(takeUntil(this.unsubscribe$)).subscribe()
+        console.log(this.comments);
+        
         if( this.feedItem ){
-
-    
         for (let item of this.feedItem.feed_media) {
             this.content =  item.content;
                 if (typeof item.content == 'string') {
@@ -75,7 +76,7 @@ export class PropertyModal implements OnInit {
             this.feedTitle = this.feedItem.title;
             if (titleLength > 100) {
                 this.seeMore = true;
-                this.feedTitle = this.feedItem.title.slice(0, 100);
+                this.feedTitle = this.feedItem.title.slice(0, 90);
             }
             else {
                 this.seeMore = false;

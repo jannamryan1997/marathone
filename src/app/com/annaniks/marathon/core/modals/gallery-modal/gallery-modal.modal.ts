@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Inject } from "@angular/core";
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { UserData } from '../../models/user';
 import { UserService } from '../../services/user.service';
 import { Observable, Subject, forkJoin } from 'rxjs';
@@ -8,6 +8,8 @@ import { map, takeUntil } from 'rxjs/operators';
 import { CommentService } from '../../services/comment.service';
 import { CookieService } from 'ngx-cookie';
 import { FeedService } from '../../../pages/main/feed/feed.service';
+import { AuthModal } from '../auth/auth.modal';
+
 
 @Component({
     selector: "app-gallery-modal",
@@ -24,17 +26,18 @@ export class GalleryModal implements OnInit, OnDestroy {
     public localImage: string;
     public feedItem;
     public comments = [];
-    public isOpen: boolean = false;
+    public isOpen: boolean = true;
     public role: string;
     private unsubscribe$ = new Subject<void>();
 
     constructor(
         @Inject(MAT_DIALOG_DATA) private _data,
         @Inject('FILE_URL') public fileURL,
-        private _userService: UserService,
         private _commentService: CommentService,
         private _cookieService: CookieService,
         private _feedService: FeedService,
+        private _matDialog:MatDialog,
+        private _dialogRef:MatDialogRef<GalleryModal>,
     ) {
         this.role = this._cookieService.get('role');
         if (this._data && this._data.type) {
@@ -42,8 +45,8 @@ export class GalleryModal implements OnInit, OnDestroy {
         }
         if (this._data && this._data.data) {
             this.feedItem = this._data.data;
-            this.user = this.feedItem ? this.feedItem.creator_client_info ? this.feedItem.creator_client_info : 
-            this.feedItem.creator_info ? this.feedItem.creator_info : null : null
+            this.user = this.feedItem ? this.feedItem.creator_client_info ? this.feedItem.creator_client_info :
+                this.feedItem.creator_info ? this.feedItem.creator_info : null : null
         }
 
         if (this.feedItem) {
@@ -53,8 +56,6 @@ export class GalleryModal implements OnInit, OnDestroy {
                 provider: 'youtube',
             }]
         }
-
-
         // this._userService.user.data;
         if (this.user) {
             this.localImage = this.fileURL + this.user.avatar;
@@ -65,6 +66,7 @@ export class GalleryModal implements OnInit, OnDestroy {
     ngOnInit() {
         this._getComments();
     }
+
 
     private _getFeedById() {
         return this._feedService.getFeedById(this.feedItem.id).pipe(map((result) => {
@@ -115,6 +117,16 @@ export class GalleryModal implements OnInit, OnDestroy {
         if (event) {
             this._getFeedById().pipe(takeUntil(this.unsubscribe$)).subscribe();
         }
+        else {
+            this._dialogRef.close();
+            this.onClickOpenAuth();
+       
+        }
+    }
+
+    public onClickOpenAuth(): void {
+        this._matDialog.open(AuthModal, {
+        })
     }
     public likeOrDislike(event) {
         if (event) {
@@ -124,4 +136,5 @@ export class GalleryModal implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() { }
+
 } 

@@ -1,105 +1,214 @@
-.property-content {
-padding: 0 20px;
-.text-right{
-    position:absolute;
-    top: 0;
-    right: 0;
-}
-    .property-main {
-        background: #FFFFFF;
-        border-radius: 15px;
-        opacity: 1;
-        margin: auto !important;
+// .property-content {
+// .text-right{
+//     position:absolute;
+//     top: 0;
+//     right: 0;
+// }
+//     .property-main {
+//         background: #FFFFFF;
+//         border-radius: 15px;
+//         opacity: 1;
+//         margin: auto !important;
 
-        .image-content {
+//         .image-content {
+//             width: 100%;
+//             max-width: 980px;
+
+
+//             .image {
+//                 height: 800px;
+//                 border-radius: 15px 0px 0px 15px;
+//             }
+
+//             .video {
+//                 height: 800px;
+//                 border-radius: 0 0 0 15px;
+//             }
+//         }
+
+//         .property-description {
+//             width: 100%;
+//             max-width: 420px;
+//             padding: 20px 20px;
+//             max-height: 800px;
+//             overflow-y: scroll;
+//             border-radius: 15px;
+
+//             .item-header {
+//                 padding: 0 !important;
+//             }
+
+//             .post-content {
+//                 margin: 10px 0;
+//                 border-bottom: 1px solid #bbcddf;
+//                 border-top: 1px solid #bbcddf;
+//                 padding: 10px 0;
+//             }
+//         }
+//         .name-title{
+//             font-size: 19px !important;
+//         }
+//         .time{
+//             font-size: 14px !important;
+//         }
+//         .icon{
+//             color: #45535c;
+//         }
+//     }
+// }
+// .comments-content{
+//     max-height: 420px;
+//     overflow-y: auto;
+// }
+// .show-content {
+//     font-size: 14px !important;
+//     line-height: 16px;
+//     overflow: hidden;
+//     transition: .5s all ease-out;
+// }
+
+// .show {
+//     overflow: visible;
+//     height: auto;
+//     transition: .5s all ease-out;
+// }
+
+// ::ng-deep .mat-dialog-container {
+// padding:0 ;
+//  background:none;
+//  box-shadow: none;
+// }
+
+// .setting-item .title {
+//     font-size: 15px !important;
+//     line-height: 25px !important;
+// }
+
+// .setting-content {
+//     padding: 20px 0px !important;
+// }
+
+
+// .time{
+//     margin-left: 12px !important;
+//     font-size: 12px !important;
+
+// }
+// .name-title {
+//     font-size: 14px !important;
+//     display: inline-block !important;
+//     width: 130px !important;
+//     white-space: nowrap !important;
+//     overflow: hidden !important;
+//     text-overflow: ellipsis !important;
+// }
+@mixin text($fontSize, $lineHeight, $color, $fontFamily) {
+    font-size: $fontSize;
+    line-height: $lineHeight;
+    color: $color;
+    font-family: $fontFamily;
+}
+
+.proporty {
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border-radius: 0px 15px 15px 0px;
+
+    .proporty-content {
+        display: flex;
+        text-align: center;
+
+        .left-content {
             width: 100%;
             max-width: 980px;
-       
 
-            .image {
-                height: 800px;
-                border-radius: 15px 0px 0px 15px;
+            .image,
+            video {
+                height: 100%;
+                max-height: 815px;
             }
 
             .video {
-                height: 800px;
-                border-radius: 0 0 0 15px;
+                background: black;
             }
         }
 
-        .property-description {
+        .right-content {
             width: 100%;
             max-width: 420px;
-            padding: 20px 20px;
-            max-height: 800px;
-            overflow-y: scroll;
-            border-radius: 15px;
 
-            .item-header {
-                padding: 0 !important;
-            }
+            .right-content-description {
+                min-height: 800px;
+                max-height: 800px;
+                overflow-y: auto;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
 
-            .post-content {
-                margin: 10px 0;
-                border-bottom: 1px solid #bbcddf;
-                border-top: 1px solid #bbcddf;
-                padding: 10px 0;
+                .right-container {
+                    margin: 15px 26px 15px 23px;
+
+                    .header-content {
+                        display: flex;
+                        text-align: center;
+                        justify-content: space-between;
+                        align-items: center;
+
+                        .user-avatar {
+                            width: 47px;
+                            height: 47px;
+                            border-radius: 50%;
+                        }
+
+                        .name-title {
+                            @include text(19px, 33px, #45535C, EncodeSans-Bold);
+                            margin: 0 25px;
+                        }
+
+                        .time {
+                            @include text(14px, 33px, #ACB9C4, EncodeSans-Medium);
+                        }
+                    }
+
+                    .post-content {
+                        margin: 15px 0;
+
+                        &::after {
+                            width: 100%;
+                            border: 1px solid #F1F1F6;
+                            margin-top: 20px;
+                            display: block;
+                            content: "";
+                        }
+
+                        .post-title {
+                            @include text(16px, 22px, #45535C, MicrosoftYaHeiUI);
+                            text-align: initial;
+                        }
+                    }
+
+                    .comment-messages {
+                        margin: 15px 0;
+                        max-height: 390px;
+                        overflow: hidden;
+                        overflow-y: scroll;
+                    }
+                }
+
+                .comment-contnet {
+                    width: 100%;
+                    padding: 0 5px;
+                    border-top: 1px solid #F1F1F6;
+                }
             }
-        }
-        .name-title{
-            font-size: 19px !important;
-        }
-        .time{
-            font-size: 14px !important;
-        }
-        .icon{
-            color: #45535c;
         }
     }
 }
-.comments-content{
-    max-height: 420px;
-    overflow-y: auto;
-}
-.show-content {
-    font-size: 14px !important;
-    line-height: 16px;
-    overflow: hidden;
-    transition: .5s all ease-out;
-}
 
-.show {
-    overflow: visible;
-    height: auto;
-    transition: .5s all ease-out;
-}
+
+
+///ng-deep
 
 ::ng-deep .mat-dialog-container {
-padding:0 ;
- background:none;
- box-shadow: none;
-}
+    padding: 0px;
 
-.setting-item .title {
-    font-size: 15px !important;
-    line-height: 25px !important;
-}
-
-.setting-content {
-    padding: 20px 0px !important;
-}
-
-
-.time{
-    margin-left: 12px !important;
-    font-size: 12px !important;
-
-}
-.name-title {
-    font-size: 14px !important;
-    display: inline-block !important;
-    width: 130px !important;
-    white-space: nowrap !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
 }

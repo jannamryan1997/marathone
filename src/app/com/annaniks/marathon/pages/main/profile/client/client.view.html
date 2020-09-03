@@ -1,5 +1,5 @@
 <div class="main-container">
-    <div class="user-main">
+    <div class="user-main" [ngClass]="{'box-shadow':tab===2}">
         <div class="main-content">
             <div class="review-content display-flex">
                 <p class="name"> {{firstName}}</p>
@@ -67,12 +67,8 @@
                             (click)="onClickSeeMore()">... See More</span></p>
                 </div>
             </div>
-            <div class="d-flex mt-4">
-                <div class="btn-content display-flex m-auto">
-                    <button class="btn-item active-btn mr-3">Body Building</button>
-                    <button class="btn-item active-btn mr-3">Fat Loss</button>
-                    <button class="btn-item active-btn">Power Lifting</button>
-                </div>
+            <div class="speciality-btn-content display-flex m-auto">
+                <button class="btn-item active-btn" *ngFor="let item of specialityName">{{item.name}}</button>
             </div>
         </div>
         <div class="events-tab d-flex" [ngSwitch]="tab">
@@ -143,7 +139,7 @@
             </div>
 
 
-
+            <!-- 
             <div class="events-content" [ngSwitch]="galerryTab">
                 <div *ngIf="galerryTab===1" class="gallery-content">
                     <div class="gallery-item" *ngFor="let item of feedMediaItem"
@@ -172,8 +168,158 @@
                     </div>
 
                 </div>
-            </div>
+            </div> -->
+            <div class="events-content" [ngSwitch]="galerryTab">
+                <div class="local-gallery-content w-100" *ngIf="checkIsMe() && feedMediaItem.length < 1">
+                    <div class="local-gallery-item">
+                            <input class="" type="file" id="gallery" name="gallery" accept="image/png,image/jpeg"
+                            (change)="setGalleryPhoto($event,'image')">
+                        <label class="icon-btn d-flex m-auto" for="gallery">
+                              <span class="material-icons add-icon">
+                                add
+                            </span>
+                        </label>
+                    </div>
+                    <div class="local-gallery-item">
+                            <input class="" type="file" id="gallery" name="gallery" accept="image/png,image/jpeg"
+                            (change)="setGalleryPhoto($event,'image')">
+                        <label class="icon-btn d-flex m-auto" for="gallery">
+                              <span class="material-icons add-icon">
+                                add
+                            </span>
+                        </label>
+                    </div>
+                    <div class="local-gallery-item">
+                            <input class="" type="file" id="gallery" name="gallery" accept="image/png,image/jpeg"
+                            (change)="setGalleryPhoto($event,'image')">
+                        <label class="icon-btn d-flex m-auto" for="gallery">
+                              <span class="material-icons add-icon">
+                                add
+                            </span>
+                        </label>
+                    </div>
+                </div>
+                <p *ngIf="!checkIsMe() && feedMediaItem.length < 1" class="no-post-yet">No Posts Yet</p>
+                <div *ngIf="galerryTab===1" class="gallery-content">
+                    <div class="local-gallery-item" *ngIf="checkIsMe() && feedMediaItem.length">
+                            <input class="" type="file" id="gallery" name="gallery" accept="image/png,image/jpeg"
+                            (change)="setGalleryPhoto($event,'image')">
+                        <label class="icon-btn d-flex m-auto" for="gallery">
+                              <span class="material-icons add-icon">
+                                add
+                            </span>
+                        </label>
+                    </div>
+                    <div class="gallery-item" *ngFor="let item of feedMediaItem"
+                        [ngClass]="{'d-block':item?.feed_media[0]?.content?.url}">
+                        <app-galery [mediaItem]="item" (showGalleryModal)="openGalleryModal($event,'all',item)">
+                        </app-galery>
+                    </div>
 
+                </div>
+
+
+                <div *ngIf="galerryTab===2" class="gallery-content">
+                    <div class="local-gallery-content w-100" *ngIf="checkIsMe() && !showGallery && feedMediaItem.length">
+                        <div class="local-gallery-item">
+                            <input class="" type="file" id="gallery" name="gallery" accept="image/png,image/jpeg"
+                                (change)="setGalleryPhoto($event,'image')">
+                            <label class="icon-btn d-flex m-auto" for="gallery">
+                                <span class="material-icons add-icon">
+                                    add
+                                </span>
+                            </label>
+                        </div>
+                        <div class="local-gallery-item">
+                            <input class="" type="file" id="gallery" name="gallery" accept="image/png,image/jpeg"
+                                (change)="setGalleryPhoto($event,'image')">
+                            <label class="icon-btn d-flex m-auto" for="gallery">
+                                <span class="material-icons add-icon">
+                                    add
+                                </span>
+                            </label>
+                        </div>
+                        <div class="local-gallery-item">
+                            <input class="" type="file" id="gallery" name="gallery" accept="image/png,image/jpeg"
+                                (change)="setGalleryPhoto($event,'image')">
+                            <label class="icon-btn d-flex m-auto" for="gallery">
+                                <span class="material-icons add-icon">
+                                    add
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                    <p *ngIf="!checkIsMe() && !showGallery && feedMediaItem.length" class="no-post-yet">No Posts Yet</p>
+
+                    <div class="local-gallery-item" *ngIf="checkIsMe() && showGallery">
+                        <input class="" type="file" id="gallery" name="gallery" accept="image/png,image/jpeg"
+                            (change)="setGalleryPhoto($event,'image')">
+                        <label class="icon-btn d-flex m-auto" for="gallery">
+                            <span class="material-icons add-icon">
+                                add
+                            </span>
+                        </label>
+                    </div>
+
+                    <div class="gallery-item" *ngFor="let item of feedMediaItem"
+                        [ngClass]="{'d-block':item?.feed_media[0]?.content?.url && item?.feed_media[0]?.content?.type==='image'}">
+                        <app-galery [mediaItem]="item" (showGalleryModal)="openGalleryModal($event,'image',item)">
+                        </app-galery>
+                    </div>
+
+                </div>
+                <div *ngIf="galerryTab===3" class="gallery-content">
+
+                    <div class="local-gallery-content w-100" *ngIf="checkIsMe() &&  !showVideo && feedMediaItem.length">
+                        <div class="local-gallery-item">
+                            <input class="" type="file" id="video" name="video" accept="video/mp4,video/x-m4v,video/"
+                                (change)="setGalleryPhoto($event,'video')">
+                            <label class="icon-btn d-flex m-auto" for="video">
+                                <span class="material-icons add-icon">
+                                    add
+                                </span>
+                            </label>
+
+                        </div>
+                        <div class="local-gallery-item">
+                            <input class="" type="file" id="video" name="video" accept="video/mp4,video/x-m4v,video/"
+                                (change)="setGalleryPhoto($event,'video')">
+                            <label class="icon-btn d-flex m-auto" for="video">
+                                <span class="material-icons add-icon">
+                                    add
+                                </span>
+                            </label>
+                        </div>
+                        <div class="local-gallery-item">
+                            <input class="" type="file" id="video" name="video" accept="video/mp4,video/x-m4v,video/"
+                                (change)="setGalleryPhoto($event,'video')">
+                            <label class="icon-btn d-flex m-auto" for="video">
+                                <span class="material-icons add-icon">
+                                    add
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                    <p *ngIf="!checkIsMe() && !showVideo && feedMediaItem.length" class="no-post-yet">No Posts Yet</p>
+                    <div class="local-gallery-item" *ngIf="checkIsMe() && showVideo">
+                        <input class="" type="file" id="video" name="video" accept="video/mp4,video/x-m4v,video/"
+                            (change)="setGalleryPhoto($event,'video')">
+                        <label class="icon-btn d-flex m-auto" for="video">
+                            <span class="material-icons add-icon">
+                                add
+                            </span>
+                        </label>
+                    </div>
+                  
+                    <div class="gallery-item" *ngFor="let item of feedMediaItem"
+                        [ngClass]="{'d-block':item?.feed_media[0]?.content?.url && item?.feed_media[0]?.content?.type==='video'|| item?.feed_media[0]?.content?.type==='videoLink'}">
+
+                        <app-galery [mediaItem]="item" (showGalleryModal)="openGalleryModal($event,'video',item)">
+                        </app-galery>
+                    </div>
+
+                </div>
+            </div>
 
 
 

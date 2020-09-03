@@ -6,13 +6,12 @@
 }
 
 .user-main {
-    // padding: 0 15px;
     position: absolute;
-    // background: #ffffff 0% 0% no-repeat padding-box;
-    // box-shadow: 2px 30px 43px #5c687b17;
-    // border-radius: 0px 0px 15px 15px;
     opacity: 1;
     width: 100%;
+    min-height: 100vh;
+    height: auto;
+    background: white;
 
     .main-content {
         padding: 0 24px;
@@ -62,8 +61,6 @@
 
     .profile-data {
         .data-item {
-            // width: 33.333333%;
-
             .item-title {
                 @include text(18px, 25px, #45535c, EncodeSans-Medium);
                 display: inline-block;
@@ -141,7 +138,7 @@
     .events-header {
         padding: 30px 0 30px 0;
         background: #ffffff 0% 0% no-repeat padding-box;
-        box-shadow: 2px 30px 43px #5c687b17;
+        // box-shadow: 2px 30px 43px #5c687b17;
 
         .gallery-tab {
             .btn {
@@ -155,16 +152,34 @@
     }
 }
 
-.btn-content {
-    margin: auto;
 
+    .speciality-btn-content {
+        margin: auto;
+        display: flex;
+        flex-wrap: wrap;
+        width: 80%;
+        margin: auto;
+        .active-btn {
+            width: 140px;
+            padding: 10px 7px;
+            justify-content: center;
+            display: flex;
+        }
+    }
+    
+        .post-item {
+            color: #bbcddf;
+            margin-left: 9px;
+            @include text(17px, 20px, #bbcddf, EncodeSans-Medium);
+            cursor: pointer;
+        }
+    
     .post-item {
         color: #bbcddf;
         margin-left: 9px;
         @include text(17px, 20px, #bbcddf, EncodeSans-Medium);
         cursor: pointer;
     }
-}
 
 .show {
     overflow: visible;
@@ -222,4 +237,52 @@
 .location-image {
     width: 20px;
     margin-right: 10px;
+}
+
+.post-item {
+    color: #bbcddf;
+    margin-left: 9px;
+    @include text(17px, 20px, #bbcddf, EncodeSans-Medium);
+    cursor: pointer;
+}
+
+.local-gallery-content{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+
+}
+.local-gallery-item{
+    width: 33%;
+    margin: 1px;   
+    background: #F5F5FA 0% 0% no-repeat padding-box;
+    opacity: 1;
+    display: flex;
+    height: 191px;
+    .add-icon{
+        color: #CAD2E1;
+        font-size: 50px;
+        margin: auto;
+        cursor: pointer;
+    }
+}
+
+.box-shadow{
+    box-shadow: 2px 30px 43px #5c687b17 !important;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+
+.no-post-yet{
+    font-size: 24px;
+    line-height: 28px;
+    color: #589cfe;
+    font-family: EncodeSans-Bold;
+    margin: 20px auto;
+    align-items: center;
+    text-align: center;
 }

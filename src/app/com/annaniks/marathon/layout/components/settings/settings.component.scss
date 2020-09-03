@@ -9,7 +9,7 @@
     height: 60px;
     display: flex;
     flex-wrap: wrap;
-    margin: 0 25px;
+    //  margin: 0 25px;
     align-items: center;
     text-align: center;
     justify-content: space-between;
@@ -18,13 +18,14 @@
         border: none;
         background: none;
         cursor: pointer;
-          //padding: 10px 21px 14px 28px;
+        //padding: 10px 21px 14px 28px;
         @include text(16px, 20px, #45535c, EncodeSans-SemiBold);
         display: flex;
         align-items: center;
         text-align: center;
         height: 45px;
         padding: 20px;
+        margin: 0 10px;
 
         &:last-child {
             border-right: none !important;
@@ -52,9 +53,10 @@
 
             &:hover {
                 color: #45535C;
-                .share-item{
+
+                .share-item {
                     display: block !important;
-                    }
+                }
             }
         }
 
@@ -62,23 +64,26 @@
             background: #F4F6FB 0% 0% no-repeat padding-box;
             border-radius: 22px;
             opacity: 1;
-           
+
         }
     }
 }
 
-.liked{
+.liked {
     color: #65a4fe !important
 }
-.energy-count{
+
+.energy-count {
     opacity: 0.6;
 }
-.energy-count:hover{
+
+.energy-count:hover {
     opacity: 1 !important;
 }
+
 .class-type {
     border: none !important;
-    font-size: 9px !important;
+    font-size: 12px !important;
     margin: 0 !important;
 
 
@@ -97,7 +102,8 @@
     border: 0.5px solid #E3ECFD;
     border-radius: 10px;
     display: none;
-    &:hover{
+
+    &:hover {
         display: block !important;
     }
 
@@ -121,45 +127,51 @@
 
 
 
-.share-item :hover{
-        display: block !important;
-    }
+.share-item :hover {
+    display: block !important;
+}
 
-    .comment-btn{
-        padding: 12px 15px 12px 15px;
-    }
-    .like-btn{
-        padding: 11px 27px 13px 25px;   
-    }
+.comment-btn {
+    padding: 12px 15px 12px 15px;
+}
 
-    .energy-btn{
-        padding: 10px 22px 15px 20px;
-    }
+.like-btn {
+    padding: 11px 27px 13px 25px;
+}
 
- 
- 
-    .count-comment{
-        color: #9DB3C9;
-        margin-left: 9px; 
-    }
-    .count-like{
-        color: #9DB3C9;
-        margin-left: 9px; 
-    }
+.energy-btn {
+    padding: 10px 22px 15px 20px;
+}
 
-    .type-color {
-        color: #65a4fe !important;
-    }
 
-    .galleryStyle{
-        margin: 10px 0px !important;
-    }
 
-    .style{
-        font-size: 12px !important;
-        padding: 12px 0px 12px 5px !important;
-    }
+.count-comment {
+    color: #9DB3C9;
+    margin-left: 9px;
+}
 
-    .buttonStype{
-        padding: 12px 2px 12px 2px !important;  
-    }
+.count-like {
+    color: #9DB3C9;
+    margin-left: 9px;
+}
+
+.type-color {
+    color: #65a4fe !important;
+}
+
+.galleryStyle {
+    margin: 10px 0px !important;
+}
+
+// .style {
+//     font-size: 12px !important;
+//     padding: 12px 0px 12px 5px !important;
+// }
+
+.buttonStype {
+    padding: 12px 8px 12px 8px !important;
+}
+
+.opacity{
+    display: none !important;
+}

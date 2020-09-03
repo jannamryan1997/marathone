@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, Output, EventEmitter, Inject } from "@angular/core";
+import { Component, OnInit, Input, ViewChild, ElementRef, Output, EventEmitter, Inject, AfterViewInit } from "@angular/core";
 import { FormControl, } from '@angular/forms';
 import { UserService } from '../../../core/services/user.service';
 import { UploadFileResponse, FeedResponseData } from '../../../core/models';
@@ -16,7 +16,8 @@ import { Subject } from 'rxjs';
 
 
 export class CreatePublicationComponent implements OnInit {
-
+    public videoTitle: string;
+    public videoPleyer: boolean = true;
     public i18n;
     public isModalMode: boolean = false;
     public postType = new FormControl('');
@@ -62,7 +63,7 @@ export class CreatePublicationComponent implements OnInit {
         this._autosize();
 
         this._initi18n();
-
+        this._setPatchValue();
     }
 
     private _initi18n() {
@@ -95,7 +96,15 @@ export class CreatePublicationComponent implements OnInit {
         }
     }
 
-
+    private _setPatchValue(): void {
+        this.postType.valueChanges.subscribe((data) => {
+            if (this.videoPleyer) {
+                this.videoTitle = data;
+            }
+            this.play();
+        })
+        this.videoPleyer = true;
+    }
 
     private _autosize() {
         const el = document.getElementById('textarea');
@@ -169,6 +178,9 @@ export class CreatePublicationComponent implements OnInit {
 
             }
         }
+        if (this.showYoutube) {
+            this.showYoutube = false;
+        }
     }
 
 
@@ -212,8 +224,7 @@ export class CreatePublicationComponent implements OnInit {
 
 
     public closeControlItem(): void {
-        this.uploadType = null;
-
+        this.uploadType = null;  
     }
 
 
@@ -224,6 +235,7 @@ export class CreatePublicationComponent implements OnInit {
             {
                 url: this.contentFileName,
                 type: this.uploadType,
+                videoTitle: this.videoTitle,
             }
         )
         let role: string = this._cookieServie.get('role');
@@ -249,7 +261,7 @@ export class CreatePublicationComponent implements OnInit {
                     })
                 )
                 .subscribe((data) => {
-
+                    this.videoPleyer = true;
 
                 })
         }
@@ -258,6 +270,7 @@ export class CreatePublicationComponent implements OnInit {
                 {
                     url: this.contentFileName,
                     type: this.uploadType,
+                    videoTitle: this.videoTitle,
                 }
             )
             this._feedService.updateFeedById(this.mediaUrl,
@@ -284,10 +297,12 @@ export class CreatePublicationComponent implements OnInit {
                     })
                 )
                 .subscribe((data) => {
-
+                    this.videoPleyer = true;
                 })
         }
     }
+
+
 
     public showPost(): void {
         this.isModalMode = true;
@@ -303,28 +318,48 @@ export class CreatePublicationComponent implements OnInit {
         this.showYoutube = false;
         this.player = null;
         this.showemoji = false;
+        this.videoPleyer = true;
     }
 
     public play(): void {
-        let title;
-        this.videoSources = [{
-            src: this.postType.value,
-            provider: 'youtube',
-        }]
-        if (this.postType.value.slice(0, 8) === 'https://') {
-            title = this.postType.value.slice(0, 30);
-        }
-        else {
-            title = this.postType.value.slice(0, 22);
-        }
-        if (title === 'www.youtube.com/watch?' || title === 'https://www.youtube.com/watch?') {
+        if (this.videoPleyer && this.postType.value.slice(0, 8) === 'https://') {
+            this.videoSources = [{
+                src: this.postType.value,
+                provider: 'youtube',
+            }]
+
             this.showYoutube = true;
+
+
             this.contentFileName = this.postType.value,
                 this.uploadType = 'videoLink'
+            this.videoPleyer = false;
+
         }
-        else {
-            this.showYoutube = false;
-        }
+        // if(!this.showYoutube  && this.postType.value.slice(0, 8) === 'https://'){
+        //     this.showYoutube = true;
+        //     this.videoPleyer = true;
+        // }  
+
+
+        //     else {
+        //         title = this.postType.value.slice(0, 22);
+        //     }
+        //     if (title === 'www.youtube.com/watch?' || title === 'https://www.youtube.com/watch?') {
+        //         this.showYoutube = true;
+        //         this.contentFileName = this.postType.value,
+        //             this.uploadType = 'videoLink'
+        //     }
+        //     else {
+        //         this.showYoutube = false;
+        //     }
+
+    }
+    public closeVideo(): void {
+        this.showYoutube = false;
+        this.videoPleyer = false;
+        this.postType.patchValue('');
+        this.videoTitle = '';
     }
 
 }

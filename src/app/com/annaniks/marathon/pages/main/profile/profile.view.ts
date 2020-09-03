@@ -7,6 +7,8 @@ import { takeUntil, switchMap, map } from 'rxjs/operators';
 import { UploadFileResponse } from '../../../core/models';
 import { ProfileService } from '../../../core/services/profile.service';
 import { FollowService } from '../../../core/services/follow.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ProfileCoverModal } from '../../../core/modals';
 
 
 
@@ -42,6 +44,7 @@ export class ProfileView implements OnInit {
         private _cookieService: CookieService,
         private _activatedRoute: ActivatedRoute,
         private _followService: FollowService,
+        private _dialog: MatDialog,
         private _router: Router) {
 
         this.role = this._cookieService.get('role');
@@ -189,6 +192,15 @@ export class ProfileView implements OnInit {
         selBox.select();
         document.execCommand('copy');
         document.body.removeChild(selBox);
+    }
+
+    public openProfileCoverModal(event): void {
+        const dialogRef = this._dialog.open(ProfileCoverModal, {
+            width: "700px",
+            data: {
+                localImage: event,
+            }
+        })
     }
 
     ngOnDestroy() {

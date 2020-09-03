@@ -1,14 +1,15 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Inject } from "@angular/core";
 import { UserService } from '../../../../core/services/user.service';
 import { FeedService } from '../../feed/feed.service';
 import { finalize, takeUntil, switchMap, map, take } from 'rxjs/operators';
-import { FeedResponseData, FeedData } from '../../../../core/models';
+import { FeedResponseData, FeedData, UploadFileResponse } from '../../../../core/models';
 import { RemoveModal, GalleryModal } from '../../../../core/modals';
 import { MatDialog } from '@angular/material/dialog';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Subject, of, iif } from 'rxjs';
+import { Subject, of } from 'rxjs';
 import { ProfileService } from '../../../../core/services/profile.service';
 import { CountryService } from '../../../../core/services/country.service';
+import { CookieService } from 'ngx-cookie';
 
 
 @Component({
@@ -18,6 +19,12 @@ import { CountryService } from '../../../../core/services/country.service';
 })
 
 export class ClientView implements OnInit {
+    public inputTypeValue;
+    public fileName: string;
+    public contentFileName: string;
+    public showGallery: boolean;
+    public showVideo: boolean;
+    public _unsbscribe = new Subject<void>();
     public feedItem: FeedResponseData[] = [];
     public user: any;
     public tab: number = 1;
@@ -39,15 +46,18 @@ export class ClientView implements OnInit {
     public languageName = [];
     public mediaItem = [];
     public feedMediaItem = [];
-
+    public specialityName = [];
+    public role: string;
     constructor(
+        @Inject("FILE_URL") private _fileUrl,
         private _feedService: FeedService,
         private _dialog: MatDialog,
         private _router: Router,
         private _userService: UserService,
         private _profileService: ProfileService,
         private _countryService: CountryService,
-        private _activatedRoute: ActivatedRoute
+        private _activatedRoute: ActivatedRoute,
+        private _cookieService:CookieService,
     ) {
         this._activatedRoute.parent.parent.params.pipe(takeUntil(this.unsubscribe$)).subscribe((param) => {
             if (param && param.id) {
@@ -56,12 +66,17 @@ export class ClientView implements OnInit {
                     this._router.navigate([this._router.url])
                 this.userStatus = '';
                 this._getLanguages();
+                this._getSpeciality();
                 this._getProfile()
             }
         })
+        this.role=this._cookieService.get('role');
     }
 
-    ngOnInit() { }
+    ngOnInit() { 
+        console.log(this.showGallery);
+        
+    }
 
     private _getProfile() {
         this._profileService.getProfile('client', this._userSlug).pipe(takeUntil(this.unsubscribe$),
@@ -79,17 +94,20 @@ export class ClientView implements OnInit {
             .subscribe()
     }
     public checkIsMe() {
-        if (this._userService.user) {     
-            return (!this.user || +this.user.id == +this._userService.user.data.id)
+        if (this._userService.user) {                                  
+            return (!this.user || +this.user.user.id == +this._userService.user.data.user.id)
         } else {
             return false
         }
     }
+
+
     private _getFeed() {
         this.loading = true;
         let isAll = this.checkIsMe() ? 'me' : 'true'
         return this._profileService.getFeedByProfileId('creator_client', this.user.id, isAll).pipe(finalize(() => { this.loading = false }),
             map((data: FeedData) => {
+                this.feedMediaItem = [];
                 this.feedItem = data.results;
                 for (let item of this.feedItem) {
                     this.feedMediaItem.push(item);
@@ -137,6 +155,24 @@ export class ClientView implements OnInit {
         }))
 
     }
+    private _getSpeciality() {
+        let url: string;
+        this._countryService.getSpeciality()
+            .pipe(takeUntil(this._unsbscribe))
+            .subscribe((data) => {
+                this.specialityName = []
+                data.results.map((name, index) => {
+                    url = name.url;
+                    this._userService.user.data.speciality.forEach(element => {
+                        if (url === element) {
+                            this.specialityName.push({ name: name.name });
+
+                        }
+                    })
+                })
+            })
+    }
+
 
     public onClickSeeMore(): void {
         this.userStatus = this.user.status.slice(0, this.user.status.length);
@@ -147,11 +183,32 @@ export class ClientView implements OnInit {
 
     public onClickTab(tab): void {
         this.tab = tab;
+        this.galerryTab = 1;
 
     }
     public onClickGalerryTab(tab): void {
-
         this.galerryTab = tab;
+        if (this.galerryTab === 2) {
+            let imageContent = this.feedMediaItem.filter((data) => { return data.feed_media[0].content.type == 'image' });
+            if (imageContent && imageContent.length) {
+
+                this.showGallery = true;
+            } else {
+                this.showGallery = false;
+            }
+
+        }
+
+        if (this.galerryTab === 3) {
+            let videoContent = this.feedMediaItem.filter((data) => { return data.feed_media[0].content.type == 'video' || data.feed_media[0].content.type == "videoLink" });
+            if (videoContent && videoContent.length) {
+
+                this.showVideo = true;
+            } else {
+                this.showVideo = false;
+            }
+        }
+
     }
 
     public onClickPostEventsTab(postTab): void {
@@ -172,6 +229,7 @@ export class ClientView implements OnInit {
                             this._isCountCalculated = false;
                             this._pagesCount = 0;
                             this.feedItem = [];
+                            this.feedMediaItem = [];
                             return this._getFeed()
                         }))
 
@@ -188,28 +246,104 @@ export class ClientView implements OnInit {
         this._isCountCalculated = false;
         this._pagesCount = 0;
         this.feedItem = [];
+        this.feedMediaItem = [];
         this._getFeed().pipe(takeUntil(this.unsubscribe$)).subscribe();
 
     }
     public openGalleryModal(event, message, item): void {
         if (event) {
             const dialogRef = this._dialog.open(GalleryModal, {
-                width: "1000px",
+                width: "1400px",
                 data: {
                     data: item,
                     type: message,
                 }
+            })
+            dialogRef.afterClosed().subscribe((data) => {
+                this._getFeed().pipe(takeUntil(this.unsubscribe$)).subscribe((data) => {
+                    console.log(data);
+
+                });
             })
         }
     }
 
     get email(): string {
         if (this.user)
-            return this.user.user.email;
+            return this.user.user.last_name;
     }
     get firstName(): string {
         if (this.user)
             return this.user.user.first_name
+    }
+
+
+
+    private _setFormDataForImage(image, type: string): void {
+        if (image && image.target) {
+            const formData = new FormData();
+            let fileList: FileList = image.target.files;
+            if (fileList.length > 0) {
+                let file: File = fileList[0];
+                formData.append('file', file, file.name);
+
+                this._userService.uploadVideoFile(formData)
+                    .subscribe((data: UploadFileResponse) => {
+                        this.fileName = this._fileUrl + data.file_name;
+                        this.contentFileName = data.file_name;
+                        console.log(this.contentFileName);
+
+                        this.createdPost(type)
+                    })
+            }
+        }
+    }
+
+    public setGalleryPhoto(event, type): void {
+        console.log(event);
+
+        if (event) {
+            this._setFormDataForImage(event, type);
+
+        }
+    }
+
+    public createdPost(type): void {
+        this._userService.postFeed({
+            content: JSON.stringify({
+                url: this.contentFileName,
+                type: type,
+                videoTitle: '',
+            },
+            ),
+            role: this.role,
+            is_public: true,
+            title: "",
+
+        })
+            .pipe(
+                takeUntil((this._unsbscribe)),
+                finalize(() => {
+                })
+            )
+            .subscribe((data) => {
+                this.feedItem.push(data);
+                this._getFeed().pipe(takeUntil(this.unsubscribe$)).subscribe();
+                if (type === 'image') {
+                    if (this.showGallery === false) {
+                        this.showGallery = true;
+                    }
+                }
+                if (type === 'video') {
+                    if (this.showVideo === false) {
+                        this.showVideo = true;
+                    }
+                }
+
+                console.log(this.feedItem);
+
+
+            })
     }
 
     ngOnDestroy() {

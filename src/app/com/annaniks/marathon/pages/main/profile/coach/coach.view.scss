@@ -5,6 +5,12 @@
     font-family: $fontFamily;
 }
 
+.main-container{
+    min-height: 100vh;
+    height: auto;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    // box-shadow: 2px 30px 43px #5C687B17;
+}
 .coach-main {
     // padding: 0 20px;
     position: absolute;
@@ -143,7 +149,7 @@
     .events-header {
         padding: 30px 0;
         background: #FFFFFF 0% 0% no-repeat padding-box;
-        box-shadow: 2px 30px 43px #5C687B17;
+        // box-shadow: 2px 30px 43px #5C687B17;
 
         .gallery-tab {
             .btn {
@@ -184,15 +190,27 @@
     }
 }
 
-.btn-content {
+.speciality-btn-content {
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    width: 80%;
     margin: auto;
 
+    .active-btn {
+        width: 140px;
+        padding: 10px 7px;
+        justify-content: center;
+        display: flex;
+    }
+.post-event{
     .post-item {
         color: #bbcddf;
         margin-left: 9px;
         @include text(17px, 20px, #bbcddf, EncodeSans-Medium);
         cursor: pointer;
     }
+}
 }
 
 .show {
@@ -229,10 +247,11 @@
     display: flex;
 
     .gallery-item {
-        width: 33.3333333%;
-        padding: 2px;
-        display: none;
+        width: 33%;
+        margin: 1px;
         cursor: pointer;
+        display: none;
+
     }
 }
 
@@ -256,7 +275,53 @@
     padding: 30px 0 0 0 !important;
 }
 
-.location-image{
-width: 20px;
-margin-right: 10px;
+.location-image {
+    width: 20px;
+    margin-right: 10px;
+}
+.post-item {
+    color: #bbcddf;
+    margin-left: 9px;
+    @include text(17px, 20px, #bbcddf, EncodeSans-Medium);
+    cursor: pointer;
+}
+
+.local-gallery-content{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+
+}
+.local-gallery-item{
+    width: 33%;
+    margin: 1px;   
+    background: #F5F5FA 0% 0% no-repeat padding-box;
+    opacity: 1;
+    display: flex;
+    height: 191px;
+    .add-icon{
+        color: #CAD2E1;
+        font-size: 50px;
+        margin: auto;
+        cursor: pointer;
+    }
+}
+
+.box-shadow{
+    box-shadow: 2px 30px 43px #5C687B17 !important;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.no-post-yet{
+    font-size: 24px;
+    line-height: 28px;
+    color: #589cfe;
+    font-family: EncodeSans-Bold;
+    margin: 20px auto;
+    align-items: center;
+    text-align: center;
 }

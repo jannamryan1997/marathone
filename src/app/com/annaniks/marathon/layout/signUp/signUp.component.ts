@@ -71,7 +71,7 @@ export class SignUpComponent implements OnInit {
                 email: this.signUpGroup.value.email,
                 password: this.signUpGroup.value.password,
                 first_name: this.signUpGroup.value.firstName,
-                last_name: '',
+                last_name: this.signUpGroup.value.userName,
                 user_name: this.signUpGroup.value.userName,
           
             },
@@ -109,7 +109,7 @@ export class SignUpComponent implements OnInit {
                 password: this.signUpGroup.value.password,
                 first_name: this.signUpGroup.value.firstName,
                 user_name: this.signUpGroup.value.userName,
-                last_name: '',
+                last_name: this.signUpGroup.value.userName,
               
             },
             google_id: null,

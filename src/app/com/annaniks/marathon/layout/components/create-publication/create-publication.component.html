@@ -18,7 +18,7 @@
 
                 <div class="d-flex" *ngIf="isModalMode">
                     <input #inputVideoReference class="" type="file" id="videofile" name="videofile"
-                        accept="video/mp4,video/x-m4v,video/" (change)="setServicePhoto($event,'video')">
+                        accept="video/mp4,video/x-m4v,video/" (change)="setServicePhoto($event,'video')" value="">
                     <label class=" label-btn d-flex" for="videofile">
                         <div class="display-flex">
                             <p class="title">Video</p>
@@ -31,8 +31,8 @@
         <div class="emoji-content">
             <emoji-mart (emojiClick)="addEmoji($event)" emoji="point_up" *ngIf="showemoji"
             ></emoji-mart>
-            <textarea id="textarea" rows="2" type="text"  [formControl]="postType" class="message-input" placeholder="Type Something..."
-                (focus)="showPost()" (blur)="play()">
+            <textarea   [ngClass]="{'textArea-height':isModalMode}" id="textarea"  type="text"  [formControl]="postType" class="message-input" placeholder="Type Something..."
+                (focus)="showPost()" >
         </textarea>
             <img src="assets/icons/smile.png" class="smile-image" (click)="showEmoji()" *ngIf="isModalMode">
         </div>
@@ -59,11 +59,15 @@
             </span>
         </div>
     </div>
-    <div class="localimage-content" *ngIf="showYoutube">
+    <div class="localimage-content position-relative" *ngIf="showYoutube">
         <div>
-            <plyr style="display:block" plyrTitle="Video 1" [plyrSources]="videoSources"></plyr>
+            <plyr style="display:block" plyrTitle="Video 1" [plyrSources]="videoSources" ></plyr>
         </div>
-   
+        <div class="close-img d-flex" (click)="closeVideo()">
+            <span class="material-icons m-auto">
+                close
+            </span>
+        </div>
     </div>
 
 

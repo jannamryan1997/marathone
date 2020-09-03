@@ -1,4 +1,5 @@
-<div class="right-menu" [ngClass]="{'position':showUserData}">
+<div class="right-menu"
+    [ngClass]="{'position':showUserData,'top':followItem && followItem.length,'bottom':!followItem || (followItem && !followItem.length)}">
     <div class="right-container">
         <div *ngIf="followItem && followItem.length" class="follow">
             <div class="d-flex mt-0 justify-content-between">

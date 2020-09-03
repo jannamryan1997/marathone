@@ -10,29 +10,25 @@
             clear
         </span>
     </div>
-    <div class="message-content">
-        <div>
-            <div class="friend-message d-flex">
+    <div #scrollMe [scrollTop]="scrollMe.scrollHeight" class="message-content">
+        <div  *ngFor="let sms of messages">
+            <div *ngIf="sms.role == 'friend'" class="friend-message d-flex">
                 <img [src]="getAvatar(item)" alt="">
                 <div class="message">
-                    hellohellohellohellohellohellohellohellohellohello
-                    hellohellohellohellohellohellohellohellohellohellohello
-                    hellohellohellohellohellohellohello
+                    {{sms.message}}
                 </div>
             </div>
-            <div class="my-message d-flex">
+            <div *ngIf="sms.role == 'my'" class="my-message d-flex">
                 <div class="message">
-                    hellohellohellohellohellohellohellohellohellohello
-                    hellohellohellohellohellohellohellohellohellohellohello
-                    hellohellohellohellohellohellohello
+                    {{sms.message}}
                 </div>
             </div>
-            <div class="friend-message d-flex">
+            <!-- <div class="friend-message d-flex">
                 <img [src]="getAvatar(item)" alt="">
                 <div class="message">
                     hello
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
     <form name="inputForm" role="form" novalidate [formGroup]="inputForm">
@@ -41,10 +37,10 @@
                 formControlName="text"></textarea>
         </div>
         <div class="p-2">
-            <button class="btn btn-primary btn-block">
-                <i  class="fa fa-paper-plane icon" aria-hidden="true"></i>
+            <button (click)="send()" class="btn btn-primary btn-block">
+                <i class="fa fa-paper-plane icon" aria-hidden="true"></i>
                 <span style="margin: 0 5px;">Send</span>
-                <app-loading ></app-loading>
+                <app-loading></app-loading>
             </button>
         </div>
     </form>

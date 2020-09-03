@@ -27,17 +27,23 @@ export class ArticleView implements OnInit {
     private _articleId: number;
     private _article: FeedResponseData;
     public fileUrl: string = environment.fileUrl;
-
+    public combinationId: number;
+    public role;
     constructor(public router: Router,
         private _cookieServie: CookieService,
         private _router: Router,
         private _articleService: ArticleService,
-        private _fb: FormBuilder, private _userService: UserService,
-        private _activatedRoute: ActivatedRoute) {
+        private _fb: FormBuilder, 
+        private _userService: UserService,
+        private _activatedRoute: ActivatedRoute,
+        ) {
+        
         this._activatedRoute.params.pipe(takeUntil(this.unsubscribe$)).subscribe(params => {
             if (params && params.id)
                 this._articleId = params.id;
         })
+      
+        
     }
 
     ngOnInit() {
@@ -65,7 +71,7 @@ export class ArticleView implements OnInit {
     }
     private _initGroup() {
         this.articleGroup = this._fb.group({
-            cover: [null],
+            cover: [null, Validators.required],
             title: [null, Validators.required],
             arrays: this._fb.array([]),
             currentYoutubeLink: [null],
@@ -96,7 +102,7 @@ export class ArticleView implements OnInit {
             }
         }
     }
-    private _uploadFile(image, type: string,control?:FormGroup) {
+    private _uploadFile(image, type: string, control?: FormGroup) {
         if (image && image.target) {
             const formData = new FormData();
             let fileList: FileList = image.target.files;
@@ -125,7 +131,7 @@ export class ArticleView implements OnInit {
     public sendVideo(control): void {
         // this.getControls();
         console.log(this.isShowVideoRedactor);
-        
+
         console.log("ggg")
         if (control.get('value').value) {
             // control.get('value').setValue()
@@ -155,7 +161,7 @@ export class ArticleView implements OnInit {
             this._uploadFile(event, 'cover')
         }
     }
-    public setServicePhoto(event,control): void {
+    public setServicePhoto(event, control): void {
         if (event) {
             this.isShowImageRedacor = false;
             const reader = new FileReader();
@@ -163,7 +169,7 @@ export class ArticleView implements OnInit {
             if (event.target.files[0]) {
                 reader.readAsDataURL(event.target.files[0]);
             }
-            this._uploadFile(event, 'image',control)
+            this._uploadFile(event, 'image', control)
 
         }
     }
@@ -183,7 +189,7 @@ export class ArticleView implements OnInit {
     }
     public addContent() {
         // if (!this.isShowImageRedacor && !this.isShowVideoRedactor) {
-            this._createControls('text')
+        this._createControls('text')
         // }
     }
 
@@ -193,13 +199,13 @@ export class ArticleView implements OnInit {
 
     public addImage() {
         // if (!this.isShowVideoRedactor)
-            // this.isShowImageRedacor = true;
-            this._createControls('image',null)
+        // this.isShowImageRedacor = true;
+        this._createControls('image', null)
     }
     public addVideo() {
         // if (!this.isShowImageRedacor)
-            // this.isShowVideoRedactor = true;
-            this._createControls('video',null)
+        // this.isShowVideoRedactor = true;
+        this._createControls('video', null)
     }
     public onClickShowCreatedMenu(): void {
         this.showCreatedMenu = !this.showCreatedMenu;
@@ -208,7 +214,7 @@ export class ArticleView implements OnInit {
     public onClickShowSetting(): void {
         this.showSetting = !this.showSetting;
     }
-    public publish() {
+    public publish(event) {
         if (this.articleGroup.valid) {
             const articleValue = this.articleGroup.value;
             let content = {
@@ -227,11 +233,24 @@ export class ArticleView implements OnInit {
             }
             if (!this._articleId) {
                 this._userService.postFeed(articleData).pipe(takeUntil(this.unsubscribe$)).subscribe((data) => {
-                    this._router.navigate(['/feed']);
+                    this.combinationId=data.id;
+                    console.log(this.combinationId);
+                    if(event === 'preview'){
+                        this._router.navigate([`combination/${this.combinationId}`])
+                    }
+                    else{
+                        this._router.navigate(['/feed']);
+                    }
+                  
                 })
             } else {
                 this._articleService.updateArticle(this._articleId, articleData).pipe(takeUntil(this.unsubscribe$)).subscribe((data) => {
-                    this._router.navigate(['/feed']);
+                    if(event === 'preview'){
+                        this._router.navigate([`combination/${this._articleId}`])
+                    }
+                    else{
+                        this._router.navigate(['/feed']);
+                    }
                 })
             }
         }

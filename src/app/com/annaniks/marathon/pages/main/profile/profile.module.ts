@@ -2,12 +2,12 @@ import { NgModule } from "@angular/core";
 import { SharedModule } from '../../../shared/shared.module';
 import { ProfileView } from './profile.view';
 import { ProfileRoutingModule } from './profile.routing.module';
-import { GalleryModal } from '../../../core/modals';
+import { GalleryModal, ProfileCoverModal } from '../../../core/modals';
 
 @NgModule({
-    declarations: [ProfileView,GalleryModal],
+    declarations: [ProfileView,GalleryModal,ProfileCoverModal],
     imports: [SharedModule,ProfileRoutingModule],
-    entryComponents:[GalleryModal]
+    entryComponents:[GalleryModal,ProfileCoverModal]
 })
 
 export class ProfileModule { }

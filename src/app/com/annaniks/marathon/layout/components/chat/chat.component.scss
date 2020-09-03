@@ -4,6 +4,7 @@
     box-shadow: 11px 13px 18px #3E598B0F;
     background: white;
     border-radius: 15px;
+    overflow:auto;
     .topbar{
         padding: 5px;
         width: 100%;
@@ -31,9 +32,9 @@
         }
     }
     .message-content{        
-        max-height: 195px;
-        min-height: 195px;
-        overflow-y: auto;
+        max-height: 150px;
+        min-height: 150px;
+        overflow: auto;
     
         padding: 10px 7px;
         .message{

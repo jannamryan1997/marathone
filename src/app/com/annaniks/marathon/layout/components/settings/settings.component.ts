@@ -21,6 +21,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
     @Input() style: boolean;
     @Output() openChanges = new EventEmitter();
     @Output() showFollowModel = new EventEmitter();
+    @Input() share:boolean;
     @Input('feed')
     set setFeed($event: FeedResponseData) {
         this.feed = $event
@@ -33,7 +34,10 @@ export class SettingsComponent implements OnInit, OnDestroy {
 
     constructor(private _feedLikeService: FeedLikeService) { }
 
-    ngOnInit() { }
+    ngOnInit() {
+        console.log(this.share);
+        
+     }
 
     public onClickOpenComments(): void {
         this.isOpen = !this.isOpen;
