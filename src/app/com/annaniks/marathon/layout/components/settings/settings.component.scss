@@ -8,25 +8,26 @@
 .settings {
     height: 60px;
     display: flex;
-    flex-wrap: wrap;
-    //  margin: 0 25px;
-    align-items: center;
-    text-align: center;
-    justify-content: space-between;
+    // flex-wrap: wrap;
+     align-items: center;
+    // text-align: center;
+    // justify-content: space-between;
+    background: #B06767 0% 0% no-repeat padding-box;
+    padding:0px 71px 0px 52px;
+
 
     .setting-item-btn {
         border: none;
         background: none;
         cursor: pointer;
-        //padding: 10px 21px 14px 28px;
         @include text(16px, 20px, #45535c, EncodeSans-SemiBold);
         display: flex;
         align-items: center;
         text-align: center;
-        height: 45px;
-        padding: 20px;
-        margin: 0 10px;
-
+        justify-content: center;
+        width: 170px;
+         height: 45px;
+        //  margin:15px 0 19px 0;
         &:last-child {
             border-right: none !important;
         }
@@ -44,7 +45,7 @@
         }
 
         .title {
-            margin-left: 16px;
+            margin-left: 9px;
         }
 
         .count {
@@ -64,6 +65,16 @@
             background: #F4F6FB 0% 0% no-repeat padding-box;
             border-radius: 22px;
             opacity: 1;
+            border: none;
+            cursor: pointer;
+            @include text(16px, 20px, #45535c, EncodeSans-SemiBold);
+            display: flex;
+            align-items: center;
+            text-align: center;
+            justify-content: center;
+            width: 170px;
+             height: 45px;
+            //  margin:15px 0 19px 0;
 
         }
     }
@@ -126,52 +137,51 @@
 }
 
 
-
+.count{
+    margin-left: 9px;
+}
 .share-item :hover {
     display: block !important;
 }
 
-.comment-btn {
-    padding: 12px 15px 12px 15px;
-}
-
-.like-btn {
-    padding: 11px 27px 13px 25px;
-}
-
-.energy-btn {
-    padding: 10px 22px 15px 20px;
-}
-
-
-
-.count-comment {
-    color: #9DB3C9;
-    margin-left: 9px;
-}
-
-.count-like {
-    color: #9DB3C9;
-    margin-left: 9px;
-}
-
-.type-color {
-    color: #65a4fe !important;
-}
-
-.galleryStyle {
-    margin: 10px 0px !important;
-}
-
-// .style {
-//     font-size: 12px !important;
-//     padding: 12px 0px 12px 5px !important;
+// .comment-btn {
+//     padding: 12px 15px 12px 15px;
 // }
 
-.buttonStype {
-    padding: 12px 8px 12px 8px !important;
-}
+// .like-btn {
+//     padding: 11px 27px 13px 25px;
+// }
 
-.opacity{
-    display: none !important;
-}
+// .energy-btn {
+//     padding: 10px 22px 15px 20px;
+// }
+
+
+
+// .count-comment {
+//     color: #9DB3C9;
+//     margin-left: 9px;
+// }
+
+// .count-like {
+//     color: #9DB3C9;
+//     margin-left: 9px;
+// }
+
+// .type-color {
+//     color: #65a4fe !important;
+// }
+
+// .galleryStyle {
+//     margin: 10px 0px !important;
+// }
+
+
+
+// .buttonStype {
+//     padding: 12px 8px 12px 8px !important;
+// }
+
+// .opacity{
+//     display: none !important;
+// }

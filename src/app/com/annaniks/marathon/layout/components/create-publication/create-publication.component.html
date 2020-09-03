@@ -1,4 +1,5 @@
 <div class="feed-header-content" [class.modal-mode]="isModalMode" [ngClass]="{'height-auto':isModalMode}">
+    <div class="created-publication-main" [ngClass]="{'height-auto':isModalMode}">
     <div class="recipe-header">
         <div class="display-flex">
             <p class="title-name">Create Pablication</p>
@@ -31,7 +32,7 @@
         <div class="emoji-content">
             <emoji-mart (emojiClick)="addEmoji($event)" emoji="point_up" *ngIf="showemoji"
             ></emoji-mart>
-            <textarea   [ngClass]="{'textArea-height':isModalMode}" id="textarea"  type="text"  [formControl]="postType" class="message-input" placeholder="Type Something..."
+            <textarea   [ngClass]="{'textArea-height':isModalMode}" id="textarea" placeholder="Inspire someone. Type something ..." type="text"  [formControl]="postType" class="message-input" 
                 (focus)="showPost()" >
         </textarea>
             <img src="assets/icons/smile.png" class="smile-image" (click)="showEmoji()" *ngIf="isModalMode">
@@ -40,7 +41,33 @@
 
   
       
-        <div class="image-content" *ngIf="uploadType==='image'" >
+    
+
+
+    <div class="button-content d-flex"  *ngIf="!isModalMode" [ngClass]="{'style':style}">
+        <button class="create-btn d-flex" routerLink="/article">
+            <span class="material-icons mr-2">
+                description
+            </span>
+            <span>Article</span>
+        </button>
+        <button  class="create-btn d-flex" routerLink="/recipe" routerLinkActive="activeTab">
+          <img src="assets/icons/Recipes.svg" class="publication-icon mr-2">
+            <span>Recipe</span>
+        </button >
+        <button  class="create-btn d-flex">
+            <img src="assets/icons/Comment.svg" class="publication-icon mr-2">
+            <span>Query</span>
+        </button>
+        <button  class="create-btn d-flex">
+            <span class="material-icons mr-2">
+                panorama
+            </span>
+            <span>B / A</span>
+        </button >
+    </div>
+    </div>
+    <div class="image-content" *ngIf="uploadType==='image'" >
          
             <img [src]="controImageItem" class="recipe-image" alt="" >
             <div class="close-img d-flex">
@@ -68,31 +95,6 @@
                 close
             </span>
         </div>
-    </div>
-
-
-    <div class="button-content d-flex"  *ngIf="!isModalMode" [ngClass]="{'style':style}">
-        <button class="hovher-btn d-flex" routerLink="/article">
-            <span class="material-icons mr-2">
-                description
-            </span>
-            <span>Article</span>
-        </button>
-        <button  class="hovher-btn d-flex" routerLink="/recipe" routerLinkActive="activeTab">
-          <img src="assets/icons/Recipes.svg" class="publication-icon mr-2">
-            <span>Recipe</span>
-        </button >
-        <button  class="hovher-btn d-flex">
-            <img src="assets/icons/Comment.svg" class="publication-icon mr-2">
-            <span>Query</span>
-        </button>
-        <button  class="hovher-btn d-flex">
-            <span class="material-icons mr-2">
-                panorama
-            </span>
-            <span>B / A</span>
-        </button >
-
     </div>
     <div   *ngIf="isModalMode">
         <button class="post-btn w-100" (click)="createdPost()"><span *ngIf="!editProfile">Post</span> <span *ngIf="editProfile">Edit</span></button>

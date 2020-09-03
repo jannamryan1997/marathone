@@ -306,6 +306,8 @@ export class CreatePublicationComponent implements OnInit {
 
     public showPost(): void {
         this.isModalMode = true;
+        console.log(   this.isModalMode);
+        
     }
 
 
