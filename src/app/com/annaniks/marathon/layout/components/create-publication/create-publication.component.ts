@@ -300,14 +300,12 @@ export class CreatePublicationComponent implements OnInit {
                     this.videoPleyer = true;
                 })
         }
-    }
+}
 
 
 
     public showPost(): void {
-        this.isModalMode = true;
-        console.log(   this.isModalMode);
-        
+        this.isModalMode = true; 
     }
 
 

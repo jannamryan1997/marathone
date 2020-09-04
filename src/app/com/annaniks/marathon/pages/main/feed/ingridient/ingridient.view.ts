@@ -69,7 +69,6 @@ export class IngridientViewComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log(this._router.url)
         this._getFeedById().pipe(takeUntil(this.unsubscribe$)).subscribe();
     }
 

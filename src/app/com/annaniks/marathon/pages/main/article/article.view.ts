@@ -130,9 +130,6 @@ export class ArticleView implements OnInit {
     }
     public sendVideo(control): void {
         // this.getControls();
-        console.log(this.isShowVideoRedactor);
-
-        console.log("ggg")
         if (control.get('value').value) {
             // control.get('value').setValue()
             // this._createControls('video', this.articleGroup.get('currentYoutubeLink').value)
@@ -234,7 +231,6 @@ export class ArticleView implements OnInit {
             if (!this._articleId) {
                 this._userService.postFeed(articleData).pipe(takeUntil(this.unsubscribe$)).subscribe((data) => {
                     this.combinationId=data.id;
-                    console.log(this.combinationId);
                     if(event === 'preview'){
                         this._router.navigate([`combination/${this.combinationId}`])
                     }

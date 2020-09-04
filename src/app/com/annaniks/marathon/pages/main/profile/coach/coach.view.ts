@@ -18,6 +18,7 @@ import { CookieService } from 'ngx-cookie';
 })
 
 export class CoachView implements OnInit {
+    public galleryContentType: boolean;
     public inputTypeValue;
     public fileName: string;
     public contentFileName: string;
@@ -70,11 +71,12 @@ export class CoachView implements OnInit {
             }
         })
         this.role = this._cookieService.get('role');
-  
+
     }
 
     ngOnInit() {
         this._getSpeciality();
+
     }
 
 
@@ -181,7 +183,7 @@ export class CoachView implements OnInit {
     }
 
     public checkIsMe() {
-        if (this._userService.user) {                                  
+        if (this._userService.user) {
             return (!this.user || +this.user.user.id == +this._userService.user.data.user.id)
         } else {
             return false
@@ -197,14 +199,23 @@ export class CoachView implements OnInit {
     public onClickTab(tab): void {
         this.tab = tab;
         this.galerryTab = 1;
+        if (this.tab === 2) {
+            if (this.feedItem && this.mediaItem.length) {
+                this.galleryContentType = true;
+            }
+            else {
+                this.galleryContentType = false;
+            }
+        }
 
     }
-    public onClickGalerryTab(tab): void {
-        console.log(this.feedMediaItem);
 
+    public onClickGalerryTab(tab): void {
         this.galerryTab = tab;
         if (this.galerryTab === 2) {
-            let imageContent = this.feedMediaItem.filter((data) => { return data.feed_media[0].content.type == 'image' });
+
+            let imageContent = this.feedMediaItem.filter((data) => { return( data.feed_media && data.feed_media[0] && data.feed_media[0].content) ? (data.feed_media[0].content.type == 'image') : null });
+           
             if (imageContent && imageContent.length) {
                 this.showGallery = true;
             } else {
@@ -214,7 +225,7 @@ export class CoachView implements OnInit {
         }
 
         if (this.galerryTab === 3) {
-            let videoContent = this.feedMediaItem.filter((data) => { return data.feed_media[0].content.type == 'video' || data.feed_media[0].content.type == "videoLink" });
+            let videoContent = this.feedMediaItem.filter((data) => { return ( data.feed_media && data.feed_media[0] && data.feed_media[0].content) ?(data.feed_media[0].content.type == 'video') || (data.feed_media[0].content.type == "videoLink"):null });
             if (videoContent && videoContent.length) {
 
                 this.showVideo = true;
@@ -224,7 +235,6 @@ export class CoachView implements OnInit {
         }
 
     }
-
     public onClickPostEventsTab(tab): void {
         this.postTab = tab;
     }
@@ -285,8 +295,6 @@ export class CoachView implements OnInit {
             })
             dialogRef.afterClosed().subscribe((data) => {
                 this._getFeed().pipe(takeUntil(this.unsubscribe$)).subscribe((data) => {
-                    console.log(data);
-
                 });
             })
         }
@@ -304,8 +312,6 @@ export class CoachView implements OnInit {
                     .subscribe((data: UploadFileResponse) => {
                         this.fileName = this._fileUrl + data.file_name;
                         this.contentFileName = data.file_name;
-                        console.log(    this.contentFileName );
-                        
                         this.createdPost(type)
                     })
             }
@@ -313,8 +319,6 @@ export class CoachView implements OnInit {
     }
 
     public setGalleryPhoto(event, type): void {
-        console.log(event);
-        
         if (event) {
             this._setFormDataForImage(event, type);
 
@@ -343,20 +347,16 @@ export class CoachView implements OnInit {
             .subscribe((data) => {
                 this.feedItem.push(data);
                 this._getFeed().pipe(takeUntil(this.unsubscribe$)).subscribe();
-                if(type==='image'){
-                    if(this.showGallery===false){
-                        this.showGallery=true;
+                if (type === 'image') {
+                    if (this.showGallery === false) {
+                        this.showGallery = true;
                     }
                 }
-               if(type==='video'){
-                if(this.showVideo===false){
-                    this.showVideo=true;
+                if (type === 'video') {
+                    if (this.showVideo === false) {
+                        this.showVideo = true;
+                    }
                 }
-               }
-               
-                console.log(this.feedItem);
-                
-
             })
     }
 
@@ -366,7 +366,7 @@ export class CoachView implements OnInit {
     }
 
 
-   
+
 
 
 
