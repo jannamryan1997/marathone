@@ -76,7 +76,8 @@ export class FeedPostCardItemComponent implements OnInit {
         this.time = moment(this.feedItem.timeStamp).fromNow();
         if (this.feedItem.feed_media && this.feedItem.feed_media.length) {
             this.content = this.feedItem.feed_media[0].content;
-            this.receipt = this.content.receipt;
+            if (this.content && this.content.receipt)
+                this.receipt = this.content.receipt;
         }
         if (this.content) {
 
@@ -169,7 +170,7 @@ export class FeedPostCardItemComponent implements OnInit {
             }
             this.feedItem = result;
             this.showDeleteModal = false;
-            if(message =! 'setting'){
+            if (message = ! 'setting') {
                 if (this.content && this.content.url) {
                     this.videoSources = [{
                         src: this.content.url,
@@ -177,7 +178,7 @@ export class FeedPostCardItemComponent implements OnInit {
                     }]
                 }
             }
-           
+
             return result;
         }))
     }
@@ -201,7 +202,7 @@ export class FeedPostCardItemComponent implements OnInit {
     public openPropertyModalByImage(): void {
         const dialogRef = this._dialog.open(PropertyModal, {
             width: "100%",
-            maxWidth:"1400px",
+            maxWidth: "1400px",
             data: {
                 data: this.feedItem,
                 localImage: this.localImage
@@ -219,7 +220,7 @@ export class FeedPostCardItemComponent implements OnInit {
     public openPropertyModalByVideo(): void {
         const dialogRef = this._dialog.open(PropertyModal, {
             width: "100%",
-            maxWidth:"1400px",
+            maxWidth: "1400px",
             // maxWidth: "100vw",
             // height: "100vh",
             data: {
@@ -228,7 +229,7 @@ export class FeedPostCardItemComponent implements OnInit {
             }
         })
     }
-    public getButtonsType(event: string,message='setting') {
+    public getButtonsType(event: string, message = 'setting') {
         console.log(event);
 
         if (event) {

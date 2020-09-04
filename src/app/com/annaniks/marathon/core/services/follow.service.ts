@@ -19,7 +19,7 @@ export class FollowService {
     public follow(user, role, myUrl, userRole, userUrl) {
         if (!user.is_follower) {
             return this._profileService.follow(role, myUrl, userRole, userUrl).pipe(
-                map(() => {
+                map(() => {                    
                     this.changeFollowStateValue(true);
                     return true;
                 }))

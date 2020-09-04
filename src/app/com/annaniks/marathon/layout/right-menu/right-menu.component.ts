@@ -32,6 +32,11 @@ export class RightMenuComponent implements OnInit {
         { avatar: "assets/images/img6.png", name: "Olivie Gipson" },
         { avatar: "assets/images/img7.png", name: "Olivie Gipson" },
         { avatar: "assets/images/img8.png", name: "Olivie Gipson" },
+         { avatar: "assets/images/img.4.png", name: "Olivie Gipson" },
+        { avatar: "assets/images/img5.png", name: "Olivie Gipson" },
+        { avatar: "assets/images/img6.png", name: "Olivie Gipson" },
+        { avatar: "assets/images/img7.png", name: "Olivie Gipson" },
+        { avatar: "assets/images/img8.png", name: "Olivie Gipson" },
     ]
     public followItem: Familiar[] = []
 

@@ -69,9 +69,11 @@ export class TopicActions {
 
 @Injectable({ providedIn: 'root' })
 export class ChatService {
-  public topicsResourceUrl = 'https://support.marathon.me/api/client/topics';
-  public topicMessagesResourceUrl = 'https://support.marathon.me/api/client/topic-messages';
-  public grpcResourceUrl = 'https://support.marathon.me'
+  private _chatBaseUrl="https://support.marathon.me"
+
+  public topicsResourceUrl = `${this._chatBaseUrl}/api/client/topics`;
+  public topicMessagesResourceUrl = `${this._chatBaseUrl}/api/client/topic-messages`;
+  public grpcResourceUrl = this._chatBaseUrl
   public topicActions = new BehaviorSubject<Array<TopicActions>>([]);
   public topicMessages = new ReplaySubject<ITopicMessage>();
   public sendingMessage = new BehaviorSubject<boolean>(false);
@@ -133,7 +135,38 @@ export class ChatService {
       }
     // });
   }
+//////////////
+create(topic: ITopic): Observable<EntityResponseType> {
+  const copy = this.convertDateFromClient(topic);
+  return this.http
+    .post<ITopic>(`${this._chatBaseUrl}/api/topics`, copy, { observe: 'response' })
+    .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+}
 
+
+protected convertDateFromClient(topic: ITopic): ITopic {
+  const copy: ITopic = Object.assign({}, topic, {
+    createdAt: topic.createdAt && topic.createdAt.isValid() ? topic.createdAt.toJSON() : undefined,
+  });
+  return copy;
+}
+
+protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
+  if (res.body) {
+    res.body.createdAt = res.body.createdAt ? moment(res.body.createdAt) : undefined;
+  }
+  return res;
+}
+
+protected convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
+  if (res.body) {
+    res.body.forEach((topic: ITopic) => {
+      topic.createdAt = topic.createdAt ? moment(topic.createdAt) : undefined;
+    });
+  }
+  return res;
+}
+////////
   updateTopics(topics: ITopic[]): void {
     const currentValue = this.topicActions.value;
     const existingTopics = new Set(currentValue.map(ta => ta.id));

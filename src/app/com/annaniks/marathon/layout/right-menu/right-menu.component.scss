@@ -4,7 +4,11 @@
     color: $color;
     font-family: $fontFamily,
 }
-
+.right-container{
+    display: flex;
+    flex-direction: column;  
+    height: 100%;  
+}
 .right-menu {
     .title {
         @include text(16px, 19px, #65a4fe, EncodeSans-Bold);
@@ -19,6 +23,9 @@
 
     .contact {
         position: relative;
+        width: 100%;
+        margin-top: auto;
+        max-width: 300px;
         .serch-content {
             display: flex;
             justify-content: space-between;
@@ -47,7 +54,7 @@
 
         .contact-item {
             height: 100%;
-            max-height: 400px;
+            // max-height: 400px;
             overflow-y: auto;
         }
     }
@@ -82,14 +89,12 @@
 
 .position {
     position: fixed !important;
+    top: 122px;
+    height: calc(100vh - 122px);
+    max-width: 300px;
+    width: 100%;
 }
-.top{
-    top: 110px;
 
-}
-.bottom{
-    bottom:0
-}
 .chat{
     position: absolute;
     right: 60px;

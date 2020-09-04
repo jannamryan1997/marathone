@@ -1,6 +1,6 @@
 import { Component, Input, Inject, Output, EventEmitter} from "@angular/core";
 import { FormBuilder } from '@angular/forms';
-import { IUser, ITopic } from '../../../core/models/topic';
+import { IUser, ITopic, Topic } from '../../../core/models/topic';
 import { Action } from '../../../core/services/generated/chat_pb';
 import { HttpResponse } from '@angular/common/http';
 import { TopicMessage, ITopicMessage } from '../../../core/models/topic-message';
@@ -8,7 +8,8 @@ import { ChatService, TopicActions } from '../../../core/services/chat.service';
 import { JhiEventManager } from 'ng-jhipster';
 import { UserService } from '../../../core/services/user.service';
 import { CookieService } from 'ngx-cookie';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
+import * as moment from 'moment';
 
 @Component({
     selector: 'app-chat',
@@ -155,7 +156,46 @@ export class ChatComponent {
             this.eventManager.destroy(this.eventSubscriber);
         }
     }
+//////////////create topic
+save(): void {
+    const topic = this.createFromForm();
+    //   this.subscribeToSaveResponse(this.topicService.update(topic));
+    // } else {
+      this.subscribeToSaveResponse(this.chatService.create(topic));
+    // }
+  }
 
+  private createFromForm(): ITopic {
+      let ids=[this.getUserId()]
+    return {
+      ...new Topic(),
+    //   id: this.editForm.get(['id'])!.value,
+      title: ids.toString(),
+      createdAt: moment(new Date(), "YYYY-MM-DDTHH:mm"),
+      marathon:0,
+      creatorId:this.getUserId(),
+    //   participants: ?????
+    //   this.editForm.get(['participants'])!.value,
+    };
+  }
+
+  protected subscribeToSaveResponse(result: Observable<HttpResponse<ITopic>>): void {
+    result.subscribe(
+      () => this.onSaveSuccess(),
+      () => this.onSaveError()
+    );
+  }
+
+  protected onSaveSuccess(): void {
+    // this.previousState();
+  }
+
+  protected onSaveError(): void {
+  }
+ 
+
+
+////////////////
     formatTopicTitle(topic: ITopic): string {
         const res = [];
         if (topic.participants) {

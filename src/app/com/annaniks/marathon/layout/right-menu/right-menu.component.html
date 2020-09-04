@@ -1,8 +1,8 @@
 <div class="right-menu"
-    [ngClass]="{'position':showUserData,'top':followItem && followItem.length,'bottom':!followItem || (followItem && !followItem.length)}">
+    [ngClass]="{'position':showUserData}">
     <div class="right-container">
-        <div *ngIf="followItem && followItem.length" class="follow">
-            <div class="d-flex mt-0 justify-content-between">
+        <div  class="follow">
+            <div *ngIf="followItem && followItem.length" class="d-flex mt-0 justify-content-between">
                 <p class="title">Suggestions</p>
                 <p [routerLink]="'/suggestions'" class="text">See All</p>
             </div>
@@ -18,7 +18,7 @@
                     search
                 </span>
             </div>
-            <div class="contact-item" (scroll)="onScroll($event)">
+            <div [ngStyle]="{'max-height':'calc(100vh - 284px - ' + followItem.length + '*70px)'}"  class="contact-item" (scroll)="onScroll($event)">
                 <div (click)="openChat(item)" *ngFor="let item of contactItem" class="user-item d-flex">
                     <img [src]="item?.avatar" class="user-image" alt="Cinque Terre">
                     <p class="name">{{item?.name}}</p>
