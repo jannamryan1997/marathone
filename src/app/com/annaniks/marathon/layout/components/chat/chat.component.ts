@@ -1,4 +1,4 @@
-import { Component, Input, Inject, Output, EventEmitter} from "@angular/core";
+import { Component, Input, Inject, Output, EventEmitter } from "@angular/core";
 import { FormBuilder } from '@angular/forms';
 import { IUser, ITopic, Topic } from '../../../core/models/topic';
 import { Action } from '../../../core/services/generated/chat_pb';
@@ -19,16 +19,25 @@ import * as moment from 'moment';
 export class ChatComponent {
     public item;
     private _defaultImage: string = '/assets/images/user-icon-image.png';
-    // inputForm = this.fb.group({
-    //     text: [],
-    // });
+
     @Output('closeItem') private _close = new EventEmitter()
 
     @Input('activeChat')
     set setActiveUserChat($event) {
         this.item = $event;
     }
+    @Input('topics')
+    set setTopics($event) {
+        this.topics = $event;
+        if (this.topics && this.topics[0]) {
+            this.setSelected(this.topics[0])
+        }
+    }
+    @Input('topicActions')
+    set setTopicActions($event) {
+        this.topicActions = $event;
 
+    }
     public messages = [
         {
             role: 'friend',
@@ -39,7 +48,7 @@ export class ChatComponent {
             message: 'aaaa'
         }
     ]
-   
+
     topics: ITopic[];
     topicActions: TopicActions[];
     topicMessages: Map<number, TopicMessage[]>;
@@ -60,11 +69,11 @@ export class ChatComponent {
     ) {
         this.topicMessages = new Map<number, TopicMessage[]>();
         this.sendingMessage = false;
-        this.topicActions = [];
-        this.chatService.topicActions.subscribe(value => {
-            this.topicActions = [];
-            value.forEach(ta => this.topicActions.push(ta));
-        });
+        // this.topicActions = [];
+        // this.chatService.topicActions.subscribe(value => {
+        //     this.topicActions = [];
+        //     value.forEach(ta => this.topicActions.push(ta));
+        // });
         this.chatService.topicMessages.subscribe(tm => {
             const currentTopicMessages: TopicMessage[] = this.topicMessages[tm.topicId || 0] || [];
             const exists = currentTopicMessages.some(cv => cv.id === tm.id);
@@ -131,23 +140,23 @@ export class ChatComponent {
         this.topicMessages[topicId] = currentTopicMessages;
     }
 
-    loadAll(): void {
-        this.chatService.queryTopics().subscribe((res: HttpResponse<ITopic[]>) => {
-            if (res && res.body) {
-                this.chatService.updateTopics(res.body);
-                for (let i = 0; i < res?.body?.length; i++) {
-                    if (i === 0) {
-                        this.setSelected(res.body[i]);
-                    }
-                    this.topics.push(res.body[i]);
-                }
-            }
-        });
-    }
+    // loadAll(): void {
+    //     this.chatService.queryTopics().subscribe((res: HttpResponse<ITopic[]>) => {
+    //         if (res && res.body) {
+    //             this.chatService.updateTopics(res.body);
+    //             for (let i = 0; i < res?.body?.length; i++) {
+    //                 if (i === 0) {
+    //                     this.setSelected(res.body[i]);
+    //                 }
+    //                 this.topics.push(res.body[i]);
+    //             }
+    //         }
+    //     });
+    // }
 
     ngOnInit(): void {
         // this.chatService.sendOptionsRequiest().subscribe((data) => {
-        this.loadAll();
+        // this.loadAll();
         // })
     }
 
@@ -156,46 +165,46 @@ export class ChatComponent {
             this.eventManager.destroy(this.eventSubscriber);
         }
     }
-//////////////create topic
-save(): void {
-    const topic = this.createFromForm();
-    //   this.subscribeToSaveResponse(this.topicService.update(topic));
-    // } else {
-      this.subscribeToSaveResponse(this.chatService.create(topic));
-    // }
-  }
+    //////////////create topic
+    save(): void {
+        const topic = this.createFromForm();
+        //   this.subscribeToSaveResponse(this.topicService.update(topic));
+        // } else {
+        this.subscribeToSaveResponse(this.chatService.create(topic));
+        // }
+    }
 
-  private createFromForm(): ITopic {
-      let ids=[this.getUserId()]
-    return {
-      ...new Topic(),
-    //   id: this.editForm.get(['id'])!.value,
-      title: ids.toString(),
-      createdAt: moment(new Date(), "YYYY-MM-DDTHH:mm"),
-      marathon:0,
-      creatorId:this.getUserId(),
-    //   participants: ?????
-    //   this.editForm.get(['participants'])!.value,
-    };
-  }
+    private createFromForm(): ITopic {
+        let ids = [this.getUserId()]
+        return {
+            ...new Topic(),
+            //   id: this.editForm.get(['id'])!.value,
+            title: ids.toString(),
+            createdAt: moment(new Date(), "YYYY-MM-DDTHH:mm"),
+            marathon: 0,
+            creatorId: this.getUserId(),
+            //   participants: ?????
+            //   this.editForm.get(['participants'])!.value,
+        };
+    }
 
-  protected subscribeToSaveResponse(result: Observable<HttpResponse<ITopic>>): void {
-    result.subscribe(
-      () => this.onSaveSuccess(),
-      () => this.onSaveError()
-    );
-  }
+    protected subscribeToSaveResponse(result: Observable<HttpResponse<ITopic>>): void {
+        result.subscribe(
+            () => this.onSaveSuccess(),
+            () => this.onSaveError()
+        );
+    }
 
-  protected onSaveSuccess(): void {
-    // this.previousState();
-  }
+    protected onSaveSuccess(): void {
+        // this.previousState();
+    }
 
-  protected onSaveError(): void {
-  }
- 
+    protected onSaveError(): void {
+    }
 
 
-////////////////
+
+    ////////////////
     formatTopicTitle(topic: ITopic): string {
         const res = [];
         if (topic.participants) {

@@ -63,7 +63,9 @@
         align-items: center;
         padding: 10px;
         cursor: pointer;
-
+        &:hover{
+            background: #F7F7FC 0% 0% no-repeat padding-box;
+        }
 
         .user-image {
             border-radius: 50%;

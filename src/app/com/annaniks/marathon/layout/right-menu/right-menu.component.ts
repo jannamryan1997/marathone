@@ -2,9 +2,13 @@ import { Component, OnInit, Inject } from "@angular/core";
 import { ContactItem, FollowItem } from '../../core/models';
 import { UserService } from '../../core/services/user.service';
 import { ProfileService } from '../../core/services/profile.service';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Familiar, FamiliarData } from '../../core/models/user';
+import { ITopic } from '../../core/models/topic';
+import { TopicActions, ChatService } from '../../core/services/chat.service';
+import { TopicMessage } from '../../core/models/topic-message';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
     selector: "app-right-menu",
@@ -32,22 +36,43 @@ export class RightMenuComponent implements OnInit {
         { avatar: "assets/images/img6.png", name: "Olivie Gipson" },
         { avatar: "assets/images/img7.png", name: "Olivie Gipson" },
         { avatar: "assets/images/img8.png", name: "Olivie Gipson" },
-         { avatar: "assets/images/img.4.png", name: "Olivie Gipson" },
+        { avatar: "assets/images/img.4.png", name: "Olivie Gipson" },
         { avatar: "assets/images/img5.png", name: "Olivie Gipson" },
         { avatar: "assets/images/img6.png", name: "Olivie Gipson" },
         { avatar: "assets/images/img7.png", name: "Olivie Gipson" },
         { avatar: "assets/images/img8.png", name: "Olivie Gipson" },
     ]
     public followItem: Familiar[] = []
-
+    topics: ITopic[];
+    topicActions: TopicActions[];
     private unsubscribe$ = new Subject<void>()
 
     constructor(private _profileUserService: UserService,
+        private chatService: ChatService,
         private _profileService: ProfileService) {
+        
+        this.topicActions = [];
+        this.chatService.topicActions.subscribe(value => {
+            this.topicActions = [];
+            value.forEach(ta => this.topicActions.push(ta));
+        });     
+       
     }
 
     ngOnInit() {
         this._getFamiliarList()
+        this.loadAll()
+    }
+
+    loadAll(): void {
+        this.chatService.queryTopics().subscribe((res: HttpResponse<ITopic[]>) => {
+            if (res && res.body) {
+                this.chatService.updateTopics(res.body);
+                for (let i = 0; i < res?.body?.length; i++) {                   
+                    this.topics.push(res.body[i]);
+                }
+            }
+        });
     }
     public closeItem() {
         this.isShowChatItem = false;
