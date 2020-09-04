@@ -16,7 +16,7 @@
         border: none;
         background: none;
         cursor: pointer;
-        @include text(16px, 20px, #45535c, EncodeSans-SemiBold);
+        @include text(15px, 15px, #45535c, EncodeSans-SemiBold);
         display: flex;
         align-items: center;
         text-align: center;
@@ -63,7 +63,7 @@
             opacity: 1;
             border: none;
             cursor: pointer;
-            @include text(16px, 20px, #45535c, EncodeSans-SemiBold);
+            @include text(15px, 15px, #45535c, EncodeSans-SemiBold);
             display: flex;
             align-items: center;
             text-align: center;
@@ -177,6 +177,10 @@
     padding: 12px !important;
 }
 
+.comment-class-type{
+    @include text(15px, 15px, #65a4fe, EncodeSans-SemiBold);
+    margin-left: 9px;
+}
 // .buttonStype {
 //     padding: 12px 8px 12px 8px !important;
 // }

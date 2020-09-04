@@ -21,10 +21,10 @@
             margin-left: 20px;
             .name {
                 cursor: pointer;
-                @include text(20px, 27px, #45535C, BarlowCondensed-Regular);
+                @include text(17px, 27px, #45535C, EncodeSans-Bold);
             }
             .time {
-                @include text(12px, 27px, #bbcddf,BarlowCondensed-Regular);
+                @include text(14px, 33px, #bbcddf,EncodeSans-Medium);
             }
         }
         .like {
@@ -42,18 +42,21 @@
                 }
             }
             .like-count {
-                @include text(17px, 21px, #45535C, BarlowCondensed-Regular);
+                @include text(17px, 21px, #45535C, EncodeSans-Medium);
             }
         }
         .commet-message {
-            @include text(17px, 26px, #45535C,BarlowCondensed-Regular);
             padding: 10px 0;
             display: flex;
             align-items: inherit;
             text-align: start;
+            font-family: "Nunito Sans", sans-serif;
+            font-size: 15px;
+            line-height: 22px;
+            color: #45535C;
         }
         .view-title {
-            @include text(14px, 25px, #bbcddf,BarlowCondensed-Light);
+            @include text(14px, 25px, #bbcddf,EncodeSans-Medium);
             text-align: end;
             span{
                 cursor: pointer;
@@ -92,7 +95,7 @@
 }
 .replay-title {
     cursor: pointer;
-    @include text(17px, 21px, #589CFE,BarlowCondensed-Regular);
+    @include text(16px, 19px, #589CFE,EncodeSans-SemiBold);
 }
 .justify-content-end{
     justify-content: flex-end !important;
