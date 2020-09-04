@@ -28,15 +28,26 @@
 
     <div class="post-content">
         <div class="post-container">
-            <div class="title-content" *ngIf="content?.type !='videoLink' && content?.type !='article'">
-                <p class="title show-content">{{feedTitle}} <span *ngIf="seeMore" class="title more"
+
+            <!---title-->
+            <div class="d-none" [ngClass]="{'d-block':feedItem.title !=''}">
+            <div class="title-content"  *ngIf="content?.type !='videoLink' && content?.type !='article'">
+                <p class="title show-content"  >{{feedTitle}} <span *ngIf="seeMore" class="title more"
                         (click)="onClickSeeMore()">... See More</span></p>
             </div>
+            </div>
+
+
+
+
+
             <div class="title-content" *ngIf="content?.type === 'videoLink'">
+                <p  class="title show-content">
                     <a class="title show-content" target="_blank" href="{{feedTitle}}">{{feedTitle}}
                             <span *ngIf="seeMore" class="title more"
                             (click)="onClickSeeMore()">... See More</span>
                          </a>
+                        </p>
                 </div>
 
             <div class="d-none" [ngClass]="{'d-block':content?.type ==='image'}">
@@ -49,6 +60,8 @@
                     (click)="openPropertyModalByVideo()">
                 </video>
             </div>
+
+            
             <div class="video-youtube d-none" [ngClass]="{'d-block':content?.type === 'videoLink'}">
                 <plyr style="display:block" plyrTitle="Video 1" [plyrSources]="videoSources"></plyr>
 
@@ -69,9 +82,6 @@
                             <img [src]="slide.img" alt="" width="100%" class="recipt-style">
                         </div>
                     </ngx-slick-carousel> -->
-                    <div>
-
-                    </div>
                     <img  *ngIf="receipt?.imageSlider.length>0" [src]="receipt?.imageSlider[0].img" alt="" width="100%" class="recipt-style">
                     <img *ngIf="receipt?.imageSlider.length===0 && receipt?.videoLink ==='' "
                         src="/assets/images/food.png" alt="" width="100%" class="recipt-style">
@@ -120,8 +130,8 @@
                         <plyr style="display:block" plyrTitle="Video 1" [plyrSources]="receptvideoSources"></plyr>
                     </div>
                     <div class="combinations-description">
-                        <p class="title">{{receipt?.title}}</p>
-                        <div class="text-content d-flex text-align-centre">
+                      
+                        <div class="text-content d-flex text-align-centre name-post-recept">
                             <p class="name mr-2">by </p>
                             <p class="name mb-0" *ngIf="userRole==='client'">
                                 {{feedItem?.creator_client_info?.user?.first_name}}</p>
@@ -131,7 +141,7 @@
                             <p class="name mb-0" *ngIf="!userRole && feedItem?.creator_client_info">
                                 {{feedItem?.creator_client_info?.user?.first_name}}</p>
                         </div>
-
+                        <p class="title">{{receipt?.title}}</p>
                     </div>
                 </div>
 
@@ -144,8 +154,8 @@
                     <img [src]="setImage()" class="article-style" alt="Cinque Terre"
                         routerLink="/combination/{{feedItem?.id}}">
                     <div class="combinations-description">
-                        <p class="title">{{feedItem?.title}}</p>
-                        <div class="text-content d-flex text-align-centre">
+                        <p class="title article-title">{{feedItem?.title}}</p>
+                        <div class="text-content d-flex text-align-centre article-name-content">
                             <p class="name mr-2">by </p>
                             <p class="name mb-0" *ngIf="userRole==='client'">
                                 {{feedItem?.creator_client_info?.user?.first_name}}</p>

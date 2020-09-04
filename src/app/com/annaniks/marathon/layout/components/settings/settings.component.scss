@@ -8,12 +8,8 @@
 .settings {
     height: 60px;
     display: flex;
-    // flex-wrap: wrap;
      align-items: center;
-    // text-align: center;
-    // justify-content: space-between;
-    background: #B06767 0% 0% no-repeat padding-box;
-    padding:0px 71px 0px 52px;
+    padding:0px 37px 0px 37px;
 
 
     .setting-item-btn {
@@ -144,39 +140,42 @@
     display: block !important;
 }
 
-// .comment-btn {
-//     padding: 12px 15px 12px 15px;
-// }
+.comment-btn {
+    padding: 12px 15px 12px 15px;
+}
 
-// .like-btn {
-//     padding: 11px 27px 13px 25px;
-// }
+.like-btn {
+    padding: 11px 27px 13px 25px;
+}
 
-// .energy-btn {
-//     padding: 10px 22px 15px 20px;
-// }
-
-
-
-// .count-comment {
-//     color: #9DB3C9;
-//     margin-left: 9px;
-// }
-
-// .count-like {
-//     color: #9DB3C9;
-//     margin-left: 9px;
-// }
-
-// .type-color {
-//     color: #65a4fe !important;
-// }
-
-// .galleryStyle {
-//     margin: 10px 0px !important;
-// }
+.energy-btn {
+    padding: 10px 22px 15px 20px;
+}
 
 
+
+.count-comment {
+    color: #9DB3C9;
+    margin-left: 9px;
+}
+
+.count-like {
+    color: #9DB3C9;
+    margin-left: 9px;
+}
+
+.type-color {
+    color: #65a4fe !important;
+}
+
+.galleryStyle {
+    margin: 10px 0px !important;
+    padding:  0 !important;
+}
+
+.settingbtn{
+    padding: 12px !important;
+}
 
 // .buttonStype {
 //     padding: 12px 8px 12px 8px !important;

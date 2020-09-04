@@ -8,6 +8,7 @@
 .post-container {
     .recept-content {
         position: relative;
+
         .recipt-right {
             position: absolute;
             top: 20px;
@@ -21,8 +22,9 @@
             cursor: pointer;
             z-index: 1;
             display: flex;
-            opacity:1;
-            .icon{
+            opacity: 1;
+
+            .icon {
                 margin: auto;
                 width: 25px;
             }
@@ -30,17 +32,23 @@
     }
 
     // padding: 0 50px 0px 21px;
-    .image,
-    .vido {
-        height: 380px;
+    .image {
+        height: 397px;
         cursor: pointer;
         margin: 6px 0;
-     
+        border: 1px solid #e3ecfd;
+    }
+
+    .vido {
+        height: 330px;
+        cursor: pointer;
+        margin: 6px 0;
+
     }
 }
-.vido{
-    background: black;
-}
+
+
+
 .title-content {
     padding: 0 20px 0px 20px;
     align-items: flex-end;
@@ -59,15 +67,13 @@
 .chicken-image {
     height: 260px;
     cursor: pointer;
-    margin: 6px 0;
+    // margin: 6px 0;
 }
 
 .combinations-description {
-    padding: 0 50px 0px 21px;
-    margin-bottom: 6px;
-
+    padding: 0 19px 0px 20px;
     .title {
-        @include text(20px, 32px, #45535C, MicrosoftYaHeiUI);
+        @include text(17px, 21px, #45535C, combinations-description);
 
 
     }
@@ -111,10 +117,12 @@
         bottom: 0;
         background: transparent linear-gradient(0deg, #31364399 0%, #31364300 100%) 0% 0% no-repeat padding-box;
         opacity: 1;
+
         .comments-content {
             margin: 0 40px;
         }
-        .comment-item{
+
+        .comment-item {
             margin: 17px;
         }
 
@@ -199,45 +207,46 @@
 
 .article-style {
     height: 275px !important;
-    margin: 6px 0 12px 0 !important;
+    margin: 6px 0;
     cursor: pointer;
 }
 
 .recipt-style {
     height: 330px !important;
-    
-   
-    .text-content{
+
+
+    .text-content {
         margin: 10px 0;
     }
 }
 
 .video-youtube {
-    margin: 6px 0 12px 0 !important;
+    margin: 6px  0 !important;
 }
 
 :host::ng-deep {
     .video-youtube {
         .plyr {
             min-width: 100% !important;
-            height: 380px;
+            height: 330px;
         }
     }
 }
-.recept-main{
+
+.recept-main {
     border: 1px solid #e3ecfd;
-    margin: 6px 0 12px 0;
+    // margin: 6px 0 12px 0;
     position: relative;
 }
 
-.card-item-style{
+.card-item-style {
     margin: 25px 0;
 }
 
 
 
 
- .container {
+.container {
     border: 0.5px solid #F4F7FC;
     border-radius: 15px;
     opacity: 1;
@@ -341,6 +350,18 @@
         }
     }
 }
-.youtuble-title{
-color: #65a4fe !important;
+
+.youtuble-title {
+    color: #65a4fe !important;
+}
+
+.name-post-recept{
+    margin-top: 6px;
+}
+
+.article-title{
+    margin: 6px 0;
+}
+.article-name-content{
+    margin-bottom: 10px;
 }
