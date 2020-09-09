@@ -57,6 +57,7 @@ import { FeedService } from '../pages/main/feed/feed.service';
 import { CountryService } from '../core/services/country.service';
 import { LikeService } from '../core/services/like.service';
 
+import {AutoCompleteModule} from 'primeng/autocomplete';
 
 @NgModule({
     declarations: [
@@ -106,6 +107,7 @@ import { LikeService } from '../core/services/like.service';
         InfiniteScrollModule,
         SlickCarouselModule,
         MatProgressBarModule,
+        AutoCompleteModule
     ],
     providers: [AuthGuard,FeedService,CountryService,LikeService],
     entryComponents: [LikeModal],
@@ -126,7 +128,7 @@ import { LikeService } from '../core/services/like.service';
         NgxLoadingModule,
         InfiniteScrollModule,
         SlickCarouselModule,
-        
+        AutoCompleteModule,
         HeaderComponent,
         LeftMenuCompomemtn,
         RightMenuComponent,

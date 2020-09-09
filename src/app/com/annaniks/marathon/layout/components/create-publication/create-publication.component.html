@@ -1,81 +1,81 @@
 <div class="feed-header-content" [class.modal-mode]="isModalMode" [ngClass]="{'height-auto':isModalMode}">
     <div class="created-publication-main" [ngClass]="{'height-auto':isModalMode}">
-    <div class="recipe-header">
-        <div class="display-flex">
-            <p class="title-name">Create Pablication</p>
-            <div class="d-flex">
-                <div class="d-flex" *ngIf="isModalMode">
-                    <input #inputImageReference class="" type="file" id="file" name="avatar"
-                        accept="image/png,image/jpeg" (change)="setServicePhoto($event,'image')">
-                    <label class="label-btn d-flex" for="file">
-                        <div class="display-flex">
-                            <span class="material-icons">
-                                panorama
-                            </span>
-                            <p class="title ml-2 mr-2">Photo /</p>
-                        </div>
-                    </label>
-                </div>
+        <div class="recipe-header">
+            <div class="display-flex">
+                <p class="title-name">Create Pablication</p>
+                <div class="d-flex">
+                    <div class="d-flex" *ngIf="isModalMode">
+                        <input #inputImageReference class="" type="file" id="file" name="avatar"
+                            accept="image/png,image/jpeg" (change)="setServicePhoto($event,'image')">
+                        <label class="label-btn d-flex" for="file">
+                            <div class="display-flex">
+                                <span class="material-icons">
+                                    panorama
+                                </span>
+                                <p class="title ml-2 mr-2">Photo /</p>
+                            </div>
+                        </label>
+                    </div>
 
-                <div class="d-flex" *ngIf="isModalMode">
-                    <input #inputVideoReference class="" type="file" id="videofile" name="videofile"
-                        accept="video/mp4,video/x-m4v,video/" (change)="setServicePhoto($event,'video')" value="">
-                    <label class=" label-btn d-flex" for="videofile">
-                        <div class="display-flex">
-                            <p class="title">Video</p>
-                        </div>
-                    </label>
-                </div>
+                    <div class="d-flex" *ngIf="isModalMode">
+                        <input #inputVideoReference class="" type="file" id="videofile" name="videofile"
+                            accept="video/mp4,video/x-m4v,video/" (change)="setServicePhoto($event,'video')" value="">
+                        <label class=" label-btn d-flex" for="videofile">
+                            <div class="display-flex">
+                                <p class="title">Video</p>
+                            </div>
+                        </label>
+                    </div>
 
+                </div>
             </div>
-        </div>
-        <div class="emoji-content">
-            <emoji-mart (emojiClick)="addEmoji($event)" emoji="point_up" *ngIf="showemoji"
-            ></emoji-mart>
-            <textarea   [ngClass]="{'textArea-height':isModalMode}" id="textarea" placeholder="Inspire someone. Type something ..." type="text"  [formControl]="postType" class="message-input" 
-                (focus)="showPost()" >
+            <div class="emoji-content">
+                <emoji-mart (emojiClick)="addEmoji($event)" emoji="point_up" *ngIf="showemoji"></emoji-mart>
+                <textarea [ngClass]="{'textArea-height':isModalMode}" id="textarea"
+                    placeholder="Inspire someone. Type something ..." type="text" [formControl]="postType"
+                    class="message-input" (focus)="showPost()">
         </textarea>
-            <img src="assets/icons/smile.png" class="smile-image" (click)="showEmoji()" *ngIf="isModalMode">
-        </div>
-    </div>
-
-  
-      
-    
-
-
-    <div class="button-content d-flex"  *ngIf="!isModalMode" [ngClass]="{'style':style}">
-        <button class="create-btn d-flex" routerLink="/article">
-            <span class="material-icons mr-2">
-                description
-            </span>
-            <span>Article</span>
-        </button>
-        <button  class="create-btn d-flex" routerLink="/recipe" routerLinkActive="activeTab">
-          <img src="assets/icons/Recipes.svg" class="publication-icon mr-2">
-            <span>Recipe</span>
-        </button >
-        <button  class="create-btn d-flex">
-            <img src="assets/icons/Comment.svg" class="publication-icon mr-2">
-            <span>Query</span>
-        </button>
-        <button  class="create-btn d-flex">
-            <span class="material-icons mr-2">
-                panorama
-            </span>
-            <span>B / A</span>
-        </button >
-    </div>
-    </div>
-    <div class="image-content" *ngIf="uploadType==='image'" >
-         
-            <img [src]="controImageItem" class="recipe-image" alt="" >
-            <div class="close-img d-flex">
-                <span class="material-icons m-auto" (click)="closeControlItem()">
-                    close
-                </span>
+                <img src="assets/icons/smile.png" class="smile-image" (click)="showEmoji()" *ngIf="isModalMode">
             </div>
         </div>
+
+
+
+
+
+
+        <div class="button-content d-flex" *ngIf="!isModalMode" [ngClass]="{'style':style}">
+            <button class="create-btn d-flex" routerLink="/article">
+                <span class="material-icons mr-2">
+                    description
+                </span>
+                <span>Article</span>
+            </button>
+            <button class="create-btn d-flex" routerLink="/recipe" routerLinkActive="activeTab">
+                <img src="assets/icons/Recipes.svg" class="publication-icon mr-2">
+                <span>Recipe</span>
+            </button>
+            <button class="create-btn d-flex">
+                <img src="assets/icons/Comment.svg" class="publication-icon mr-2">
+                <span>Query</span>
+            </button>
+            <button class="create-btn d-flex">
+                <span class="material-icons mr-2">
+                    panorama
+                </span>
+                <span>B / A</span>
+            </button>
+        </div>
+    </div>
+    <div class="image-content" *ngIf="uploadType==='image'">
+
+        <img [src]="controImageItem" class="recipe-image" alt="">
+        <div class="close-img d-flex">
+            <span class="material-icons m-auto" (click)="closeControlItem()">
+                close
+            </span>
+        </div>
+    </div>
 
     <div class="image-content" *ngIf="uploadType==='video'">
         <video controls class="update-image w-100" poster="{{videoTumble}}" [src]="controVideoItem">
@@ -88,16 +88,44 @@
     </div>
     <div class="localimage-content position-relative" *ngIf="showYoutube">
         <div>
-            <plyr style="display:block" plyrTitle="Video 1" [plyrSources]="videoSources" ></plyr>
+            <plyr style="display:block" plyrTitle="Video 1" [plyrSources]="videoSources"></plyr>
         </div>
         <div class="close-img d-flex" (click)="closeVideo()">
             <span class="material-icons m-auto">
                 close
             </span>
         </div>
+        <form action="" [formGroup]="videoGroup">
+            <div class="title-part">
+                <input type="text" formControlName="title" placeholder="Video Title">
+            </div>
+            <div class="d-flex tags-content">
+                <!-- <div *ngIf="!videoGroup.get('tags').value">
+                    <div *ngFor="let tag of videoGroup.get('defaultTags').value;let i=index">
+                      {{videoGroup.get('defaultTags').value}}
+                    </div>
+                </div> -->
+                <p-autoComplete formControlName="tags" [disabled]="true" [suggestions]="videoGroup.get('tags').value"
+                    (completeMethod)="$event.stopPropagation()" [minLength]="1" placeholder="" [multiple]="true">
+                </p-autoComplete>
+                <button *ngIf="videoGroup.get('defaultTags').value && videoGroup.get('defaultTags').value.length"
+                    (click)="openSelectTagsModal()" class="see-more-btn">...See More</button>
+            </div>
+            <div class="d-flex tags-content lng-content">    
+
+                <p-autoComplete formControlName="languages" (optionSelected)="selected($event)"
+                    [suggestions]="videoGroup.get('languages').value" (completeMethod)="filterCountryMultiple($event)"
+                    [minLength]="1" placeholder="Language" [multiple]="true">
+                </p-autoComplete>
+                <button (click)="openLanguagesModal()" class="add-lng-btn">+</button>
+
+            </div>
+            <!-- <input placeholder="Language" formControlName="languages"> -->
+        </form>
     </div>
-    <div   *ngIf="isModalMode">
-        <button class="post-btn w-100" (click)="createdPost()"><span *ngIf="!editProfile">Post</span> <span *ngIf="editProfile">Edit</span></button>
+    <div *ngIf="isModalMode">
+        <button class="post-btn w-100" (click)="createdPost()"><span *ngIf="!editProfile">Post</span> <span
+                *ngIf="editProfile">Edit</span></button>
     </div>
     <spinner-loading *ngIf="loading"></spinner-loading>
 </div>

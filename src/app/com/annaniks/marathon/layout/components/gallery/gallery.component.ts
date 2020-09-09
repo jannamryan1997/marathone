@@ -18,7 +18,7 @@ export class GelleryComponent implements OnInit {
         if($event){
             this.feedItem = $event;
         }
-           if(this.feedItem){
+           if(this.feedItem && this.feedItem.feed_media[0] && this.feedItem.feed_media[0].content){
             this.mediaItem = this.feedItem.feed_media[0].content;
             
             if (this.mediaItem.type === 'image' && this._fileUrl) {

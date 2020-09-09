@@ -51,7 +51,6 @@ export class PropertyModal implements OnInit {
 
     ngOnInit() {
         this._getComments().pipe(takeUntil(this.unsubscribe$)).subscribe()
-        console.log(this.comments);
         
         if( this.feedItem ){
         for (let item of this.feedItem.feed_media) {

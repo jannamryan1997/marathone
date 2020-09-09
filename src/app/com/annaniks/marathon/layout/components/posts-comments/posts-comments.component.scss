@@ -11,14 +11,20 @@
         .message-input {
             max-height: 90px;
             border: none;
-            @include text(15px, 24px, #bbcddf,BarlowCondensed-Light);
+            font-size: 15px;
+            line-height: 24px;
+            font-family: "Nunito Sans", sans-serif;
+            color: #45535C;
             resize: none;
             background: #FFFFFF 0% 0% no-repeat padding-box;
             opacity: 1;
             width: 100%;
             margin-top: 20px;
             &::placeholder {
-                @include text(15px, 24px, #bbcddf,BarlowCondensed-Light);
+                font-size: 15px;
+                line-height: 24px;
+                font-family: "Nunito Sans", sans-serif;
+                color: #bbcddf;
             }
           
         }

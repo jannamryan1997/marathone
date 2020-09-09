@@ -3,7 +3,6 @@ import { EditProfileView } from './edit-profile.view';
 import { EditProfileRoutingModule } from './edit-profile.routing.module';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {AutoCompleteModule} from 'primeng/autocomplete';
 import { SharedModule } from '../../../shared/shared.module';
 import {MultiSelectModule} from 'primeng/multiselect';
 
@@ -20,7 +19,6 @@ import { GooglePlaceModule } from "ngx-google-places-autocomplete";
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        AutoCompleteModule,
         MatChipsModule,
         MatAutocompleteModule,
         MultiSelectModule,

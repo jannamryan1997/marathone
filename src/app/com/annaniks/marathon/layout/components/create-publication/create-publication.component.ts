@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, Output, EventEmitter, Inject, AfterViewInit } from "@angular/core";
-import { FormControl, } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder, } from '@angular/forms';
 import { UserService } from '../../../core/services/user.service';
 import { UploadFileResponse, FeedResponseData } from '../../../core/models';
 import { FeedService } from '../../../pages/main/feed/feed.service';
@@ -7,6 +7,10 @@ import { CookieService } from 'ngx-cookie';
 import { finalize, takeUntil } from 'rxjs/operators';
 import { ReceiptData } from '../../../core/models/receipt';
 import { Subject } from 'rxjs';
+import { YoutubeService } from '../../../core/services/youtube.service';
+import { MatDialog } from '@angular/material/dialog';
+import { SpecialtiesModal } from '../../../core/modals';
+import { CountryService } from '../../../core/services/country.service';
 
 @Component({
     selector: "app-create-publication",
@@ -16,9 +20,11 @@ import { Subject } from 'rxjs';
 
 
 export class CreatePublicationComponent implements OnInit {
+    public videoGroup: FormGroup;
     public videoTitle: string;
     public videoPleyer: boolean = true;
     public i18n;
+    public languages = []
     public isModalMode: boolean = false;
     public postType = new FormControl('');
     public videoSources = [];
@@ -45,27 +51,40 @@ export class CreatePublicationComponent implements OnInit {
     public contentFileName: string = '';
     public loading = false;
     public showYoutube: boolean = false;
-    public mediaContent: ReceiptData;
+    public mediaContent;
 
     constructor(
         public _userService: UserService,
         private _feedService: FeedService,
         private _cookieServie: CookieService,
-
+        private _fb: FormBuilder,
+        private _countryService: CountryService,
+        private _dialog: MatDialog,
+        private _youtubeService: YoutubeService,
         @Inject("FILE_URL") private _fileUrl,
     ) {
     }
 
     ngOnInit() {
+        this._initVideoGroup()
         if (this.editProfile) {
             this._getFeedById();
         }
+        this._getCountries();
         this._autosize();
-
         this._initi18n();
         this._setPatchValue();
-    }
 
+    }
+    private _initVideoGroup() {
+        this.videoGroup = this._fb.group({
+            title: [null],
+            tags: [],
+            languages: [],
+            defaultTags: []
+
+        })
+    }
     private _initi18n() {
         this.i18n = {
 
@@ -125,6 +144,7 @@ export class CreatePublicationComponent implements OnInit {
                 this.postType.setValue(data.title);
                 if (typeof data.feed_media[0].content === 'string') {
                     this.mediaContent = JSON.parse(data.feed_media[0].content);
+                    
                     this.isModalMode = true;
                     if (this.mediaContent.type === 'image') {
                         this.uploadType = "image";
@@ -134,7 +154,16 @@ export class CreatePublicationComponent implements OnInit {
                         this.uploadType = "video";
                         this.controVideoItem = this._fileUrl + this.mediaContent.url;
                     }
-
+                    console.log(this.mediaContent);
+                    
+                  
+                    if (this.mediaContent.isShowVideo){
+                        this.videoGroup.patchValue({
+                            title:this.mediaContent.title,
+                            tags:this.mediaContent.tags,
+                            languages:this.mediaContent.languages
+                        })
+                    }
                 }
 
             })
@@ -224,7 +253,7 @@ export class CreatePublicationComponent implements OnInit {
 
 
     public closeControlItem(): void {
-        this.uploadType = null;  
+        this.uploadType = null;
     }
 
 
@@ -238,20 +267,28 @@ export class CreatePublicationComponent implements OnInit {
                 videoTitle: this.videoTitle,
             }
         )
+        if (this.showYoutube) {
+            content['title'] = this.videoGroup.get('title').value;
+            content['tags'] = this.videoGroup.get('tags').value;
+            content['languages'] = this.videoGroup.get('languages').value
+            content['isShowVideo'] = true
+        } else {
+            content['isShowVideo'] = false
+        }
         let role: string = this._cookieServie.get('role');
         if (!this.editProfile) {
             this._userService.postFeed({
                 title: this.postType.value,
                 content: content,
                 role: role,
-                is_public: true,
-
+                is_public: true
             })
                 .pipe(
                     takeUntil((this._unsbscribe)),
                     finalize(() => {
                         this.loading = false;
                         this.postType.patchValue('');
+                        this.videoGroup.reset();
                         this.uploadType = null;
                         this.controImageItem = '';
                         this.controVideoItem = '';
@@ -288,6 +325,7 @@ export class CreatePublicationComponent implements OnInit {
                         this.closeEditModal.emit(true);
                         this.loading = false;
                         this.postType.patchValue('');
+                        this.videoGroup.reset();
                         this.uploadType = null;
                         this.controImageItem = '';
                         this.controVideoItem = '';
@@ -306,14 +344,13 @@ export class CreatePublicationComponent implements OnInit {
 
     public showPost(): void {
         this.isModalMode = true;
-        console.log(   this.isModalMode);
-        
     }
 
 
     public onClickOverlay(): void {
         this.isModalMode = false;
         this.postType.patchValue('');
+        this.videoGroup.reset();
         this.uploadType = null;
         this.controImageItem = '';
         this.controVideoItem = '';
@@ -331,7 +368,22 @@ export class CreatePublicationComponent implements OnInit {
             }]
 
             this.showYoutube = true;
+            this._youtubeService.getVideosForChanel(this.postType.value).subscribe((data: any) => {
+                console.log(data);
+                let tagsArray = [];
 
+                if (data.items && data.items[0] && data.items[0].snippet) {
+                    if (data.items[0].snippet.tags)
+                        for (let tag of data.items[0].snippet.tags) {
+                            tagsArray.push(tag)
+                        }
+                    this.videoGroup.patchValue({
+                        title: data.items[0].snippet.title,
+                        defaultTags: tagsArray,
+                        languages: [data.items[0].snippet.defaultAudioLanguage]
+                    })
+                }
+            })
 
             this.contentFileName = this.postType.value,
                 this.uploadType = 'videoLink'
@@ -357,11 +409,66 @@ export class CreatePublicationComponent implements OnInit {
         //     }
 
     }
+    private _getCountries(): void {
+        this._countryService.getLanguages()
+            .pipe(takeUntil(this._unsbscribe))
+            .subscribe((countries) => {
+                this.languages = countries.results.map((data) => {
+                    return data.name
+                });
+
+            });
+    }
     public closeVideo(): void {
         this.showYoutube = false;
         this.videoPleyer = false;
         this.postType.patchValue('');
+        this.videoGroup.reset();
         this.videoTitle = '';
+    }
+    public openSelectTagsModal(): void {
+
+        const dialogRef = this._dialog.open(SpecialtiesModal, {
+            width: "520px",
+            data: {
+                data: this.videoGroup.get('defaultTags').value,
+                activeItem: this.videoGroup.get('tags').value,
+                type: 'tags',
+                title: 'Select video Tags'
+            }
+        })
+        dialogRef.afterClosed().subscribe((data) => {
+            if (data) {
+                this.videoGroup.patchValue({
+                    tags: data,
+                })
+
+            }
+
+
+        })
+    }
+    public openLanguagesModal(): void {
+
+        const dialogRef = this._dialog.open(SpecialtiesModal, {
+            width: "520px",
+            data: {
+                data: this.languages,
+                activeItem: this.videoGroup.get('languages').value,
+                type: 'lng',
+                title: 'Select language'
+            }
+        })
+        dialogRef.afterClosed().subscribe((data) => {
+            if (data) {
+                this.videoGroup.patchValue({
+                    languages: data,
+                })
+
+            }
+
+
+        })
     }
 
 }

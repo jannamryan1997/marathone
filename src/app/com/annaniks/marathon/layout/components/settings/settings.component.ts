@@ -34,10 +34,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
 
     constructor(private _feedLikeService: FeedLikeService) { }
 
-    ngOnInit() {
-        console.log(this.share);
-        
-     }
+    ngOnInit() {}
 
     public onClickOpenComments(): void {
         this.isOpen = !this.isOpen;

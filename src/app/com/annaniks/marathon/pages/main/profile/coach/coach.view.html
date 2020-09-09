@@ -116,11 +116,11 @@
                 <div class="feed-item" infinite-scroll [infiniteScrollDistance]="scrollDistance"
                     [infiniteScrollUpDistance]="scrollUpDistance" [infiniteScrollThrottle]="throttle"
                     [infiniteScrollDisabled]="infiniteScrollDisabled">
-                    <ng-container *ngIf="feedItem.length > 0">
+                    <ng-container *ngIf="feedItem?.length > 0">
                         <app-feed-post-card-item [mode]="'normal'" *ngFor="let item of feedItem" [feedItem]="item"
                             [style]="true" (deletedItem)="deletedFeedItem($event)"></app-feed-post-card-item>
                     </ng-container>
-                    <ng-container *ngIf="feedItem.length < 1">
+                    <ng-container *ngIf="feedItem?.length < 1">
                         <app-feed-post-card-item [mode]="'skeleton'" *ngFor="let item of [1,3,4]">
                         </app-feed-post-card-item>
                     </ng-container>
@@ -139,7 +139,7 @@
                 </div>
             </div>
             <div class="events-content" [ngSwitch]="galerryTab">
-                <div class="local-gallery-content w-100" *ngIf="checkIsMe() && feedMediaItem.length < 1">
+                <div class="local-gallery-content w-100" *ngIf="checkIsMe() && !galleryContentType ">
                     <div class="local-gallery-item">
                             <input class="" type="file" id="gallery" name="gallery" accept="image/png,image/jpeg"
                             (change)="setGalleryPhoto($event,'image')">
@@ -168,9 +168,9 @@
                         </label>
                     </div>
                 </div>
-                <p *ngIf="!checkIsMe() && feedMediaItem.length < 1" class="no-post-yet">No Posts Yet</p>
+                <p *ngIf="!checkIsMe() && !galleryContentType" class="no-post-yet">No Posts Yet</p>
                 <div *ngIf="galerryTab===1" class="gallery-content">
-                    <div class="local-gallery-item" *ngIf="checkIsMe() && feedMediaItem.length">
+                    <div class="local-gallery-item" *ngIf="checkIsMe() && galleryContentType">
                             <input class="" type="file" id="gallery" name="gallery" accept="image/png,image/jpeg"
                             (change)="setGalleryPhoto($event,'image')">
                         <label class="icon-btn d-flex m-auto" for="gallery">
@@ -189,8 +189,7 @@
 
 
                 <div *ngIf="galerryTab===2" class="gallery-content">
-
-                    <div class="local-gallery-content w-100" *ngIf="!showGallery && feedMediaItem.length && checkIsMe()">
+                    <div class="local-gallery-content w-100" *ngIf="!showGallery && galleryContentType && checkIsMe()">
                         <div class="local-gallery-item">
                             <input class="" type="file" id="gallery" name="gallery" accept="image/png,image/jpeg"
                             (change)="setGalleryPhoto($event,'image')">
@@ -219,8 +218,8 @@
                         </label>
                         </div>
                     </div>
-                    <p *ngIf="!checkIsMe() && !showGallery && feedMediaItem.length" class="no-post-yet">No Posts Yet</p>
-                    <div class="local-gallery-item" *ngIf="checkIsMe() && showGallery">
+                    <p *ngIf="!checkIsMe() && !showGallery && galleryContentType" class="no-post-yet">No Posts Yet</p>
+                    <div class="local-gallery-item" *ngIf="checkIsMe() && showGallery && galleryContentType">
                         <input class="" type="file" id="gallery" name="gallery" accept="image/png,image/jpeg"
                         (change)="setGalleryPhoto($event,'image')">
                     <label class="icon-btn d-flex m-auto" for="gallery">
@@ -239,7 +238,7 @@
                 </div>
 
                 <div *ngIf="galerryTab===3" class="gallery-content">
-                    <div class="local-gallery-content w-100" *ngIf="checkIsMe() && !showVideo && feedMediaItem.length">
+                    <div class="local-gallery-content w-100" *ngIf="checkIsMe() && !showVideo && galleryContentType">
                         <div class="local-gallery-item">
                             <input class="" type="file" id="video" name="video"    accept="video/mp4,video/x-m4v,video/" 
                             (change)="setGalleryPhoto($event,'video')">
@@ -269,8 +268,8 @@
                         </label>
                         </div>
                     </div>
-                    <p *ngIf="!checkIsMe() && !showVideo && feedMediaItem.length" class="no-post-yet">No Posts Yet</p>
-                    <div class="local-gallery-item" *ngIf="checkIsMe() && showVideo">
+                    <p *ngIf="!checkIsMe() && !showVideo && galleryContentType" class="no-post-yet">No Posts Yet</p>
+                    <div class="local-gallery-item" *ngIf="checkIsMe() && showVideo && galleryContentType">
                         <input class="" type="file" id="video" name="video"    accept="video/mp4,video/x-m4v,video/" 
                         (change)="setGalleryPhoto($event,'video')">
                     <label class="icon-btn d-flex m-auto" for="video">

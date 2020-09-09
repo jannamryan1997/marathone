@@ -65,7 +65,8 @@
     bottom: 0;
     left: 0;
     right: 0;
-    z-index: 1000;
+    z-index: 10;
+    // 1000;
     animation: animateBackground 0.2s ease-in;
     animation-fill-mode: forwards;
 
@@ -74,7 +75,8 @@
 
 .modal-mode {
     position: relative;
-    z-index: 1001;
+    z-index:11
+    //  1001;
 }
 
 ::ng-deep .mat-dialog-container {
