@@ -1,7 +1,6 @@
 
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -18,11 +17,10 @@ export class YoutubeService {
         params = params.set('authorization', 'false');
         let newChannel = channel
         let index = channel.indexOf('=');
+        let lastIndex = channel.indexOf(' ');        
         if (index > -1) {
-            newChannel = channel.slice(index+1);
-        }
-        // let url = 'https://www.googleapis.com/youtube/v3/search?key=' + this.apiKey + '&channelId=' + channel + '&order=date&part=snippet&type=video,id&maxResults=' + maxResults
-        // let url = 'https://www.googleapis.com/youtube/v3/search?part=snippet&video=' + channel + '&type=video&key=' + this.apiKey + '&maxResults=50'
+            newChannel = lastIndex > -1 ? channel.slice(index + 1, lastIndex) : channel.slice(index + 1);
+        }        
         let url = 'https://www.googleapis.com/youtube/v3/videos?id=' + newChannel + '&key=' + this.apiKey +
             '&part=snippet,statistics'
         return this.http.get(url, { params })

@@ -22,7 +22,7 @@
 .title-part{
     input{
         padding: 13px;
-        height: 41px;
+        height: 45px;
         border: none;
         border-bottom: 1px solid #F1F6FC;
         width: 100%;
@@ -234,8 +234,24 @@ input[type="file"] {
     z-index: 11
     // 1001;
 }
+.placeholder-label{
+    font-weight: normal;
+    color: #BEC8DD;
+    font-size: 16px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 82%;
+    padding: 22px 10px;
+}
 ::ng-deep {
-
+    .ui-autocomplete-input-token{
+        // pointer-events: none;
+        display: none !important;
+    }
+    .ui-autocomplete-multiple-container.ui-inputtext{
+        border: none !important;
+    }
     .ui-autocomplete-token {
         background: #589cfe !important;
         border-radius: 18px !important;

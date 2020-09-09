@@ -59,7 +59,7 @@ export class SpecialtiesModal implements OnInit, OnDestroy {
   }
 
 
-  public sentselectedOffers(): void {
+  public sentselectedOffers(): void {    
     this._dialogRef.close(this.selectedOffers);
 
   }

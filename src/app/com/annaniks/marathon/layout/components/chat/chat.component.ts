@@ -38,16 +38,7 @@ export class ChatComponent {
         this.topicActions = $event;
 
     }
-    public messages = [
-        {
-            role: 'friend',
-            message: 'hellodgsdfgdfgddddddddddddddddd ghf hgfhg hfg ghg ghfgh h fhfghgfhfghfgh gdfgd dfsdf dsfdsf fsdgf'
-        },
-        {
-            role: 'my',
-            message: 'aaaa'
-        }
-    ]
+    public messages = []
 
     topics: ITopic[];
     topicActions: TopicActions[];
