@@ -60,11 +60,7 @@ export class ChatComponent {
     ) {
         this.topicMessages = new Map<number, TopicMessage[]>();
         this.sendingMessage = false;
-        // this.topicActions = [];
-        // this.chatService.topicActions.subscribe(value => {
-        //     this.topicActions = [];
-        //     value.forEach(ta => this.topicActions.push(ta));
-        // });
+     
         this.chatService.topicMessages.subscribe(tm => {
             const currentTopicMessages: TopicMessage[] = this.topicMessages[tm.topicId || 0] || [];
             const exists = currentTopicMessages.some(cv => cv.id === tm.id);

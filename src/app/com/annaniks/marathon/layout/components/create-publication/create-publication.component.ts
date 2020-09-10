@@ -375,6 +375,8 @@ export class CreatePublicationComponent implements OnInit {
         this.player = null;
         this.showemoji = false;
         this.videoPleyer = true;
+        this.closeEditModal.emit(false);
+
     }
 
     public play(): void {
@@ -456,6 +458,7 @@ export class CreatePublicationComponent implements OnInit {
 
         const dialogRef = this._dialog.open(SpecialtiesModal, {
             width: "520px",
+            maxHeight: '57vh',
             data: {
                 data: this.videoGroup.get('defaultTags').value,
                 activeItem: this.videoGroup.get('tags').value,
@@ -474,7 +477,7 @@ export class CreatePublicationComponent implements OnInit {
         })
     }
 
-    public openLanguagesModal(): void {
+    public openLanguagesModal(): void {        
         const dialogRef = this._dialog.open(SpecialtiesModal, {
             width: "520px",
             maxHeight: '57vh',
@@ -498,30 +501,3 @@ export class CreatePublicationComponent implements OnInit {
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

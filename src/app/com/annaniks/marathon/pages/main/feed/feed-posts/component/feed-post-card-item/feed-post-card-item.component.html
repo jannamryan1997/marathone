@@ -13,12 +13,12 @@
                 </p> 
             <p class="time mb-0">{{time}}</p>
         </div>
-        <div (clickOutside)="onClickedOutside($event)">
+        <div (clickOutside)="onClickedOutside()">
             <span class="material-icons icon" (click)="showDeletedModal()">
                 more_vert
             </span>
             <div class="position-relative" *ngIf="showDeleteModal && checkIsMe">
-                <app-delete-feed-item (deleted)="deleteFeedItem($event)" [content]="content?.type"
+                <app-delete-feed-item (isOpenModal)="isOpenModal($event)" (deleted)="deleteFeedItem($event)" [content]="content?.type"
                     [feedId]="feedItem?.id" [mediaUrl]="feedItem?.feed_media[0]?.url"
                     (editFeedItem)="onClickeditFeedItem($event)"></app-delete-feed-item>
             </div>

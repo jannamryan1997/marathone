@@ -20,6 +20,7 @@ import { Router } from '@angular/router';
 
 export class FeedPostCardItemComponent implements OnInit {
     public user_name: string;
+    private _isOpenModalMode: boolean = false;
     public videoLink;
     private unsubscribe$ = new Subject<void>();
     public feedItem: FeedResponseData;
@@ -217,14 +218,14 @@ export class FeedPostCardItemComponent implements OnInit {
     public openPropertyModalByVideo(): void {
         const dialogRef = this._dialog.open(PropertyModal, {
             width: "100%",
-            maxWidth:"1400px",
+            maxWidth: "1400px",
             data: {
                 data: this.feedItem,
                 localImage: this.localImage
             }
         })
     }
-    public getButtonsType(event: string,message='setting') {
+    public getButtonsType(event: string, message = 'setting') {
 
         if (event) {
             this._getFeedById(message).pipe(takeUntil(this.unsubscribe$)).subscribe();
@@ -279,8 +280,15 @@ export class FeedPostCardItemComponent implements OnInit {
         }
     }
 
-    public onClickedOutside(event): void {
-        this.showDeleteModal = false;
+    public onClickedOutside(): void {        
+        if (!this._isOpenModalMode)
+            this.showDeleteModal = false;
+    }
+    public isOpenModal($event) {
+        this._isOpenModalMode = $event;
+        if (!this._isOpenModalMode) {
+            this.showDeleteModal = false;
+        }
     }
     public getProfleUrl() {
         let role = this.feedItem.creator_client_info ? 'client' : 'coach';
@@ -292,6 +300,7 @@ export class FeedPostCardItemComponent implements OnInit {
 
     public onClickeditFeedItem(event): void {
         if (event) {
+            this.showDeleteModal = false;
             this._getFeedById(event).subscribe()
         }
     }

@@ -22,11 +22,16 @@
 .title-part{
     input{
         padding: 13px;
+        padding-left: 20px;
         height: 45px;
         border: none;
         border-bottom: 1px solid #F1F6FC;
         width: 100%;
         font-size: 16px;
+        color: #45535C;
+    }
+    input::placeholder{
+        color: #BEC8DD;
     }
 }
 .tags-content{
@@ -245,6 +250,7 @@ input[type="file"] {
     padding: 22px 10px;
 }
 ::ng-deep {
+    .feed-header-content{
     .ui-autocomplete-input-token{
         // pointer-events: none;
         display: none !important;
@@ -253,15 +259,16 @@ input[type="file"] {
         border: none !important;
     }
     .ui-autocomplete-token {
-        background: #589cfe !important;
+        background: white !important;
         border-radius: 18px !important;
         opacity: 1 !important;
-        padding: 10px 25px !important;
-        color: #ffffff !important;
+        padding: 5px 30px 5px 10px !important;
+        color: #589CFE !important;
         font-size: 16px !important;
         line-height: 19px !important;
         font-family: "Nunito Sans", sans-serif !important;
         margin: 0 5px 5px 0 !important;
+        border: 1px solid #589CFE;
     }
 
     .ui-autocomplete-multiple-container {
@@ -307,6 +314,7 @@ input[type="file"] {
         background-color: none !important;
         border-radius: 16px !important;
     }
+}
 }
 @keyframes animateBackground {
     from {
