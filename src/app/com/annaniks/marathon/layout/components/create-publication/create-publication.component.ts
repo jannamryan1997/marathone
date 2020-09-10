@@ -69,8 +69,10 @@ export class CreatePublicationComponent implements OnInit {
         this._initVideoGroup()
         if (this.editProfile) {
             this._getFeedById();
+        }else{
+            this._getCountries();
+
         }
-        this._getCountries();
         this._autosize();
         this._initi18n();
         this._setPatchValue();
@@ -163,12 +165,12 @@ export class CreatePublicationComponent implements OnInit {
                         this.uploadType = "video";
                         this.controVideoItem = this._fileUrl + this.mediaContent.url;
                     }
-
+                    this._getCountries();
                     if (this.mediaContent.isShowVideo) {
+
                         this.videoGroup.patchValue({
                             title: this.mediaContent.title,
                             tags: this.mediaContent.tags,
-                            languages: this.mediaContent.languages
                         })
                     }
                 }
@@ -440,7 +442,28 @@ export class CreatePublicationComponent implements OnInit {
             .subscribe((lng) => {
                 this.languages = lng
                 let keys = Object.values(lng);
-                this._filteredLanguages = keys
+                this._filteredLanguages = keys;
+                if (this.editProfile) {
+                    let languagesArray = [];
+                    
+                    if (this.mediaContent && this.mediaContent.languages) {
+                        for (let lng of this.mediaContent.languages) {
+                            let select = this._filteredLanguages.filter((data) => {
+                                return data.name == lng.name
+                            })
+                            
+                            if (select && select.length) {
+                                languagesArray.push(select[0])
+                            }
+                        }
+                        if (this.mediaContent.isShowVideo) {
+
+                            this.videoGroup.patchValue({
+                              languages:languagesArray
+                            })
+                        }
+                    }
+                }
             });
     }
     public closeVideo(): void {
@@ -477,7 +500,9 @@ export class CreatePublicationComponent implements OnInit {
         })
     }
 
-    public openLanguagesModal(): void {        
+    public openLanguagesModal(): void {
+        console.log(this.videoGroup.get('languages').value);
+
         const dialogRef = this._dialog.open(SpecialtiesModal, {
             width: "520px",
             maxHeight: '57vh',
