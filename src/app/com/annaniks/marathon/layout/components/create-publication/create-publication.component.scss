@@ -19,7 +19,56 @@
         min-height: 160px;
     }
 }
-
+.title-part{
+    input{
+        padding: 13px;
+        padding-left: 20px;
+        height: 45px;
+        border: none;
+        border-bottom: 1px solid #F1F6FC;
+        width: 100%;
+        font-size: 16px;
+        color: #45535C;
+    }
+    input::placeholder{
+        color: #BEC8DD;
+    }
+}
+.tags-content{
+    border-bottom: 1px solid #F1F6FC;
+    padding-left: 10px;
+    padding-right: 25px;
+    p-autocomplete{
+        width: 80% !important;
+    }
+    .add-lng-btn{
+        background: none;
+        border-radius: 50%;
+        width: 29px;
+        height: 29px;
+        border: 1px solid #BEC8DD;
+        color: #BEC8DD;
+        font-size: 21px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+.lng-content{
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 10px;
+    padding-right: 25px;
+}
+.see-more-btn{
+    background: none;
+    border: none;
+    color:#589CFE;
+    font-size: 13px;
+    margin-left: auto;
+    font-weight: bold;
+}
 .recipe-header {
 
     // padding: 10px 25px;
@@ -178,7 +227,8 @@ input[type="file"] {
     bottom: 0;
     left: 0;
     right: 0;
-    z-index: 1000;
+    z-index: 10;
+    // 1000;
     animation: animateBackground 0.2s ease-in;
     animation-fill-mode: forwards;
 
@@ -186,9 +236,86 @@ input[type="file"] {
 
 .modal-mode {
     position: relative;
-    z-index: 1001;
+    z-index: 11
+    // 1001;
 }
+.placeholder-label{
+    font-weight: normal;
+    color: #BEC8DD;
+    font-size: 16px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 82%;
+    padding: 22px 10px;
+}
+::ng-deep {
+    .feed-header-content{
+    .ui-autocomplete-input-token{
+        // pointer-events: none;
+        display: none !important;
+    }
+    .ui-autocomplete-multiple-container.ui-inputtext{
+        border: none !important;
+    }
+    .ui-autocomplete-token {
+        background: white !important;
+        border-radius: 18px !important;
+        opacity: 1 !important;
+        padding: 5px 30px 5px 10px !important;
+        color: #589CFE !important;
+        font-size: 16px !important;
+        line-height: 19px !important;
+        font-family: "Nunito Sans", sans-serif !important;
+        margin: 0 5px 5px 0 !important;
+        border: 1px solid #589CFE;
+    }
 
+    .ui-autocomplete-multiple-container {
+        background: #ffffff 0% 0% no-repeat padding-box !important;
+        border: none !important;
+        // 1px solid #edf1f8 !important;
+        // border-radius: 16px !important;
+        opacity: 1 !important;
+        min-height: 50px !important;
+        height: auto !important;
+        width: 100% !important;
+        // padding: 14px 23px !important;
+        margin-top: 10px !important;
+
+        .ui-state-focus {
+            &::placeholder {
+                @include text(16px, 19px, #bbcddf, NunitoSans-Regular !important);
+            }
+        }
+    }
+
+    .ui-autocomplete {
+        width: 100% !important;
+    }
+
+    .pi-times:before {
+        //display: none !important;
+        font-size: 11px !important;
+        display: flex !important;
+        margin: 4px 10px !important;
+    }
+
+    .ui-autocomplete-token-label {
+        margin-right: 0 !important;
+    }
+
+    .ui-autocomplete .ui-state-focus {
+        border: none !important;
+        box-shadow: none !important;
+    }
+
+    .ui-multiselect-trigger {
+        background-color: none !important;
+        border-radius: 16px !important;
+    }
+}
+}
 @keyframes animateBackground {
     from {
         background-color: transparent

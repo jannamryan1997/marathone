@@ -15,8 +15,10 @@ export class CountryService {
         return this._httpClient.get<any>(this._baseUrl + '/career/speciality/?page_size=1000');
     }
 
-    getCountry():Observable<any>{
+    getCountry(): Observable<any> {
         return this._httpClient.get('assets/data/country.json');
     }
-
+    getAllLanguages(): Observable<any> {
+        return this._httpClient.get('assets/data/languages.json');
+    }
 }

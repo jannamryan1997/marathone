@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
 
 @NgModule({
     declarations: [MainView],
-    imports: [MainRoutingModule,SharedModule,CommonModule]
+    imports: [MainRoutingModule, SharedModule, CommonModule]
 })
 
 export class MainModule { }

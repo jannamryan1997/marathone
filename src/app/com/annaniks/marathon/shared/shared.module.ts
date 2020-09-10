@@ -50,12 +50,14 @@ import {
     LiketemComponent,
     ShareComponent,
     UserItemComponent,
-    SkeletonLoadingComponent
+    SkeletonLoadingComponent,
+    ChatComponent
 } from '../layout';
 import { FeedService } from '../pages/main/feed/feed.service';
 import { CountryService } from '../core/services/country.service';
 import { LikeService } from '../core/services/like.service';
 
+import {AutoCompleteModule} from 'primeng/autocomplete';
 
 @NgModule({
     declarations: [
@@ -85,7 +87,8 @@ import { LikeService } from '../core/services/like.service';
         LikeModal,
         ShareComponent,
         UserItemComponent,
-        SkeletonLoadingComponent
+        SkeletonLoadingComponent,
+        ChatComponent
     ],
     imports: [
         ReactiveFormsModule,
@@ -104,6 +107,7 @@ import { LikeService } from '../core/services/like.service';
         InfiniteScrollModule,
         SlickCarouselModule,
         MatProgressBarModule,
+        AutoCompleteModule
     ],
     providers: [AuthGuard,FeedService,CountryService,LikeService],
     entryComponents: [LikeModal],
@@ -124,7 +128,7 @@ import { LikeService } from '../core/services/like.service';
         NgxLoadingModule,
         InfiniteScrollModule,
         SlickCarouselModule,
-        
+        AutoCompleteModule,
         HeaderComponent,
         LeftMenuCompomemtn,
         RightMenuComponent,
@@ -151,7 +155,8 @@ import { LikeService } from '../core/services/like.service';
         ShareComponent,
         UserItemComponent,
         MatProgressBarModule,
-        SkeletonLoadingComponent
+        SkeletonLoadingComponent,
+        ChatComponent
    
     ],
 })

@@ -48,7 +48,12 @@ const mainRoutes: Routes = [
             {
                 path: 'suggestions',
                 loadChildren: () => import('./suggestions-user-list/suggestions-user-list.module').then(m => m.SuggestionsUserListModule)
-            }
+            },
+            // {
+            //     path: 'chat',
+            //     loadChildren: () => import('./chat/chat.module').then(m => m.ChatModule),
+            //     canActivate: [RoleGuard]
+            // }
 
 
         ]

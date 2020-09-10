@@ -26,3 +26,4 @@ export * from "../layout/components/share/share.component";
 export * from "../layout/forgot-password/forgot-password.component";
 export * from "./user-item/user-item.component";
 export * from "./components/skeleton/skeleton.component";
+export * from './components/chat/chat.component'

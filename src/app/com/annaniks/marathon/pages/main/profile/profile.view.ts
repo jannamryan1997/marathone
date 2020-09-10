@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from "@angular/core";
 import { UserService } from '../../../core/services/user.service';
 import { CookieService } from 'ngx-cookie';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subject } from 'rxjs';
+import { Subject, of } from 'rxjs';
 import { takeUntil, switchMap, map } from 'rxjs/operators';
 import { UploadFileResponse } from '../../../core/models';
 import { ProfileService } from '../../../core/services/profile.service';
@@ -47,18 +47,21 @@ export class ProfileView implements OnInit {
         private _dialog: MatDialog,
         private _router: Router) {
 
-
-        this._activatedRoute.params.pipe(takeUntil(this.unsubscribe$)).subscribe(params => {
-            if (params && params.id) {
-                window.scrollTo(0, 0);
-                let urls = this._router.url.split('/');
-                if (urls && urls.length) {
-                    this.userRole = urls[urls.length - 1];
+        this.role = this._cookieService.get('role');
+        this._activatedRoute.params.pipe(takeUntil(this.unsubscribe$),
+            switchMap((params) => {
+                if (params && params.id) {
+                    window.scrollTo(0, 0);
+                    let urls = this._router.url.split('/');
+                    if (urls && urls.length) {
+                        this.userRole = urls[urls.length - 1];
+                    }
+                    this._userSlug = params.id;
+                    return this._getProfileById();
+                } else {
+                    return of()
                 }
-                this._userSlug = params.id;
-                this._getProfile();
-            }
-        })
+            })).subscribe()
         this.routerUrl = window.location.href;
         this.userData = this._userService.user;
     }
@@ -66,7 +69,6 @@ export class ProfileView implements OnInit {
     ngOnInit() { }
 
     private _getProfile() {
-        this.role = this._cookieService.get('role');
         this._getProfileById().subscribe()
     }
     private _getProfileById() {
@@ -146,7 +148,7 @@ export class ProfileView implements OnInit {
     }
     public checkIsMe() {
         if (this._userService.user) {
-            return (!this.user || +this.user.id == +this._userService.user.data.id)
+            return (!this.user || +this.user.user.id == +this._userService.user.data.user.id)
         } else {
             return false
         }

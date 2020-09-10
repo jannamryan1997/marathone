@@ -14,8 +14,12 @@ export class SpecialtiesModal implements OnInit, OnDestroy {
   public speciality;
   public activeItem;
   public selectedItem;
+  public type: string;
+  public title:string;
   constructor(@Inject(MAT_DIALOG_DATA) private _data, private _dialogRef: MatDialogRef<SpecialtiesModal>) {
     this.speciality = this._data.data;
+    this.title=this._data.title?this._data.title:'Choose sports directions'
+    this.type = this._data && this._data.type ? this._data.type : null
     this.activeItem = this._data.activeItem;
   }
 
@@ -39,7 +43,7 @@ export class SpecialtiesModal implements OnInit, OnDestroy {
   }
 
   isSelected(offer: any): boolean {
-    const index = this.selectedOffers.indexOf(offer);    
+    const index = this.selectedOffers.indexOf(offer);
     return index >= 0;
   }
 
@@ -51,11 +55,11 @@ export class SpecialtiesModal implements OnInit, OnDestroy {
     } else {
       this.selectedOffers.push(offer);
     }
- 
+
   }
 
 
-  public sentselectedOffers(): void {
+  public sentselectedOffers(): void {    
     this._dialogRef.close(this.selectedOffers);
 
   }

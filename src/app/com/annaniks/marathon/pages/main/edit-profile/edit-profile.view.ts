@@ -22,17 +22,17 @@ import { GooglePlaceDirective } from 'ngx-google-places-autocomplete';
     styleUrls: ["edit-profile.view.scss"]
 })
 export class EditProfileView implements OnInit {
-    @ViewChild("placesRef") placesRef : GooglePlaceDirective;
-  public   formattedAddress="";
-  public   options={
-    //   type:["locality"],
-    types: ['(cities)'],
-        componentRestrictions: 
+    @ViewChild("placesRef") placesRef: GooglePlaceDirective;
+    public formattedAddress = "";
+    public options = {
+        //   type:["locality"],
+        types: ['(cities)'],
+        componentRestrictions:
         {
-             country: ['AM','FR'],
-             
-            }
+            country: ['AM', 'FR'],
+
         }
+    }
 
     public removable = true;
     public user: UserResponseData;
@@ -580,9 +580,9 @@ export class EditProfileView implements OnInit {
         event.stopPropagation();
     }
 
-    public handleAddressChange(address:any) {
-        this.profileFormGroup.value.location=address.formatted_address;
-        
+    public handleAddressChange(address: any) {
+        this.profileFormGroup.value.location = address.formatted_address;
+
     }
 }
 

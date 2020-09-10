@@ -87,12 +87,16 @@ export class HeaderComponent implements OnInit {
         return this.router.url.includes(url);
     }
     public logOut(): void {
+        this._cookieService.remove('chatToken')
         this._cookieService.removeAll();
         this._profileUserService.isAuthorized = false;
         //this._profileUserService.user = null;
 
         this.router.navigate(['feed']);
-        // location.reload();
+        setTimeout(() => {
+            location.reload();    
+        },100);
+        
     }
 
 }
