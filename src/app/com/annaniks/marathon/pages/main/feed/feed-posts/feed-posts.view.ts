@@ -52,7 +52,8 @@ export class FeedPostsView implements OnInit, OnDestroy {
         this._routeSub = this._activatedRoute.params.subscribe(params => {
             if (params && params['refferalId']) {
                 let refferalId = params['refferalId'];
-                let conversionDecryptOutput = CryptoJS.AES.decrypt(refferalId.toString().replace('xMl3Jk', '+' ).replace('Por21Ld', '/').replace('Ml32', '='), 'secret key').toString(CryptoJS.enc.Utf8);
+                let decodeKey=refferalId.toString().replace('xMl3Jk', '+' ).replace('Por21Ld', '/').replace('Ml32', '=')
+                let conversionDecryptOutput = CryptoJS.AES.decrypt(decodeKey, 'secret key').toString(CryptoJS.enc.Utf8);
                 this._coookieService.put('refferalId', conversionDecryptOutput);
                 if (!this._coookieService.get('access')) {
                     let dialog = this._matDialog.open(AuthModal, {

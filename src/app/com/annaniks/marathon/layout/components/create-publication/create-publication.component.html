@@ -99,7 +99,7 @@
             <div class="title-part">
                 <input type="text" formControlName="title" placeholder="Video Title">
             </div>
-            <div class="d-flex tags-content">
+            <div *ngIf="videoGroup.get('defaultTags').value && videoGroup.get('defaultTags').value.length" class="d-flex tags-content">
                 <!-- <div *ngIf="!videoGroup.get('tags').value">
                     <div *ngFor="let tag of videoGroup.get('defaultTags').value;let i=index">
                       {{videoGroup.get('defaultTags').value}}
