@@ -92,6 +92,8 @@
                     <p> <em class="arrow up"></em></p>
                     <div class="more-description">
                         <p class="more-item w-100" (click)="copyUrl()">Copy Profile URL</p>
+                        <p class="more-item w-100" *ngIf="role == 'coach' && checkIsMe()" (click)="copyReferralUrl()">Get my referral link</p>
+
                         <p class="more-item w-100">Block</p>
                         <p class="more-item w-100">Report</p>
                     </div>
