@@ -61,13 +61,9 @@
     padding-left: 10px;
     padding-right: 25px;
 }
-.see-more-btn{
-    background: none;
-    border: none;
-    color:#589CFE;
-    font-size: 13px;
+.see-more-btn{   
     margin-left: auto;
-    font-weight: bold;
+   
 }
 .recipe-header {
 
@@ -251,10 +247,16 @@ input[type="file"] {
 }
 ::ng-deep {
     .feed-header-content{
-    .ui-autocomplete-input-token{
-        // pointer-events: none;
-        display: none !important;
+    .ui-autocomplete-input-token input::placeholder{
+        color: #BEC8DD;
+        font-size: 16px;
     }
+    .tags-item{
+        .ui-autocomplete-input-token{
+            display: none !important;
+        }
+    }
+   
     .ui-autocomplete-multiple-container.ui-inputtext{
         border: none !important;
     }

@@ -484,7 +484,7 @@ export class EditProfileView implements OnInit {
     public filterCountry(query: string, countries: Results[]): Results[] {
         let filtered: any[] = [];
         for (let item of countries) {
-            if (item.name.toLowerCase().includes(query.toLowerCase())) {
+            if (item.name.toLowerCase().includes(query.toLowerCase().trim())) {
                 filtered.push(item);
             }
         }

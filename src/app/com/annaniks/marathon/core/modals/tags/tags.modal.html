@@ -1,0 +1,34 @@
+<div class="speciality-content">
+    <div class="speciality-container">
+        <div class="header-content d-flex">
+            <div class="serch-content">
+                <input type="text" class="search-input" placeholder="Search tags">
+                <span class="material-icons search-icon">
+                    search
+                </span>
+            </div>
+            <span class="material-icons icon" (click)="closeModal()">
+                close
+            </span>
+        </div>
+        <div class="speciality-item-content">
+            <div class="title">Youtube</div>
+
+            <mat-chip-list [(ngModel)]="selectedOffers" multiple>
+                <mat-chip *ngFor="let offer of tags | slice:0:youtubeMaxContent" selectable="true"
+                    [selected]="isSelected(offer)" #ref="matChip" (click)="toggleOffer(offer)" [selectable]="selectable"
+                    [ngClass]="{'background-color':isSelected(offer)}">
+                    # {{offer}}
+                </mat-chip>
+                <button class="see-more-btn" *ngIf="youtubeMaxContent <= tags.length"
+                    (click)="showMoreOrLess('youtubeMaxContent',tags)">
+                    {{youtubeMaxContent < tags.length?'... See More':'... See Less'}}</button>
+            </mat-chip-list>
+
+
+        </div>
+    </div>
+    <div class="button-content  d-flex justify-content-end">
+        <button class="apply-btn btn-item" (click)="sentselectedOffers()">Apply</button>
+    </div>
+</div>

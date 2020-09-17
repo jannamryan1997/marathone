@@ -9,8 +9,9 @@ import { ReceiptData } from '../../../core/models/receipt';
 import { Subject } from 'rxjs';
 import { YoutubeService } from '../../../core/services/youtube.service';
 import { MatDialog } from '@angular/material/dialog';
-import { SpecialtiesModal } from '../../../core/modals';
+import { SpecialtiesModal, TagsModalComponent } from '../../../core/modals';
 import { CountryService } from '../../../core/services/country.service';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
 @Component({
     selector: "app-create-publication",
@@ -25,7 +26,8 @@ export class CreatePublicationComponent implements OnInit {
     public videoPleyer: boolean = true;
     public i18n;
     public languages = [];
-    private _filteredLanguages = []
+    public filteredLanguages = [];
+    public allLanguages = []
     public isModalMode: boolean = false;
     public postType = new FormControl('');
     public videoSources = [];
@@ -69,8 +71,8 @@ export class CreatePublicationComponent implements OnInit {
         this._initVideoGroup()
         if (this.editProfile) {
             this._getFeedById();
-        }else{
-            this._getCountries();
+        } else {
+            this._getLanguages();
 
         }
         this._autosize();
@@ -126,6 +128,23 @@ export class CreatePublicationComponent implements OnInit {
         }
         return completeTags
     }
+    public filterCountryMultiple(event): void {
+        let query = event.query;
+        this.filteredLanguages = this.filterCountry(query, this.allLanguages)
+    }
+
+    public filterCountry(query: string, languages) {
+        let filtered: any[] = [];
+
+        for (let item of languages) {
+            if (item.name.toLowerCase().includes(query.toLowerCase().trim())) {
+                if ((this.videoGroup.get('languages').value && this.videoGroup.get('languages').value.indexOf(item) == -1) || !this.videoGroup.get('languages').value)
+                    filtered.push(item);
+            }
+        }
+        return filtered;
+    }
+
     private _setPatchValue(): void {
         this.postType.valueChanges.subscribe((data) => {
             if (this.videoPleyer) {
@@ -165,7 +184,7 @@ export class CreatePublicationComponent implements OnInit {
                         this.uploadType = "video";
                         this.controVideoItem = this._fileUrl + this.mediaContent.url;
                     }
-                    this._getCountries();
+                    this._getLanguages();
                     if (this.mediaContent.isShowVideo) {
 
                         this.videoGroup.patchValue({
@@ -401,12 +420,11 @@ export class CreatePublicationComponent implements OnInit {
                         }
                     this.videoGroup.patchValue({
                         defaultTags: tagsArray
-                    })
-
+                    })                    
                     if (!this.editProfile) {
                         this.videoGroup.patchValue({
                             title: data.items[0].snippet.title,
-                            languages: data.items[0].snippet.defaultAudioLanguage ? [this.languages[data.items[0].snippet.defaultAudioLanguage.toLowerCase()]] : []
+                            languages: data.items[0].snippet.defaultAudioLanguage ?this.languages[data.items[0].snippet.defaultAudioLanguage.toLowerCase()] ?[this.languages[data.items[0].snippet.defaultAudioLanguage.toLowerCase()]]:[] : []
                         })
                     }
                 }
@@ -436,30 +454,32 @@ export class CreatePublicationComponent implements OnInit {
         //     }
 
     }
-    private _getCountries(): void {
+    private _getLanguages(): void {
         this._countryService.getAllLanguages()
             .pipe(takeUntil(this._unsbscribe))
             .subscribe((lng) => {
                 this.languages = lng
                 let keys = Object.values(lng);
-                this._filteredLanguages = keys;
+                this.filteredLanguages = keys;
+                this.allLanguages = keys;
                 if (this.editProfile) {
                     let languagesArray = [];
-                    
+
                     if (this.mediaContent && this.mediaContent.languages) {
                         for (let lng of this.mediaContent.languages) {
-                            let select = this._filteredLanguages.filter((data) => {
+                            let select = this.filteredLanguages.filter((data) => {
                                 return data.name == lng.name
                             })
-                            
+
                             if (select && select.length) {
                                 languagesArray.push(select[0])
                             }
                         }
+                        
                         if (this.mediaContent.isShowVideo) {
-
+                            
                             this.videoGroup.patchValue({
-                              languages:languagesArray
+                                languages: languagesArray
                             })
                         }
                     }
@@ -479,9 +499,10 @@ export class CreatePublicationComponent implements OnInit {
     }
     public openSelectTagsModal(): void {
 
-        const dialogRef = this._dialog.open(SpecialtiesModal, {
+        const dialogRef = this._dialog.open(TagsModalComponent, {
             width: "520px",
             maxHeight: '57vh',
+            panelClass:'tags-modal',
             data: {
                 data: this.videoGroup.get('defaultTags').value,
                 activeItem: this.videoGroup.get('tags').value,
@@ -501,13 +522,11 @@ export class CreatePublicationComponent implements OnInit {
     }
 
     public openLanguagesModal(): void {
-        console.log(this.videoGroup.get('languages').value);
-
         const dialogRef = this._dialog.open(SpecialtiesModal, {
             width: "520px",
             maxHeight: '57vh',
             data: {
-                data: this._filteredLanguages,
+                data: this.filteredLanguages,
                 activeItem: this.videoGroup.get('languages').value,
                 title: 'Select language'
             }

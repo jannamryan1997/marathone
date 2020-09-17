@@ -435,3 +435,18 @@ textarea {
 }
 
 
+.tags-modal{
+    .mat-dialog-container{
+        border-radius: 30px;
+        // overflow: hidden;
+    }
+}
+.see-more-btn{
+    background: none;
+    border: none;
+    color:#589CFE;
+    font-size: 13px;
+    // margin-left: auto;
+    font-weight: bold;
+    cursor: pointer;
+}
