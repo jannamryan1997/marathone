@@ -15,6 +15,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatAutocompleteSelectedEvent, MatAutocomplete } from '@angular/material/autocomplete';
 import { Router, ActivatedRoute } from '@angular/router';
 import { GooglePlaceDirective } from 'ngx-google-places-autocomplete';
+import * as CryptoJS from 'crypto-js';
 
 @Component({
     selector: "app-edit-profile",
@@ -77,7 +78,7 @@ export class EditProfileView implements OnInit {
     ) {
         this.role = this._cookieService.get('role');
         this.user = this._userService.user;
-
+        
 
         if (this._userService.user.data.avatar) {
             this.localImage = this._fileUrl + this._userService.user.data.avatar;
@@ -431,7 +432,20 @@ export class EditProfileView implements OnInit {
             this.experience.controls.splice(ind, 1)
         }
     }
-
+    public copyReferralUrl() {
+        const selBox = document.createElement('textarea');
+        selBox.style.position = 'fixed';
+        selBox.style.left = '0';
+        selBox.style.top = '0';
+        selBox.style.opacity = '0';   
+        let conversionEncryptOutput = CryptoJS.AES.encrypt(this.user.data.user.id.toString(),'secret key').toString().replace('+','xMl3Jk').replace('/','Por21Ld').replace('=','Ml32');       
+        selBox.value = `http://uat.marathon.me/refferal/${conversionEncryptOutput}`;
+        document.body.appendChild(selBox);
+        selBox.focus();
+        selBox.select();
+        document.execCommand('copy');
+        document.body.removeChild(selBox);
+    }
 
     public setCeriticatesPhoto(event): void {
         if (event) {

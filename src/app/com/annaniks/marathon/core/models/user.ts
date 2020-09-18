@@ -55,6 +55,7 @@ interface User {
     first_name: string;
     last_name: string;
     password: string;
+    id:number
 }
 export interface FamiliarData {
     client: Familiar[];

@@ -77,6 +77,7 @@
         color: #A5B1CB;
     }
     .search-icon {
+        cursor: pointer;
         font-size: 25px;
         color: #ACC3D9;
     }
@@ -88,8 +89,8 @@
     color: #589cfe !important;
     //  height: 35px !important;
      border-radius: 20px !important;
-     padding: 20px 22px !important;
-     font-family: EncodeSans-SemiBold !important;
+    //  padding: 20px 22px !important;
+    //  font-family: EncodeSans-SemiBold !important;
      @include text(14px,17px,#589cfe);
   
 

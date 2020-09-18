@@ -2,7 +2,8 @@
     <div class="home-main">
         <div class="profile-description">
             <div class="header">
-                <img [src]="headerLocalImage" class="cover-image" alt="Cinque Terre" (click)="openProfileCoverModal(headerLocalImage)">
+                <img [src]="headerLocalImage" class="cover-image" alt="Cinque Terre"
+                    (click)="openProfileCoverModal(headerLocalImage)">
                 <div *ngIf="checkIsMe()" class=" d-flex">
                     <input class="" type="file" id="headerprofile" name="headerprofile" accept="image/png,image/jpeg"
                         (change)="setServiceHeaderPhoto($event)">
@@ -22,7 +23,8 @@
                                     <i class="fa fa-refresh m-auto" aria-hidden="true"></i>
                                 </label>
                             </div>
-                            <img [src]="localImage" class="user-image" alt="Cinque Terre" (click)="openProfileCoverModal(localImage)">
+                            <img [src]="localImage" class="user-image" alt="Cinque Terre"
+                                (click)="openProfileCoverModal(localImage)">
                             <button class="btn coach-btn" *ngIf="userRole==='coach'">Coach</button>
                             <spinner-loading [profileLoading]="true" *ngIf="loading"></spinner-loading>
                         </div>
@@ -31,54 +33,54 @@
                     <div class="btn-content d-flex align-items-center">
                         <button *ngIf="!checkIsMe() && role" (click)="follow()" [class.active-btn]="isFollowed"
                             class="btn-item info-btn">{{isFollowed?'Unfollow':'Follow'}}</button>
-                            <button class="btn-item info-btn" *ngIf="role==='coach'">
-                                    <div class="btn-container"><span>Packages</span></div>
-                                </button>
-                       
-                       
-                                <div class="social-media-btn-content">
-                                    <button class="btn-item info-btn  btn-radius social-media-btn">
-                                        <span class="material-icons icon">
-                                            alternate_email
-                                        </span>
-                                    </button>
-                                    <div class="social-media">
-                                        <div class="social-media-description">
-                                            <a href="{{userData?.data?.instagram}}" target="blank">
-                                                <img src="assets/images/social/inst.png.png" class="social-image mt-0"
-                                                    alt="Cinque Terre">
-                                            </a>
-                                            <a href="{{userData?.data?.facebook}}" target="blank">
-                                                <img src="assets/images/social/facebook.png" class="social-image"
-                                                    alt="Cinque Terre">
-                                            </a>
-                                            <a href="{{userData?.data?.linkedin}}" target="blank">
-                                                <img src="assets/images/social/linkedin.png.png" class="social-image"
-                                                    alt="Cinque Terre">
-                                            </a>
-                                            <a href="{{userData?.data?.youtube}}" target="blank">
-                                                <img src="assets/images/social/youtube.jpg" class="social-image"
-                                                    alt="Cinque Terre">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            
-                        <button *ngIf="checkIsMe()" class="btn-item info-btn" routerLink="/edit-profile"
-                        routerLinkActive="profileActiveTab">
-                        <div class="btn-container">
-                            <span>Edit Profile</span>
-                            <span class="ml-2 material-icons">
-                                create
-                            </span>
-                        </div>
+                        <button class="btn-item info-btn" *ngIf="role==='coach'">
+                            <div class="btn-container"><span>Packages</span></div>
+                        </button>
 
-                    </button>
-                        <button class="btn-item info-btn btn-radius"  *ngIf="!checkIsMe() && role">
+
+                        <div class="social-media-btn-content">
+                            <button class="btn-item info-btn  btn-radius social-media-btn">
                                 <span class="material-icons icon">
-                                    insert_comment
+                                    alternate_email
                                 </span>
                             </button>
+                            <div class="social-media">
+                                <div class="social-media-description">
+                                    <a href="{{userData?.data?.instagram}}" target="blank">
+                                        <img src="assets/images/social/inst.png.png" class="social-image mt-0"
+                                            alt="Cinque Terre">
+                                    </a>
+                                    <a href="{{userData?.data?.facebook}}" target="blank">
+                                        <img src="assets/images/social/facebook.png" class="social-image"
+                                            alt="Cinque Terre">
+                                    </a>
+                                    <a href="{{userData?.data?.linkedin}}" target="blank">
+                                        <img src="assets/images/social/linkedin.png.png" class="social-image"
+                                            alt="Cinque Terre">
+                                    </a>
+                                    <a href="{{userData?.data?.youtube}}" target="blank">
+                                        <img src="assets/images/social/youtube.jpg" class="social-image"
+                                            alt="Cinque Terre">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button *ngIf="checkIsMe()" class="btn-item info-btn" routerLink="/edit-profile"
+                            routerLinkActive="profileActiveTab">
+                            <div class="btn-container">
+                                <span>Edit Profile</span>
+                                <span class="ml-2 material-icons">
+                                    create
+                                </span>
+                            </div>
+
+                        </button>
+                        <button class="btn-item info-btn btn-radius" *ngIf="!checkIsMe() && role">
+                            <span class="material-icons icon">
+                                insert_comment
+                            </span>
+                        </button>
                         <button class="btn-item info-btn btn-radius" (click)="onClickShowMore()"
                             [ngClass]="{'active-btn':showMore}">
                             <span class="material-icons icon ">
@@ -97,7 +99,8 @@
                         <p class="more-item w-100">Block</p>
                         <p class="more-item w-100">Report</p>
                     </div>
-                </div>
+                </div>               
+
 
             </div>
             <div class="main-layout">
