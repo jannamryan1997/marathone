@@ -38,11 +38,23 @@
         color: #BEC8DD;
     }
 }
+:host::ng-deep{
 .lng-content{
-    padding-right: 4px !important;
     p-autocomplete{
         width: 100% !important;
+        .ui-autocomplete .ui-autocomplete-input{
+            width: 100%;
+            border: none;
+            padding: 13px 13px 13px 20px;
+        }
+        .ui-autocomplete .ui-autocomplete-input:focus{
+            box-shadow: none !important;
+        }
+        .ui-autocomplete .ui-autocomplete-input::placeholder{
+            color:#BEC8DD ;
+        }
     }
+}
 }
 .tags-item{
     padding-right: 25px;
@@ -70,8 +82,9 @@
 .lng-content{
     justify-content: space-between;
     align-items: center;
-    padding-left: 10px;
-    padding-right: 25px;
+    padding: 0 !important;
+    // padding-left: 10px;
+    // padding-right: 25px;
 }
 .see-more-btn{   
     margin-left: auto;

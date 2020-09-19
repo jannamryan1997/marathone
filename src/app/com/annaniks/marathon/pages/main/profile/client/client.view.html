@@ -210,9 +210,9 @@
                             </span>
                         </label>
                     </div>
-                    <div class="gallery-item" *ngFor="let item of feedMediaItem"
+                    <div class="gallery-item" *ngFor="let item of feedMediaItem;let i=index"
                         [ngClass]="{'d-block':item?.feed_media[0]?.content?.url}">
-                        <app-galery [mediaItem]="item" (showGalleryModal)="openGalleryModal($event,'all',item)">
+                        <app-galery [mediaItem]="item" (showGalleryModal)="openGalleryModal($event,'all',item,i)">
                         </app-galery>
                     </div>
 
@@ -260,9 +260,9 @@
                     </label>
                     </div>
 
-                    <div class="gallery-item" *ngFor="let item of feedMediaItem"
+                    <div class="gallery-item" *ngFor="let item of feedMediaItem;let i=index"
                         [ngClass]="{'d-block':item?.feed_media[0]?.content?.url && item?.feed_media[0]?.content?.type==='image'}">
-                        <app-galery [mediaItem]="item" (showGalleryModal)="openGalleryModal($event,'image',item)">
+                        <app-galery [mediaItem]="item" (showGalleryModal)="openGalleryModal($event,'image',item,i)">
                         </app-galery>
                     </div>
 
@@ -309,10 +309,10 @@
                         </span>
                     </label>
                     </div>
-                    <div class="gallery-item" *ngFor="let item of feedMediaItem"
+                    <div class="gallery-item" *ngFor="let item of feedMediaItem;let i=index"
                         [ngClass]="{'d-block':item?.feed_media[0]?.content?.url && item?.feed_media[0]?.content?.type==='video'|| item?.feed_media[0]?.content?.type==='videoLink'}">
 
-                        <app-galery [mediaItem]="item" (showGalleryModal)="openGalleryModal($event,'video',item)">
+                        <app-galery [mediaItem]="item" (showGalleryModal)="openGalleryModal($event,'video',item,i)">
                         </app-galery>
                     </div>
 

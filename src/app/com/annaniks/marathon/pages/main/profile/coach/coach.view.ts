@@ -134,8 +134,8 @@ export class CoachView implements OnInit {
         let titleLength: number;
         if (this.user.status) {
             titleLength = this.user.status.length;
-            this.userStatus = this.user.status;            
-            if (titleLength > 280) {                
+            this.userStatus = this.user.status;
+            if (titleLength > 280) {
                 this.seeMore = true;
                 this.userStatus = this.user.status.slice(0, 280);
             }
@@ -285,8 +285,8 @@ export class CoachView implements OnInit {
 
 
 
-    public openGalleryModal(event, message, item): void {
-        if (event) {            
+    public openGalleryModal(event, message, item, index: number): void {
+        if (event) {
             const dialogRef = this._dialog.open(GalleryModal, {
                 width: "1400px",
                 data: {
@@ -294,9 +294,15 @@ export class CoachView implements OnInit {
                     type: message,
                 }
             })
-            dialogRef.afterClosed().subscribe((data) => {
-                this._getFeed().pipe(takeUntil(this.unsubscribe$)).subscribe((data) => {
-                });
+            dialogRef.afterClosed().pipe(takeUntil(this.unsubscribe$)).subscribe((data) => {
+                this._feedService.getFeedById(item.id).subscribe((val) => {
+                    item.is_liked = val.is_liked
+                    item.is_liked_id= val.is_liked_id
+                    item.feed_comments_count= val.feed_comments_count
+                    item.feed_likes_count= val.feed_likes_count                    
+                    this.feedMediaItem[index] = item                    
+                })
+              
             })
         }
     }

@@ -120,8 +120,8 @@
 
                 <p-autoComplete #autocomplete formControlName="languages" [suggestions]="filteredLanguages"
                     (click)="filterCountryMultiple(' ',autocomplete)" (onFocus)="filterCountryMultiple(null,autocomplete)"
-                    (completeMethod)="filterCountryMultiple($event,autocomplete)" [minLength]="1"
-                    placeholder="Languages" field="name" [multiple]="true" [autoHighlight]="true">
+                    (completeMethod)="filterCountryMultiple($event,autocomplete)" [minLength]="0"
+                    placeholder="Languages" field="name">
                 </p-autoComplete>
             </div>
         </form>

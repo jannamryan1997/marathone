@@ -264,7 +264,7 @@ export class ClientView implements OnInit {
         this._getFeed().pipe(takeUntil(this.unsubscribe$)).subscribe();
 
     }
-    public openGalleryModal(event, message, item): void {
+    public openGalleryModal(event, message, item, index: number): void {
         if (event) {
             const dialogRef = this._dialog.open(GalleryModal, {
                 width: "1400px",
@@ -273,9 +273,15 @@ export class ClientView implements OnInit {
                     type: message,
                 }
             })
-            dialogRef.afterClosed().subscribe((data) => {
-                this._getFeed().pipe(takeUntil(this.unsubscribe$)).subscribe((data) => {
-                });
+            dialogRef.afterClosed().pipe(takeUntil(this.unsubscribe$)).subscribe((data) => {
+                this._feedService.getFeedById(item.id).subscribe((val) => {
+                    item.is_liked = val.is_liked
+                    item.is_liked_id= val.is_liked_id
+                    item.feed_comments_count= val.feed_comments_count
+                    item.feed_likes_count= val.feed_likes_count                    
+                    this.feedMediaItem[index] = item                    
+                })
+              
             })
         }
     }

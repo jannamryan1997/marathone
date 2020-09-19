@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class YoutubeService {
 
-    apiKey: string = 'AIzaSyCKe7deaif6jIcKOC8lRKBvZqyO4C3Onr0';
+    apiKey: string = 'AIzaSyABBnV-JFyhMl_SY6kVEyn_lC1Z3Kmddj8';
 
     constructor(public http: HttpClient) { }
 
