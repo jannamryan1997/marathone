@@ -2,9 +2,10 @@ import { Component, OnInit, Output, EventEmitter } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { finalize, takeUntil } from 'rxjs/operators';
 import { AuthUserService } from '../../core/services/auth.services';
-import { SocialUser} from 'angularx-social-login';
+import { SocialUser } from 'angularx-social-login';
 import { UserService } from '../../core/services/user.service';
 import { Subject } from 'rxjs';
+import { CookieService } from 'ngx-cookie';
 
 @Component({
     selector: "app-signUp",
@@ -21,10 +22,10 @@ export class SignUpComponent implements OnInit {
     public loggedIn: boolean;
     public profileUser;
     public show: boolean = false;
-    public showRepeatPassword:boolean=false;
+    public showRepeatPassword: boolean = false;
     public hidePassword: boolean = true;
-    public hideRepeatPassword:boolean=true;
-    public _unsbscribe=new Subject<void>();
+    public hideRepeatPassword: boolean = true;
+    public _unsbscribe = new Subject<void>();
 
     @Output() changeSigntab = new EventEmitter;
     @Output() closeModal = new EventEmitter();
@@ -32,6 +33,7 @@ export class SignUpComponent implements OnInit {
         private _fb: FormBuilder,
         private _authUserService: AuthUserService,
         private _profileUserService: UserService,
+        private _cookieService: CookieService
 
     ) {
         this.profileUser = this._profileUserService.user;
@@ -48,7 +50,7 @@ export class SignUpComponent implements OnInit {
             userName: [null, Validators.required],
             email: [null, [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]],
             password: [null, Validators.required],
-            repeat_password:[null,Validators.required],
+            repeat_password: [null, Validators.required],
             coach: [null],
         })
     }
@@ -73,13 +75,16 @@ export class SignUpComponent implements OnInit {
                 first_name: this.signUpGroup.value.firstName,
                 last_name: this.signUpGroup.value.userName,
                 user_name: this.signUpGroup.value.userName,
-          
+
             },
             google_id: null,
             ui_language: "http://192.168.1.115:8000/api/utils/language/3/",
             metric: "http://192.168.1.115:8000/api/utils/metric/1/",
-           // slug:this.signUpGroup.value.userName,
-           // is_faworit:true,
+            // slug:this.signUpGroup.value.userName,
+            // is_faworit:true,
+        }
+        if (this._cookieService.get('refferalId')) {
+            signUpData.user['refereal_user'] = this._cookieService.get('refferalId')
         }
         this._authUserService.signUpClient(signUpData)
             .pipe(
@@ -93,7 +98,7 @@ export class SignUpComponent implements OnInit {
                 this.changeSigntab.emit(this.tab);
             },
                 err => {
-                    this.errorMessage ="Fields were filled in incorrectly";
+                    this.errorMessage = "Fields were filled in incorrectly";
 
                 }
             )
@@ -110,13 +115,16 @@ export class SignUpComponent implements OnInit {
                 first_name: this.signUpGroup.value.firstName,
                 user_name: this.signUpGroup.value.userName,
                 last_name: this.signUpGroup.value.userName,
-              
+
             },
             google_id: null,
             // ui_language:null,
             //metric: null,
             //slug:this.signUpGroup.value.userName,
-           // is_faworit:true,
+            // is_faworit:true,
+        }
+        if (this._cookieService.get('refferalId')) {
+            signUpData.user['refereal'] = this._cookieService.get('refferalId')
         }
         this._authUserService.signUpCoach(signUpData)
             .pipe(
@@ -152,9 +160,9 @@ export class SignUpComponent implements OnInit {
         this.hidePassword = false;
     }
 
-    public showRepeatPasswordValue():void{
-         this.showRepeatPassword=true;
-        this.hideRepeatPassword=false;
+    public showRepeatPasswordValue(): void {
+        this.showRepeatPassword = true;
+        this.hideRepeatPassword = false;
     }
 
     public hide(): void {
@@ -162,9 +170,9 @@ export class SignUpComponent implements OnInit {
         this.hidePassword = true;
     }
 
-    public hideRepeatPasswordValue():void{
-        this.showRepeatPassword=false;
-        this.hideRepeatPassword=true;
+    public hideRepeatPasswordValue(): void {
+        this.showRepeatPassword = false;
+        this.hideRepeatPassword = true;
     }
 
     public checkIsValid(controlName): boolean {

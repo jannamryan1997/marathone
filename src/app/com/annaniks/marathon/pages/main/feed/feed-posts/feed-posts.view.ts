@@ -2,12 +2,13 @@ import { Component, OnInit, OnDestroy, Input } from "@angular/core";
 import { FeedService } from '../feed.service';
 import { FeedResponseData } from '../../../../core/models';
 import { UserService } from '../../../../core/services/user.service';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { RemoveModal, AuthModal } from '../../../../core/modals';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie';
 import { takeUntil, finalize } from 'rxjs/operators';
+import * as CryptoJS from 'crypto-js';
 
 @Component({
     selector: "feed-posts-view",
@@ -29,21 +30,41 @@ export class FeedPostsView implements OnInit, OnDestroy {
     public loading: boolean;
     public _token: string;
     public role: string;
+    private _routeSub: Subscription
     constructor(
         public _feedService: FeedService,
         public userService: UserService,
         private _dialog: MatDialog,
         private _activatedRoute: ActivatedRoute,
         private _coookieService: CookieService,
+        private _matDialog: MatDialog
     ) {
         this.role = this._coookieService.get('role');
+        this._registationByReferalId()
     }
 
     ngOnInit() {
         this._getFeed(this._pageIndex);
         this._checkQueryParams();
-    }
 
+    }
+    private _registationByReferalId() {
+        this._routeSub = this._activatedRoute.params.subscribe(params => {
+            if (params && params['refferalId']) {
+                let refferalId = params['refferalId'];
+                let decodeKey=refferalId.toString().replace('xMl3Jk', '+' ).replace('Por21Ld', '/').replace('Ml32', '=')
+                let conversionDecryptOutput = CryptoJS.AES.decrypt(decodeKey, 'secret key').toString(CryptoJS.enc.Utf8);
+                this._coookieService.put('refferalId', conversionDecryptOutput);
+                if (!this._coookieService.get('access')) {
+                    let dialog = this._matDialog.open(AuthModal, {
+                        data: {
+                            value: 'registration'
+                        }
+                    })
+                }
+            }
+        });
+    }
 
     private _checkQueryParams(): void {
         let params = this._activatedRoute.snapshot.queryParams;
@@ -63,9 +84,9 @@ export class FeedPostsView implements OnInit, OnDestroy {
         this.infiniteScrollDisabled = true;
         const data = await this._feedService.feed(this._pageIndex)
             .pipe(takeUntil(this._unsubscribe),
-            finalize(() => {
-                this.loading = false;
-            })
+                finalize(() => {
+                    this.loading = false;
+                })
             )
             .toPromise()
         if (this.feedItem.length === 0) {
@@ -146,5 +167,6 @@ export class FeedPostsView implements OnInit, OnDestroy {
     ngOnDestroy() {
         this._unsubscribe.next();
         this._unsubscribe.complete();
+        this._routeSub.unsubscribe()
     }
 }

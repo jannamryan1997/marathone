@@ -15,6 +15,12 @@ const mainRoutes: Routes = [
 
             },
             {
+                path: "refferal/:refferalId",
+                loadChildren: () => import('./feed/feed.module').then(m => m.FeedModule),
+                //  canActivate: [RoleGuard]
+
+            },
+            {
                 path: "profile",
                 loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule),
                 canActivate: [RoleGuard]

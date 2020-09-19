@@ -134,8 +134,8 @@ export class CoachView implements OnInit {
         let titleLength: number;
         if (this.user.status) {
             titleLength = this.user.status.length;
-            this.userStatus = this.user.status;
-            if (titleLength > 280) {
+            this.userStatus = this.user.status;            
+            if (titleLength > 280) {                
                 this.seeMore = true;
                 this.userStatus = this.user.status.slice(0, 280);
             }
@@ -172,12 +172,13 @@ export class CoachView implements OnInit {
                 this.specialityName = []
                 data.results.map((name, index) => {
                     url = name.url;
-                    this._userService.user.data.speciality.forEach(element => {
-                        if (url === element) {
-                            this.specialityName.push({ name: name.name });
+                    if (this._userService.user && this._userService.user.data)
+                        this._userService.user.data.speciality.forEach(element => {
+                            if (url === element) {
+                                this.specialityName.push({ name: name.name });
 
-                        }
-                    })
+                            }
+                        })
                 })
             })
     }
@@ -214,8 +215,8 @@ export class CoachView implements OnInit {
         this.galerryTab = tab;
         if (this.galerryTab === 2) {
 
-            let imageContent = this.feedMediaItem.filter((data) => { return( data.feed_media && data.feed_media[0] && data.feed_media[0].content) ? (data.feed_media[0].content.type == 'image') : null });
-           
+            let imageContent = this.feedMediaItem.filter((data) => { return (data.feed_media && data.feed_media[0] && data.feed_media[0].content) ? (data.feed_media[0].content.type == 'image') : null });
+
             if (imageContent && imageContent.length) {
                 this.showGallery = true;
             } else {
@@ -225,7 +226,7 @@ export class CoachView implements OnInit {
         }
 
         if (this.galerryTab === 3) {
-            let videoContent = this.feedMediaItem.filter((data) => { return ( data.feed_media && data.feed_media[0] && data.feed_media[0].content) ?(data.feed_media[0].content.type == 'video') || (data.feed_media[0].content.type == "videoLink"):null });
+            let videoContent = this.feedMediaItem.filter((data) => { return (data.feed_media && data.feed_media[0] && data.feed_media[0].content) ? (data.feed_media[0].content.type == 'video') || (data.feed_media[0].content.type == "videoLink") : null });
             if (videoContent && videoContent.length) {
 
                 this.showVideo = true;
@@ -285,7 +286,7 @@ export class CoachView implements OnInit {
 
 
     public openGalleryModal(event, message, item): void {
-        if (event) {
+        if (event) {            
             const dialogRef = this._dialog.open(GalleryModal, {
                 width: "1400px",
                 data: {

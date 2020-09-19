@@ -15,6 +15,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatAutocompleteSelectedEvent, MatAutocomplete } from '@angular/material/autocomplete';
 import { Router, ActivatedRoute } from '@angular/router';
 import { GooglePlaceDirective } from 'ngx-google-places-autocomplete';
+import * as CryptoJS from 'crypto-js';
 
 @Component({
     selector: "app-edit-profile",
@@ -431,7 +432,20 @@ export class EditProfileView implements OnInit {
             this.experience.controls.splice(ind, 1)
         }
     }
-
+    public copyReferralUrl() {
+        const selBox = document.createElement('textarea');
+        selBox.style.position = 'fixed';
+        selBox.style.left = '0';
+        selBox.style.top = '0';
+        selBox.style.opacity = '0';
+        let conversionEncryptOutput = CryptoJS.AES.encrypt(this.user.data.user.id.toString(), 'secret key').toString().replace('+', 'xMl3Jk').replace('/', 'Por21Ld').replace('=', 'Ml32');
+        selBox.value = `http://uat.marathon.me/refferal/${conversionEncryptOutput}`;
+        document.body.appendChild(selBox);
+        selBox.focus();
+        selBox.select();
+        document.execCommand('copy');
+        document.body.removeChild(selBox);
+    }
 
     public setCeriticatesPhoto(event): void {
         if (event) {
@@ -481,19 +495,28 @@ export class EditProfileView implements OnInit {
         this.showMore = !this.showMore;
     }
 
-    public filterCountry(query: string, countries: Results[]): Results[] {
+    public filterCountry(query: string, countries: Results[], autocomplete?): Results[] {
         let filtered: any[] = [];
         for (let item of countries) {
-            if (item.name.toLowerCase().includes(query.toLowerCase())) {
-                filtered.push(item);
+            if (query) {
+                if (item.name.toLowerCase().includes(query.toLowerCase().trim())) {
+                    if ((this.profileFormGroup.get('languages').value && this.profileFormGroup.get('languages').value.indexOf(item) == -1) || !this.profileFormGroup.get('languages').value)
+                        filtered.push(item);
+                }
+            } else {
+                if ((this.profileFormGroup.get('languages').value && this.profileFormGroup.get('languages').value.indexOf(item) == -1) || !this.profileFormGroup.get('languages').value)
+                    filtered.push(item);
             }
+        }
+        if (autocomplete) {
+            autocomplete.show()
         }
         return filtered;
     }
 
-    public filterCountryMultiple(event): void {
-        let query = event.query;
-        this.filteredCountriesMultiple = this.filterCountry(query, this.countries);
+    public filterCountryMultiple(event, autocomplete?): void {
+        let query = event ? event.query : null;
+        this.filteredCountriesMultiple = this.filterCountry(query, this.countries, autocomplete);
     }
 
     public setServicePhoto(event) {

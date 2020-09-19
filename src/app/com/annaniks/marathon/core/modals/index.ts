@@ -6,3 +6,4 @@ export * from "../modals/like/like.modal";
 export * from "../modals/gallery-modal/gallery-modal.modal";
 export * from "../modals/specialties/specialties.modal";
 export * from "../modals/profile-cover/profile-cover.modal";
+export * from './tags/tags.modal'

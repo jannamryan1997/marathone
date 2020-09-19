@@ -7,7 +7,8 @@ import { GalleryModal, ProfileCoverModal } from '../../../core/modals';
 @NgModule({
     declarations: [ProfileView,GalleryModal,ProfileCoverModal],
     imports: [SharedModule,ProfileRoutingModule],
-    entryComponents:[GalleryModal,ProfileCoverModal]
+    entryComponents:[GalleryModal,ProfileCoverModal],
+    providers:[]
 })
 
 export class ProfileModule { }

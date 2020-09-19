@@ -97,9 +97,11 @@
         </div>
         <form action="" [formGroup]="videoGroup">
             <div class="title-part">
-                <input type="text" formControlName="title" placeholder="Video Title">
+                <textarea id="title" formControlName="title" placeholder="Video Title"></textarea>
+              
             </div>
-            <div class="d-flex tags-content">
+            <div *ngIf="videoGroup.get('defaultTags').value && videoGroup.get('defaultTags').value.length"
+                class="d-flex tags-item tags-content">
                 <!-- <div *ngIf="!videoGroup.get('tags').value">
                     <div *ngFor="let tag of videoGroup.get('defaultTags').value;let i=index">
                       {{videoGroup.get('defaultTags').value}}
@@ -115,13 +117,12 @@
                     (click)="openSelectTagsModal()" class="see-more-btn">...See More</button>
             </div>
             <div class="d-flex tags-content lng-content">
-                <label class="placeholder-label" for=""
-                    *ngIf="!videoGroup.get('languages').value || (videoGroup.get('languages').value && !videoGroup.get('languages').value.length)">Language</label>
-                <p-autoComplete *ngIf="videoGroup.get('languages').value && videoGroup.get('languages').value.length"
-                    formControlName="languages" [suggestions]="videoGroup.get('languages').value" [minLength]="1"
-                    field="name" placeholder="Language" [multiple]="true">
+
+                <p-autoComplete #autocomplete formControlName="languages" [suggestions]="filteredLanguages"
+                    (click)="filterCountryMultiple(' ',autocomplete)" (onFocus)="filterCountryMultiple(null,autocomplete)"
+                    (completeMethod)="filterCountryMultiple($event,autocomplete)" [minLength]="1"
+                    placeholder="Languages" field="name" [multiple]="true" [autoHighlight]="true">
                 </p-autoComplete>
-                <button (click)="openLanguagesModal()" class="add-lng-btn">+</button>
             </div>
         </form>
     </div>

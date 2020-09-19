@@ -9,6 +9,7 @@ import { ProfileService } from '../../../core/services/profile.service';
 import { FollowService } from '../../../core/services/follow.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ProfileCoverModal } from '../../../core/modals';
+import * as CryptoJS from 'crypto-js';
 
 
 
@@ -201,6 +202,20 @@ export class ProfileView implements OnInit {
                 localImage: event,
             }
         })
+    }
+    public copyReferralUrl() {
+        const selBox = document.createElement('textarea');
+        selBox.style.position = 'fixed';
+        selBox.style.left = '0';
+        selBox.style.top = '0';
+        selBox.style.opacity = '0';   
+        let conversionEncryptOutput = CryptoJS.AES.encrypt(this.user.user.id.toString(),'secret key').toString().replace('+','xMl3Jk').replace('/','Por21Ld').replace('=','Ml32');       
+        selBox.value = `http://uat.marathon.me/refferal/${conversionEncryptOutput}`;
+        document.body.appendChild(selBox);
+        selBox.focus();
+        selBox.select();
+        document.execCommand('copy');
+        document.body.removeChild(selBox);
     }
 
     ngOnDestroy() {

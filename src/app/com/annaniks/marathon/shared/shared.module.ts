@@ -13,7 +13,7 @@ import { ClickOutsideModule } from 'ng-click-outside';
 import { PlyrModule } from 'ngx-plyr';
 
 
-import { AuthModal, LikeModal } from '../core/modals';
+import { AuthModal, LikeModal, TagsModalComponent } from '../core/modals';
 import { AuthGuard } from '../core/guards/auth.guard';
 import { NgxLoadingModule } from 'ngx-loading';
 
@@ -56,6 +56,7 @@ import {
 import { FeedService } from '../pages/main/feed/feed.service';
 import { CountryService } from '../core/services/country.service';
 import { LikeService } from '../core/services/like.service';
+import {MatChipsModule} from '@angular/material/chips';
 
 import {AutoCompleteModule} from 'primeng/autocomplete';
 
@@ -88,7 +89,8 @@ import {AutoCompleteModule} from 'primeng/autocomplete';
         ShareComponent,
         UserItemComponent,
         SkeletonLoadingComponent,
-        ChatComponent
+        ChatComponent,
+        TagsModalComponent
     ],
     imports: [
         ReactiveFormsModule,
@@ -107,10 +109,14 @@ import {AutoCompleteModule} from 'primeng/autocomplete';
         InfiniteScrollModule,
         SlickCarouselModule,
         MatProgressBarModule,
-        AutoCompleteModule
+        AutoCompleteModule,
+        MatChipsModule,
+        
+        
+        
     ],
     providers: [AuthGuard,FeedService,CountryService,LikeService],
-    entryComponents: [LikeModal],
+    entryComponents: [LikeModal,TagsModalComponent],
     exports: [
         ReactiveFormsModule,
         FormsModule,
@@ -156,8 +162,9 @@ import {AutoCompleteModule} from 'primeng/autocomplete';
         UserItemComponent,
         MatProgressBarModule,
         SkeletonLoadingComponent,
-        ChatComponent
-   
+        ChatComponent,
+        TagsModalComponent,
+        MatChipsModule   
     ],
 })
 

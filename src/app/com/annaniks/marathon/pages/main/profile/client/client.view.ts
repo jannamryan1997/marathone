@@ -58,7 +58,7 @@ export class ClientView implements OnInit {
         private _profileService: ProfileService,
         private _countryService: CountryService,
         private _activatedRoute: ActivatedRoute,
-        private _cookieService:CookieService,
+        private _cookieService: CookieService,
     ) {
         this._activatedRoute.parent.parent.params.pipe(takeUntil(this.unsubscribe$)).subscribe((param) => {
             if (param && param.id) {
@@ -71,7 +71,7 @@ export class ClientView implements OnInit {
                 this._getProfile()
             }
         })
-        this.role=this._cookieService.get('role');
+        this.role = this._cookieService.get('role');
     }
 
     ngOnInit() { }
@@ -92,7 +92,7 @@ export class ClientView implements OnInit {
             .subscribe()
     }
     public checkIsMe() {
-        if (this._userService.user) {                                  
+        if (this._userService.user) {
             return (!this.user || +this.user.user.id == +this._userService.user.data.user.id)
         } else {
             return false
@@ -161,12 +161,13 @@ export class ClientView implements OnInit {
                 this.specialityName = []
                 data.results.map((name, index) => {
                     url = name.url;
-                    this._userService.user.data.speciality.forEach(element => {
-                        if (url === element) {
-                            this.specialityName.push({ name: name.name });
+                    if (this._userService.user && this._userService.user.data)
+                        this._userService.user.data.speciality.forEach(element => {
+                            if (url === element) {
+                                this.specialityName.push({ name: name.name });
 
-                        }
-                    })
+                            }
+                        })
                 })
             })
     }
@@ -190,7 +191,7 @@ export class ClientView implements OnInit {
             }
             else {
                 this.galleryContentType = false;
-                
+
             }
         }
 
@@ -201,8 +202,8 @@ export class ClientView implements OnInit {
         this.galerryTab = tab;
         if (this.galerryTab === 2) {
 
-            let imageContent = this.feedMediaItem.filter((data) => { return( data.feed_media && data.feed_media[0] && data.feed_media[0].content) ? (data.feed_media[0].content.type == 'image') : null });
-           
+            let imageContent = this.feedMediaItem.filter((data) => { return (data.feed_media && data.feed_media[0] && data.feed_media[0].content) ? (data.feed_media[0].content.type == 'image') : null });
+
             if (imageContent && imageContent.length) {
                 this.showGallery = true;
             } else {
@@ -212,7 +213,7 @@ export class ClientView implements OnInit {
         }
 
         if (this.galerryTab === 3) {
-            let videoContent = this.feedMediaItem.filter((data) => { return ( data.feed_media && data.feed_media[0] && data.feed_media[0].content) ?(data.feed_media[0].content.type == 'video') || (data.feed_media[0].content.type == "videoLink"):null });
+            let videoContent = this.feedMediaItem.filter((data) => { return (data.feed_media && data.feed_media[0] && data.feed_media[0].content) ? (data.feed_media[0].content.type == 'video') || (data.feed_media[0].content.type == "videoLink") : null });
             if (videoContent && videoContent.length) {
 
                 this.showVideo = true;
