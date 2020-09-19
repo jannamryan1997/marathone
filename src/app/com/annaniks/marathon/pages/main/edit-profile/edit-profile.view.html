@@ -277,7 +277,7 @@
                         <div>
                             <!-- <p-multiSelect [options]="countries" formControlName="languages" optionLabel="name">
                             </p-multiSelect>  -->
-                            <p-autoComplete formControlName="languages" (optionSelected)="selected($event)"
+                            <p-autoComplete (onFocus)="filterCountryMultiple(null,autocomplete)" #autocomplete formControlName="languages" (optionSelected)="selected($event)"
                                 [suggestions]="filteredCountriesMultiple"
                                 (completeMethod)="filterCountryMultiple($event)" [minLength]="1" placeholder=""
                                 field="name" [multiple]="true">
