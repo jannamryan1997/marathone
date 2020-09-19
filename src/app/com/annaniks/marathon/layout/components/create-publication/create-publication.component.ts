@@ -5,13 +5,11 @@ import { UploadFileResponse, FeedResponseData } from '../../../core/models';
 import { FeedService } from '../../../pages/main/feed/feed.service';
 import { CookieService } from 'ngx-cookie';
 import { finalize, takeUntil } from 'rxjs/operators';
-import { ReceiptData } from '../../../core/models/receipt';
 import { Subject } from 'rxjs';
 import { YoutubeService } from '../../../core/services/youtube.service';
 import { MatDialog } from '@angular/material/dialog';
 import { SpecialtiesModal, TagsModalComponent } from '../../../core/modals';
 import { CountryService } from '../../../core/services/country.service';
-import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
 @Component({
     selector: "app-create-publication",
@@ -54,7 +52,7 @@ export class CreatePublicationComponent implements OnInit {
     public loading = false;
     public showYoutube: boolean = false;
     public mediaContent;
-
+    @ViewChild('autocomplete') private _autocomplete;
     constructor(
         public _userService: UserService,
         private _feedService: FeedService,
@@ -72,14 +70,15 @@ export class CreatePublicationComponent implements OnInit {
         if (this.editProfile) {
             this._getFeedById();
         } else {
+            this.loading = true;
             this._getLanguages();
-
         }
         this._autosize();
         this._initi18n();
         this._setPatchValue();
 
     }
+
     private _initVideoGroup() {
         this.videoGroup = this._fb.group({
             title: [null],
@@ -88,7 +87,11 @@ export class CreatePublicationComponent implements OnInit {
             defaultTags: []
 
         })
+        this.videoGroup.get('languages').valueChanges.pipe(takeUntil(this._unsbscribe)).subscribe((val) => {
+            this.filterCountryMultiple(' ', this._autocomplete)
+        })
     }
+
     private _initi18n() {
         this.i18n = {
 
@@ -128,20 +131,29 @@ export class CreatePublicationComponent implements OnInit {
         }
         return completeTags
     }
-    public filterCountryMultiple(event): void {
-        let query = event.query;
-        this.filteredLanguages = this.filterCountry(query, this.allLanguages)
+    public filterCountryMultiple(event, autocomplete?): void {
+
+        let query = event ? event.query : null;
+        this.filteredLanguages = this.filterCountry(query, this.allLanguages, autocomplete)
     }
 
-    public filterCountry(query: string, languages) {
+    public filterCountry(query: string, languages, autocomplete?) {
         let filtered: any[] = [];
 
         for (let item of languages) {
-            if (item.name.toLowerCase().includes(query.toLowerCase().trim())) {
+            if (query) {
+                if (item.name.toLowerCase().includes(query.toLowerCase().trim())) {
+                    if ((this.videoGroup.get('languages').value && this.videoGroup.get('languages').value.indexOf(item) == -1) || !this.videoGroup.get('languages').value)
+                        filtered.push(item);
+                }
+            } else {
                 if ((this.videoGroup.get('languages').value && this.videoGroup.get('languages').value.indexOf(item) == -1) || !this.videoGroup.get('languages').value)
                     filtered.push(item);
+
             }
         }
+        if (autocomplete)
+            autocomplete.show();
         return filtered;
     }
 
@@ -166,8 +178,9 @@ export class CreatePublicationComponent implements OnInit {
         })
 
     }
-
+ 
     private _getFeedById(): void {
+        this.loading = true;
         this._feedService.getFeedById(this.feedId)
             .pipe(takeUntil(this._unsbscribe))
             .subscribe((data: FeedResponseData) => {
@@ -186,7 +199,6 @@ export class CreatePublicationComponent implements OnInit {
                     }
                     this._getLanguages();
                     if (this.mediaContent.isShowVideo) {
-
                         this.videoGroup.patchValue({
                             title: this.mediaContent.title,
                             tags: this.mediaContent.tags,
@@ -420,11 +432,11 @@ export class CreatePublicationComponent implements OnInit {
                         }
                     this.videoGroup.patchValue({
                         defaultTags: tagsArray
-                    })                    
+                    })
                     if (!this.editProfile) {
                         this.videoGroup.patchValue({
                             title: data.items[0].snippet.title,
-                            languages: data.items[0].snippet.defaultAudioLanguage ?this.languages[data.items[0].snippet.defaultAudioLanguage.toLowerCase()] ?[this.languages[data.items[0].snippet.defaultAudioLanguage.toLowerCase()]]:[] : []
+                            languages: data.items[0].snippet.defaultAudioLanguage ? this.languages[data.items[0].snippet.defaultAudioLanguage.toLowerCase()] ? [this.languages[data.items[0].snippet.defaultAudioLanguage.toLowerCase()]] : [] : []
                         })
                     }
                 }
@@ -455,6 +467,8 @@ export class CreatePublicationComponent implements OnInit {
 
     }
     private _getLanguages(): void {
+
+
         this._countryService.getAllLanguages()
             .pipe(takeUntil(this._unsbscribe))
             .subscribe((lng) => {
@@ -475,15 +489,16 @@ export class CreatePublicationComponent implements OnInit {
                                 languagesArray.push(select[0])
                             }
                         }
-                        
+
                         if (this.mediaContent.isShowVideo) {
-                            
+
                             this.videoGroup.patchValue({
                                 languages: languagesArray
                             })
                         }
                     }
                 }
+                this.loading = false;
             });
     }
     public closeVideo(): void {
@@ -502,7 +517,7 @@ export class CreatePublicationComponent implements OnInit {
         const dialogRef = this._dialog.open(TagsModalComponent, {
             width: "520px",
             maxHeight: '57vh',
-            panelClass:'tags-modal',
+            panelClass: 'tags-modal',
             data: {
                 data: this.videoGroup.get('defaultTags').value,
                 activeItem: this.videoGroup.get('tags').value,

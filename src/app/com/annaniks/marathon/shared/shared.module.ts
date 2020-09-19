@@ -113,6 +113,7 @@ import {AutoCompleteModule} from 'primeng/autocomplete';
         MatChipsModule,
         
         
+        
     ],
     providers: [AuthGuard,FeedService,CountryService,LikeService],
     entryComponents: [LikeModal,TagsModalComponent],
@@ -163,8 +164,7 @@ import {AutoCompleteModule} from 'primeng/autocomplete';
         SkeletonLoadingComponent,
         ChatComponent,
         TagsModalComponent,
-        MatChipsModule
-   
+        MatChipsModule   
     ],
 })
 

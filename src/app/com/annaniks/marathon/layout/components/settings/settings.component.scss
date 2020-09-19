@@ -180,6 +180,7 @@
 .comment-class-type{
     @include text(15px, 15px, #65a4fe, EncodeSans-SemiBold);
     margin-left: 9px;
+    word-break: normal;
 }
 // .buttonStype {
 //     padding: 12px 8px 12px 8px !important;

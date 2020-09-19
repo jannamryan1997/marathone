@@ -12,12 +12,12 @@
         </div>
     </div>
 
-    <video controls class="video-item d-none w-100" poster="" [ngClass]="{'d-block':mediaItem?.type==='video'}"
+    <video controls class="video-item d-none w-100 pointer-events-none" poster="" [ngClass]="{'d-block':mediaItem?.type==='video'}"
     [src]="videoUrl">
 </video>
 
 
-    <div class="youtube-video d-none w-100" [ngClass]="{'d-block':mediaItem?.type==='videoLink'}">
+    <div class="youtube-video d-none w-100 pointer-events-none"  [ngClass]="{'d-block':mediaItem?.type==='videoLink'}">
         <plyr style="display:block" plyrTitle="Video 1" [plyrSources]="videoSources"></plyr>
     </div>
 </div>

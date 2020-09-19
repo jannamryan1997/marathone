@@ -134,8 +134,8 @@ export class CoachView implements OnInit {
         let titleLength: number;
         if (this.user.status) {
             titleLength = this.user.status.length;
-            this.userStatus = this.user.status;
-            if (titleLength > 280) {
+            this.userStatus = this.user.status;            
+            if (titleLength > 280) {                
                 this.seeMore = true;
                 this.userStatus = this.user.status.slice(0, 280);
             }
@@ -287,6 +287,8 @@ export class CoachView implements OnInit {
 
     public openGalleryModal(event, message, item): void {
         if (event) {
+            console.log(item);
+            
             const dialogRef = this._dialog.open(GalleryModal, {
                 width: "1400px",
                 data: {

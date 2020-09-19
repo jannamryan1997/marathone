@@ -53,7 +53,7 @@
         .more {
             color: #65a4fe;
             cursor: pointer;
-
+            margin-left: 2px;
             line-height: 20px !important;
         }
     }
@@ -106,6 +106,7 @@
     // height: 45px;
     overflow: hidden;
     transition: 0.5s all ease-out;
+    white-space: pre-wrap;
 
 }
 

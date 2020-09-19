@@ -29,15 +29,16 @@ export class GalleryModal implements OnInit, OnDestroy {
     public isOpen: boolean = true;
     public role: string;
     private unsubscribe$ = new Subject<void>();
-
+    private _defaultImage: string = '/assets/images/user-icon-image.png';
+    private _isChange: boolean = false;
     constructor(
         @Inject(MAT_DIALOG_DATA) private _data,
         @Inject('FILE_URL') public fileURL,
         private _commentService: CommentService,
         private _cookieService: CookieService,
         private _feedService: FeedService,
-        private _matDialog:MatDialog,
-        private _dialogRef:MatDialogRef<GalleryModal>,
+        private _matDialog: MatDialog,
+        private _dialogRef: MatDialogRef<GalleryModal>,
     ) {
         this.role = this._cookieService.get('role');
         if (this._data && this._data.type) {
@@ -58,7 +59,7 @@ export class GalleryModal implements OnInit, OnDestroy {
         }
         // this._userService.user.data;
         if (this.user) {
-            this.localImage = this.fileURL + this.user.avatar;
+            this.localImage = this.user.avatar ? this.fileURL + this.user.avatar : this._defaultImage;
         }
 
     }
@@ -104,7 +105,7 @@ export class GalleryModal implements OnInit, OnDestroy {
 
         if (event) {
             let parentUrl = event.parentUrl ? event.parentUrl : null;
-
+            this._isChange = true;
             this._combineObservable(parentUrl).pipe(takeUntil(this.unsubscribe$)).subscribe()
         }
     }
@@ -115,12 +116,13 @@ export class GalleryModal implements OnInit, OnDestroy {
 
     public getButtonsType(event: string) {
         if (event) {
+            this._isChange = true;
             this._getFeedById().pipe(takeUntil(this.unsubscribe$)).subscribe();
         }
         else {
             this._dialogRef.close();
             this.onClickOpenAuth();
-       
+
         }
     }
 
@@ -130,6 +132,7 @@ export class GalleryModal implements OnInit, OnDestroy {
     }
     public likeOrDislike(event) {
         if (event) {
+            this._isChange = true;
             this._getComments(event.isChild).pipe(takeUntil(this.unsubscribe$)).subscribe()
 
         }
