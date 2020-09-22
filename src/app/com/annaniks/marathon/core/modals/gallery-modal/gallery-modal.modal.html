@@ -34,26 +34,32 @@
   <div class="rigth-content">
     <div class="rigth-description">
       <div>
-      <div class="header-content">
-        <div class="display-flex">
+        <div class="header-content">
           <div class="display-flex">
-            <img [src]="localImage" class="local-image" alt="Cinque Terre">
-            <p class="name-title mb-0"> {{user?.user?.first_name}}</p>
-          </div>
+            <div class="display-flex">
+              <img [src]="localImage" class="local-image" alt="Cinque Terre">
+              <p class="name-title mb-0"> {{user?.user?.first_name}}</p>
+            </div>
 
-          <span class="material-icons icon">
-            more_vert
-          </span>
+            <span class="material-icons icon">
+              more_vert
+            </span>
+          </div>
         </div>
-      </div>
-       <div class="comments-content"  *ngIf="comments.length">
+        <div  class="comments-content" *ngIf="comments.length">
+          <span (click)="showAllComments()" class="more-comment"
+            *ngIf="count && comments.length > pageLength && pageLength!==comments.length">Show
+            more
+            {{getOtherCommentCount()}}
+            comments</span>
           <app-comments (sendMessage)="sendMessage($event)" (likeOrDislike)="likeOrDislike($event)"
-            *ngFor="let item of comments" [feed]="feedItem" [comments]="item" [role]="role" [type]="mediaItem[0]?.type">
+            *ngFor="let item of comments | slice:startIndex:comments.length" [feed]="feedItem" [comments]="item" [role]="role"
+            [type]="mediaItem[0]?.type">
           </app-comments>
         </div>
-    </div>
+      </div>
       <div class="settings">
-       
+
         <app-settings [feed]="feedItem" [role]="role" (getButtonsType)="getButtonsType($event)"
           (openChanges)='onClickOpen($event)' [type]="mediaItem[0]?.type" [style]="true"></app-settings>
 

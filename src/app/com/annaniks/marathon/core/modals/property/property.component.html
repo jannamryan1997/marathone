@@ -65,7 +65,7 @@
         <div class="left-content">
             <img src="{{fileUrl+content?.url}}" class="image d-none" alt="Cinque Terre"
                 [ngClass]="{'d-block':content?.type==='image'}">
-                <video controls class="video d-none w-100" poster="" [ngClass]="{'d-block':content.type==='video'}"
+            <video controls class="video d-none w-100" poster="" [ngClass]="{'d-block':content.type==='video'}"
                 src="{{fileUrl+content?.url}}">
             </video>
         </div>
@@ -96,18 +96,26 @@
                         </div>
 
                     </div>
+
                     <div class="comment-messages">
-                            <div class="comments-content" *ngIf="comments.length">
-                                    <app-comments (sendMessage)="sendMessage($event)" (likeOrDislike)="likeOrDislike($event)"
-                                        *ngFor="let item of comments" [feed]="feedItem" [comments]="item" [role]="role"
-                                        [type]="content?.type"></app-comments>
-                                </div>
+                        
+                        <div  class="comments-content" *ngIf="comments.length">
+                            <span (click)="showAllComments()" class="more-comment"
+                            *ngIf="count && comments.length > pageLength && pageLength!==comments.length">Show
+                            more
+                            {{getOtherCommentCount()}}
+                            comments</span>
+                            <app-comments (sendMessage)="sendMessage($event)" (likeOrDislike)="likeOrDislike($event)"
+                                *ngFor="let item of comments | slice:startIndex:comments.length" [feed]="feedItem"
+                                [comments]="item" [role]="role" [type]="content?.type"></app-comments>
+                        </div>
                     </div>
                 </div>
                 <div class="comment-contnet">
-                    
+
                     <app-settings [feed]="feedItem" [role]="role" (getButtonsType)="getButtonsType($event)"
-                        (openChanges)='onClickOpen($event)' [type]="content?.type" [share]="false" [style]="true"></app-settings>
+                        (openChanges)='onClickOpen($event)' [type]="content?.type" [share]="false" [style]="true">
+                    </app-settings>
 
                     <div *ngIf="isOpen">
                         <app-posts-comments [feed]="feedItem" (sendMessage)="sendMessage($event)" *ngIf="role"

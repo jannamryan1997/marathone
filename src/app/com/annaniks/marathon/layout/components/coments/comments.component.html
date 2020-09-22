@@ -65,7 +65,7 @@
         </div>
         <!--replace-->
         <div *ngIf="showReplay">
-            <div class="replay-message message d-flex" *ngFor="let item of comments?.comment_sub">
+            <div  class="replay-message message d-flex" *ngFor="let item of comments?.comment_sub">
                 <img [routerLink]="getProfleUrl()" [src]="getUserImage(item)" class="user-image" alt="Cinque Terre">
                 <div class="comments-container">
                     <div class="container-description display-flex">
@@ -117,7 +117,7 @@
                 </div>
             </div>
         </div>
-        <app-posts-comments [feed]="feed" [parent]="comments?.url" *ngIf="isOpenComments"
+        <app-posts-comments [id]="comments?.url" [feed]="feed" [parent]="comments?.url" *ngIf="isOpenComments"
             (sendMessage)="sendMessage($event)"></app-posts-comments>
     </div>
 </div>

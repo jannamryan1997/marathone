@@ -34,10 +34,10 @@ export class CommentService {
         return this._httpClient.post(this._baseUrl + '/feed/comment/', body)
     }
 
-    public getFeedCommentById(feedId: number) {
+    public getFeedCommentById(feedId: number,limit?:number,offset?:number) {
         let params = new HttpParams();
         params = params.set('authorization', 'true');
-        return this._httpClient.get<any>(this._baseUrl + `/feed/comment/?feed=${feedId}`, { params: params })
+        return this._httpClient.get<any>(this._baseUrl + `/feed/comment/?feed=${feedId}&limit=${limit}&offset=${offset}`, { params: params })
     }
     public getCommentLikeOrDislikeBody(commentUrl: string) {
         let body = {

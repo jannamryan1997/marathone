@@ -73,7 +73,7 @@ export class CreatePublicationComponent implements OnInit {
             this.loading = true;
             this._getLanguages();
         }
-        this._autosize();
+        this._autosize('textarea');
         this._initi18n();
         this._setPatchValue();
 
@@ -169,9 +169,9 @@ export class CreatePublicationComponent implements OnInit {
         this.videoPleyer = true;
     }
 
-    private _autosize() {
-        const el = document.getElementById('textarea');
-        this.postType.valueChanges.subscribe((data) => {
+    private _autosize(id:string) {
+        const el = document.getElementById(id);
+        this.postType.valueChanges.subscribe((data) => {            
             this.autoSize.emit(data);
             setTimeout(() => {
                 el.style.cssText = 'height:auto; padding:0';

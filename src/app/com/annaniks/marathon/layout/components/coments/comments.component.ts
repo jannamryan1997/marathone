@@ -58,7 +58,7 @@ export class CommentsComponent implements OnInit, OnDestroy {
                         this._commentService.deletelikeComment(item.is_liked_id).pipe(takeUntil(this.unsubscribe$),
                             switchMap((data) => {
                                 return this._commentService.dislikeComment(item.url)
-                            })).subscribe(()=>{
+                            })).subscribe(() => {
                                 this._isLikeOrDislike.emit({ isChild: childUrl })
                             })
                     } else {
@@ -82,7 +82,7 @@ export class CommentsComponent implements OnInit, OnDestroy {
                             this._commentService.deleteIsDislike(item.is_dis_liked_id).pipe(takeUntil(this.unsubscribe$),
                                 switchMap((data) => {
                                     return this._commentService.likeComment(item.url)
-                                })).subscribe(()=>{
+                                })).subscribe(() => {
                                     this._isLikeOrDislike.emit({ isChild: childUrl })
                                 })
                         } else {
@@ -107,46 +107,55 @@ export class CommentsComponent implements OnInit, OnDestroy {
         }
     }
     public getUserImage(item) {
-    if (item) {
-        let defaultImage = '/assets/images/user-icon-image.png';
-        if (item.user_coach) {
-            return item.user_coach && item.user_coach.avatar ? this.fileUrl + item.user_coach.avatar : defaultImage
-        }
-        if (item.comment_coach) {
-            return item.comment_coach && item.comment_coach.avatar ? this.fileUrl + item.comment_coach.avatar : defaultImage
+        if (item) {
+            let defaultImage = '/assets/images/user-icon-image.png';
+            if (item.user_coach) {
+                return item.user_coach && item.user_coach.avatar ? this.fileUrl + item.user_coach.avatar : defaultImage
+            }
+            if (item.comment_coach) {
+                return item.comment_coach && item.comment_coach.avatar ? this.fileUrl + item.comment_coach.avatar : defaultImage
+            }
         }
     }
-}
     public convertDate(comment) {
-    if (comment && comment.crated_at)
-        return moment(comment.crated_at).fromNow()
-}
+        if (comment && comment.crated_at)
+            return moment(comment.crated_at).fromNow()
+    }
     public openCommentComponent() {
-    this.isOpenComments = !this.isOpenComments
-}
-    public sendMessage($event) {
-    this._sendMessage.emit($event);
-    this.showReplay = true
-}
-    public getCreatorName(item): string {
-    if (item) {
-        if (item.user_coach) {
-            return `${item.user_coach.user.first_name} `
-        }
-        if (item.comment_coach) {
-            return `${item.comment_coach.user.first_name} `
+        this.isOpenComments = !this.isOpenComments;
+        if (this.isOpenComments) {
+            setTimeout(() => {
+                let item = document.getElementById(this.comments.url)                                
+                if (item)
+                    item.scrollIntoView({ behavior: 'smooth', block: 'end' })
+
+            });
+
         }
     }
-}
+    public sendMessage($event) {
+        this._sendMessage.emit($event);
+        this.showReplay = true
+    }
+    public getCreatorName(item): string {
+        if (item) {
+            if (item.user_coach) {
+                return `${item.user_coach.user.first_name} `
+            }
+            if (item.comment_coach) {
+                return `${item.comment_coach.user.first_name} `
+            }
+        }
+    }
     public getProfleUrl() {
-    let role = this.comments.user_coach ? 'client' : 'coach';
-    let userSlug = this.comments.user_coach ? this.comments.user_coach.slug : this.comments.comment_coach.slug;
-    return `/profile/${userSlug}/${role}`
-}
+        let role = this.comments.user_coach ? 'client' : 'coach';
+        let userSlug = this.comments.user_coach ? this.comments.user_coach.slug : this.comments.comment_coach.slug;
+        return `/profile/${userSlug}/${role}`
+    }
 
-ngOnDestroy() {
-    this.unsubscribe$.next();
-    this.unsubscribe$.complete();
-}
+    ngOnDestroy() {
+        this.unsubscribe$.next();
+        this.unsubscribe$.complete();
+    }
 }
 

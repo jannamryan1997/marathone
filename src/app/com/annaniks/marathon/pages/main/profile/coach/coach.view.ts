@@ -5,7 +5,7 @@ import { FeedResponseData, FeedData, UploadFileResponse } from '../../../../core
 import { finalize, takeUntil, switchMap, map } from 'rxjs/operators';
 import { RemoveModal, GalleryModal } from '../../../../core/modals';
 import { MatDialog } from '@angular/material/dialog';
-import { Subject, of } from 'rxjs';
+import { Subject, of, forkJoin } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ProfileService } from '../../../../core/services/profile.service';
 import { CountryService } from '../../../../core/services/country.service';
@@ -75,7 +75,6 @@ export class CoachView implements OnInit {
     }
 
     ngOnInit() {
-        this._getSpeciality();
 
     }
 
@@ -90,14 +89,20 @@ export class CoachView implements OnInit {
             }, 0);
         }
     }
-
+    private _combineObservable() {
+        const combine = forkJoin(
+            this._getLanguages(),
+            this._getSpeciality()
+        )
+        return combine
+    }
     private _getProfile() {
         this._profileService.getProfile('coach', this._userSlug).pipe(takeUntil(this.unsubscribe$),
             switchMap((data) => {
                 if (data.results && data.results.length) {
                     this.user = data.results[0];
                     this._showseeMore();
-                    return this._getLanguages().pipe(switchMap((data) => {
+                    return this._combineObservable().pipe(switchMap((data) => {
                         return this._getFeed()
                     }));
 
@@ -134,7 +139,7 @@ export class CoachView implements OnInit {
         let titleLength: number;
         if (this.user.status) {
             titleLength = this.user.status.length;
-            this.userStatus = this.user.status;
+            this.userStatus = this.user.status;                    
             if (titleLength > 280) {
                 this.seeMore = true;
                 this.userStatus = this.user.status.slice(0, 280);
@@ -142,6 +147,8 @@ export class CoachView implements OnInit {
             else {
                 this.seeMore = false;
             }
+        }else{
+            this.seeMore = false;
         }
     }
 
@@ -166,21 +173,22 @@ export class CoachView implements OnInit {
     }
     private _getSpeciality() {
         let url: string;
-        this._countryService.getSpeciality()
-            .pipe(takeUntil(this._unsbscribe))
-            .subscribe((data) => {
+        return this._countryService.getSpeciality()
+            .pipe(map((data) => {
                 this.specialityName = []
                 data.results.map((name, index) => {
                     url = name.url;
-                    if (this._userService.user && this._userService.user.data)
-                        this._userService.user.data.speciality.forEach(element => {
+                    if (this.user.speciality)
+                        this.user.speciality.forEach(element => {
                             if (url === element) {
                                 this.specialityName.push({ name: name.name });
 
                             }
                         })
                 })
-            })
+                return data
+            }))
+
     }
 
     public checkIsMe() {
@@ -297,12 +305,12 @@ export class CoachView implements OnInit {
             dialogRef.afterClosed().pipe(takeUntil(this.unsubscribe$)).subscribe((data) => {
                 this._feedService.getFeedById(item.id).subscribe((val) => {
                     item.is_liked = val.is_liked
-                    item.is_liked_id= val.is_liked_id
-                    item.feed_comments_count= val.feed_comments_count
-                    item.feed_likes_count= val.feed_likes_count                    
-                    this.feedMediaItem[index] = item                    
+                    item.is_liked_id = val.is_liked_id
+                    item.feed_comments_count = val.feed_comments_count
+                    item.feed_likes_count = val.feed_likes_count
+                    this.feedMediaItem[index] = item
                 })
-              
+
             })
         }
     }

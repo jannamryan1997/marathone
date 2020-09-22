@@ -188,9 +188,9 @@
 
                     .comment-messages {
                         margin: 15px 0;
-                        max-height: 390px;
+                        max-height: 438px;
                         overflow: hidden;
-                        overflow-y: scroll;
+                        overflow-y: auto;
                     }
                 }
 
@@ -202,6 +202,12 @@
             }
         }
     }
+}
+.more-comment{
+    &:hover{
+    text-decoration: underline;
+    }
+    cursor: pointer;
 }
 
 

@@ -142,7 +142,7 @@ export class IngridientViewComponent implements OnInit {
         }
     }
     private _getComments(parent?): Observable<ServerResponse<Comment[]>> {
-        return this._commentService.getFeedCommentById(this.feedItem.id).pipe(map((data: ServerResponse<Comment[]>) => {
+        return this._commentService.getFeedCommentById(this.feedItem.id,+this.feedItem.feed_comments_count,0).pipe(map((data: ServerResponse<Comment[]>) => {
             this.comments = data.results;
             if (parent) {
                 this.comments = this.comments.map((val) => {

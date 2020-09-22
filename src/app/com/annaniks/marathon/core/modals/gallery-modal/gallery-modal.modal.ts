@@ -31,6 +31,8 @@ export class GalleryModal implements OnInit, OnDestroy {
     private unsubscribe$ = new Subject<void>();
     private _defaultImage: string = '/assets/images/user-icon-image.png';
     private _isChange: boolean = false;
+    public count: number;
+    public pageLength:number = 3;
     constructor(
         @Inject(MAT_DIALOG_DATA) private _data,
         @Inject('FILE_URL') public fileURL,
@@ -46,6 +48,7 @@ export class GalleryModal implements OnInit, OnDestroy {
         }
         if (this._data && this._data.data) {
             this.feedItem = this._data.data;
+            this.count = +this.feedItem.feed_comments_count;            
             this.user = this.feedItem ? this.feedItem.creator_client_info ? this.feedItem.creator_client_info :
                 this.feedItem.creator_info ? this.feedItem.creator_info : null : null
         }
@@ -65,7 +68,7 @@ export class GalleryModal implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this._getComments();
+        this._getComments().pipe(takeUntil(this.unsubscribe$)).subscribe();
     }
 
 
@@ -77,7 +80,7 @@ export class GalleryModal implements OnInit, OnDestroy {
     }
 
     private _getComments(parent?): Observable<ServerResponse<Comment[]>> {
-        return this._commentService.getFeedCommentById(this.feedItem.id).pipe(map((data: ServerResponse<Comment[]>) => {
+        return this._commentService.getFeedCommentById(this.feedItem.id,this.count,0).pipe(map((data: ServerResponse<Comment[]>) => {
             this.comments = data.results;
 
             if (parent) {
@@ -137,7 +140,19 @@ export class GalleryModal implements OnInit, OnDestroy {
 
         }
     }
-
+    public showAllComments() {
+        this.pageLength = this.comments.length
+    }
+    public getOtherCommentCount() {
+        return this.comments.length - this.pageLength
+    }
+    get startIndex() {
+        if (this.comments.length) {
+            return this.comments.length - this.pageLength
+        } else {
+            return 0
+        }
+    }
     ngOnDestroy() { }
 
 } 

@@ -29,6 +29,9 @@ export class PropertyModal implements OnInit {
     public role: string;
     public localImage: string;
     public comments = [];
+    public pageLength: number = 3;
+    public count: number = 0;
+    public page: number;
     constructor(@Inject(MAT_DIALOG_DATA) private _data,
         private _dialogRef: MatDialogRef<PropertyModal>,
         private _cookieService: CookieService,
@@ -39,11 +42,12 @@ export class PropertyModal implements OnInit {
         private _feedLikeService: FeedLikeService
     ) {
         this.feedItem = _data.data;
-        this.localImage =this._data.localImage;
-        if(  this.feedItem){
+        this.count = +this.feedItem.feed_comments_count;        
+        this.localImage = this._data.localImage;
+        if (this.feedItem) {
             this.timeStamp = moment(this.feedItem.timeStamp).fromNow();
         }
-       
+
         this.role = this._cookieService.get('role')
 
 
@@ -51,18 +55,19 @@ export class PropertyModal implements OnInit {
 
     ngOnInit() {
         this._getComments().pipe(takeUntil(this.unsubscribe$)).subscribe()
-        
-        if( this.feedItem ){
-        for (let item of this.feedItem.feed_media) {
-            this.content =  item.content;
+
+        if (this.feedItem) {
+            for (let item of this.feedItem.feed_media) {
+                this.content = item.content;
                 if (typeof item.content == 'string') {
                     this.content = JSON.parse(item.content)
                 }
             }
             this._showseeMore();
         }
-      
+
     }
+  
     get userRole() {
         let role = this.feedItem.creator_client_info ? 'client' : 'coach';
         return role
@@ -84,11 +89,11 @@ export class PropertyModal implements OnInit {
     }
     public sendMessage(event) {
         if (event) {
-            let parentUrl = event.parentUrl ? event.parentUrl : null;            
-            this._combineObservable(parentUrl).pipe(takeUntil(this.unsubscribe$)).subscribe()        
+            let parentUrl = event.parentUrl ? event.parentUrl : null;
+            this._combineObservable(parentUrl).pipe(takeUntil(this.unsubscribe$)).subscribe()
         }
     }
-   
+
     private _combineObservable(parent?) {
         const combine = forkJoin(
             this._getComments(parent),
@@ -99,18 +104,18 @@ export class PropertyModal implements OnInit {
 
     public likeOrDislike(event) {
         if (event) {
-            this._getComments(event.isChild).pipe(takeUntil(this.unsubscribe$)).subscribe()          
+            this._getComments(event.isChild).pipe(takeUntil(this.unsubscribe$)).subscribe()
 
-        }else{
+        } else {
             this.onClickOpenAuth()
         }
     }
 
     public getButtonsType(event: string) {
         if (event) {
-            this._getFeedById().pipe(takeUntil(this.unsubscribe$)).subscribe();           
-        }else{
-            this.onClickOpenAuth()  
+            this._getFeedById().pipe(takeUntil(this.unsubscribe$)).subscribe();
+        } else {
+            this.onClickOpenAuth()
         }
     }
     public onClickOpenAuth(): void {
@@ -125,6 +130,7 @@ export class PropertyModal implements OnInit {
             return result
         }))
     }
+
     public onClickSeeMore(): void {
         this.feedTitle = this.feedItem.title.slice(0, this.feedItem.title.length);
         this.seeMore = false;
@@ -133,25 +139,41 @@ export class PropertyModal implements OnInit {
         this.isOpen = $event;
         this._getComments().pipe(takeUntil(this.unsubscribe$)).subscribe()
     }
-   
+
     private _getComments(parent?): Observable<ServerResponse<Comment[]>> {
-        return this._commentService.getFeedCommentById(this.feedItem.id).pipe(map((data: ServerResponse<Comment[]>) => {
+        return this._commentService.getFeedCommentById(this.feedItem.id, this.count, 0).pipe(map((data: ServerResponse<Comment[]>) => {
             this.comments = data.results;
-            
+            // if (this.comments && this.comments.length)
+            //     this.comments.sort((a, b) => { return +b.id - +a.id })
+
             if (parent) {
                 this.comments = this.comments.map((val) => {
                     if (val.url == parent) {
                         val.isShowSubMessages = true
                     }
                     return val
-                })                
+                })
             }
             return data;
         }))
     }
+    
 
     public closeModal(): void {
         this._dialogRef.close();
+    }
+    public showAllComments() {
+        this.pageLength = this.comments.length
+    }
+    public getOtherCommentCount() {
+        return this.comments.length - this.pageLength
+    }
+    get startIndex() {
+        if (this.comments.length) {
+            return this.comments.length - this.pageLength
+        } else {
+            return 0
+        }
     }
     ngOnDestroy() {
         this.unsubscribe$.next();

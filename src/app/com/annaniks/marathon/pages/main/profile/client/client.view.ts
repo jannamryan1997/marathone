@@ -6,7 +6,7 @@ import { FeedResponseData, FeedData, UploadFileResponse } from '../../../../core
 import { RemoveModal, GalleryModal } from '../../../../core/modals';
 import { MatDialog } from '@angular/material/dialog';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Subject, of } from 'rxjs';
+import { Subject, of, forkJoin } from 'rxjs';
 import { ProfileService } from '../../../../core/services/profile.service';
 import { CountryService } from '../../../../core/services/country.service';
 import { CookieService } from 'ngx-cookie';
@@ -67,7 +67,6 @@ export class ClientView implements OnInit {
                     this._router.navigate([this._router.url])
                 this.userStatus = '';
                 this._getLanguages();
-                this._getSpeciality();
                 this._getProfile()
             }
         })
@@ -82,7 +81,7 @@ export class ClientView implements OnInit {
                 if (data.results && data.results.length) {
                     this.user = data.results[0];
                     this._showseeMore();
-                    return this._getLanguages().pipe(switchMap((data) => {
+                    return this._combineObservable().pipe(switchMap((data) => {
                         return this._getFeed()
                     }));
                 } else {
@@ -131,6 +130,8 @@ export class ClientView implements OnInit {
             else {
                 this.seeMore = false;
             }
+        }else{
+            this.seeMore=false
         }
     }
 
@@ -153,26 +154,33 @@ export class ClientView implements OnInit {
         }))
 
     }
+
     private _getSpeciality() {
         let url: string;
-        this._countryService.getSpeciality()
-            .pipe(takeUntil(this._unsbscribe))
-            .subscribe((data) => {
+        return this._countryService.getSpeciality()
+            .pipe(map((data) => {
                 this.specialityName = []
                 data.results.map((name, index) => {
                     url = name.url;
-                    if (this._userService.user && this._userService.user.data)
-                        this._userService.user.data.speciality.forEach(element => {
+                    if (this.user.speciality)
+                        this.user.speciality.forEach(element => {
                             if (url === element) {
                                 this.specialityName.push({ name: name.name });
 
                             }
                         })
                 })
-            })
+                return data
+            }))
+
     }
-
-
+    private _combineObservable() {
+        const combine = forkJoin(
+            this._getLanguages(),
+            this._getSpeciality()
+        )
+        return combine
+    }
     public onClickSeeMore(): void {
         this.userStatus = this.user.status.slice(0, this.user.status.length);
         this.seeMore = false;

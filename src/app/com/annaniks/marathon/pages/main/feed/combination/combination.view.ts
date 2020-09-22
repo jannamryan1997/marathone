@@ -134,7 +134,7 @@ export class CombinationView implements OnInit {
         }
     }
     private _getComments(parent?): Observable<ServerResponse<Comment[]>> {
-        return this._commentService.getFeedCommentById(this.article.id).pipe(map((data: ServerResponse<Comment[]>) => {
+        return this._commentService.getFeedCommentById(this.article.id,+this.article.feed_comments_count,0).pipe(map((data: ServerResponse<Comment[]>) => {
             this.comments = data.results;
             if (parent) {
                 this.comments = this.comments.map((val) => {

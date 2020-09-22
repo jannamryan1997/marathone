@@ -96,10 +96,18 @@ display: none;
     opacity: 1 !important;
 }
 
-
+.more-comment{
+    &:hover{
+    text-decoration: underline;
+    }
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+}
 .comments-content{
-    max-height: 400px;
+    max-height: 500px;
     overflow-y: auto;
+    margin-top: 15px;
 }
 .settings{
     border-top: 1px solid #F1F1F6;
