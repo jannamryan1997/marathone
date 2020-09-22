@@ -433,7 +433,7 @@ export class CreatePublicationComponent implements OnInit {
                 }]
 
                 this.showYoutube = true;
-                this._youtubeService.getVideosForChanel(this.postType.value).subscribe((data: any) => {
+                this._youtubeService.getVideosForChanel(youtubeLink).subscribe((data: any) => {
                     let tagsArray = [];
 
                     if (data.items && data.items[0] && data.items[0].snippet) {

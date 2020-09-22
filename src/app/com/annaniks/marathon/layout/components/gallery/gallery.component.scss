@@ -39,8 +39,13 @@
     background: black;
 }
 
-::ng-deep .plyr--video .plyr__controls{
-   display: none !important;
+::ng-deep  {
+    .youtube-video{
+        .plyr--video .plyr__controls{
+            display: none !important;
+
+        }
+    }
 }
 
 :host::ng-deep{
