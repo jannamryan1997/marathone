@@ -1,198 +1,214 @@
 <div *ngIf="mode == 'normal'">
-<div class="card-item"  [ngClass]="{'card-item-style':style}">
-    <div class="item-header">
-        <div class="item-head-description">
-            <img [routerLink]="getProfleUrl()" [src]="localImage" class="image" alt="Cinque Terre">
-            <!-- <p [routerLink]="getProfleUrl()" class="name-title mb-0" *ngIf="userRole==='client'">
+    <div class="card-item" [ngClass]="{'card-item-style':style}">
+        <div class="item-header">
+            <div class="item-head-description">
+                <img [routerLink]="getProfleUrl()" [src]="localImage" class="image" alt="Cinque Terre">
+                <!-- <p [routerLink]="getProfleUrl()" class="name-title mb-0" *ngIf="userRole==='client'">
                 {{feedItem?.creator_client_info?.user?.first_name}}</p>
             <p [routerLink]="getProfleUrl()" class="name-title mb-0" *ngIf="userRole==='coach'">
                 {{feedItem?.creator_info?.user?.first_name}}
             </p> -->
-            <p [routerLink]="getProfleUrl()" class="name-title mb-0">
+                <p [routerLink]="getProfleUrl()" class="name-title mb-0">
                     {{user_name}}
-                </p> 
-            <p class="time mb-0">{{time}}</p>
+                </p>
+                <p class="time mb-0">{{time}}</p>
+            </div>
+            <div (clickOutside)="onClickedOutside()">
+                <span class="material-icons icon" (click)="showDeletedModal()">
+                    more_vert
+                </span>
+                <div class="position-relative" *ngIf="showDeleteModal && checkIsMe">
+                    <app-delete-feed-item (isOpenModal)="isOpenModal($event)" (deleted)="deleteFeedItem($event)"
+                        [content]="content?.type" [feedId]="feedItem?.id" [mediaUrl]="feedItem?.feed_media[0]?.url"
+                        (editFeedItem)="onClickeditFeedItem($event)"></app-delete-feed-item>
+                </div>
+            </div>
+
         </div>
-        <div (clickOutside)="onClickedOutside()">
-            <span class="material-icons icon" (click)="showDeletedModal()">
-                more_vert
-            </span>
-            <div class="position-relative" *ngIf="showDeleteModal && checkIsMe">
-                <app-delete-feed-item (isOpenModal)="isOpenModal($event)" (deleted)="deleteFeedItem($event)" [content]="content?.type"
-                    [feedId]="feedItem?.id" [mediaUrl]="feedItem?.feed_media[0]?.url"
-                    (editFeedItem)="onClickeditFeedItem($event)"></app-delete-feed-item>
-            </div>
-        </div>
 
-    </div>
+        <div class="post-content">
+            <div class="post-container">
 
-    <div class="post-content">
-        <div class="post-container">
-
-            <!---title-->
-            <div class="d-none" [ngClass]="{'d-block':feedItem.title !=''}">
-            <div class="title-content"  *ngIf="content?.type !='videoLink' && content?.type !='article'">
-                <p class="title show-content"  >{{feedTitle}} <span *ngIf="seeMore" class="title more"
-                        (click)="onClickSeeMore()">... See More</span></p>
-            </div>
-            </div>
-
-
-
-
-
-            <div class="title-content" *ngIf="content?.type === 'videoLink'">
-                <p  class="title show-content">
-                    <a class="title show-content" target="_blank" href="{{feedTitle}}">{{feedTitle}}
-                            <span *ngIf="seeMore" class="title more"
-                            (click)="onClickSeeMore()">... See More</span>
-                         </a>
-                        </p>
+                <!---title-->
+                <div class="d-none" [ngClass]="{'d-block':feedItem.title !=''}">
+                    <div class="title-content" *ngIf="content?.type !='videoLink' && content?.type !='article'">
+                        <p class="title show-content">{{feedTitle}} <span *ngIf="seeMore" class="title more"
+                                (click)="onClickSeeMore()">... See More</span></p>
+                    </div>
                 </div>
 
-            <div class="d-none" [ngClass]="{'d-block':content?.type ==='image'}">
-                <img src="{{fileUrl+content?.url}}" class="image" alt="Cinque Terre"
-                    (click)="openPropertyModalByImage()">
-            </div>
-
-            <div class="d-none" [ngClass]="{'d-block':content?.type ==='video'}">
-                <video controls class="vido w-100" poster="" src="{{fileUrl+content?.url}}"
-                    (click)="openPropertyModalByVideo()">
-                </video>
-            </div>
-
-            
-            <div class="video-youtube d-none" [ngClass]="{'d-block':content?.type === 'videoLink'}">
-                <plyr style="display:block" plyrTitle="Video 1" [plyrSources]="videoSources"></plyr>
-
-            </div>
 
 
-            <div class="d-none" [ngClass]="{'d-block':content?.type ==='recipeType'}"
-               (click)="routerIngridientPage()">
-               
-                <div class="post-container recept-content chicken-content p-0">
-                    <div class="recept-main">
-                        <div class="recipt-right">
-                                <img src="assets/icons/Recipes_light.svg" class="icon" alt="Cinque Terre">
+
+
+                <div class="title-content" *ngIf="content?.type === 'videoLink'">
+                    <p class="title show-content">
+                        <a class="title show-content" target="_blank" href="{{feedTitle}}">{{feedTitle}}
+                            <span *ngIf="seeMore" class="title more" (click)="onClickSeeMore()">... See More</span>
+                        </a>
+                    </p>
+                </div>
+
+                <div class="d-none" [ngClass]="{'d-block':content?.type ==='image'}">
+                    <img src="{{fileUrl+content?.url}}" class="image" alt="Cinque Terre"
+                        (click)="openPropertyModalByImage()">
+                </div>
+
+                <div class="d-none" [ngClass]="{'d-block':content?.type ==='video'}">
+                    <video controls class="vido w-100" poster="" src="{{fileUrl+content?.url}}"
+                        (click)="openPropertyModalByVideo()">
+                    </video>
+                </div>
+
+
+                <div class="video-youtube d-none" [ngClass]="{'d-block':content?.type === 'videoLink'}">
+                    <plyr *ngIf="videoSources && videoSources.length" style="display:block" plyrTitle="Video 1" [plyrSources]="videoSources"></plyr>
+                    <div class="combinations-description">
+                        <p *ngIf="content?.title" class="title video-title">{{content?.title}}</p>
+
+                        <div class="text-content d-flex text-align-centre name-post-recept">
+                            <p class="name mr-2">by </p>
+                            <p class="name mb-0" *ngIf="userRole==='client'">
+                                {{feedItem?.creator_client_info?.user?.first_name}}</p>
+                            <p class="name mb-0" *ngIf="userRole==='coach'">{{feedItem?.creator_info?.user?.first_name}}
+                            </p>
+                            <p class="name mb-0" *ngIf="!userRole && feedItem?.creator_info">
+                                {{feedItem?.creator_info?.user?.first_name}}</p>
+                            <p class="name mb-0" *ngIf="!userRole && feedItem?.creator_client_info">
+                                {{feedItem?.creator_client_info?.user?.first_name}}</p>
                         </div>
-                    <!-- <ngx-slick-carousel *ngIf="receipt?.imageSlider.length>0" class="carousel w-100 recipt-style"
+                    </div>
+                </div>
+
+
+                <div class="d-none" [ngClass]="{'d-block':content?.type ==='recipeType'}"
+                    (click)="routerIngridientPage()">
+
+                    <div class="post-container recept-content chicken-content p-0">
+                        <div class="recept-main">
+                            <div class="recipt-right">
+                                <img src="assets/icons/Recipes_light.svg" class="icon" alt="Cinque Terre">
+                            </div>
+                            <!-- <ngx-slick-carousel *ngIf="receipt?.imageSlider.length>0" class="carousel w-100 recipt-style"
                         #slickModal="slick-carousel" [config]="slideConfig">
                         <div ngxSlickItem *ngFor="let slide of receipt?.imageSlider" class="slide">
                             <img [src]="slide.img" alt="" width="100%" class="recipt-style">
                         </div>
                     </ngx-slick-carousel> -->
-                    <img  *ngIf="receipt?.imageSlider.length>0" [src]="receipt?.imageSlider[0].img" alt="" width="100%" class="recipt-style">
-                    <img *ngIf="receipt?.imageSlider.length===0 && receipt?.videoLink ==='' "
-                        src="/assets/images/food.png" alt="" width="100%" class="recipt-style">
+                            <img *ngIf="receipt?.imageSlider.length>0" [src]="receipt?.imageSlider[0].img" alt=""
+                                width="100%" class="recipt-style">
+                            <img *ngIf="receipt?.imageSlider.length===0 && receipt?.videoLink ==='' "
+                                src="/assets/images/food.png" alt="" width="100%" class="recipt-style">
 
-                    <div class="comments  w-100 position-absolute">
-                        <div class="comments-content d-flex">
-                        <div class="comments-description">
-                            <div class="comment-item">
-                                <p class="text">Coloris</p>
-                                <p class="title">{{receipt?.calories}} kcal</p>
+                            <div class="comments  w-100 position-absolute">
+                                <div class="comments-content d-flex">
+                                    <div class="comments-description">
+                                        <div class="comment-item">
+                                            <p class="text">Coloris</p>
+                                            <p class="title">{{receipt?.calories}} kcal</p>
+                                        </div>
+
+                                    </div>
+                                    <div class="comments-description">
+                                        <div class="comment-item">
+                                            <p class="text">Protein</p>
+                                            <p class="title">{{receipt?.protein}} gm</p>
+                                        </div>
+
+                                    </div>
+                                    <div class="comments-description">
+                                        <div class="comment-item">
+                                            <p class="text">Fat</p>
+                                            <p class="title">{{receipt?.fat}} gm</p>
+                                        </div>
+
+                                    </div>
+                                    <div class="comments-description">
+                                        <div class="comment-item">
+                                            <p class="text">Carbs</p>
+                                            <p class="title">{{receipt?.carbs}} gm</p>
+                                        </div>
+
+                                    </div>
+                                    <div class="comments-description">
+                                        <div class="comment-item">
+                                            <p class="text">Prep Time</p>
+                                            <p class="title">{{receipt?.time}} min</p>
+                                        </div>
+
+                                    </div>
+                                </div>
                             </div>
-
                         </div>
-                        <div class="comments-description">
-                            <div class="comment-item">
-                                <p class="text">Protein</p>
-                                <p class="title">{{receipt?.protein}} gm</p>
-                            </div>
-
+                        <div *ngIf="receipt?.videoLink !=''" class="video-youtube">
+                            <plyr style="display:block" plyrTitle="Video 1" [plyrSources]="receptvideoSources"></plyr>
                         </div>
-                        <div class="comments-description">
-                            <div class="comment-item">
-                                <p class="text">Fat</p>
-                                <p class="title">{{receipt?.fat}} gm</p>
-                            </div>
+                        <div class="combinations-description">
 
-                        </div>
-                        <div class="comments-description">
-                            <div class="comment-item">
-                                <p class="text">Carbs</p>
-                                <p class="title">{{receipt?.carbs}} gm</p>
+                            <div class="text-content d-flex text-align-centre name-post-recept">
+                                <p class="name mr-2">by </p>
+                                <p class="name mb-0" *ngIf="userRole==='client'">
+                                    {{feedItem?.creator_client_info?.user?.first_name}}</p>
+                                <p class="name mb-0" *ngIf="userRole==='coach'">
+                                    {{feedItem?.creator_info?.user?.first_name}}</p>
+                                <p class="name mb-0" *ngIf="!userRole && feedItem?.creator_info">
+                                    {{feedItem?.creator_info?.user?.first_name}}</p>
+                                <p class="name mb-0" *ngIf="!userRole && feedItem?.creator_client_info">
+                                    {{feedItem?.creator_client_info?.user?.first_name}}</p>
                             </div>
-
-                        </div>
-                        <div class="comments-description">
-                            <div class="comment-item">
-                                <p class="text">Prep Time</p>
-                                <p class="title">{{receipt?.time}} min</p>
-                            </div>
-
+                            <p class="title">{{receipt?.title}}</p>
                         </div>
                     </div>
-                </div>
-                </div>
-                    <div *ngIf="receipt?.videoLink !=''" class="video-youtube">
-                        <plyr style="display:block" plyrTitle="Video 1" [plyrSources]="receptvideoSources"></plyr>
-                    </div>
-                    <div class="combinations-description">
-                      
-                        <div class="text-content d-flex text-align-centre name-post-recept">
-                            <p class="name mr-2">by </p>
-                            <p class="name mb-0" *ngIf="userRole==='client'">
-                                {{feedItem?.creator_client_info?.user?.first_name}}</p>
-                            <p class="name mb-0" *ngIf="userRole==='coach'">{{feedItem?.creator_info?.user?.first_name}}</p>
-                            <p class="name mb-0" *ngIf="!userRole && feedItem?.creator_info">
-                                {{feedItem?.creator_info?.user?.first_name}}</p>
-                            <p class="name mb-0" *ngIf="!userRole && feedItem?.creator_client_info">
-                                {{feedItem?.creator_client_info?.user?.first_name}}</p>
-                        </div>
-                        <p class="title">{{receipt?.title}}</p>
-                    </div>
+
                 </div>
 
-            </div>
 
-
-            <!-----ARTIcLE POST-->
-            <div class="d-none" [ngClass]="{'d-block':content?.type ==='article'}">
-                <div class="post-container p-0">
-                    <img [src]="setImage()" class="article-style" alt="Cinque Terre"
-                        routerLink="/combination/{{feedItem?.id}}">
-                    <div class="combinations-description">
-                        <p class="title article-title">{{feedItem?.title}}</p>
-                        <div class="text-content d-flex text-align-centre article-name-content">
-                            <p class="name mr-2">by </p>
-                            <p class="name mb-0" *ngIf="userRole==='client'">
-                                {{feedItem?.creator_client_info?.user?.first_name}}</p>
-                            <p class="name mb-0" *ngIf="userRole==='coach'">{{feedItem?.creator_info?.user?.first_name}}</p>
-                            <p class="name mb-0" *ngIf="!userRole && feedItem?.creator_info">
-                                {{feedItem?.creator_info?.user?.first_name}}</p>
-                            <p class="name mb-0" *ngIf="!userRole && feedItem?.creator_client_info">
-                                {{feedItem?.creator_client_info?.user?.first_name}}</p>
+                <!-----ARTIcLE POST-->
+                <div class="d-none" [ngClass]="{'d-block':content?.type ==='article'}">
+                    <div class="post-container p-0">
+                        <img [src]="setImage()" class="article-style" alt="Cinque Terre"
+                            routerLink="/combination/{{feedItem?.id}}">
+                        <div class="combinations-description">
+                            <p class="title article-title">{{feedItem?.title}}</p>
+                            <div class="text-content d-flex text-align-centre article-name-content">
+                                <p class="name mr-2">by </p>
+                                <p class="name mb-0" *ngIf="userRole==='client'">
+                                    {{feedItem?.creator_client_info?.user?.first_name}}</p>
+                                <p class="name mb-0" *ngIf="userRole==='coach'">
+                                    {{feedItem?.creator_info?.user?.first_name}}</p>
+                                <p class="name mb-0" *ngIf="!userRole && feedItem?.creator_info">
+                                    {{feedItem?.creator_info?.user?.first_name}}</p>
+                                <p class="name mb-0" *ngIf="!userRole && feedItem?.creator_client_info">
+                                    {{feedItem?.creator_client_info?.user?.first_name}}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <app-settings [feed]="feedItem" [role]="role" (getButtonsType)="getButtonsType($event)"
+            (openChanges)='onClickOpen($event)' (showFollowModel)="showLikeModal($event)"></app-settings>
+        <div class="posts-comments" *ngIf="isOpen">
+            <app-comments (sendMessage)="sendMessage($event)" (likeOrDislike)="likeOrDislike($event)"
+                *ngFor="let item of comments" [feed]="feedItem" [comments]="item" [role]="role">
+            </app-comments>
+            <app-posts-comments [feed]="feedItem" (sendMessage)="sendMessage($event)" *ngIf="role"
+                [comments]="comments"></app-posts-comments>
+        </div>
     </div>
-    <app-settings [feed]="feedItem" [role]="role" (getButtonsType)="getButtonsType($event)"
-        (openChanges)='onClickOpen($event)' (showFollowModel)="showLikeModal($event)"></app-settings>
-    <div class="posts-comments" *ngIf="isOpen">
-        <app-comments (sendMessage)="sendMessage($event)" (likeOrDislike)="likeOrDislike($event)"
-            *ngFor="let item of comments" [feed]="feedItem" [comments]="item" [role]="role" >
-        </app-comments>
-        <app-posts-comments [feed]="feedItem"  (sendMessage)="sendMessage($event)" *ngIf="role" [comments]="comments"></app-posts-comments>
-    </div>
-</div>
 </div>
 
 
-        
+
 <div class="skeleton-card-item" *ngIf="mode == 'skeleton'">
-        <div class="header-content d-flex">
-            <div class="image loading"></div>
-            <p class="title loading"></p>
-        </div>
-        <div class="item-image loading"></div>
-        <div class="top-content d-flex justify-content-between">
-            <div class="top-item loading"></div>
-            <div class="top-item loading"></div>
-            <div class="top-item loading"></div>
-        </div>
+    <div class="header-content d-flex">
+        <div class="image loading"></div>
+        <p class="title loading"></p>
     </div>
-
+    <div class="item-image loading"></div>
+    <div class="top-content d-flex justify-content-between">
+        <div class="top-item loading"></div>
+        <div class="top-item loading"></div>
+        <div class="top-item loading"></div>
+    </div>
+</div>

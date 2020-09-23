@@ -59,6 +59,7 @@ import { LikeService } from '../core/services/like.service';
 import {MatChipsModule} from '@angular/material/chips';
 
 import {AutoCompleteModule} from 'primeng/autocomplete';
+import {TextFieldModule} from '@angular/cdk/text-field';
 
 @NgModule({
     declarations: [
@@ -111,6 +112,7 @@ import {AutoCompleteModule} from 'primeng/autocomplete';
         MatProgressBarModule,
         AutoCompleteModule,
         MatChipsModule,
+        TextFieldModule,
         
         
         
@@ -164,7 +166,9 @@ import {AutoCompleteModule} from 'primeng/autocomplete';
         SkeletonLoadingComponent,
         ChatComponent,
         TagsModalComponent,
-        MatChipsModule   
+        MatChipsModule,
+        
+        
     ],
 })
 

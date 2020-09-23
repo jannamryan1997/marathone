@@ -169,9 +169,9 @@ export class CreatePublicationComponent implements OnInit {
         this.videoPleyer = true;
     }
 
-    private _autosize(id:string) {
+    private _autosize(id: string) {
         const el = document.getElementById(id);
-        this.postType.valueChanges.subscribe((data) => {            
+        this.postType.valueChanges.subscribe((data) => {
             this.autoSize.emit(data);
             setTimeout(() => {
                 el.style.cssText = 'height:auto; padding:0';
@@ -414,19 +414,19 @@ export class CreatePublicationComponent implements OnInit {
 
     }
 
-    public play(): void {        
+    public play(): void {
         if (this.postType.value.indexOf('https://www.youtube.com') > -1) {
             let youtubeIndex = this.postType.value.indexOf('https://www.youtube.com');
             let spaceIndex = this.postType.value.indexOf(' ', youtubeIndex + 1);
-            if(spaceIndex == -1){
-                spaceIndex=this.postType.value.length
-            }            
+            if (spaceIndex == -1) {
+                spaceIndex = this.postType.value.length
+            }
             let youtubeLink = spaceIndex > -1 ? this.postType.value.slice(youtubeIndex, spaceIndex).trim() : this.postType.value;
             if (youtubeLink && youtubeLink !== this._youtubeLink) {
                 this.videoPleyer = true;
-                this._youtubeLink=youtubeLink;                
-            }           
-            if (this.videoPleyer) {        
+                this._youtubeLink = youtubeLink;
+            }
+            if (this.videoPleyer) {
                 this.videoSources = [{
                     src: this._youtubeLink,
                     provider: 'youtube',
@@ -458,7 +458,7 @@ export class CreatePublicationComponent implements OnInit {
                 this.videoPleyer = false;
             }
         } else {
-            this._youtubeLink=null;
+            this._youtubeLink = null;
             this.videoSources = [];
             this.videoGroup.reset();
             this.showYoutube = false;
@@ -494,23 +494,20 @@ export class CreatePublicationComponent implements OnInit {
                 this.filteredLanguages = keys;
                 this.allLanguages = keys;
                 if (this.editProfile) {
-                    let languagesArray = [];
+                    let selectedLng;
 
                     if (this.mediaContent && this.mediaContent.languages) {
-                        for (let lng of this.mediaContent.languages) {
-                            let select = this.filteredLanguages.filter((data) => {
-                                return data.name == lng.name
-                            })
-
-                            if (select && select.length) {
-                                languagesArray.push(select[0])
-                            }
+                        let select = this.filteredLanguages.filter((data) => {
+                            return data.name == this.mediaContent.languages.name
+                        })
+                        if (select && select.length) {
+                            selectedLng = select[0]
                         }
 
                         if (this.mediaContent.isShowVideo) {
 
                             this.videoGroup.patchValue({
-                                languages: languagesArray
+                                languages: selectedLng
                             })
                         }
                     }
@@ -521,12 +518,11 @@ export class CreatePublicationComponent implements OnInit {
     public closeVideo(): void {
 
         this.videoPleyer = false;
-        this.postType.patchValue('');
+        // this.postType.patchValue('');
         this.videoGroup.reset();
         this.videoTitle = '';
-        setTimeout(() => {
-            this.showYoutube = false;
-        }, 200);
+        this.showYoutube = false;
+
 
     }
     public openSelectTagsModal(): void {

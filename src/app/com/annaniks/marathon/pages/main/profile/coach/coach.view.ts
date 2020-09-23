@@ -208,6 +208,7 @@ export class CoachView implements OnInit {
     public onClickTab(tab): void {
         this.tab = tab;
         this.galerryTab = 1;
+        this._getFeed().pipe(takeUntil(this.unsubscribe$)).subscribe()
         if (this.tab === 2) {
             if (this.feedItem && this.mediaItem.length) {
                 this.galleryContentType = true;

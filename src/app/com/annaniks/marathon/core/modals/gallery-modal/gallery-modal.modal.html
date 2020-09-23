@@ -46,7 +46,7 @@
             </span>
           </div>
         </div>
-        <div  class="comments-content" *ngIf="comments.length">
+        <div  id="comment" class="comments-content" *ngIf="comments.length">
           <span (click)="showAllComments()" class="more-comment"
             *ngIf="count && comments.length > pageLength && pageLength!==comments.length">Show
             more

@@ -17,7 +17,7 @@
     </video>
 
 
-    <div class="youtube-video d-none w-100 pointer-events-none" [ngClass]="{'d-block':mediaItem?.type==='videoLink'}">
+    <div class="youtube-video no-controller d-none w-100 pointer-events-none" [ngClass]="{'d-block':mediaItem?.type==='videoLink'}">
         <plyr style="display:block" [plyrSources]="videoSources"></plyr>
     </div>
 </div>

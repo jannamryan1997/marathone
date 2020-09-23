@@ -47,7 +47,9 @@
     }
 }
 
-
+.video-title{
+    font-weight: bold;
+}
 
 .title-content {
     padding: 0 20px 0px 20px;
@@ -74,7 +76,7 @@
     padding: 0 19px 0px 20px;
     .title {
         @include text(17px, 21px, #45535C, combinations-description);
-
+        word-break: break-word;
 
     }
 

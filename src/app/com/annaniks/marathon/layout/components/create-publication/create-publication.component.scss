@@ -20,6 +20,9 @@
     }
 }
 .title-part{
+    mat-form-field{
+        width:100%
+    }
     textarea{
         padding: 13px 13px 13px 20px;
         resize: none;

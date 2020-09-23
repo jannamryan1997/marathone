@@ -90,7 +90,12 @@ export class PropertyModal implements OnInit {
     public sendMessage(event) {
         if (event) {
             let parentUrl = event.parentUrl ? event.parentUrl : null;
-            this._combineObservable(parentUrl).pipe(takeUntil(this.unsubscribe$)).subscribe()
+            this._combineObservable(parentUrl).pipe(takeUntil(this.unsubscribe$)).subscribe(()=>{                
+                let item=document.getElementById("comment")                
+                if(item){
+                    item.scrollIntoView({behavior:'smooth',block:'end'})
+                }
+            })
         }
     }
 
