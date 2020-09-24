@@ -6,7 +6,7 @@ import * as moment from 'moment';
 import { CookieService } from 'ngx-cookie';
 import { CommentService } from '../../services/comment.service';
 import { takeUntil, switchMap, map } from 'rxjs/operators';
-import { Subject, forkJoin, Observable } from 'rxjs';
+import { Subject, forkJoin, Observable, of } from 'rxjs';
 import { AuthModal } from '../auth/auth.modal';
 import { FeedLikeService } from '../../services/feed-like.service';
 import { FeedService } from '../../../pages/main/feed/feed.service';
@@ -87,10 +87,13 @@ export class PropertyModal implements OnInit {
             }
         }
     }
+    public onClickCloseModal(){
+        this._dialogRef.close()
+    }
     public sendMessage(event) {
         if (event) {
             let parentUrl = event.parentUrl ? event.parentUrl : null;
-            this._combineObservable(parentUrl).pipe(takeUntil(this.unsubscribe$)).subscribe(()=>{                
+            this._getFeedById(true,parentUrl).pipe(takeUntil(this.unsubscribe$)).subscribe(()=>{                
                 let item=document.getElementById("comment")                
                 if(item){
                     item.scrollIntoView({behavior:'smooth',block:'end'})
@@ -106,7 +109,7 @@ export class PropertyModal implements OnInit {
         )
         return combine
     }
-
+  
     public likeOrDislike(event) {
         if (event) {
             this._getComments(event.isChild).pipe(takeUntil(this.unsubscribe$)).subscribe()
@@ -129,10 +132,15 @@ export class PropertyModal implements OnInit {
             // maxWidth: "100vw",
         })
     }
-    private _getFeedById() {
-        return this._feedService.getFeedById(this.feedItem.id).pipe(map((result) => {
+    private _getFeedById(isComment?:boolean,parent?) {        
+        return this._feedService.getFeedById(this.feedItem.id).pipe(switchMap((result) => {
             this.feedItem = result;
-            return result
+            this.count = +this.feedItem.feed_comments_count;
+            if (isComment) {                
+                return this._getComments(parent)
+            } else {
+                return of()
+            }
         }))
     }
 

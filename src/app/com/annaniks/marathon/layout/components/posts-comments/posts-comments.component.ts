@@ -11,24 +11,24 @@ import { Comment, FeedResponseData } from '../../../core/models';
     styleUrls: ["posts-comments.component.scss"]
 })
 
-export class PostsComments implements OnInit,OnDestroy {
+export class PostsComments implements OnInit, OnDestroy {
     public emojiForm: FormGroup;
     public showemoji: boolean = false;
-    public comments:Comment[] = [];
-    public feed:FeedResponseData;
+    public comments: Comment[] = [];
+    public feed: FeedResponseData;
     private unsubscribe$ = new Subject<void>()
 
     @Input('comments')
-    set setComments($event:Comment[]) {
+    set setComments($event: Comment[]) {
         this.comments = $event
     }
     @Input('feed')
-    set setFeed($event:FeedResponseData) {
+    set setFeed($event: FeedResponseData) {
         this.feed = $event
     }
     private _parent: string;
     @Input('parent')
-    set setParent($event:string) {
+    set setParent($event: string) {
         this._parent = $event
     }
     @Output('sendMessage') private _sendMessage: EventEmitter<any> = new EventEmitter<any>();
@@ -59,13 +59,14 @@ export class PostsComments implements OnInit,OnDestroy {
 
     public addInput(event) {
         if (this.emojiForm.valid) {
-            this._commentService.createFeedComment(this.feed.id, this.emojiForm.value.inputField, this._parent).pipe(
-                takeUntil(this.unsubscribe$),
-                map(() => {
-                    this.emojiForm.reset();
-                    this._sendMessage.emit({ parentUrl: this._parent })
-                },
-                )).subscribe()
+            if (this.emojiForm.get('inputField').value.trim())
+                this._commentService.createFeedComment(this.feed.id, this.emojiForm.value.inputField, this._parent).pipe(
+                    takeUntil(this.unsubscribe$),
+                    map(() => {
+                        this.emojiForm.reset();
+                        this._sendMessage.emit({ parentUrl: this._parent })
+                    },
+                    )).subscribe()
 
 
         }

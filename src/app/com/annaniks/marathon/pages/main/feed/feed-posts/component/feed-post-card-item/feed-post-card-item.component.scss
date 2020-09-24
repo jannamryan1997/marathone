@@ -48,7 +48,9 @@
 }
 
 .video-title{
-    font-weight: bold;
+    @include text(17px, 21px, #45535C,EncodeSans-Medium);
+     word-break: break-word;
+     margin-top: 15px;
 }
 
 .title-content {
@@ -75,7 +77,7 @@
 .combinations-description {
     padding: 0 19px 0px 20px;
     .title {
-        @include text(17px, 21px, #45535C, combinations-description);
+        @include text(17px, 21px, #45535C, EncodeSans-Medium);
         word-break: break-word;
 
     }

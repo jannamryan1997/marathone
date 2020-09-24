@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Inject, Output, EventEmitter } from "@angular/core";
+import { Component, OnInit, Input, Inject, Output, EventEmitter, ElementRef, ViewChild } from "@angular/core";
 import { MatDialog } from '@angular/material/dialog';
 import { PropertyModal, AuthModal, LikeModal } from 'src/app/com/annaniks/marathon/core/modals';
 import { FeedResponseData, ServerResponse, Comment } from 'src/app/com/annaniks/marathon/core/models';
@@ -7,7 +7,7 @@ import { CookieService } from 'ngx-cookie';
 import { UserService } from 'src/app/com/annaniks/marathon/core/services/user.service';
 import { FeedService } from '../../../feed.service';
 import { ReceiptResponseData } from 'src/app/com/annaniks/marathon/core/models/receipt';
-import { Subject, forkJoin, Observable } from 'rxjs';
+import { Subject, forkJoin, Observable, of } from 'rxjs';
 import { takeUntil, switchMap, map } from 'rxjs/operators';
 import { CommentService } from 'src/app/com/annaniks/marathon/core/services/comment.service';
 import { Router } from '@angular/router';
@@ -50,6 +50,7 @@ export class FeedPostCardItemComponent implements OnInit {
     public isShowSubMessages: boolean = false;
     public user;
     public scrollY;
+    @ViewChild('video') private _videoElement: ElementRef
     constructor(
         @Inject("FILE_URL") public fileUrl,
         private _cookieService: CookieService,
@@ -86,7 +87,7 @@ export class FeedPostCardItemComponent implements OnInit {
 
 
             if (this.content.type === "videoLink" && this.content.videoTitle) {
-                
+
                 this.videoSources = [{
                     src: this.content.videoTitle,
                     provider: 'youtube',
@@ -132,7 +133,7 @@ export class FeedPostCardItemComponent implements OnInit {
 
 
     private _getComments(parent?: string): Observable<ServerResponse<Comment[]>> {
-        return this._commentService.getFeedCommentById(this.feedItem.id,+this.feedItem.feed_comments_count,0).pipe(map((data: ServerResponse<Comment[]>) => {
+        return this._commentService.getFeedCommentById(this.feedItem.id, +this.feedItem.feed_comments_count, 0).pipe(map((data: ServerResponse<Comment[]>) => {
             this.comments = data.results;
             if (parent) {
                 this.comments = this.comments.map((val) => {
@@ -160,9 +161,19 @@ export class FeedPostCardItemComponent implements OnInit {
             }
         }
     }
-
-    private _getFeedById(message) {
-        return this._feedService.getFeedById(this.feedItem.id).pipe(map((result) => {
+    // private _getFeedById(isComment?:boolean,parent?) {        
+    //     return this._feedService.getFeedById(this.feedItem.id).pipe(switchMap((result) => {
+    //         this.feedItem = result;
+    //         this.count = +this.feedItem.feed_comments_count;
+    //         if (isComment) {                
+    //             return this._getComments(parent)
+    //         } else {
+    //             return of()
+    //         }
+    //     }))
+    // }
+    private _getFeedById(message, isComment?: boolean, parentUrl?) {
+        return this._feedService.getFeedById(this.feedItem.id).pipe(switchMap((result) => {
             if (result && result.feed_media && result.feed_media[0] && result.feed_media[0].content) {
                 this.content = JSON.parse(result.feed_media[0].content)
             }
@@ -176,8 +187,12 @@ export class FeedPostCardItemComponent implements OnInit {
                     }]
                 }
             }
-
-            return result;
+            if (isComment) {
+                return this._getComments(parentUrl)
+            } else {
+                return of()
+            }
+            // return result;
         }))
     }
 
@@ -200,7 +215,7 @@ export class FeedPostCardItemComponent implements OnInit {
     public openPropertyModalByImage(): void {
         const dialogRef = this._dialog.open(PropertyModal, {
             width: "100%",
-            maxWidth: "1400px",
+            maxWidth: "80vw",
             data: {
                 data: this.feedItem,
                 localImage: this.localImage
@@ -216,6 +231,7 @@ export class FeedPostCardItemComponent implements OnInit {
     }
 
     public openPropertyModalByVideo(): void {
+        this._videoElement.nativeElement.pause();
         const dialogRef = this._dialog.open(PropertyModal, {
             width: "100%",
             maxWidth: "1400px",
@@ -242,17 +258,17 @@ export class FeedPostCardItemComponent implements OnInit {
     public sendMessage(event) {
         if (event) {
             let parentUrl = event.parentUrl ? event.parentUrl : null;
-            this._combineObservable(parentUrl).pipe(takeUntil(this.unsubscribe$)).subscribe()
+            this._getFeedById(null,true,parentUrl).pipe(takeUntil(this.unsubscribe$)).subscribe()
         }
     }
 
-    private _combineObservable(parent?) {
-        const combine = forkJoin(
-            this._getComments(parent),
-            this._getFeedById(event)
-        )
-        return combine;
-    }
+    // private _combineObservable(parent?) {
+    //     const combine = forkJoin(
+    //         this._getComments(parent),
+    //         this._getFeedById(event)
+    //     )
+    //     return combine;
+    // }
     public setImage() {
         return this.content && this.content.cover ? this.fileUrl + this.content.cover : 'assets/images/chicken.png'
     }
@@ -280,7 +296,7 @@ export class FeedPostCardItemComponent implements OnInit {
         }
     }
 
-    public onClickedOutside(): void {        
+    public onClickedOutside(): void {
         if (!this._isOpenModalMode)
             this.showDeleteModal = false;
     }
@@ -322,7 +338,9 @@ export class FeedPostCardItemComponent implements OnInit {
         this._router.navigate([`/feed/ingridient/${this.feedItem.id}`]);
 
     }
-
+    public goToArticlePage(){        
+        this._router.navigate([`/feed/combination/${+this.feedItem.id}`]);
+    }
     get userRole() {
         let role = this.feedItem.creator_client_info ? 'client' : 'coach';
         return role

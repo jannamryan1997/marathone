@@ -55,8 +55,8 @@
                 </div>
 
                 <div class="d-none" [ngClass]="{'d-block':content?.type ==='video'}">
-                    <video controls class="vido w-100" poster="" src="{{fileUrl+content?.url}}"
-                        (click)="openPropertyModalByVideo()">
+                    <video #video controls class="vido w-100" poster="" src="{{fileUrl+content?.url}}"
+                        (click)="openPropertyModalByVideo();$event.preventDefault()">
                     </video>
                 </div>
 
@@ -64,19 +64,9 @@
                 <div class="video-youtube d-none" [ngClass]="{'d-block':content?.type === 'videoLink'}">
                     <plyr *ngIf="videoSources && videoSources.length" style="display:block" plyrTitle="Video 1" [plyrSources]="videoSources"></plyr>
                     <div class="combinations-description">
-                        <p *ngIf="content?.title" class="title video-title">{{content?.title}}</p>
+                        <p *ngIf="content?.title" class="video-title">{{content?.title}}</p>
 
-                        <div class="text-content d-flex text-align-centre name-post-recept">
-                            <p class="name mr-2">by </p>
-                            <p class="name mb-0" *ngIf="userRole==='client'">
-                                {{feedItem?.creator_client_info?.user?.first_name}}</p>
-                            <p class="name mb-0" *ngIf="userRole==='coach'">{{feedItem?.creator_info?.user?.first_name}}
-                            </p>
-                            <p class="name mb-0" *ngIf="!userRole && feedItem?.creator_info">
-                                {{feedItem?.creator_info?.user?.first_name}}</p>
-                            <p class="name mb-0" *ngIf="!userRole && feedItem?.creator_client_info">
-                                {{feedItem?.creator_client_info?.user?.first_name}}</p>
-                        </div>
+                     
                     </div>
                 </div>
 
@@ -144,8 +134,8 @@
                             <plyr style="display:block" plyrTitle="Video 1" [plyrSources]="receptvideoSources"></plyr>
                         </div>
                         <div class="combinations-description">
-
-                            <div class="text-content d-flex text-align-centre name-post-recept">
+<!-- ----------- -->
+                            <!-- <div class="text-content d-flex text-align-centre name-post-recept">
                                 <p class="name mr-2">by </p>
                                 <p class="name mb-0" *ngIf="userRole==='client'">
                                     {{feedItem?.creator_client_info?.user?.first_name}}</p>
@@ -155,7 +145,7 @@
                                     {{feedItem?.creator_info?.user?.first_name}}</p>
                                 <p class="name mb-0" *ngIf="!userRole && feedItem?.creator_client_info">
                                     {{feedItem?.creator_client_info?.user?.first_name}}</p>
-                            </div>
+                            </div> -->
                             <p class="title">{{receipt?.title}}</p>
                         </div>
                     </div>
@@ -165,12 +155,13 @@
 
                 <!-----ARTIcLE POST-->
                 <div class="d-none" [ngClass]="{'d-block':content?.type ==='article'}">
-                    <div class="post-container p-0">
-                        <img [src]="setImage()" class="article-style" alt="Cinque Terre"
-                            routerLink="/combination/{{feedItem?.id}}">
+                    <div  class="post-container p-0">
+                        <img  (click)="goToArticlePage()" [src]="setImage()" class="article-style" alt="Cinque Terre"
+                           >
                         <div class="combinations-description">
                             <p class="title article-title">{{feedItem?.title}}</p>
-                            <div class="text-content d-flex text-align-centre article-name-content">
+                            <!--         -->
+                            <!-- <div class="text-content d-flex text-align-centre article-name-content">
                                 <p class="name mr-2">by </p>
                                 <p class="name mb-0" *ngIf="userRole==='client'">
                                     {{feedItem?.creator_client_info?.user?.first_name}}</p>
@@ -180,7 +171,7 @@
                                     {{feedItem?.creator_info?.user?.first_name}}</p>
                                 <p class="name mb-0" *ngIf="!userRole && feedItem?.creator_client_info">
                                     {{feedItem?.creator_client_info?.user?.first_name}}</p>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>

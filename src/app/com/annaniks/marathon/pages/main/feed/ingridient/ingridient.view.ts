@@ -73,11 +73,11 @@ export class IngridientViewComponent implements OnInit {
     }
 
 
-    private _getFeedById() {
+    private _getFeedById(isComment?: boolean, parentUrl?) {
         this.loading = true;
         return this._feedService.getFeedById(this.feedId).pipe(
             finalize(() => { this.loading = false; }),
-            map((data: FeedResponseData) => {
+            switchMap((data: FeedResponseData) => {
                 this.feedItem = data;
                 if (this.feedItem) {
                     this._userRole = this.feedItem.creator_client_info ? 'client' : 'coach';
@@ -97,7 +97,12 @@ export class IngridientViewComponent implements OnInit {
                         }
                     }
                 }
-                return data
+                if (isComment) {
+                    return this._getComments(parentUrl)
+                } else {
+                    return of()
+                }
+                // return data
             })
         )
     }
@@ -121,7 +126,7 @@ export class IngridientViewComponent implements OnInit {
     public sendMessage(event) {
         if (event) {
             let parentUrl = event.parentUrl ? event.parentUrl : null;
-            this._combineObservable(parentUrl).pipe(takeUntil(this.unsubscribe$)).subscribe()
+            this._getFeedById(true,parentUrl).pipe(takeUntil(this.unsubscribe$)).subscribe()
         }
     }
 
@@ -142,7 +147,7 @@ export class IngridientViewComponent implements OnInit {
         }
     }
     private _getComments(parent?): Observable<ServerResponse<Comment[]>> {
-        return this._commentService.getFeedCommentById(this.feedItem.id,+this.feedItem.feed_comments_count,0).pipe(map((data: ServerResponse<Comment[]>) => {
+        return this._commentService.getFeedCommentById(this.feedItem.id, +this.feedItem.feed_comments_count, 0).pipe(map((data: ServerResponse<Comment[]>) => {
             this.comments = data.results;
             if (parent) {
                 this.comments = this.comments.map((val) => {

@@ -104,26 +104,25 @@ export class CombinationView implements OnInit {
             this.onClickOpenAuth()
         }
     }
-    private _getFeedById() {
-        return this._feedService.getFeedById(this.article.id).pipe(map((result) => {
+ 
+    private _getFeedById(isComment?:boolean,parent?) {        
+        return this._feedService.getFeedById(this.article.id).pipe(switchMap((result) => {
             this.article = result;
-            return result
+            if (isComment) {                
+                return this._getComments(parent)
+            } else {
+                return of()
+            }
         }))
     }
     public sendMessage(event) {
         if (event) {
             let parentUrl = event.parentUrl ? event.parentUrl : null;
-            this._combineObservable(parentUrl).pipe(takeUntil(this.unsubscribe$)).subscribe()
+            this._getFeedById(true,parentUrl).pipe(takeUntil(this.unsubscribe$)).subscribe()
         }
     }
 
-    private _combineObservable(parent?) {
-        const combine = forkJoin(
-            this._getComments(parent),
-            this._getFeedById()
-        )
-        return combine
-    }
+
 
     public onClickOpen($event): void {
         this.isOpen = $event;

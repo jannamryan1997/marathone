@@ -63,11 +63,18 @@
 <div class="proporty">
     <div class="proporty-content">
         <div class="left-content">
-            <img src="{{fileUrl+content?.url}}" class="image d-none" alt="Cinque Terre"
-                [ngClass]="{'d-block':content?.type==='image'}">
-            <video controls class="video d-none w-100" poster="" [ngClass]="{'d-block':content.type==='video'}"
-                src="{{fileUrl+content?.url}}">
-            </video>
+            <div class="close-btn-content">
+                <span class="material-icons close" (click)="onClickCloseModal()">
+                    close
+                </span>
+            </div>
+            <div class="image-video-content">
+                <img src="{{fileUrl+content?.url}}" class="image d-none" alt="Cinque Terre"
+                    [ngClass]="{'d-block':content?.type==='image'}">
+                <video controls class="video d-none w-100" poster="" [ngClass]="{'d-block':content.type==='video'}"
+                    src="{{fileUrl+content?.url}}">
+                </video>
+            </div>
         </div>
         <div class="right-content">
             <div class="right-content-description">
@@ -98,13 +105,13 @@
                     </div>
 
                     <div class="comment-messages">
-                        
+
                         <div id="comment" class="comments-content" *ngIf="comments.length">
                             <span (click)="showAllComments()" class="more-comment"
-                            *ngIf="count && comments.length > pageLength && pageLength!==comments.length">Show
-                            more
-                            {{getOtherCommentCount()}}
-                            comments</span>
+                                *ngIf="count && comments.length > pageLength && pageLength!==comments.length">Show
+                                more
+                                {{getOtherCommentCount()}}
+                                comments</span>
                             <app-comments (sendMessage)="sendMessage($event)" (likeOrDislike)="likeOrDislike($event)"
                                 *ngFor="let item of comments | slice:startIndex:comments.length" [feed]="feedItem"
                                 [comments]="item" [role]="role" [type]="content?.type"></app-comments>

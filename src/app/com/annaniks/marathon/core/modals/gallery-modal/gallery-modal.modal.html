@@ -1,8 +1,13 @@
 <div class="gallery-modal d-flex">
   <div class="left-content">
     <!--All-->
+    <div class="close-btn-content">
+      <span class="material-icons close" (click)="onClickCloseModal()">
+        close
+      </span>
+    </div>
     <div class="slide d-none" *ngIf="type==='all'"
-      [ngClass]="{'d-block':mediaItem[0]?.type ==='image' || mediaItem[0]?.type==='video' || mediaItem[0]?.type==='videoLink'}">
+      [ngClass]="{'d-flex':mediaItem[0]?.type ==='image' || mediaItem[0]?.type==='video' || mediaItem[0]?.type==='videoLink'}">
 
       <img class="d-none" [ngClass]="{'d-block':mediaItem[0]?.type ==='image'}" src="{{fileURL+mediaItem[0]?.url}}"
         alt="" class="image">
@@ -46,15 +51,15 @@
             </span>
           </div>
         </div>
-        <div  id="comment" class="comments-content" *ngIf="comments.length">
+        <div id="comment" class="comments-content" *ngIf="comments.length">
           <span (click)="showAllComments()" class="more-comment"
             *ngIf="count && comments.length > pageLength && pageLength!==comments.length">Show
             more
             {{getOtherCommentCount()}}
             comments</span>
           <app-comments (sendMessage)="sendMessage($event)" (likeOrDislike)="likeOrDislike($event)"
-            *ngFor="let item of comments | slice:startIndex:comments.length" [feed]="feedItem" [comments]="item" [role]="role"
-            [type]="mediaItem[0]?.type">
+            *ngFor="let item of comments | slice:startIndex:comments.length" [feed]="feedItem" [comments]="item"
+            [role]="role" [type]="mediaItem[0]?.type">
           </app-comments>
         </div>
       </div>

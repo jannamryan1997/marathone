@@ -162,7 +162,7 @@ export class CreatePublicationComponent implements OnInit {
     private _setPatchValue(): void {
         this.postType.valueChanges.subscribe((data) => {
             if (this.videoPleyer) {
-                this.videoTitle = data;
+                this.videoTitle = data;                
             }
             this.play();
         })
@@ -185,19 +185,20 @@ export class CreatePublicationComponent implements OnInit {
         this.loading = true;
         this._feedService.getFeedById(this.feedId)
             .pipe(takeUntil(this._unsbscribe))
-            .subscribe((data: FeedResponseData) => {
+            .subscribe((data: FeedResponseData) => {                
                 this.postType.setValue(data.title);
                 if (typeof data.feed_media[0].content === 'string') {
                     this.mediaContent = JSON.parse(data.feed_media[0].content);
-
                     this.isModalMode = true;
                     if (this.mediaContent.type === 'image') {
                         this.uploadType = "image";
                         this.controImageItem = this._fileUrl + this.mediaContent.url;
+                        this.contentFileName = this.mediaContent.url
                     }
                     else if (this.mediaContent.type === 'video') {
                         this.uploadType = "video";
                         this.controVideoItem = this._fileUrl + this.mediaContent.url;
+                        this.contentFileName = this.mediaContent.url
                     }
                     this._getLanguages();
                     if (this.mediaContent.isShowVideo) {
@@ -362,6 +363,7 @@ export class CreatePublicationComponent implements OnInit {
             } else {
                 content['isShowVideo'] = false
             }
+            
             this._feedService.updateFeedById(this.mediaUrl,
                 {
                     title: this.postType.value,
