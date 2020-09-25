@@ -89,9 +89,10 @@ export class FeedPostCardItemComponent implements OnInit {
             if (this.content.type === "videoLink" && this.content.videoTitle) {
 
                 this.videoSources = [{
-                    src: this.content.videoTitle,
+                    src: this.content.videoTitle.trim(),
                     provider: 'youtube',
-                }]
+                }]               
+                
             }
 
             ///////////////////////////////////

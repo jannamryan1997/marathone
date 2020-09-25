@@ -23,22 +23,28 @@ export class TagsModalComponent {
     if (this.activeItem) {
       for (let item of this.activeItem) {
         this.selectedItem = item;
-        for (let tags of this.tags) {
-          if (item === tags) {
-            this.selectedOffers.push(this.selectedItem);
-
+        for (let item of this.tags) {
+          for (let tag of item.tags) {
+            if (this.selectedItem.toLowerCase() === tag.toLowerCase()) {
+              if (this.selectedOffers.indexOf(this.selectedItem.toLowerCase()) == -1) {                
+                this.selectedOffers.push(this.selectedItem);
+              }
+              
+            }
           }
         }
       }
-    }
+    }   
+    
   }
-  public showMoreOrLess(max:string, array) {
 
-    if (this[max] < array.length) {      
-      this[max] = array.length;      
-    } else {      
+  public showMoreOrLess(max: string, array) {
+
+    if (this[max] < array.length) {
+      this[max] = array.length;
+    } else {
       this[max] = 10
-    }    
+    }
   }
   public closeModal(): void {
     this._dialogRef.close();
@@ -51,7 +57,6 @@ export class TagsModalComponent {
 
   toggleOffer(offer: any): void {
     let index = this.selectedOffers.indexOf(offer);
-
     if (index >= 0) {
       this.selectedOffers.splice(index, 1);
     } else {

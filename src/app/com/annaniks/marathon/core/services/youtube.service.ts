@@ -1,5 +1,5 @@
 
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -8,11 +8,11 @@ import { Observable } from 'rxjs';
 })
 export class YoutubeService {
 
-    apiKey: string = 'AIzaSyABBnV-JFyhMl_SY6kVEyn_lC1Z3Kmddj8';
+    public apiKey: string = 'AIzaSyABBnV-JFyhMl_SY6kVEyn_lC1Z3Kmddj8';
 
-    constructor(public http: HttpClient) { }
+    constructor(public http: HttpClient,@Inject('BASE_URL') private _baseUrl) { }
 
-    getVideosForChanel(channel): Observable<Object> {
+  public  getVideosForChanel(channel): Observable<Object> {
         let params = new HttpParams();
         params = params.set('authorization', 'false');
         let newChannel = channel
@@ -26,7 +26,14 @@ export class YoutubeService {
         return this.http.get(url, { params })
 
     }
+    public getAllTags(){
+        return this.http.get(this._baseUrl + '/feed/tag/')
+    }
+    public getAllTagsCategories(){
+        return this.http.get(this._baseUrl + '/feed/tag-category/')
+    }
 }
+
 // import { Injectable } from '@angular/core';
 // import { BehaviorSubject, Observable } from 'rxjs';
 // import { filter } from 'rxjs/operators';

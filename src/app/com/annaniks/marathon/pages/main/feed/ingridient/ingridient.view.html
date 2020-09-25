@@ -230,7 +230,7 @@
                 <button type="button" class="tag-item" *ngFor="let item of receipt?.tag">{{item}}</button>
             </div>
             <p class="information">{{receipt?.information}}</p>
-            <div class="ingridient-description" *ngIf="receipt.ingridient.length > 0">
+            <div class="ingridient-description" *ngIf="receipt?.ingridient && receipt?.ingridient?.length > 0">
                 <p class="ingridient-title">Ingredients</p>
                 <div class="ingridient-content" >
                     <div class="ingridient-item d-flex justify-content-between"  *ngFor="let item of receipt?.ingridient">

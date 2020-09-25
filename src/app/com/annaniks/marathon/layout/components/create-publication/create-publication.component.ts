@@ -1,10 +1,10 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, Output, EventEmitter, Inject, AfterViewInit } from "@angular/core";
 import { FormControl, FormGroup, FormBuilder, } from '@angular/forms';
 import { UserService } from '../../../core/services/user.service';
-import { UploadFileResponse, FeedResponseData } from '../../../core/models';
+import { UploadFileResponse, FeedResponseData, ServerResponse } from '../../../core/models';
 import { FeedService } from '../../../pages/main/feed/feed.service';
 import { CookieService } from 'ngx-cookie';
-import { finalize, takeUntil } from 'rxjs/operators';
+import { finalize, map, switchMap, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { YoutubeService } from '../../../core/services/youtube.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -52,6 +52,7 @@ export class CreatePublicationComponent implements OnInit {
     public loading = false;
     public showYoutube: boolean = false;
     public mediaContent;
+    private _tagsArray = []
     @ViewChild('autocomplete') private _autocomplete;
     constructor(
         public _userService: UserService,
@@ -66,7 +67,8 @@ export class CreatePublicationComponent implements OnInit {
     }
 
     ngOnInit() {
-        this._initVideoGroup()
+        this._initVideoGroup();
+        this._getAllTags();
         if (this.editProfile) {
             this._getFeedById();
         } else {
@@ -121,15 +123,18 @@ export class CreatePublicationComponent implements OnInit {
             },
         }
     }
-    public formatDefaultTags(defaultTags) {
-        let completeTags = ''
-        if (defaultTags && defaultTags.length) {
-            for (let i = 0; i < defaultTags.length; i++) {
-                if (i < 5)
-                    completeTags += `#${defaultTags[i]} `
-            }
-        }
-        return completeTags
+    public formatDefaultTags(defaultTags): string {
+        // let completeTags = ''
+        // if (defaultTags && defaultTags.length) {
+        //     console.log(defaultTags[0].tags);
+
+        //     for (let i = 0; i < defaultTags[0].tags.length; i++) {
+        //         if (i < 5)
+        //             completeTags += `#${defaultTags[0].tags[i]} `
+        //     }
+        // } else {
+        return '#tags'
+        // }
     }
     public filterCountryMultiple(event, autocomplete?): void {
 
@@ -162,7 +167,7 @@ export class CreatePublicationComponent implements OnInit {
     private _setPatchValue(): void {
         this.postType.valueChanges.subscribe((data) => {
             if (this.videoPleyer) {
-                this.videoTitle = data;                
+                this.videoTitle = data;
             }
             this.play();
         })
@@ -185,7 +190,7 @@ export class CreatePublicationComponent implements OnInit {
         this.loading = true;
         this._feedService.getFeedById(this.feedId)
             .pipe(takeUntil(this._unsbscribe))
-            .subscribe((data: FeedResponseData) => {                
+            .subscribe((data: FeedResponseData) => {
                 this.postType.setValue(data.title);
                 if (typeof data.feed_media[0].content === 'string') {
                     this.mediaContent = JSON.parse(data.feed_media[0].content);
@@ -363,7 +368,7 @@ export class CreatePublicationComponent implements OnInit {
             } else {
                 content['isShowVideo'] = false
             }
-            
+
             this._feedService.updateFeedById(this.mediaUrl,
                 {
                     title: this.postType.value,
@@ -416,6 +421,30 @@ export class CreatePublicationComponent implements OnInit {
 
     }
 
+    private _getAllTags() {
+        this._youtubeService.getAllTagsCategories().pipe(takeUntil(this._unsbscribe), switchMap((val: ServerResponse<any>) => {
+            let categories = val.results
+            return this._youtubeService.getAllTags().pipe(map((data: ServerResponse<any>) => {
+                this._tagsArray = [];
+                for (let category of categories) {
+                    let arr = [];
+                    for (let tag of data.results) {
+                        if (category.url == tag.category) {
+                            arr.push(tag.name)
+                        }
+                    }
+                    if (arr && arr.length) {
+                        this._tagsArray.push({ type: category.name, tags: arr })
+                    }
+                }
+                this.videoGroup.patchValue({
+                    defaultTags: this._tagsArray
+                })
+            }))
+        })).subscribe()
+
+
+    }
     public play(): void {
         if (this.postType.value.indexOf('https://www.youtube.com') > -1) {
             let youtubeIndex = this.postType.value.indexOf('https://www.youtube.com');
@@ -424,8 +453,16 @@ export class CreatePublicationComponent implements OnInit {
                 spaceIndex = this.postType.value.length
             }
             let youtubeLink = spaceIndex > -1 ? this.postType.value.slice(youtubeIndex, spaceIndex).trim() : this.postType.value;
+            let isChange=false
             if (youtubeLink && youtubeLink !== this._youtubeLink) {
                 this.videoPleyer = true;
+                if(this._youtubeLink){
+                    this.videoGroup.reset();
+                    this.videoGroup.patchValue({
+                        defaultTags: this._tagsArray
+                    });
+                    isChange=true;
+                }
                 this._youtubeLink = youtubeLink;
             }
             if (this.videoPleyer) {
@@ -435,23 +472,56 @@ export class CreatePublicationComponent implements OnInit {
                 }]
 
                 this.showYoutube = true;
-                this._youtubeService.getVideosForChanel(youtubeLink).subscribe((data: any) => {
-                    let tagsArray = [];
 
+                this._youtubeService.getVideosForChanel(youtubeLink).subscribe((data: any) => {
+                    let youtubeTagsArray = [];
+                    let arr = []
                     if (data.items && data.items[0] && data.items[0].snippet) {
-                        if (data.items[0].snippet.tags)
+                        if (data.items[0].snippet.tags) {
                             for (let tag of data.items[0].snippet.tags) {
-                                tagsArray.push(tag)
+                                arr.push(tag)
                             }
-                        this.videoGroup.patchValue({
-                            defaultTags: tagsArray
-                        })
-                        if (!this.editProfile) {
+                        }
+                        if (arr && arr.length) {
+                            let selectedArray = [];
+                            youtubeTagsArray.push({ type: 'youtube', tags: arr });
+                            if (youtubeTagsArray && youtubeTagsArray.length && (!this.editProfile || (this.editProfile && isChange))) {
+                                let youtubeArr = youtubeTagsArray[0].tags;
+                                let otherTagsArrays = [];
+                                for (let tag of this._tagsArray) {
+                                    otherTagsArrays.push(...tag.tags);
+                                }
+                                if (otherTagsArrays && otherTagsArrays.length) {
+                                    for (let arr1 of youtubeArr) {
+                                        for (let arr2 of otherTagsArrays) {
+                                            if (arr1 == arr2) {
+                                                selectedArray.push(arr1)
+                                            }
+                                        }
+                                    }
+                                    if (selectedArray && selectedArray.length) {
+                                        this.videoGroup.patchValue({
+                                            tags: selectedArray
+                                        })
+
+                                    }
+                                }
+
+                            }
+                            let mergeArray = [...youtubeTagsArray, ...this._tagsArray]
+
+                            this.videoGroup.patchValue({
+                                defaultTags: mergeArray
+                            })
+                        }
+
+                        if (!this.editProfile || (this.editProfile && isChange)) {
                             this.videoGroup.patchValue({
                                 title: data.items[0].snippet.title,
                                 languages: data.items[0].snippet.defaultAudioLanguage ? this.languages[data.items[0].snippet.defaultAudioLanguage.toLowerCase()] ? this.languages[data.items[0].snippet.defaultAudioLanguage.toLowerCase()] : null : null
                             })
                         }
+                        isChange=false;
                     }
                 })
 
@@ -463,6 +533,9 @@ export class CreatePublicationComponent implements OnInit {
             this._youtubeLink = null;
             this.videoSources = [];
             this.videoGroup.reset();
+            this.videoGroup.patchValue({
+                defaultTags: this._tagsArray
+            });
             this.showYoutube = false;
         }
 

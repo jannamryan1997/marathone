@@ -438,7 +438,7 @@ export class EditProfileView implements OnInit {
         selBox.style.left = '0';
         selBox.style.top = '0';
         selBox.style.opacity = '0';
-        let conversionEncryptOutput = CryptoJS.AES.encrypt(this.user.data.user.id.toString(), 'secret key').toString().replace('+', 'xMl3Jk').replace('/', 'Por21Ld').replace('=', 'Ml32');
+        let conversionEncryptOutput = (((CryptoJS.AES.encrypt(this.user.data.user.id.toString(),'secret key').toString()).replace('+','xMl3Jk')).replace('/','Por21Ld')).replace('=','Ml32');               
         selBox.value = `http://uat.marathon.me/refferal/${conversionEncryptOutput}`;
         document.body.appendChild(selBox);
         selBox.focus();

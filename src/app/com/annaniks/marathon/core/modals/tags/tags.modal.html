@@ -11,18 +11,18 @@
                 close
             </span>
         </div>
-        <div class="speciality-item-content">
-            <div class="title">Youtube</div>
+        <div *ngFor="let item of tags" class="speciality-item-content">
+            <div class="title">{{item?.type}}</div>
 
             <mat-chip-list [(ngModel)]="selectedOffers" multiple>
-                <mat-chip *ngFor="let offer of tags | slice:0:youtubeMaxContent" selectable="true"
+                <mat-chip *ngFor="let offer of item?.tags | slice:0:youtubeMaxContent" selectable="true"
                     [selected]="isSelected(offer)" #ref="matChip" (click)="toggleOffer(offer)" [selectable]="selectable"
                     [ngClass]="{'background-color':isSelected(offer)}">
                     # {{offer}}
                 </mat-chip>
-                <button class="see-more-btn" *ngIf="youtubeMaxContent <= tags.length"
-                    (click)="showMoreOrLess('youtubeMaxContent',tags)">
-                    {{youtubeMaxContent < tags.length?'... See More':'... See Less'}}</button>
+                <button class="see-more-btn" *ngIf="youtubeMaxContent <=  item.tags.length"
+                    (click)="showMoreOrLess('youtubeMaxContent', item.tags)">
+                    {{youtubeMaxContent < item.tags.length ?'... See More':'... See Less'}}</button>
             </mat-chip-list>
 
 
