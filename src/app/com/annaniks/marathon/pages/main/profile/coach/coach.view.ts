@@ -298,6 +298,7 @@ export class CoachView implements OnInit {
         if (event) {
             const dialogRef = this._dialog.open(GalleryModal, {
                 width: "1400px",
+                panelClass:'no-padding-modal',
                 data: {
                     data: item,
                     type: message,

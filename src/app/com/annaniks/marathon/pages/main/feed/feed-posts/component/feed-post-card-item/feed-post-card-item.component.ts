@@ -91,8 +91,8 @@ export class FeedPostCardItemComponent implements OnInit {
                 this.videoSources = [{
                     src: this.content.videoTitle.trim(),
                     provider: 'youtube',
-                }]               
-                
+                }]
+
             }
 
             ///////////////////////////////////
@@ -217,6 +217,7 @@ export class FeedPostCardItemComponent implements OnInit {
         const dialogRef = this._dialog.open(PropertyModal, {
             width: "100%",
             maxWidth: "80vw",
+            panelClass:'no-padding-modal',
             data: {
                 data: this.feedItem,
                 localImage: this.localImage
@@ -236,6 +237,7 @@ export class FeedPostCardItemComponent implements OnInit {
         const dialogRef = this._dialog.open(PropertyModal, {
             width: "100%",
             maxWidth: "1400px",
+            panelClass:'no-padding-modal',
             data: {
                 data: this.feedItem,
                 localImage: this.localImage
@@ -259,7 +261,7 @@ export class FeedPostCardItemComponent implements OnInit {
     public sendMessage(event) {
         if (event) {
             let parentUrl = event.parentUrl ? event.parentUrl : null;
-            this._getFeedById(null,true,parentUrl).pipe(takeUntil(this.unsubscribe$)).subscribe()
+            this._getFeedById(null, true, parentUrl).pipe(takeUntil(this.unsubscribe$)).subscribe()
         }
     }
 
@@ -339,7 +341,7 @@ export class FeedPostCardItemComponent implements OnInit {
         this._router.navigate([`/feed/ingridient/${this.feedItem.id}`]);
 
     }
-    public goToArticlePage(){        
+    public goToArticlePage() {
         this._router.navigate([`/feed/combination/${+this.feedItem.id}`]);
     }
     get userRole() {

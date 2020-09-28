@@ -60,6 +60,7 @@ import {MatChipsModule} from '@angular/material/chips';
 
 import {AutoCompleteModule} from 'primeng/autocomplete';
 import {TextFieldModule} from '@angular/cdk/text-field';
+import { TagsFormatPipe } from '../core/pipes/tag.pipe';
 
 @NgModule({
     declarations: [
@@ -91,7 +92,8 @@ import {TextFieldModule} from '@angular/cdk/text-field';
         UserItemComponent,
         SkeletonLoadingComponent,
         ChatComponent,
-        TagsModalComponent
+        TagsModalComponent,
+        TagsFormatPipe
     ],
     imports: [
         ReactiveFormsModule,
@@ -167,6 +169,7 @@ import {TextFieldModule} from '@angular/cdk/text-field';
         ChatComponent,
         TagsModalComponent,
         MatChipsModule,
+        TagsFormatPipe
         
         
     ],

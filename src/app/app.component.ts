@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router, NavigationEnd, NavigationStart } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { pairwise } from 'rxjs/operators';
+import { filter, pairwise } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -15,37 +15,80 @@ export class AppComponent implements OnInit {
 
   private _routeScrollPositions: { [url: string]: number }[] = [];
   private _subscriptions: Subscription[] = [];
-
+  private _scrollPosition;
   constructor(private _router: Router) { }
 
   // ngOnInit() {
   //   this._subscriptions.push(
   //     // save or restore scroll position on route change
-  //     this.router.events.pipe(
-  //       pairwise()
+  //     this._router.events.pipe(
+  //       pairwise(),
+  //       filter(event => event instanceof NavigationEnd)
 
   //     ).subscribe(([prevRouteEvent, currRouteEvent]) => {
 
-  //       if (prevRouteEvent instanceof NavigationEnd) {
-  //         console.log('scrolll', window.pageYOffset);
-  //         this._routeScrollPositions[prevRouteEvent.url] = window.pageYOffset;
+  //       // if (prevRouteEvent instanceof NavigationEnd && currRouteEvent instanceof NavigationStart) {
+  //       //   this._routeScrollPositions[prevRouteEvent.url] = window.pageYOffset;
+  //       // }
+  //       // if (currRouteEvent instanceof NavigationEnd) {
+  //       //   window.scrollTo(0, this._routeScrollPositions[currRouteEvent.url] || 0);
+  //       // }
+  //       // if (prevRouteEvent instanceof NavigationEnd) {
+  //       //   // console.log(prevRouteEvent);
+  //       //   // if (prevRouteEvent.url == '/feed') {
+  //       //   //   this._scrollPosition = window.pageYOffset
+  //       //   //   // this._routeScrollPositions[prevRouteEvent.url] = window.pageYOffset;
+  //       //   // }
+  //       // }
+
+  //       ////////
+  //       if (prevRouteEvent instanceof NavigationEnd) {}
+  //         if (currRouteEvent instanceof NavigationEnd) {
+  //           console.log(currRouteEvent);
+
+  //           console.log(window.pageYOffset);
+
+  //           console.log(prevRouteEvent);
+
+  //           // this._scrollPosition = window.pageYOffset
+
+
+  //           if (currRouteEvent.url == '/feed') {
+  //             // console.log( this._routeScrollPositions[currRouteEvent.url],'current');
+  //             this._scrollPosition = window.pageYOffset;
+  //             console.log(this._scrollPosition);
+
+  //             window.scrollTo(0, this._scrollPosition);
+  //             // this._routeScrollPositions[currRouteEvent.url] = window.pageYOffset;
+
+  //           } else {
+  //             window.scroll(0, 0)
+  //           }
+  //         }
+        
+  //     })
+
+  //   );
+  // }
+
+  // ngOnInit() {
+  //   this._subscriptions.push(
+  //     // save or restore scroll position on route change
+  //     this._router.events.pipe(pairwise()).subscribe(([prevRouteEvent, currRouteEvent]) => {
+  //       let scrollPos;
+  //       if (prevRouteEvent instanceof NavigationEnd && currRouteEvent instanceof NavigationStart) {
+  //         console.log(prevRouteEvent.url,' ',window.pageYOffset);
+          
+  //         this._routeScrollPositions[prevRouteEvent.url] = scrollPos
   //       }
   //       if (currRouteEvent instanceof NavigationEnd) {
-          
-  //         console.log(currRouteEvent, ' ', this._routeScrollPositions[currRouteEvent.url]);
-  //         if (currRouteEvent.url == '/feed') {
-            
-	
-  //           window.scrollTo(0, this._routeScrollPositions[currRouteEvent.url]);
-  //         } else {
-  //           window.scroll(0, 0)
-  //         }
+  //         console.log(this._routeScrollPositions[currRouteEvent.url],currRouteEvent.url);
+  //         scrollPos= window.pageYOffset
+  //         window.scrollTo(0, this._routeScrollPositions[currRouteEvent.url] || 0);
   //       }
   //     })
   //   );
   // }
-
-
 
   ngOnInit() {
     this._router.events.subscribe((evt) => {
@@ -54,8 +97,6 @@ export class AppComponent implements OnInit {
       }
        window.scrollTo(0, 0)
     });
-
-
   }
   onActivate(event) {
     let scrollToTop = window.setInterval(() => {

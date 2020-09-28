@@ -10,6 +10,7 @@ import { YoutubeService } from '../../../core/services/youtube.service';
 import { MatDialog } from '@angular/material/dialog';
 import { SpecialtiesModal, TagsModalComponent } from '../../../core/modals';
 import { CountryService } from '../../../core/services/country.service';
+import { Category, FilterTag, Tag } from '../../../core/models/tags.model';
 
 @Component({
     selector: "app-create-publication",
@@ -52,7 +53,7 @@ export class CreatePublicationComponent implements OnInit {
     public loading = false;
     public showYoutube: boolean = false;
     public mediaContent;
-    private _tagsArray = []
+    private _tagsArray:FilterTag[] = []
     @ViewChild('autocomplete') private _autocomplete;
     constructor(
         public _userService: UserService,
@@ -422,9 +423,9 @@ export class CreatePublicationComponent implements OnInit {
     }
 
     private _getAllTags() {
-        this._youtubeService.getAllTagsCategories().pipe(takeUntil(this._unsbscribe), switchMap((val: ServerResponse<any>) => {
+        this._youtubeService.getAllTagsCategories().pipe(takeUntil(this._unsbscribe), switchMap((val: ServerResponse<Category[]>) => {
             let categories = val.results
-            return this._youtubeService.getAllTags().pipe(map((data: ServerResponse<any>) => {
+            return this._youtubeService.getAllTags().pipe(map((data: ServerResponse<Tag[]>) => {
                 this._tagsArray = [];
                 for (let category of categories) {
                     let arr = [];
@@ -608,9 +609,7 @@ export class CreatePublicationComponent implements OnInit {
             panelClass: 'tags-modal',
             data: {
                 data: this.videoGroup.get('defaultTags').value,
-                activeItem: this.videoGroup.get('tags').value,
-                type: 'tags',
-                title: 'Select video Tags'
+                activeItem: this.videoGroup.get('tags').value               
             }
         })
         dialogRef.afterClosed().pipe(takeUntil(this._unsbscribe)).subscribe((data) => {

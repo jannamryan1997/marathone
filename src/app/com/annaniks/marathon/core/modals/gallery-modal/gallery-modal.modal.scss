@@ -7,43 +7,45 @@ background: #ffff;
         position: relative;
         .close-btn-content{
             position: absolute;
-            top: 20px;
+            top: 23px;
             left: 15px;
             border-radius: 50%;
             background: #e0e0e0;
             padding: 5px;
             z-index: 9999;
             span{
-                font-size: 42px;
+                font-size: 38px;
             }
         }
     }
    
     .youtube-video {
         background: black;
-        max-height: 800px;
-        //  height: 800px;
+        // max-height: 800px;
+         height: 800px;
          display: none;
     }
 
 .image{
-// height: 800px;
+height: 800px;
 display: none;
 max-height: 800px;
 }
 .video-item{
     background: black;
-    // height: 800px;
+    height: 800px;
     max-height: 800px;
     display: none;
 }
-    .rigth-content {
-        margin-left: 23px;
+    .right-content {
+        // margin-left: 23px;
         width: 100%;
         max-width: 420px;
 
         .rigth-description {
-            margin: 25px 23px 25px 0;
+            .right-container{
+                margin: 15px 26px 15px 23px;
+            }
             display: flex;
             flex-direction: column;
             justify-content: space-between;

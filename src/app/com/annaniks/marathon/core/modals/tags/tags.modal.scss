@@ -62,10 +62,11 @@
 .serch-content {
     display: flex;
     justify-content: space-between;
-    padding:6px 23px 6px 29px ;
+    padding:6px 13px 6px 18px;
     background: #F4F6FB 0% 0% no-repeat padding-box;
     border-radius: 20px;
     opacity: 1;
+    width: 300px;
     .search-input {
         width: calc(100% - 30px);
         border: none;

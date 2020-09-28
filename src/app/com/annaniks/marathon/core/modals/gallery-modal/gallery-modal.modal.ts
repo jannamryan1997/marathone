@@ -164,6 +164,9 @@ export class GalleryModal implements OnInit, OnDestroy {
             return 0
         }
     }
-    ngOnDestroy() { }
+    ngOnDestroy() {
+        this.unsubscribe$.next();
+        this.unsubscribe$.complete();
+    }
 
 } 

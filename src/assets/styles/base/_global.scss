@@ -451,3 +451,8 @@ textarea {
     font-weight: bold;
     cursor: pointer;
 }
+.no-padding-modal{
+    .mat-dialog-container{
+        padding: 0 !important;
+    }
+}
