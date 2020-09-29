@@ -32,8 +32,9 @@ export class YoutubeService {
     public getAllTagsCategories() {
         return this.http.get(this._baseUrl + '/feed/tag-category/')
     }
-    public filterTags(searchValue: string, youtubeTagsArray: string) {
-        return this.http.get(this._baseUrl + `/feed/tag/?name=${searchValue}?youtube=${youtubeTagsArray}`,)
+    public filterTags(searchValue: string) {
+        // ?youtube=${youtubeTagsArray}        
+        return this.http.get(this._baseUrl + `/feed/tag/?name=${searchValue}`,)
     }
 }
 

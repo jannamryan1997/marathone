@@ -117,7 +117,7 @@
         display: flex;
         text-align: center;
 
-        .left-content {
+        .left-content-container {
             width: 100%;
             max-width: 980px;
             position: relative;
@@ -144,7 +144,7 @@
             }
         }
 
-        .right-content {
+        .right-content-container {
             width: 100%;
             max-width: 420px;
 

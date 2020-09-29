@@ -65,26 +65,28 @@ export class AppComponent implements OnInit {
   //             window.scroll(0, 0)
   //           }
   //         }
-        
+
   //     })
 
   //   );
   // }
-
   // ngOnInit() {
   //   this._subscriptions.push(
   //     // save or restore scroll position on route change
   //     this._router.events.pipe(pairwise()).subscribe(([prevRouteEvent, currRouteEvent]) => {
-  //       let scrollPos;
-  //       if (prevRouteEvent instanceof NavigationEnd && currRouteEvent instanceof NavigationStart) {
-  //         console.log(prevRouteEvent.url,' ',window.pageYOffset);
-          
-  //         this._routeScrollPositions[prevRouteEvent.url] = scrollPos
+        
+  //         if( currRouteEvent instanceof NavigationStart && prevRouteEvent instanceof NavigationEnd){
+  //          console.log('yes');
+           
+            
+  //           this._routeScrollPositions[prevRouteEvent.url] = window.pageYOffset;
+  //                  // if(currRouteEvent.url ==)
+       
   //       }
   //       if (currRouteEvent instanceof NavigationEnd) {
-  //         console.log(this._routeScrollPositions[currRouteEvent.url],currRouteEvent.url);
-  //         scrollPos= window.pageYOffset
-  //         window.scrollTo(0, this._routeScrollPositions[currRouteEvent.url] || 0);
+  //         console.log( this._routeScrollPositions[currRouteEvent.url]);
+  //         console.log(currRouteEvent.url);
+  //           window.scrollTo(0, this._routeScrollPositions[currRouteEvent.url] || 0);
   //       }
   //     })
   //   );
@@ -110,6 +112,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    // this._subscriptions.forEach(subscription => subscription.unsubscribe());
+    // if (this._subscriptions && this._subscriptions.length)
+    //   this._subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 }

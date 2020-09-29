@@ -23,16 +23,16 @@
 }
 
 @media only screen and (max-width:1279px) {
-    .left-content{
+    .left-content-container{
         max-width: 100% !important;
     }
-    .right-content {
+    .right-content,.right-content-container {
         display: none !important;
     }
 }
 
 @media only screen and (max-width:900px) {
-    .left-content {
+    .left-content,.left-content-container {
         display: none !important;
     }
 }
