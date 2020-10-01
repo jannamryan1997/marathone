@@ -37,8 +37,13 @@ export class SettingsComponent implements OnInit, OnDestroy {
     ngOnInit() {}
 
     public onClickOpenComments(): void {
-        this.isOpen = !this.isOpen;
-        this.openChanges.emit(this.isOpen);
+      
+        if (!this.role) {
+            this._buttonsType.emit(false)
+        }else{
+            this.isOpen = !this.isOpen;
+            this.openChanges.emit(this.isOpen);
+        }
     }
     public clickOnButton(type: string): void {
         if (this.role) {

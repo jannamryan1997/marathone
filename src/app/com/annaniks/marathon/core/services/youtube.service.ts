@@ -36,6 +36,12 @@ export class YoutubeService {
         // ?youtube=${youtubeTagsArray}        
         return this.http.get(this._baseUrl + `/feed/tag/?name=${searchValue}`,)
     }
+    public setOtherTags(tagName:string){
+        return this.http.post(this._baseUrl+'/feed/tag/',{
+            "name": tagName,
+            "category": `${this._baseUrl}/feed/tag-category/5/`
+        })
+    }
 }
 
 // import { Injectable } from '@angular/core';

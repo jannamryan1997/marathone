@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, NavigationEnd, NavigationStart } from '@angular/router';
+import { Router, NavigationEnd, NavigationStart, RoutesRecognized } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { filter, pairwise } from 'rxjs/operators';
 
@@ -74,14 +74,14 @@ export class AppComponent implements OnInit {
   //   this._subscriptions.push(
   //     // save or restore scroll position on route change
   //     this._router.events.pipe(pairwise()).subscribe(([prevRouteEvent, currRouteEvent]) => {
-        
+
   //         if( currRouteEvent instanceof NavigationStart && prevRouteEvent instanceof NavigationEnd){
   //          console.log('yes');
-           
-            
+
+
   //           this._routeScrollPositions[prevRouteEvent.url] = window.pageYOffset;
   //                  // if(currRouteEvent.url ==)
-       
+
   //       }
   //       if (currRouteEvent instanceof NavigationEnd) {
   //         console.log( this._routeScrollPositions[currRouteEvent.url]);
@@ -91,15 +91,44 @@ export class AppComponent implements OnInit {
   //     })
   //   );
   // }
-
   ngOnInit() {
+  
     this._router.events.subscribe((evt) => {
       if (!(evt instanceof NavigationEnd)) {
         return;
       }
-       window.scrollTo(0, 0)
+      window.scrollTo(0, 0)
     });
   }
+
+  // ngOnInit() {
+  //   this._router.events
+  //     .pipe(
+  //       filter(event => event instanceof RoutesRecognized),
+  //       pairwise()
+  //     )
+  //     .subscribe((e: any) => {
+
+  //       console.log(e);
+  //       if (e && e.length) {
+  //         if (e[0].urlAfterRedirects == '/feed') {
+  //           this._scrollPosition = window.pageYOffset;
+  //           console.log(this._scrollPosition);
+
+  //         }
+  //         if (e[1].urlAfterRedirects == '/feed') {
+  //           setTimeout(() => {
+  //             window.scrollTo(0, this._scrollPosition);
+  //           });
+
+  //         } else {
+  //           window.scrollTo(0, 0);
+  //         }
+
+  //       }
+  //     });
+  // }
+
   onActivate(event) {
     let scrollToTop = window.setInterval(() => {
       let pos = window.pageYOffset;

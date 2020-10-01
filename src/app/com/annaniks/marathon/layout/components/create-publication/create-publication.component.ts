@@ -53,7 +53,8 @@ export class CreatePublicationComponent implements OnInit {
     public loading = false;
     public showYoutube: boolean = false;
     public mediaContent;
-    private _tagsArray:FilterTag[] = []
+    private _tagsArray: FilterTag[] = [];
+    private youtubeTagsArray = [];
     @ViewChild('autocomplete') private _autocomplete;
     constructor(
         public _userService: UserService,
@@ -422,7 +423,7 @@ export class CreatePublicationComponent implements OnInit {
 
     }
 
-    private _getAllTags() {
+    private _getAllTags(youtubeArray?) {
         this._youtubeService.getAllTagsCategories().pipe(takeUntil(this._unsbscribe), switchMap((val: ServerResponse<Category[]>) => {
             let categories = val.results
             return this._youtubeService.getAllTags().pipe(map((data: ServerResponse<Tag[]>) => {
@@ -438,11 +439,17 @@ export class CreatePublicationComponent implements OnInit {
                         this._tagsArray.push({ type: category.name, tags: arr })
                     }
                 }
+                let mergeArray = [];
+                if (this.youtubeTagsArray && this.youtubeTagsArray.length) {
+                    mergeArray = [...this.youtubeTagsArray, ...this._tagsArray];
+                } else {
+                    mergeArray = this._tagsArray
+                }
                 this.videoGroup.patchValue({
-                    defaultTags: this._tagsArray
+                    defaultTags: mergeArray
                 })
             }))
-        })).subscribe()
+        })).subscribe(() => { this.loading = false })
 
 
     }
@@ -454,15 +461,15 @@ export class CreatePublicationComponent implements OnInit {
                 spaceIndex = this.postType.value.length
             }
             let youtubeLink = spaceIndex > -1 ? this.postType.value.slice(youtubeIndex, spaceIndex).trim() : this.postType.value;
-            let isChange=false
+            let isChange = false
             if (youtubeLink && youtubeLink !== this._youtubeLink) {
                 this.videoPleyer = true;
-                if(this._youtubeLink){
+                if (this._youtubeLink) {
                     this.videoGroup.reset();
                     this.videoGroup.patchValue({
                         defaultTags: this._tagsArray
                     });
-                    isChange=true;
+                    isChange = true;
                 }
                 this._youtubeLink = youtubeLink;
             }
@@ -475,7 +482,7 @@ export class CreatePublicationComponent implements OnInit {
                 this.showYoutube = true;
 
                 this._youtubeService.getVideosForChanel(youtubeLink).subscribe((data: any) => {
-                    let youtubeTagsArray = [];
+                    this.youtubeTagsArray = [];
                     let arr = []
                     if (data.items && data.items[0] && data.items[0].snippet) {
                         if (data.items[0].snippet.tags) {
@@ -485,9 +492,9 @@ export class CreatePublicationComponent implements OnInit {
                         }
                         if (arr && arr.length) {
                             let selectedArray = [];
-                            youtubeTagsArray.push({ type: 'youtube', tags: arr });
-                            if (youtubeTagsArray && youtubeTagsArray.length && (!this.editProfile || (this.editProfile && isChange))) {
-                                let youtubeArr = youtubeTagsArray[0].tags;
+                            this.youtubeTagsArray.push({ type: 'youtube', tags: arr });
+                            if (this.youtubeTagsArray && this.youtubeTagsArray.length && (!this.editProfile || (this.editProfile && isChange))) {
+                                let youtubeArr = this.youtubeTagsArray[0].tags;
                                 let otherTagsArrays = [];
                                 for (let tag of this._tagsArray) {
                                     otherTagsArrays.push(...tag.tags);
@@ -509,7 +516,7 @@ export class CreatePublicationComponent implements OnInit {
                                 }
 
                             }
-                            let mergeArray = [...youtubeTagsArray, ...this._tagsArray]
+                            let mergeArray = [...this.youtubeTagsArray, ...this._tagsArray]
 
                             this.videoGroup.patchValue({
                                 defaultTags: mergeArray
@@ -522,7 +529,7 @@ export class CreatePublicationComponent implements OnInit {
                                 languages: data.items[0].snippet.defaultAudioLanguage ? this.languages[data.items[0].snippet.defaultAudioLanguage.toLowerCase()] ? this.languages[data.items[0].snippet.defaultAudioLanguage.toLowerCase()] : null : null
                             })
                         }
-                        isChange=false;
+                        isChange = false;
                     }
                 })
 
@@ -609,14 +616,19 @@ export class CreatePublicationComponent implements OnInit {
             panelClass: 'tags-modal',
             data: {
                 data: this.videoGroup.get('defaultTags').value,
-                activeItem: this.videoGroup.get('tags').value               
+                activeItem: this.videoGroup.get('tags').value
             }
         })
         dialogRef.afterClosed().pipe(takeUntil(this._unsbscribe)).subscribe((data) => {
             if (data) {
                 this.videoGroup.patchValue({
-                    tags: data,
+                    tags: data.selectOffer,
                 })
+                if (data.isChanged) {
+                    this.loading = true;
+                    this._getAllTags()
+
+                }
             }
 
 

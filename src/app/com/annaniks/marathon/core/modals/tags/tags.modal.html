@@ -1,3 +1,4 @@
+<app-loading *ngIf="loading"></app-loading>
 <div class="speciality-content">
     <div class="speciality-container">
         <div class="header-content d-flex">
@@ -11,7 +12,7 @@
                 close
             </span>
         </div>
-        <div>
+        <div class="tags-content">
             <div *ngIf="(!tags || (tags && !tags.length)) && isGet" class="empty-text">No results found</div>
             <div *ngFor="let item of tags" class="speciality-item-content">
                 <div class="title">{{item?.type}}</div>

@@ -3,7 +3,9 @@
     line-height: $lineHeight;
     color: $color;
 }
-
+.tags-content{
+    padding-top: 10px;
+}
 .speciality-content {
     z-index: 9;
     background: #FFFFFF 0% 0% no-repeat padding-box;
@@ -13,8 +15,10 @@
     position: relative;
     .title{
         color: black;
-        margin: 10px 0 25px 0;
+        margin-bottom: 20px;
         font-size: 18px;
+        padding-left: 12px;
+        font-family: EncodeSans-Medium;
         text-transform: uppercase;
     }
     .speciality-container {
@@ -42,13 +46,16 @@
 
             }
         }
-
+     
         .speciality-item-content {
             padding: 12px 21px;
             // overflow-y: auto;
             // max-height: 500px;
             // padding-bottom: 90px;
+        
+             
         }
+      
         .blue-btn{
             width: 135px;
             justify-content: center;
@@ -56,6 +63,7 @@
         }
     }
 }
+
 .see-more-btn{
     margin-left: 4px;
 }

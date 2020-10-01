@@ -1,7 +1,7 @@
 import { Component, Inject } from "@angular/core";
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Subject } from 'rxjs';
+import { concat, Observable, Subject } from 'rxjs';
 import { map, switchMap, takeUntil } from 'rxjs/operators';
 import { ServerResponse } from '../../models';
 import { Category, FilterTag, Tag } from '../../models/tags.model';
@@ -13,16 +13,18 @@ import { YoutubeService } from '../../services/youtube.service';
   styleUrls: ['tags.modal.scss']
 })
 export class TagsModalComponent {
+  public loading: boolean = false;
+  private unsubscribe$ = new Subject<void>();
+
   public searchControl = this._fb.control(null, Validators.required)
   public selectable: boolean = true;
   public selectedOffers: any[] = [];
   public tags: FilterTag[];
   private _allTags: FilterTag[];
   public activeItem: string[];
-  private unsubscribe$ = new Subject<void>();
   public selectedItem: string;
   public youtubeMaxContent = 10;
-  public isGet:boolean=false;
+  public isGet: boolean = false;
   constructor(@Inject(MAT_DIALOG_DATA) private _data,
     private _youtubeService: YoutubeService,
     private _dialogRef: MatDialogRef<TagsModalComponent>,
@@ -57,11 +59,11 @@ export class TagsModalComponent {
 
   public search() {
     if (this.searchControl.valid) {
-      this.isGet=false;
-      let searchValue=this.searchControl.value;
-      if(this.searchControl.value.trim().startsWith('#')){        
-        searchValue=searchValue.substring(1);        
-      }      
+      this.isGet = false;
+      let searchValue = this.searchControl.value;
+      if (this.searchControl.value.trim().startsWith('#')) {
+        searchValue = searchValue.substring(1);
+      }
       this._youtubeService.filterTags(searchValue).pipe(takeUntil(this.unsubscribe$), switchMap((data: ServerResponse<Tag[]>) => {
         this.tags = []
         return this._youtubeService.getAllTagsCategories().pipe(
@@ -96,15 +98,15 @@ export class TagsModalComponent {
                 this.tags.push({ type: category.name, tags: arr })
               }
             }
-            this.isGet=true;
+            this.isGet = true;
           })
         )
-        
+
       })
       ).subscribe()
     } else {
       this.tags = this._data.data;
-      this.isGet=true;
+      this.isGet = true;
     }
   }
 
@@ -137,7 +139,44 @@ export class TagsModalComponent {
 
 
   public sentselectedOffers(): void {
-    this._dialogRef.close(this.selectedOffers);
+    let otherTagsArray = [];
+    for (let select of this.selectedOffers) {
+      let isExist = false;
+      for (let item of this._allTags) {
+        if (item.type !== 'youtube') {
+
+          if (item.tags.indexOf(select) > -1) {
+            isExist = true;
+            break;
+          }
+        }
+      }
+      if (!isExist) {
+        otherTagsArray.push(select)
+      }
+    }
+    console.log(otherTagsArray);
+    const observables: Observable<any>[] = [];
+
+    for (let other of otherTagsArray) {
+      observables.push(this._youtubeService.setOtherTags(other));
+    }
+    if (observables && observables.length) {
+      let j = 0;
+      this.loading = true
+      concat(...observables).pipe(takeUntil(this.unsubscribe$)).subscribe(
+        () => {
+          if (j == observables.length - 1) {
+            this.loading = false;
+            this._dialogRef.close({ selectOffer: this.selectedOffers, isChanged: true })
+          }
+          j++
+        }
+      );
+    } else {
+      this._dialogRef.close({ selectOffer: this.selectedOffers, isChanged: false })
+    }
+    // this._dialogRef.close(this.selectedOffers);
 
   }
 

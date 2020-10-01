@@ -216,7 +216,7 @@ export class FeedPostCardItemComponent implements OnInit {
     public openPropertyModalByImage(): void {
         const dialogRef = this._dialog.open(PropertyModal, {
             width: "100%",
-            maxWidth: "80vw",
+            maxWidth: "1400px",
             panelClass:'no-padding-modal',
             data: {
                 data: this.feedItem,
