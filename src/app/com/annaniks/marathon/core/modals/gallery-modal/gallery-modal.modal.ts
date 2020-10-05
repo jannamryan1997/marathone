@@ -9,6 +9,7 @@ import { CommentService } from '../../services/comment.service';
 import { CookieService } from 'ngx-cookie';
 import { FeedService } from '../../../pages/main/feed/feed.service';
 import { AuthModal } from '../auth/auth.modal';
+import { AppService } from '../../services/app.service';
 
 
 @Component({
@@ -29,7 +30,7 @@ export class GalleryModal implements OnInit, OnDestroy {
     public isOpen: boolean = true;
     public role: string;
     private unsubscribe$ = new Subject<void>();
-    private _defaultImage: string = '/assets/images/user-icon-image.png';
+    // private _defaultImage: string = '/assets/images/user-icon-image.png';
     private _isChange: boolean = false;
     public count: number;
     public pageLength: number = 3;
@@ -40,6 +41,7 @@ export class GalleryModal implements OnInit, OnDestroy {
         private _cookieService: CookieService,
         private _feedService: FeedService,
         private _matDialog: MatDialog,
+        private _appService: AppService,
         private _dialogRef: MatDialogRef<GalleryModal>,
     ) {
         this.role = this._cookieService.get('role');
@@ -62,7 +64,8 @@ export class GalleryModal implements OnInit, OnDestroy {
         }
         // this._userService.user.data;
         if (this.user) {
-            this.localImage = this.user.avatar ? this.fileURL + this.user.avatar : this._defaultImage;
+            this.localImage = this._appService.setLocalImage(this.user.avatar)
+            // this.user.avatar ? this.fileURL + this.user.avatar : this._defaultImage;
         }
 
     }
@@ -74,11 +77,11 @@ export class GalleryModal implements OnInit, OnDestroy {
         this._dialogRef.close()
     }
 
-    private _getFeedById(isComment?:boolean,parent?) {        
+    private _getFeedById(isComment?: boolean, parent?) {
         return this._feedService.getFeedById(this.feedItem.id).pipe(switchMap((result) => {
             this.feedItem = result;
             this.count = +this.feedItem.feed_comments_count;
-            if (isComment) {                
+            if (isComment) {
                 return this._getComments(parent)
             } else {
                 return of()
@@ -88,7 +91,7 @@ export class GalleryModal implements OnInit, OnDestroy {
 
     private _getComments(parent?): Observable<ServerResponse<Comment[]>> {
         return this._commentService.getFeedCommentById(this.feedItem.id, this.count, 0).pipe(map((data: ServerResponse<Comment[]>) => {
-            this.comments = data.results;            
+            this.comments = data.results;
             if (parent) {
                 this.comments = this.comments.map((val) => {
 
@@ -115,7 +118,7 @@ export class GalleryModal implements OnInit, OnDestroy {
         if (event) {
             let parentUrl = event.parentUrl ? event.parentUrl : null;
             this._isChange = true;
-            this._getFeedById(true,parentUrl).pipe(takeUntil(this.unsubscribe$)).subscribe(() => {
+            this._getFeedById(true, parentUrl).pipe(takeUntil(this.unsubscribe$)).subscribe(() => {
                 let item = document.getElementById("comment")
                 if (item) {
                     item.scrollIntoView({ behavior: 'smooth', block: 'end' })

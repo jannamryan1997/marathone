@@ -225,10 +225,15 @@
 }
 
 .video-youtube {
-    margin: 6px  0 !important;
+    // margin: 6px  0 !important;
 }
 
 :host::ng-deep {
+    .no-controls{
+        .plyr__controls{
+            display: none !important;
+        }
+    }
     .video-youtube {
         .plyr {
             min-width: 100% !important;

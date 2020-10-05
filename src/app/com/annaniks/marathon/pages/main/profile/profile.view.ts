@@ -10,6 +10,7 @@ import { FollowService } from '../../../core/services/follow.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ProfileCoverModal } from '../../../core/modals';
 import * as CryptoJS from 'crypto-js';
+import { AppService } from '../../../core/services/app.service';
 
 
 
@@ -46,6 +47,7 @@ export class ProfileView implements OnInit {
         private _activatedRoute: ActivatedRoute,
         private _followService: FollowService,
         private _dialog: MatDialog,
+        private _appService: AppService,
         private _router: Router) {
 
         this.role = this._cookieService.get('role');
@@ -78,8 +80,10 @@ export class ProfileView implements OnInit {
                 if (data.results && data.results.length) {
                     this.user = data.results[0];
                     this.isFollowed = this.user.is_follower;
-                    this.localImage = this.user.avatar ? this._fileUrl + this.user.avatar : this._defaultImage;
-                    this.headerLocalImage = this.user.cover ? this._fileUrl + this.user.cover : this._defaultImage;
+                    this.localImage = this._appService.setLocalImage(this.user.avatar)
+                    // this.user.avatar ? this._fileUrl + this.user.avatar : this._defaultImage;
+                    this.headerLocalImage = this._appService.setLocalImage(this.user.cover)
+                    // this.user.cover ? this._fileUrl + this.user.cover : this._defaultImage;
                 }
             }))
 
@@ -96,10 +100,12 @@ export class ProfileView implements OnInit {
                 .subscribe((data) => {
                     this._userService.getClient().subscribe((data) => {
                         if (type === 'avatar') {
-                            this.localImage = this._fileUrl + data.data.avatar;
+                            this.localImage =  this._appService.setLocalImage(this.user.avatar)
+                            // this._fileUrl + data.data.avatar;
                         }
                         else {
-                            this.headerLocalImage = this._fileUrl + data.data.cover;
+                            this.headerLocalImage =  this._appService.setLocalImage(this.user.cover)
+                            // this._fileUrl + data.data.cover;
                         }
                     });
                 }),
@@ -112,10 +118,12 @@ export class ProfileView implements OnInit {
                 .subscribe((data) => {
                     this._userService.getCoatch().subscribe((data) => {
                         if (type === 'avatar') {
-                            this.localImage = this._fileUrl + data.data.avatar;
+                            this.localImage =  this._appService.setLocalImage(this.user.avatar)
+                            // this._fileUrl + data.data.avatar;
                         }
                         else {
-                            this.headerLocalImage = this._fileUrl + data.data.cover;
+                            this.headerLocalImage =  this._appService.setLocalImage(this.user.cover)
+                            // this._fileUrl + data.data.cover;
                         }
 
                     });
@@ -208,8 +216,8 @@ export class ProfileView implements OnInit {
         selBox.style.position = 'fixed';
         selBox.style.left = '0';
         selBox.style.top = '0';
-        selBox.style.opacity = '0';   
-        let conversionEncryptOutput = (((CryptoJS.AES.encrypt(this.user.user.id.toString(),'secret key').toString()).replace('+','xMl3Jk')).replace('/','Por21Ld')).replace('=','Ml32');               
+        selBox.style.opacity = '0';
+        let conversionEncryptOutput = (((CryptoJS.AES.encrypt(this.user.user.id.toString(), 'secret key').toString()).replace('+', 'xMl3Jk')).replace('/', 'Por21Ld')).replace('=', 'Ml32');
         selBox.value = `http://uat.marathon.me/refferal/${conversionEncryptOutput}`;
         document.body.appendChild(selBox);
         selBox.focus();

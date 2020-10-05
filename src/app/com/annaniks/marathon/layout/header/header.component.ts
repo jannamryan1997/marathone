@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { CookieService } from 'ngx-cookie';
 import { Router } from '@angular/router';
 import { UserResponseData } from '../../core/models/user';
+import { AppService } from '../../core/services/app.service';
 
 @Component({
     selector: "app-header",
@@ -34,6 +35,7 @@ export class HeaderComponent implements OnInit {
         private _mathDialog: MatDialog,
         private _cookieService: CookieService,
         public router: Router,
+        private _appService: AppService,
         @Inject("FILE_URL") private _fileUrl,
     ) {
         this.menuItem = [
@@ -73,7 +75,8 @@ export class HeaderComponent implements OnInit {
 
             this.profileUser = this._profileUserService.user;
             if (this.profileUser.data.avatar) {
-                this.localImage = this._fileUrl + this.profileUser.data.avatar;
+                this.localImage = this._appService.setLocalImage(this.profileUser.data.avatar)
+                //  this._fileUrl + this.profileUser.data.avatar;
             }
 
             return this._profileUserService.isAuthorized;
@@ -94,9 +97,9 @@ export class HeaderComponent implements OnInit {
 
         this.router.navigate(['feed']);
         setTimeout(() => {
-            location.reload();    
-        },100);
-        
+            location.reload();
+        }, 100);
+
     }
 
 }

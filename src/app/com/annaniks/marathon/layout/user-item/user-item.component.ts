@@ -6,6 +6,7 @@ import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { Familiar } from '../../core/models/user';
 import { FollowService } from '../../core/services/follow.service';
+import { AppService } from '../../core/services/app.service';
 
 @Component({
     selector: 'app-user-item',
@@ -27,6 +28,7 @@ export class UserItemComponent {
     constructor(@Inject('FILE_URL') public fileURL,
         private _followService: FollowService,
         private _cookieService: CookieService,
+        private _appService: AppService,
         private _userService: UserService) {
         this._role = this._cookieService.get('role');
     }
@@ -44,12 +46,12 @@ export class UserItemComponent {
             .pipe(takeUntil(this.unsubscribe$)).subscribe()
     }
     public getAvatar(item: Familiar) {
-
-        if (item && item.avatar) {
-            return this.fileURL + item.avatar
-        } else {
-            return this._defaultImage
-        }
+        return this._appService.setLocalImage(item.avatar)
+        // if (item && item.avatar) {
+        //     return this.fileURL + item.avatar
+        // } else {
+        //     return this._defaultImage
+        // }
     }
     public getLinkUrl(item: Familiar) {
         return `/profile/${item.slug}/${item.role}`

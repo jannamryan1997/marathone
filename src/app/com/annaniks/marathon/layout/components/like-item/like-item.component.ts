@@ -5,6 +5,7 @@ import { ProfileService } from '../../../core/services/profile.service';
 import { map, takeUntil, switchMap } from 'rxjs/operators';
 import { Subject, of } from 'rxjs';
 import { FollowService } from '../../../core/services/follow.service';
+import { AppService } from '../../../core/services/app.service';
 
 
 @Component({
@@ -39,7 +40,8 @@ export class LiketemComponent implements OnInit, OnDestroy {
         private _userService: UserService,
         private _profileService: ProfileService,
         private _cookieService: CookieService,
-        private _followService: FollowService
+        private _followService: FollowService,
+        private _appService:AppService
     ) {
         this.role = this._cookieService.get('role');
         this.user = this._userService.user.data;
@@ -50,7 +52,8 @@ export class LiketemComponent implements OnInit, OnDestroy {
     ngOnInit() {
         if (this.likeItem.liked_coach === null) {///////coach e
             if(this.likeItem.liked_user.avatar){
-                this.localImage = this._fileUrl + this.likeItem.liked_user.avatar;
+                this.localImage = this._appService.setLocalImage(this.likeItem.liked_user.avatar)
+                // this._fileUrl + this.likeItem.liked_user.avatar;
             }
          
             this.user_first_name = this.likeItem.liked_user.user.first_name;
@@ -58,7 +61,8 @@ export class LiketemComponent implements OnInit, OnDestroy {
         }
         else {////clent e
             if(this.likeItem.liked_coach.avatar){
-                this.localImage = this._fileUrl + this.likeItem.liked_coach.avatar;
+                this.localImage = this._appService.setLocalImage( this.likeItem.liked_coach.avatar)
+                // this._fileUrl + this.likeItem.liked_coach.avatar;
             }
          
             this.user_first_name = this.likeItem.liked_coach.user.first_name;

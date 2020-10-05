@@ -16,6 +16,7 @@ import { MatAutocompleteSelectedEvent, MatAutocomplete } from '@angular/material
 import { Router, ActivatedRoute } from '@angular/router';
 import { GooglePlaceDirective } from 'ngx-google-places-autocomplete';
 import * as CryptoJS from 'crypto-js';
+import { AppService } from '../../../core/services/app.service';
 
 @Component({
     selector: "app-edit-profile",
@@ -73,6 +74,7 @@ export class EditProfileView implements OnInit {
         private _dialog: MatDialog,
         private _router: Router,
         private _activatedRouter: ActivatedRoute,
+        private _appService:AppService,
 
         @Inject("FILE_URL") public _fileUrl: string,
     ) {
@@ -81,10 +83,12 @@ export class EditProfileView implements OnInit {
 
 
         if (this._userService.user.data.avatar) {
-            this.localImage = this._fileUrl + this._userService.user.data.avatar;
+            this.localImage = this._appService.setLocalImage(this._userService.user.data.avatar)
+            // this._fileUrl + this._userService.user.data.avatar;
         }
         if (this._userService.user.data.cover) {
-            this.headerLocalImage = this._fileUrl + this._userService.user.data.cover;
+            this.headerLocalImage = this._appService.setLocalImage(this._userService.user.data.cover)
+            //  this._fileUrl + this._userService.user.data.cover;
         }
         this.routerUrl = window.location.href;
     }
@@ -231,10 +235,12 @@ export class EditProfileView implements OnInit {
                 .subscribe((data) => {
                     this._userService.getClient().subscribe((data) => {
                         if (type === 'avatar') {
-                            this.localImage = this._fileUrl + data.data.avatar;
+                            this.localImage = this._appService.setLocalImage(data.data.avatar)
+                            // this._fileUrl + data.data.avatar;
                         }
                         else {
-                            this.headerLocalImage = this._fileUrl + data.data.cover;
+                            this.headerLocalImage = this._appService.setLocalImage(data.data.cover)
+                            // this._fileUrl + data.data.cover;
                         }
 
 
@@ -250,10 +256,12 @@ export class EditProfileView implements OnInit {
                 .subscribe((data) => {
                     this._userService.getCoatch().subscribe((data) => {
                         if (type === 'avatar') {
-                            this.localImage = this._fileUrl + data.data.avatar;
+                            this.localImage =this._appService.setLocalImage(data.data.avatar)
+                            //  this._fileUrl + data.data.avatar;
                         }
                         else {
-                            this.headerLocalImage = this._fileUrl + data.data.cover;
+                            this.headerLocalImage =this._appService.setLocalImage(data.data.cover)
+                            //  this._fileUrl + data.data.cover;
                         }
 
                     });

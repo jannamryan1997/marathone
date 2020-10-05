@@ -4,6 +4,7 @@ import * as moment from 'moment';
 import { CommentService } from '../../../core/services/comment.service';
 import { map, takeUntil, switchMap } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { AppService } from '../../../core/services/app.service';
 
 @Component({
     selector: "app-comments",
@@ -38,6 +39,7 @@ export class CommentsComponent implements OnInit, OnDestroy {
     }
 
     constructor(@Inject("FILE_URL") public fileUrl: string,
+        private _appService: AppService,
         private _commentService: CommentService) { }
 
     ngOnInit() { }
@@ -110,10 +112,10 @@ export class CommentsComponent implements OnInit, OnDestroy {
         if (item) {
             let defaultImage = '/assets/images/user-icon-image.png';
             if (item.user_coach) {
-                return item.user_coach && item.user_coach.avatar ? this.fileUrl + item.user_coach.avatar : defaultImage
+                return item.user_coach && item.user_coach.avatar ? this._appService.setLocalImage(item.user_coach.avatar) : defaultImage
             }
             if (item.comment_coach) {
-                return item.comment_coach && item.comment_coach.avatar ? this.fileUrl + item.comment_coach.avatar : defaultImage
+                return item.comment_coach && item.comment_coach.avatar ? this._appService.setLocalImage(item.comment_coach.avatar) : defaultImage
             }
         }
     }
@@ -125,7 +127,7 @@ export class CommentsComponent implements OnInit, OnDestroy {
         this.isOpenComments = !this.isOpenComments;
         if (this.isOpenComments) {
             setTimeout(() => {
-                let item = document.getElementById(this.comments.url)                                
+                let item = document.getElementById(this.comments.url)
                 if (item)
                     item.scrollIntoView({ behavior: 'smooth', block: 'end' })
 

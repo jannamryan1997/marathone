@@ -34,7 +34,7 @@ export class DeleteFeedItemComponent implements OnInit {
     }
 
     public onClickGoEditPage(): void {
-        let router: string;
+        let router: string;                
         if (this.content === 'recipeType') {
             router = `/recipe/recipe-post/${this.feedId}`;
 
@@ -45,7 +45,7 @@ export class DeleteFeedItemComponent implements OnInit {
             this._router.navigate([router], { queryParams: { feedId: this.feedId, url: this.mediaUrl } })
 
         }
-        else if (this.content === 'image' || this.content === 'video' || this.content === undefined || this.content === 'videoLink') {
+        else if (this.content === 'image' || this.content === 'video' || this.content == null || this.content == undefined || this.content === 'videoLink') {
             this.isModalMode = true;
             this.isOpenModal.emit(this.isModalMode);
         } else if (this.content == 'article') {

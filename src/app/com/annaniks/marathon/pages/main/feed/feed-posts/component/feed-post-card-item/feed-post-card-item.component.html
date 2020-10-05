@@ -62,11 +62,12 @@
 
 
                 <div class="video-youtube d-none" [ngClass]="{'d-block':content?.type === 'videoLink'}">
-                    <plyr *ngIf="videoSources && videoSources.length" style="display:block" plyrTitle="Video 1" [plyrSources]="videoSources"></plyr>
+                    <plyr *ngIf="videoSources && videoSources.length" style="display:block" plyrTitle="Video 1"
+                        [plyrSources]="videoSources"></plyr>
                     <div class="combinations-description">
                         <p *ngIf="content?.title" class="video-title">{{content?.title}}</p>
 
-                     
+
                     </div>
                 </div>
 
@@ -89,7 +90,10 @@
                                 width="100%" class="recipt-style">
                             <img *ngIf="receipt?.imageSlider.length===0 && receipt?.videoLink ==='' "
                                 src="/assets/images/food.png" alt="" width="100%" class="recipt-style">
-
+                            <div *ngIf="receipt?.videoLink !=''" class="video-youtube no-controls">
+                                <plyr style="display:block" plyrTitle="Video 1" [plyrSources]="receptvideoSources">
+                                </plyr>
+                            </div>
                             <div class="comments  w-100 position-absolute">
                                 <div class="comments-content d-flex">
                                     <div class="comments-description">
@@ -130,11 +134,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div *ngIf="receipt?.videoLink !=''" class="video-youtube">
-                            <plyr style="display:block" plyrTitle="Video 1" [plyrSources]="receptvideoSources"></plyr>
-                        </div>
+
                         <div class="combinations-description">
-<!-- ----------- -->
+                            <!-- ----------- -->
                             <!-- <div class="text-content d-flex text-align-centre name-post-recept">
                                 <p class="name mr-2">by </p>
                                 <p class="name mb-0" *ngIf="userRole==='client'">
@@ -155,9 +157,8 @@
 
                 <!-----ARTIcLE POST-->
                 <div class="d-none" [ngClass]="{'d-block':content?.type ==='article'}">
-                    <div  class="post-container p-0">
-                        <img  (click)="goToArticlePage()" [src]="setImage()" class="article-style" alt="Cinque Terre"
-                           >
+                    <div class="post-container p-0">
+                        <img (click)="goToArticlePage()" [src]="setImage()" class="article-style" alt="Cinque Terre">
                         <div class="combinations-description">
                             <p class="title article-title">{{feedItem?.title}}</p>
                             <!--         -->

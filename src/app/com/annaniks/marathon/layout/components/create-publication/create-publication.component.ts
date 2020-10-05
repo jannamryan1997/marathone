@@ -194,7 +194,7 @@ export class CreatePublicationComponent implements OnInit {
             .pipe(takeUntil(this._unsbscribe))
             .subscribe((data: FeedResponseData) => {
                 this.postType.setValue(data.title);
-                if (typeof data.feed_media[0].content === 'string') {
+                if (data.feed_media && data.feed_media[0] && data.feed_media[0].content && typeof data.feed_media[0].content === 'string') {
                     this.mediaContent = JSON.parse(data.feed_media[0].content);
                     this.isModalMode = true;
                     if (this.mediaContent.type === 'image') {
@@ -214,6 +214,8 @@ export class CreatePublicationComponent implements OnInit {
                             tags: this.mediaContent.tags,
                         })
                     }
+                }else{
+                    this.isModalMode=true
                 }
 
             })
@@ -304,19 +306,19 @@ export class CreatePublicationComponent implements OnInit {
 
     public closeControlItem(): void {
         this.uploadType = null;
+        this.contentFileName ='';
+        this.videoTitle = '';
     }
 
 
 
     public createdPost(): void {
-        this.loading = true;
+
         let content =
         {
             url: this.contentFileName,
             type: this.uploadType,
-            videoTitle: this.videoTitle,
-            title: this.videoGroup.get('title').value,
-
+            videoTitle: this.videoTitle
         }
 
         if (this.showYoutube) {
@@ -327,77 +329,67 @@ export class CreatePublicationComponent implements OnInit {
         } else {
             content['isShowVideo'] = false
         }
-        let role: string = this._cookieServie.get('role');
-        if (!this.editProfile) {
-            this._userService.postFeed({
-                title: this.postType.value,
-                content: JSON.stringify(content),
-                role: role,
-                is_public: true
-            })
-                .pipe(
-                    takeUntil((this._unsbscribe)),
-                    finalize(() => {
-                        this.loading = false;
-                        this.postType.patchValue('');
-                        this.videoGroup.reset();
-                        this.uploadType = null;
-                        this.controImageItem = '';
-                        this.controVideoItem = '';
-                        this.isModalMode = false;
-                        this.showYoutube = false;
-                        this._postCreateEvent.emit();
-                    })
-                )
-                .subscribe((data) => {
-                    this.videoPleyer = true;
-
-                })
-        }
-        else if (this.editProfile) {
-            let content =
-            {
-                url: this.contentFileName,
-                type: this.uploadType,
-                videoTitle: this.videoTitle,
-            }
-
-            if (this.showYoutube) {
-                content['title'] = this.videoGroup.get('title').value;
-                content['tags'] = this.videoGroup.get('tags').value;
-                content['languages'] = this.videoGroup.get('languages').value
-                content['isShowVideo'] = true
-            } else {
-                content['isShowVideo'] = false
-            }
-
-            this._feedService.updateFeedById(this.mediaUrl,
-                {
+        let role: string = this._cookieServie.get('role');        
+        if ((this.postType.value || content.url || content.type || content.videoTitle || this.showYoutube)) {
+            this.loading = true;
+            if (!this.editProfile) {
+                this._userService.postFeed({
                     title: this.postType.value,
                     content: JSON.stringify(content),
                     role: role,
-                    is_public: true,
-
-
+                    is_public: true
                 })
-                .pipe(
-                    takeUntil((this._unsbscribe)),
-                    finalize(() => {
-                        this.closeEditModal.emit(true);
-                        this.loading = false;
-                        this.postType.patchValue('');
-                        this.videoGroup.reset();
-                        this.uploadType = null;
-                        this.controImageItem = '';
-                        this.controVideoItem = '';
-                        this.isModalMode = false;
-                        this.showYoutube = false;
-                        this._postCreateEvent.emit();
+                    .pipe(
+                        takeUntil((this._unsbscribe)),
+                        finalize(() => {
+                            this.loading = false;
+                            this.postType.patchValue('');
+                            this.videoGroup.reset();
+                            this.uploadType = null;
+                            this.controImageItem = '';
+                            this.controVideoItem = '';
+                            this.isModalMode = false;
+                            this.showYoutube = false;
+                            this._postCreateEvent.emit();
+                        })
+                    )
+                    .subscribe((data) => {
+                        this.videoPleyer = true;
+
                     })
-                )
-                .subscribe((data) => {
-                    this.videoPleyer = true;
-                })
+            }
+            else if (this.editProfile) {
+
+
+                this._feedService.updateFeedById(this.mediaUrl,
+                    {
+                        title: this.postType.value,
+                        content: JSON.stringify(content),
+                        role: role,
+                        is_public: true,
+
+
+                    })
+                    .pipe(
+                        takeUntil((this._unsbscribe)),
+                        finalize(() => {
+                            this.closeEditModal.emit(true);
+                            this.loading = false;
+                            this.postType.patchValue('');
+                            this.videoGroup.reset();
+                            this.uploadType = null;
+                            this.controImageItem = '';
+                            this.controVideoItem = '';
+                            this.isModalMode = false;
+                            this.showYoutube = false;
+                            this._postCreateEvent.emit();
+                        })
+                    )
+                    .subscribe((data) => {
+                        this.videoPleyer = true;
+                    })
+
+            }
         }
     }
 
@@ -461,7 +453,8 @@ export class CreatePublicationComponent implements OnInit {
                 spaceIndex = this.postType.value.length
             }
             let youtubeLink = spaceIndex > -1 ? this.postType.value.slice(youtubeIndex, spaceIndex).trim() : this.postType.value;
-            let isChange = false
+            let isChange = false;
+            
             if (youtubeLink && youtubeLink !== this._youtubeLink) {
                 this.videoPleyer = true;
                 if (this._youtubeLink) {
@@ -533,8 +526,8 @@ export class CreatePublicationComponent implements OnInit {
                     }
                 })
 
-                this.contentFileName = this.postType.value,
-                    this.uploadType = 'videoLink'
+                this.contentFileName = this.postType.value;
+                this.uploadType = 'videoLink';
                 this.videoPleyer = false;
             }
         } else {
@@ -545,6 +538,10 @@ export class CreatePublicationComponent implements OnInit {
                 defaultTags: this._tagsArray
             });
             this.showYoutube = false;
+            this.contentFileName = '';
+            this.videoTitle='';
+            this.uploadType = null;
+
         }
 
         // if(!this.showYoutube  && this.postType.value.slice(0, 8) === 'https://'){
@@ -603,9 +600,10 @@ export class CreatePublicationComponent implements OnInit {
         this.videoPleyer = false;
         // this.postType.patchValue('');
         this.videoGroup.reset();
-        this.videoTitle = '';
         this.showYoutube = false;
-
+        this.contentFileName = '';
+        this.videoTitle = '';
+        this.uploadType = null;
 
     }
     public openSelectTagsModal(): void {

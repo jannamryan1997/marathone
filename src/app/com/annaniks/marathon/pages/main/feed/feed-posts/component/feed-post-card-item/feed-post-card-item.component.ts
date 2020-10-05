@@ -11,6 +11,7 @@ import { Subject, forkJoin, Observable, of } from 'rxjs';
 import { takeUntil, switchMap, map } from 'rxjs/operators';
 import { CommentService } from 'src/app/com/annaniks/marathon/core/services/comment.service';
 import { Router } from '@angular/router';
+import { AppService } from 'src/app/com/annaniks/marathon/core/services/app.service';
 
 @Component({
     selector: "app-feed-post-card-item",
@@ -25,7 +26,7 @@ export class FeedPostCardItemComponent implements OnInit {
     private unsubscribe$ = new Subject<void>();
     public feedItem: FeedResponseData;
     @Input('feedItem') set setFeedItem($event) {
-        this.feedItem = $event;
+        this.feedItem = $event;        
     }
 
     @Input() routerLink: string;
@@ -59,6 +60,7 @@ export class FeedPostCardItemComponent implements OnInit {
         private _commentService: CommentService,
         private _dialog: MatDialog,
         private _router: Router,
+        private _appService: AppService
     ) {
         this.role = this._cookieService.get('role');
         this.slideConfig = {
@@ -106,10 +108,12 @@ export class FeedPostCardItemComponent implements OnInit {
         }
         let role = this.userRole;
         if (role == 'client' && this.feedItem.creator_client_info && this.feedItem.creator_client_info.avatar) {
-            this.localImage = this.fileUrl + this.feedItem.creator_client_info.avatar;
+            this.localImage = this._appService.setLocalImage(this.feedItem.creator_client_info.avatar)
+            // this.fileUrl + this.feedItem.creator_client_info.avatar;
         } else {
             if (role == 'coach' && this.feedItem.creator_info && this.feedItem.creator_info.avatar) {
-                this.localImage = this.fileUrl + this.feedItem.creator_info.avatar;
+                this.localImage = this._appService.setLocalImage(this.feedItem.creator_info.avatar)
+                // this.fileUrl + this.feedItem.creator_info.avatar;
             }
         }
         if (this.userRole === 'coach' && this.feedItem.creator_info && this.feedItem.creator_info.slug) {
@@ -217,7 +221,7 @@ export class FeedPostCardItemComponent implements OnInit {
         const dialogRef = this._dialog.open(PropertyModal, {
             width: "100%",
             maxWidth: "1400px",
-            panelClass:'no-padding-modal',
+            panelClass: 'no-padding-modal',
             data: {
                 data: this.feedItem,
                 localImage: this.localImage
@@ -237,7 +241,7 @@ export class FeedPostCardItemComponent implements OnInit {
         const dialogRef = this._dialog.open(PropertyModal, {
             width: "100%",
             maxWidth: "1400px",
-            panelClass:'no-padding-modal',
+            panelClass: 'no-padding-modal',
             data: {
                 data: this.feedItem,
                 localImage: this.localImage
@@ -273,7 +277,7 @@ export class FeedPostCardItemComponent implements OnInit {
     //     return combine;
     // }
     public setImage() {
-        return this.content && this.content.cover ? this.fileUrl + this.content.cover : 'assets/images/chicken.png'
+        return this.content && this.content.cover ? this._appService.setLocalImage(this.content.cover) : 'assets/images/chicken.png'
     }
     public onClickOpen($event): void {
         this.isOpen = $event;

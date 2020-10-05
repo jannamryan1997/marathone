@@ -192,7 +192,8 @@ export class CoachView implements OnInit {
     }
 
     public checkIsMe() {
-        if (this._userService.user) {
+        if (this._userService.user) {          
+            
             return (!this.user || +this.user.user.id == +this._userService.user.data.user.id)
         } else {
             return false
